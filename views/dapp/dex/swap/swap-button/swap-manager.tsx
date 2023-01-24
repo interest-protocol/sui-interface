@@ -39,7 +39,7 @@ const SwapManager: FC<SwapManagerProps> = ({
         <SwapMessage
           color="error"
           Icon={TimesSVG}
-          message="dexSwap.error.noPool"
+          message="dexSwap.swapMessage.noPool"
         />
       )}
     </>

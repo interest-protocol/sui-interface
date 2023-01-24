@@ -9,12 +9,13 @@
       "balances": "Failed to fetch balances",
       "noMarket": "This pair has not market",
       "infoNoPool": "This pair has no liquidity. Try a higher amount or add liquidity",
+      "noPool": "No pool found! Try an existing pool",
       "error": "Failed to swap: try a higher slippage or smaller amount"
     },
     "error": {
       "cannotSell0": "Cannot sell 0 tokens",
       "noMarket": "No market found",
-      "noPool": "No pool found",
+      "noPool": "No pool found! Tr",
       "select2Tokens": "Select two tokens",
       "failedToSwap": "Failed to Swap",
       "wethDeposit": "Failed to deposit",
