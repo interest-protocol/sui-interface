@@ -37,7 +37,6 @@ const SwapSelectCurrency: FC<SwapSelectCurrencyProps> = ({
   return (
     <>
       <Box
-        mx="M"
         px="M"
         py="S"
         display="flex"
@@ -52,27 +51,25 @@ const SwapSelectCurrency: FC<SwapSelectCurrencyProps> = ({
         filter={disabled ? 'grayscale(1)' : 'unset'}
       >
         <Box my="M" display="flex" alignItems="center">
-          <>
-            <Box as="span" display="inline-block" width="1rem" color="text">
-              <SVG
-                width="100%"
-                maxHeight="1rem"
-                maxWidth="1rem"
-                fill="currentColor"
-              />
-            </Box>
-            <Typography
-              mx="M"
-              as="span"
-              variant="normal"
-              color={dark ? 'text' : 'textInverted'}
-              active={{ color: 'accentActive' }}
-            >
-              {symbol.length > 4
-                ? symbol.toUpperCase().slice(0, 4)
-                : symbol.toUpperCase()}
-            </Typography>
-          </>
+          <Box as="span" display="inline-block" minWidth="1.3rem" color="text">
+            <SVG
+              width="100%"
+              maxHeight="1.3rem"
+              maxWidth="1.3rem"
+              fill="currentColor"
+            />
+          </Box>
+          <Typography
+            mx="M"
+            as="span"
+            variant="normal"
+            color={dark ? 'text' : 'textInverted'}
+            active={{ color: 'accentActive' }}
+          >
+            {symbol.length > 4
+              ? symbol.toUpperCase().slice(0, 4)
+              : symbol.toUpperCase()}
+          </Typography>
         </Box>
         <Box as="span" display="inline-block" width="0.5rem">
           <ArrowSVG width="100%" maxHeight="0.5rem" maxWidth="0.5rem" />

@@ -79,7 +79,7 @@ const InputBalance: FC<InputBalanceProps> = ({
             <Button
               px="M"
               fontSize="S"
-              width="2.7rem"
+              minWidth="2.7rem"
               height="2.7rem"
               variant="secondary"
               bg="accentSecondary"
