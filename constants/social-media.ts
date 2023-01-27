@@ -30,7 +30,7 @@ export const SOCIAL_MEDIAS = [
   },
   {
     title: 'Discord',
-    link: 'https://discord.gg/PJEkqM4Crk',
+    link: 'https://discord.gg/interestprotocol',
     Logo: DiscordSVG,
   },
   {
