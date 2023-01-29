@@ -12,7 +12,12 @@ const Faucet: FC = () => {
 
   return (
     <>
-      <Box display="flex" flexDirection="column">
+      <Box
+        display="flex"
+        flexDirection="column"
+        minHeight="80vh"
+        justifyContent="center"
+      >
         <Container
           dapp
           px="M"

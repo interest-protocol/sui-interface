@@ -14,7 +14,13 @@ const DEXView: FC = () => {
   const isSwap = !pathname.includes(Routes[RoutesEnum.DEXPool]);
 
   return (
-    <Container width={['100%', '100%', '100%', 'auto']}>
+    <Container
+      width={['100%', '100%', '100%', 'auto']}
+      minHeight="80vh"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+    >
       <Box
         bg="foreground"
         textAlign="center"
