@@ -40,3 +40,9 @@ export interface SwapButtonProps {
   tokenOutType: string;
   coinsMap: Web3ManagerState['coinsMap'];
 }
+
+export interface LocalSwapSettings {
+  slippage: string; // 20 equals 20%
+  deadline: number; // minutes
+  autoFetch: boolean; // minutes
+}
