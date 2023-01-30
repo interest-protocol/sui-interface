@@ -20,9 +20,13 @@ export interface FieldProps {
 }
 
 export interface SwapSettingsProps {
-  toggle: () => void;
   setLocalSettings: (x: LocalSwapSettings) => void;
   localSettings: LocalSwapSettings;
+}
+
+export interface SettingsDropdownProps extends SwapSettingsProps {
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export interface AutoFetchProps {

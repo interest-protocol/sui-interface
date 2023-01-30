@@ -8,11 +8,9 @@ const useClickOutsideListenerRef = <T>(
   onClose: OnClose | noop
 ): RefObject<T> => {
   const ref = useRef<T>(null);
-  console.log(ref, 'ref box');
 
   const escapeListener = useCallback(
     (e: KeyboardEvent) => {
-      console.log('escapeListener>>>>');
       if (e.key === 'Escape') (onClose as noop)();
     },
     [onClose]
@@ -20,7 +18,6 @@ const useClickOutsideListenerRef = <T>(
 
   const clickListener = useCallback(
     (e: MouseEvent) => {
-      console.log('clickListener>>>>', ref.current);
       if (ref.current && !(ref.current! as any)?.contains(e.target)) onClose(e);
     },
     [onClose]
@@ -34,6 +31,7 @@ const useClickOutsideListenerRef = <T>(
       document.removeEventListener('keyup', escapeListener);
     };
   }, [clickListener, escapeListener]);
+
   return ref;
 };
 

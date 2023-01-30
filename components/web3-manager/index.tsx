@@ -33,9 +33,7 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
       if (connected) {
         const accounts = await getAccounts();
         setAccount(accounts[0]);
-      } else {
-        setAccount(null);
-      }
+      } else setAccount(null);
     })();
   }, [connected, connecting, isError]);
 

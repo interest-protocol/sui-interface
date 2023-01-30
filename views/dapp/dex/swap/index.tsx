@@ -1,17 +1,18 @@
-import { find, not, pathOr, propEq } from 'ramda';
-import { FC, useState } from 'react';
+import { find, pathOr, propEq } from 'ramda';
+import { FC, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { DEX_TOKENS_DATA } from '@/constants';
 import { Box } from '@/elements';
 import { useLocalStorage, useWeb3 } from '@/hooks';
 import { FixedPointMath, TOKEN_SYMBOL } from '@/sdk';
-import { CogsSVG } from '@/svg';
 import { formatMoney, ZERO_BIG_NUMBER } from '@/utils';
 
 import SwapSelectCurrency from '../components/swap-select-currency';
 import InputBalance from './input-balance';
 import SettingsModal from './settings';
+import { ISwapSettingsForm } from './settings/settings.types';
 import {
   ISwapForm,
   LocalSwapSettings,
@@ -35,17 +36,47 @@ const ETH =
   DEFAULT_UNKNOWN_DATA;
 
 const Swap: FC = () => {
-  const [showSettings, setShowSettings] = useState(false);
+  const [tokenInType, setTokenInType] = useState(SUI.type);
+  const [tokenOutType, setTokenOutType] = useState(ETH.type);
+  const [isTokenInOpenModal, setTokenInIsOpenModal] = useState(false);
+  const [isTokenOutOpenModal, setTokenOutIsOpenModal] = useState(false);
+
   const { coinsMap, mutate } = useWeb3();
+
+  useEffect(() => {
+    console.log('>> creating swap component');
+    return () => console.log('>> destroying swap component');
+  });
+
   const [localSettings, setLocalSettings] = useLocalStorage<LocalSwapSettings>(
     'sui-interest-swap-settings',
     { slippage: '1', deadline: 5, autoFetch: false }
   );
 
-  const [tokenInType, setTokenInType] = useState(SUI.type);
-  const [tokenOutType, setTokenOutType] = useState(ETH.type);
-  const [isTokenInOpenModal, setTokenInIsOpenModal] = useState(false);
-  const [isTokenOutOpenModal, setTokenOutIsOpenModal] = useState(false);
+  const setSettings = useCallback(
+    ({
+      deadline: newDeadline,
+      slippage: newSlippage,
+      autoFetch,
+    }: ISwapSettingsForm) => {
+      const deadline =
+        !!newDeadline && newDeadline !== localSettings.deadline
+          ? newDeadline
+          : localSettings.deadline;
+
+      const slippage =
+        !!newSlippage && newSlippage !== localSettings.slippage
+          ? newSlippage
+          : localSettings.slippage;
+
+      setLocalSettings({
+        slippage,
+        deadline,
+        autoFetch,
+      });
+    },
+    []
+  );
 
   const { register, setValue, getValues, control } = useForm<ISwapForm>({
     defaultValues: {
@@ -100,8 +131,6 @@ const Swap: FC = () => {
       if (name == 'tokenOut') setTokenOutType(type);
     };
 
-  const toggleSettings = () => setShowSettings(not);
-
   return (
     <Box
       my="L"
@@ -115,28 +144,10 @@ const Swap: FC = () => {
     >
       <Box pt="L" display="flex" alignItems="center" justifyContent="flex-end">
         <Box display="flex" flexDirection="column" alignItems="flex-end">
-          <Box
-            display="flex"
-            cursor="pointer"
-            alignItems="center"
-            justifyContent="center"
-            transform="rotate(0deg)"
-            transition="all 300ms ease-in-out"
-            hover={{
-              color: 'accent',
-              transform: 'rotate(90deg)',
-            }}
-            onClick={toggleSettings}
-          >
-            <CogsSVG width="1.5rem" maxHeight="1.5rem" maxWidth="1.5rem" />
-          </Box>
-          {showSettings && (
-            <SettingsModal
-              toggle={toggleSettings}
-              setLocalSettings={setLocalSettings}
-              localSettings={localSettings}
-            />
-          )}
+          <SettingsModal
+            setLocalSettings={setSettings}
+            localSettings={localSettings}
+          />
         </Box>
       </Box>
       <Box color="text" width="100%" display="grid" gridGap="1rem">
