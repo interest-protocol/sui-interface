@@ -37,7 +37,7 @@ const SwapManager: FC<SwapManagerProps> = ({
 
   const { error } = useSWR(
     makeSWRKey(
-      [account, devInspectTransactionPayload],
+      [account, devInspectTransactionPayload, tokenIn.value, tokenIn.type],
       provider.devInspectTransaction.name
     ),
     async () => {
@@ -57,9 +57,9 @@ const SwapManager: FC<SwapManagerProps> = ({
         const amount = findSwapAmountOutput(data, tokenOutType);
         setValue('tokenOut.value', Number(amount).toString());
       },
-      revalidateOnFocus: false,
-      revalidateOnMount: false,
-      refreshWhenHidden: false,
+      revalidateOnFocus: true,
+      revalidateOnMount: true,
+      refreshWhenHidden: true,
       refreshInterval: 0,
     }
   );
