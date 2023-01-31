@@ -7,7 +7,7 @@ import { v4 } from 'uuid';
 import { FAUCET_TOKENS } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { useWeb3 } from '@/hooks';
-import { getCoinBalance, getCoinObjectId, ZERO_BIG_NUMBER } from '@/utils';
+import { ZERO_BIG_NUMBER } from '@/utils';
 
 import { WalletGuardButton } from '../../components';
 import { IFaucetForm } from '../faucet.types';
@@ -28,6 +28,7 @@ const DEFAULT_COIN = {
 const FaucetForm: FC = () => {
   const t = useTranslations();
   const { coinsMap } = useWeb3();
+
   const { getValues, setValue } = useForm<IFaucetForm>({
     defaultValues: {
       type: tokens?.[0]?.type ?? '',
@@ -99,8 +100,8 @@ const FaucetForm: FC = () => {
                   decimals={decimals}
                   totalBalance={coin.totalBalance}
                   objectsData={coin.objects.map((elem) => ({
-                    id: getCoinObjectId(elem)!,
-                    balance: getCoinBalance(elem)!,
+                    id: elem.coinObjectId,
+                    balance: elem.balance.toString(),
                   }))}
                 />
               );

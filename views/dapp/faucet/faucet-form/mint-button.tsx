@@ -1,6 +1,6 @@
 import { useTheme } from '@emotion/react';
 import { Network } from '@mysten/sui.js';
-import { useWallet } from '@mysten/wallet-kit';
+import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { useCallback, useState } from 'react';
@@ -14,11 +14,20 @@ import { capitalize, provider, showToast, showTXSuccessToast } from '@/utils';
 
 import { MintButtonProps } from './faucet-form.types';
 
+const COIN_MINT_AMOUNT = {
+  [COIN_TYPE[Network.DEVNET].BNB]: '10',
+  [COIN_TYPE[Network.DEVNET].ETH]: '5',
+  [COIN_TYPE[Network.DEVNET].BTC]: '5',
+  [COIN_TYPE[Network.DEVNET].USDT]: '2000',
+  [COIN_TYPE[Network.DEVNET].USDC]: '2000',
+  [COIN_TYPE[Network.DEVNET].DAI]: '2000',
+} as Record<string, string>;
+
 const MintButton: FC<MintButtonProps> = ({ getValues }) => {
   const t = useTranslations();
   const { dark } = useTheme() as { dark: boolean };
   const [loading, setLoading] = useState(false);
-  const { signAndExecuteTransaction } = useWallet();
+  const { signAndExecuteTransaction } = useWalletKit();
   const { account, mutate } = useWeb3();
 
   const handleOnMint = useCallback(async () => {
@@ -30,6 +39,7 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
         if (!account) throw new Error(t('error.accountNotFound'));
         return await provider.requestSuiFromFaucet(account);
       }
+
       const tx = await signAndExecuteTransaction({
         kind: 'moveCall',
         data: {
@@ -37,8 +47,8 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
           gasBudget: 1000,
           module: 'faucet',
           packageObjectId: FAUCET_PACKAGE_ID,
-          typeArguments: [type.split('<')[1].slice(0, -1)],
-          arguments: [FAUCET_OBJECT_ID, '5'],
+          typeArguments: [type],
+          arguments: [FAUCET_OBJECT_ID, COIN_MINT_AMOUNT[type] || '1'],
         },
       });
       await showTXSuccessToast(tx);

@@ -11,7 +11,7 @@ import { formatMoney, ZERO_BIG_NUMBER } from '@/utils';
 import SwapSelectCurrency from '../components/swap-select-currency';
 import InputBalance from './input-balance';
 import { ISwapForm, OnSelectCurrencyData } from './swap.types';
-import SwapButton from './swap-button';
+import SwapManager from './swap-manager';
 
 const DEFAULT_UNKNOWN_DATA = {
   type: '',
@@ -29,12 +29,13 @@ const ETH =
   DEFAULT_UNKNOWN_DATA;
 
 const Swap: FC = () => {
-  const { coinsMap, mutate } = useWeb3();
+  const { coinsMap, mutate, account } = useWeb3();
 
   const [tokenInType, setTokenInType] = useState(SUI.type);
   const [tokenOutType, setTokenOutType] = useState(ETH.type);
   const [isTokenInOpenModal, setTokenInIsOpenModal] = useState(false);
   const [isTokenOutOpenModal, setTokenOutIsOpenModal] = useState(false);
+  const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
 
   const { register, setValue, getValues, control } = useForm<ISwapForm>({
     defaultValues: {
@@ -192,13 +193,16 @@ const Swap: FC = () => {
             />
           </Box>
         </Box>
-        <SwapButton
-          mutate={mutate}
-          control={control}
+        <SwapManager
+          tokenOutType={tokenOutType}
+          tokenInType={tokenInType}
           coinsMap={coinsMap}
           getValues={getValues}
-          tokenInType={tokenInType}
-          tokenOutType={tokenOutType}
+          mutate={mutate}
+          control={control}
+          setValue={setValue}
+          account={account}
+          setIsFetchingSwapAmount={setIsFetchingSwapAmount}
         />
       </Box>
     </>

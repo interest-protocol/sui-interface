@@ -9,6 +9,10 @@ import { tryCatch } from '@/utils/promise';
 
 import { ToastMsgs, ToastOpts } from './toast.types';
 
+const NETWORK_RECORD = {
+  [Network.DEVNET]: 'devnet',
+};
+
 export const showTXSuccessToast = async (
   tx: SuiTransactionResponse
 ): Promise<void> => {
@@ -18,7 +22,7 @@ export const showTXSuccessToast = async (
       rel="noreferrer nofollow"
       href={`${SUI_EXPLORER[Network.DEVNET]}/transaction/${
         tx.certificate.transactionDigest
-      }`}
+      }?network=${NETWORK_RECORD[Network.DEVNET]}`}
     >
       <Box display="flex" alignItems="center">
         <Box width="1.5rem" height="1.5rem" mr="M">

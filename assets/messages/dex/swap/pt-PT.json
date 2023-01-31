@@ -15,7 +15,6 @@
     "error": {
       "cannotSell0": "Não pode vender 0 tokens",
       "noMarket": "Nenhum mercado foi encontrado",
-      "noPool": "Nenhuma pool foi encontrada",
       "select2Tokens": "Selecione 2 tokens",
       "failedToSwap": "Falha na troca",
       "wethDeposit": "Erro a depositar",

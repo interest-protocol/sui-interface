@@ -1,4 +1,4 @@
-import { useWallet } from '@mysten/wallet-kit';
+import { useWalletKit } from '@mysten/wallet-kit';
 import { createContext, FC, useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 
@@ -24,25 +24,23 @@ export const Web3ManagerContext = createContext<Web3ManagerState>(
 );
 
 const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
-  const { getAccounts, connected, connecting, isError } = useWallet();
+  const { isError, currentAccount, isConnecting, isConnected } = useWalletKit();
 
   const [account, setAccount] = useState<null | string>(null);
 
   useEffect(() => {
     (async () => {
-      if (connected) {
-        const accounts = await getAccounts();
-        setAccount(accounts[0]);
+      if (isConnected) {
+        setAccount(currentAccount);
       } else {
         setAccount(null);
       }
     })();
-  }, [connected, connecting, isError]);
+  }, [isConnected, isConnecting, currentAccount, isError]);
 
   const { data, error, mutate } = useSWR(
-    makeSWRKey([account], 'getCoinBalancesOwnedByAddress'),
-    async () =>
-      account ? provider.getCoinBalancesOwnedByAddress(account) : [],
+    makeSWRKey([account], 'getAllCoins'),
+    async () => (account ? provider.getAllCoins(account) : []),
     {
       revalidateOnFocus: false,
       revalidateOnMount: true,
@@ -58,7 +56,7 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
       value={{
         account,
         error: isError || !!error,
-        connected,
+        connected: isConnected,
         coins,
         coinsMap,
         mutate,

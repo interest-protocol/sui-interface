@@ -1,5 +1,7 @@
-import { GetObjectDataResponse, SuiObjectInfo } from '@mysten/sui.js';
-import { Control, UseFormGetValues } from 'react-hook-form';
+import { SuiObjectInfo } from '@mysten/sui.js';
+import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
+import { Dispatch, SetStateAction } from 'react';
+import { Control, UseFormGetValues, UseFormSetValue } from 'react-hook-form';
 import { KeyedMutator } from 'swr';
 
 import { Web3ManagerState } from '@/components/web3-manager/web3-manager.types';
@@ -20,23 +22,35 @@ export interface OnSelectCurrencyData {
 export type PoolsMap = Record<string, Record<string, SuiObjectInfo>>;
 
 export interface SwapManagerProps {
-  tokenInType: string;
-  tokenOutType: string;
-  poolsMap: PoolsMap;
-}
-
-export interface SwapPathObject {
-  baseToken: string | null;
-  tokenInType: string;
-  tokenOutType: string;
-  pools: ReadonlyArray<SuiObjectInfo>;
-}
-
-export interface SwapButtonProps {
+  setValue: UseFormSetValue<ISwapForm>;
+  account: string | null;
+  setIsFetchingSwapAmount: Dispatch<SetStateAction<boolean>>;
   control: Control<ISwapForm>;
-  mutate: KeyedMutator<never[] | GetObjectDataResponse[]>;
+  mutate: KeyedMutator<never[] | PaginatedCoins>;
   getValues: UseFormGetValues<ISwapForm>;
   tokenInType: string;
   tokenOutType: string;
   coinsMap: Web3ManagerState['coinsMap'];
+}
+
+export interface SwapPathObject {
+  baseTokens: ReadonlyArray<string>;
+  tokenInType: string;
+  tokenOutType: string;
+}
+
+export interface SwapButtonProps {
+  control: Control<ISwapForm>;
+  mutate: KeyedMutator<never[] | PaginatedCoins>;
+  getValues: UseFormGetValues<ISwapForm>;
+  tokenInType: string;
+  tokenOutType: string;
+  coinsMap: Web3ManagerState['coinsMap'];
+}
+
+export interface GetSwapPayload {
+  tokenIn: SwapFormTokenData;
+  tokenOutType: string;
+  coinsMap: Web3ManagerState['coinsMap'];
+  volatilesPools: PoolsMap;
 }

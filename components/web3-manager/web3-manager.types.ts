@@ -1,4 +1,4 @@
-import { GetObjectDataResponse } from '@mysten/sui.js';
+import { CoinStruct, PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import BigNumber from 'bignumber.js';
 import { ReactNode } from 'react';
 import { KeyedMutator } from 'swr';
@@ -7,7 +7,7 @@ export interface Web3ManagerSuiObject {
   type: string;
   symbol: string;
   totalBalance: BigNumber;
-  objects: ReadonlyArray<GetObjectDataResponse>;
+  objects: ReadonlyArray<CoinStruct>;
   decimals: number;
 }
 
@@ -17,7 +17,7 @@ export interface Web3ManagerState {
   coinsMap: Record<string, Web3ManagerSuiObject>;
   connected: boolean;
   error: boolean;
-  mutate: KeyedMutator<never[] | GetObjectDataResponse[]>;
+  mutate: KeyedMutator<PaginatedCoins | never[]>;
 }
 
 export interface Web3ManagerProps {

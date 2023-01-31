@@ -2,25 +2,13 @@ import { Network } from '@mysten/sui.js';
 
 export const COIN_TYPE = {
   [Network.DEVNET]: {
-    SUI: '0x2::coin::Coin<0x2::sui::SUI>',
-    BNB: '0x2::coin::Coin<0x47fe98b0d965fed0d766216a06734ddca202d968::coins::BNB>',
-    ETH: '0x2::coin::Coin<0x47fe98b0d965fed0d766216a06734ddca202d968::coins::ETH>',
-    BTC: '0x2::coin::Coin<0x47fe98b0d965fed0d766216a06734ddca202d968::coins::BTC>',
-    USDT: '0x2::coin::Coin<0x47fe98b0d965fed0d766216a06734ddca202d968::coins::USDT>',
-    USDC: '0x2::coin::Coin<0x47fe98b0d965fed0d766216a06734ddca202d968::coins::USDC>',
-    DAI: '0x2::coin::Coin<0x47fe98b0d965fed0d766216a06734ddca202d968::coins::DAI>',
-  },
-};
-
-export const COIN_TYPE_TO_NAME = {
-  [Network.DEVNET]: {
-    [COIN_TYPE[Network.DEVNET].BTC]: 'Bitcoin',
-    [COIN_TYPE[Network.DEVNET].ETH]: 'Ethers',
-    [COIN_TYPE[Network.DEVNET].BTC]: 'Bitcoin',
-    [COIN_TYPE[Network.DEVNET].USDT]: 'Tether',
-    [COIN_TYPE[Network.DEVNET].USDC]: 'USD Coin',
-    [COIN_TYPE[Network.DEVNET].DAI]: 'Dai',
-    [COIN_TYPE[Network.DEVNET].SUI]: 'Sui',
+    SUI: '0x2::sui::SUI',
+    BNB: '0x30ea97fddd3f2b7fb155990454d4213dfbaaaa14::coins::BNB',
+    ETH: '0x30ea97fddd3f2b7fb155990454d4213dfbaaaa14::coins::ETH',
+    BTC: '0x30ea97fddd3f2b7fb155990454d4213dfbaaaa14::coins::BTC',
+    USDT: '0x30ea97fddd3f2b7fb155990454d4213dfbaaaa14::coins::USDT',
+    USDC: '0x30ea97fddd3f2b7fb155990454d4213dfbaaaa14::coins::USDC',
+    DAI: '0x30ea97fddd3f2b7fb155990454d4213dfbaaaa14::coins::DAI',
   },
 };
 

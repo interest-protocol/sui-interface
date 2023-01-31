@@ -1,4 +1,4 @@
-import { always, ifElse, isNil, tryCatch } from 'ramda';
+import { always, ifElse, isNil, toString, tryCatch } from 'ramda';
 
 export const safeStringify = tryCatch(JSON.stringify, always(''));
 

@@ -1,25 +1,31 @@
 import { Network } from '@mysten/sui.js';
-import { GetObjectDataResponse } from '@mysten/sui.js/src/types';
+import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { pathOr } from 'ramda';
 
 import { COIN_DECIMALS, COIN_TYPE_TO_SYMBOL } from '@/constants';
-import { getCoinBalance, getCoinType, parseBigNumberish } from '@/utils';
+import { parseBigNumberish } from '@/utils';
 
 import { Web3ManagerSuiObject } from './web3-manager.types';
 
-export const parseCoins = (data: GetObjectDataResponse[] | undefined) => {
+export const parseCoins = (data: PaginatedCoins | undefined | never[]) => {
   if (!data)
     return [[], {}] as [
       ReadonlyArray<Web3ManagerSuiObject>,
       Record<string, Web3ManagerSuiObject>
     ];
 
-  return data.reduce(
+  if (!('data' in data))
+    return [[], {}] as [
+      ReadonlyArray<Web3ManagerSuiObject>,
+      Record<string, Web3ManagerSuiObject>
+    ];
+
+  return data.data.reduce(
     (acc, object) => {
-      const type = getCoinType(object);
+      const type = object.coinType;
       const list = acc[0];
       const map = acc[1];
-      const currentCoinBalance = parseBigNumberish(getCoinBalance(object));
+      const currentCoinBalance = parseBigNumberish(object.balance);
       if (type) {
         const currentCoin = map[type];
 
