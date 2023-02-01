@@ -1,4 +1,5 @@
 import { useWalletKit } from '@mysten/wallet-kit';
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC, useState } from 'react';
@@ -60,9 +61,18 @@ const SwapButton: FC<SwapButtonProps> = ({
       const amount = FixedPointMath.toBigNumber(
         tokenIn.value,
         tokenIn.decimals
-      );
+      ).decimalPlaces(tokenIn.decimals, BigNumber.ROUND_DOWN);
 
-      const minAmount = getAmountMinusSlippage(amount, slippage);
+      const amountOut = FixedPointMath.toBigNumber(
+        tokenOut.value,
+        tokenOut.decimals
+      ).decimalPlaces(tokenOut.decimals, BigNumber.ROUND_DOWN);
+
+      const minAmountOut = getAmountMinusSlippage(
+        amountOut,
+        slippage,
+        tokenOut.decimals
+      );
 
       // no hop swap
       if (!firstSwapObject.baseTokens.length) {
@@ -84,7 +94,7 @@ const SwapButton: FC<SwapButtonProps> = ({
               [],
               amount.toString(),
               '0',
-              minAmount.toString(),
+              minAmountOut.toString(),
             ],
           },
         });
@@ -97,7 +107,7 @@ const SwapButton: FC<SwapButtonProps> = ({
           kind: 'moveCall',
           data: {
             function: 'one_hop_swap',
-            gasBudget: 11000,
+            gasBudget: 9000,
             module: 'interface',
             packageObjectId: DEX_PACKAGE_ID,
             typeArguments: [
@@ -112,7 +122,7 @@ const SwapButton: FC<SwapButtonProps> = ({
               [],
               amount.toString(),
               '0',
-              minAmount.toString(),
+              minAmountOut.toString(),
             ],
           },
         });

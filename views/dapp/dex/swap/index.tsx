@@ -231,7 +231,6 @@ const Swap: FC = () => {
           setValue={setValue}
           account={account}
           setIsFetchingSwapAmount={setIsFetchingSwapAmount}
-          slippage={localSettings.slippage}
         />
       </Box>
       <SwapButton

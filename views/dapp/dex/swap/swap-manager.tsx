@@ -20,7 +20,6 @@ const SwapManager: FC<SwapManagerProps> = ({
   account,
   setIsFetchingSwapAmount,
   coinsMap,
-  slippage,
 }) => {
   const [tokenIn] = useDebounce(useWatch({ control, name: 'tokenIn' }), 1200);
 
@@ -31,7 +30,6 @@ const SwapManager: FC<SwapManagerProps> = ({
     tokenOutType,
     volatilesPools: volatilePoolsMap,
     coinsMap,
-    slippage,
   });
 
   const { error } = useSWR(

@@ -29,7 +29,6 @@ export interface SwapManagerProps {
   tokenInType: string;
   tokenOutType: string;
   coinsMap: Web3ManagerState['coinsMap'];
-  slippage: string;
 }
 
 export interface SwapPathObject {
@@ -53,7 +52,6 @@ export interface GetSwapPayload {
   tokenOutType: string;
   coinsMap: Web3ManagerState['coinsMap'];
   volatilesPools: PoolsMap;
-  slippage: string;
 }
 
 export interface LocalSwapSettings {

@@ -111,7 +111,7 @@ export const getCoinIds = (
       .sort((a, b) => (+a! > +b! ? 1 : -1))
       .findIndex((elem) =>
         FixedPointMath.toBigNumber(elem.balance || '0').gte(
-          FixedPointMath.toBigNumber(5000)
+          FixedPointMath.toBigNumber(9000)
         )
       );
     return suiObjects
@@ -124,14 +124,15 @@ export const getCoinIds = (
 
 export const getAmountMinusSlippage = (
   value: BigNumber,
-  slippage: string
+  slippage: string,
+  decimals: number
 ): BigNumber => {
   const slippageBn = FixedPointMath.toBigNumber(+slippage, 3);
-  const subAmount = value
-    .multipliedBy(slippageBn)
-    .dividedBy(new BigNumber(100000));
+  const newAmount = value
+    .minus(value.multipliedBy(slippageBn).dividedBy(new BigNumber(100000)))
+    .decimalPlaces(decimals, BigNumber.ROUND_DOWN);
 
-  return value.minus(subAmount);
+  return newAmount.eq(value) ? newAmount.minus(new BigNumber(1)) : newAmount;
 };
 
 export const getSwapPayload = ({
@@ -139,9 +140,9 @@ export const getSwapPayload = ({
   tokenOutType,
   coinsMap,
   volatilesPools,
-  slippage,
 }: GetSwapPayload): UnserializedSignableTransaction | null => {
   if (isEmpty(volatilesPools)) return null;
+  if (!tokenIn.value) return null;
 
   const path = findMarket(volatilesPools, tokenIn.type, tokenOutType);
 
@@ -150,8 +151,6 @@ export const getSwapPayload = ({
   const firstSwapObject = path[0];
 
   const amount = FixedPointMath.toBigNumber(tokenIn.value, tokenIn.decimals);
-
-  const minAmount = getAmountMinusSlippage(amount, slippage);
 
   // no hop swap
   if (!firstSwapObject.baseTokens.length) {
@@ -171,9 +170,11 @@ export const getSwapPayload = ({
           DEX_STORAGE_STABLE,
           getCoinIds(coinsMap, firstSwapObject.tokenInType),
           [],
-          amount.toString(),
+          amount
+            .decimalPlaces(tokenIn.decimals, BigNumber.ROUND_DOWN)
+            .toString(),
           '0',
-          minAmount.toString(),
+          '0',
         ],
       },
     };
@@ -185,7 +186,7 @@ export const getSwapPayload = ({
       kind: 'moveCall',
       data: {
         function: 'one_hop_swap',
-        gasBudget: 11000,
+        gasBudget: 9000,
         module: 'interface',
         packageObjectId: DEX_PACKAGE_ID,
         typeArguments: [
@@ -198,9 +199,11 @@ export const getSwapPayload = ({
           DEX_STORAGE_STABLE,
           getCoinIds(coinsMap, firstSwapObject.tokenInType),
           [],
-          amount.toString(),
+          amount
+            .decimalPlaces(tokenIn.decimals, BigNumber.ROUND_DOWN)
+            .toString(),
           '0',
-          minAmount.toString(),
+          '0',
         ],
       },
     };
