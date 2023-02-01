@@ -17,7 +17,7 @@ export interface Web3ManagerState {
   coinsMap: Record<string, Web3ManagerSuiObject>;
   connected: boolean;
   error: boolean;
-  mutate: KeyedMutator<PaginatedCoins | never[]>;
+  mutate: KeyedMutator<PaginatedCoins>;
 }
 
 export interface Web3ManagerProps {
