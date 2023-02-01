@@ -1,5 +1,8 @@
+import { BigNumber } from 'bignumber.js';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { Control, UseFormRegister } from 'react-hook-form';
+
+import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 
 import { OnSelectCurrencyData } from './swap/swap.types';
 
@@ -8,6 +11,7 @@ export interface SwapTokenModalMetadata {
   symbol: string;
   type: string;
   decimals: number;
+  totalBalance: BigNumber;
 }
 
 export interface SwapFormTokenData {
@@ -18,13 +22,14 @@ export interface SwapFormTokenData {
 }
 
 export interface SwapSelectCurrencyProps {
+  type: string;
   label?: string;
   symbol: string;
-  type: string;
   disabled?: boolean;
   fromRight?: boolean;
   currentToken: string;
   isModalOpen: boolean;
+  tokens: Record<string, Web3ManagerSuiObject>;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
   onSelectCurrency: (data: OnSelectCurrencyData) => void;
 }
@@ -34,11 +39,12 @@ export interface SwapCurrencyDropdownProps {
   fromRight?: boolean;
   isSearching: boolean;
   isModalOpen: boolean;
-  currentToken: SwapSelectCurrencyProps['currentToken'];
   toggleModal: () => void;
   control: Control<{ search: string }>;
-  onSelectCurrency: SwapSelectCurrencyProps['onSelectCurrency'];
+  tokens: Record<string, Web3ManagerSuiObject>;
   setIsSearching: Dispatch<SetStateAction<boolean>>;
+  currentToken: SwapSelectCurrencyProps['currentToken'];
+  onSelectCurrency: SwapSelectCurrencyProps['onSelectCurrency'];
 }
 
 export interface SwapSearchTokenProps {

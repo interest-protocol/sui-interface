@@ -165,6 +165,7 @@ const Swap: FC = () => {
             disabled={false}
             currencySelector={
               <SwapSelectCurrency
+                tokens={coinsMap}
                 currentToken={tokenInType}
                 isModalOpen={isTokenInOpenModal}
                 type={getValues('tokenIn.type')}
@@ -213,6 +214,7 @@ const Swap: FC = () => {
             disabled={isFetchingSwapAmount}
             currencySelector={
               <SwapSelectCurrency
+                tokens={coinsMap}
                 currentToken={tokenOutType}
                 isModalOpen={isTokenOutOpenModal}
                 symbol={getValues('tokenOut.symbol')}

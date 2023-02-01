@@ -6,8 +6,9 @@ import { v4 } from 'uuid';
 
 import { DEX_TOKENS_DATA, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Button, Modal, Typography } from '@/elements';
+import { FixedPointMath } from '@/sdk';
 import { LineLoaderSVG, TimesSVG } from '@/svg';
-import { capitalize } from '@/utils';
+import { capitalize, formatMoney } from '@/utils';
 
 import {
   SwapCurrencyDropdownProps,
@@ -22,7 +23,7 @@ const renderData = (
 ): ReadonlyArray<ReactNode> => {
   const DefaultTokenSVG = TOKENS_SVG_MAP.default;
 
-  return tokens.map(({ type, symbol, decimals }) => {
+  return tokens.map(({ type, symbol, decimals, totalBalance }) => {
     const SVG = TOKENS_SVG_MAP[type] ?? DefaultTokenSVG;
 
     const isDisabled = type == currentToken;
@@ -57,6 +58,9 @@ const renderData = (
             {symbol?.toUpperCase()}
           </Typography>
         </Box>
+        <Typography variant="normal">
+          {formatMoney(FixedPointMath.toNumber(totalBalance))}
+        </Typography>
       </Box>
     );
   });
@@ -64,6 +68,7 @@ const renderData = (
 
 const SwapCurrencyDropdown: FC<SwapCurrencyDropdownProps> = ({
   Input,
+  tokens,
   control,
   isSearching,
   toggleModal,
@@ -77,12 +82,21 @@ const SwapCurrencyDropdown: FC<SwapCurrencyDropdownProps> = ({
 
   const [debouncedSearch] = useDebounce(search, 800);
 
+  const allTokens: ReadonlyArray<SwapTokenModalMetadata> = useMemo(
+    () =>
+      DEX_TOKENS_DATA.map((item) => ({
+        ...item,
+        totalBalance:
+          tokens[item.type]?.totalBalance ?? FixedPointMath.toBigNumber(0),
+      })),
+    [tokens]
+  );
+
   const filteredTokens = useMemo(
     () => [
       ...(searchedToken ? [searchedToken] : []),
-      ...(DEX_TOKENS_DATA.filter(
-        ({ name, type, symbol }) =>
-          name.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
+      ...(allTokens.filter(
+        ({ type, symbol }) =>
           symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
           type == debouncedSearch
       ) as ReadonlyArray<SwapTokenModalMetadata>),
@@ -140,7 +154,7 @@ const SwapCurrencyDropdown: FC<SwapCurrencyDropdownProps> = ({
             gridGap="0.3rem"
             maxHeight="20rem"
           >
-            {renderData(DEX_TOKENS_DATA, onSelectCurrency, currentToken)}
+            {renderData(allTokens, onSelectCurrency, currentToken)}
           </Box>
         )}
       </Box>

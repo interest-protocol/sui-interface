@@ -12,8 +12,9 @@ import SwapSearchToken from './swap-search-token';
 import SwapTokensModal from './swap-tokens-modal';
 
 const SwapSelectCurrency: FC<SwapSelectCurrencyProps> = ({
-  symbol,
   type,
+  tokens,
+  symbol,
   disabled,
   fromRight,
   isModalOpen,
@@ -80,6 +81,7 @@ const SwapSelectCurrency: FC<SwapSelectCurrencyProps> = ({
         currentToken={currentToken}
         fromRight={fromRight}
         control={control}
+        tokens={tokens}
         isSearching={isSearching}
         isModalOpen={isModalOpen}
         toggleModal={toggleOpenModal}
