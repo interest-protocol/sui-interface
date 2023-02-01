@@ -18,7 +18,6 @@ import {
   LocalSwapSettings,
   OnSelectCurrencyData,
 } from './swap.types';
-import SwapButton from './swap-button';
 import SwapManager from './swap-manager';
 
 const DEFAULT_UNKNOWN_DATA = {
@@ -43,7 +42,6 @@ const Swap: FC = () => {
   const [tokenOutType, setTokenOutType] = useState(ETH.type);
   const [isTokenInOpenModal, setTokenInIsOpenModal] = useState(false);
   const [isTokenOutOpenModal, setTokenOutIsOpenModal] = useState(false);
-  const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
 
   const [localSettings, setLocalSettings] = useLocalStorage<LocalSwapSettings>(
     'sui-interest-swap-settings',
@@ -138,7 +136,8 @@ const Swap: FC = () => {
       </Box>
       <Box color="text" width="100%" display="grid" gridGap="1rem">
         <Box
-          py="L"
+          pt="L"
+          mb="-1rem"
           display="flex"
           borderRadius="M"
           flexDirection="column"
@@ -197,53 +196,23 @@ const Swap: FC = () => {
           >
             ⥯
           </Box>
-          <InputBalance
-            balance={formatMoney(
-              FixedPointMath.toNumber(
-                pathOr(
-                  ZERO_BIG_NUMBER,
-                  [tokenOutType, 'totalBalance'],
-                  coinsMap
-                ),
-                pathOr(0, [tokenOutType, 'decimals'], coinsMap)
-              )
-            )}
-            name="tokenOut"
-            register={register}
-            setValue={setValue}
-            disabled={isFetchingSwapAmount}
-            currencySelector={
-              <SwapSelectCurrency
-                tokens={coinsMap}
-                currentToken={tokenOutType}
-                isModalOpen={isTokenOutOpenModal}
-                symbol={getValues('tokenOut.symbol')}
-                type={getValues('tokenOut.type')}
-                setIsModalOpen={setTokenOutIsOpenModal}
-                onSelectCurrency={onSelectCurrency('tokenOut')}
-              />
-            }
-          />
         </Box>
         <SwapManager
-          tokenOutType={tokenOutType}
-          tokenInType={tokenInType}
-          coinsMap={coinsMap}
+          mutate={mutate}
           control={control}
-          setValue={setValue}
           account={account}
-          setIsFetchingSwapAmount={setIsFetchingSwapAmount}
+          setValue={setValue}
+          register={register}
+          coinsMap={coinsMap}
+          getValues={getValues}
+          tokenInType={tokenInType}
+          tokenOutType={tokenOutType}
+          slippage={localSettings.slippage}
+          isTokenOutOpenModal={isTokenOutOpenModal}
+          setTokenOutIsOpenModal={setTokenOutIsOpenModal}
+          onSelectCurrency={onSelectCurrency('tokenOut')}
         />
       </Box>
-      <SwapButton
-        mutate={mutate}
-        control={control}
-        coinsMap={coinsMap}
-        getValues={getValues}
-        tokenInType={tokenInType}
-        tokenOutType={tokenOutType}
-        slippage={localSettings.slippage}
-      />
     </Box>
   );
 };

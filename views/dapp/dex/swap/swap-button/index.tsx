@@ -24,10 +24,11 @@ const SwapButton: FC<SwapButtonProps> = ({
   mutate,
   control,
   coinsMap,
+  slippage,
+  disabled,
   getValues,
   tokenInType,
   tokenOutType,
-  slippage,
 }) => {
   const { signAndExecuteTransaction } = useWalletKit();
   const { data } = useGetVolatilePools();
@@ -36,8 +37,10 @@ const SwapButton: FC<SwapButtonProps> = ({
 
   const tokenInValue = useWatch({ control, name: 'tokenIn.value' });
 
-  const disabled =
-    !+tokenInValue || !findMarket(data, tokenInType, tokenOutType).length;
+  const isDisabled =
+    disabled ||
+    !+tokenInValue ||
+    !findMarket(data, tokenInType, tokenOutType).length;
 
   const handleSwap = async () => {
     try {
@@ -152,12 +155,12 @@ const SwapButton: FC<SwapButtonProps> = ({
         width="100%"
         variant="primary"
         onClick={swap}
-        disabled={loading || disabled}
+        disabled={loading || isDisabled}
         hover={{
-          bg: loading || disabled ? 'disabled' : 'accentAlternativeActive',
+          bg: loading || isDisabled ? 'disabled' : 'accentAlternativeActive',
         }}
-        cursor={loading ? 'progress' : disabled ? 'not-allowed' : 'pointer'}
-        bg={loading || disabled ? 'disabled' : 'accentAlternative'}
+        cursor={loading ? 'progress' : isDisabled ? 'not-allowed' : 'pointer'}
+        bg={loading || isDisabled ? 'disabled' : 'accentAlternative'}
       >
         {loading ? (
           <Box as="span" display="flex" justifyContent="center">

@@ -1,26 +1,37 @@
-import { isEmpty } from 'ramda';
-import { FC } from 'react';
+import { isEmpty, pathOr } from 'ramda';
+import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import useSWR from 'swr';
 import { useDebounce } from 'use-debounce';
 
-import { TimesSVG } from '@/svg';
-import { makeSWRKey, provider } from '@/utils';
+import { FixedPointMath } from '@/sdk';
+import { LoadingSVG, TimesSVG } from '@/svg';
+import { formatMoney, makeSWRKey, provider, ZERO_BIG_NUMBER } from '@/utils';
 import { useGetVolatilePools } from '@/views/dapp/dex/swap/swap.hooks';
 
+import SwapSelectCurrency from '../components/swap-select-currency';
+import InputBalance from './input-balance';
 import { SwapManagerProps } from './swap.types';
 import { findMarket, findSwapAmountOutput, getSwapPayload } from './swap.utils';
+import SwapButton from './swap-button';
 import SwapMessage from './swap-button/swap-message';
 
 const SwapManager: FC<SwapManagerProps> = ({
+  mutate,
+  control,
+  account,
+  coinsMap,
+  slippage,
+  register,
+  setValue,
+  getValues,
   tokenInType,
   tokenOutType,
-  control,
-  setValue,
-  account,
-  setIsFetchingSwapAmount,
-  coinsMap,
+  onSelectCurrency,
+  isTokenOutOpenModal,
+  setTokenOutIsOpenModal,
 }) => {
+  const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
   const [tokenIn] = useDebounce(useWatch({ control, name: 'tokenIn' }), 1200);
 
   const { data: volatilePoolsMap } = useGetVolatilePools();
@@ -66,8 +77,43 @@ const SwapManager: FC<SwapManagerProps> = ({
 
   if (isEmpty(volatilePoolsMap)) return null;
 
+  const disabled =
+    (error && +tokenIn.value > 0) ||
+    isFetchingSwapAmount ||
+    tokenInType === tokenOutType ||
+    hasNoMarket;
+
   return (
     <>
+      <InputBalance
+        balance={formatMoney(
+          FixedPointMath.toNumber(
+            pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
+            pathOr(0, [tokenOutType, 'decimals'], coinsMap)
+          )
+        )}
+        name="tokenOut"
+        register={register}
+        setValue={setValue}
+        disabled={isFetchingSwapAmount}
+        currencySelector={
+          <SwapSelectCurrency
+            tokens={coinsMap}
+            currentToken={tokenOutType}
+            isModalOpen={isTokenOutOpenModal}
+            symbol={getValues('tokenOut.symbol')}
+            type={getValues('tokenOut.type')}
+            setIsModalOpen={setTokenOutIsOpenModal}
+            onSelectCurrency={onSelectCurrency}
+          />
+        }
+      />
+      {isFetchingSwapAmount && (
+        <SwapMessage
+          Icon={LoadingSVG}
+          message="dexSwap.swapMessage.fetchingAmounts"
+        />
+      )}
       {tokenInType === tokenOutType && (
         <SwapMessage
           color="error"
@@ -89,6 +135,16 @@ const SwapManager: FC<SwapManagerProps> = ({
           message="dexSwap.swapMessage.error"
         />
       )}
+      <SwapButton
+        mutate={mutate}
+        control={control}
+        slippage={slippage}
+        disabled={disabled}
+        coinsMap={coinsMap}
+        getValues={getValues}
+        tokenInType={tokenInType}
+        tokenOutType={tokenOutType}
+      />
     </>
   );
 };
