@@ -40,12 +40,13 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
 
   const { data, error, mutate } = useSWR(
     makeSWRKey([account], 'getAllCoins'),
-    async () => (account ? provider.getAllCoins(account) : []),
+    async () => provider.getAllCoins(account!),
     {
       revalidateOnFocus: false,
       revalidateOnMount: true,
       refreshWhenHidden: true,
       refreshInterval: 5000,
+      isPaused: () => !account,
     }
   );
 

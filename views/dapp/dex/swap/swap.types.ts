@@ -39,7 +39,7 @@ export interface SwapPathObject {
 
 export interface SwapButtonProps {
   control: Control<ISwapForm>;
-  mutate: KeyedMutator<never[] | PaginatedCoins>;
+  mutate: KeyedMutator<PaginatedCoins>;
   getValues: UseFormGetValues<ISwapForm>;
   tokenInType: string;
   tokenOutType: string;
