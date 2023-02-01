@@ -114,7 +114,14 @@ const ItemBalance: FC<ItemBalanceProps> = ({
           </Box>
         </Box>
         <AnimatedBox style={style} overflow="hidden">
-          <RefBox p="M" bg="background" borderRadius="M" ref={containerRef}>
+          <RefBox
+            p="M"
+            bg="background"
+            overflow="auto"
+            borderRadius="M"
+            maxHeight="8rem"
+            ref={containerRef}
+          >
             {objectsData.map(({ balance, id }) => (
               <Box
                 display="flex"

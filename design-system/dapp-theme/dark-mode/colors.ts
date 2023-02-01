@@ -13,7 +13,7 @@ const colors = {
   foreground: primitiveColors.NEUTRAL_1100,
   outline: primitiveColors.NEUTRAL_500,
   textSoft: primitiveColors.NEUTRAL_1000,
-  textSecondary: primitiveColors.NEUTRAL_700,
+  textSecondary: primitiveColors.NEUTRAL_600,
   text: primitiveColors.NEUTRAL_100,
   textInverted: primitiveColors.NEUTRAL_1100,
   disabled: primitiveColors.NEUTRAL_800,
