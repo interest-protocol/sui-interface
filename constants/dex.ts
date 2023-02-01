@@ -4,9 +4,9 @@ import { TOKEN_SYMBOL } from '@/sdk';
 
 import { COIN_TYPE } from './coins';
 
-export const DEX_PACKAGE_ID = '0x47fe98b0d965fed0d766216a06734ddca202d968';
+export const DEX_PACKAGE_ID = '0x3c84fa90931ca85c49211b2f48cd0ff2e2362af6';
 
-export const POOLS_OBJECT_ID = '0xee77657d630240ff3d2478111006846ed51ee38d';
+export const POOLS_OBJECT_ID = '0x72c7d297a6208dad992eae278494d90df63bbec4';
 
 export const DEX_BASE_TOKEN_ARRAY = [COIN_TYPE[Network.DEVNET].ETH];
 
