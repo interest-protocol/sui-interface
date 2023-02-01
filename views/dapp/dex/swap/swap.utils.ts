@@ -120,6 +120,9 @@ export const getCoinIds = (
       );
   }
 
+  console.log('>> coinsMap ::', coinsMap);
+  console.log('>> type ::', type);
+
   return coinsMap[type].objects.map((elem) => elem.coinObjectId);
 };
 

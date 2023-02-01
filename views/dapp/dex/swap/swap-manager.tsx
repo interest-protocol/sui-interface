@@ -7,7 +7,6 @@ import { useDebounce } from 'use-debounce';
 import { TimesSVG } from '@/svg';
 import { makeSWRKey, provider } from '@/utils';
 import { useGetVolatilePools } from '@/views/dapp/dex/swap/swap.hooks';
-import SwapButton from '@/views/dapp/dex/swap/swap-button';
 
 import { SwapManagerProps } from './swap.types';
 import { findMarket, findSwapAmountOutput, getSwapPayload } from './swap.utils';
@@ -20,8 +19,6 @@ const SwapManager: FC<SwapManagerProps> = ({
   setValue,
   account,
   setIsFetchingSwapAmount,
-  mutate,
-  getValues,
   coinsMap,
 }) => {
   const [tokenIn] = useDebounce(useWatch({ control, name: 'tokenIn' }), 1200);
@@ -34,6 +31,17 @@ const SwapManager: FC<SwapManagerProps> = ({
     volatilesPools: volatilePoolsMap,
     coinsMap,
   });
+
+  console.log('>> devInspectTransactionPayload args :: ', {
+    tokenIn,
+    tokenOutType,
+    volatilesPools: volatilePoolsMap,
+    coinsMap,
+  });
+  console.log(
+    '>> devInspectTransactionPayload :: ',
+    devInspectTransactionPayload
+  );
 
   const { error } = useSWR(
     makeSWRKey(
@@ -86,16 +94,12 @@ const SwapManager: FC<SwapManagerProps> = ({
         />
       )}
       {error && +tokenIn.value > 0 && (
-        <div>error fetching the output amount. Try higher slippage</div>
+        <SwapMessage
+          color="error"
+          Icon={TimesSVG}
+          message="dexSwap.swapMessage.error"
+        />
       )}
-      <SwapButton
-        mutate={mutate}
-        control={control}
-        coinsMap={coinsMap}
-        getValues={getValues}
-        tokenInType={tokenInType}
-        tokenOutType={tokenOutType}
-      />
     </>
   );
 };

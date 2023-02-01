@@ -216,6 +216,7 @@ const Swap: FC = () => {
             name="tokenOut"
             register={register}
             setValue={setValue}
+            disabled={isFetchingSwapAmount}
             currencySelector={
               <SwapSelectCurrency
                 currentToken={tokenOutType}
@@ -232,11 +233,10 @@ const Swap: FC = () => {
           tokenOutType={tokenOutType}
           tokenInType={tokenInType}
           coinsMap={coinsMap}
-          getValues={getValues}
-          mutate={mutate}
           control={control}
           setValue={setValue}
           account={account}
+          isFetchingSwapAmount={isFetchingSwapAmount}
           setIsFetchingSwapAmount={setIsFetchingSwapAmount}
         />
       </Box>

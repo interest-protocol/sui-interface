@@ -26,10 +26,9 @@ export interface SwapManagerProps {
   account: string | null;
   setIsFetchingSwapAmount: Dispatch<SetStateAction<boolean>>;
   control: Control<ISwapForm>;
-  mutate: KeyedMutator<never[] | PaginatedCoins>;
-  getValues: UseFormGetValues<ISwapForm>;
   tokenInType: string;
   tokenOutType: string;
+  isFetchingSwapAmount: boolean;
   coinsMap: Web3ManagerState['coinsMap'];
 }
 

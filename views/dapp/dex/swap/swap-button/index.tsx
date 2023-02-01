@@ -87,7 +87,7 @@ const SwapButton: FC<SwapButtonProps> = ({
       }
 
       // One Hop Swap
-      if (firstSwapObject.baseTokens.length === 1) {
+      if (firstSwapObject?.baseTokens.length === 1) {
         const tx = await signAndExecuteTransaction({
           kind: 'moveCall',
           data: {
