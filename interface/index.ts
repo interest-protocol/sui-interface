@@ -11,4 +11,4 @@ export type TTranslatedMessage = MessageKeys<IntlMessages, keyof IntlMessages>;
 
 export type BigNumberish = BigNumber | bigint | string | number;
 
-export type NextPageWithAddress = NextPage<{ address: string }>;
+export type NextPageWithType = NextPage<{ type: string }>;

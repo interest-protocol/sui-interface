@@ -35,7 +35,7 @@ const withParamsGuard: TWithParamsGuard = (paramsKeys, Component) => () => {
   const address = params[addressIndex];
 
   if (!params.length || hasAddress)
-    return <ErrorView message={t('error.wrongParams')} />;
+    return <ErrorView message={t('error.wrongParams') + '123'} />;
 
   return (
     <Component
