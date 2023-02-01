@@ -54,3 +54,8 @@ export interface GetSwapPayload {
   coinsMap: Web3ManagerState['coinsMap'];
   volatilesPools: PoolsMap;
 }
+
+export interface LocalSwapSettings {
+  slippage: string; // 20 equals 20%
+  autoFetch: boolean; // minutes
+}

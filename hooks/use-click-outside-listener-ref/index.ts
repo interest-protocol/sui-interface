@@ -11,9 +11,7 @@ const useClickOutsideListenerRef = <T>(
 
   const escapeListener = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        (onClose as noop)();
-      }
+      if (e.key === 'Escape') (onClose as noop)();
     },
     [onClose]
   );
@@ -33,6 +31,7 @@ const useClickOutsideListenerRef = <T>(
       document.removeEventListener('keyup', escapeListener);
     };
   }, [clickListener, escapeListener]);
+
   return ref;
 };
 

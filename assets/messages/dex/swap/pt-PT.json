@@ -2,6 +2,11 @@
   "dexSwap": {
     "pageTitle": "DEX",
     "buttonText": "Trocar",
+    "settingsTransactionTitle": "Configurações da transação",
+    "toleranceLabel": "Tolerância da slippage?",
+    "deadlineLabel": "Prazo da transação",
+    "settingsPanelTitle": "Configurações do painel",
+    "priceLabel": "Preço Automatizado",
     "swapMessage": {
       "fetchingAmounts": "Procurando montante",
       "amountOut": "Falha na obtenção da quantia",
