@@ -1,5 +1,5 @@
 import { useWalletKit } from '@mysten/wallet-kit';
-import { createContext, FC, useEffect, useMemo, useState } from 'react';
+import { createContext, FC, useMemo } from 'react';
 import useSWR from 'swr';
 
 import { makeSWRKey, provider } from '@/utils';
@@ -17,6 +17,7 @@ const CONTEXT_DE_DEFAULT_STATE = {
   connected: false,
   error: false,
   mutate: defaultMutate,
+  isFetchingCoinBalances: false,
 };
 
 export const Web3ManagerContext = createContext<Web3ManagerState>(
@@ -24,17 +25,19 @@ export const Web3ManagerContext = createContext<Web3ManagerState>(
 );
 
 const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
-  const { isError, currentAccount, isConnecting, isConnected } = useWalletKit();
+  const { isError, currentAccount, isConnected } = useWalletKit();
 
-  const { data, error, mutate } = useSWR(
-    makeSWRKey([currentAccount], 'getAllCoins'),
-    async () => provider.getAllCoins(currentAccount!),
+  const { data, error, mutate, isLoading } = useSWR(
+    makeSWRKey([currentAccount], provider.getAllCoins.name),
+    async () => {
+      if (!currentAccount) return;
+      return await provider.getAllCoins(currentAccount!);
+    },
     {
       revalidateOnFocus: true,
       revalidateOnMount: true,
       refreshWhenHidden: true,
       refreshInterval: 5000,
-      isPaused: () => !currentAccount,
     }
   );
 
@@ -49,6 +52,7 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
         coins,
         coinsMap,
         mutate,
+        isFetchingCoinBalances: isLoading,
       }}
     >
       {children}
