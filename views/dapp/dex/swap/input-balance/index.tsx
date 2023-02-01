@@ -26,7 +26,7 @@ const InputBalance: FC<InputBalanceProps> = ({
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="flex-end">
+    <Box display="flex" alignItems="flex-end" flexDirection="column">
       <Box
         py="S"
         px="M"
@@ -63,13 +63,14 @@ const InputBalance: FC<InputBalanceProps> = ({
           my: 'M',
           width: '100%',
           display: 'grid',
-          bg: 'background',
+          bg: disabled ? 'bottomBackground' : 'background',
+
           borderRadius: 'M',
           overflow: 'visible',
           border: '1px solid',
           borderColor: 'transparent',
           gridTemplateColumns: '6.9rem 1fr auto',
-          hover: {
+          hover: !disabled && {
             borderColor: 'accentBackground',
           },
         }}

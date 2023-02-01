@@ -86,16 +86,16 @@ const SwapManager: FC<SwapManagerProps> = ({
   return (
     <>
       <InputBalance
+        disabled
+        name="tokenOut"
+        register={register}
+        setValue={setValue}
         balance={formatMoney(
           FixedPointMath.toNumber(
             pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
             pathOr(0, [tokenOutType, 'decimals'], coinsMap)
           )
         )}
-        name="tokenOut"
-        register={register}
-        setValue={setValue}
-        disabled={isFetchingSwapAmount}
         currencySelector={
           <SwapSelectCurrency
             tokens={coinsMap}

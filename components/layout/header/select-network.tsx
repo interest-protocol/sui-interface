@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { Box, Dropdown, Typography } from '@/elements';
-import { ArrowSVG, BinanceTestSVG, SuiSVG } from '@/svg';
+import { AnchorSVG, ArrowSVG, BinanceTestSVG, SuiSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
 const SelectNetwork: FC = () => {
@@ -91,7 +91,7 @@ const SelectNetwork: FC = () => {
           disabled: true,
         },
         {
-          value: `bsct`,
+          value: 'bsct',
           onSelect: () => {
             window?.open('https://interestprotocol.com/dapp/dex', '_blank');
           },
@@ -115,6 +115,12 @@ const SelectNetwork: FC = () => {
                   BSCT
                 </Typography>
               </Box>
+              <AnchorSVG
+                width="100%"
+                height="100%"
+                maxWidth="1rem"
+                maxHeight="1rem"
+              />
             </Box>
           ),
           noSelectable: true,
