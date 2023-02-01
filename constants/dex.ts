@@ -73,25 +73,31 @@ export const RECOMMENDED_POOLS = [
   {
     token0: getSUIDevNetData(TOKEN_SYMBOL.BNB),
     token1: getSUIDevNetData(TOKEN_SYMBOL.ETH),
+    pairType: '0x00E1000',
   },
   {
     token0: getSUIDevNetData(TOKEN_SYMBOL.BTC),
     token1: getSUIDevNetData(TOKEN_SYMBOL.ETH),
+    pairType: '0x00AA000',
   },
   {
     token0: getSUIDevNetData(TOKEN_SYMBOL.DAI),
     token1: getSUIDevNetData(TOKEN_SYMBOL.ETH),
+    pairType: '0x00BB000',
   },
   {
     token0: getSUIDevNetData(TOKEN_SYMBOL.ETH),
     token1: getSUIDevNetData(TOKEN_SYMBOL.USDT),
+    pairType: '0x00CC000',
   },
   {
     token0: getSUIDevNetData(TOKEN_SYMBOL.ETH),
     token1: getSUIDevNetData(TOKEN_SYMBOL.USDC),
+    pairType: '0x00DD000',
   },
   {
     token0: getSUIDevNetData(TOKEN_SYMBOL.ETH),
     token1: getSUIDevNetData(TOKEN_SYMBOL.SUI),
+    pairType: '0x00EE000',
   },
 ];

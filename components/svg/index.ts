@@ -1,3 +1,4 @@
+export { default as AnchorSVG } from './anchor';
 export { default as ArrowSVG } from './arrow';
 export { default as ArrowSpecialSVG } from './arrow-special';
 export { default as BarsSVG } from './bars';
