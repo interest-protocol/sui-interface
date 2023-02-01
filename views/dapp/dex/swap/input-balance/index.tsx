@@ -31,8 +31,8 @@ const InputBalance: FC<InputBalanceProps> = ({
         py="S"
         px="M"
         mb="-1rem"
+        borderRadius="L"
         bg="accentSecondary"
-        borderRadius="M"
         position="relative"
         color={dark ? 'text' : 'textInverted'}
       >
@@ -58,18 +58,22 @@ const InputBalance: FC<InputBalanceProps> = ({
             ),
         })}
         shieldProps={{
-          px: 'S',
-          py: 'L',
+          p: 'L',
           my: 'M',
           width: '100%',
           display: 'grid',
-          bg: disabled ? 'bottomBackground' : 'background',
-
-          borderRadius: 'M',
           overflow: 'visible',
           border: '1px solid',
+          borderRadius: '5rem',
           borderColor: 'transparent',
           gridTemplateColumns: '6.9rem 1fr auto',
+          bg: disabled
+            ? dark
+              ? 'background'
+              : 'bottomBackground'
+            : dark
+            ? 'bottomBackground'
+            : 'background',
           hover: !disabled && {
             borderColor: 'accentBackground',
           },

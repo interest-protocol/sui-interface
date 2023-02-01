@@ -8,7 +8,7 @@ import { COIN_TYPE } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
-import { SuiSVG } from '@/svg';
+import { LoadingSVG, SuiSVG } from '@/svg';
 import { ZERO_BIG_NUMBER } from '@/utils';
 
 const StyledConnectButton = styled(ConnectButton)`
@@ -25,58 +25,70 @@ const StyledConnectButton = styled(ConnectButton)`
 export const ConnectWallet: FC = always(<StyledConnectButton />);
 
 const Wallet: FC = () => {
-  const { coinsMap } = useWeb3();
+  const { coinsMap, connected, isFetchingCoinBalances } = useWeb3();
 
   return (
     <Box
       bg="textSoft"
       display="flex"
-      borderRadius="2.5rem"
       alignItems="center"
+      borderRadius="2.5rem"
       justifyContent="space-between"
-      minWidth={['unset', 'unset', 'unset', '13.5rem']}
     >
-      <Typography
-        px="L"
-        as="span"
-        variant="normal"
-        whiteSpace="nowrap"
-        display={['none', 'flex']}
-      >
-        {FixedPointMath.toNumber(
-          pathOr(
-            ZERO_BIG_NUMBER,
-            [COIN_TYPE[Network.DEVNET].SUI, 'totalBalance'],
-            coinsMap
-          )
-        )}
-        <Box
-          ml="S"
+      {connected && (
+        <Typography
+          pl="L"
+          pr="M"
           as="span"
-          width="1.2rem"
-          height="1.2rem"
-          overflow="hidden"
-          borderRadius="50%"
-          display="inline-block"
-          color="text"
+          variant="normal"
+          whiteSpace="nowrap"
+          display={['none', 'flex']}
         >
-          <SuiSVG
-            height="100%"
-            width="100%"
-            maxHeight="1.2rem"
-            maxWidth="1.2rem"
-            fill="currentColor"
-          />
-        </Box>
-      </Typography>
+          {isFetchingCoinBalances ? (
+            <Box as="span" display="inline-block">
+              <LoadingSVG
+                width="100%"
+                height="100%"
+                maxWidth="1rem"
+                maxHeight="1rem"
+              />
+            </Box>
+          ) : (
+            FixedPointMath.toNumber(
+              pathOr(
+                ZERO_BIG_NUMBER,
+                [COIN_TYPE[Network.DEVNET].SUI, 'totalBalance'],
+                coinsMap
+              )
+            )
+          )}
+          <Box
+            ml="S"
+            as="span"
+            color="text"
+            width="1.2rem"
+            height="1.2rem"
+            overflow="hidden"
+            borderRadius="50%"
+            display="inline-block"
+          >
+            <SuiSVG
+              height="100%"
+              width="100%"
+              maxHeight="1.2rem"
+              maxWidth="1.2rem"
+              fill="currentColor"
+            />
+          </Box>
+        </Typography>
+      )}
       <Box
         fontSize="M"
+        width="auto"
         border="none"
-        padding={'unset'}
         display="inline-flex"
         bg="bottomBackground"
-        width="auto"
-        borderRadius="2.5rem !important"
+        borderRadius="2.5rem"
       >
         <ConnectWallet />
       </Box>

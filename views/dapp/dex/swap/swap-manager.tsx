@@ -101,10 +101,10 @@ const SwapManager: FC<SwapManagerProps> = ({
             tokens={coinsMap}
             currentToken={tokenOutType}
             isModalOpen={isTokenOutOpenModal}
-            symbol={getValues('tokenOut.symbol')}
             type={getValues('tokenOut.type')}
-            setIsModalOpen={setTokenOutIsOpenModal}
             onSelectCurrency={onSelectCurrency}
+            symbol={getValues('tokenOut.symbol')}
+            setIsModalOpen={setTokenOutIsOpenModal}
           />
         }
       />
