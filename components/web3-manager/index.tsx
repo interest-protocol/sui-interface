@@ -26,27 +26,15 @@ export const Web3ManagerContext = createContext<Web3ManagerState>(
 const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   const { isError, currentAccount, isConnecting, isConnected } = useWalletKit();
 
-  const [account, setAccount] = useState<null | string>(null);
-
-  useEffect(() => {
-    (async () => {
-      if (isConnected) {
-        setAccount(currentAccount);
-      } else {
-        setAccount(null);
-      }
-    })();
-  }, [isConnected, isConnecting, currentAccount, isError]);
-
   const { data, error, mutate } = useSWR(
-    makeSWRKey([account], 'getAllCoins'),
-    async () => provider.getAllCoins(account!),
+    makeSWRKey([currentAccount], 'getAllCoins'),
+    async () => provider.getAllCoins(currentAccount!),
     {
-      revalidateOnFocus: false,
+      revalidateOnFocus: true,
       revalidateOnMount: true,
       refreshWhenHidden: true,
       refreshInterval: 5000,
-      isPaused: () => !account,
+      isPaused: () => !currentAccount,
     }
   );
 
@@ -55,7 +43,7 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   return (
     <Web3ManagerContext.Provider
       value={{
-        account,
+        account: currentAccount,
         error: isError || !!error,
         connected: isConnected,
         coins,

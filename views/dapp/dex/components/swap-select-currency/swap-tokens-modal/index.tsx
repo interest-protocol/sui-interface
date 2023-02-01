@@ -59,7 +59,7 @@ const renderData = (
           </Typography>
         </Box>
         <Typography variant="normal">
-          {formatMoney(FixedPointMath.toNumber(totalBalance))}
+          {formatMoney(FixedPointMath.toNumber(totalBalance, decimals))}
         </Typography>
       </Box>
     );
