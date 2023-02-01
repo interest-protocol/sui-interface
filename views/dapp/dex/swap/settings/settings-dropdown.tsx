@@ -6,7 +6,6 @@ import { Box, Button, Modal, Typography } from '@/elements';
 import { TimesSVG } from '@/svg';
 import { parseInputEventToNumberString } from '@/utils';
 
-import AutoFetch from './auto-fetch';
 import Field from './field';
 import { ISwapSettingsForm, SettingsDropdownProps } from './settings.types';
 
@@ -18,14 +17,11 @@ const SettingsDropdown: FC<SettingsDropdownProps> = ({
 }) => {
   const t = useTranslations();
 
-  const { register, setValue, getValues, control } = useForm<ISwapSettingsForm>(
-    {
-      defaultValues: {
-        slippage: localSettings.slippage,
-        autoFetch: localSettings.autoFetch,
-      },
-    }
-  );
+  const { register, setValue, getValues } = useForm<ISwapSettingsForm>({
+    defaultValues: {
+      slippage: localSettings.slippage,
+    },
+  });
 
   const onRequestClose = () => {
     setLocalSettings(getValues());
@@ -110,24 +106,6 @@ const SettingsDropdown: FC<SettingsDropdownProps> = ({
               </Button>
             }
             suffix={<Typography variant="normal">%</Typography>}
-          />
-        </Box>
-        <Box p="S">
-          <Typography
-            m="M"
-            pt="M"
-            pb="L"
-            fontSize="S"
-            variant="normal"
-            color="textSecondary"
-            textTransform="uppercase"
-          >
-            {t('dexSwap.settingsPanelTitle')}
-          </Typography>
-          <AutoFetch
-            disabled
-            control={control}
-            setter={(value: boolean) => setValue('autoFetch', value)}
           />
         </Box>
       </Box>

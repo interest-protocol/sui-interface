@@ -5,7 +5,6 @@
     "settingsTransactionTitle": "Transaction Settings",
     "toleranceLabel": "Slippage tolerance?",
     "deadlineLabel": "Transaction deadline",
-    "settingsPanelTitle": "Panel Settings",
     "priceLabel": "Automated Price",
     "swapMessage": {
       "fetchingAmounts": "Fetching amounts",

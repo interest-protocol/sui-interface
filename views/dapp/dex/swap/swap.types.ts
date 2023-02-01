@@ -28,8 +28,8 @@ export interface SwapManagerProps {
   control: Control<ISwapForm>;
   tokenInType: string;
   tokenOutType: string;
-  isFetchingSwapAmount: boolean;
   coinsMap: Web3ManagerState['coinsMap'];
+  slippage: string;
 }
 
 export interface SwapPathObject {
@@ -45,6 +45,7 @@ export interface SwapButtonProps {
   tokenInType: string;
   tokenOutType: string;
   coinsMap: Web3ManagerState['coinsMap'];
+  slippage: string;
 }
 
 export interface GetSwapPayload {
@@ -52,9 +53,9 @@ export interface GetSwapPayload {
   tokenOutType: string;
   coinsMap: Web3ManagerState['coinsMap'];
   volatilesPools: PoolsMap;
+  slippage: string;
 }
 
 export interface LocalSwapSettings {
   slippage: string; // 20 equals 20%
-  autoFetch: boolean; // minutes
 }

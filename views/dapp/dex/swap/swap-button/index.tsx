@@ -17,7 +17,7 @@ import { WalletGuardButton } from '@/views/dapp/components';
 
 import { useGetVolatilePools } from '../swap.hooks';
 import { SwapButtonProps } from '../swap.types';
-import { findMarket, getCoinIds } from '../swap.utils';
+import { findMarket, getAmountMinusSlippage, getCoinIds } from '../swap.utils';
 
 const SwapButton: FC<SwapButtonProps> = ({
   mutate,
@@ -26,6 +26,7 @@ const SwapButton: FC<SwapButtonProps> = ({
   getValues,
   tokenInType,
   tokenOutType,
+  slippage,
 }) => {
   const { signAndExecuteTransaction } = useWalletKit();
   const { data } = useGetVolatilePools();
@@ -56,6 +57,13 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       const firstSwapObject = path[0];
 
+      const amount = FixedPointMath.toBigNumber(
+        tokenIn.value,
+        tokenIn.decimals
+      );
+
+      const minAmount = getAmountMinusSlippage(amount, slippage);
+
       // no hop swap
       if (!firstSwapObject.baseTokens.length) {
         const tx = await signAndExecuteTransaction({
@@ -74,12 +82,9 @@ const SwapButton: FC<SwapButtonProps> = ({
               DEX_STORAGE_STABLE,
               getCoinIds(coinsMap, firstSwapObject.tokenInType),
               [],
-              FixedPointMath.toBigNumber(
-                tokenIn.value,
-                tokenIn.decimals
-              ).toString(),
+              amount.toString(),
               '0',
-              '0',
+              minAmount.toString(),
             ],
           },
         });
@@ -105,12 +110,9 @@ const SwapButton: FC<SwapButtonProps> = ({
               DEX_STORAGE_STABLE,
               getCoinIds(coinsMap, firstSwapObject.tokenInType),
               [],
-              FixedPointMath.toBigNumber(
-                tokenIn.value,
-                tokenIn.decimals
-              ).toString(),
+              amount.toString(),
               '0',
-              '0',
+              minAmount.toString(),
             ],
           },
         });

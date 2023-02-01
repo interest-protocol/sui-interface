@@ -1,5 +1,5 @@
 import { find, pathOr, propEq } from 'ramda';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -45,18 +45,13 @@ const Swap: FC = () => {
   const [isTokenOutOpenModal, setTokenOutIsOpenModal] = useState(false);
   const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
 
-  useEffect(() => {
-    console.log('>> creating swap component');
-    return () => console.log('>> destroying swap component');
-  });
-
   const [localSettings, setLocalSettings] = useLocalStorage<LocalSwapSettings>(
     'sui-interest-swap-settings',
-    { slippage: '1', autoFetch: true }
+    { slippage: '1' }
   );
 
   const setSettings = useCallback(
-    ({ slippage: newSlippage, autoFetch }: ISwapSettingsForm) => {
+    ({ slippage: newSlippage }: ISwapSettingsForm) => {
       const slippage =
         !!newSlippage && newSlippage !== localSettings.slippage
           ? newSlippage
@@ -64,7 +59,6 @@ const Swap: FC = () => {
 
       setLocalSettings({
         slippage,
-        autoFetch,
       });
     },
     []
@@ -236,8 +230,8 @@ const Swap: FC = () => {
           control={control}
           setValue={setValue}
           account={account}
-          isFetchingSwapAmount={isFetchingSwapAmount}
           setIsFetchingSwapAmount={setIsFetchingSwapAmount}
+          slippage={localSettings.slippage}
         />
       </Box>
       <SwapButton
@@ -247,6 +241,7 @@ const Swap: FC = () => {
         getValues={getValues}
         tokenInType={tokenInType}
         tokenOutType={tokenOutType}
+        slippage={localSettings.slippage}
       />
     </Box>
   );

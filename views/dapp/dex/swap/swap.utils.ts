@@ -1,6 +1,7 @@
 import { Network, SuiObjectInfo } from '@mysten/sui.js';
 import { UnserializedSignableTransaction } from '@mysten/sui.js/src/signers/txn-data-serializers/txn-data-serializer';
 import { DevInspectResults } from '@mysten/sui.js/src/types';
+import BigNumber from 'bignumber.js';
 import { has, isEmpty, pathOr, propOr } from 'ramda';
 
 import { Web3ManagerState } from '@/components/web3-manager/web3-manager.types';
@@ -115,15 +116,22 @@ export const getCoinIds = (
       );
     return suiObjects
       .filter((_, index) => index !== gasObjectIndex)
-      .map((elem) =>
-        pathOr('', ['details', 'data', 'fields', 'id', 'id'], elem)
-      );
+      .map((elem) => elem.coinObjectId);
   }
 
-  console.log('>> coinsMap ::', coinsMap);
-  console.log('>> type ::', type);
-
   return coinsMap[type].objects.map((elem) => elem.coinObjectId);
+};
+
+export const getAmountMinusSlippage = (
+  value: BigNumber,
+  slippage: string
+): BigNumber => {
+  const slippageBn = FixedPointMath.toBigNumber(+slippage, 3);
+  const subAmount = value
+    .multipliedBy(slippageBn)
+    .dividedBy(new BigNumber(100000));
+
+  return value.minus(subAmount);
 };
 
 export const getSwapPayload = ({
@@ -131,12 +139,19 @@ export const getSwapPayload = ({
   tokenOutType,
   coinsMap,
   volatilesPools,
+  slippage,
 }: GetSwapPayload): UnserializedSignableTransaction | null => {
   if (isEmpty(volatilesPools)) return null;
 
   const path = findMarket(volatilesPools, tokenIn.type, tokenOutType);
 
+  if (!path.length) return null;
+
   const firstSwapObject = path[0];
+
+  const amount = FixedPointMath.toBigNumber(tokenIn.value, tokenIn.decimals);
+
+  const minAmount = getAmountMinusSlippage(amount, slippage);
 
   // no hop swap
   if (!firstSwapObject.baseTokens.length) {
@@ -156,12 +171,9 @@ export const getSwapPayload = ({
           DEX_STORAGE_STABLE,
           getCoinIds(coinsMap, firstSwapObject.tokenInType),
           [],
-          FixedPointMath.toBigNumber(
-            tokenIn.value,
-            tokenIn.decimals
-          ).toString(),
+          amount.toString(),
           '0',
-          '0',
+          minAmount.toString(),
         ],
       },
     };
@@ -186,12 +198,9 @@ export const getSwapPayload = ({
           DEX_STORAGE_STABLE,
           getCoinIds(coinsMap, firstSwapObject.tokenInType),
           [],
-          FixedPointMath.toBigNumber(
-            tokenIn.value,
-            tokenIn.decimals
-          ).toString(),
+          amount.toString(),
           '0',
-          '0',
+          minAmount.toString(),
         ],
       },
     };
