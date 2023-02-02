@@ -1,12 +1,15 @@
 import { curryN } from 'ramda';
 import { FC } from 'react';
 
-import { NextPageWithType } from '@/interface';
+import { NextPageWithObjectId } from '@/interface';
 
 import withParamsGuard from './with-params-guard';
 
-type TWithTypeGuard = (Component: NextPageWithType) => FC;
+type WithObjectIdGuard = (Component: NextPageWithObjectId) => FC;
 
-const withTypeGuard: TWithTypeGuard = curryN(2, withParamsGuard)(['type']);
+const withObjectIdGuard: WithObjectIdGuard = curryN(
+  2,
+  withParamsGuard
+)(['objectId']);
 
-export default withTypeGuard;
+export default withObjectIdGuard;

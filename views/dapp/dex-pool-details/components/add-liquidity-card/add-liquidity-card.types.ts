@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { Control, UseFormSetValue } from 'react-hook-form';
 
@@ -12,15 +13,14 @@ export interface IToken {
   symbol: string;
   Icon: ReactNode;
   decimals: number;
-  balance: string;
-  allowance: string;
-  address: string;
+  balance: BigNumber;
+  type: string;
 }
 
 export interface AddLiquidityCardProps {
   tokens: IToken[];
   fetchingInitialData: boolean;
-  refetch: any;
+  refetch: () => Promise<void>;
 }
 
 export interface AddLiquidityCardContentProps {
@@ -33,26 +33,11 @@ export interface AddLiquidityCardContentProps {
   setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
-export interface AddLiquidityManagerProps {
-  isFetchingQuote: boolean;
-  setIsFetchingQuote: Dispatch<SetStateAction<boolean>>;
-  setValue: UseFormSetValue<IAddLiquidityForm>;
-  control: Control<IAddLiquidityForm>;
-  tokens: AddLiquidityCardProps['tokens'];
-  isStable: boolean;
-}
-
 export interface BalanceErrorProps {
   control: Control<IAddLiquidityForm>;
   balance: string;
   name: Exclude<keyof IAddLiquidityForm, 'error' | 'locked'>;
   symbol: string;
-}
-
-export interface UseAddLiquidityArgs {
-  tokens: IToken[];
-  control: Control<IAddLiquidityForm>;
-  isStable: boolean;
 }
 
 export interface ErrorLiquidityMessageProps {

@@ -5,7 +5,6 @@ import { Box, Button } from '@/elements';
 import { capitalize } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
-import ApproveButton from './approve-button';
 import LinearLoader from './linear-loader';
 import RemoveLiquidityButton from './remove-liquidity-button';
 import { RemoveLiquidityCardContentProps } from './remove-liquidity-card.types';
@@ -13,7 +12,6 @@ import TokenAmount from './token-amount';
 
 const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
   tokens,
-  lpAllowance,
   isFetchingInitialData,
   setValue,
   control,
@@ -49,30 +47,22 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
           mt="L"
           display="grid"
           gridColumnGap="1rem"
-          gridTemplateColumns={lpAllowance == '0 ' ? '1fr' : '1fr 1fr'}
+          gridTemplateColumns="1fr 1fr"
         >
-          {lpAllowance == '0' ? (
-            <ApproveButton
-              control={control}
-              symbol0={tokens[0].symbol}
-              symbol1={tokens[1].symbol}
-            />
-          ) : (
-            <>
-              <Button
-                width="100%"
-                variant="primary"
-                bg="bottomBackground"
-                hover={{ bg: 'disabled' }}
-                onClick={() => {
-                  setValue('lpAmount', '0.0');
-                }}
-              >
-                {capitalize(t('common.reset'))}
-              </Button>
-              <RemoveLiquidityButton control={control} disabled={false} />
-            </>
-          )}
+          <>
+            <Button
+              width="100%"
+              variant="primary"
+              bg="bottomBackground"
+              hover={{ bg: 'disabled' }}
+              onClick={() => {
+                setValue('lpAmount', '0.0');
+              }}
+            >
+              {capitalize(t('common.reset'))}
+            </Button>
+            <RemoveLiquidityButton control={control} disabled={false} />
+          </>
         </Box>
       </WalletGuardButton>
     </>

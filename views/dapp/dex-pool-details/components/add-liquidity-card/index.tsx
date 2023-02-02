@@ -44,14 +44,14 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
           {t('dexPoolPairAddress.addLiquidity')}
         </Typography>
       </Box>
-      {tokens.map(({ balance, allowance, Icon, symbol }, index) => (
+      {tokens.map(({ balance, Icon, symbol, decimals }, index) => (
         <InputBalance
           key={v4()}
           register={register}
           setValue={setValue}
           name={INPUT_NAMES[index]}
-          balance={balance}
-          disabled={loading || allowance == '0'}
+          balance={balance.decimalPlaces(decimals).toString()}
+          disabled={loading}
           currencyPrefix={
             fetchingInitialData ? (
               <Box height="1rem" display="flex" borderRadius="2rem">

@@ -1,7 +1,7 @@
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { identity } from 'ramda';
 import { FC } from 'react';
-//import Skeleton from 'react-loading-skeleton';
+import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
 
 import { Box, Button } from '@/elements';
@@ -28,32 +28,24 @@ const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
 }) => {
   const t = useTranslations();
 
-  const needsAllowance = tokens
-    .map(({ allowance }) => allowance == '0')
-    .some(identity);
-
   return (
     <>
       <Box mb="L">{loading && <LineLoaderSVG width="100%" />}</Box>
       <ErrorLiquidityMessage control={control} />
-      {tokens.map(({ symbol, balance }, index) => (
+      {tokens.map(({ symbol, balance, decimals }, index) => (
         <BalanceError
           key={v4()}
           name={INPUT_NAMES[index]}
-          balance={balance}
+          balance={balance
+            .decimalPlaces(decimals, BigNumber.ROUND_DOWN)
+            .toString()}
           control={control}
           symbol={symbol}
         />
       ))}
       <WalletGuardButton>
-        <Box
-          display="grid"
-          gridColumnGap="1rem"
-          gridTemplateColumns={
-            needsAllowance ? `repeat(${tokens.length}, 1fr)` : '1fr 1fr'
-          }
-        >
-          {/*fetchingInitialData ? (
+        <Box display="grid" gridColumnGap="1rem" gridTemplateColumns="1fr 1fr">
+          {fetchingInitialData ? (
             <Box width="200%" mx="auto" cursor="pointer">
               <Skeleton height="2rem" width="100%" borderRadius="L" />
             </Box>
@@ -72,30 +64,28 @@ const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
                   {capitalize(t('common.approve', { isLoading: 0 }))} {symbol}
                 </Button>
               ))
-              )*/}
-          {!needsAllowance && (
-            <>
-              <Button
-                width="100%"
-                variant="primary"
-                bg="bottomBackground"
-                disabled={loading}
-                hover={{ bg: 'disabled' }}
-                onClick={() => {
-                  setValue('token0Amount', '0.0');
-                  setValue('token1Amount', '0.0');
-                  setValue('locked', false);
-                }}
-              >
-                {capitalize(t('common.reset'))}
-              </Button>
-              <AddLiquidityButton
-                refetch={refetch}
-                setLoading={setLoading}
-                loading={loading || fetchingInitialData}
-              />
-            </>
           )}
+          <>
+            <Button
+              width="100%"
+              variant="primary"
+              bg="bottomBackground"
+              disabled={loading}
+              hover={{ bg: 'disabled' }}
+              onClick={() => {
+                setValue('token0Amount', '0.0');
+                setValue('token1Amount', '0.0');
+                setValue('locked', false);
+              }}
+            >
+              {capitalize(t('common.reset'))}
+            </Button>
+            <AddLiquidityButton
+              refetch={refetch}
+              setLoading={setLoading}
+              loading={loading || fetchingInitialData}
+            />
+          </>
         </Box>
       </WalletGuardButton>
     </>

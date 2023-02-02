@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -14,9 +15,7 @@ import RemoveLiquidityCardContent from './remove-liquidity-card-content';
 const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
   tokens,
   isStable,
-  lpAllowance,
   lpBalance,
-  pairAddress,
   isFetchingInitialData,
   refetch,
 }) => {
@@ -31,6 +30,8 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
       token1Amount: '0.0',
     },
   });
+
+  console.log(lpBalance);
 
   return (
     <Box bg="foreground" p="L" borderRadius="M" width="100%">
@@ -49,8 +50,8 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
         control={control}
         register={register}
         setValue={setValue}
-        balance={lpBalance}
-        disabled={lpAllowance == '0' || lpBalance == '0'}
+        balance={lpBalance.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
+        disabled={lpBalance.isZero()}
         currencyPrefix={
           <Box display="flex" width="5rem">
             {tokens[0].Icon}
@@ -68,9 +69,7 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
         refetch={refetch}
         tokens={tokens}
         isFetchingInitialData={isFetchingInitialData}
-        lpAllowance={lpAllowance}
         lpBalance={lpBalance}
-        pairAddress={pairAddress}
       />
     </Box>
   );

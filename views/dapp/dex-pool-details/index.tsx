@@ -1,11 +1,13 @@
+import { Network } from '@mysten/sui.js';
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { FC, ReactNode } from 'react';
-import Skeleton from 'react-loading-skeleton';
+import { pathOr, propOr } from 'ramda';
+import { FC } from 'react';
 
 import { Container } from '@/components';
-import { TOKENS_SVG_MAP } from '@/constants';
+import { POOL_METADATA_MAP, PoolMetadata, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
-import { useLocale } from '@/hooks';
+import { useLocale, useWeb3 } from '@/hooks';
 import { TimesSVG } from '@/svg';
 
 import GoBack from '../components/go-back';
@@ -15,90 +17,100 @@ import {
   RemoveLiquidityCard,
 } from './components';
 import { IToken } from './components/add-liquidity-card/add-liquidity-card.types';
+import { useGetVolatilePool } from './dex-pool-details.hooks';
 import { DEXPoolDetailsViewProps } from './dex-pool-details.types';
-import { PairTypeMock } from './dex-pool-details-data';
 
-interface TokenData {
-  symbol: string;
-  Icon: ReactNode;
-  decimals: number;
-  address: string;
-}
+const getTotalBalance = propOr(new BigNumber(0), 'totalBalance');
 
-const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ pairType }) => {
+const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
   const t = useTranslations();
+
+  const { coinsMap, isFetchingCoinBalances, mutate } = useWeb3();
+  const { error, isLoading, data: volatilePool } = useGetVolatilePool(objectId);
 
   const { currentLocale } = useLocale();
 
-  const processedData = PairTypeMock.filter((pair) => pair.type == pairType)[0];
+  const poolMetadata: PoolMetadata | null = pathOr(
+    null,
+    [Network.DEVNET, objectId],
+    POOL_METADATA_MAP
+  );
+
+  if (!poolMetadata)
+    return (
+      <Box
+        my="XXXL"
+        display="flex"
+        alignItems="center"
+        flexDirection="column"
+        justifyContent="center"
+      >
+        <Box color="error">
+          <TimesSVG width="10rem" maxHeight="10rem" maxWidth="10rem" />
+        </Box>
+        <Typography variant="normal">
+          {t('dexPoolPairAddress.error.pairDoesNotExist', { objectId })}
+        </Typography>
+      </Box>
+    );
 
   const DefaultIcon = TOKENS_SVG_MAP.default;
 
-  const FirstIcon = TOKENS_SVG_MAP[processedData.token0] ?? DefaultIcon;
+  const { token0, token1 } = poolMetadata as PoolMetadata;
 
-  const SecondIcon = TOKENS_SVG_MAP[processedData.token1] ?? DefaultIcon;
+  const FirstIcon = TOKENS_SVG_MAP[token0.type] ?? DefaultIcon;
+
+  const SecondIcon = TOKENS_SVG_MAP[token1.type] ?? DefaultIcon;
 
   const addLiquidityTokens: IToken[] = [
     {
-      symbol: processedData.token0Metadata.symbol,
+      symbol: token0.symbol,
       Icon: (
         <Box as="span" display="inline-flex" width="1rem">
           <FirstIcon width="100%" maxHeight="1rem" maxWidth="1rem" />
         </Box>
       ),
-      balance: processedData.token0Balance,
-      allowance: processedData.token0Allowance,
-      decimals: parseFloat(processedData.token0Metadata.decimals),
-      address: processedData.token0,
+      balance: getTotalBalance(coinsMap[token0.type]),
+      decimals: token0.decimals,
+      type: token0.type,
     },
     {
-      symbol: processedData.token1Metadata.symbol,
+      symbol: token1.symbol,
       Icon: (
         <Box as="span" display="inline-flex" width="1rem">
           <SecondIcon width="100%" maxHeight="1rem" maxWidth="1rem" />
         </Box>
       ),
-      balance: processedData.token1Balance,
-      allowance: processedData.token1Allowance,
-      decimals: parseFloat(processedData.token1Metadata.decimals),
-      address: processedData.token1,
+      balance: getTotalBalance(coinsMap[token1.type]),
+      decimals: token1.decimals,
+      type: token1.type,
     },
   ];
 
-  const removeLiquidityTokens: TokenData[] = [
+  const removeLiquidityTokens = [
     {
-      symbol: processedData.token0Metadata.symbol,
-      Icon: processedData.loading ? (
-        <Box as="span" width="1rem" borderRadius="2rem" display="inline-block">
-          <Skeleton height="100%" borderRadius="2rem" />
-        </Box>
-      ) : (
+      symbol: token0.symbol,
+      Icon: (
         <Box as="span" display="inline-block" width="1rem">
           <FirstIcon width="100%" maxHeight="1rem" maxWidth="1rem" />
         </Box>
       ),
-      address: processedData.token0,
-      decimals: parseFloat(processedData.token0Metadata.decimals),
+      type: token0.type,
+      decimals: token0.decimals,
     },
     {
-      symbol: processedData.token1Metadata.symbol,
-      Icon: processedData.loading ? (
-        <Box as="span" width="1rem" borderRadius="2rem" display="inline-block">
-          <Skeleton height="100%" borderRadius="2rem" />
-        </Box>
-      ) : (
+      symbol: token1.symbol,
+      Icon: (
         <Box as="span" display="inline-block" width="1rem">
           <SecondIcon width="100%" maxHeight="1rem" maxWidth="1rem" />
         </Box>
       ),
-      address: processedData.token1,
-      decimals: parseFloat(processedData.token1Metadata.decimals),
+      type: token1.type,
+      decimals: token1.decimals,
     },
   ];
 
-  // error verification
-  // eslint-disable-next-line no-constant-condition
-  if (false)
+  if (error)
     return (
       <Box
         my="XXXL"
@@ -116,48 +128,24 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ pairType }) => {
       </Box>
     );
 
-  // pairs not exist verification
-  // eslint-disable-next-line no-constant-condition
-  if (!processedData.pairExists)
-    return (
-      <Box
-        my="XXXL"
-        display="flex"
-        alignItems="center"
-        flexDirection="column"
-        justifyContent="center"
-      >
-        <Box color="error">
-          <TimesSVG width="10rem" maxHeight="10rem" maxWidth="10rem" />
-        </Box>
-        <Typography variant="normal">
-          {t('dexPoolPairAddress.error.pairDoesNotExist', { pairType })}
-        </Typography>
-      </Box>
-    );
+  console.log(volatilePool);
 
   return (
     <Container dapp mt="XXL" width="100%">
       <GoBack routeBack />
       <Box display="flex" alignItems="center">
-        {
-          /*processedData.loading ? (
-          <HeaderSkeleton />
-        ) : */ <>
-            <FirstIcon width="2rem" maxHeight="2rem" maxWidth="2rem" />
-            <SecondIcon width="2rem" maxHeight="2rem" maxWidth="2rem" />
-            <Typography variant="normal" ml="L" textTransform="capitalize">
-              {processedData.token0Metadata.symbol +
-                ' - ' +
-                processedData.token1Metadata.symbol +
-                ' ' +
-                t('dexPoolPairAddress.title', {
-                  currentLocale,
-                  type: t('common.volatile', { count: 1 }),
-                })}
-            </Typography>
-          </>
-        }
+        <FirstIcon width="2rem" maxHeight="2rem" maxWidth="2rem" />
+        <SecondIcon width="2rem" maxHeight="2rem" maxWidth="2rem" />
+        <Typography variant="normal" ml="L" textTransform="capitalize">
+          {token0.symbol +
+            ' - ' +
+            token1.symbol +
+            ' ' +
+            t('dexPoolPairAddress.title', {
+              currentLocale,
+              type: t('common.volatile', { count: 1 }),
+            })}
+        </Typography>
       </Box>
       <Box
         mt="XL"
@@ -170,32 +158,34 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ pairType }) => {
           isStable={false}
           lines={[
             {
-              address: processedData.token0,
-              symbol: processedData.token0Metadata.symbol,
-              value: processedData.reserve0,
-              isFetchingInitialData: processedData.loading,
+              type: token0.type,
+              symbol: token0.symbol,
+              value: volatilePool.token0Balance,
+              isFetchingInitialData: isLoading,
             },
             {
-              address: processedData.token1,
-              symbol: processedData.token1Metadata.symbol,
-              value: processedData.reserve1,
-              isFetchingInitialData: processedData.loading,
+              type: token1.type,
+              symbol: token1.symbol,
+              value: volatilePool.token1Balance,
+              isFetchingInitialData: isLoading,
             },
           ]}
         />
         <AddLiquidityCard
-          fetchingInitialData={false}
+          fetchingInitialData={isFetchingCoinBalances}
           tokens={addLiquidityTokens}
-          refetch={false}
+          refetch={async () => {
+            await mutate();
+          }}
         />
         <RemoveLiquidityCard
-          pairAddress={pairType}
           isStable={false}
-          isFetchingInitialData={processedData.loading}
-          lpAllowance={processedData.lpAllowance}
-          lpBalance={processedData.lpBalance}
+          isFetchingInitialData={isFetchingCoinBalances}
+          lpBalance={getTotalBalance(coinsMap[volatilePool.lpCoinType] || {})}
           tokens={removeLiquidityTokens}
-          refetch={2}
+          refetch={async () => {
+            await mutate();
+          }}
         />
       </Box>
     </Container>

@@ -2,11 +2,11 @@ import { GetStaticProps } from 'next';
 import { mergeDeepRight } from 'ramda';
 
 import { withTypeGuard } from '@/HOC';
-import { NextPageWithType } from '@/interface';
+import { NextPageWithObjectId } from '@/interface';
 import DEXPoolDetailsView from '@/views/dapp/dex-pool-details';
 
-const DEXPoolDetailsPage: NextPageWithType = ({ type }) => (
-  <DEXPoolDetailsView pairType={type} />
+const DEXPoolDetailsPage: NextPageWithObjectId = ({ objectId }) => (
+  <DEXPoolDetailsView objectId={objectId} />
 );
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {

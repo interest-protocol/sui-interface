@@ -1,5 +1,7 @@
 import { Network } from '@mysten/sui.js';
 
+import { TOKEN_SYMBOL } from '@/sdk';
+
 export const COIN_TYPE = {
   [Network.DEVNET]: {
     SUI: '0x2::sui::SUI',
@@ -28,10 +30,50 @@ export const COIN_DECIMALS = {
   [Network.DEVNET]: {
     [COIN_TYPE[Network.DEVNET].BTC]: 0,
     [COIN_TYPE[Network.DEVNET].ETH]: 0,
-    [COIN_TYPE[Network.DEVNET].BTC]: 0,
+    [COIN_TYPE[Network.DEVNET].BNB]: 0,
     [COIN_TYPE[Network.DEVNET].USDT]: 0,
     [COIN_TYPE[Network.DEVNET].USDC]: 0,
     [COIN_TYPE[Network.DEVNET].DAI]: 0,
     [COIN_TYPE[Network.DEVNET].SUI]: 9,
+  },
+};
+
+export const COINS = {
+  [Network.DEVNET]: {
+    ETH: {
+      decimals: 0,
+      symbol: TOKEN_SYMBOL.ETH,
+      type: COIN_TYPE[Network.DEVNET].ETH,
+    },
+    BTC: {
+      decimals: 0,
+      symbol: TOKEN_SYMBOL.BTC,
+      type: COIN_TYPE[Network.DEVNET].BTC,
+    },
+    BNB: {
+      decimals: 0,
+      symbol: TOKEN_SYMBOL.BNB,
+      type: COIN_TYPE[Network.DEVNET].BNB,
+    },
+    SUI: {
+      decimals: 0,
+      symbol: TOKEN_SYMBOL.SUI,
+      type: COIN_TYPE[Network.DEVNET].SUI,
+    },
+    DAI: {
+      decimals: 0,
+      symbol: TOKEN_SYMBOL.DAI,
+      type: COIN_TYPE[Network.DEVNET].DAI,
+    },
+    USDC: {
+      decimals: 0,
+      symbol: TOKEN_SYMBOL.USDC,
+      type: COIN_TYPE[Network.DEVNET].USDC,
+    },
+    USDT: {
+      decimals: 0,
+      symbol: TOKEN_SYMBOL.USDT,
+      type: COIN_TYPE[Network.DEVNET].USDT,
+    },
   },
 };

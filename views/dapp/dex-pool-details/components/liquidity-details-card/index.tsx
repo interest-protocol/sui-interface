@@ -40,10 +40,10 @@ const LiquidityDetailsCard: FC<LiquidityDetailsCardProps> = ({
       >
         {lines.map((line) => (
           <LiquidityDetailsCardLine
+            type={line.type}
             key={v4()}
             value={line.value}
             symbol={line.symbol}
-            address={line.address}
             isFetchingInitialData={line.isFetchingInitialData}
           />
         ))}

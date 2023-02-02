@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { ReactNode } from 'react';
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
@@ -5,27 +6,23 @@ interface TokenData {
   symbol: string;
   Icon: ReactNode;
   decimals: number;
-  address: string;
+  type: string;
 }
 
 export interface RemoveLiquidityCardProps {
   isStable: boolean;
   tokens: TokenData[];
-  lpBalance: string;
-  lpAllowance: string;
-  pairAddress: string;
+  lpBalance: BigNumber;
   isFetchingInitialData: boolean;
-  refetch: any;
+  refetch: () => Promise<void>;
 }
 
 export interface RemoveLiquidityCardContentProps {
   isStable: boolean;
   tokens: TokenData[];
-  lpBalance: string;
-  lpAllowance: string;
-  pairAddress: string;
+  lpBalance: BigNumber;
   isFetchingInitialData: boolean;
-  refetch: any;
+  refetch: () => Promise<void>;
   control: Control<IRemoveLiquidityForm>;
   setValue: UseFormSetValue<IRemoveLiquidityForm>;
 }

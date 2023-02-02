@@ -12,15 +12,15 @@ const PoolRow: FC<PoolRowProps> = ({
   symbol1,
   type0,
   type1,
-  pairType,
+  objectId,
 }) => {
   const FirstIcon = TOKENS_SVG_MAP[type0] ?? UnknownCoinSVG;
   const SecondIcon = TOKENS_SVG_MAP[type1] ?? UnknownCoinSVG;
 
   return (
     <Link
-      href={`${Routes[RoutesEnum.DEXPoolDetails]}?type=${pairType}`}
-      as={`${Routes[RoutesEnum.DEXPoolDetails]}?type=${pairType}`}
+      href={`${Routes[RoutesEnum.DEXPoolDetails]}?objectId=${objectId}`}
+      as={`${Routes[RoutesEnum.DEXPoolDetails]}?objectId=${objectId}`}
     >
       <Box
         py="M"

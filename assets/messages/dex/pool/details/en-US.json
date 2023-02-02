@@ -7,7 +7,7 @@
     "addLiquidity": "Add Liquidity",
     "error": {
       "pairData": "Failed to fetch pair's data",
-      "pairDoesNotExist": "The pair with address {pairAddress} does not exist"
+      "pairDoesNotExist": "The pair with address {objectId} does not exist"
     }
   }
 }
