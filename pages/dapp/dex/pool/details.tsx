@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       messages,
-      pageTitle: 'dexPoolPairAddress.pageTitle',
+      pageTitle: 'dexPoolPair.pageTitle',
       now: Date.now(),
     },
   };

@@ -42,7 +42,7 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
           variant="normal"
           textTransform="uppercase"
         >
-          {t('dexPoolPairAddress.removeLiquidity')}
+          {t('dexPoolPair.removeLiquidity')}
         </Typography>
       </Box>
       <InputBalance

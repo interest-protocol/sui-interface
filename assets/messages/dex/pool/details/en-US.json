@@ -1,5 +1,5 @@
 {
-  "dexPoolPairAddress": {
+  "dexPoolPair": {
     "pageTitle": "Pool Details",
     "title": "{type} Summary",
     "sectionCustomDetail2": "Swap Fee",
@@ -7,6 +7,7 @@
     "addLiquidity": "Add Liquidity",
     "error": {
       "pairData": "Failed to fetch pair's data",
+      "lowBalance": "You do not have enough {symbol} balance",
       "pairDoesNotExist": "The pair with address {objectId} does not exist"
     }
   }

@@ -7,6 +7,7 @@ import { DEX_TOKENS_DATA } from '@/constants';
 import { Box } from '@/elements';
 import { useLocalStorage, useWeb3 } from '@/hooks';
 import { FixedPointMath, TOKEN_SYMBOL } from '@/sdk';
+import { LoadingSVG } from '@/svg';
 import { formatMoney, ZERO_BIG_NUMBER } from '@/utils';
 
 import SwapSelectCurrency from '../components/swap-select-currency';
@@ -36,8 +37,8 @@ const ETH =
   DEFAULT_UNKNOWN_DATA;
 
 const Swap: FC = () => {
+  const [ready, setReady] = useState(false);
   const { coinsMap, mutate, account } = useWeb3();
-
   const [tokenInType, setTokenInType] = useState(SUI.type);
   const [tokenOutType, setTokenOutType] = useState(ETH.type);
   const [isTokenInOpenModal, setTokenInIsOpenModal] = useState(false);
@@ -135,72 +136,83 @@ const Swap: FC = () => {
         </Box>
       </Box>
       <Box color="text" width="100%" display="grid" gridGap="1rem">
-        <Box
-          pt="L"
-          mb="-1rem"
-          display="flex"
-          borderRadius="M"
-          flexDirection="column"
-          justifyContent="space-evenly"
-        >
-          <InputBalance
-            balance={formatMoney(
-              FixedPointMath.toNumber(
+        {!ready ? (
+          <Box display="flex" justifyContent="center" width="100%" my="XXL">
+            <LoadingSVG width="5rem" maxHeight="5rem" maxWidth="5rem" />
+          </Box>
+        ) : (
+          <Box
+            pt="L"
+            mb="-1rem"
+            display="flex"
+            borderRadius="M"
+            flexDirection="column"
+            justifyContent="space-evenly"
+          >
+            <InputBalance
+              balance={formatMoney(
+                FixedPointMath.toNumber(
+                  pathOr(
+                    ZERO_BIG_NUMBER,
+                    [tokenInType, 'totalBalance'],
+                    coinsMap
+                  ),
+                  pathOr(0, [tokenInType, 'decimals'], coinsMap)
+                )
+              )}
+              max={FixedPointMath.toNumber(
                 pathOr(
                   ZERO_BIG_NUMBER,
                   [tokenInType, 'totalBalance'],
                   coinsMap
                 ),
                 pathOr(0, [tokenInType, 'decimals'], coinsMap)
-              )
-            )}
-            max={FixedPointMath.toNumber(
-              pathOr(ZERO_BIG_NUMBER, [tokenInType, 'totalBalance'], coinsMap),
-              pathOr(0, [tokenInType, 'decimals'], coinsMap)
-            ).toString()}
-            name="tokenIn"
-            register={register}
-            setValue={setValue}
-            disabled={false}
-            currencySelector={
-              <SwapSelectCurrency
-                tokens={coinsMap}
-                currentToken={tokenInType}
-                isModalOpen={isTokenInOpenModal}
-                type={getValues('tokenIn.type')}
-                symbol={getValues('tokenIn.symbol')}
-                setIsModalOpen={setTokenInIsOpenModal}
-                onSelectCurrency={onSelectCurrency('tokenIn')}
-              />
-            }
-          />
-          <Box
-            width="3rem"
-            height="3rem"
-            display="flex"
-            bg="background"
-            cursor="pointer"
-            borderRadius="50%"
-            border="1px solid"
-            mx={['XL', 'auto']}
-            position="relative"
-            alignItems="center"
-            borderColor="accent"
-            onClick={flipTokens}
-            justifyContent="center"
-            mt={['-1rem', '-1.5rem']}
-            mb={['-1.2rem', '-1.5rem']}
-            hover={{
-              boxShadow: '0 0 0.5rem #0055FF',
-            }}
-          >
-            ⥯
+              ).toString()}
+              name="tokenIn"
+              register={register}
+              setValue={setValue}
+              disabled={false}
+              currencySelector={
+                <SwapSelectCurrency
+                  tokens={coinsMap}
+                  currentToken={tokenInType}
+                  isModalOpen={isTokenInOpenModal}
+                  type={getValues('tokenIn.type')}
+                  symbol={getValues('tokenIn.symbol')}
+                  setIsModalOpen={setTokenInIsOpenModal}
+                  onSelectCurrency={onSelectCurrency('tokenIn')}
+                />
+              }
+            />
+            <Box
+              width="3rem"
+              height="3rem"
+              display="flex"
+              bg="background"
+              cursor="pointer"
+              borderRadius="50%"
+              border="1px solid"
+              mx={['XL', 'auto']}
+              position="relative"
+              alignItems="center"
+              borderColor="accent"
+              onClick={flipTokens}
+              justifyContent="center"
+              mt={['-1rem', '-1.5rem']}
+              mb={['-1.2rem', '-1.5rem']}
+              hover={{
+                boxShadow: '0 0 0.5rem #0055FF',
+              }}
+            >
+              ⥯
+            </Box>
           </Box>
-        </Box>
+        )}
         <SwapManager
           mutate={mutate}
           control={control}
           account={account}
+          setReady={setReady}
           setValue={setValue}
           register={register}
           coinsMap={coinsMap}

@@ -24,6 +24,7 @@ const SwapManager: FC<SwapManagerProps> = ({
   slippage,
   register,
   setValue,
+  setReady,
   getValues,
   tokenInType,
   tokenOutType,
@@ -84,6 +85,8 @@ const SwapManager: FC<SwapManagerProps> = ({
     isFetchingSwapAmount ||
     tokenInType === tokenOutType ||
     hasNoMarket;
+
+  setReady(true);
 
   return (
     <>

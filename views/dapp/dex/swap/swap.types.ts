@@ -48,6 +48,7 @@ export interface SwapManagerProps extends Omit<SwapButtonProps, 'disabled'> {
   isTokenOutOpenModal: boolean;
   register: UseFormRegister<ISwapForm>;
   setValue: UseFormSetValue<ISwapForm>;
+  setReady: Dispatch<SetStateAction<boolean>>;
   setTokenOutIsOpenModal: Dispatch<SetStateAction<boolean>>;
   onSelectCurrency: (data: OnSelectCurrencyData) => void;
 }

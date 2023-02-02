@@ -41,7 +41,7 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
           variant="normal"
           textTransform="uppercase"
         >
-          {t('dexPoolPairAddress.addLiquidity')}
+          {t('dexPoolPair.addLiquidity')}
         </Typography>
       </Box>
       {tokens.map(({ balance, Icon, symbol, decimals }, index) => (

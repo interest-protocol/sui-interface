@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
@@ -10,12 +11,13 @@ const BalanceError: FC<BalanceErrorProps> = ({
   name,
   symbol,
 }) => {
+  const t = useTranslations();
   const amount = useWatch({ control, name });
 
-  return amount > balance ? (
+  return +amount > +balance ? (
     <LiquidityFormMessage
       color="error"
-      message={`You do not have enough ${symbol} balance`}
+      message={t('dexPoolPair.error.lowBalance', { symbol })}
     />
   ) : null;
 };

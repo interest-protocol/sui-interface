@@ -54,7 +54,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
           <TimesSVG width="10rem" maxHeight="10rem" maxWidth="10rem" />
         </Box>
         <Typography variant="normal">
-          {t('dexPoolPairAddress.error.pairDoesNotExist', { objectId })}
+          {t('dexPoolPair.error.pairDoesNotExist', { objectId })}
         </Typography>
       </Box>
     );
@@ -128,7 +128,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
           <TimesSVG width="10rem" maxHeight="10rem" maxWidth="10rem" />
         </Box>
         <Typography variant="normal">
-          {t('dexPoolPairAddress.error.pairData')}
+          {t('dexPoolPair.error.pairData')}
         </Typography>
       </Box>
     );
@@ -144,7 +144,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
             ' - ' +
             token1.symbol +
             ' ' +
-            t('dexPoolPairAddress.title', {
+            t('dexPoolPair.title', {
               currentLocale,
               type: t('common.volatile', { count: 1 }),
             })}

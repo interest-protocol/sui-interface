@@ -1,5 +1,5 @@
 {
-  "dexPoolPairAddress": {
+  "dexPoolPair": {
     "pageTitle": "Detalhes da Pool",
     "title": "{type} - Resumo",
     "sectionCustomDetail2": "Taxa de troca",

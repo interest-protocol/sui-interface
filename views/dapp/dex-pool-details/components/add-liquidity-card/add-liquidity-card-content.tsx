@@ -45,25 +45,10 @@ const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
       ))}
       <WalletGuardButton>
         <Box display="grid" gridColumnGap="1rem" gridTemplateColumns="1fr 1fr">
-          {fetchingInitialData ? (
+          {fetchingInitialData && (
             <Box width="200%" mx="auto" cursor="pointer">
               <Skeleton height="2rem" width="100%" borderRadius="L" />
             </Box>
-          ) : (
-            tokens
-              .filter((token) => token.symbol != '???')
-              .map(({ symbol }) => (
-                <Button
-                  key={v4()}
-                  width="100%"
-                  variant="primary"
-                  disabled={loading}
-                  bg="bottomBackground"
-                  hover={{ bg: 'accentActive' }}
-                >
-                  {capitalize(t('common.approve', { isLoading: 0 }))} {symbol}
-                </Button>
-              ))
           )}
           <>
             <Button

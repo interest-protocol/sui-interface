@@ -67,7 +67,7 @@ const LiquidityDetailsCard: FC<LiquidityDetailsCardProps> = ({
           </Typography>
         </Typography>
         <Typography variant="normal" lineHeight="2rem">
-          {t('dexPoolPairAddress.sectionCustomDetail2')}:{' '}
+          {t('dexPoolPair.sectionCustomDetail2')}:{' '}
           <Typography
             as="strong"
             variant="normal"
