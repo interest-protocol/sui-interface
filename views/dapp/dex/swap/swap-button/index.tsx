@@ -64,18 +64,14 @@ const SwapButton: FC<SwapButtonProps> = ({
       const amount = FixedPointMath.toBigNumber(
         tokenIn.value,
         tokenIn.decimals
-      ).decimalPlaces(tokenIn.decimals, BigNumber.ROUND_DOWN);
+      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
 
       const amountOut = FixedPointMath.toBigNumber(
         tokenOut.value,
         tokenOut.decimals
-      ).decimalPlaces(tokenOut.decimals, BigNumber.ROUND_DOWN);
+      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
 
-      const minAmountOut = getAmountMinusSlippage(
-        amountOut,
-        slippage,
-        tokenOut.decimals
-      );
+      const minAmountOut = getAmountMinusSlippage(amountOut, slippage);
 
       // no hop swap
       if (!firstSwapObject.baseTokens.length) {

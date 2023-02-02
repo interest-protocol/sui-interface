@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { useWatch } from 'react-hook-form';
 import Skeleton from 'react-loading-skeleton';
 
 import { Box, Typography } from '@/elements';
@@ -9,11 +8,9 @@ import { TokenAmountProps } from './remove-liquidity-card.types';
 const TokenAmount: FC<TokenAmountProps> = ({
   Icon,
   symbol,
-  control,
-  name,
+  amount,
   isFetchingInitialData,
 }) => {
-  const amount = useWatch({ control, name });
   return (
     <>
       {Icon}

@@ -1,5 +1,4 @@
 import { Network } from '@mysten/sui.js';
-import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { pathOr, propOr } from 'ramda';
 import { FC } from 'react';
@@ -9,6 +8,7 @@ import { POOL_METADATA_MAP, PoolMetadata, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { useLocale, useWeb3 } from '@/hooks';
 import { TimesSVG } from '@/svg';
+import { getCoinTypeFromSupply, getSafeTotalBalance } from '@/utils';
 
 import GoBack from '../components/go-back';
 import {
@@ -19,8 +19,6 @@ import {
 import { IToken } from './components/add-liquidity-card/add-liquidity-card.types';
 import { useGetVolatilePool } from './dex-pool-details.hooks';
 import { DEXPoolDetailsViewProps } from './dex-pool-details.types';
-
-const getTotalBalance = propOr(new BigNumber(0), 'totalBalance');
 
 const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
   const t = useTranslations();
@@ -75,7 +73,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
           <FirstIcon width="100%" maxHeight="1rem" maxWidth="1rem" />
         </Box>
       ),
-      balance: getTotalBalance(coinsMap[token0.type]),
+      balance: getSafeTotalBalance(coinsMap[token0.type]),
       decimals: token0.decimals,
       type: token0.type,
     },
@@ -86,7 +84,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
           <SecondIcon width="100%" maxHeight="1rem" maxWidth="1rem" />
         </Box>
       ),
-      balance: getTotalBalance(coinsMap[token1.type]),
+      balance: getSafeTotalBalance(coinsMap[token1.type]),
       decimals: token1.decimals,
       type: token1.type,
     },
@@ -184,7 +182,11 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
         <RemoveLiquidityCard
           isStable={false}
           isFetchingInitialData={isFetchingCoinBalances}
-          lpBalance={getTotalBalance(coinsMap[volatilePool.lpCoinType] || {})}
+          lpToken={
+            coinsMap[
+              getCoinTypeFromSupply(propOr('', 'lpCoinType', volatilePool))
+            ] || {}
+          }
           tokens={removeLiquidityTokens}
           refetch={async () => {
             await mutate();
