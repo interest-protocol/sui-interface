@@ -7,10 +7,10 @@ import { Box, Typography } from '@/elements';
 import { LiquidityDetailsCardLineProps } from '../../dex-pool-details.types';
 
 const LiquidityDetailsCardLine: FC<LiquidityDetailsCardLineProps> = ({
+  type,
   value,
   symbol,
   isFetchingInitialData,
-  type,
 }) => {
   const TokenSVG = TOKENS_SVG_MAP[type];
 
@@ -32,9 +32,9 @@ const LiquidityDetailsCardLine: FC<LiquidityDetailsCardLineProps> = ({
             <Typography
               mx="M"
               as="span"
+              color="outline"
               variant="normal"
               fontWeight="500"
-              color="textSecondary"
             >
               {symbol}
             </Typography>{' '}
@@ -42,7 +42,13 @@ const LiquidityDetailsCardLine: FC<LiquidityDetailsCardLineProps> = ({
         )}
       </Box>
       <Box display="flex" alignItems="center">
-        <Typography variant="normal" mr="M" fontSize="0.8rem">
+        <Typography
+          mr="M"
+          color="outline"
+          variant="normal"
+          fontSize="0.8rem"
+          fontWeight="bold"
+        >
           {isFetchingInitialData ? (
             <Box as="span" display="inline-block" width="2.5rem">
               <Skeleton />

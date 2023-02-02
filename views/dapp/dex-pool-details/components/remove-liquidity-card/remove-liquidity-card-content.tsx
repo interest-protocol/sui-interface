@@ -49,20 +49,14 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
           gridColumnGap="1rem"
           gridTemplateColumns="1fr 1fr"
         >
-          <>
-            <Button
-              width="100%"
-              variant="primary"
-              bg="bottomBackground"
-              hover={{ bg: 'disabled' }}
-              onClick={() => {
-                setValue('lpAmount', '0.0');
-              }}
-            >
-              {capitalize(t('common.reset'))}
-            </Button>
-            <RemoveLiquidityButton control={control} disabled={false} />
-          </>
+          <Button
+            width="100%"
+            variant="neutral"
+            onClick={() => setValue('lpAmount', '0.0')}
+          >
+            {capitalize(t('common.reset'))}
+          </Button>
+          <RemoveLiquidityButton control={control} disabled={false} />
         </Box>
       </WalletGuardButton>
     </>

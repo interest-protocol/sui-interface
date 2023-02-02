@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 
 import { Routes, RoutesEnum, TOKENS_SVG_MAP } from '@/constants';
-import { Box, Typography } from '@/elements';
+import { Box, Button, Typography } from '@/elements';
 import { UnknownCoinSVG } from '@/svg';
 
 import { PoolRowProps } from './pool.types';
@@ -22,16 +22,14 @@ const PoolRow: FC<PoolRowProps> = ({
       href={`${Routes[RoutesEnum.DEXPoolDetails]}?objectId=${objectId}`}
       as={`${Routes[RoutesEnum.DEXPoolDetails]}?objectId=${objectId}`}
     >
-      <Box
+      <Button
+        my="M"
         py="M"
-        px="L"
-        mb="M"
+        width="100%"
         display="flex"
+        variant="tertiary"
         borderRadius="2.5rem"
-        bg="bottomBackground"
         flexDirection="column"
-        transition="background-color 1s"
-        hover={{ bg: 'textSoft' }}
       >
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Box display="flex">
@@ -44,7 +42,7 @@ const PoolRow: FC<PoolRowProps> = ({
             </Box>
           </Box>
         </Box>
-      </Box>
+      </Button>
     </Link>
   );
 };

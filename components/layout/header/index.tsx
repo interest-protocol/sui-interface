@@ -31,7 +31,7 @@ const Header: FC = () => {
   const handleChangeTheme = () => setDark(!dark);
   return (
     <Box>
-      <Box bg={dark ? 'bottomBackground' : 'accentSecondary'} p="L">
+      <Box bg={dark ? 'bottomBackground' : 'accentActive'} p="L">
         <Typography
           variant="normal"
           textAlign="center"
@@ -67,7 +67,7 @@ const Header: FC = () => {
               maxHeight="50px"
               cursor="pointer"
               hover={{ color: 'accent' }}
-              active={{ color: 'accentSecondary' }}
+              active={{ color: 'accentActive' }}
             >
               <LogoSVG
                 maxHeight="2.5rem"
@@ -94,7 +94,7 @@ const Header: FC = () => {
               color={
                 pathname.includes(Routes[RoutesEnum.DEX]) ? 'accent' : 'inherit'
               }
-              hover={{ color: 'accentSecondary' }}
+              hover={{ color: 'accentActive' }}
             >
               DEX
             </Typography>
@@ -109,7 +109,7 @@ const Header: FC = () => {
                   ? 'accent'
                   : 'inherit'
               }
-              hover={{ color: 'accentSecondary' }}
+              hover={{ color: 'accentActive' }}
             >
               FAUCET
             </Typography>

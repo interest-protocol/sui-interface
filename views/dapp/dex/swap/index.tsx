@@ -137,7 +137,13 @@ const Swap: FC = () => {
       </Box>
       <Box color="text" width="100%" display="grid" gridGap="1rem">
         {!ready ? (
-          <Box display="flex" justifyContent="center" width="100%" my="XXL">
+          <Box
+            my="XXL"
+            width="100%"
+            display="flex"
+            color="accent"
+            justifyContent="center"
+          >
             <LoadingSVG width="5rem" maxHeight="5rem" maxWidth="5rem" />
           </Box>
         ) : (

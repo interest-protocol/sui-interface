@@ -10,13 +10,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({ loading }) => {
   const t = useTranslations();
 
   return (
-    <Button
-      bg={loading ? 'disabled' : 'accent'}
-      width="100%"
-      variant="primary"
-      disabled={loading}
-      hover={{ bg: loading ? 'disabled' : 'accentActive' }}
-    >
+    <Button width="100%" variant="primary" disabled={loading}>
       {capitalize(t('common.add', { isLoading: Number(loading) }))}
     </Button>
   );

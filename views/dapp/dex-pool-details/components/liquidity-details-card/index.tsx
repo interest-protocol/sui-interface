@@ -33,9 +33,9 @@ const LiquidityDetailsCard: FC<LiquidityDetailsCardProps> = ({
         py="M"
         px="L"
         my="XL"
+        color="accent"
+        bg="accentSoft"
         borderRadius="L"
-        color="textSecondary"
-        bg="bottomBackground"
         border="0.09rem solid"
       >
         {lines.map((line) => (

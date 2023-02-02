@@ -32,7 +32,7 @@ const InputBalance: FC<InputBalanceProps> = ({
         px="M"
         mb="-1rem"
         borderRadius="L"
-        bg="accentSecondary"
+        bg="accentActive"
         position="relative"
         color={dark ? 'text' : 'textInverted'}
       >
@@ -87,7 +87,7 @@ const InputBalance: FC<InputBalanceProps> = ({
               minWidth="2.7rem"
               height="2.7rem"
               variant="secondary"
-              bg="accentSecondary"
+              bg="accentActive"
               color={dark ? 'text' : 'textInverted'}
               hover={{ bg: 'accent' }}
               active={{ bg: 'accentActive' }}

@@ -61,7 +61,7 @@ const special = css`
   border-radius: 2rem;
   padding: 0.8rem ${space.XL};
   background-image: linear-gradient(
-    ${colors.accentSecondary},
+    ${colors.accentActive},
     ${colors.accentBackground}
   );
 `;

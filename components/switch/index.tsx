@@ -54,9 +54,7 @@ const Switch: FC<SwitchProps> = ({
               onSelect?.();
             }
           }}
-          bg={
-            value === selected ? bgSelected || 'accentSecondary' : 'transparent'
-          }
+          bg={value === selected ? bgSelected || 'accentActive' : 'transparent'}
         >
           {displayValue ?? value}
         </Typography>

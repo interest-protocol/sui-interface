@@ -19,12 +19,12 @@ import ErrorLiquidityMessage from './error-liquidity-message';
 
 const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
   tokens,
-  fetchingInitialData,
-  refetch,
   control,
+  loading,
+  refetch,
   setValue,
   setLoading,
-  loading,
+  fetchingInitialData,
 }) => {
   const t = useTranslations();
 
@@ -53,10 +53,8 @@ const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
           <>
             <Button
               width="100%"
-              variant="primary"
-              bg="bottomBackground"
+              variant="neutral"
               disabled={loading}
-              hover={{ bg: 'disabled' }}
               onClick={() => {
                 setValue('token0Amount', '0.0');
                 setValue('token1Amount', '0.0');
