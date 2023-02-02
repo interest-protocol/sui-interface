@@ -28,7 +28,7 @@ const renderData = (
 
     const isDisabled = type == currentToken;
     const handleSelectCurrency = () =>
-      isDisabled ? {} : onSelectCurrency({ type, symbol, decimals });
+      !isDisabled && onSelectCurrency({ type, symbol, decimals });
 
     return (
       <Box
@@ -38,14 +38,14 @@ const renderData = (
         key={v4()}
         color="text"
         display="flex"
-        cursor={isDisabled ? 'not-allowed' : 'pointer'}
-        borderRadius="2.5rem"
         border="1px solid"
         alignItems="center"
-        bg={isDisabled ? 'disabled' : 'bottomBackground'}
+        borderRadius="2.5rem"
         borderColor="transparent"
         justifyContent="space-between"
         onClick={handleSelectCurrency}
+        cursor={isDisabled ? 'not-allowed' : 'pointer'}
+        bg={isDisabled ? 'textSoft' : 'bottomBackground'}
         hover={{
           borderColor: isDisabled ? 'transparent' : 'accent',
         }}

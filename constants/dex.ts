@@ -60,38 +60,3 @@ export const DEX_TOKENS_DATA = [
     name: 'USD Coin',
   },
 ];
-
-const getSUIDevNetData = (token: TOKEN_SYMBOL) =>
-  DEX_TOKENS_DATA.find(({ symbol }) => symbol == token) ?? {
-    symbol: TOKEN_SYMBOL.SUI,
-    decimals: 9,
-    type: COIN_TYPE[Network.DEVNET].SUI,
-    name: 'Sui',
-  };
-
-export const RECOMMENDED_POOLS = [
-  {
-    token0: getSUIDevNetData(TOKEN_SYMBOL.BNB),
-    token1: getSUIDevNetData(TOKEN_SYMBOL.ETH),
-  },
-  {
-    token0: getSUIDevNetData(TOKEN_SYMBOL.BTC),
-    token1: getSUIDevNetData(TOKEN_SYMBOL.ETH),
-  },
-  {
-    token0: getSUIDevNetData(TOKEN_SYMBOL.DAI),
-    token1: getSUIDevNetData(TOKEN_SYMBOL.ETH),
-  },
-  {
-    token0: getSUIDevNetData(TOKEN_SYMBOL.ETH),
-    token1: getSUIDevNetData(TOKEN_SYMBOL.USDT),
-  },
-  {
-    token0: getSUIDevNetData(TOKEN_SYMBOL.ETH),
-    token1: getSUIDevNetData(TOKEN_SYMBOL.USDC),
-  },
-  {
-    token0: getSUIDevNetData(TOKEN_SYMBOL.ETH),
-    token1: getSUIDevNetData(TOKEN_SYMBOL.SUI),
-  },
-];

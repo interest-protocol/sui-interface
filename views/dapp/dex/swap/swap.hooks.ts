@@ -17,9 +17,9 @@ export const useGetVolatilePools = () => {
     ),
     async () => provider.getObjectsOwnedByObject(VOLATILE_POOLS_OBJECT_ID),
     {
-      revalidateOnFocus: true,
+      revalidateOnFocus: false,
       revalidateOnMount: true,
-      refreshWhenHidden: true,
+      refreshWhenHidden: false,
     }
   );
   const parsedData = useMemo(() => parsePools(data), [data]);

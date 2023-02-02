@@ -34,9 +34,9 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
       return await provider.getAllCoins(currentAccount!);
     },
     {
-      revalidateOnFocus: true,
+      revalidateOnFocus: false,
       revalidateOnMount: true,
-      refreshWhenHidden: true,
+      refreshWhenHidden: false,
       refreshInterval: 5000,
     }
   );

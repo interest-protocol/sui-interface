@@ -51,8 +51,13 @@ const SwapSelectCurrency: FC<SwapSelectCurrencyProps> = ({
         onClick={disabled ? undefined : toggleOpenModal}
         filter={disabled ? 'grayscale(1)' : 'unset'}
       >
-        <Box my="M" display="flex" alignItems="center">
-          <Box as="span" display="inline-block" minWidth="1.3rem" color="text">
+        <Box
+          my="M"
+          display="flex"
+          alignItems="center"
+          color={dark ? 'text' : 'textInverted'}
+        >
+          <Box as="span" minWidth="1.3rem" display="inline-block">
             <SVG
               width="100%"
               maxHeight="1.3rem"
@@ -64,7 +69,6 @@ const SwapSelectCurrency: FC<SwapSelectCurrencyProps> = ({
             mx="M"
             as="span"
             variant="normal"
-            color={dark ? 'text' : 'textInverted'}
             active={{ color: 'accentActive' }}
           >
             {symbol.length > 4

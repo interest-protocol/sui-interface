@@ -24,6 +24,7 @@ const SwapManager: FC<SwapManagerProps> = ({
   slippage,
   register,
   setValue,
+  setReady,
   getValues,
   tokenInType,
   tokenOutType,
@@ -83,28 +84,30 @@ const SwapManager: FC<SwapManagerProps> = ({
     tokenInType === tokenOutType ||
     hasNoMarket;
 
+  setReady(true);
+
   return (
     <>
       <InputBalance
+        disabled
+        name="tokenOut"
+        register={register}
+        setValue={setValue}
         balance={formatMoney(
           FixedPointMath.toNumber(
             pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
             pathOr(0, [tokenOutType, 'decimals'], coinsMap)
           )
         )}
-        name="tokenOut"
-        register={register}
-        setValue={setValue}
-        disabled={isFetchingSwapAmount}
         currencySelector={
           <SwapSelectCurrency
             tokens={coinsMap}
             currentToken={tokenOutType}
             isModalOpen={isTokenOutOpenModal}
-            symbol={getValues('tokenOut.symbol')}
             type={getValues('tokenOut.type')}
-            setIsModalOpen={setTokenOutIsOpenModal}
             onSelectCurrency={onSelectCurrency}
+            symbol={getValues('tokenOut.symbol')}
+            setIsModalOpen={setTokenOutIsOpenModal}
           />
         }
       />

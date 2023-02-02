@@ -124,13 +124,12 @@ export const getCoinIds = (
 
 export const getAmountMinusSlippage = (
   value: BigNumber,
-  slippage: string,
-  decimals: number
+  slippage: string
 ): BigNumber => {
   const slippageBn = FixedPointMath.toBigNumber(+slippage, 3);
   const newAmount = value
     .minus(value.multipliedBy(slippageBn).dividedBy(new BigNumber(100000)))
-    .decimalPlaces(decimals, BigNumber.ROUND_DOWN);
+    .decimalPlaces(0, BigNumber.ROUND_DOWN);
 
   return newAmount.eq(value) ? newAmount.minus(new BigNumber(1)) : newAmount;
 };
@@ -170,9 +169,7 @@ export const getSwapPayload = ({
           DEX_STORAGE_STABLE,
           getCoinIds(coinsMap, firstSwapObject.tokenInType),
           [],
-          amount
-            .decimalPlaces(tokenIn.decimals, BigNumber.ROUND_DOWN)
-            .toString(),
+          amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
           '0',
           '0',
         ],
@@ -199,9 +196,7 @@ export const getSwapPayload = ({
           DEX_STORAGE_STABLE,
           getCoinIds(coinsMap, firstSwapObject.tokenInType),
           [],
-          amount
-            .decimalPlaces(tokenIn.decimals, BigNumber.ROUND_DOWN)
-            .toString(),
+          amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
           '0',
           '0',
         ],

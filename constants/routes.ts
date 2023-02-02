@@ -7,6 +7,7 @@ export enum RoutesEnum {
   DApp = 'dapp',
   DEX = 'dex',
   DEXPool = 'dex-pool',
+  DEXPoolDetails = 'dex-pool-details',
   Faucet = 'faucet',
 }
 
@@ -19,5 +20,6 @@ export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.DApp]: '/dapp',
   [RoutesEnum.DEX]: '/dapp/dex',
   [RoutesEnum.DEXPool]: '/dapp/dex/pool',
+  [RoutesEnum.DEXPoolDetails]: '/dapp/dex/pool/details',
   [RoutesEnum.Faucet]: '/dapp/faucet',
 };
