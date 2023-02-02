@@ -53,11 +53,7 @@ const processVolatilePool = (data: undefined | GetObjectDataResponse) => {
       ],
       data
     ),
-    poolType: pathOr(
-      '',
-      ['details', 'data', 'fields', 'value', 'fields', 'type'],
-      data
-    ),
+    poolType: pathOr('', ['details', 'data', 'fields', 'value', 'type'], data),
   };
 };
 

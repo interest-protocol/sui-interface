@@ -31,8 +31,8 @@ export const RECOMMENDED_POOLS = [
     poolObjectId: '0x30a336febad59357572af7ed352f2f3eb2a687c8',
   },
   {
-    token0: networkDevNetCoins.ETH,
-    token1: networkDevNetCoins.SUI,
+    token0: networkDevNetCoins.SUI,
+    token1: networkDevNetCoins.ETH,
     poolObjectId: '0x6a7905cae5eddc0b5189ad23ddf076c338281a7a',
   },
 ];
@@ -40,8 +40,8 @@ export const RECOMMENDED_POOLS = [
 export const POOL_METADATA_MAP = {
   [Network.DEVNET]: {
     '0x6a7905cae5eddc0b5189ad23ddf076c338281a7a': {
-      token0: networkDevNetCoins.ETH,
-      token1: networkDevNetCoins.SUI,
+      token0: networkDevNetCoins.SUI,
+      token1: networkDevNetCoins.ETH,
     },
     '0x30a336febad59357572af7ed352f2f3eb2a687c8': {
       token0: networkDevNetCoins.ETH,

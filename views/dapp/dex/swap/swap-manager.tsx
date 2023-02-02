@@ -75,8 +75,6 @@ const SwapManager: FC<SwapManagerProps> = ({
   const markets = findMarket(volatilePoolsMap, tokenInType, tokenOutType);
   const hasNoMarket = !markets.length;
 
-  console.log(volatilePoolsMap);
-
   if (isEmpty(volatilePoolsMap)) return null;
 
   const disabled =
