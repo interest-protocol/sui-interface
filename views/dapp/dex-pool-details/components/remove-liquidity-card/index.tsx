@@ -31,8 +31,6 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
     },
   });
 
-  console.log(lpBalance);
-
   return (
     <Box bg="foreground" p="L" borderRadius="M" width="100%">
       <Box mb="L">
