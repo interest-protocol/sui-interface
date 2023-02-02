@@ -16,7 +16,7 @@ const DEXView: FC = () => {
   return (
     <Container
       width={['100%', '100%', '100%', 'auto']}
-      minHeight="80vh"
+      minHeight="60vh"
       display="flex"
       flexDirection="column"
       justifyContent="center"
@@ -24,7 +24,7 @@ const DEXView: FC = () => {
       <Box
         bg="foreground"
         textAlign="center"
-        mt="XL"
+        mt="0.5rem"
         p="L"
         borderRadius="L"
         minWidth={['20rem', '40rem']}
