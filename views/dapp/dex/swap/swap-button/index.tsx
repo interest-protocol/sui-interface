@@ -72,9 +72,6 @@ const SwapButton: FC<SwapButtonProps> = ({
       ).decimalPlaces(0, BigNumber.ROUND_DOWN);
 
       const minAmountOut = getAmountMinusSlippage(amountOut, slippage);
-      console.log(amount.toString());
-      console.log(amountOut.toString());
-      return;
 
       // no hop swap
       if (!firstSwapObject.baseTokens.length) {
