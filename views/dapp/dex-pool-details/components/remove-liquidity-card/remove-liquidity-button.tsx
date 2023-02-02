@@ -18,8 +18,8 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
   refetch,
   isFetching,
   objectIds,
-  token1Type,
-  token0Type,
+  token0,
+  token1,
 }) => {
   const t = useTranslations();
   const [loading, setLoading] = useState(false);
@@ -44,15 +44,15 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
           gasBudget: 9000,
           module: 'interface',
           packageObjectId: DEX_PACKAGE_ID,
-          typeArguments: [token0Type, token1Type],
+          typeArguments: [token0.type, token1.type],
           arguments: [
             DEX_STORAGE_VOLATILE,
             objectIds as string[],
             new BigNumber(lpAmount)
               .decimalPlaces(0, BigNumber.ROUND_DOWN)
               .toString(),
-            token0Amount,
-            token1Amount,
+            token0Amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
+            token1Amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
           ],
         },
       });

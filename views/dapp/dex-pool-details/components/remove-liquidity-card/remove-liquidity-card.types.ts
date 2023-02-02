@@ -1,11 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { ReactNode } from 'react';
-import {
-  Control,
-  UseFormGetValues,
-  UseFormRegister,
-  UseFormSetValue,
-} from 'react-hook-form';
+import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 
@@ -54,13 +49,13 @@ export interface LinearLoaderProps {
 
 export interface RemoveLiquidityButtonProps {
   getLpAmount: () => string;
-  token0Amount: string;
-  token1Amount: string;
+  token0Amount: BigNumber;
+  token1Amount: BigNumber;
   refetch: () => Promise<void>;
   isFetching: boolean;
   objectIds: ReadonlyArray<string>;
-  token0Type: string;
-  token1Type: string;
+  token0: TokenData;
+  token1: TokenData;
 }
 
 export interface TokenAmountProps {

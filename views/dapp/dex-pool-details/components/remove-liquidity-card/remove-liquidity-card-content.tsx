@@ -46,14 +46,8 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
     account: account,
   });
 
-  const amount0 = FixedPointMath.toBigNumber(
-    propOr(0, token0.type || '', data),
-    token0.decimals
-  );
-  const amount1 = FixedPointMath.toBigNumber(
-    propOr(0, token1.type || '', data),
-    token1.decimals
-  );
+  const amount0 = new BigNumber(propOr(0, token0.type || '', data));
+  const amount1 = new BigNumber(propOr(0, token1.type || '', data));
 
   return (
     <>
@@ -68,13 +62,13 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
           Icon={tokens[0].Icon}
           symbol={tokens[0].symbol}
           isFetchingInitialData={isFetchingInitialData}
-          amount={amount0.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
+          amount={FixedPointMath.toNumber(amount0, token0.decimals).toString()}
         />
         <TokenAmount
           Icon={tokens[1].Icon}
           symbol={tokens[1].symbol}
           isFetchingInitialData={isFetchingInitialData}
-          amount={amount1.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
+          amount={FixedPointMath.toNumber(amount1, token1.decimals).toString()}
         />
       </Box>
       <WalletGuardButton>
@@ -96,17 +90,13 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
             </Button>
             <RemoveLiquidityButton
               getLpAmount={getLpAmount}
-              token0Amount={amount0
-                .decimalPlaces(0, BigNumber.ROUND_DOWN)
-                .toString()}
-              token1Amount={amount1
-                .decimalPlaces(0, BigNumber.ROUND_DOWN)
-                .toString()}
+              token0Amount={amount0}
+              token1Amount={amount1}
               refetch={refetch}
               isFetching={isLoading}
               objectIds={objectIds}
-              token0Type={token0.type}
-              token1Type={token1.type}
+              token0={token0}
+              token1={token1}
             />
           </>
         </Box>

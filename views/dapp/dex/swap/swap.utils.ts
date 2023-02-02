@@ -105,8 +105,10 @@ export const getCoinIds = (
   type: string
 ) => {
   if (isEmpty(coinsMap)) return [];
+  const object = coinsMap[type];
+  if (!object) return [];
   if (type === COIN_TYPE[Network.DEVNET].SUI) {
-    const suiObjects = [...coinsMap[type].objects];
+    const suiObjects = [...object.objects];
     const gasObjectIndex = suiObjects
       .sort((a, b) => (+a! > +b! ? 1 : -1))
       .findIndex((elem) =>
@@ -119,7 +121,7 @@ export const getCoinIds = (
       .map((elem) => elem.coinObjectId);
   }
 
-  return coinsMap[type].objects.map((elem) => elem.coinObjectId);
+  return object.objects.map((elem) => elem.coinObjectId);
 };
 
 export const getAmountMinusSlippage = (
