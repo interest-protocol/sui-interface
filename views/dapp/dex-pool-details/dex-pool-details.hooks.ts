@@ -64,7 +64,13 @@ const processVolatilePool = (data: undefined | GetObjectDataResponse) => {
 export const useGetVolatilePool = (objectId: string) => {
   const { data, isLoading, error } = useSWR(
     makeSWRKey([objectId], provider.getObject.name),
-    () => provider.getObject(objectId)
+    () => provider.getObject(objectId),
+    {
+      revalidateOnMount: true,
+      revalidateOnFocus: false,
+      refreshWhenHidden: false,
+      refreshInterval: 15000,
+    }
   );
 
   const processedDta = processVolatilePool(data);
