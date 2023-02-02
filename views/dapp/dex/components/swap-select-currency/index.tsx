@@ -76,20 +76,22 @@ const SwapSelectCurrency: FC<SwapSelectCurrencyProps> = ({
           <ArrowSVG width="100%" maxHeight="0.5rem" maxWidth="0.5rem" />
         </Box>
       </Box>
-      <SwapTokensModal
-        onSelectCurrency={onSelectCurrency}
-        currentToken={currentToken}
-        fromRight={fromRight}
-        control={control}
-        tokens={tokens}
-        isSearching={isSearching}
-        isModalOpen={isModalOpen}
-        toggleModal={toggleOpenModal}
-        setIsSearching={setIsSearching}
-        Input={
-          <SwapSearchToken register={register} isSearching={isSearching} />
-        }
-      />
+      {isModalOpen && (
+        <SwapTokensModal
+          onSelectCurrency={onSelectCurrency}
+          currentToken={currentToken}
+          fromRight={fromRight}
+          control={control}
+          tokens={tokens}
+          isSearching={isSearching}
+          isModalOpen={isModalOpen}
+          toggleModal={toggleOpenModal}
+          setIsSearching={setIsSearching}
+          Input={
+            <SwapSearchToken register={register} isSearching={isSearching} />
+          }
+        />
+      )}
     </>
   );
 };
