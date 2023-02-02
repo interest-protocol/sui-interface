@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import { mergeDeepRight } from 'ramda';
 
-import { withTypeGuard } from '@/HOC';
+import { withObjectIdGuard } from '@/HOC';
 import { NextPageWithObjectId } from '@/interface';
 import DEXPoolDetailsView from '@/views/dapp/dex-pool-details';
 
@@ -29,4 +29,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default withTypeGuard(DEXPoolDetailsPage);
+export default withObjectIdGuard(DEXPoolDetailsPage);

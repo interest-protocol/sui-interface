@@ -25,7 +25,12 @@ const getTotalBalance = propOr(new BigNumber(0), 'totalBalance');
 const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
   const t = useTranslations();
 
-  const { coinsMap, isFetchingCoinBalances, mutate } = useWeb3();
+  const {
+    coinsMap,
+    isFetchingCoinBalances,
+    mutate,
+    error: web3Error,
+  } = useWeb3();
   const { error, isLoading, data: volatilePool } = useGetVolatilePool(objectId);
 
   const { currentLocale } = useLocale();
@@ -110,7 +115,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
     },
   ];
 
-  if (error)
+  if (error || web3Error)
     return (
       <Box
         my="XXXL"
@@ -127,8 +132,6 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
         </Typography>
       </Box>
     );
-
-  console.log(volatilePool);
 
   return (
     <Container dapp mt="XXL" width="100%">
