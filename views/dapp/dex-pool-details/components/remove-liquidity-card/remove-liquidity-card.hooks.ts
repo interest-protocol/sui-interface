@@ -22,8 +22,9 @@ export const useGetRemoveLiquidityAmounts = ({
       [account, token1Type, token0Type, account],
       provider.devInspectTransaction.name
     ),
-    () =>
-      provider.devInspectTransaction(account || AddressZero, {
+    () => {
+      if (!account || !objectIds || !+lpAmount) return;
+      return provider.devInspectTransaction(account || AddressZero, {
         kind: 'moveCall',
         data: {
           function: 'remove_v_liquidity',
@@ -41,9 +42,9 @@ export const useGetRemoveLiquidityAmounts = ({
             '0',
           ],
         } as MoveCallTransaction,
-      }),
+      });
+    },
     {
-      isPaused: () => !account || !objectIds || !+lpAmount,
       revalidateOnFocus: false,
       revalidateOnMount: true,
       refreshWhenHidden: false,
