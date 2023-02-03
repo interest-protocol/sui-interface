@@ -1,7 +1,7 @@
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { isEmpty } from 'ramda';
+import { isEmpty, prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import {
@@ -13,7 +13,7 @@ import { Box, Button } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
-import { capitalize, getCoinIds, showTXSuccessToast } from '@/utils';
+import { capitalize, getCoinIds, showToast, showTXSuccessToast } from '@/utils';
 
 import { AddLiquidityCardButtonProps } from './add-liquidity-card.types';
 
@@ -37,7 +37,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
       const token1Amount = getValues('token1Amount');
 
       if (!+token0Amount || !+token1Amount)
-        throw new Error('Unable to add 0 liquidity');
+        throw new Error(t('dexPoolPair.error.unableToAdd'));
 
       setLoading(true);
 
@@ -54,7 +54,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
       const vector1 = getCoinIds(coinsMap, token1.type);
 
       if (!vector0.length || !vector1.length)
-        throw new Error('Not enough coins');
+        throw new Error(t('dexPoolPair.error.notEnough'));
 
       const tx = await signAndExecuteTransaction({
         kind: 'moveCall',
@@ -72,18 +72,25 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
             amount0.toString(),
             amount1.toString(),
             true,
-            0,
+            '0',
           ],
         },
       });
       return await showTXSuccessToast(tx);
     } catch {
-      throw new Error('failed to add liquidity');
+      throw new Error(t('dexPoolPair.error.failed'));
     } finally {
       setLoading(false);
       await refetch();
     }
   };
+
+  const addLiquidity = () =>
+    showToast(handleAddLiquidity(), {
+      loading: `Loading`,
+      success: capitalize(t('common.success')),
+      error: prop('message'),
+    });
 
   return (
     <Button
@@ -93,7 +100,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
       disabled={loading}
       alignItems="center"
       justifyContent="center"
-      onClick={handleAddLiquidity}
+      onClick={addLiquidity}
     >
       {capitalize(t('common.add', { isLoading: Number(loading) }))}
       {loading && (

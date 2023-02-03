@@ -6,4 +6,5 @@ export interface SwapMessageProps {
   color?: string;
   message: string;
   Icon: FC<SVGProps>;
+  extraData?: Record<string, string>;
 }

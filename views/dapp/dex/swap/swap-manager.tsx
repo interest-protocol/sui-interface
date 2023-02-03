@@ -34,6 +34,7 @@ const SwapManager: FC<SwapManagerProps> = ({
 }) => {
   const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
   const [tokenIn] = useDebounce(useWatch({ control, name: 'tokenIn' }), 900);
+  const tokenOutValue = useWatch({ control, name: 'tokenOut.value' });
 
   const devInspectTransactionPayload = getSwapPayload({
     tokenIn,
@@ -58,7 +59,6 @@ const SwapManager: FC<SwapManagerProps> = ({
     },
     {
       onSuccess: (data) => {
-        setIsFetchingSwapAmount(false);
         const amount = findSwapAmountOutput(data, tokenOutType);
         setValue(
           'tokenOut.value',
@@ -68,6 +68,7 @@ const SwapManager: FC<SwapManagerProps> = ({
             COIN_DECIMALS[Network.DEVNET][tokenOutType]
           ).toString()
         );
+        setIsFetchingSwapAmount(false);
       },
       revalidateOnFocus: true,
       revalidateOnMount: true,
@@ -84,7 +85,8 @@ const SwapManager: FC<SwapManagerProps> = ({
       (error && +tokenIn.value > 0) ||
         isFetchingSwapAmount ||
         tokenInType === tokenOutType ||
-        hasNoMarket
+        hasNoMarket ||
+        (!+tokenOutValue && !!+tokenIn.value && !isFetchingSwapAmount)
     );
   }, [
     error,
@@ -92,6 +94,7 @@ const SwapManager: FC<SwapManagerProps> = ({
     hasNoMarket,
     tokenInType,
     tokenOutType,
+    tokenOutValue,
     isFetchingSwapAmount,
   ]);
 
@@ -124,6 +127,14 @@ const SwapManager: FC<SwapManagerProps> = ({
         <SwapMessage
           Icon={LoadingSVG}
           message="dexSwap.swapMessage.fetchingAmounts"
+        />
+      )}
+      {!+tokenOutValue && !!+tokenIn.value && !isFetchingSwapAmount && (
+        <SwapMessage
+          color="error"
+          Icon={TimesSVG}
+          extraData={{ symbol: tokenIn.symbol }}
+          message="dexSwap.swapMessage.increaseAmount"
         />
       )}
       {tokenInType === tokenOutType && (

@@ -182,7 +182,6 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
         />
         <RemoveLiquidityCard
           isStable={false}
-          isFetchingInitialData={isFetchingCoinBalances}
           lpToken={
             coinsMap[
               getCoinTypeFromSupply(propOr('', 'lpCoinType', volatilePool))

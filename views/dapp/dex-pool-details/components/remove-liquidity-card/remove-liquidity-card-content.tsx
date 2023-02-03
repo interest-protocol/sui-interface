@@ -19,12 +19,11 @@ import TokenAmount from './token-amount';
 
 const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
   tokens,
-  isFetchingInitialData,
-  refetch,
-  lpAmountControl,
-  resetLpAmount,
-  getLpAmount,
   lpToken,
+  refetch,
+  getLpAmount,
+  resetLpAmount,
+  lpAmountControl,
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
@@ -63,13 +62,11 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
         <TokenAmount
           Icon={tokens[0].Icon}
           symbol={tokens[0].symbol}
-          isFetchingInitialData={isFetchingInitialData}
           amount={FixedPointMath.toNumber(amount0, token0.decimals).toString()}
         />
         <TokenAmount
           Icon={tokens[1].Icon}
           symbol={tokens[1].symbol}
-          isFetchingInitialData={isFetchingInitialData}
           amount={FixedPointMath.toNumber(amount1, token1.decimals).toString()}
         />
       </Box>

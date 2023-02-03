@@ -14,20 +14,18 @@ interface TokenData {
 export interface RemoveLiquidityCardProps {
   isStable: boolean;
   tokens: TokenData[];
-  lpToken: Web3ManagerSuiObject;
-  isFetchingInitialData: boolean;
   refetch: () => Promise<void>;
+  lpToken: Web3ManagerSuiObject;
 }
 
 export interface RemoveLiquidityCardContentProps {
   isStable: boolean;
   tokens: TokenData[];
-  isFetchingInitialData: boolean;
-  refetch: () => Promise<void>;
-  lpAmountControl: Control<IRemoveLiquidityForm>;
   resetLpAmount: () => void;
   getLpAmount: () => string;
+  refetch: () => Promise<void>;
   lpToken: Web3ManagerSuiObject;
+  lpAmountControl: Control<IRemoveLiquidityForm>;
 }
 
 export interface IRemoveLiquidityForm {
@@ -62,7 +60,6 @@ export interface TokenAmountProps {
   Icon: TokenData['Icon'];
   amount: string;
   symbol: string;
-  isFetchingInitialData: boolean;
 }
 
 export interface UseGetRemoveLiquidityAmountsArgs {

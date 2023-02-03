@@ -2,7 +2,6 @@ import { useTranslations } from 'next-intl';
 import { isEmpty } from 'ramda';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
 
 import { Box, Typography } from '@/elements';
@@ -56,27 +55,18 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
           name={INPUT_NAMES[index]}
           balance={balance.decimalPlaces(decimals).toString()}
           currencyPrefix={
-            fetchingInitialData ? (
-              <Box height="1rem" display="flex" borderRadius="2rem">
-                <Skeleton height="1rem" width="1rem" borderRadius="2rem" />
-                <Box width="2.5rem" ml="L">
-                  <Skeleton />
-                </Box>
-              </Box>
-            ) : (
-              <Box
-                display="flex"
-                width="4.5rem"
-                maxHeight="1rem"
-                alignItems="center"
-                justifyContent="center"
-              >
-                {Icon}
-                <Typography variant="normal" ml="M" maxHeight="1rem">
-                  {symbol}
-                </Typography>
-              </Box>
-            )
+            <Box
+              display="flex"
+              width="4.5rem"
+              maxHeight="1rem"
+              alignItems="center"
+              justifyContent="center"
+            >
+              {Icon}
+              <Typography variant="normal" ml="M" maxHeight="1rem">
+                {symbol}
+              </Typography>
+            </Box>
           }
         />
       ))}

@@ -8,7 +8,11 @@
     "error": {
       "pairData": "Failed to fetch pair's data",
       "lowBalance": "You do not have enough {symbol} balance",
-      "pairDoesNotExist": "The pair with address {objectId} does not exist"
+      "pairDoesNotExist": "The pair with address {objectId} does not exist",
+      "unableToAdd": "Unable to add 0 liquidity",
+      "notEnough": "Not enough coins",
+      "failed": "Failed to add liquidity",
+      "cannotWithdraw": "Cannot withdraw 0 lp tokens"
     }
   }
 }

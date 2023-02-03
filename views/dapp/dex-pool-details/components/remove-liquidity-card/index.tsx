@@ -15,10 +15,9 @@ import RemoveLiquidityCardContent from './remove-liquidity-card-content';
 
 const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
   tokens,
-  isStable,
   lpToken,
-  isFetchingInitialData,
   refetch,
+  isStable,
 }) => {
   const t = useTranslations();
 
@@ -62,14 +61,13 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
         }
       />
       <RemoveLiquidityCardContent
-        isStable={isStable}
-        refetch={refetch}
         tokens={tokens}
-        isFetchingInitialData={isFetchingInitialData}
-        lpAmountControl={control}
-        resetLpAmount={resetLpAmount}
-        getLpAmount={getLpAmount}
         lpToken={lpToken}
+        refetch={refetch}
+        isStable={isStable}
+        lpAmountControl={control}
+        getLpAmount={getLpAmount}
+        resetLpAmount={resetLpAmount}
       />
     </Box>
   );

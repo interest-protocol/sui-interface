@@ -1,14 +1,13 @@
 import dynamic from 'next/dynamic';
-import { find, isEmpty, pathOr, propEq } from 'ramda';
+import { isEmpty, pathOr } from 'ramda';
 import { FC, useState } from 'react';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { useWatch } from 'react-hook-form';
 
-import { DEX_TOKENS_DATA } from '@/constants';
 import { Box } from '@/elements';
 import { useLocalStorage, useWeb3 } from '@/hooks';
-import { FixedPointMath, TOKEN_SYMBOL } from '@/sdk';
+import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import { formatMoney, ZERO_BIG_NUMBER } from '@/utils';
 
@@ -16,27 +15,13 @@ import SwapSelectCurrency from '../components/swap-select-currency';
 import InputBalance from './input-balance';
 import SettingsModal from './settings';
 import { ISwapSettingsForm } from './settings/settings.types';
+import { ETH, SUI } from './swap.data';
 import { useGetVolatilePools } from './swap.hooks';
 import {
   ISwapForm,
   LocalSwapSettings,
   OnSelectCurrencyData,
 } from './swap.types';
-
-const DEFAULT_UNKNOWN_DATA = {
-  symbol: '???',
-  name: 'Unknown',
-  decimals: 0,
-  type: '',
-};
-
-const SUI =
-  find(propEq('symbol', TOKEN_SYMBOL.SUI), DEX_TOKENS_DATA) ??
-  DEFAULT_UNKNOWN_DATA;
-
-const ETH =
-  find(propEq('symbol', TOKEN_SYMBOL.ETH), DEX_TOKENS_DATA) ??
-  DEFAULT_UNKNOWN_DATA;
 
 const SwapManager = dynamic(() => import('./swap-manager'));
 const SwapButton = dynamic(() => import('./swap-button'));

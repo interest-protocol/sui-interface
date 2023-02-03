@@ -36,7 +36,7 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
       const lpAmount = getLpAmount();
 
       if (!+lpAmount || !objectIds.length)
-        throw new Error('Cannot withdraw 0 lp tokens');
+        throw new Error(t('dexPoolPair.error.cannotWithdraw'));
 
       const tx = await signAndExecuteTransaction({
         kind: 'moveCall',

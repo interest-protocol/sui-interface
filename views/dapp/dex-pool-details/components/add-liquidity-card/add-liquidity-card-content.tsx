@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
-import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
 
 import { Box, Button } from '@/elements';
@@ -41,32 +40,30 @@ const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
         />
       ))}
       <WalletGuardButton>
-        <Box display="grid" gridColumnGap="1rem" gridTemplateColumns="1fr 1fr">
-          {fetchingInitialData && (
-            <Box width="200%" mx="auto" cursor="pointer">
-              <Skeleton height="2rem" width="100%" borderRadius="L" />
-            </Box>
-          )}
-          <>
-            <Button
-              width="100%"
-              variant="neutral"
-              disabled={fetchingInitialData}
-              onClick={() => {
-                setValue('token0Amount', '0.0');
-                setValue('token1Amount', '0.0');
-                setValue('token0InputLocked', false);
-                setValue('token1InputLocked', false);
-              }}
-            >
-              {capitalize(t('common.reset'))}
-            </Button>
-            <AddLiquidityButton
-              tokens={tokens}
-              refetch={refetch}
-              getValues={getValues}
-            />
-          </>
+        <Box
+          mt="L"
+          display="grid"
+          gridColumnGap="1rem"
+          gridTemplateColumns="1fr 1fr"
+        >
+          <Button
+            width="100%"
+            variant="neutral"
+            disabled={fetchingInitialData}
+            onClick={() => {
+              setValue('token0Amount', '0.0');
+              setValue('token1Amount', '0.0');
+              setValue('token0InputLocked', false);
+              setValue('token1InputLocked', false);
+            }}
+          >
+            {capitalize(t('common.reset'))}
+          </Button>
+          <AddLiquidityButton
+            tokens={tokens}
+            refetch={refetch}
+            getValues={getValues}
+          />
         </Box>
       </WalletGuardButton>
     </>
