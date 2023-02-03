@@ -36,7 +36,7 @@ const SwapManager: FC<SwapManagerProps> = ({
   setTokenOutIsOpenModal,
 }) => {
   const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
-  const [tokenIn] = useDebounce(useWatch({ control, name: 'tokenIn' }), 1200);
+  const [tokenIn] = useDebounce(useWatch({ control, name: 'tokenIn' }), 900);
 
   const { data: volatilePoolsMap } = useGetVolatilePools();
 
@@ -53,7 +53,7 @@ const SwapManager: FC<SwapManagerProps> = ({
       provider.devInspectTransaction.name
     ),
     async () => {
-      if (!devInspectTransactionPayload) return;
+      if (!devInspectTransactionPayload || !account || !+tokenIn.value) return;
       setIsFetchingSwapAmount(true);
 
       return provider.devInspectTransaction(
@@ -62,8 +62,6 @@ const SwapManager: FC<SwapManagerProps> = ({
       );
     },
     {
-      isPaused: () =>
-        !account || !+tokenIn.value || !devInspectTransactionPayload,
       onSuccess: (data) => {
         setIsFetchingSwapAmount(false);
         const amount = findSwapAmountOutput(data, tokenOutType);
