@@ -1,7 +1,7 @@
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { isEmpty } from 'ramda';
+import { isEmpty, prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import {
@@ -12,7 +12,7 @@ import {
 import { Button } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
-import { capitalize, getCoinIds, showTXSuccessToast } from '@/utils';
+import { capitalize, getCoinIds, showToast, showTXSuccessToast } from '@/utils';
 
 import { AddLiquidityCardButtonProps } from './add-liquidity-card.types';
 
@@ -71,7 +71,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
             amount0.toString(),
             amount1.toString(),
             true,
-            0,
+            '0',
           ],
         },
       });
@@ -84,12 +84,19 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
     }
   };
 
+  const addLiquidity = () =>
+    showToast(handleAddLiquidity(), {
+      loading: `Loading`,
+      success: capitalize(t('common.success')),
+      error: prop('message'),
+    });
+
   return (
     <Button
       width="100%"
       variant="primary"
       disabled={loading}
-      onClick={handleAddLiquidity}
+      onClick={addLiquidity}
       hover={{ bg: loading ? 'disabled' : 'accentActive' }}
     >
       {capitalize(t('common.add', { isLoading: Number(loading) }))}
