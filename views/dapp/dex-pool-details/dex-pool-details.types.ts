@@ -6,7 +6,6 @@ export interface LiquidityDetailsCardLineProps {
   value: string;
   symbol: string;
   type: string;
-  isFetchingInitialData: boolean;
 }
 
 export interface LiquidityDetailsCardProps {
