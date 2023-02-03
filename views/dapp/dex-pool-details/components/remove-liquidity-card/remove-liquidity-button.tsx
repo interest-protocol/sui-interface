@@ -5,7 +5,8 @@ import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import { DEX_PACKAGE_ID, DEX_STORAGE_VOLATILE } from '@/constants';
-import { Button } from '@/elements';
+import { Box, Button } from '@/elements';
+import { LoadingSVG } from '@/svg';
 import { showToast, showTXSuccessToast } from '@/utils';
 import { capitalize } from '@/utils';
 
@@ -77,11 +78,23 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
       width="100%"
       variant="primary"
       disabled={disabled}
-      hover={{ bg: disabled ? 'disabled' : 'errorActive' }}
-      bg={disabled ? 'disabled' : 'error'}
       onClick={removeLiquidity}
+      bg={disabled ? 'disabled' : 'error'}
+      hover={{ bg: disabled ? 'disabled' : 'errorActive' }}
     >
-      {capitalize(t('common.remove', { isLoading: Number(loading) }))}
+      {capitalize(t('common.remove', { isLoading: Number(loading) }))}{' '}
+      {loading && (
+        <Box
+          ml="M"
+          as="span"
+          height="1rem"
+          alignItems="center"
+          display="inline-flex"
+          justifyContent="center"
+        >
+          <LoadingSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+        </Box>
+      )}
     </Button>
   );
 };

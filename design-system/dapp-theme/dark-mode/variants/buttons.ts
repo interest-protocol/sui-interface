@@ -6,15 +6,17 @@ import colors from '../colors';
 const primary = css`
   border: none;
   outline: none;
-  line-height: 0;
+  display: flex;
   cursor: pointer;
+  align-items: flex;
   font-weight: bold;
   position: relative;
   border-radius: 2rem;
+  justify-content: flex;
   color: ${colors.text};
   display: inline-block;
-  padding: 1.3rem ${space.XL};
   background: ${colors.accent};
+  padding: ${space.L} ${space.XL};
   transition: background-color 300ms, color 200ms, width 300ms;
   &:hover {
     background: ${colors.accentActive};
@@ -31,13 +33,15 @@ const primary = css`
 const secondary = css`
   border: none;
   outline: none;
-  line-height: 0;
+  display: flex;
   cursor: pointer;
+  align-items: flex;
   position: relative;
   border-radius: 2rem;
   color: ${colors.text};
+  justify-content: flex;
   display: inline-block;
-  padding: 1.3rem ${space.XL};
+  padding: ${space.L} ${space.XL};
   background: ${colors.accentSoft};
   border: 1px solid ${colors.accentActive};
   transition: background-color 300ms, color 200ms, width 300ms;
@@ -56,12 +60,14 @@ const secondary = css`
 
 const tertiary = css`
   outline: none;
-  line-height: 0;
+  display: flex;
   cursor: pointer;
   font-weight: bold;
+  align-items: flex;
   position: relative;
   border-radius: 2rem;
   display: inline-block;
+  justify-content: flex;
   background: transparent;
   padding: 1.3rem ${space.XL};
   color: ${colors.accentActive};
@@ -83,14 +89,16 @@ const tertiary = css`
 const neutral = css`
   border: none;
   outline: none;
-  line-height: 0;
+  display: flex;
   cursor: pointer;
   font-weight: bold;
+  align-items: flex;
   position: relative;
   border-radius: 2rem;
   display: inline-block;
-  padding: 1.3rem ${space.XL};
+  justify-content: flex;
   color: ${colors.textInverted};
+  padding: ${space.L} ${space.XL};
   background: ${colors.textSecondary};
   transition: background-color 300ms, color 200ms, width 300ms;
   &:hover {

@@ -82,7 +82,7 @@ const InputBalance: FC<InputBalanceProps> = ({
         Suffix={
           !!max && (
             <Button
-              px="M"
+              p="M"
               fontSize="S"
               height="2.7rem"
               minWidth="2.7rem"

@@ -58,9 +58,10 @@ const InputBalance: FC<InputBalanceProps> = ({
         Prefix={
           <>
             <Button
-              px="M"
+              p="NONE"
               fontSize="S"
-              height="100%"
+              width="2.4rem"
+              height="2.4rem"
               variant="primary"
               disabled={disabled}
               onClick={() => {

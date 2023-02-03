@@ -51,7 +51,6 @@ const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
             <Button
               width="100%"
               variant="neutral"
-              bg="bottomBackground"
               disabled={fetchingInitialData}
               onClick={() => {
                 setValue('token0Amount', '0.0');

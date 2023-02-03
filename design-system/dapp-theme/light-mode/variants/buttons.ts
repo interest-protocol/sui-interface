@@ -6,14 +6,16 @@ import colors from '../colors';
 const primary = css`
   border: none;
   outline: none;
-  line-height: 0;
+  display: flex;
   cursor: pointer;
   font-weight: bold;
   position: relative;
+  align-items: center;
   border-radius: 2rem;
   display: inline-block;
+  justify-content: center;
   color: ${colors.background};
-  padding: 1.3rem ${space.XL};
+  padding: ${space.L} ${space.XL};
   background: ${colors.accentActive};
   transition: background-color 300ms, color 200ms, width 300ms;
   &:hover {
@@ -31,13 +33,15 @@ const primary = css`
 const secondary = css`
   border: none;
   outline: none;
-  line-height: 0;
+  display: flex;
   cursor: pointer;
   position: relative;
   border-radius: 2rem;
+  align-items: center;
   display: inline-block;
-  padding: 1.3rem ${space.XL};
+  justify-content: center;
   color: ${colors.accentActive};
+  padding: ${space.L} ${space.XL};
   background: ${colors.accentSoft};
   border: 1px solid ${colors.accentActive};
   transition: background-color 300ms, color 200ms, width 300ms;
@@ -56,15 +60,17 @@ const secondary = css`
 
 const tertiary = css`
   outline: none;
-  line-height: 0;
+  display: flex;
   cursor: pointer;
   font-weight: bold;
   position: relative;
   border-radius: 2rem;
+  align-items: center;
   display: inline-block;
+  justify-content: center;
   background: transparent;
-  padding: 1.3rem ${space.XL};
   color: ${colors.accentActive};
+  padding: ${space.L} ${space.XL};
   border: 1px solid ${colors.accentActive};
   transition: background-color 300ms, color 200ms, width 300ms;
   &:hover {
@@ -83,14 +89,16 @@ const tertiary = css`
 const neutral = css`
   border: none;
   outline: none;
-  line-height: 0;
+  display: flex;
   cursor: pointer;
   font-weight: bold;
   position: relative;
   border-radius: 2rem;
+  align-items: center;
   display: inline-block;
-  padding: 1.3rem ${space.XL};
+  justify-content: center;
   color: ${colors.textInverted};
+  padding: ${space.L} ${space.XL};
   background: ${colors.textSecondary};
   transition: background-color 300ms, color 200ms, width 300ms;
   &:hover {

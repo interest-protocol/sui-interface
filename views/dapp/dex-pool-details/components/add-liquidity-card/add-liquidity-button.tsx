@@ -9,17 +9,18 @@ import {
   DEX_STORAGE_STABLE,
   DEX_STORAGE_VOLATILE,
 } from '@/constants';
-import { Button } from '@/elements';
+import { Box, Button } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
+import { LoadingSVG } from '@/svg';
 import { capitalize, getCoinIds, showTXSuccessToast } from '@/utils';
 
 import { AddLiquidityCardButtonProps } from './add-liquidity-card.types';
 
 const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
   tokens,
-  getValues,
   refetch,
+  getValues,
 }) => {
   const [loading, setLoading] = useState(false);
   const t = useTranslations();
@@ -87,12 +88,26 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
   return (
     <Button
       width="100%"
+      display="flex"
       variant="primary"
       disabled={loading}
+      alignItems="center"
+      justifyContent="center"
       onClick={handleAddLiquidity}
-      hover={{ bg: loading ? 'disabled' : 'accentActive' }}
     >
       {capitalize(t('common.add', { isLoading: Number(loading) }))}
+      {loading && (
+        <Box
+          ml="M"
+          as="span"
+          height="1rem"
+          alignItems="center"
+          display="inline-flex"
+          justifyContent="center"
+        >
+          <LoadingSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+        </Box>
+      )}
     </Button>
   );
 };
