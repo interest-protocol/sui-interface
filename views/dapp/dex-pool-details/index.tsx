@@ -29,7 +29,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
     mutate,
     error: web3Error,
   } = useWeb3();
-  const { error, isLoading, data: volatilePool } = useGetVolatilePool(objectId);
+  const { error, data: volatilePool } = useGetVolatilePool(objectId);
 
   const { currentLocale } = useLocale();
 
@@ -162,13 +162,11 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
               type: token0.type,
               symbol: token0.symbol,
               value: volatilePool.token0Balance,
-              isFetchingInitialData: isLoading,
             },
             {
               type: token1.type,
               symbol: token1.symbol,
               value: volatilePool.token1Balance,
-              isFetchingInitialData: isLoading,
             },
           ]}
         />
