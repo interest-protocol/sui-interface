@@ -3,6 +3,7 @@ import { find, isEmpty, pathOr, propEq } from 'ramda';
 import { FC, useState } from 'react';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
+import { useWatch } from 'react-hook-form';
 
 import { DEX_TOKENS_DATA } from '@/constants';
 import { Box } from '@/elements';
@@ -44,8 +45,6 @@ const Swap: FC = () => {
   const [disabled, setDisabled] = useState(false);
   const { coinsMap, mutate, account } = useWeb3();
   const { data: volatilePoolsMap } = useGetVolatilePools();
-  const [tokenInType, setTokenInType] = useState(SUI.type);
-  const [tokenOutType, setTokenOutType] = useState(ETH.type);
   const [isTokenInOpenModal, setTokenInIsOpenModal] = useState(false);
   const [isTokenOutOpenModal, setTokenOutIsOpenModal] = useState(false);
 
@@ -85,27 +84,13 @@ const Swap: FC = () => {
     },
   });
 
-  const flipTokens = useCallback(() => {
-    const aux = tokenOutType;
+  const flipTokens = () => {
+    const tokenIn = getValues('tokenIn');
+    const tokenOut = getValues('tokenOut');
 
-    setTokenOutType(() => {
-      setValue('tokenOut', {
-        ...(find(propEq('type', tokenInType), DEX_TOKENS_DATA) ??
-          DEFAULT_UNKNOWN_DATA),
-        value: '0.0',
-      });
-
-      setTokenInType(() => {
-        setValue('tokenIn', {
-          ...(find(propEq('type', aux), DEX_TOKENS_DATA) ??
-            DEFAULT_UNKNOWN_DATA),
-          value: '0.0',
-        });
-        return aux;
-      });
-      return tokenInType;
-    });
-  }, []);
+    setValue('tokenIn', tokenOut);
+    setValue('tokenOut', tokenIn);
+  };
 
   const onSelectCurrency =
     (name: 'tokenIn' | 'tokenOut') =>
@@ -117,10 +102,10 @@ const Swap: FC = () => {
       setValue('tokenIn.value', '0.0');
       isTokenInOpenModal && setTokenInIsOpenModal(false);
       isTokenOutOpenModal && setTokenOutIsOpenModal(false);
-
-      if (name == 'tokenIn') setTokenInType(type);
-      if (name == 'tokenOut') setTokenOutType(type);
     };
+
+  const tokenInType = useWatch({ control, name: 'tokenIn.type' });
+  const tokenOutType = useWatch({ control, name: 'tokenOut.type' });
 
   return (
     <Box
