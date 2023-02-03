@@ -5,7 +5,6 @@ import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
 
 import { Box, Button } from '@/elements';
-import { LineLoaderSVG } from '@/svg';
 import { capitalize } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
@@ -20,17 +19,15 @@ import ErrorLiquidityMessage from './error-liquidity-message';
 const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
   tokens,
   control,
-  loading,
   refetch,
   setValue,
-  setLoading,
+  getValues,
   fetchingInitialData,
 }) => {
   const t = useTranslations();
 
   return (
     <>
-      <Box mb="L">{loading && <LineLoaderSVG width="100%" />}</Box>
       <ErrorLiquidityMessage control={control} />
       {tokens.map(({ symbol, balance, decimals }, index) => (
         <BalanceError
@@ -54,19 +51,21 @@ const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
             <Button
               width="100%"
               variant="neutral"
-              disabled={loading}
+              bg="bottomBackground"
+              disabled={fetchingInitialData}
               onClick={() => {
                 setValue('token0Amount', '0.0');
                 setValue('token1Amount', '0.0');
-                setValue('locked', false);
+                setValue('token0InputLocked', false);
+                setValue('token1InputLocked', false);
               }}
             >
               {capitalize(t('common.reset'))}
             </Button>
             <AddLiquidityButton
+              tokens={tokens}
               refetch={refetch}
-              setLoading={setLoading}
-              loading={loading || fetchingInitialData}
+              getValues={getValues}
             />
           </>
         </Box>

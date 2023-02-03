@@ -37,7 +37,13 @@ const InputBalance: FC<InputBalanceProps> = ({
               name,
               parseInputEventToNumberString(v, balance ? +balance : undefined)
             );
-            setValue('locked', false);
+            if (name === 'token0Amount') {
+              setValue('token0InputLocked', true);
+              setValue('token1InputLocked', false);
+            } else {
+              setValue('token1InputLocked', true);
+              setValue('token0InputLocked', false);
+            }
           },
         })}
         shieldProps={{
@@ -66,7 +72,13 @@ const InputBalance: FC<InputBalanceProps> = ({
               onClick={() => {
                 if (disabled || !setValue) return;
                 setValue(name, balance);
-                setValue('locked', false);
+                if (name === 'token0Amount') {
+                  setValue('token0InputLocked', true);
+                  setValue('token1InputLocked', false);
+                } else {
+                  setValue('token1InputLocked', true);
+                  setValue('token0InputLocked', false);
+                }
               }}
             >
               max

@@ -5,6 +5,7 @@ export * from './date';
 export * from './locales';
 export * from './number';
 export * from './parse';
+export * from './pools';
 export * from './promise';
 export * from './provider';
 export * from './string';

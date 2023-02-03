@@ -175,6 +175,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
         <AddLiquidityCard
           fetchingInitialData={isFetchingCoinBalances}
           tokens={addLiquidityTokens}
+          pool={volatilePool}
           refetch={async () => {
             await mutate();
           }}
