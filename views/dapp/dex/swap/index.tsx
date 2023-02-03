@@ -1,5 +1,6 @@
-import { find, pathOr, propEq } from 'ramda';
-import { FC, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
+import { find, isEmpty, pathOr, propEq } from 'ramda';
+import { FC, useState } from 'react';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -14,12 +15,12 @@ import SwapSelectCurrency from '../components/swap-select-currency';
 import InputBalance from './input-balance';
 import SettingsModal from './settings';
 import { ISwapSettingsForm } from './settings/settings.types';
+import { useGetVolatilePools } from './swap.hooks';
 import {
   ISwapForm,
   LocalSwapSettings,
   OnSelectCurrencyData,
 } from './swap.types';
-import SwapManager from './swap-manager';
 
 const DEFAULT_UNKNOWN_DATA = {
   symbol: '???',
@@ -36,9 +37,13 @@ const ETH =
   find(propEq('symbol', TOKEN_SYMBOL.ETH), DEX_TOKENS_DATA) ??
   DEFAULT_UNKNOWN_DATA;
 
+const SwapManager = dynamic(() => import('./swap-manager'));
+const SwapButton = dynamic(() => import('./swap-button'));
+
 const Swap: FC = () => {
-  const isMounted = useRef<HTMLDivElement>(null);
+  const [disabled, setDisabled] = useState(false);
   const { coinsMap, mutate, account } = useWeb3();
+  const { data: volatilePoolsMap } = useGetVolatilePools();
   const [tokenInType, setTokenInType] = useState(SUI.type);
   const [tokenOutType, setTokenOutType] = useState(ETH.type);
   const [isTokenInOpenModal, setTokenInIsOpenModal] = useState(false);
@@ -67,20 +72,20 @@ const Swap: FC = () => {
     defaultValues: {
       tokenIn: {
         type: SUI.type,
-        value: '0',
+        value: '0.0',
         decimals: SUI.decimals,
         symbol: SUI.symbol,
       },
       tokenOut: {
         type: ETH.type,
-        value: '0',
+        value: '0.0',
         decimals: ETH.decimals,
         symbol: ETH.symbol,
       },
     },
   });
 
-  const flipTokens = () => {
+  const flipTokens = useCallback(() => {
     const aux = tokenOutType;
 
     setTokenOutType(() => {
@@ -89,17 +94,18 @@ const Swap: FC = () => {
           DEFAULT_UNKNOWN_DATA),
         value: '0.0',
       });
+
+      setTokenInType(() => {
+        setValue('tokenIn', {
+          ...(find(propEq('type', aux), DEX_TOKENS_DATA) ??
+            DEFAULT_UNKNOWN_DATA),
+          value: '0.0',
+        });
+        return aux;
+      });
       return tokenInType;
     });
-
-    setTokenInType(() => {
-      setValue('tokenIn', {
-        ...(find(propEq('type', aux), DEX_TOKENS_DATA) ?? DEFAULT_UNKNOWN_DATA),
-        value: '0.0',
-      });
-      return aux;
-    });
-  };
+  }, []);
 
   const onSelectCurrency =
     (name: 'tokenIn' | 'tokenOut') =>
@@ -135,18 +141,18 @@ const Swap: FC = () => {
           />
         </Box>
       </Box>
-      <Box color="text" width="100%" display="grid" gridGap="1rem">
-        {!isMounted.current ? (
-          <Box
-            my="XXL"
-            width="100%"
-            display="flex"
-            color="accent"
-            justifyContent="center"
-          >
-            <LoadingSVG width="5rem" maxHeight="5rem" maxWidth="5rem" />
-          </Box>
-        ) : (
+      {isEmpty(volatilePoolsMap) ? (
+        <Box
+          my="XXL"
+          width="100%"
+          display="flex"
+          color="accent"
+          justifyContent="center"
+        >
+          <LoadingSVG width="5rem" maxHeight="5rem" maxWidth="5rem" />
+        </Box>
+      ) : (
+        <Box color="text" width="100%" display="grid" gridGap="1rem">
           <Box
             pt="L"
             mb="-1rem"
@@ -213,24 +219,33 @@ const Swap: FC = () => {
               ⥯
             </Box>
           </Box>
-        )}
-        <SwapManager
-          mutate={mutate}
-          control={control}
-          account={account}
-          setValue={setValue}
-          register={register}
-          coinsMap={coinsMap}
-          getValues={getValues}
-          isMountedRef={isMounted}
-          tokenInType={tokenInType}
-          tokenOutType={tokenOutType}
-          slippage={localSettings.slippage}
-          isTokenOutOpenModal={isTokenOutOpenModal}
-          setTokenOutIsOpenModal={setTokenOutIsOpenModal}
-          onSelectCurrency={onSelectCurrency('tokenOut')}
-        />
-      </Box>
+          <SwapManager
+            control={control}
+            account={account}
+            setValue={setValue}
+            register={register}
+            coinsMap={coinsMap}
+            getValues={getValues}
+            setDisabled={setDisabled}
+            tokenInType={tokenInType}
+            tokenOutType={tokenOutType}
+            volatilePoolsMap={volatilePoolsMap}
+            isTokenOutOpenModal={isTokenOutOpenModal}
+            setTokenOutIsOpenModal={setTokenOutIsOpenModal}
+            onSelectCurrency={onSelectCurrency('tokenOut')}
+          />
+          <SwapButton
+            mutate={mutate}
+            control={control}
+            disabled={disabled}
+            coinsMap={coinsMap}
+            getValues={getValues}
+            tokenInType={tokenInType}
+            tokenOutType={tokenOutType}
+            slippage={localSettings.slippage}
+          />
+        </Box>
+      )}
     </Box>
   );
 };
