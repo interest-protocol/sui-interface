@@ -14,11 +14,12 @@ import { Box, Button, Typography } from '@/elements';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import { capitalize, showToast, showTXSuccessToast } from '@/utils';
+import { getCoinIds } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
 import { useGetVolatilePools } from '../swap.hooks';
 import { SwapButtonProps } from '../swap.types';
-import { findMarket, getAmountMinusSlippage, getCoinIds } from '../swap.utils';
+import { findMarket, getAmountMinusSlippage } from '../swap.utils';
 
 const SwapButton: FC<SwapButtonProps> = ({
   mutate,

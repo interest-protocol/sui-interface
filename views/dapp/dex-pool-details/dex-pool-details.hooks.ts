@@ -4,7 +4,9 @@ import useSWR from 'swr';
 
 import { makeSWRKey, provider } from '@/utils';
 
-const DEFAULT_POOL = {
+import { Pool } from './dex-pool-details.types';
+
+const DEFAULT_POOL: Pool = {
   token0Balance: '0',
   token1Balance: '0',
   lpCoinSupply: '0',
@@ -12,7 +14,7 @@ const DEFAULT_POOL = {
   poolType: '',
 };
 
-const processVolatilePool = (data: undefined | GetObjectDataResponse) => {
+const processVolatilePool = (data: undefined | GetObjectDataResponse): Pool => {
   if (!data) return DEFAULT_POOL;
 
   return {

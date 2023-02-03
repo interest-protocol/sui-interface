@@ -5,7 +5,6 @@ import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
 
 import { Box, Button } from '@/elements';
-import { LineLoaderSVG } from '@/svg';
 import { capitalize } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
@@ -23,14 +22,12 @@ const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
   refetch,
   control,
   setValue,
-  setLoading,
-  loading,
+  getValues,
 }) => {
   const t = useTranslations();
 
   return (
     <>
-      <Box mb="L">{loading && <LineLoaderSVG width="100%" />}</Box>
       <ErrorLiquidityMessage control={control} />
       {tokens.map(({ symbol, balance, decimals }, index) => (
         <BalanceError
@@ -55,20 +52,21 @@ const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
               width="100%"
               variant="primary"
               bg="bottomBackground"
-              disabled={loading}
+              disabled={fetchingInitialData}
               hover={{ bg: 'disabled' }}
               onClick={() => {
                 setValue('token0Amount', '0.0');
                 setValue('token1Amount', '0.0');
-                setValue('locked', false);
+                setValue('token0InputLocked', false);
+                setValue('token1InputLocked', false);
               }}
             >
               {capitalize(t('common.reset'))}
             </Button>
             <AddLiquidityButton
               refetch={refetch}
-              setLoading={setLoading}
-              loading={loading || fetchingInitialData}
+              getValues={getValues}
+              tokens={tokens}
             />
           </>
         </Box>
