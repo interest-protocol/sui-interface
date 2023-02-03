@@ -26,7 +26,6 @@ export interface ButtonProps
     BackgroundProps,
     TypographyProps,
     Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
-  effect?: 'hover';
   hover?: TStyles;
   active?: TStyles;
   cursor?: CSSProperties['cursor'];

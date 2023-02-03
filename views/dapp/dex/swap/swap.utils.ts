@@ -105,8 +105,10 @@ export const getCoinIds = (
   type: string
 ) => {
   if (isEmpty(coinsMap)) return [];
+  const object = coinsMap[type];
+  if (!object) return [];
   if (type === COIN_TYPE[Network.DEVNET].SUI) {
-    const suiObjects = [...coinsMap[type].objects];
+    const suiObjects = [...object.objects];
     const gasObjectIndex = suiObjects
       .sort((a, b) => (+a! > +b! ? 1 : -1))
       .findIndex((elem) =>
@@ -119,18 +121,17 @@ export const getCoinIds = (
       .map((elem) => elem.coinObjectId);
   }
 
-  return coinsMap[type].objects.map((elem) => elem.coinObjectId);
+  return object.objects.map((elem) => elem.coinObjectId);
 };
 
 export const getAmountMinusSlippage = (
   value: BigNumber,
-  slippage: string,
-  decimals: number
+  slippage: string
 ): BigNumber => {
   const slippageBn = FixedPointMath.toBigNumber(+slippage, 3);
   const newAmount = value
     .minus(value.multipliedBy(slippageBn).dividedBy(new BigNumber(100000)))
-    .decimalPlaces(decimals, BigNumber.ROUND_DOWN);
+    .decimalPlaces(0, BigNumber.ROUND_DOWN);
 
   return newAmount.eq(value) ? newAmount.minus(new BigNumber(1)) : newAmount;
 };
@@ -170,9 +171,7 @@ export const getSwapPayload = ({
           DEX_STORAGE_STABLE,
           getCoinIds(coinsMap, firstSwapObject.tokenInType),
           [],
-          amount
-            .decimalPlaces(tokenIn.decimals, BigNumber.ROUND_DOWN)
-            .toString(),
+          amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
           '0',
           '0',
         ],
@@ -199,9 +198,7 @@ export const getSwapPayload = ({
           DEX_STORAGE_STABLE,
           getCoinIds(coinsMap, firstSwapObject.tokenInType),
           [],
-          amount
-            .decimalPlaces(tokenIn.decimals, BigNumber.ROUND_DOWN)
-            .toString(),
+          amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
           '0',
           '0',
         ],

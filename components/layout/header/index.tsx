@@ -33,11 +33,11 @@ const Header: FC = () => {
     <Box>
       <Box bg={dark ? 'bottomBackground' : 'accentActive'} p="L">
         <Typography
+          fontSize="S"
+          fontWeight="600"
           variant="normal"
           textAlign="center"
           color={dark ? 'text' : 'textSoft'}
-          fontSize="S"
-          fontWeight="600"
         >
           {t('common.bannerHeader')}
         </Typography>

@@ -40,7 +40,6 @@ const secondary = css`
   border: 1px solid ${colors.accentActive};
   transition: background-color 300ms, color 200ms, width 300ms;
   &:hover {
-    font-weight: bold;
     color: ${colors.textInverted};
     background: ${colors.accentActive};
   }

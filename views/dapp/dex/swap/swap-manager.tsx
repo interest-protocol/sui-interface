@@ -1,9 +1,12 @@
+import { Network } from '@mysten/sui.js';
+import { BigNumber } from 'bignumber.js';
 import { isEmpty, pathOr } from 'ramda';
 import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import useSWR from 'swr';
 import { useDebounce } from 'use-debounce';
 
+import { COIN_DECIMALS } from '@/constants';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG, TimesSVG } from '@/svg';
 import { formatMoney, makeSWRKey, provider, ZERO_BIG_NUMBER } from '@/utils';
@@ -64,7 +67,14 @@ const SwapManager: FC<SwapManagerProps> = ({
       onSuccess: (data) => {
         setIsFetchingSwapAmount(false);
         const amount = findSwapAmountOutput(data, tokenOutType);
-        setValue('tokenOut.value', Number(amount).toString());
+        setValue(
+          'tokenOut.value',
+          FixedPointMath.toNumber(
+            new BigNumber(amount),
+            COIN_DECIMALS[Network.DEVNET][tokenOutType],
+            COIN_DECIMALS[Network.DEVNET][tokenOutType]
+          ).toString()
+        );
       },
       revalidateOnFocus: true,
       revalidateOnMount: true,

@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Box, Typography } from '@/elements';
+import { getSafeTotalBalance } from '@/utils';
 
 import InputBalance from './input-balance';
 import {
@@ -15,21 +16,22 @@ import RemoveLiquidityCardContent from './remove-liquidity-card-content';
 const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
   tokens,
   isStable,
-  lpBalance,
+  lpToken,
   isFetchingInitialData,
   refetch,
 }) => {
   const t = useTranslations();
 
-  const { register, setValue, control } = useForm<IRemoveLiquidityForm>({
-    defaultValues: {
-      loading: false,
-      removeLoading: false,
-      lpAmount: '0.0',
-      token0Amount: '0.0',
-      token1Amount: '0.0',
-    },
-  });
+  const { register, setValue, control, getValues } =
+    useForm<IRemoveLiquidityForm>({
+      defaultValues: {
+        lpAmount: '0.0',
+      },
+    });
+
+  const resetLpAmount = () => setValue('lpAmount', '0');
+  const getLpAmount = () => getValues('lpAmount');
+  const lpBalance = getSafeTotalBalance(lpToken);
 
   return (
     <Box bg="foreground" p="L" borderRadius="M" width="100%">
@@ -45,7 +47,6 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
       </Box>
       <InputBalance
         name="lpAmount"
-        control={control}
         register={register}
         setValue={setValue}
         balance={lpBalance.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
@@ -61,13 +62,14 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
         }
       />
       <RemoveLiquidityCardContent
-        setValue={setValue}
         isStable={isStable}
-        control={control}
         refetch={refetch}
         tokens={tokens}
         isFetchingInitialData={isFetchingInitialData}
-        lpBalance={lpBalance}
+        lpAmountControl={control}
+        resetLpAmount={resetLpAmount}
+        getLpAmount={getLpAmount}
+        lpToken={lpToken}
       />
     </Box>
   );

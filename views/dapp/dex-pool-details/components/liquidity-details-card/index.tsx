@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -12,6 +13,8 @@ const LiquidityDetailsCard: FC<LiquidityDetailsCardProps> = ({
   isStable,
 }) => {
   const t = useTranslations();
+  const { dark } = useTheme() as { dark: boolean };
+
   return (
     <Box
       p="L"
@@ -34,9 +37,9 @@ const LiquidityDetailsCard: FC<LiquidityDetailsCardProps> = ({
         px="L"
         my="XL"
         color="accent"
-        bg="accentSoft"
         borderRadius="L"
         border="0.09rem solid"
+        bg={dark ? 'background' : 'accentSoft'}
       >
         {lines.map((line) => (
           <LiquidityDetailsCardLine

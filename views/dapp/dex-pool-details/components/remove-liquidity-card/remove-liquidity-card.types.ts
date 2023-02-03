@@ -2,6 +2,8 @@ import BigNumber from 'bignumber.js';
 import { ReactNode } from 'react';
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
+import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
+
 interface TokenData {
   symbol: string;
   Icon: ReactNode;
@@ -12,7 +14,7 @@ interface TokenData {
 export interface RemoveLiquidityCardProps {
   isStable: boolean;
   tokens: TokenData[];
-  lpBalance: BigNumber;
+  lpToken: Web3ManagerSuiObject;
   isFetchingInitialData: boolean;
   refetch: () => Promise<void>;
 }
@@ -20,19 +22,16 @@ export interface RemoveLiquidityCardProps {
 export interface RemoveLiquidityCardContentProps {
   isStable: boolean;
   tokens: TokenData[];
-  lpBalance: BigNumber;
   isFetchingInitialData: boolean;
   refetch: () => Promise<void>;
-  control: Control<IRemoveLiquidityForm>;
-  setValue: UseFormSetValue<IRemoveLiquidityForm>;
+  lpAmountControl: Control<IRemoveLiquidityForm>;
+  resetLpAmount: () => void;
+  getLpAmount: () => string;
+  lpToken: Web3ManagerSuiObject;
 }
 
 export interface IRemoveLiquidityForm {
-  loading: boolean;
-  removeLoading: boolean;
   lpAmount: string;
-  token0Amount: string;
-  token1Amount: string;
 }
 
 export interface InputBalanceProps {
@@ -42,48 +41,34 @@ export interface InputBalanceProps {
   name: keyof IRemoveLiquidityForm;
   register: UseFormRegister<IRemoveLiquidityForm>;
   setValue: UseFormSetValue<IRemoveLiquidityForm>;
-  control: Control<IRemoveLiquidityForm>;
 }
 
 export interface LinearLoaderProps {
-  control: Control<IRemoveLiquidityForm>;
-}
-
-export interface ApproveButtonProps {
-  control: Control<IRemoveLiquidityForm>;
-  symbol0: string;
-  symbol1: string;
+  loading: boolean;
 }
 
 export interface RemoveLiquidityButtonProps {
-  control: Control<IRemoveLiquidityForm>;
-  disabled: boolean;
+  getLpAmount: () => string;
+  token0Amount: BigNumber;
+  token1Amount: BigNumber;
+  refetch: () => Promise<void>;
+  isFetching: boolean;
+  objectIds: ReadonlyArray<string>;
+  token0: TokenData;
+  token1: TokenData;
 }
 
 export interface TokenAmountProps {
   Icon: TokenData['Icon'];
-  control: Control<IRemoveLiquidityForm>;
+  amount: string;
   symbol: string;
-  name: Exclude<keyof IRemoveLiquidityForm, 'lpAmount'>;
   isFetchingInitialData: boolean;
 }
 
-export interface RemoveLiquidityManagerProps {
-  setValue: UseFormSetValue<IRemoveLiquidityForm>;
-  control: Control<IRemoveLiquidityForm>;
-  isStable: boolean;
-  token0Address: string;
-  token1Address: string;
-  token0Decimals: number;
-  token1Decimals: number;
-  chainId: number;
-}
-
-export interface UseRemoveLiquidityArgs {
-  tokens: TokenData[];
-  control: Control<IRemoveLiquidityForm>;
-  lpBalance: string;
-  chainId: number;
-  account: string;
-  isStable: boolean;
+export interface UseGetRemoveLiquidityAmountsArgs {
+  lpAmount: string;
+  token0Type: string;
+  token1Type: string;
+  account: string | null;
+  objectIds: ReadonlyArray<string>;
 }

@@ -75,7 +75,7 @@ const InputBalance: FC<InputBalanceProps> = ({
             ? 'bottomBackground'
             : 'background',
           hover: !disabled && {
-            borderColor: 'accentBackground',
+            borderColor: 'accentActive',
           },
         }}
         Prefix={currencySelector}
