@@ -29,12 +29,13 @@ const SwapButton: FC<SwapButtonProps> = ({
   disabled,
   getValues,
   tokenInType,
+  isMountedRef,
   tokenOutType,
 }) => {
-  const { signAndExecuteTransaction } = useWalletKit();
-  const { data } = useGetVolatilePools();
   const t = useTranslations();
+  const { data } = useGetVolatilePools();
   const [loading, setLoading] = useState(false);
+  const { signAndExecuteTransaction } = useWalletKit();
 
   const tokenInValue = useWatch({ control, name: 'tokenIn.value' });
 
@@ -146,33 +147,40 @@ const SwapButton: FC<SwapButtonProps> = ({
     });
 
   return (
-    <WalletGuardButton>
-      <Button
-        mt="L"
-        width="100%"
-        variant="primary"
-        onClick={swap}
-        disabled={loading || isDisabled}
-        hover={{
-          bg: loading || isDisabled ? 'disabled' : 'accentAlternativeActive',
-        }}
-        cursor={loading ? 'progress' : isDisabled ? 'not-allowed' : 'pointer'}
-        bg={loading || isDisabled ? 'disabled' : 'accentAlternative'}
-      >
-        {loading ? (
-          <Box as="span" display="flex" justifyContent="center">
-            <Box as="span" display="inline-block" width="1rem">
-              <LoadingSVG width="100%" maxHeight="1rem" maxWidth="1rem" />
-            </Box>
-            <Typography as="span" variant="normal" ml="M" fontSize="S">
-              {capitalize(t('common.loading'))}
-            </Typography>
-          </Box>
-        ) : (
-          t('dexSwap.buttonText')
-        )}
-      </Button>
-    </WalletGuardButton>
+    <div ref={isMountedRef}>
+      {isMountedRef.current && (
+        <WalletGuardButton>
+          <Button
+            mt="L"
+            width="100%"
+            variant="primary"
+            onClick={swap}
+            disabled={loading || isDisabled}
+            hover={{
+              bg:
+                loading || isDisabled ? 'disabled' : 'accentAlternativeActive',
+            }}
+            cursor={
+              loading ? 'progress' : isDisabled ? 'not-allowed' : 'pointer'
+            }
+            bg={loading || isDisabled ? 'disabled' : 'accentAlternative'}
+          >
+            {loading ? (
+              <Box as="span" display="flex" justifyContent="center">
+                <Box as="span" display="inline-block" width="1rem">
+                  <LoadingSVG width="100%" maxHeight="1rem" maxWidth="1rem" />
+                </Box>
+                <Typography as="span" variant="normal" ml="M" fontSize="S">
+                  {capitalize(t('common.loading'))}
+                </Typography>
+              </Box>
+            ) : (
+              t('dexSwap.buttonText')
+            )}
+          </Button>
+        </WalletGuardButton>
+      )}
+    </div>
   );
 };
 

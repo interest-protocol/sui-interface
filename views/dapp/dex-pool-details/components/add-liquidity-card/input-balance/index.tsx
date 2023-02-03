@@ -30,7 +30,7 @@ const InputBalance: FC<InputBalanceProps> = ({
         type="text"
         onFocus={onFocus}
         placeholder="0.0"
-        disabled={disabled}
+        disabled={disabled || false}
         {...register(name, {
           onChange: (v: ChangeEvent<HTMLInputElement>) => {
             setValue?.(
@@ -56,7 +56,7 @@ const InputBalance: FC<InputBalanceProps> = ({
           border: '1px solid',
           borderRadius: '2rem',
           borderColor: 'transparent',
-          opacity: disabled ? 0.7 : 1,
+          opacity: disabled == undefined ? 1 : disabled ? 0.7 : 1,
           hover: {
             borderColor: 'accentActive',
           },
@@ -68,7 +68,7 @@ const InputBalance: FC<InputBalanceProps> = ({
               fontSize="S"
               height="100%"
               variant="primary"
-              disabled={disabled}
+              disabled={disabled || false}
               onClick={() => {
                 if (disabled || !setValue) return;
                 setValue(name, balance);

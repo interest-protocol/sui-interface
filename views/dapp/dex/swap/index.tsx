@@ -1,5 +1,5 @@
 import { find, pathOr, propEq } from 'ramda';
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -37,7 +37,7 @@ const ETH =
   DEFAULT_UNKNOWN_DATA;
 
 const Swap: FC = () => {
-  const [ready, setReady] = useState(false);
+  const isMounted = useRef<HTMLDivElement>(null);
   const { coinsMap, mutate, account } = useWeb3();
   const [tokenInType, setTokenInType] = useState(SUI.type);
   const [tokenOutType, setTokenOutType] = useState(ETH.type);
@@ -136,7 +136,7 @@ const Swap: FC = () => {
         </Box>
       </Box>
       <Box color="text" width="100%" display="grid" gridGap="1rem">
-        {!ready ? (
+        {!isMounted.current ? (
           <Box
             my="XXL"
             width="100%"
@@ -218,11 +218,11 @@ const Swap: FC = () => {
           mutate={mutate}
           control={control}
           account={account}
-          setReady={setReady}
           setValue={setValue}
           register={register}
           coinsMap={coinsMap}
           getValues={getValues}
+          isMountedRef={isMounted}
           tokenInType={tokenInType}
           tokenOutType={tokenOutType}
           slippage={localSettings.slippage}

@@ -48,38 +48,38 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
           {t('dexPoolPair.addLiquidity')}
         </Typography>
       </Box>
-      {/*{tokens.map(({ balance, Icon, symbol, decimals }, index) => (*/}
-      {/*  <InputBalance*/}
-      {/*    key={v4()}*/}
-      {/*    register={register}*/}
-      {/*    setValue={setValue}*/}
-      {/*    name={INPUT_NAMES[index]}*/}
-      {/*    balance={balance.decimalPlaces(decimals).toString()}*/}
-      {/*    currencyPrefix={*/}
-      {/*      fetchingInitialData ? (*/}
-      {/*        <Box height="1rem" display="flex" borderRadius="2rem">*/}
-      {/*          <Skeleton height="1rem" width="1rem" borderRadius="2rem" />*/}
-      {/*          <Box width="2.5rem" ml="L">*/}
-      {/*            <Skeleton />*/}
-      {/*          </Box>*/}
-      {/*        </Box>*/}
-      {/*      ) : (*/}
-      {/*        <Box*/}
-      {/*          display="flex"*/}
-      {/*          width="4.5rem"*/}
-      {/*          maxHeight="1rem"*/}
-      {/*          alignItems="center"*/}
-      {/*          justifyContent="center"*/}
-      {/*        >*/}
-      {/*          {Icon}*/}
-      {/*          <Typography variant="normal" ml="M" maxHeight="1rem">*/}
-      {/*            {symbol}*/}
-      {/*          </Typography>*/}
-      {/*        </Box>*/}
-      {/*      )*/}
-      {/*    }*/}
-      {/*  />*/}
-      {/*))}*/}
+      {tokens.map(({ balance, Icon, symbol, decimals }, index) => (
+        <InputBalance
+          key={v4()}
+          register={register}
+          setValue={setValue}
+          name={INPUT_NAMES[index]}
+          balance={balance.decimalPlaces(decimals).toString()}
+          currencyPrefix={
+            fetchingInitialData ? (
+              <Box height="1rem" display="flex" borderRadius="2rem">
+                <Skeleton height="1rem" width="1rem" borderRadius="2rem" />
+                <Box width="2.5rem" ml="L">
+                  <Skeleton />
+                </Box>
+              </Box>
+            ) : (
+              <Box
+                display="flex"
+                width="4.5rem"
+                maxHeight="1rem"
+                alignItems="center"
+                justifyContent="center"
+              >
+                {Icon}
+                <Typography variant="normal" ml="M" maxHeight="1rem">
+                  {symbol}
+                </Typography>
+              </Box>
+            )
+          }
+        />
+      ))}
       <AddLiquidityCardContent
         tokens={tokens}
         refetch={refetch}

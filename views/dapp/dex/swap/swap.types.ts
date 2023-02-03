@@ -1,6 +1,6 @@
 import { SuiObjectInfo } from '@mysten/sui.js';
 import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, RefObject, SetStateAction } from 'react';
 import {
   Control,
   UseFormGetValues,
@@ -38,9 +38,10 @@ export interface SwapButtonProps {
   tokenInType: string;
   tokenOutType: string;
   control: Control<ISwapForm>;
-  mutate: KeyedMutator<PaginatedCoins | undefined>;
   getValues: UseFormGetValues<ISwapForm>;
   coinsMap: Web3ManagerState['coinsMap'];
+  isMountedRef: RefObject<HTMLDivElement>;
+  mutate: KeyedMutator<PaginatedCoins | undefined>;
 }
 
 export interface SwapManagerProps extends Omit<SwapButtonProps, 'disabled'> {
@@ -48,7 +49,6 @@ export interface SwapManagerProps extends Omit<SwapButtonProps, 'disabled'> {
   isTokenOutOpenModal: boolean;
   register: UseFormRegister<ISwapForm>;
   setValue: UseFormSetValue<ISwapForm>;
-  setReady: Dispatch<SetStateAction<boolean>>;
   setTokenOutIsOpenModal: Dispatch<SetStateAction<boolean>>;
   onSelectCurrency: (data: OnSelectCurrencyData) => void;
 }

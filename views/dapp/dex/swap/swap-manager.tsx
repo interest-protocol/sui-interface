@@ -27,10 +27,10 @@ const SwapManager: FC<SwapManagerProps> = ({
   slippage,
   register,
   setValue,
-  setReady,
   getValues,
   tokenInType,
   tokenOutType,
+  isMountedRef,
   onSelectCurrency,
   isTokenOutOpenModal,
   setTokenOutIsOpenModal,
@@ -92,33 +92,33 @@ const SwapManager: FC<SwapManagerProps> = ({
     tokenInType === tokenOutType ||
     hasNoMarket;
 
-  setReady(true);
-
   return (
     <>
-      <InputBalance
-        disabled
-        name="tokenOut"
-        register={register}
-        setValue={setValue}
-        balance={formatMoney(
-          FixedPointMath.toNumber(
-            pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
-            pathOr(0, [tokenOutType, 'decimals'], coinsMap)
-          )
-        )}
-        currencySelector={
-          <SwapSelectCurrency
-            tokens={coinsMap}
-            currentToken={tokenOutType}
-            isModalOpen={isTokenOutOpenModal}
-            type={getValues('tokenOut.type')}
-            onSelectCurrency={onSelectCurrency}
-            symbol={getValues('tokenOut.symbol')}
-            setIsModalOpen={setTokenOutIsOpenModal}
-          />
-        }
-      />
+      {isMountedRef.current && (
+        <InputBalance
+          disabled
+          name="tokenOut"
+          register={register}
+          setValue={setValue}
+          balance={formatMoney(
+            FixedPointMath.toNumber(
+              pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
+              pathOr(0, [tokenOutType, 'decimals'], coinsMap)
+            )
+          )}
+          currencySelector={
+            <SwapSelectCurrency
+              tokens={coinsMap}
+              currentToken={tokenOutType}
+              isModalOpen={isTokenOutOpenModal}
+              type={getValues('tokenOut.type')}
+              onSelectCurrency={onSelectCurrency}
+              symbol={getValues('tokenOut.symbol')}
+              setIsModalOpen={setTokenOutIsOpenModal}
+            />
+          }
+        />
+      )}
       {isFetchingSwapAmount && (
         <SwapMessage
           Icon={LoadingSVG}
@@ -154,6 +154,7 @@ const SwapManager: FC<SwapManagerProps> = ({
         coinsMap={coinsMap}
         getValues={getValues}
         tokenInType={tokenInType}
+        isMountedRef={isMountedRef}
         tokenOutType={tokenOutType}
       />
     </>
