@@ -27,14 +27,13 @@ const Field: FC<FieldProps> = ({
       shieldProps={{
         p: 'S',
         my: 'M',
-        height: '3rem',
         bg: 'background',
-        borderRadius: 'M',
         overflow: 'visible',
         border: '1px solid',
+        borderRadius: '2rem',
         borderColor: 'transparent',
         hover: {
-          borderColor: 'accentBackground',
+          borderColor: 'accentActive',
         },
       }}
       Prefix={prefix}

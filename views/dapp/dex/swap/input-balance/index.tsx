@@ -84,8 +84,8 @@ const InputBalance: FC<InputBalanceProps> = ({
             <Button
               px="M"
               fontSize="S"
-              minWidth="2.7rem"
               height="2.7rem"
+              minWidth="2.7rem"
               variant="secondary"
               bg="accentActive"
               color={dark ? 'text' : 'textInverted'}

@@ -62,14 +62,10 @@ const SettingsDropdown: FC<SettingsDropdownProps> = ({
           <Button
             p="S"
             display="flex"
-            bg="transparent"
-            variant="secondary"
+            variant="tertiary"
             alignItems="center"
             justifyContent="center"
             onClick={onRequestClose}
-            hover={{
-              bg: 'background',
-            }}
           >
             <TimesSVG width="1.5rem" maxHeight="1.5rem" maxWidth="1.5rem" />
           </Button>
@@ -94,10 +90,8 @@ const SettingsDropdown: FC<SettingsDropdownProps> = ({
                 px="M"
                 fontSize="S"
                 height="100%"
-                variant="secondary"
-                bg="accent"
-                hover={{ bg: 'accent' }}
-                active={{ bg: 'accentActive' }}
+                variant="primary"
+                fontWeight="normal"
                 onClick={() => {
                   setValue('slippage', '0.1');
                 }}

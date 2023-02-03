@@ -42,9 +42,9 @@ const SwapManager: FC<SwapManagerProps> = ({
 
   const devInspectTransactionPayload = getSwapPayload({
     tokenIn,
+    coinsMap,
     tokenOutType,
     volatilesPools: volatilePoolsMap,
-    coinsMap,
   });
 
   const { error } = useSWR(

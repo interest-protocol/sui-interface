@@ -116,16 +116,18 @@ const SwapCurrencyDropdown: FC<SwapCurrencyDropdownProps> = ({
       <Box display="flex" justifyContent="flex-end">
         <Box display="flex" textAlign="right" justifyContent="flex-end" mb="M">
           <Button
-            px="L"
-            width="3rem"
-            height="3rem"
+            p="NONE"
+            width="2.5rem"
+            height="2.5rem"
             variant="primary"
             onClick={toggleModal}
-            hover={{
-              bg: 'accentActive',
-            }}
           >
-            <TimesSVG width="1rem" maxHeight="1rem" maxWidth="1rem" />
+            <TimesSVG
+              width="1.4rem"
+              strokeWidth={3}
+              maxWidth="1.4rem"
+              maxHeight="1.4rem"
+            />
           </Button>
         </Box>
       </Box>
