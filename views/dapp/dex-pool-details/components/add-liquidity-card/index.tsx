@@ -54,7 +54,6 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
           register={register}
           setValue={setValue}
           name={INPUT_NAMES[index]}
-          disabled={false}
           balance={balance.decimalPlaces(decimals).toString()}
           currencyPrefix={
             fetchingInitialData ? (
