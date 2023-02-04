@@ -12,7 +12,8 @@
       "unableToAdd": "Unable to add 0 liquidity",
       "notEnough": "Not enough coins",
       "failed": "Failed to add liquidity",
-      "cannotWithdraw": "Cannot withdraw 0 lp tokens"
+      "cannotWithdraw": "Cannot withdraw 0 lp tokens",
+      "increaseAmount": "Increase the {symbol} amount"
     }
   }
 }

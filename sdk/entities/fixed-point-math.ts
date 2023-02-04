@@ -73,11 +73,12 @@ export class FixedPointMath {
   ): number {
     if (value.isZero()) return 0;
 
-    return +Fraction.from(value, new BigNumber(10).pow(decimals)).toSignificant(
-      significant,
-      { groupSeparator: '' },
-      significantRounding
-    );
+    const result = +Fraction.from(
+      value,
+      new BigNumber(10).pow(decimals)
+    ).toSignificant(significant, { groupSeparator: '' }, significantRounding);
+
+    return !decimals ? Math.floor(result) : result;
   }
 
   public toNumber(decimals = 9, rounding = 4, significant = 6): number {

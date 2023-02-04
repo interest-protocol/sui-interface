@@ -12,7 +12,8 @@
       "unableToAdd": "Não é possível adicionar liquidez de 0",
       "notEnough": "Não tens coins suficientes",
       "failed": "Falha ao adicionar",
-      "cannotWithdraw": "Não podes sacar 0 lp tokens"
+      "cannotWithdraw": "Não podes sacar 0 lp tokens",
+      "increaseAmount": "Deposite mais {symbol}"
     }
   }
 }
