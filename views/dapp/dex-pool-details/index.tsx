@@ -1,4 +1,5 @@
 import { Network } from '@mysten/sui.js';
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { pathOr, propOr } from 'ramda';
 import { FC } from 'react';
@@ -7,6 +8,7 @@ import { Container } from '@/components';
 import { POOL_METADATA_MAP, PoolMetadata, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { useLocale, useWeb3 } from '@/hooks';
+import { FixedPointMath } from '@/sdk';
 import { TimesSVG } from '@/svg';
 import { getCoinTypeFromSupply, getSafeTotalBalance } from '@/utils';
 
@@ -161,12 +163,18 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
             {
               type: token0.type,
               symbol: token0.symbol,
-              value: volatilePool.token0Balance,
+              value: FixedPointMath.toNumber(
+                new BigNumber(volatilePool.token0Balance),
+                token0.decimals
+              ).toString(),
             },
             {
               type: token1.type,
               symbol: token1.symbol,
-              value: volatilePool.token1Balance,
+              value: FixedPointMath.toNumber(
+                new BigNumber(volatilePool.token1Balance),
+                token1.decimals
+              ).toString(),
             },
           ]}
         />

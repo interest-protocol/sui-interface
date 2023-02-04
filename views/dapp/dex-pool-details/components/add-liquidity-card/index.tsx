@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { v4 } from 'uuid';
 
 import { Box, Typography } from '@/elements';
+import { FixedPointMath } from '@/sdk';
 
 import {
   AddLiquidityCardProps,
@@ -53,7 +54,7 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
           register={register}
           setValue={setValue}
           name={INPUT_NAMES[index]}
-          balance={balance.decimalPlaces(decimals).toString()}
+          balance={FixedPointMath.toNumber(balance, decimals).toString()}
           currencyPrefix={
             <Box
               display="flex"

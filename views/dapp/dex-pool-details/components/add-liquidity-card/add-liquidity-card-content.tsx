@@ -1,9 +1,9 @@
-import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { Box, Button } from '@/elements';
+import { FixedPointMath } from '@/sdk';
 import { capitalize } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
@@ -32,9 +32,7 @@ const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
         <BalanceError
           key={v4()}
           name={INPUT_NAMES[index]}
-          balance={balance
-            .decimalPlaces(decimals, BigNumber.ROUND_DOWN)
-            .toString()}
+          balance={FixedPointMath.toNumber(balance, decimals).toString()}
           control={control}
           symbol={symbol}
         />
