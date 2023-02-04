@@ -73,24 +73,3 @@ export interface GetSwapPayload {
 export interface LocalSwapSettings {
   slippage: string; // 20 equals 20%
 }
-
-export interface SwapManagerProps extends Omit<SwapButtonProps, 'disabled'> {
-  account: string | null;
-  isTokenOutOpenModal: boolean;
-  register: UseFormRegister<ISwapForm>;
-  setValue: UseFormSetValue<ISwapForm>;
-  setReady: Dispatch<SetStateAction<boolean>>;
-  setTokenOutIsOpenModal: Dispatch<SetStateAction<boolean>>;
-  onSelectCurrency: (data: OnSelectCurrencyData) => void;
-}
-
-export interface GetSwapPayload {
-  tokenIn: SwapFormTokenData;
-  tokenOutType: string;
-  coinsMap: Web3ManagerState['coinsMap'];
-  volatilesPools: PoolsMap;
-}
-
-export interface LocalSwapSettings {
-  slippage: string; // 20 equals 20%
-}
