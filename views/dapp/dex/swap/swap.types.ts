@@ -1,6 +1,6 @@
 import { SuiObjectInfo } from '@mysten/sui.js';
 import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import {
   Control,
   UseFormGetValues,
@@ -57,6 +57,10 @@ export interface SwapManagerProps {
   setDisabled: Dispatch<SetStateAction<boolean>>;
   onSelectCurrency: (data: OnSelectCurrencyData) => void;
   setTokenOutIsOpenModal: Dispatch<SetStateAction<boolean>>;
+  isFetchingSwapAmount: boolean;
+  setIsFetchingSwapAmount: Dispatch<SetStateAction<boolean>>;
+  isZeroSwapAmount: boolean;
+  setIsZeroSwapAmount: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface GetSwapPayload {

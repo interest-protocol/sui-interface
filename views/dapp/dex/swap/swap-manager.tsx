@@ -31,8 +31,11 @@ const SwapManager: FC<SwapManagerProps> = ({
   volatilePoolsMap,
   isTokenOutOpenModal,
   setTokenOutIsOpenModal,
+  isZeroSwapAmount,
+  setIsFetchingSwapAmount,
+  setIsZeroSwapAmount,
+  isFetchingSwapAmount,
 }) => {
-  const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
   const [tokenIn] = useDebounce(useWatch({ control, name: 'tokenIn' }), 900);
   const tokenOutValue = useWatch({ control, name: 'tokenOut.value' });
 
@@ -60,6 +63,7 @@ const SwapManager: FC<SwapManagerProps> = ({
     {
       onSuccess: (data) => {
         const amount = findSwapAmountOutput(data, tokenOutType);
+        setIsZeroSwapAmount(!amount);
         setValue(
           'tokenOut.value',
           FixedPointMath.toNumber(
@@ -73,7 +77,6 @@ const SwapManager: FC<SwapManagerProps> = ({
       revalidateOnFocus: true,
       revalidateOnMount: true,
       refreshWhenHidden: true,
-      refreshInterval: 0,
     }
   );
 
@@ -129,7 +132,7 @@ const SwapManager: FC<SwapManagerProps> = ({
           message="dexSwap.swapMessage.fetchingAmounts"
         />
       )}
-      {!+tokenOutValue && !!+tokenIn.value && !isFetchingSwapAmount && (
+      {isZeroSwapAmount && !!+tokenIn.value && !isFetchingSwapAmount && (
         <SwapMessage
           color="error"
           Icon={TimesSVG}

@@ -32,6 +32,8 @@ const Swap: FC = () => {
   const { data: volatilePoolsMap } = useGetVolatilePools();
   const [isTokenInOpenModal, setTokenInIsOpenModal] = useState(false);
   const [isTokenOutOpenModal, setTokenOutIsOpenModal] = useState(false);
+  const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
+  const [isZeroSwapAmount, setIsZeroSwapAmount] = useState(false);
 
   const [localSettings, setLocalSettings] = useLocalStorage<LocalSwapSettings>(
     'sui-interest-swap-settings',
@@ -203,6 +205,10 @@ const Swap: FC = () => {
             isTokenOutOpenModal={isTokenOutOpenModal}
             setTokenOutIsOpenModal={setTokenOutIsOpenModal}
             onSelectCurrency={onSelectCurrency('tokenOut')}
+            isZeroSwapAmount={isZeroSwapAmount}
+            setIsZeroSwapAmount={setIsZeroSwapAmount}
+            isFetchingSwapAmount={isFetchingSwapAmount}
+            setIsFetchingSwapAmount={setIsFetchingSwapAmount}
           />
           <SwapButton
             mutate={mutate}
