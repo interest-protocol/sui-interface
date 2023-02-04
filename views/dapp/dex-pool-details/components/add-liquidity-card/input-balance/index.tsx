@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react';
 import { useTranslations } from 'next-intl';
 import { ChangeEvent, FC } from 'react';
 
@@ -9,12 +10,13 @@ import { InputBalanceProps } from './input-balance.types';
 const InputBalance: FC<InputBalanceProps> = ({
   name,
   balance,
+  disabled,
   register,
   setValue,
-  disabled,
   currencyPrefix,
 }) => {
   const t = useTranslations();
+  const { dark } = useTheme() as { dark: boolean };
   const onFocus = (v: ChangeEvent<HTMLInputElement>) => {
     const value = v.target.value;
 
@@ -28,14 +30,20 @@ const InputBalance: FC<InputBalanceProps> = ({
         type="text"
         onFocus={onFocus}
         placeholder="0.0"
-        disabled={disabled}
+        disabled={disabled || false}
         {...register(name, {
           onChange: (v: ChangeEvent<HTMLInputElement>) => {
             setValue?.(
               name,
               parseInputEventToNumberString(v, balance ? +balance : undefined)
             );
-            setValue('locked', false);
+            if (name === 'token0Amount') {
+              setValue('token0InputLocked', true);
+              setValue('token1InputLocked', false);
+            } else {
+              setValue('token1InputLocked', true);
+              setValue('token0InputLocked', false);
+            }
           },
         })}
         shieldProps={{
@@ -43,32 +51,35 @@ const InputBalance: FC<InputBalanceProps> = ({
           my: 'M',
           width: '100%',
           height: '3rem',
-          borderRadius: 'M',
           bg: 'background',
           overflow: 'visible',
           border: '1px solid',
+          borderRadius: '2rem',
           borderColor: 'transparent',
-          opacity: disabled ? 0.7 : 1,
+          opacity: disabled == undefined ? 1 : disabled ? 0.7 : 1,
           hover: {
-            borderColor: 'accentBackground',
+            borderColor: 'accentActive',
           },
         }}
         Prefix={
           <>
             <Button
-              px="M"
+              p="NONE"
               fontSize="S"
-              height="100%"
-              variant="secondary"
-              disabled={disabled}
-              active={{ bg: 'accentActive' }}
-              bg={disabled ? 'disabled' : 'bottomBackground'}
-              hover={{ bg: disabled ? 'disabled' : 'accent' }}
+              width="2.4rem"
+              height="2.4rem"
+              variant="primary"
+              disabled={disabled || false}
               onClick={() => {
-                if (disabled) return;
-                if (!setValue) return;
+                if (disabled || !setValue) return;
                 setValue(name, balance);
-                setValue('locked', false);
+                if (name === 'token0Amount') {
+                  setValue('token0InputLocked', true);
+                  setValue('token1InputLocked', false);
+                } else {
+                  setValue('token1InputLocked', true);
+                  setValue('token0InputLocked', false);
+                }
               }}
             >
               max
@@ -91,9 +102,10 @@ const InputBalance: FC<InputBalanceProps> = ({
         py="S"
         px="M"
         mb="-1rem"
-        bg="bottomBackground"
-        borderRadius="M"
+        borderRadius="L"
+        bg="accentActive"
         position="relative"
+        color={dark ? 'text' : 'textInverted'}
       >
         <Typography fontSize="S" variant="normal" textTransform="capitalize">
           {t('common.balance')}:{' '}

@@ -16,13 +16,13 @@ export const COIN_TYPE = {
 
 export const COIN_TYPE_TO_SYMBOL = {
   [Network.DEVNET]: {
-    [COIN_TYPE[Network.DEVNET].BTC]: 'BTC',
-    [COIN_TYPE[Network.DEVNET].ETH]: 'ETH',
-    [COIN_TYPE[Network.DEVNET].BTC]: 'BNB',
-    [COIN_TYPE[Network.DEVNET].USDT]: 'USDT',
-    [COIN_TYPE[Network.DEVNET].USDC]: 'USDC',
-    [COIN_TYPE[Network.DEVNET].DAI]: 'DAI',
-    [COIN_TYPE[Network.DEVNET].SUI]: 'Sui',
+    [COIN_TYPE[Network.DEVNET].BTC]: TOKEN_SYMBOL.BTC,
+    [COIN_TYPE[Network.DEVNET].ETH]: TOKEN_SYMBOL.ETH,
+    [COIN_TYPE[Network.DEVNET].BTC]: TOKEN_SYMBOL.BTC,
+    [COIN_TYPE[Network.DEVNET].USDT]: TOKEN_SYMBOL.USDT,
+    [COIN_TYPE[Network.DEVNET].USDC]: TOKEN_SYMBOL.USDC,
+    [COIN_TYPE[Network.DEVNET].DAI]: TOKEN_SYMBOL.DAI,
+    [COIN_TYPE[Network.DEVNET].SUI]: TOKEN_SYMBOL.SUI,
   },
 };
 
@@ -41,37 +41,37 @@ export const COIN_DECIMALS = {
 export const COINS = {
   [Network.DEVNET]: {
     ETH: {
-      decimals: 0,
+      decimals: COIN_DECIMALS[Network.DEVNET][COIN_TYPE[Network.DEVNET].ETH],
       symbol: TOKEN_SYMBOL.ETH,
       type: COIN_TYPE[Network.DEVNET].ETH,
     },
     BTC: {
-      decimals: 0,
+      decimals: COIN_DECIMALS[Network.DEVNET][COIN_TYPE[Network.DEVNET].BTC],
       symbol: TOKEN_SYMBOL.BTC,
       type: COIN_TYPE[Network.DEVNET].BTC,
     },
     BNB: {
-      decimals: 0,
+      decimals: COIN_DECIMALS[Network.DEVNET][COIN_TYPE[Network.DEVNET].BNB],
       symbol: TOKEN_SYMBOL.BNB,
       type: COIN_TYPE[Network.DEVNET].BNB,
     },
     SUI: {
-      decimals: 0,
+      decimals: COIN_DECIMALS[Network.DEVNET][COIN_TYPE[Network.DEVNET].SUI],
       symbol: TOKEN_SYMBOL.SUI,
       type: COIN_TYPE[Network.DEVNET].SUI,
     },
     DAI: {
-      decimals: 0,
+      decimals: COIN_DECIMALS[Network.DEVNET][COIN_TYPE[Network.DEVNET].DAI],
       symbol: TOKEN_SYMBOL.DAI,
       type: COIN_TYPE[Network.DEVNET].DAI,
     },
     USDC: {
-      decimals: 0,
+      decimals: COIN_DECIMALS[Network.DEVNET][COIN_TYPE[Network.DEVNET].USDC],
       symbol: TOKEN_SYMBOL.USDC,
       type: COIN_TYPE[Network.DEVNET].USDC,
     },
     USDT: {
-      decimals: 0,
+      decimals: COIN_DECIMALS[Network.DEVNET][COIN_TYPE[Network.DEVNET].USDT],
       symbol: TOKEN_SYMBOL.USDT,
       type: COIN_TYPE[Network.DEVNET].USDT,
     },

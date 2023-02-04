@@ -6,8 +6,7 @@ import { ButtonProps } from './button.types';
 
 const Button = forwardRef((props: ButtonProps, ref) => {
   const ButtonElement = stylin<ButtonProps & RefAttributes<unknown>>('button')(
-    variant({ scale: 'buttons', property: 'variant' }),
-    variant({ scale: 'effects', property: 'effect' })
+    variant({ scale: 'buttons', property: 'variant' })
   );
 
   return <ButtonElement {...props} ref={ref} />;

@@ -1,4 +1,5 @@
 import { Network } from '@mysten/sui.js';
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { pathOr, propOr } from 'ramda';
 import { FC } from 'react';
@@ -7,6 +8,7 @@ import { Container } from '@/components';
 import { POOL_METADATA_MAP, PoolMetadata, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { useLocale, useWeb3 } from '@/hooks';
+import { FixedPointMath } from '@/sdk';
 import { TimesSVG } from '@/svg';
 import { getCoinTypeFromSupply, getSafeTotalBalance } from '@/utils';
 
@@ -29,7 +31,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
     mutate,
     error: web3Error,
   } = useWeb3();
-  const { error, isLoading, data: volatilePool } = useGetVolatilePool(objectId);
+  const { error, data: volatilePool } = useGetVolatilePool(objectId);
 
   const { currentLocale } = useLocale();
 
@@ -161,27 +163,31 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
             {
               type: token0.type,
               symbol: token0.symbol,
-              value: volatilePool.token0Balance,
-              isFetchingInitialData: isLoading,
+              value: FixedPointMath.toNumber(
+                new BigNumber(volatilePool.token0Balance),
+                token0.decimals
+              ).toString(),
             },
             {
               type: token1.type,
               symbol: token1.symbol,
-              value: volatilePool.token1Balance,
-              isFetchingInitialData: isLoading,
+              value: FixedPointMath.toNumber(
+                new BigNumber(volatilePool.token1Balance),
+                token1.decimals
+              ).toString(),
             },
           ]}
         />
         <AddLiquidityCard
           fetchingInitialData={isFetchingCoinBalances}
           tokens={addLiquidityTokens}
+          pool={volatilePool}
           refetch={async () => {
             await mutate();
           }}
         />
         <RemoveLiquidityCard
           isStable={false}
-          isFetchingInitialData={isFetchingCoinBalances}
           lpToken={
             coinsMap[
               getCoinTypeFromSupply(propOr('', 'lpCoinType', volatilePool))

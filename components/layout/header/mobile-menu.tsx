@@ -67,7 +67,7 @@ const MobileMenu: FC = () => {
                     width="100%"
                     variant="normal"
                     textAlign="center"
-                    bg="accentSecondary"
+                    bg="accentActive"
                     textTransform="uppercase"
                     hover={{
                       bg: 'warning',

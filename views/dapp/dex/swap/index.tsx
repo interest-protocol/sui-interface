@@ -1,12 +1,13 @@
-import { find, pathOr, propEq } from 'ramda';
+import dynamic from 'next/dynamic';
+import { isEmpty, pathOr } from 'ramda';
 import { FC, useState } from 'react';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
+import { useWatch } from 'react-hook-form';
 
-import { DEX_TOKENS_DATA } from '@/constants';
 import { Box } from '@/elements';
 import { useLocalStorage, useWeb3 } from '@/hooks';
-import { FixedPointMath, TOKEN_SYMBOL } from '@/sdk';
+import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import { formatMoney, ZERO_BIG_NUMBER } from '@/utils';
 
@@ -14,35 +15,25 @@ import SwapSelectCurrency from '../components/swap-select-currency';
 import InputBalance from './input-balance';
 import SettingsModal from './settings';
 import { ISwapSettingsForm } from './settings/settings.types';
+import { ETH, SUI } from './swap.data';
+import { useGetVolatilePools } from './swap.hooks';
 import {
   ISwapForm,
   LocalSwapSettings,
   OnSelectCurrencyData,
 } from './swap.types';
-import SwapManager from './swap-manager';
 
-const DEFAULT_UNKNOWN_DATA = {
-  symbol: '???',
-  name: 'Unknown',
-  decimals: 0,
-  type: '',
-};
-
-const SUI =
-  find(propEq('symbol', TOKEN_SYMBOL.SUI), DEX_TOKENS_DATA) ??
-  DEFAULT_UNKNOWN_DATA;
-
-const ETH =
-  find(propEq('symbol', TOKEN_SYMBOL.ETH), DEX_TOKENS_DATA) ??
-  DEFAULT_UNKNOWN_DATA;
+const SwapManager = dynamic(() => import('./swap-manager'));
+const SwapButton = dynamic(() => import('./swap-button'));
 
 const Swap: FC = () => {
-  const [ready, setReady] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const { coinsMap, mutate, account } = useWeb3();
-  const [tokenInType, setTokenInType] = useState(SUI.type);
-  const [tokenOutType, setTokenOutType] = useState(ETH.type);
+  const { data: volatilePoolsMap } = useGetVolatilePools();
   const [isTokenInOpenModal, setTokenInIsOpenModal] = useState(false);
   const [isTokenOutOpenModal, setTokenOutIsOpenModal] = useState(false);
+  const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
+  const [isZeroSwapAmount, setIsZeroSwapAmount] = useState(false);
 
   const [localSettings, setLocalSettings] = useLocalStorage<LocalSwapSettings>(
     'sui-interest-swap-settings',
@@ -67,13 +58,13 @@ const Swap: FC = () => {
     defaultValues: {
       tokenIn: {
         type: SUI.type,
-        value: '0',
+        value: '0.0',
         decimals: SUI.decimals,
         symbol: SUI.symbol,
       },
       tokenOut: {
         type: ETH.type,
-        value: '0',
+        value: '0.0',
         decimals: ETH.decimals,
         symbol: ETH.symbol,
       },
@@ -81,24 +72,11 @@ const Swap: FC = () => {
   });
 
   const flipTokens = () => {
-    const aux = tokenOutType;
+    const tokenIn = getValues('tokenIn');
+    const tokenOut = getValues('tokenOut');
 
-    setTokenOutType(() => {
-      setValue('tokenOut', {
-        ...(find(propEq('type', tokenInType), DEX_TOKENS_DATA) ??
-          DEFAULT_UNKNOWN_DATA),
-        value: '0.0',
-      });
-      return tokenInType;
-    });
-
-    setTokenInType(() => {
-      setValue('tokenIn', {
-        ...(find(propEq('type', aux), DEX_TOKENS_DATA) ?? DEFAULT_UNKNOWN_DATA),
-        value: '0.0',
-      });
-      return aux;
-    });
+    setValue('tokenIn', tokenOut);
+    setValue('tokenOut', tokenIn);
   };
 
   const onSelectCurrency =
@@ -111,10 +89,10 @@ const Swap: FC = () => {
       setValue('tokenIn.value', '0.0');
       isTokenInOpenModal && setTokenInIsOpenModal(false);
       isTokenOutOpenModal && setTokenOutIsOpenModal(false);
-
-      if (name == 'tokenIn') setTokenInType(type);
-      if (name == 'tokenOut') setTokenOutType(type);
     };
+
+  const tokenInType = useWatch({ control, name: 'tokenIn.type' });
+  const tokenOutType = useWatch({ control, name: 'tokenOut.type' });
 
   return (
     <Box
@@ -135,12 +113,18 @@ const Swap: FC = () => {
           />
         </Box>
       </Box>
-      <Box color="text" width="100%" display="grid" gridGap="1rem">
-        {!ready ? (
-          <Box display="flex" justifyContent="center" width="100%" my="XXL">
-            <LoadingSVG width="5rem" maxHeight="5rem" maxWidth="5rem" />
-          </Box>
-        ) : (
+      {isEmpty(volatilePoolsMap) ? (
+        <Box
+          my="XXL"
+          width="100%"
+          display="flex"
+          color="accent"
+          justifyContent="center"
+        >
+          <LoadingSVG width="5rem" maxHeight="5rem" maxWidth="5rem" />
+        </Box>
+      ) : (
+        <Box color="text" width="100%" display="grid" gridGap="1rem">
           <Box
             pt="L"
             mb="-1rem"
@@ -207,24 +191,37 @@ const Swap: FC = () => {
               ⥯
             </Box>
           </Box>
-        )}
-        <SwapManager
-          mutate={mutate}
-          control={control}
-          account={account}
-          setReady={setReady}
-          setValue={setValue}
-          register={register}
-          coinsMap={coinsMap}
-          getValues={getValues}
-          tokenInType={tokenInType}
-          tokenOutType={tokenOutType}
-          slippage={localSettings.slippage}
-          isTokenOutOpenModal={isTokenOutOpenModal}
-          setTokenOutIsOpenModal={setTokenOutIsOpenModal}
-          onSelectCurrency={onSelectCurrency('tokenOut')}
-        />
-      </Box>
+          <SwapManager
+            control={control}
+            account={account}
+            setValue={setValue}
+            register={register}
+            coinsMap={coinsMap}
+            getValues={getValues}
+            setDisabled={setDisabled}
+            tokenInType={tokenInType}
+            tokenOutType={tokenOutType}
+            volatilePoolsMap={volatilePoolsMap}
+            isTokenOutOpenModal={isTokenOutOpenModal}
+            setTokenOutIsOpenModal={setTokenOutIsOpenModal}
+            onSelectCurrency={onSelectCurrency('tokenOut')}
+            isZeroSwapAmount={isZeroSwapAmount}
+            setIsZeroSwapAmount={setIsZeroSwapAmount}
+            isFetchingSwapAmount={isFetchingSwapAmount}
+            setIsFetchingSwapAmount={setIsFetchingSwapAmount}
+          />
+          <SwapButton
+            mutate={mutate}
+            control={control}
+            disabled={disabled}
+            coinsMap={coinsMap}
+            getValues={getValues}
+            tokenInType={tokenInType}
+            tokenOutType={tokenOutType}
+            slippage={localSettings.slippage}
+          />
+        </Box>
+      )}
     </Box>
   );
 };

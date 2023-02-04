@@ -19,12 +19,11 @@ import TokenAmount from './token-amount';
 
 const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
   tokens,
-  isFetchingInitialData,
-  refetch,
-  lpAmountControl,
-  resetLpAmount,
-  getLpAmount,
   lpToken,
+  refetch,
+  getLpAmount,
+  resetLpAmount,
+  lpAmountControl,
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
@@ -46,14 +45,10 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
     account: account,
   });
 
-  const amount0 = FixedPointMath.toBigNumber(
-    propOr(0, token0.type || '', data),
-    token0.decimals
-  );
-  const amount1 = FixedPointMath.toBigNumber(
-    propOr(0, token1.type || '', data),
-    token1.decimals
-  );
+  const amount0 = new BigNumber(propOr(0, token0.type || '', data));
+  const amount1 = new BigNumber(propOr(0, token1.type || '', data));
+
+  if (error) return <>error</>;
 
   return (
     <>
@@ -67,14 +62,12 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
         <TokenAmount
           Icon={tokens[0].Icon}
           symbol={tokens[0].symbol}
-          isFetchingInitialData={isFetchingInitialData}
-          amount={amount0.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
+          amount={FixedPointMath.toNumber(amount0, token0.decimals).toString()}
         />
         <TokenAmount
           Icon={tokens[1].Icon}
           symbol={tokens[1].symbol}
-          isFetchingInitialData={isFetchingInitialData}
-          amount={amount1.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
+          amount={FixedPointMath.toNumber(amount1, token1.decimals).toString()}
         />
       </Box>
       <WalletGuardButton>
@@ -84,31 +77,19 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
           gridColumnGap="1rem"
           gridTemplateColumns="1fr 1fr"
         >
-          <>
-            <Button
-              width="100%"
-              variant="primary"
-              bg="bottomBackground"
-              hover={{ bg: 'disabled' }}
-              onClick={resetLpAmount}
-            >
-              {capitalize(t('common.reset'))}
-            </Button>
-            <RemoveLiquidityButton
-              getLpAmount={getLpAmount}
-              token0Amount={amount0
-                .decimalPlaces(0, BigNumber.ROUND_DOWN)
-                .toString()}
-              token1Amount={amount1
-                .decimalPlaces(0, BigNumber.ROUND_DOWN)
-                .toString()}
-              refetch={refetch}
-              isFetching={isLoading}
-              objectIds={objectIds}
-              token0Type={token0.type}
-              token1Type={token1.type}
-            />
-          </>
+          <Button width="100%" variant="neutral" onClick={resetLpAmount}>
+            {capitalize(t('common.reset'))}
+          </Button>
+          <RemoveLiquidityButton
+            getLpAmount={getLpAmount}
+            token0Amount={amount0}
+            token1Amount={amount1}
+            refetch={refetch}
+            isFetching={isLoading}
+            objectIds={objectIds}
+            token0={token0}
+            token1={token1}
+          />
         </Box>
       </WalletGuardButton>
     </>

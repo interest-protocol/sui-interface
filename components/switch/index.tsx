@@ -30,17 +30,18 @@ const Switch: FC<SwitchProps> = ({
       {options.map(({ value, onSelect, displayValue }) => (
         <Typography
           key={v4()}
-          px={thin ? 'L' : 'XL'}
-          py={thin ? 'S' : 'M'}
+          fontSize="S"
           display="flex"
           variant="normal"
           cursor="pointer"
           alignItems="center"
           borderRadius="1.5rem"
-          fontSize="S"
+          py={thin ? 'S' : 'M'}
+          px={thin ? 'L' : 'XL'}
           justifyContent="center"
-          hover={{ color: 'textSecondary' }}
           textTransform="capitalize"
+          hover={{ bg: value === selected ? 'accent' : 'transparent' }}
+          bg={value === selected ? bgSelected || 'accentActive' : 'transparent'}
           color={
             value === selected
               ? dark
@@ -54,9 +55,6 @@ const Switch: FC<SwitchProps> = ({
               onSelect?.();
             }
           }}
-          bg={
-            value === selected ? bgSelected || 'accentSecondary' : 'transparent'
-          }
         >
           {displayValue ?? value}
         </Typography>

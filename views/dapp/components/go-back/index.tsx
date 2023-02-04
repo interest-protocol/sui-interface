@@ -17,7 +17,7 @@ const GoBack: FC<GoBackProps> = ({ route, routeBack }) => {
   return pathname != Routes[RoutesEnum.DEX] ? (
     <Typography
       mb="XL"
-      color="accentSecondary"
+      color="accentActive"
       variant="normal"
       cursor="pointer"
       whiteSpace="nowrap"

@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react';
 import { useTranslations } from 'next-intl';
 import { ChangeEvent, FC } from 'react';
 
@@ -15,6 +16,7 @@ const InputBalance: FC<InputBalanceProps> = ({
   currencyPrefix,
 }) => {
   const t = useTranslations();
+  const { dark } = useTheme() as { dark: boolean };
   const onFocus = (v: ChangeEvent<HTMLInputElement>) => {
     const value = v.target.value;
 
@@ -43,27 +45,25 @@ const InputBalance: FC<InputBalanceProps> = ({
           width: '100%',
           height: '3rem',
           bg: 'background',
-          borderRadius: 'M',
           position: 'static',
           overflow: 'visible',
           border: '1px solid',
+          borderRadius: '2rem',
           borderColor: 'transparent',
           opacity: disabled ? 0.7 : 1,
           hover: {
-            borderColor: 'accentBackground',
+            borderColor: 'accentActive',
           },
         }}
         Prefix={
           <>
             <Button
-              px="M"
+              p="NONE"
               fontSize="S"
-              height="100%"
-              variant="secondary"
+              width="2.4rem"
+              height="2.4rem"
+              variant="primary"
               disabled={disabled}
-              active={{ bg: 'accentActive' }}
-              bg={disabled ? 'disabled' : 'bottomBackground'}
-              hover={{ bg: disabled ? 'disabled' : 'accent' }}
               onClick={() => {
                 if (disabled) return;
                 if (!setValue) return;
@@ -89,9 +89,10 @@ const InputBalance: FC<InputBalanceProps> = ({
         py="S"
         px="M"
         mb="-1rem"
-        borderRadius="M"
+        borderRadius="L"
+        bg="accentActive"
         position="relative"
-        bg="bottomBackground"
+        color={dark ? 'text' : 'textInverted'}
       >
         <Typography fontSize="S" variant="normal" textTransform="capitalize">
           {t('common.balance')}:{' '}

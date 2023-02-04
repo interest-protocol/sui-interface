@@ -32,7 +32,7 @@ const InputBalance: FC<InputBalanceProps> = ({
         px="M"
         mb="-1rem"
         borderRadius="L"
-        bg="accentSecondary"
+        bg="accentActive"
         position="relative"
         color={dark ? 'text' : 'textInverted'}
       >
@@ -75,19 +75,19 @@ const InputBalance: FC<InputBalanceProps> = ({
             ? 'bottomBackground'
             : 'background',
           hover: !disabled && {
-            borderColor: 'accentBackground',
+            borderColor: 'accentActive',
           },
         }}
         Prefix={currencySelector}
         Suffix={
           !!max && (
             <Button
-              px="M"
+              p="M"
               fontSize="S"
-              minWidth="2.7rem"
               height="2.7rem"
+              minWidth="2.7rem"
               variant="secondary"
-              bg="accentSecondary"
+              bg="accentActive"
               color={dark ? 'text' : 'textInverted'}
               hover={{ bg: 'accent' }}
               active={{ bg: 'accentActive' }}

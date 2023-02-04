@@ -1,12 +1,10 @@
-import { Network, SuiObjectInfo } from '@mysten/sui.js';
+import { SuiObjectInfo } from '@mysten/sui.js';
 import { UnserializedSignableTransaction } from '@mysten/sui.js/src/signers/txn-data-serializers/txn-data-serializer';
 import { DevInspectResults } from '@mysten/sui.js/src/types';
 import BigNumber from 'bignumber.js';
 import { has, isEmpty, pathOr, propOr } from 'ramda';
 
-import { Web3ManagerState } from '@/components/web3-manager/web3-manager.types';
 import {
-  COIN_TYPE,
   DEX_BASE_TOKEN_ARRAY,
   DEX_PACKAGE_ID,
   DEX_STORAGE_STABLE,
@@ -14,6 +12,7 @@ import {
 } from '@/constants';
 import { FixedPointMath } from '@/sdk';
 import { addCoinTypeToTokenType } from '@/utils';
+import { getCoinIds } from '@/utils';
 
 import { GetSwapPayload, PoolsMap, SwapPathObject } from './swap.types';
 
@@ -98,28 +97,6 @@ export const findMarket = (
     },
     [] as ReadonlyArray<SwapPathObject>
   );
-};
-
-export const getCoinIds = (
-  coinsMap: Web3ManagerState['coinsMap'],
-  type: string
-) => {
-  if (isEmpty(coinsMap)) return [];
-  if (type === COIN_TYPE[Network.DEVNET].SUI) {
-    const suiObjects = [...coinsMap[type].objects];
-    const gasObjectIndex = suiObjects
-      .sort((a, b) => (+a! > +b! ? 1 : -1))
-      .findIndex((elem) =>
-        FixedPointMath.toBigNumber(elem.balance || '0').gte(
-          FixedPointMath.toBigNumber(9000)
-        )
-      );
-    return suiObjects
-      .filter((_, index) => index !== gasObjectIndex)
-      .map((elem) => elem.coinObjectId);
-  }
-
-  return coinsMap[type].objects.map((elem) => elem.coinObjectId);
 };
 
 export const getAmountMinusSlippage = (

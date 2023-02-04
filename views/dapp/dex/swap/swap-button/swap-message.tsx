@@ -6,7 +6,12 @@ import { Box, Typography } from '@/elements';
 
 import { SwapMessageProps } from './swap-button.types';
 
-const SwapMessage: FC<SwapMessageProps> = ({ color, Icon, message }) => {
+const SwapMessage: FC<SwapMessageProps> = ({
+  Icon,
+  color,
+  message,
+  extraData,
+}) => {
   const t = useTranslations();
   return (
     <Box
@@ -27,7 +32,7 @@ const SwapMessage: FC<SwapMessageProps> = ({ color, Icon, message }) => {
         maxWidth="40rem"
         overflow="hidden"
       >
-        {t(message as MessageKeys<IntlMessages, keyof IntlMessages>)}
+        {t(message as MessageKeys<IntlMessages, keyof IntlMessages>, extraData)}
       </Typography>
     </Box>
   );

@@ -1,3 +1,7 @@
+import { find, propEq } from 'ramda';
+
+import { DEX_TOKENS_DATA } from '@/constants';
+import { TOKEN_SYMBOL } from '@/sdk';
 import { InfoLightSVG, LoadingSVG, WarningSVG } from '@/svg';
 
 export const SWAP_MESSAGES = {
@@ -26,3 +30,18 @@ export const SWAP_MESSAGES = {
     color: 'accentAlternative',
   },
 };
+
+export const DEFAULT_UNKNOWN_DATA = {
+  symbol: '???',
+  name: 'Unknown',
+  decimals: 0,
+  type: '',
+};
+
+export const SUI =
+  find(propEq('symbol', TOKEN_SYMBOL.SUI), DEX_TOKENS_DATA) ??
+  DEFAULT_UNKNOWN_DATA;
+
+export const ETH =
+  find(propEq('symbol', TOKEN_SYMBOL.ETH), DEX_TOKENS_DATA) ??
+  DEFAULT_UNKNOWN_DATA;

@@ -5,7 +5,8 @@ import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import { DEX_PACKAGE_ID, DEX_STORAGE_VOLATILE } from '@/constants';
-import { Button } from '@/elements';
+import { Box, Button } from '@/elements';
+import { LoadingSVG } from '@/svg';
 import { showToast, showTXSuccessToast } from '@/utils';
 import { capitalize } from '@/utils';
 
@@ -18,8 +19,8 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
   refetch,
   isFetching,
   objectIds,
-  token1Type,
-  token0Type,
+  token0,
+  token1,
 }) => {
   const t = useTranslations();
   const [loading, setLoading] = useState(false);
@@ -35,7 +36,7 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
       const lpAmount = getLpAmount();
 
       if (!+lpAmount || !objectIds.length)
-        throw new Error('Cannot withdraw 0 lp tokens');
+        throw new Error(t('dexPoolPair.error.cannotWithdraw'));
 
       const tx = await signAndExecuteTransaction({
         kind: 'moveCall',
@@ -44,15 +45,15 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
           gasBudget: 9000,
           module: 'interface',
           packageObjectId: DEX_PACKAGE_ID,
-          typeArguments: [token0Type, token1Type],
+          typeArguments: [token0.type, token1.type],
           arguments: [
             DEX_STORAGE_VOLATILE,
             objectIds as string[],
             new BigNumber(lpAmount)
               .decimalPlaces(0, BigNumber.ROUND_DOWN)
               .toString(),
-            token0Amount,
-            token1Amount,
+            token0Amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
+            token1Amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
           ],
         },
       });
@@ -77,11 +78,23 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
       width="100%"
       variant="primary"
       disabled={disabled}
-      hover={{ bg: disabled ? 'disabled' : 'errorActive' }}
-      bg={disabled ? 'disabled' : 'error'}
       onClick={removeLiquidity}
+      bg={disabled ? 'disabled' : 'error'}
+      hover={{ bg: disabled ? 'disabled' : 'errorActive' }}
     >
-      {capitalize(t('common.remove', { isLoading: Number(loading) }))}
+      {capitalize(t('common.remove', { isLoading: Number(loading) }))}{' '}
+      {loading && (
+        <Box
+          ml="M"
+          as="span"
+          height="1rem"
+          alignItems="center"
+          display="inline-flex"
+          justifyContent="center"
+        >
+          <LoadingSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+        </Box>
+      )}
     </Button>
   );
 };
