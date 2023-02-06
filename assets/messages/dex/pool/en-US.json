@@ -6,6 +6,7 @@
     "recommendedTitle": "Recommended {type} Pools",
     "notFound": "No pools available",
     "recommended": "Recommended Pools",
-    "myPools": "My Pools"
+    "myPools": "Active Pools",
+    "otherPools": "Other Pools"
   }
 }

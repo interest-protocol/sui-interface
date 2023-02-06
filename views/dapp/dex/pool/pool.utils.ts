@@ -6,7 +6,7 @@ import { ZERO_BIG_NUMBER } from '@/utils';
 
 export const filterPools = (
   coinsMap: Record<string, Web3ManagerSuiObject>,
-  isRecommended: boolean
+  isActive: boolean
 ) => {
   const poolsCoinsMap = values(coinsMap).filter(({ type }) =>
     type.includes('LPCoin')
@@ -26,11 +26,11 @@ export const filterPools = (
     };
   });
 
-  const filteredPools = isRecommended
-    ? poolsWithBalance
-    : poolsWithBalance.filter(
-        ({ balance }) => !balance.isEqualTo(ZERO_BIG_NUMBER)
-      );
+  const filteredPools = poolsWithBalance.filter(({ balance }) =>
+    isActive
+      ? !balance.isEqualTo(ZERO_BIG_NUMBER)
+      : balance.isEqualTo(ZERO_BIG_NUMBER)
+  );
 
   return filteredPools;
 };
