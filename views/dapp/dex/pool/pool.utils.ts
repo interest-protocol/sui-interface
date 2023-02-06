@@ -13,30 +13,32 @@ export const filterPools = (
     type.includes('LPCoin')
   );
 
-  const poolsWithBalance = RECOMMENDED_POOLS.map((pool) => {
-    const activePool = poolsCoinsMap.find(
-      ({ type }) =>
-        type.includes(`::${pool.token0.symbol}`) &&
-        type.includes(`::${pool.token1.symbol}`)
-    );
-
-    return {
-      ...pool,
-      decimals: activePool?.decimals ?? 0,
-      balance: activePool?.totalBalance ?? ZERO_BIG_NUMBER,
-    };
-  });
-
-  const filteredPools = poolsWithBalance.reduce(
+  const filteredPools = RECOMMENDED_POOLS.reduce(
     ({ active, inactive }, pool) => {
-      if (pool.balance.isEqualTo(ZERO_BIG_NUMBER))
+      const activePool = poolsCoinsMap.find(
+        ({ type }) =>
+          type.includes(`::${pool.token0.symbol}`) &&
+          type.includes(`::${pool.token1.symbol}`)
+      );
+
+      if (!activePool)
         return {
           active,
-          inactive: [...inactive, pool],
+          inactive: [
+            ...inactive,
+            { ...pool, decimals: 0, balance: ZERO_BIG_NUMBER },
+          ],
         };
 
       return {
-        active: [...active, pool],
+        active: [
+          ...active,
+          {
+            ...pool,
+            decimals: activePool.decimals,
+            balance: activePool.totalBalance,
+          },
+        ],
         inactive,
       };
     },
