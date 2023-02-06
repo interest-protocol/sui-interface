@@ -1,7 +1,7 @@
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC, useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
-import { useDebounce } from 'use-debounce';
 
 import { FixedPointMath } from '@/sdk';
 import { getOptimalCoin0Value, getOptimalCoin1Value } from '@/utils';
@@ -16,14 +16,8 @@ const AddLiquidityManager: FC<AddLiquidityManagerProps> = ({
   token1,
 }) => {
   const t = useTranslations();
-  const [token0Amount] = useDebounce(
-    useWatch({ control, name: 'token0Amount' }),
-    800
-  );
-  const [token1Amount] = useDebounce(
-    useWatch({ control, name: 'token1Amount' }),
-    800
-  );
+  const token0Amount = useWatch({ control, name: 'token0Amount' });
+  const token1Amount = useWatch({ control, name: 'token1Amount' });
 
   const input0IsLocked = useWatch({ control, name: 'token0InputLocked' });
   const input1IsLocked = useWatch({ control, name: 'token1InputLocked' });
@@ -31,11 +25,12 @@ const AddLiquidityManager: FC<AddLiquidityManagerProps> = ({
   // user is typing on input0
   useEffect(() => {
     if (input1IsLocked || !+token0Amount) return;
+
     const n = FixedPointMath.toNumber(
       getOptimalCoin1Value(
         FixedPointMath.toBigNumber(token0Amount, token0.decimals),
-        FixedPointMath.toBigNumber(pool.token0Balance, token0.decimals),
-        FixedPointMath.toBigNumber(pool.token1Balance, token1.decimals)
+        new BigNumber(pool.token0Balance),
+        new BigNumber(pool.token1Balance)
       ),
       token1.decimals
     );
@@ -50,11 +45,12 @@ const AddLiquidityManager: FC<AddLiquidityManagerProps> = ({
   // user is typing on input1
   useEffect(() => {
     if (input0IsLocked || !+token1Amount) return;
+
     const n = FixedPointMath.toNumber(
       getOptimalCoin0Value(
         FixedPointMath.toBigNumber(token1Amount, token1.decimals),
-        FixedPointMath.toBigNumber(pool.token0Balance, token0.decimals),
-        FixedPointMath.toBigNumber(pool.token1Balance, token1.decimals)
+        new BigNumber(pool.token0Balance),
+        new BigNumber(pool.token1Balance)
       ),
       token0.decimals
     );

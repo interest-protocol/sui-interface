@@ -1,3 +1,4 @@
+import { Network } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
@@ -5,6 +6,7 @@ import { isEmpty, prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import {
+  COIN_TYPE,
   DEX_PACKAGE_ID,
   DEX_STORAGE_STABLE,
   DEX_STORAGE_VOLATILE,
@@ -41,10 +43,6 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
 
       setLoading(true);
 
-      const amount0 = FixedPointMath.toBigNumber(
-        token0Amount,
-        token0.decimals
-      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
       const amount1 = FixedPointMath.toBigNumber(
         token1Amount,
         token1.decimals
@@ -69,7 +67,11 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
             DEX_STORAGE_STABLE,
             vector0,
             vector1,
-            amount0.toString(),
+            token0.type !== COIN_TYPE[Network.DEVNET].SUI
+              ? coinsMap[token0.type].totalBalance.toString()
+              : coinsMap[token0.type].totalBalance
+                  .minus(new BigNumber(9000))
+                  .toString(),
             amount1.toString(),
             true,
             '0',
