@@ -9,31 +9,43 @@ export const RECOMMENDED_POOLS = [
     token0: networkDevNetCoins.BNB,
     token1: networkDevNetCoins.ETH,
     poolObjectId: '0x163e8a2478bba7b8b261fd0d6b00c2ffe7f65584',
+    lpCoinType:
+      '0x913e6be0ef93fb9a498b77ff7312f9428bb342de::dex_volatile::VLPCoin<0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::BNB, 0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::ETH>',
   },
   {
     token0: networkDevNetCoins.BTC,
     token1: networkDevNetCoins.ETH,
     poolObjectId: '0xf669b40d3c7c24fc2dab0653852dbe38993c670f',
+    lpCoinType:
+      '0x913e6be0ef93fb9a498b77ff7312f9428bb342de::dex_volatile::VLPCoin<0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::BTC, 0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::ETH>',
   },
   {
     token0: networkDevNetCoins.DAI,
     token1: networkDevNetCoins.ETH,
     poolObjectId: '0x9f99d3ff0848d20d53d834ee6494e9042b88e967',
+    lpCoinType:
+      '0x913e6be0ef93fb9a498b77ff7312f9428bb342de::dex_volatile::VLPCoin<0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::DAI, 0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::ETH>',
   },
   {
     token0: networkDevNetCoins.ETH,
     token1: networkDevNetCoins.USDT,
     poolObjectId: '0x2e8ed92906c5478fddadf457f1033954f5261cbd',
+    lpCoinType:
+      '0x913e6be0ef93fb9a498b77ff7312f9428bb342de::dex_volatile::VLPCoin<0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::ETH, 0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::USDT>',
   },
   {
     token0: networkDevNetCoins.ETH,
     token1: networkDevNetCoins.USDC,
     poolObjectId: '0x30a336febad59357572af7ed352f2f3eb2a687c8',
+    lpCoinType:
+      '0x913e6be0ef93fb9a498b77ff7312f9428bb342de::dex_volatile::VLPCoin<0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::ETH, 0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::USDC>',
   },
   {
     token0: networkDevNetCoins.SUI,
     token1: networkDevNetCoins.ETH,
     poolObjectId: '0x6a7905cae5eddc0b5189ad23ddf076c338281a7a',
+    lpCoinType:
+      '0x913e6be0ef93fb9a498b77ff7312f9428bb342de::dex_volatile::VLPCoin<0x2::sui::SUI, 0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::ETH>',
   },
 ];
 

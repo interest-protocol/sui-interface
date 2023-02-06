@@ -22,7 +22,7 @@ const Pools: FC = () => {
       {!!active.length && (
         <>
           <Typography variant="normal" color="textSecondary" my="L">
-            {t('dexPool.myPools')}
+            {t('dexPool.activePools')}
           </Typography>
           {active.map(({ token0, token1, poolObjectId, balance, decimals }) => (
             <PoolRow
