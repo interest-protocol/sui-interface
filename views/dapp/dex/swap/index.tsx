@@ -35,8 +35,6 @@ const Swap: FC = () => {
   const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
   const [isZeroSwapAmount, setIsZeroSwapAmount] = useState(false);
 
-  console.log(volatilePoolsMap);
-
   const [localSettings, setLocalSettings] = useLocalStorage<LocalSwapSettings>(
     'sui-interest-swap-settings',
     { slippage: '1' }
