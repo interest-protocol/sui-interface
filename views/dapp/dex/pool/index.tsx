@@ -4,7 +4,7 @@ import { FC } from 'react';
 
 import { Box, Button, Typography } from '@/elements';
 
-import RecommendPools from './recommended-pools';
+import Pools from './pools';
 
 const Pool: FC = () => {
   const t = useTranslations();
@@ -61,7 +61,7 @@ const Pool: FC = () => {
             </Typography>
           </Box>
         </Box>
-        <RecommendPools />
+        <Pools />
       </Box>
     </>
   );

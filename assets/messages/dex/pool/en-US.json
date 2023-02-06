@@ -3,6 +3,10 @@
     "pageTitle": "Pool",
     "title": "Pools Overview",
     "button": "Find Pool",
-    "recommendedTitle": "Recommended {type} Pools"
+    "recommendedTitle": "Recommended {type} Pools",
+    "notFound": "No pools available",
+    "recommended": "Recommended Pools",
+    "activePools": "Active Pools",
+    "otherPools": "Other Pools"
   }
 }
