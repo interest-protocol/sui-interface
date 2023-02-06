@@ -1,4 +1,6 @@
 import { BigNumber } from 'bignumber.js';
+
+import { TOKEN_SYMBOL } from '@/sdk';
 export interface PoolRowProps {
   type0: string;
   type1: string;
@@ -7,4 +9,23 @@ export interface PoolRowProps {
   objectId: string;
   decimals: number;
   balance: BigNumber;
+}
+
+interface IToken {
+  decimals: number;
+  symbol: TOKEN_SYMBOL;
+  type: string;
+}
+
+interface IPool {
+  token0: IToken;
+  token1: IToken;
+  decimals: number;
+  balance: BigNumber;
+  poolObjectId: string;
+}
+
+export interface IPools {
+  active: ReadonlyArray<IPool>;
+  inactive: ReadonlyArray<IPool>;
 }
