@@ -60,14 +60,11 @@ const secondary = css`
 
 const tertiary = css`
   outline: none;
-  display: flex;
   cursor: pointer;
   font-weight: bold;
-  align-items: flex;
   position: relative;
   border-radius: 2rem;
-  display: inline-block;
-  justify-content: flex;
+  display: inline-flex;
   background: transparent;
   padding: 1.3rem ${space.XL};
   color: ${colors.accentActive};

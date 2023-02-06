@@ -1,14 +1,16 @@
 import { useTheme } from '@emotion/react';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
+import { Switch } from '@/components';
 import { Box, Button, Typography } from '@/elements';
 
-import RecommendPools from './recommended-pools';
+import Pools from './pools';
 
 const Pool: FC = () => {
   const t = useTranslations();
   const { dark } = useTheme() as { dark: boolean };
+  const [isRecommended, setRecommended] = useState(true);
 
   return (
     <>
@@ -61,7 +63,31 @@ const Pool: FC = () => {
             </Typography>
           </Box>
         </Box>
-        <RecommendPools />
+        <Box
+          p="L"
+          mb="L"
+          display="flex"
+          bg="foreground"
+          borderRadius="M"
+          justifyContent="center"
+        >
+          <Switch
+            defaultValue={isRecommended ? 'recommended' : 'myPools'}
+            options={[
+              {
+                value: 'recommended',
+                displayValue: t('dexPool.recommended'),
+                onSelect: () => setRecommended(true),
+              },
+              {
+                value: 'myPools',
+                displayValue: t('dexPool.myPools'),
+                onSelect: () => setRecommended(false),
+              },
+            ]}
+          />
+        </Box>
+        <Pools isRecommended={isRecommended} />
       </Box>
     </>
   );
