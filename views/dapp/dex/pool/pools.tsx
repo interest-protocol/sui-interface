@@ -12,6 +12,8 @@ const Pools: FC = () => {
   const { coinsMap } = useWeb3();
   const t = useTranslations();
 
+  console.log(coinsMap);
+
   const { active, inactive } = useMemo(() => filterPools(coinsMap), [coinsMap]);
 
   return (
