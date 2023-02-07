@@ -36,9 +36,11 @@ const Pools: FC = () => {
               objectId={poolObjectId}
             />
           ))}
-          <Typography variant="normal" color="textSecondary" my="L">
-            {t('dexPool.otherPools')}
-          </Typography>
+          {!!inactive.length && (
+            <Typography variant="normal" color="textSecondary" my="L">
+              {t('dexPool.otherPools')}
+            </Typography>
+          )}
         </>
       )}
       {inactive.map(({ token0, token1, poolObjectId, balance, decimals }) => (
