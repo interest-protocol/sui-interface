@@ -1,100 +1,20 @@
 import { Network } from '@mysten/sui.js';
 import { BigNumber } from 'bignumber.js';
 import { pathOr } from 'ramda';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
 import useSWR from 'swr';
-import { useDebounce } from 'use-debounce';
 
 import { COIN_DECIMALS } from '@/constants';
 import { FixedPointMath } from '@/sdk';
-import { LoadingSVG, TimesSVG } from '@/svg';
 import { formatMoney, makeSWRKey, provider, ZERO_BIG_NUMBER } from '@/utils';
 
 import SwapSelectCurrency from '../../components/swap-select-currency';
 import InputBalance from '../input-balance';
-import { SwapManagerProps, SwapManagerWrapperProps } from '../swap.types';
-import {
-  findMarket,
-  findSwapAmountOutput,
-  getSwapPayload,
-} from '../swap.utils';
-import SwapButton from './swap-button';
-import SwapMessage from './swap-button/swap-message';
+import { SwapManagerProps } from '../swap.types';
+import { findSwapAmountOutput, getSwapPayload } from '../swap.utils';
 
-const SwapManagerWrapper: FC<SwapManagerWrapperProps> = ({
-  swapButtonProps,
-  ...props
-}) => {
-  const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
-  const [isZeroSwapAmount, setIsZeroSwapAmount] = useState(false);
-  const [error, setError] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-  const [tokenIn] = useDebounce(
-    useWatch({ control: props.control, name: 'tokenIn' }),
-    900
-  );
-
-  const markets = findMarket(
-    props.volatilePoolsMap,
-    props.tokenInType,
-    props.tokenOutType
-  );
-  const hasNoMarket = !markets.length;
-
-  return (
-    <>
-      <SwapManager
-        {...props}
-        setIsFetchingSwapAmount={setIsFetchingSwapAmount}
-        isFetchingSwapAmount={isFetchingSwapAmount}
-        setError={setError}
-        setIsZeroSwapAmount={setIsZeroSwapAmount}
-        hasNoMarket={hasNoMarket}
-        tokenIn={tokenIn}
-        setDisabled={setDisabled}
-      />
-      {isFetchingSwapAmount && (
-        <SwapMessage
-          Icon={LoadingSVG}
-          message="dexSwap.swapMessage.fetchingAmounts"
-        />
-      )}
-      {isZeroSwapAmount && !!+tokenIn.value && !isFetchingSwapAmount && (
-        <SwapMessage
-          color="error"
-          Icon={TimesSVG}
-          extraData={{ symbol: tokenIn.symbol }}
-          message="dexSwap.swapMessage.increaseAmount"
-        />
-      )}
-      {props.tokenInType === props.tokenOutType && (
-        <SwapMessage
-          color="error"
-          Icon={TimesSVG}
-          message="dexSwap.swapMessage.sameOut"
-        />
-      )}
-      {hasNoMarket && (
-        <SwapMessage
-          color="error"
-          Icon={TimesSVG}
-          message="dexSwap.swapMessage.noMarket"
-        />
-      )}
-      {error && (
-        <SwapMessage
-          color="error"
-          Icon={TimesSVG}
-          message="dexSwap.swapMessage.error"
-        />
-      )}
-      <SwapButton {...swapButtonProps} disabled={disabled} />
-    </>
-  );
-};
-
-const SwapManager: FC<SwapManagerProps> = ({
+const SwapManagerField: FC<SwapManagerProps> = ({
   control,
   account,
   coinsMap,
@@ -206,4 +126,4 @@ const SwapManager: FC<SwapManagerProps> = ({
   );
 };
 
-export default SwapManagerWrapper;
+export default SwapManagerField;

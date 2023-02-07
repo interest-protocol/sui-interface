@@ -23,7 +23,7 @@ import {
   OnSelectCurrencyData,
 } from './swap.types';
 
-const SwapManager = dynamic(() => import('./swap-manager/swap-manager'));
+const SwapManager = dynamic(() => import('./swap-manager'));
 
 const Swap: FC = () => {
   const { coinsMap, mutate, account } = useWeb3();
