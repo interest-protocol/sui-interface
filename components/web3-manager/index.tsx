@@ -38,7 +38,10 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   }, [alreadyEagerlyConnected, wallets]);
 
   const { data, error, mutate, isLoading } = useSWR(
-    makeSWRKey([currentAccount], provider.getAllCoins.name),
+    makeSWRKey(
+      [currentAccount, alreadyEagerlyConnected],
+      provider.getAllCoins.name
+    ),
     async () => {
       if (!currentAccount) return;
       return await provider.getAllCoins(currentAccount!);
