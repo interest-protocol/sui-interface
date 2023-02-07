@@ -85,10 +85,10 @@ const InputBalance: FC<InputBalanceProps> = ({
               max
             </Button>
             <Box
-              px="L"
+              px="M"
               width="4.5rem"
+              lineHeight="0"
               display="flex"
-              maxHeight="1rem"
               alignItems="center"
               borderRight="1px solid"
               borderColor="bottomBackground"
