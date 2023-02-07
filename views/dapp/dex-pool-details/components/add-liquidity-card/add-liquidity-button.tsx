@@ -1,4 +1,3 @@
-import { Network } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
@@ -6,7 +5,6 @@ import { isEmpty, prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import {
-  COIN_TYPE,
   DEX_PACKAGE_ID,
   DEX_STORAGE_STABLE,
   DEX_STORAGE_VOLATILE,
