@@ -27,6 +27,7 @@ export { default as MoonSVG } from './moon';
 export { default as PTFlagSVG } from './pt-flag';
 export { default as SuiSVG } from './sui';
 export { default as SunSVG } from './sun';
+export { default as SwapArrowSVG } from './swap-arrow';
 export { default as TelegramSVG } from './telegram';
 export { default as TimesSVG } from './times';
 export { default as TwitterSVG } from './twitter';

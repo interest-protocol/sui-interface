@@ -16,6 +16,7 @@ import InputBalance from './input-balance';
 import { SwapManagerProps } from './swap.types';
 import { findMarket, findSwapAmountOutput, getSwapPayload } from './swap.utils';
 import SwapMessage from './swap-button/swap-message';
+import SwapPath from './swap-path';
 
 const SwapManager: FC<SwapManagerProps> = ({
   control,
@@ -101,6 +102,13 @@ const SwapManager: FC<SwapManagerProps> = ({
     isFetchingSwapAmount,
   ]);
 
+  const readyToSwap =
+    !(error && +tokenIn.value > 0) &&
+    !isFetchingSwapAmount &&
+    !(isZeroSwapAmount && !!+tokenIn.value && !isFetchingSwapAmount) &&
+    !(tokenInType === tokenOutType) &&
+    !hasNoMarket;
+
   return (
     <>
       <InputBalance
@@ -161,6 +169,7 @@ const SwapManager: FC<SwapManagerProps> = ({
           message="dexSwap.swapMessage.error"
         />
       )}
+      {readyToSwap && <SwapPath markets={markets} />}
     </>
   );
 };

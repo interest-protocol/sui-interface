@@ -73,3 +73,7 @@ export interface GetSwapPayload {
 export interface LocalSwapSettings {
   slippage: string; // 20 equals 20%
 }
+
+export interface SwapPathProps {
+  markets: ReadonlyArray<SwapPathObject>;
+}
