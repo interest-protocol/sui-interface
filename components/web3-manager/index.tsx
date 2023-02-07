@@ -1,5 +1,5 @@
 import { useWalletKit } from '@mysten/wallet-kit';
-import { createContext, FC, useEffect, useMemo } from 'react';
+import { createContext, FC, useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 
 import { makeSWRKey, provider } from '@/utils';
@@ -25,12 +25,17 @@ export const Web3ManagerContext = createContext<Web3ManagerState>(
 );
 
 const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
+  const [alreadyEagerlyConnected, setAlreadyEagerlyConnected] = useState(false);
   const { isError, currentAccount, isConnected, connect, wallets } =
     useWalletKit();
 
   useEffect(() => {
-    if (wallets[0]) connect(wallets[0].name).then();
-  }, []);
+    if (wallets[0] && !alreadyEagerlyConnected)
+      connect(wallets[0].name)
+        .then()
+        .catch()
+        .finally(() => setAlreadyEagerlyConnected(true));
+  }, [alreadyEagerlyConnected, wallets]);
 
   const { data, error, mutate, isLoading } = useSWR(
     makeSWRKey([currentAccount], provider.getAllCoins.name),
