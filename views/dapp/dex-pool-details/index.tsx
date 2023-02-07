@@ -31,7 +31,11 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
     mutate,
     error: web3Error,
   } = useWeb3();
-  const { error, data: volatilePool } = useGetVolatilePool(objectId);
+  const {
+    error,
+    data: volatilePool,
+    mutate: updateVolatilePools,
+  } = useGetVolatilePool(objectId);
 
   const { currentLocale } = useLocale();
 
@@ -183,7 +187,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
           tokens={addLiquidityTokens}
           pool={volatilePool}
           refetch={async () => {
-            await mutate();
+            await Promise.all([updateVolatilePools, mutate]);
           }}
         />
         <RemoveLiquidityCard
@@ -195,7 +199,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
           }
           tokens={removeLiquidityTokens}
           refetch={async () => {
-            await mutate();
+            await Promise.all([updateVolatilePools, mutate]);
           }}
         />
       </Box>

@@ -2,15 +2,17 @@ import { Network } from '@mysten/sui.js';
 
 import { TOKEN_SYMBOL } from '@/sdk';
 
+const COINS_PACKAGE_ID = '0xb62ae677aea4435cb046bbce97b93416384fdf3e';
+
 export const COIN_TYPE = {
   [Network.DEVNET]: {
     SUI: '0x2::sui::SUI',
-    BNB: '0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::BNB',
-    ETH: '0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::ETH',
-    BTC: '0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::BTC',
-    USDT: '0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::USDT',
-    USDC: '0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::USDC',
-    DAI: '0x913e6be0ef93fb9a498b77ff7312f9428bb342de::coins::DAI',
+    BNB: `${COINS_PACKAGE_ID}::coins::BNB`,
+    ETH: `${COINS_PACKAGE_ID}::coins::ETH`,
+    BTC: `${COINS_PACKAGE_ID}::coins::BTC`,
+    USDT: `${COINS_PACKAGE_ID}::coins::USDT`,
+    USDC: `${COINS_PACKAGE_ID}::coins::USDC`,
+    DAI: `${COINS_PACKAGE_ID}::coins::DAI`,
   },
 };
 

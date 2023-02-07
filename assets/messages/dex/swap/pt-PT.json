@@ -15,7 +15,7 @@
       "infoNoPool": "Este par não tem liquidez. Experimente uma quantidade maior ou acrescente liquidez",
       "noPool": "Nenhuma pool encontrada! Tenta uma pool existente",
       "error": "Erro ao trocar: tente uma slippage maior ou troque menos tokens",
-      "increaseAmount": "Aumente a quantia de {symbol}"
+      "increaseAmount": "Aumente a quantia de {symbol}, ou o mercado não tem liquidez suficiente"
     },
     "error": {
       "cannotSell0": "Não pode vender 0 tokens",

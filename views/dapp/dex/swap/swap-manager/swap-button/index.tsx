@@ -17,9 +17,9 @@ import { capitalize, showToast, showTXSuccessToast } from '@/utils';
 import { getCoinIds } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
-import { useGetVolatilePools } from '../swap.hooks';
-import { SwapButtonProps } from '../swap.types';
-import { findMarket, getAmountMinusSlippage } from '../swap.utils';
+import { useGetVolatilePools } from '../../swap.hooks';
+import { SwapButtonProps } from '../../swap.types';
+import { findMarket, getAmountMinusSlippage } from '../../swap.utils';
 
 const SwapButton: FC<SwapButtonProps> = ({
   mutate,

@@ -23,17 +23,13 @@ import {
   OnSelectCurrencyData,
 } from './swap.types';
 
-const SwapManager = dynamic(() => import('./swap-manager'));
-const SwapButton = dynamic(() => import('./swap-button'));
+const SwapManager = dynamic(() => import('./swap-manager/swap-manager'));
 
 const Swap: FC = () => {
-  const [disabled, setDisabled] = useState(false);
   const { coinsMap, mutate, account } = useWeb3();
   const { data: volatilePoolsMap } = useGetVolatilePools();
   const [isTokenInOpenModal, setTokenInIsOpenModal] = useState(false);
   const [isTokenOutOpenModal, setTokenOutIsOpenModal] = useState(false);
-  const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
-  const [isZeroSwapAmount, setIsZeroSwapAmount] = useState(false);
 
   const [localSettings, setLocalSettings] = useLocalStorage<LocalSwapSettings>(
     'sui-interest-swap-settings',
@@ -198,27 +194,21 @@ const Swap: FC = () => {
             register={register}
             coinsMap={coinsMap}
             getValues={getValues}
-            setDisabled={setDisabled}
             tokenInType={tokenInType}
             tokenOutType={tokenOutType}
             volatilePoolsMap={volatilePoolsMap}
             isTokenOutOpenModal={isTokenOutOpenModal}
             setTokenOutIsOpenModal={setTokenOutIsOpenModal}
             onSelectCurrency={onSelectCurrency('tokenOut')}
-            isZeroSwapAmount={isZeroSwapAmount}
-            setIsZeroSwapAmount={setIsZeroSwapAmount}
-            isFetchingSwapAmount={isFetchingSwapAmount}
-            setIsFetchingSwapAmount={setIsFetchingSwapAmount}
-          />
-          <SwapButton
-            mutate={mutate}
-            control={control}
-            disabled={disabled}
-            coinsMap={coinsMap}
-            getValues={getValues}
-            tokenInType={tokenInType}
-            tokenOutType={tokenOutType}
-            slippage={localSettings.slippage}
+            swapButtonProps={{
+              mutate,
+              control,
+              coinsMap,
+              getValues,
+              tokenInType,
+              tokenOutType,
+              slippage: localSettings.slippage,
+            }}
           />
         </Box>
       )}

@@ -43,6 +43,22 @@ export interface SwapButtonProps {
   mutate: KeyedMutator<PaginatedCoins | undefined>;
 }
 
+export interface SwapManagerWrapperProps {
+  swapButtonProps: Omit<SwapButtonProps, 'disabled'>;
+  tokenInType: string;
+  tokenOutType: string;
+  account: string | null;
+  volatilePoolsMap: PoolsMap;
+  control: Control<ISwapForm>;
+  isTokenOutOpenModal: boolean;
+  register: UseFormRegister<ISwapForm>;
+  setValue: UseFormSetValue<ISwapForm>;
+  getValues: UseFormGetValues<ISwapForm>;
+  coinsMap: Web3ManagerState['coinsMap'];
+  onSelectCurrency: (data: OnSelectCurrencyData) => void;
+  setTokenOutIsOpenModal: Dispatch<SetStateAction<boolean>>;
+}
+
 export interface SwapManagerProps {
   tokenInType: string;
   tokenOutType: string;
@@ -59,8 +75,10 @@ export interface SwapManagerProps {
   setTokenOutIsOpenModal: Dispatch<SetStateAction<boolean>>;
   isFetchingSwapAmount: boolean;
   setIsFetchingSwapAmount: Dispatch<SetStateAction<boolean>>;
-  isZeroSwapAmount: boolean;
   setIsZeroSwapAmount: Dispatch<SetStateAction<boolean>>;
+  tokenIn: SwapFormTokenData;
+  hasNoMarket: boolean;
+  setError: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface GetSwapPayload {

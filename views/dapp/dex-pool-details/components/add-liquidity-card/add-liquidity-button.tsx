@@ -43,6 +43,10 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
 
       setLoading(true);
 
+      const amount0 = FixedPointMath.toBigNumber(
+        token0Amount,
+        token0.decimals
+      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
       const amount1 = FixedPointMath.toBigNumber(
         token1Amount,
         token1.decimals
@@ -67,11 +71,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
             DEX_STORAGE_STABLE,
             vector0,
             vector1,
-            token0.type !== COIN_TYPE[Network.DEVNET].SUI
-              ? coinsMap[token0.type].totalBalance.toString()
-              : coinsMap[token0.type].totalBalance
-                  .minus(new BigNumber(9000))
-                  .toString(),
+            amount0.toString(),
             amount1.toString(),
             true,
             '0',

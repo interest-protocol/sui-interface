@@ -60,7 +60,7 @@ const processVolatilePool = (data: undefined | GetObjectDataResponse): Pool => {
 };
 
 export const useGetVolatilePool = (objectId: string) => {
-  const { data, isLoading, error } = useSWR(
+  const { data, isLoading, mutate, error } = useSWR(
     makeSWRKey([objectId], provider.getObject.name),
     () => provider.getObject(objectId),
     {
@@ -71,11 +71,12 @@ export const useGetVolatilePool = (objectId: string) => {
     }
   );
 
-  const processedDta = processVolatilePool(data);
+  const processedData = processVolatilePool(data);
 
   return {
     error,
     isLoading,
-    data: processedDta,
+    data: processedData,
+    mutate,
   };
 };
