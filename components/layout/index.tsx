@@ -33,12 +33,11 @@ const Layout: FC<LayoutProps> = ({ pageTitle = '', children }) => {
         <Box
           flex="1"
           as="main"
+          bg="textSoft"
           display="flex"
+          pb={['XXXL', 'L']}
           position="relative"
           flexDirection="column"
-          pb="calc(env(safe-area-inset-bottom))"
-          justifyContent="stretch"
-          bg="textSoft"
         >
           {children}
         </Box>

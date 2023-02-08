@@ -29,6 +29,7 @@ const Header: FC = () => {
   useEventListener('resize', handleSetDesktop, true);
 
   const handleChangeTheme = () => setDark(!dark);
+
   return (
     <Box>
       <Box bg={dark ? 'bottomBackground' : 'accentActive'} p="L">
