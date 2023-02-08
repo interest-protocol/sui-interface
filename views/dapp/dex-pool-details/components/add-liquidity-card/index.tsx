@@ -35,6 +35,16 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
     }
   );
 
+  const customInputFunction = (name: string) => {
+    if (name === 'token0Amount') {
+      setValue('token0InputLocked', true);
+      setValue('token1InputLocked', false);
+    } else {
+      setValue('token1InputLocked', true);
+      setValue('token0InputLocked', false);
+    }
+  };
+
   return (
     <Box bg="foreground" p="L" borderRadius="M" width="100%">
       <Box mb="L">
@@ -81,6 +91,7 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
           }
           isLarge={false}
           buttonMaxPosition="left"
+          customFunction={customInputFunction}
         />
       ))}
       <AddLiquidityCardContent

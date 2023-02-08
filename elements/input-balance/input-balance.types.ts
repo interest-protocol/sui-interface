@@ -14,3 +14,11 @@ export interface InputBalanceProps {
   customFunction?: (name: string) => void;
   buttonMaxPosition: 'left' | 'right';
 }
+
+export interface ButtonMaxProps {
+  max?: string;
+  disabled?: boolean;
+  name: any;
+  setValue: UseFormSetValue<any>;
+  customFunction?: (name: string) => void;
+}

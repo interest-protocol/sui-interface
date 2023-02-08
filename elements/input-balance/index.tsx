@@ -5,7 +5,41 @@ import { ChangeEvent, FC } from 'react';
 import { Box, Button, Input, Typography } from '@/elements';
 import { parseInputEventToNumberString } from '@/utils';
 
-import { InputBalanceProps } from './input-balance.types';
+import { ButtonMaxProps, InputBalanceProps } from './input-balance.types';
+
+const ButtonMax: FC<ButtonMaxProps> = ({
+  max,
+  disabled,
+  setValue,
+  customFunction,
+  name,
+}) => {
+  return (
+    !!max && (
+      <Button
+        p="NONE"
+        fontSize="S"
+        width="2.4rem"
+        height="2.4rem"
+        variant="primary"
+        bg="accentActive"
+        disabled={disabled || false}
+        color={dark ? 'text' : 'textInverted'}
+        hover={{ bg: 'accent' }}
+        active={{ bg: 'accentActive' }}
+        onClick={() => {
+          if (disabled || !setValue) return;
+
+          setValue?.(name, max);
+
+          customFunction && customFunction(name);
+        }}
+      >
+        max
+      </Button>
+    )
+  );
+};
 
 const InputBalance: FC<InputBalanceProps> = ({
   name,
@@ -26,34 +60,6 @@ const InputBalance: FC<InputBalanceProps> = ({
     const value = v.target.value;
 
     value === '0.0' && setValue?.(name, '');
-  };
-
-  const ButtonMax = () => {
-    return (
-      !!max && (
-        <Button
-          p="NONE"
-          fontSize="S"
-          width="2.4rem"
-          height="2.4rem"
-          variant="primary"
-          bg="accentActive"
-          disabled={disabled || false}
-          color={dark ? 'text' : 'textInverted'}
-          hover={{ bg: 'accent' }}
-          active={{ bg: 'accentActive' }}
-          onClick={() => {
-            if (disabled || !setValue) return;
-
-            setValue?.(name, max);
-
-            customFunction && customFunction(name);
-          }}
-        >
-          max
-        </Button>
-      )
-    );
   };
 
   return (
@@ -97,13 +103,29 @@ const InputBalance: FC<InputBalanceProps> = ({
         }}
         Prefix={
           <>
-            {buttonMaxPosition == 'left' && ButtonMax()}
+            {buttonMaxPosition == 'left' && (
+              <ButtonMax
+                name={name}
+                disabled={disabled}
+                setValue={setValue}
+                customFunction={customFunction}
+                max={max}
+              />
+            )}
             {Prefix && Prefix}
           </>
         }
         Suffix={
           <>
-            {buttonMaxPosition == 'right' && ButtonMax()}
+            {buttonMaxPosition == 'right' && (
+              <ButtonMax
+                name={name}
+                disabled={disabled}
+                setValue={setValue}
+                customFunction={customFunction}
+                max={max}
+              />
+            )}
             {Suffix && Suffix}
           </>
         }
