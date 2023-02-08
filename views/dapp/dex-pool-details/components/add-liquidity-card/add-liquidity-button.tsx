@@ -43,10 +43,12 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
 
       const amount0 = FixedPointMath.toBigNumber(
         token0Amount,
+        token0.decimals,
         token0.decimals
-      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
+      ).decimalPlaces(0, BigNumber.ROUND_UP);
       const amount1 = FixedPointMath.toBigNumber(
         token1Amount,
+        token1.decimals,
         token1.decimals
       ).decimalPlaces(0, BigNumber.ROUND_DOWN);
 

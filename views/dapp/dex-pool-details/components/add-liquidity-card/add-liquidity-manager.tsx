@@ -24,41 +24,60 @@ const AddLiquidityManager: FC<AddLiquidityManagerProps> = ({
 
   // user is typing on input0
   useEffect(() => {
-    if (input1IsLocked || !+token0Amount) return;
+    if (input1IsLocked) return;
 
-    const n = FixedPointMath.toNumber(
-      getOptimalCoin1Value(
-        FixedPointMath.toBigNumber(token0Amount, token0.decimals),
-        new BigNumber(pool.token0Balance),
-        new BigNumber(pool.token1Balance)
-      ),
-      token1.decimals
-    );
+    if (!+token0Amount) {
+      setValue('token1Amount', '0');
+      return;
+    }
+
+    const n = getOptimalCoin1Value(
+      FixedPointMath.toBigNumber(token0Amount, token0.decimals),
+      new BigNumber(pool.token0Balance),
+      new BigNumber(pool.token1Balance)
+    ).dividedBy(new BigNumber(10).pow(token1.decimals));
+
+    const roundedN =
+      n.lt(new BigNumber(1)) && !token1.decimals
+        ? 0
+        : n.decimalPlaces(token1.decimals, BigNumber.ROUND_UP).toNumber();
 
     setValue(
       'error',
-      n ? '' : t('dexPoolPair.error.increaseAmount', { symbol: token0.symbol })
+      roundedN
+        ? ''
+        : t('dexPoolPair.error.increaseAmount', { symbol: token0.symbol })
     );
-    setValue('token1Amount', n.toString());
+    setValue('token1Amount', roundedN.toString());
   }, [token0Amount, pool, input1IsLocked]);
 
   // user is typing on input1
   useEffect(() => {
-    if (input0IsLocked || !+token1Amount) return;
+    if (input0IsLocked) return;
 
-    const n = FixedPointMath.toNumber(
-      getOptimalCoin0Value(
-        FixedPointMath.toBigNumber(token1Amount, token1.decimals),
-        new BigNumber(pool.token0Balance),
-        new BigNumber(pool.token1Balance)
-      ),
-      token0.decimals
-    );
+    if (!+token1Amount) {
+      setValue('token0Amount', '0');
+      return;
+    }
+
+    const n = getOptimalCoin0Value(
+      FixedPointMath.toBigNumber(token1Amount, token1.decimals),
+      new BigNumber(pool.token0Balance),
+      new BigNumber(pool.token1Balance)
+    ).dividedBy(new BigNumber(10).pow(token0.decimals));
+
+    const roundedN =
+      n.lt(new BigNumber(1)) && !token0.decimals
+        ? 0
+        : n.decimalPlaces(token0.decimals, BigNumber.ROUND_UP).toNumber();
+
     setValue(
       'error',
-      n ? '' : t('dexPoolPair.error.increaseAmount', { symbol: token1.symbol })
+      roundedN
+        ? ''
+        : t('dexPoolPair.error.increaseAmount', { symbol: token1.symbol })
     );
-    setValue('token0Amount', n.toString());
+    setValue('token0Amount', roundedN.toString());
   }, [token1Amount, input0IsLocked, pool]);
 
   return null;
