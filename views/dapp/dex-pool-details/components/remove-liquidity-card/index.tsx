@@ -51,7 +51,7 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
         balance={lpBalance.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
         disabled={lpBalance.isZero()}
         currencyPrefix={
-          <Box display="flex" width="5rem">
+          <Box display="flex" width="5rem" alignItems="center">
             {tokens[0].Icon}
             {tokens[1].Icon}
             <Typography variant="normal" ml="M">
