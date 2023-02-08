@@ -5,14 +5,13 @@ import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { useWatch } from 'react-hook-form';
 
-import { Box } from '@/elements';
+import { Box, InputBalance } from '@/elements';
 import { useLocalStorage, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import { formatMoney, ZERO_BIG_NUMBER } from '@/utils';
 
 import SwapSelectCurrency from '../components/swap-select-currency';
-import InputBalance from './input-balance';
 import SettingsModal from './settings';
 import { ISwapSettingsForm } from './settings/settings.types';
 import { ETH, SUI } from './swap.data';
@@ -148,11 +147,11 @@ const Swap: FC = () => {
                 ),
                 pathOr(0, [tokenInType, 'decimals'], coinsMap)
               ).toString()}
-              name="tokenIn"
+              name="tokenIn.value"
               register={register}
               setValue={setValue}
               disabled={false}
-              currencySelector={
+              Prefix={
                 <SwapSelectCurrency
                   tokens={coinsMap}
                   currentToken={tokenInType}
@@ -163,6 +162,8 @@ const Swap: FC = () => {
                   onSelectCurrency={onSelectCurrency('tokenIn')}
                 />
               }
+              isLarge={true}
+              buttonMaxPosition="right"
             />
             <Box
               width="3rem"

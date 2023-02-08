@@ -10,10 +10,15 @@ import { InputBalanceProps } from './input-balance.types';
 const InputBalance: FC<InputBalanceProps> = ({
   name,
   balance,
+  max,
   disabled,
   register,
   setValue,
-  currencyPrefix,
+  Prefix,
+  Suffix,
+  buttonMaxPosition,
+  isLarge,
+  customFunction,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as { dark: boolean };
@@ -21,6 +26,34 @@ const InputBalance: FC<InputBalanceProps> = ({
     const value = v.target.value;
 
     value === '0.0' && setValue?.(name, '');
+  };
+
+  const ButtonMax = () => {
+    return (
+      !!max && (
+        <Button
+          p="NONE"
+          fontSize="S"
+          width="2.4rem"
+          height="2.4rem"
+          variant="primary"
+          bg="accentActive"
+          disabled={disabled || false}
+          color={dark ? 'text' : 'textInverted'}
+          hover={{ bg: 'accent' }}
+          active={{ bg: 'accentActive' }}
+          onClick={() => {
+            if (disabled || !setValue) return;
+
+            setValue?.(name, max);
+
+            customFunction && customFunction(name);
+          }}
+        >
+          max
+        </Button>
+      )
+    );
   };
 
   return (
@@ -35,66 +68,43 @@ const InputBalance: FC<InputBalanceProps> = ({
           onChange: (v: ChangeEvent<HTMLInputElement>) => {
             setValue?.(
               name,
-              parseInputEventToNumberString(v, balance ? +balance : undefined)
+              parseInputEventToNumberString(v, max ? +max : undefined)
             );
-            if (name === 'token0Amount') {
-              setValue('token0InputLocked', true);
-              setValue('token1InputLocked', false);
-            } else {
-              setValue('token1InputLocked', true);
-              setValue('token0InputLocked', false);
-            }
+            customFunction && customFunction(name);
           },
         })}
         shieldProps={{
-          p: 'S',
+          p: isLarge ? 'L' : 'S',
           my: 'M',
           width: '100%',
-          height: '3rem',
-          bg: 'background',
+          display: 'grid',
+          gridTemplateColumns: '6.9rem 1fr auto',
+          bg: disabled
+            ? dark
+              ? 'background'
+              : 'bottomBackground'
+            : dark
+            ? 'bottomBackground'
+            : 'background',
           overflow: 'visible',
           border: '1px solid',
-          borderRadius: '2rem',
+          borderRadius: isLarge ? '5rem' : '2rem',
           borderColor: 'transparent',
           opacity: disabled == undefined ? 1 : disabled ? 0.7 : 1,
-          hover: {
+          hover: !disabled && {
             borderColor: 'accentActive',
           },
         }}
         Prefix={
           <>
-            <Button
-              p="NONE"
-              fontSize="S"
-              width="2.4rem"
-              height="2.4rem"
-              variant="primary"
-              disabled={disabled || false}
-              onClick={() => {
-                if (disabled || !setValue) return;
-                setValue(name, balance);
-                if (name === 'token0Amount') {
-                  setValue('token0InputLocked', true);
-                  setValue('token1InputLocked', false);
-                } else {
-                  setValue('token1InputLocked', true);
-                  setValue('token0InputLocked', false);
-                }
-              }}
-            >
-              max
-            </Button>
-            <Box
-              px="M"
-              width="4.5rem"
-              lineHeight="0"
-              display="flex"
-              alignItems="center"
-              borderRight="1px solid"
-              borderColor="bottomBackground"
-            >
-              {currencyPrefix}
-            </Box>
+            {buttonMaxPosition == 'left' && ButtonMax()}
+            {Prefix && Prefix}
+          </>
+        }
+        Suffix={
+          <>
+            {buttonMaxPosition == 'right' && ButtonMax()}
+            {Suffix && Suffix}
           </>
         }
       />
