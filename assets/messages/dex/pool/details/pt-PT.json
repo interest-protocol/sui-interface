@@ -13,7 +13,8 @@
       "notEnough": "Não tens coins suficientes",
       "failed": "Falha ao adicionar",
       "cannotWithdraw": "Não podes sacar 0 lp tokens",
-      "increaseAmount": "Deposite mais {symbol}"
+      "increaseAmount": "Deposite mais {symbol}",
+      "notEnoughGas": "Não tem SUI suficiente para cobrir a taxa de gás."
     }
   }
 }

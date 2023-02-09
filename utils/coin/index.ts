@@ -7,7 +7,6 @@ import {
   Web3ManagerSuiObject,
 } from '@/components/web3-manager/web3-manager.types';
 import { COIN_TYPE } from '@/constants';
-import { FixedPointMath } from '@/sdk';
 
 export const addCoinTypeToTokenType = (x: string): string =>
   `0x2::coin::Coin<${x}>`;
@@ -32,12 +31,9 @@ export const getCoinIds = (
   if (type === COIN_TYPE[Network.DEVNET].SUI) {
     const suiObjects = [...object.objects];
     const gasObjectIndex = suiObjects
-      .sort((a, b) => (+a! > +b! ? 1 : -1))
-      .findIndex((elem) =>
-        FixedPointMath.toBigNumber(elem.balance || '0').gte(
-          FixedPointMath.toBigNumber(9000)
-        )
-      );
+      .sort((a, b) => (a.balance > b.balance ? 1 : -1))
+      .findIndex((elem) => elem.balance >= 9000);
+
     return suiObjects
       .filter((_, index) => index !== gasObjectIndex)
       .map((elem) => elem.coinObjectId);
@@ -50,14 +46,24 @@ export const processSafeAmount = (
   amount: BigNumber,
   type: string,
   coinsMap: Web3ManagerState['coinsMap'],
-  gas = 10000
+  gas = 9000
 ): BigNumber => {
   const object = coinsMap[type];
 
   if (!object) return amount;
 
-  return amount.eq(object.totalBalance) &&
-    type === COIN_TYPE[Network.DEVNET].SUI
-    ? amount.minus(new BigNumber(gas))
-    : amount;
+  if (
+    type === COIN_TYPE[Network.DEVNET].SUI &&
+    amount.eq(object.totalBalance)
+  ) {
+    const suiObjects = [...object.objects];
+    const sortedArray = suiObjects.sort((a, b) =>
+      a.balance > b.balance ? 1 : -1
+    );
+    const elem = sortedArray.find((elem) => elem.balance >= gas);
+
+    return elem ? amount.minus(new BigNumber(elem.balance)) : new BigNumber(0);
+  }
+
+  return amount;
 };

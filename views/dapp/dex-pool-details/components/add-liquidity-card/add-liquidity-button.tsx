@@ -59,6 +59,16 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
       if (!vector0.length || !vector1.length)
         throw new Error(t('dexPoolPair.error.notEnough'));
 
+      const safeAmount0 = processSafeAmount(amount0, token0.type, coinsMap);
+      const safeAmount1 = processSafeAmount(
+        coinsMap[token1.type].totalBalance,
+        token1.type,
+        coinsMap
+      );
+
+      if (safeAmount0.isZero() || safeAmount1.isZero())
+        throw new Error(t('dexPoolPair.error.notEnoughGas'));
+
       const tx = await signAndExecuteTransaction({
         kind: 'moveCall',
         data: {
@@ -72,12 +82,8 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
             DEX_STORAGE_STABLE,
             vector0,
             vector1,
-            processSafeAmount(amount0, token0.type, coinsMap).toString(),
-            processSafeAmount(
-              coinsMap[token1.type].totalBalance,
-              token1.type,
-              coinsMap
-            ).toString(),
+            safeAmount0.toString(),
+            safeAmount1.toString(),
             true,
             '0',
           ],

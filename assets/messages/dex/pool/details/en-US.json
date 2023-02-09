@@ -13,7 +13,8 @@
       "notEnough": "Not enough coins",
       "failed": "Failed to add liquidity",
       "cannotWithdraw": "Cannot withdraw 0 lp tokens",
-      "increaseAmount": "Increase the {symbol} amount"
+      "increaseAmount": "Increase the {symbol} amount",
+      "notEnoughGas": "Not enough SUI to cover the gas fee"
     }
   }
 }
