@@ -45,3 +45,19 @@ export const getCoinIds = (
 
   return object.objects.map((elem) => elem.coinObjectId);
 };
+
+export const processSafeAmount = (
+  amount: BigNumber,
+  type: string,
+  coinsMap: Web3ManagerState['coinsMap'],
+  gas = 10000
+): BigNumber => {
+  const object = coinsMap[type];
+
+  if (!object) return amount;
+
+  return amount.eq(object.totalBalance) &&
+    type === COIN_TYPE[Network.DEVNET].SUI
+    ? amount.minus(new BigNumber(gas))
+    : amount;
+};

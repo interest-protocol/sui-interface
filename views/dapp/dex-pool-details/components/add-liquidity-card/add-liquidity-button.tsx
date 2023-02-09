@@ -13,7 +13,13 @@ import { Box, Button } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
-import { capitalize, getCoinIds, showToast, showTXSuccessToast } from '@/utils';
+import {
+  capitalize,
+  getCoinIds,
+  processSafeAmount,
+  showToast,
+  showTXSuccessToast,
+} from '@/utils';
 
 import { AddLiquidityCardButtonProps } from './add-liquidity-card.types';
 
@@ -46,11 +52,6 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
         token0.decimals,
         token0.decimals
       ).decimalPlaces(0, BigNumber.ROUND_UP);
-      const amount1 = FixedPointMath.toBigNumber(
-        token1Amount,
-        token1.decimals,
-        token1.decimals
-      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
 
       const vector0 = getCoinIds(coinsMap, token0.type);
       const vector1 = getCoinIds(coinsMap, token1.type);
@@ -71,8 +72,12 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
             DEX_STORAGE_STABLE,
             vector0,
             vector1,
-            amount0.toString(),
-            amount1.toString(),
+            processSafeAmount(amount0, token0.type, coinsMap).toString(),
+            processSafeAmount(
+              coinsMap[token1.type].totalBalance,
+              token1.type,
+              coinsMap
+            ).toString(),
             true,
             '0',
           ],
