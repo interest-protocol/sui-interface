@@ -14,30 +14,32 @@ const ButtonMax: FC<ButtonMaxProps> = ({
   customFunction,
   name,
 }) => {
-  return (
-    !!max && (
-      <Button
-        p="NONE"
-        fontSize="S"
-        width="2.4rem"
-        height="2.4rem"
-        variant="primary"
-        bg="accentActive"
-        disabled={disabled || false}
-        color={dark ? 'text' : 'textInverted'}
-        hover={{ bg: 'accent' }}
-        active={{ bg: 'accentActive' }}
-        onClick={() => {
-          if (disabled || !setValue) return;
+  const { dark } = useTheme() as { dark: boolean };
 
-          setValue?.(name, max);
+  return max ? (
+    <Button
+      p="NONE"
+      fontSize="S"
+      width="2.4rem"
+      height="2.4rem"
+      variant="primary"
+      bg="accentActive"
+      disabled={disabled || false}
+      color={dark ? 'text' : 'textInverted'}
+      hover={{ bg: 'accent' }}
+      active={{ bg: 'accentActive' }}
+      onClick={() => {
+        if (disabled || !setValue) return;
 
-          customFunction && customFunction(name);
-        }}
-      >
-        max
-      </Button>
-    )
+        setValue?.(name, max);
+
+        customFunction && customFunction(name);
+      }}
+    >
+      max
+    </Button>
+  ) : (
+    <></>
   );
 };
 
