@@ -22,6 +22,7 @@ export const useGetVolatilePools = () => {
       refreshWhenHidden: false,
     }
   );
+  console.log(data);
   const parsedData = useMemo(() => parsePools(data), [data]);
 
   return {

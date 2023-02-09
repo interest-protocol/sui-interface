@@ -15,12 +15,12 @@ import { capitalize, provider, showToast, showTXSuccessToast } from '@/utils';
 import { MintButtonProps } from './faucet-form.types';
 
 const COIN_MINT_AMOUNT = {
-  [COIN_TYPE[Network.DEVNET].BNB]: '10',
-  [COIN_TYPE[Network.DEVNET].ETH]: '5',
-  [COIN_TYPE[Network.DEVNET].BTC]: '5',
-  [COIN_TYPE[Network.DEVNET].USDT]: '2000',
-  [COIN_TYPE[Network.DEVNET].USDC]: '2000',
-  [COIN_TYPE[Network.DEVNET].DAI]: '2000',
+  [COIN_TYPE[Network.DEVNET].BNB]: '1000',
+  [COIN_TYPE[Network.DEVNET].ETH]: '500',
+  [COIN_TYPE[Network.DEVNET].BTC]: '500',
+  [COIN_TYPE[Network.DEVNET].USDT]: '200000',
+  [COIN_TYPE[Network.DEVNET].USDC]: '200000',
+  [COIN_TYPE[Network.DEVNET].DAI]: '200000',
 } as Record<string, string>;
 
 const MintButton: FC<MintButtonProps> = ({ getValues }) => {
