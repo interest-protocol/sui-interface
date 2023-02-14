@@ -1,6 +1,6 @@
 import { Network } from '@mysten/sui.js';
 
-import { COINS } from './coins';
+import { COINS, COINS_PACKAGE_ID } from './coins';
 
 const networkDevNetCoins = COINS[Network.DEVNET];
 
@@ -8,70 +8,65 @@ export const RECOMMENDED_POOLS = [
   {
     token0: networkDevNetCoins.BNB,
     token1: networkDevNetCoins.ETH,
-    poolObjectId: '0xaaba392e20f92c72a318ea15f7e49c2910d85b1f',
-    lpCoinType:
-      '0xb62ae677aea4435cb046bbce97b93416384fdf3e::dex_volatile::VLPCoin<0xb62ae677aea4435cb046bbce97b93416384fdf3e::coins::BNB, 0xb62ae677aea4435cb046bbce97b93416384fdf3e::coins::ETH>',
+    poolObjectId: '0x432501040c8375662db44e5128401bb31063d573',
+    lpCoinType: `${COINS_PACKAGE_ID}::dex_volatile::VLPCoin<${COINS_PACKAGE_ID}::coins::BNB, ${COINS_PACKAGE_ID}::coins::ETH>`,
   },
   {
     token0: networkDevNetCoins.BTC,
     token1: networkDevNetCoins.ETH,
-    poolObjectId: '0xff21ecf64ed5a5054b6b414dd402f1da6f5439a4',
-    lpCoinType:
-      '0xb62ae677aea4435cb046bbce97b93416384fdf3e::dex_volatile::VLPCoin<0xb62ae677aea4435cb046bbce97b93416384fdf3e::coins::BTC, 0xb62ae677aea4435cb046bbce97b93416384fdf3e::coins::ETH>',
+    poolObjectId: '0x4a142ec5a435f578a094d4b2619cc3a37b65ad8e',
+    lpCoinType: `${COINS_PACKAGE_ID}::dex_volatile::VLPCoin<${COINS_PACKAGE_ID}::coins::BTC, ${COINS_PACKAGE_ID}::coins::ETH>`,
   },
   {
     token0: networkDevNetCoins.DAI,
     token1: networkDevNetCoins.ETH,
-    poolObjectId: '0xaf450dcfb71a472b8fd0103dd92e1a2236faddfb',
-    lpCoinType:
-      '0xb62ae677aea4435cb046bbce97b93416384fdf3e::dex_volatile::VLPCoin<0xb62ae677aea4435cb046bbce97b93416384fdf3e::coins::DAI, 0xb62ae677aea4435cb046bbce97b93416384fdf3e::coins::ETH>',
+    poolObjectId: '0x1996be27d445511227a88742f28a5c04b012312e',
+    lpCoinType: `${COINS_PACKAGE_ID}::dex_volatile::VLPCoin<${COINS_PACKAGE_ID}::coins::DAI, ${COINS_PACKAGE_ID}::coins::ETH>`,
   },
   {
     token0: networkDevNetCoins.ETH,
     token1: networkDevNetCoins.USDT,
-    poolObjectId: '0xe5522f2b207ed823dd945615e6e02b4a86627b92',
-    lpCoinType:
-      '0xb62ae677aea4435cb046bbce97b93416384fdf3e::dex_volatile::VLPCoin<0xb62ae677aea4435cb046bbce97b93416384fdf3e::coins::ETH, 0xb62ae677aea4435cb046bbce97b93416384fdf3e::coins::USDT>',
+    poolObjectId: '0x0e7f1521096ea498e21d69fd958aabaa057b01d5',
+    lpCoinType: `${COINS_PACKAGE_ID}::dex_volatile::VLPCoin<${COINS_PACKAGE_ID}::coins::ETH, ${COINS_PACKAGE_ID}::coins::USDT>`,
   },
   {
     token0: networkDevNetCoins.ETH,
     token1: networkDevNetCoins.USDC,
-    poolObjectId: '0x986bbb3c29f902e5cadf12a2e422a5a58e5990f9',
-    lpCoinType:
-      '0xb62ae677aea4435cb046bbce97b93416384fdf3e::dex_volatile::VLPCoin<0xb62ae677aea4435cb046bbce97b93416384fdf3e::coins::ETH, 0xb62ae677aea4435cb046bbce97b93416384fdf3e::coins::USDC>',
+    poolObjectId: '0xdd16f1f901c8095cd1fca2a5e5c4fad13344fb28',
+    lpCoinType: `${COINS_PACKAGE_ID}::dex_volatile::VLPCoin<${COINS_PACKAGE_ID}::coins::ETH, ${COINS_PACKAGE_ID}::coins::USDC>`,
   },
   {
     token0: networkDevNetCoins.SUI,
     token1: networkDevNetCoins.ETH,
-    poolObjectId: '0x8d05edfe25f3c67376faa1ffddd96aa8ced7f731',
-    lpCoinType:
-      '0xb62ae677aea4435cb046bbce97b93416384fdf3e::dex_volatile::VLPCoin<0x2::sui::SUI, 0xb62ae677aea4435cb046bbce97b93416384fdf3e::coins::ETH>',
+
+    poolObjectId: '0xf3dee451ea961a79736777532d84d31f5871560c',
+    lpCoinType: `${COINS_PACKAGE_ID}::dex_volatile::VLPCoin<0x2::sui::SUI, ${COINS_PACKAGE_ID}::coins::ETH>`,
   },
 ];
 
 export const POOL_METADATA_MAP = {
   [Network.DEVNET]: {
-    '0x8d05edfe25f3c67376faa1ffddd96aa8ced7f731': {
+    '0xf3dee451ea961a79736777532d84d31f5871560c': {
       token0: networkDevNetCoins.SUI,
       token1: networkDevNetCoins.ETH,
     },
-    '0x986bbb3c29f902e5cadf12a2e422a5a58e5990f9': {
+    '0xdd16f1f901c8095cd1fca2a5e5c4fad13344fb28': {
       token0: networkDevNetCoins.ETH,
       token1: networkDevNetCoins.USDC,
     },
-    '0xe5522f2b207ed823dd945615e6e02b4a86627b92': {
+    '0x0e7f1521096ea498e21d69fd958aabaa057b01d5': {
       token0: networkDevNetCoins.ETH,
       token1: networkDevNetCoins.USDT,
     },
-    '0xaf450dcfb71a472b8fd0103dd92e1a2236faddfb': {
+    '0x1996be27d445511227a88742f28a5c04b012312e': {
       token0: networkDevNetCoins.DAI,
       token1: networkDevNetCoins.ETH,
     },
-    '0xff21ecf64ed5a5054b6b414dd402f1da6f5439a4': {
+    '0x4a142ec5a435f578a094d4b2619cc3a37b65ad8e': {
       token0: networkDevNetCoins.BTC,
       token1: networkDevNetCoins.ETH,
     },
-    '0xaaba392e20f92c72a318ea15f7e49c2910d85b1f': {
+    '0x432501040c8375662db44e5128401bb31063d573': {
       token0: networkDevNetCoins.BNB,
       token1: networkDevNetCoins.ETH,
     },
