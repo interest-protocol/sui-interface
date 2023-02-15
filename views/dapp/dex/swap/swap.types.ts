@@ -1,5 +1,5 @@
-import { SuiObjectInfo } from '@mysten/sui.js';
 import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
+import { DynamicFieldInfo } from '@mysten/sui.js/src/types/dynamic_fields';
 import { Dispatch, SetStateAction } from 'react';
 import {
   Control,
@@ -24,7 +24,7 @@ export interface OnSelectCurrencyData {
   decimals: number;
 }
 
-export type PoolsMap = Record<string, Record<string, SuiObjectInfo>>;
+export type PoolsMap = Record<string, Record<string, DynamicFieldInfo>>;
 
 export interface SwapPathObject {
   baseTokens: ReadonlyArray<string>;

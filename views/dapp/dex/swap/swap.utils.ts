@@ -1,6 +1,6 @@
-import { SuiObjectInfo } from '@mysten/sui.js';
 import { UnserializedSignableTransaction } from '@mysten/sui.js/src/signers/txn-data-serializers/txn-data-serializer';
 import { DevInspectResults } from '@mysten/sui.js/src/types';
+import { DynamicFieldInfo } from '@mysten/sui.js/src/types/dynamic_fields';
 import BigNumber from 'bignumber.js';
 import { has, isEmpty, pathOr, propOr } from 'ramda';
 
@@ -16,15 +16,17 @@ import { getCoinIds } from '@/utils';
 
 import { GetSwapPayload, PoolsMap, SwapPathObject } from './swap.types';
 
-export const parsePools = (data: undefined | SuiObjectInfo[]) => {
+export const parsePools = (data: undefined | DynamicFieldInfo[]) => {
   if (!data) return {};
 
   return data.reduce((acc, elem) => {
-    const type = elem.type.split('VPool');
+    const type = elem.objectType.split('VPool');
 
     const tokensTypes = type[1].split(',');
-    const tokenInType = tokensTypes[0].substring(1);
-    const tokenOutType = tokensTypes[1].substring(1, tokensTypes[1].length - 2);
+    const tokenInType = tokensTypes[0].trim().substring(1);
+    const tokenOutType = tokensTypes[1]
+      .trim()
+      .substring(0, tokensTypes[1].length - 2);
 
     const parsedTokenIn = addCoinTypeToTokenType(tokenInType);
     const parsedTokenOut = addCoinTypeToTokenType(tokenOutType);
