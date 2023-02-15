@@ -33,7 +33,7 @@ const DropdownItem: FC<DropdownItemProps> = ({
         borderRadius: '2rem',
         alignItems: 'center',
         overflow: 'hidden',
-        minWidth: minWidth || '17rem',
+        minWidth: minWidth || ['12rem', '17rem'],
         boxShadow: '0px 5px 5px -5px rgba(0, 0, 0, 0.35)',
         bg: disabled
           ? 'disabled'

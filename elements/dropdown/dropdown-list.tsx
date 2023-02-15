@@ -22,6 +22,7 @@ const DropdownList: FC<DropdownListProps> = ({
   customItems,
   customTitle,
   emptyMessage,
+  wrapperProps,
   selectedIndex,
   toggleDropdown,
   setSelectedIndex,
@@ -62,7 +63,9 @@ const DropdownList: FC<DropdownListProps> = ({
     value.toLocaleLowerCase().match(`^${search?.toLocaleLowerCase() ?? ''}`)
   );
 
-  return isOpen ? (
+  if (!isOpen) return null;
+
+  return (
     <RefBox
       p="M"
       zIndex={4}
@@ -79,6 +82,7 @@ const DropdownList: FC<DropdownListProps> = ({
       {...(bottom
         ? { bottom: '5rem' }
         : { top: customTitle ? '2rem' : '4rem' })}
+      {...wrapperProps}
     >
       {header &&
         (typeof header === 'string' ? (
@@ -121,7 +125,7 @@ const DropdownList: FC<DropdownListProps> = ({
         </Typography>
       )}
     </RefBox>
-  ) : null;
+  );
 };
 
 export default DropdownList;

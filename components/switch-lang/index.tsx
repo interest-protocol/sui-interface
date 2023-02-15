@@ -5,7 +5,9 @@ import { IDropdownData } from '@/elements/dropdown/dropdown.types';
 import { useLocale } from '@/hooks';
 import { getSafeLocaleSVG } from '@/utils';
 
-const SwitchLang: FC = () => {
+import { SwitchLangProps } from './switch-lang.types';
+
+const SwitchLang: FC<SwitchLangProps> = ({ isMobile }) => {
   const { currentLocale, changeLocale, locales } = useLocale();
 
   return (
@@ -21,7 +23,13 @@ const SwitchLang: FC = () => {
         </Box>
       }
       mode="menu"
+      customItems={isMobile}
       defaultValue={currentLocale}
+      wrapperProps={{
+        display: ['grid', 'block'],
+        gridTemplateColumns: ['1fr 1fr 1fr', 'unset'],
+        top: '2rem',
+      }}
       data={
         locales.map((locale) => ({
           value: locale,
@@ -30,7 +38,6 @@ const SwitchLang: FC = () => {
               pl="M"
               height="3rem"
               display="flex"
-              minWidth="17rem"
               alignItems="center"
               hover={{
                 color: currentLocale === locale ? 'unset' : 'textInverted',
@@ -50,6 +57,7 @@ const SwitchLang: FC = () => {
                 fontWeight="500"
                 fontSize="1rem"
                 lineHeight="1.625rem"
+                display={['none', 'inline-block']}
               >
                 {locale}
               </Typography>

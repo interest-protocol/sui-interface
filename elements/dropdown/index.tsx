@@ -24,6 +24,7 @@ const Dropdown: FC<DropdownProps> = ({
   customTitle,
   customItems,
   emptyMessage,
+  wrapperProps,
   defaultValue,
   staticPosition,
 }) => {
@@ -42,8 +43,8 @@ const Dropdown: FC<DropdownProps> = ({
     <Box
       display="flex"
       alignItems="center"
-      position={staticPosition ? 'static' : 'relative'}
       id={dropdownWrapperId}
+      position={staticPosition ? 'static' : 'relative'}
     >
       {mode === 'select' && selectedIndex !== -1 && customTitle ? (
         <Box
@@ -101,6 +102,7 @@ const Dropdown: FC<DropdownProps> = ({
         </Box>
       )}
       <DropdownList
+        bg={bg}
         data={data}
         isOpen={isOpen}
         header={header}
@@ -110,14 +112,14 @@ const Dropdown: FC<DropdownProps> = ({
         minWidth={minWidth}
         fromRight={fromRight}
         setIsOpen={setIsOpen}
+        bgSelected={bgSelected}
         customItems={customItems}
+        wrapperProps={wrapperProps}
         emptyMessage={emptyMessage}
         selectedIndex={selectedIndex}
         toggleDropdown={toggleDropdown}
         setSelectedIndex={setSelectedIndex}
         dropdownWrapperId={dropdownWrapperId}
-        bg={bg}
-        bgSelected={bgSelected}
       />
     </Box>
   );

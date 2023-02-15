@@ -66,7 +66,7 @@ const InputBalance: FC<InputBalanceProps> = ({
           border: '1px solid',
           borderRadius: '5rem',
           borderColor: 'transparent',
-          gridTemplateColumns: '6.9rem 1fr auto',
+          gridTemplateColumns: 'auto 1fr auto',
           bg: disabled
             ? dark
               ? 'background'

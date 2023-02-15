@@ -1,5 +1,7 @@
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 
+import { BoxProps } from '../box/box.types';
+
 export interface IDropdownData {
   value: string;
   disabled?: boolean;
@@ -37,6 +39,7 @@ export interface DropdownProps {
   mode: 'select' | 'menu';
   staticPosition?: boolean;
   defaultValue?: ReactNode;
+  wrapperProps?: BoxProps;
   data: ReadonlyArray<IDropdownData>;
   callback?: (isOpen: boolean) => void;
 }
@@ -53,6 +56,7 @@ export interface DropdownListProps {
   customItems?: boolean;
   customTitle?: boolean;
   selectedIndex: number;
+  wrapperProps?: BoxProps;
   dropdownWrapperId: string;
   toggleDropdown: () => void;
   data: ReadonlyArray<IDropdownData>;

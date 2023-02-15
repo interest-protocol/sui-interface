@@ -122,39 +122,41 @@ const Header: FC = () => {
           </Box>
           <Wallet />
           <Box display="flex" justifyContent="flex-end" alignItems="stretch">
-            <Box display="flex" alignItems="stretch">
-              <SwitchLang />
-              <Box
-                px="S"
-                height="2.8rem"
-                alignItems="center"
-                display="inline-flex"
-                justifyContent="center"
-                onClick={handleChangeTheme}
-                color="text"
-                cursor="pointer"
-                hover={{ color: 'accent' }}
-              >
-                {!dark ? (
-                  <MoonSVG
-                    width="1rem"
-                    maxHeight="3rem"
-                    maxWidth="3rem"
-                    fill="currentColor"
-                  />
-                ) : (
-                  <SunSVG
-                    width="1rem"
-                    maxHeight="3rem"
-                    maxWidth="3rem"
-                    fill="currentColor"
-                  />
-                )}
+            {!isMobile && (
+              <Box display="flex" alignItems="stretch">
+                <SwitchLang isMobile={false} />
+                <Box
+                  px="S"
+                  height="2.8rem"
+                  alignItems="center"
+                  display="inline-flex"
+                  justifyContent="center"
+                  onClick={handleChangeTheme}
+                  color="text"
+                  cursor="pointer"
+                  hover={{ color: 'accent' }}
+                >
+                  {!dark ? (
+                    <MoonSVG
+                      width="1rem"
+                      maxHeight="3rem"
+                      maxWidth="3rem"
+                      fill="currentColor"
+                    />
+                  ) : (
+                    <SunSVG
+                      width="1rem"
+                      maxHeight="3rem"
+                      maxWidth="3rem"
+                      fill="currentColor"
+                    />
+                  )}
+                </Box>
               </Box>
-            </Box>
+            )}
           </Box>
         </Box>
-        {isMobile && <MobileMenu />}
+        {isMobile && <MobileMenu dark={dark} changeTheme={handleChangeTheme} />}
       </Box>
     </Box>
   );

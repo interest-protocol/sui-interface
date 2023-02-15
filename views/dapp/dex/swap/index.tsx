@@ -99,7 +99,7 @@ const Swap: FC = () => {
       width="100%"
       bg="foreground"
       borderRadius="M"
-      minWidth={['20rem', '40rem']}
+      minWidth={['17rem', '40rem']}
     >
       <Box pt="L" display="flex" alignItems="center" justifyContent="flex-end">
         <Box display="flex" flexDirection="column" alignItems="flex-end">
