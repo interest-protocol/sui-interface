@@ -12,11 +12,14 @@ import { LoadingSVG, SuiSVG } from '@/svg';
 import { ZERO_BIG_NUMBER } from '@/utils';
 
 const StyledConnectButton = styled(ConnectButton)`
-  background: #4282a8 !important;
   width: 100%;
+  white-space: nowrap !important;
   color: #fff !important;
-  border-radius: 2.5rem !important;
+  padding-left: 0.7rem !important;
+  padding-right: 0.7rem !important;
+  background: #4282a8 !important;
   transition: background-color 1s;
+  border-radius: 2.5rem !important;
   &:hover {
     background: #6fbcf0 !important;
   }

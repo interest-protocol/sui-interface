@@ -22,7 +22,7 @@ const SwapSearchToken: FC<SwapSearchTokenProps> = ({
       shieldProps={{
         py: 'M',
         borderRadius: '2rem',
-        minWidth: ['20rem', '25rem'],
+        minWidth: ['17rem', '25rem'],
         bg: isSearching ? 'disabled' : 'background',
       }}
     />

@@ -57,7 +57,7 @@ const SwapSelectCurrency: FC<SwapSelectCurrencyProps> = ({
           alignItems="center"
           color={dark ? 'text' : 'textInverted'}
         >
-          <Box as="span" minWidth="1.3rem" display="inline-block">
+          <Box as="span" minWidth="1.3rem" display="inline-block" mr="M">
             <SVG
               width="100%"
               maxHeight="1.3rem"
@@ -66,9 +66,10 @@ const SwapSelectCurrency: FC<SwapSelectCurrencyProps> = ({
             />
           </Box>
           <Typography
-            mx="M"
+            mr="M"
             as="span"
             variant="normal"
+            display={['none', 'block']}
             active={{ color: 'accentActive' }}
           >
             {symbol.length > 4
