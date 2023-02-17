@@ -15,7 +15,7 @@ export const useGetVolatilePools = () => {
       [VOLATILE_POOLS_OBJECT_ID],
       provider.getObjectsOwnedByObject.name
     ),
-    async () => provider.getObjectsOwnedByObject(VOLATILE_POOLS_OBJECT_ID),
+    async () => provider.getDynamicFields(VOLATILE_POOLS_OBJECT_ID),
     {
       revalidateOnFocus: false,
       revalidateOnMount: true,
@@ -23,7 +23,7 @@ export const useGetVolatilePools = () => {
     }
   );
 
-  const parsedData = useMemo(() => parsePools(data), [data]);
+  const parsedData = useMemo(() => parsePools(data?.data), [data]);
 
   return {
     ...rest,

@@ -27,7 +27,7 @@ const DEXView: FC = () => {
         mt="0.5rem"
         p="L"
         borderRadius="L"
-        minWidth={['20rem', '40rem']}
+        minWidth={['17rem', '40rem']}
       >
         <Switch
           defaultValue={isSwap ? 'swap' : 'pool'}

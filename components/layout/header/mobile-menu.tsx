@@ -1,18 +1,34 @@
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import SwitchLang from '@/components/switch-lang';
 import { SOCIAL_MEDIAS } from '@/constants/social-media';
 import { Box, Dropdown, Typography } from '@/elements';
 import { BarsSVG, GitBookSVG } from '@/svg';
 
-const MobileMenu: FC = () => {
+import { SwitchThemeProps } from '../layout.types';
+import SwitchTheme from './switch-theme';
+
+const MobileMenu: FC<SwitchThemeProps> = ({ changeTheme, dark }) => {
   const t = useTranslations();
+
   return (
     <>
       <Dropdown
         buttonMode
         mode="menu"
-        header={t('common.followUs')}
+        header={
+          <Box
+            display="grid"
+            alignItems="center"
+            justifyItems="center"
+            gridTemplateColumns="1fr auto 1fr"
+          >
+            <SwitchLang isMobile={true} />
+            <Typography variant="small">{t('common.followUs')}</Typography>
+            <SwitchTheme dark={dark} changeTheme={changeTheme} />
+          </Box>
+        }
         title={
           <Box
             display="flex"
@@ -37,7 +53,12 @@ const MobileMenu: FC = () => {
             value: title,
             onSelect: () => parent.open(link),
             displayOption: (
-              <a href={link} target="__blank" rel="noopener noreferrer">
+              <a
+                href={link}
+                target="__blank"
+                rel="noopener noreferrer"
+                style={{ width: '100%' }}
+              >
                 <Typography
                   px="M"
                   py="L"

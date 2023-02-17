@@ -6,11 +6,11 @@ import { useWatch } from 'react-hook-form';
 import useSWR from 'swr';
 
 import { COIN_DECIMALS } from '@/constants';
+import InputBalance from '@/elements/input-balance';
 import { FixedPointMath } from '@/sdk';
 import { formatMoney, makeSWRKey, provider, ZERO_BIG_NUMBER } from '@/utils';
 
 import SwapSelectCurrency from '../../components/swap-select-currency';
-import InputBalance from '../input-balance';
 import { SwapManagerProps } from '../swap.types';
 import { findSwapAmountOutput, getSwapPayload } from '../swap.utils';
 
@@ -101,17 +101,17 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 
   return (
     <InputBalance
-      disabled
-      name="tokenOut"
-      register={register}
-      setValue={setValue}
       balance={formatMoney(
         FixedPointMath.toNumber(
           pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
           pathOr(0, [tokenOutType, 'decimals'], coinsMap)
         )
       )}
-      currencySelector={
+      name="tokenOut.value"
+      register={register}
+      setValue={setValue}
+      disabled
+      Prefix={
         <SwapSelectCurrency
           tokens={coinsMap}
           currentToken={tokenOutType}
@@ -122,6 +122,8 @@ const SwapManagerField: FC<SwapManagerProps> = ({
           setIsModalOpen={setTokenOutIsOpenModal}
         />
       }
+      isLarge={true}
+      buttonMaxPosition="right"
     />
   );
 };

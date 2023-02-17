@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { v4 } from 'uuid';
 
-import { Box, Typography } from '@/elements';
+import { Box, InputBalance, Typography } from '@/elements';
 import { FixedPointMath } from '@/sdk';
 
 import {
@@ -14,7 +14,6 @@ import {
 } from './add-liquidity-card.types';
 import AddLiquidityCardContent from './add-liquidity-card-content';
 import AddLiquidityManager from './add-liquidity-manager';
-import InputBalance from './input-balance';
 
 const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
   tokens,
@@ -36,6 +35,16 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
     }
   );
 
+  const customInputFunction = (name: string) => {
+    if (name === 'token0Amount') {
+      setValue('token0InputLocked', true);
+      setValue('token1InputLocked', false);
+    } else {
+      setValue('token1InputLocked', true);
+      setValue('token0InputLocked', false);
+    }
+  };
+
   return (
     <Box bg="foreground" p="L" borderRadius="M" width="100%">
       <Box mb="L">
@@ -55,20 +64,34 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
           setValue={setValue}
           name={INPUT_NAMES[index]}
           balance={FixedPointMath.toNumber(balance, decimals).toString()}
-          currencyPrefix={
+          max={FixedPointMath.toNumber(balance, decimals).toString()}
+          Prefix={
             <Box
-              display="flex"
+              px="M"
               width="4.5rem"
-              maxHeight="1rem"
+              lineHeight="0"
+              display="flex"
               alignItems="center"
-              justifyContent="center"
+              borderRight="1px solid"
+              borderColor="bottomBackground"
             >
-              {Icon}
-              <Typography variant="normal" ml="M" maxHeight="1rem">
-                {symbol}
-              </Typography>
+              <Box
+                display="flex"
+                width="4.5rem"
+                maxHeight="1rem"
+                alignItems="center"
+                justifyContent="center"
+              >
+                {Icon}
+                <Typography variant="normal" ml="M" maxHeight="1rem">
+                  {symbol}
+                </Typography>
+              </Box>
             </Box>
           }
+          isLarge={false}
+          buttonMaxPosition="left"
+          customFunction={customInputFunction}
         />
       ))}
       <AddLiquidityCardContent

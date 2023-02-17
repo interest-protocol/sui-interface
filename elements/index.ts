@@ -4,6 +4,7 @@ export { default as Dropdown } from './dropdown';
 export { default as DropdownTable } from './dropdown-table';
 export { default as InfiniteScroll } from './infinite-scroll';
 export { default as Input } from './input';
+export { default as InputBalance } from './input-balance';
 export { default as Modal } from './modal';
 export { default as RefBox } from './ref-box';
 export { default as ResponsiveImage } from './responsive-image';

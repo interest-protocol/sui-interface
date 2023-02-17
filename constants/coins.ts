@@ -2,7 +2,7 @@ import { Network } from '@mysten/sui.js';
 
 import { TOKEN_SYMBOL } from '@/sdk';
 
-export const COINS_PACKAGE_ID = '0x38ec5239a1af92bf37ef6ef62db151e529df1821';
+export const COINS_PACKAGE_ID = '0x83b97c3e097788bebcf48e84e3ce063b195f50d4';
 
 export const COIN_TYPE = {
   [Network.DEVNET]: {

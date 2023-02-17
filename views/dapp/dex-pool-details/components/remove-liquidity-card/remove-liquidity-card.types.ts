@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { ReactNode } from 'react';
-import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { Control } from 'react-hook-form';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 
@@ -30,15 +30,6 @@ export interface RemoveLiquidityCardContentProps {
 
 export interface IRemoveLiquidityForm {
   lpAmount: string;
-}
-
-export interface InputBalanceProps {
-  balance: string;
-  disabled?: boolean;
-  currencyPrefix: ReactNode;
-  name: keyof IRemoveLiquidityForm;
-  register: UseFormRegister<IRemoveLiquidityForm>;
-  setValue: UseFormSetValue<IRemoveLiquidityForm>;
 }
 
 export interface LinearLoaderProps {

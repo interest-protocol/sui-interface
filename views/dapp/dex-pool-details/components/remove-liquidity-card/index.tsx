@@ -3,10 +3,9 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Box, Typography } from '@/elements';
+import { Box, InputBalance, Typography } from '@/elements';
 import { getSafeTotalBalance } from '@/utils';
 
-import InputBalance from './input-balance';
 import {
   IRemoveLiquidityForm,
   RemoveLiquidityCardProps,
@@ -49,9 +48,10 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
         register={register}
         setValue={setValue}
         balance={lpBalance.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
+        max={lpBalance.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
         disabled={lpBalance.isZero()}
-        currencyPrefix={
-          <Box display="flex" width="5rem" alignItems="center">
+        Prefix={
+          <Box display="flex" width="5rem" alignItems="center" ml="S">
             {tokens[0].Icon}
             {tokens[1].Icon}
             <Typography variant="normal" ml="M">
@@ -59,6 +59,8 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
             </Typography>
           </Box>
         }
+        isLarge={false}
+        buttonMaxPosition="left"
       />
       <RemoveLiquidityCardContent
         tokens={tokens}
