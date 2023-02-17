@@ -4,11 +4,19 @@ import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { Container, SocialMediaCard } from '@/components';
-import { Routes, RoutesEnum, SOCIAL_MEDIAS } from '@/constants';
+import {
+  Routes,
+  RoutesEnum,
+  SOCIAL_MEDIAS,
+  SOCIAL_MEDIAS_PT,
+} from '@/constants';
+import { LocalesEnum } from '@/constants/locale';
 import { Box, Button } from '@/elements';
+import { useLocale } from '@/hooks';
 import { DexSVG, FaucetSVG, GitBookSVG } from '@/svg';
 
 const Footer: FC = () => {
+  const { currentLocale } = useLocale();
   const { pathname } = useRouter();
   return (
     <Box
@@ -26,7 +34,9 @@ const Footer: FC = () => {
       <Container dapp width="100%">
         <Box display={['none', 'none', 'flex']} justifyContent="center">
           {[
-            ...SOCIAL_MEDIAS,
+            ...(currentLocale === LocalesEnum.EN
+              ? SOCIAL_MEDIAS
+              : SOCIAL_MEDIAS_PT),
             {
               title: 'Docs',
               Logo: GitBookSVG,

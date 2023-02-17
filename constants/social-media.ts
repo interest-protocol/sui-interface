@@ -39,3 +39,36 @@ export const SOCIAL_MEDIAS = [
     Logo: YoutubeSVG,
   },
 ];
+
+export const SOCIAL_MEDIAS_PT = [
+  {
+    title: 'Medium',
+    link: 'https://medium.com/@interestprotocol',
+    Logo: MediumSVG,
+  },
+  {
+    title: 'Twitter',
+    link: 'https://twitter.com/Interest_PT',
+    Logo: TwitterSVG,
+  },
+  {
+    title: 'Telegram',
+    link: 'https://t.me/interestprotocolptbr',
+    Logo: TelegramSVG,
+  },
+  {
+    title: 'GitHub',
+    link: 'https://github.com/interest-protocol/',
+    Logo: GithubSVG,
+  },
+  {
+    title: 'Discord',
+    link: 'https://discord.gg/interestprotocol',
+    Logo: DiscordSVG,
+  },
+  {
+    title: 'Youtube',
+    link: 'https://www.youtube.com/@interestprotocol',
+    Logo: YoutubeSVG,
+  },
+];

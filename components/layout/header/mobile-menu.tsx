@@ -2,14 +2,17 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import SwitchLang from '@/components/switch-lang';
-import { SOCIAL_MEDIAS } from '@/constants/social-media';
+import { LocalesEnum } from '@/constants/locale';
+import { SOCIAL_MEDIAS, SOCIAL_MEDIAS_PT } from '@/constants/social-media';
 import { Box, Dropdown, Typography } from '@/elements';
+import { useLocale } from '@/hooks';
 import { BarsSVG, GitBookSVG } from '@/svg';
 
 import { SwitchThemeProps } from '../layout.types';
 import SwitchTheme from './switch-theme';
 
 const MobileMenu: FC<SwitchThemeProps> = ({ changeTheme, dark }) => {
+  const { currentLocale } = useLocale();
   const t = useTranslations();
 
   return (
@@ -43,7 +46,9 @@ const MobileMenu: FC<SwitchThemeProps> = ({ changeTheme, dark }) => {
         }
         data={[
           ...[
-            ...SOCIAL_MEDIAS,
+            ...(currentLocale === LocalesEnum.EN
+              ? SOCIAL_MEDIAS
+              : SOCIAL_MEDIAS_PT),
             {
               title: 'GitBook',
               Logo: GitBookSVG,
