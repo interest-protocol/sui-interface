@@ -4,8 +4,8 @@ import { useWatch } from 'react-hook-form';
 
 import { Switch } from '@/components';
 import { Box, Typography } from '@/elements';
-import { getFilterSwitchDefaultData } from '@/views/dapp/views/farms/components/farms.data';
 
+import { getFilterSwitchDefaultData } from '../../farms.data';
 import { OnlyFinishedFilterProps } from './farms-filters.types';
 
 const OnlyFinishedFilter: FC<OnlyFinishedFilterProps> = ({

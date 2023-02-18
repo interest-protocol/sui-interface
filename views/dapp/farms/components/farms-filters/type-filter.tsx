@@ -7,7 +7,6 @@ import MessageKeys from 'use-intl/dist/utils/MessageKeys';
 import { Box, Dropdown, Typography } from '@/elements';
 import { ArrowSVG } from '@/svg';
 import { capitalize } from '@/utils';
-import { logGenericEvent } from '@/utils/analytics';
 
 import { FarmTypeFilter } from '../../farms.types';
 import { TypeFilterProps } from './farms-filters.types';
@@ -45,7 +44,6 @@ const TypeFilter: FC<TypeFilterProps> = ({ control, setValue }) => {
         <Dropdown
           buttonMode
           mode="select"
-          bg="accentAlternative"
           bgSelected="accentAlternativeBackground"
           emptyMessage={capitalize(t('common.notFound'))}
           suffix={
@@ -91,7 +89,6 @@ const TypeFilter: FC<TypeFilterProps> = ({ control, setValue }) => {
                 </Box>
               ),
               onSelect: () => {
-                logGenericEvent(`Filter_Farms_Type_all`);
                 setValue('typeFilter', FarmTypeFilter.All);
               },
             },
@@ -110,7 +107,6 @@ const TypeFilter: FC<TypeFilterProps> = ({ control, setValue }) => {
                 </Box>
               ),
               onSelect: () => {
-                logGenericEvent(`Filter_Farms_Type_stable`);
                 setValue('typeFilter', FarmTypeFilter.Stable);
               },
             },
@@ -129,7 +125,6 @@ const TypeFilter: FC<TypeFilterProps> = ({ control, setValue }) => {
                 </Box>
               ),
               onSelect: () => {
-                logGenericEvent(`Filter_Farms_Type_volatile`);
                 setValue('typeFilter', FarmTypeFilter.Volatile);
               },
             },

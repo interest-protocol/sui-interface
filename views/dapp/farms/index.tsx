@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC, useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -10,6 +11,7 @@ import { noop } from '@/utils';
 
 import FarmsFilters from './components/farms-filters';
 import FarmsTable from './components/farms-table';
+import { FARMS_DATA } from './farms.mock';
 import { FarmSortByFilter, FarmTypeFilter, IFarmsForm } from './farms.types';
 
 const Farms: FC = () => {
@@ -32,35 +34,6 @@ const Farms: FC = () => {
   }, []);
 
   useEventListener('resize', handleSetDesktop, true);
-
-  // if (error)
-  //   return (
-  //     <Box
-  //       height="100%"
-  //       display="flex"
-  //       alignItems="center"
-  //       flexDirection="column"
-  //       justifyContent="center"
-  //     >
-  //       <Box
-  //         mb="L"
-  //         width="10rem"
-  //         height="10rem"
-  //         color="error"
-  //         overflow="hidden"
-  //         borderRadius="50%"
-  //         border="0.3rem solid"
-  //       >
-  //         <TimesSVG
-  //           width="100%"
-  //           height="100%"
-  //           maxHeight="10rem"
-  //           maxWidth="10rem"
-  //         />
-  //       </Box>
-  //       <Typography variant="title3">{t('error.generic')}</Typography>
-  //     </Box>
-  //   );
 
   return (
     <Box display="flex" flexDirection="column" flex="1">
@@ -98,7 +71,7 @@ const Farms: FC = () => {
             hasMore={false}
             next={noop}
             scrollableTarget="body"
-            dataLength={data.farms.length}
+            dataLength={FARMS_DATA.length}
             loader={
               <Box display="flex" alignItems="center" justifyContent="center">
                 <Box as="span" display="inline-block" width="1rem">
@@ -113,10 +86,10 @@ const Farms: FC = () => {
             <Box>
               <FarmsTable
                 loading={false}
-                isDesktop={isDesktop}
-                intUSDPrice={data.intUSDPrice}
                 control={control}
-                farms={data.farms}
+                farms={FARMS_DATA}
+                isDesktop={isDesktop}
+                intUSDPrice={new BigNumber(34)}
               />
             </Box>
           </InfiniteScroll>

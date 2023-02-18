@@ -7,7 +7,6 @@ import MessageKeys from 'use-intl/dist/utils/MessageKeys';
 import { Box, Dropdown, Typography } from '@/elements';
 import { ArrowSVG } from '@/svg';
 import { capitalize } from '@/utils';
-import { logGenericEvent } from '@/utils/analytics';
 
 import { FarmSortByFilter } from '../../farms.types';
 import { SortFilterProps } from './farms-filters.types';
@@ -45,7 +44,6 @@ const SortFilter: FC<SortFilterProps> = ({ control, setValue }) => {
         <Dropdown
           buttonMode
           mode="select"
-          bg="accentAlternative"
           bgSelected="accentAlternativeBackground"
           emptyMessage={capitalize(t('common.notFound'))}
           suffix={
@@ -81,7 +79,6 @@ const SortFilter: FC<SortFilterProps> = ({ control, setValue }) => {
                 </Box>
               ),
               onSelect: () => {
-                logGenericEvent(`Filter_Farms_SortBy_id`);
                 setValue('sortBy', FarmSortByFilter.Default);
               },
             },
@@ -96,7 +93,6 @@ const SortFilter: FC<SortFilterProps> = ({ control, setValue }) => {
                 </Box>
               ),
               onSelect: () => {
-                logGenericEvent(`Filter_Farms_SortBy_tvl`);
                 setValue('sortBy', FarmSortByFilter.TVL);
               },
             },
@@ -111,7 +107,6 @@ const SortFilter: FC<SortFilterProps> = ({ control, setValue }) => {
                 </Box>
               ),
               onSelect: () => {
-                logGenericEvent(`Filter_Farms_SortBy_apr`);
                 setValue('sortBy', FarmSortByFilter.APR);
               },
             },
@@ -126,7 +121,6 @@ const SortFilter: FC<SortFilterProps> = ({ control, setValue }) => {
                 </Box>
               ),
               onSelect: () => {
-                logGenericEvent(`Filter_Farms_SortBy_allocation`);
                 setValue('sortBy', FarmSortByFilter.Allocation);
               },
             },

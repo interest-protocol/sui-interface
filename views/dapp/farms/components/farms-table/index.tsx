@@ -4,17 +4,16 @@ import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 import { v4 } from 'uuid';
 
-import { getFarmsSVGByToken, Routes, RoutesEnum } from '@/constants';
+import { Routes, RoutesEnum } from '@/constants';
 import { Box, Button, Table, Typography } from '@/elements';
 import { FixedPointMath, TOKEN_SYMBOL } from '@/sdk';
-import {
-  capitalize,
-  formatDollars,
-  formatMoney,
-  makeFarmSymbol,
-} from '@/utils';
+import { capitalize, formatDollars, formatMoney } from '@/utils';
 
-import { handleFilterFarms } from '../../farms.utils';
+import {
+  getFarmsSVGByToken,
+  handleFilterFarms,
+  makeFarmSymbol,
+} from '../../farms.utils';
 import {
   DesktopFarmsSkeletonRow,
   MobileFarmsSkeletonRow,
@@ -136,35 +135,33 @@ const FarmsTable: FC<FarmsTableProps> = ({
                   items: [
                     <Box key={v4()} display="flex" alignItems="center">
                       <Box display="inline-flex">
-                        {getFarmsSVGByToken(
-                          farm.chainId,
-                          farm.token0,
-                          farm.token1
-                        ).map(({ SVG, highZIndex }, index) => (
-                          <Box
-                            key={v4()}
-                            width="1.6rem"
-                            ml={index != 0 ? '-0.5rem' : 'NONE'}
-                            zIndex={
-                              index == 0 ? (highZIndex ? 3 : 'unset') : 'unset'
-                            }
-                          >
-                            <SVG
-                              width="100%"
-                              maxHeight="1.6rem"
-                              maxWidth="1.6rem"
-                            />
-                          </Box>
-                        ))}
+                        {getFarmsSVGByToken(farm.token0, farm.token1).map(
+                          ({ SVG, highZIndex }, index) => (
+                            <Box
+                              key={v4()}
+                              width="1.6rem"
+                              ml={index != 0 ? '-0.5rem' : 'NONE'}
+                              zIndex={
+                                index == 0
+                                  ? highZIndex
+                                    ? 3
+                                    : 'unset'
+                                  : 'unset'
+                              }
+                            >
+                              <SVG
+                                width="100%"
+                                maxHeight="1.6rem"
+                                maxWidth="1.6rem"
+                              />
+                            </Box>
+                          )
+                        )}
                       </Box>
                       <Typography variant="normal" ml="M">
                         {farm.id === 0
-                          ? TOKEN_SYMBOL.INT
-                          : makeFarmSymbol(
-                              farm.chainId,
-                              farm.token0,
-                              farm.token1
-                            )}
+                          ? TOKEN_SYMBOL.SUI
+                          : makeFarmSymbol(farm.token0, farm.token1)}
                       </Typography>
                     </Box>,
                     formatDollars(farm.tvl),
@@ -184,6 +181,7 @@ const FarmsTable: FC<FarmsTableProps> = ({
                       textAlign="center"
                       cursor="pointer"
                       width="70%"
+                      color="textInverted"
                       key={v4()}
                       textTransform="capitalize"
                     >
@@ -266,30 +264,28 @@ const FarmsTable: FC<FarmsTableProps> = ({
                         justifyContent="center"
                       >
                         <Box display="inline-flex">
-                          {getFarmsSVGByToken(
-                            farm.chainId,
-                            farm.token0,
-                            farm.token1
-                          ).map(({ SVG, highZIndex }, index) => (
-                            <Box
-                              key={v4()}
-                              width="1.6rem"
-                              ml={index != 0 ? '-0.5rem' : 'NONE'}
-                              zIndex={
-                                index == 0
-                                  ? highZIndex
-                                    ? 3
+                          {getFarmsSVGByToken(farm.token0, farm.token1).map(
+                            ({ SVG, highZIndex }, index) => (
+                              <Box
+                                key={v4()}
+                                width="1.6rem"
+                                ml={index != 0 ? '-0.5rem' : 'NONE'}
+                                zIndex={
+                                  index == 0
+                                    ? highZIndex
+                                      ? 3
+                                      : 'unset'
                                     : 'unset'
-                                  : 'unset'
-                              }
-                            >
-                              <SVG
-                                width="100%"
-                                maxHeight="1.6rem"
-                                maxWidth="1.6rem"
-                              />
-                            </Box>
-                          ))}
+                                }
+                              >
+                                <SVG
+                                  width="100%"
+                                  maxHeight="1.6rem"
+                                  maxWidth="1.6rem"
+                                />
+                              </Box>
+                            )
+                          )}
                         </Box>
                         <Typography
                           mt="M"
@@ -298,12 +294,8 @@ const FarmsTable: FC<FarmsTableProps> = ({
                           whiteSpace="nowrap"
                         >
                           {farm.id === 0
-                            ? TOKEN_SYMBOL.INT
-                            : makeFarmSymbol(
-                                farm.chainId,
-                                farm.token0,
-                                farm.token1
-                              )}
+                            ? TOKEN_SYMBOL.SUI
+                            : makeFarmSymbol(farm.token0, farm.token1)}
                         </Typography>
                       </Box>
                     ),

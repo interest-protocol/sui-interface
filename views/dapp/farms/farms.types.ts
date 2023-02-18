@@ -1,8 +1,6 @@
-import { Result } from '@ethersproject/abi';
-import { BigNumber } from 'ethers';
+import BigNumber from 'bignumber.js';
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
-import { Address } from '@/interface';
 import { FixedPointMath } from '@/sdk';
 
 export enum FarmSortByFilter {
@@ -37,14 +35,13 @@ export interface IFarmsForm {
 
 export interface SafeFarmData {
   allocationPoints: BigNumber;
-  chainId: number;
   reserve0: BigNumber;
   reserve1: BigNumber;
   stakingTokenAddress: string;
   stakingTokenPrice: BigNumber;
   id: number;
-  token1: Address;
-  token0: Address;
+  token1: string;
+  token0: string;
   totalStakedAmount: BigNumber;
   allocation: FixedPointMath;
   tvl: number;
@@ -73,21 +70,3 @@ export type TFarmDataKeys = {
   >;
   mintData: ReadonlyArray<'totalAllocationPoints' | 'interestPerBlock'>;
 };
-
-export type TFarmData =
-  | ([
-      InterestViewEarn.PoolDataStructOutput[],
-      InterestViewEarn.MintDataStructOutput,
-      BigNumber[]
-    ] & {
-      pools: InterestViewEarn.PoolDataStructOutput[];
-      mintData: InterestViewEarn.MintDataStructOutput;
-      prices: BigNumber[];
-    })
-  | undefined
-  | Result;
-
-export type GetSafeFarmSummaryData = (
-  chainId: number | null,
-  data: TFarmData
-) => SafeFarmSummaryData;
