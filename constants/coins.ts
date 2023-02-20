@@ -18,6 +18,7 @@ export const COIN_TYPE = {
 
 export const COIN_TYPE_TO_SYMBOL = {
   [Network.DEVNET]: {
+    [COIN_TYPE[Network.DEVNET].BNB]: TOKEN_SYMBOL.BNB,
     [COIN_TYPE[Network.DEVNET].BTC]: TOKEN_SYMBOL.BTC,
     [COIN_TYPE[Network.DEVNET].ETH]: TOKEN_SYMBOL.ETH,
     [COIN_TYPE[Network.DEVNET].BTC]: TOKEN_SYMBOL.BTC,

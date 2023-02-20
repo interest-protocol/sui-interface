@@ -100,6 +100,23 @@ const Header: FC = () => {
               DEX
             </Typography>
           </Link>
+          <Link href={Routes[RoutesEnum.Farms]}>
+            <Typography
+              px="XL"
+              cursor="pointer"
+              variant="normal"
+              borderRight="1px solid"
+              borderColor="bottomBackground"
+              color={
+                pathname.includes(Routes[RoutesEnum.Farms])
+                  ? 'accent'
+                  : 'inherit'
+              }
+              hover={{ color: 'accentActive' }}
+            >
+              FARMS
+            </Typography>
+          </Link>
           <Link href={Routes[RoutesEnum.Faucet]}>
             <Typography
               px="XL"

@@ -1,0 +1,13 @@
+{
+  "farmsDetails": {
+    "pageTitle": "Farm Details",
+    "title": "Details",
+    "secondCardTitle": "Staked",
+    "thirdCardTitle": "Rewards",
+    "thirdCardButton": "{isLoading, plural, =1 {Harvesting...} other {Harvest}}",
+    "yourStakedLabel": "You staked",
+    "modalStakedTitle": "Staked",
+    "modalUnstakedTitle": "Unstaked",
+    "modalLabelInput": "Amount {type}"
+  }
+}

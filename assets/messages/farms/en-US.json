@@ -1,0 +1,12 @@
+{
+  "farms": {
+    "pageTitle": "Farms",
+    "filterStaked": "Staked only",
+    "column1Tip": "Total Value Locked",
+    "column2Tip": "Staking amount to farm Int",
+    "column3Tip": "Annual Percentage Rate <br/> yearly interest generated",
+    "column4": "Allocation",
+    "column4Tip": "It represents the % of Interest Token minted compared to to others pools.",
+    "column5Tip": "Volatile or Stable."
+  }
+}
