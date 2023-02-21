@@ -1,21 +1,27 @@
-import BigNumber from 'bignumber.js';
+import { Network } from '@mysten/sui.js';
 import { useTranslations } from 'next-intl';
 import { FC, useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { v4 } from 'uuid';
 
 import { Container } from '@/components';
-import { FARMS } from '@/constants';
-import { Box, InfiniteScroll, Typography } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { COINS, FARMS } from '@/constants';
+import { Box, Typography } from '@/elements';
+import { useGetCoinsPrices, useWeb3 } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
-import { LoadingSVG } from '@/svg';
-import { noop } from '@/utils';
 import FarmDummy from '@/views/dapp/farms/farm-dummy';
 
 import FarmsFilters from './components/farms-filters';
-import FarmsTable from './components/farms-table';
 import { FarmSortByFilter, FarmTypeFilter, IFarmsForm } from './farms.types';
+
+const COIN_PRICES = [
+  COINS[Network.DEVNET].BTC.type,
+  COINS[Network.DEVNET].ETH.type,
+  COINS[Network.DEVNET].DAI.type,
+  COINS[Network.DEVNET].BNB.type,
+  COINS[Network.DEVNET].USDT.type,
+  COINS[Network.DEVNET].USDC.type,
+];
 
 const Farms: FC = () => {
   const t = useTranslations();
@@ -30,6 +36,10 @@ const Farms: FC = () => {
   });
 
   const { account } = useWeb3();
+
+  const { data } = useGetCoinsPrices(COIN_PRICES);
+
+  console.log('WTF', data);
 
   const [isDesktop, setDesktop] = useState(false);
 

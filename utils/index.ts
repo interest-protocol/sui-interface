@@ -1,3 +1,4 @@
+export * from './api-middleware';
 export * from './array';
 export * from './big-number';
 export * from './coin';
