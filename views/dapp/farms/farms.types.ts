@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
+import { CoinData } from '@/interface';
 import { FixedPointMath } from '@/sdk';
 
 export enum FarmSortByFilter {
@@ -70,3 +71,11 @@ export type TFarmDataKeys = {
   >;
   mintData: ReadonlyArray<'totalAllocationPoints' | 'interestPerBlock'>;
 };
+
+export interface UseGetFarmDataArgs {
+  account: string | null;
+  objectId: string;
+  poolObjectId: string;
+  isSingleCoin: boolean;
+  lpCoin: CoinData;
+}

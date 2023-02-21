@@ -15,6 +15,7 @@ import { COIN_TYPE } from './coins';
 
 export * from './coins';
 export * from './dex';
+export * from './farms';
 export * from './faucet';
 export * from './pools';
 export * from './routes';

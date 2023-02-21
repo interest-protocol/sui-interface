@@ -10,8 +10,6 @@ import { FARM_DATA } from './farm-details.mock';
 import { FarmDetailsProps } from './farm-details.types';
 
 const FarmDetails: FC<FarmDetailsProps> = ({ objectId }) => {
-  console.log('>> ObjectId :: ', objectId);
-
   return (
     <Container dapp width="100%" mt="XL">
       <GoBack route={RoutesEnum.Farms} />
