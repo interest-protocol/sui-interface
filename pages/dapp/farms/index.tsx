@@ -19,7 +19,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     props: {
       messages,
       now: Date.now(),
-      pageTitle: 'dexSwap.pageTitle',
+      pageTitle: 'farms.pageTitle',
     },
   };
 };

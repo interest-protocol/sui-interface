@@ -124,7 +124,7 @@ const FarmsTable: FC<FarmsTableProps> = ({
                     <Link
                       href={{
                         pathname: Routes[RoutesEnum.FarmDetails],
-                        query: { address: farm.stakingTokenAddress },
+                        query: { objectId: farm.stakingTokenAddress },
                       }}
                     >
                       <Button variant="primary" hover={{ bg: 'accentActive' }}>
@@ -160,8 +160,8 @@ const FarmsTable: FC<FarmsTableProps> = ({
                       </Box>
                       <Typography variant="normal" ml="M">
                         {farm.id === 0
-                          ? TOKEN_SYMBOL.SUI
-                          : makeFarmSymbol(farm.token0, farm.token1)}
+                          ? TOKEN_SYMBOL.IPX
+                          : makeFarmSymbol(farm.token1)}
                       </Typography>
                     </Box>,
                     formatDollars(farm.tvl),
@@ -295,7 +295,7 @@ const FarmsTable: FC<FarmsTableProps> = ({
                         >
                           {farm.id === 0
                             ? TOKEN_SYMBOL.SUI
-                            : makeFarmSymbol(farm.token0, farm.token1)}
+                            : makeFarmSymbol(farm.token1)}
                         </Typography>
                       </Box>
                     ),
@@ -303,7 +303,7 @@ const FarmsTable: FC<FarmsTableProps> = ({
                       <Link
                         href={{
                           pathname: Routes[RoutesEnum.FarmDetails],
-                          query: { address: farm.stakingTokenAddress },
+                          query: { objectId: farm.stakingTokenAddress },
                         }}
                       >
                         <Button

@@ -18,6 +18,7 @@ export { default as GitBookSVG } from './git-book';
 export { default as GithubSVG } from './github';
 export { default as InfoSVG } from './info';
 export { default as InfoLightSVG } from './info-light';
+export { default as InterestTokenSVG } from './interest-token';
 export { default as LineLoaderSVG } from './line-loader';
 export { default as LinkedInSVG } from './linkedIn';
 export { default as LoadingSVG } from './loading';

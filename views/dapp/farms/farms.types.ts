@@ -17,6 +17,11 @@ export enum FarmTypeFilter {
   Stable,
 }
 
+export interface UseGetFarmListDataArgs {
+  account: string | null;
+  farms: ReadonlyArray<Omit<UseGetFarmDataArgs, 'account'>>;
+}
+
 export interface FarmsFiltersProps extends FarmsFilterManagerProps {
   register: UseFormRegister<IFarmsForm>;
 }

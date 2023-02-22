@@ -1,22 +1,21 @@
 import { Network } from '@mysten/sui.js';
 import { always, cond, equals, ifElse, isEmpty, not, o, prop, T } from 'ramda';
 
-import {
-  COIN_TYPE_TO_SYMBOL,
-  TOKENS_SVG_MAP,
-} from './../../../constants/index';
+import { TOKEN_SYMBOL } from '@/sdk';
+import { parseFarmData } from '@/utils/farms';
+
+import { COIN_TYPE_TO_SYMBOL } from './../../../constants/index';
+import { FARMS_TOKENS_SVG_MAP } from './farms.data';
 import { FarmSortByFilter, FarmTypeFilter, SafeFarmData } from './farms.types';
 
-export const getFarmsSVGByToken = (tokenA: string, tokenB: string) => [
-  { SVG: TOKENS_SVG_MAP[tokenA] ?? TOKENS_SVG_MAP.default, highZIndex: false },
-  { SVG: TOKENS_SVG_MAP[tokenB] ?? TOKENS_SVG_MAP.default, highZIndex: true },
-];
-export const makeFarmSymbol = (tokenA: string, tokenB: string) =>
-  COIN_TYPE_TO_SYMBOL[Network.DEVNET][tokenB]
-    ? COIN_TYPE_TO_SYMBOL[Network.DEVNET][tokenA] +
-      '-' +
-      COIN_TYPE_TO_SYMBOL[Network.DEVNET][tokenB]
-    : COIN_TYPE_TO_SYMBOL[Network.DEVNET][tokenB];
+export const getFarmsSVGByToken = (tokenA: string, tokenB: string) =>
+  FARMS_TOKENS_SVG_MAP[tokenB] ??
+  FARMS_TOKENS_SVG_MAP[tokenA] ??
+  FARMS_TOKENS_SVG_MAP.default;
+
+export const makeFarmSymbol = (token: string) =>
+  COIN_TYPE_TO_SYMBOL[Network.DEVNET][token] ?? TOKEN_SYMBOL.IPX;
+
 const sortByIdFn = (x: SafeFarmData, y: SafeFarmData) => (x.id < y.id ? -1 : 1);
 
 const sortByAPRFn = (x: SafeFarmData, y: SafeFarmData) =>
@@ -124,3 +123,7 @@ export const handleFilterFarms = (
             onlyFinishedOperation(onlyFinished),
           ].every((pred) => pred(x))
         );
+
+export const parseFarmListData = (
+  data: ReadonlyArray<any[]>
+): ReadonlyArray<SafeFarmData> => data?.map(parseFarmData) ?? [];
