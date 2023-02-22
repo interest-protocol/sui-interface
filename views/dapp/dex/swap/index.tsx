@@ -30,6 +30,8 @@ const Swap: FC = () => {
   const [isTokenInOpenModal, setTokenInIsOpenModal] = useState(false);
   const [isTokenOutOpenModal, setTokenOutIsOpenModal] = useState(false);
 
+  console.log(volatilePoolsMap);
+
   const [localSettings, setLocalSettings] = useLocalStorage<LocalSwapSettings>(
     'sui-interest-swap-settings',
     { slippage: '1' }
