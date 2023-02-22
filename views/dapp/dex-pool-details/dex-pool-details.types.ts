@@ -17,6 +17,6 @@ export interface Pool {
   token0Balance: string;
   token1Balance: string;
   lpCoinSupply: string;
-  lpCoinType: string;
+  lpCoin: string;
   poolType: string;
 }

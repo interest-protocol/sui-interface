@@ -194,7 +194,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
           isStable={false}
           lpToken={
             coinsMap[
-              getCoinTypeFromSupply(propOr('', 'lpCoinType', volatilePool))
+              getCoinTypeFromSupply(propOr('', 'lpCoin', volatilePool))
             ] || {}
           }
           tokens={removeLiquidityTokens}

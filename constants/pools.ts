@@ -11,37 +11,37 @@ export const RECOMMENDED_POOLS = [
     token0: networkDevNetCoins.BNB,
     token1: networkDevNetCoins.ETH,
     poolObjectId: networkDevNetCoinPool.V_LP_BNB_ETH,
-    lpCoinType: networkDevNetCoins.V_LP_BNB_ETH,
+    lpCoin: networkDevNetCoins.V_LP_BNB_ETH,
   },
   {
     token0: networkDevNetCoins.BTC,
     token1: networkDevNetCoins.ETH,
     poolObjectId: networkDevNetCoinPool.V_LP_BTC_ETH,
-    lpCoinType: networkDevNetCoins.V_LP_BTC_ETH,
+    lpCoin: networkDevNetCoins.V_LP_BTC_ETH,
   },
   {
     token0: networkDevNetCoins.DAI,
     token1: networkDevNetCoins.ETH,
     poolObjectId: networkDevNetCoinPool.V_LP_DAI_ETH,
-    lpCoinType: networkDevNetCoins.V_LP_DAI_ETH,
+    lpCoin: networkDevNetCoins.V_LP_DAI_ETH,
   },
   {
     token0: networkDevNetCoins.ETH,
     token1: networkDevNetCoins.USDT,
     poolObjectId: networkDevNetCoinPool.V_LP_ETH_USDT,
-    lpCoinType: networkDevNetCoins.V_LP_ETH_USDT,
+    lpCoin: networkDevNetCoins.V_LP_ETH_USDT,
   },
   {
     token0: networkDevNetCoins.ETH,
     token1: networkDevNetCoins.USDC,
     poolObjectId: networkDevNetCoinPool.V_LP_ETH_USDC,
-    lpCoinType: networkDevNetCoins.V_LP_ETH_USDC,
+    lpCoin: networkDevNetCoins.V_LP_ETH_USDC,
   },
   {
     token0: networkDevNetCoins.SUI,
     token1: networkDevNetCoins.ETH,
     poolObjectId: networkDevNetCoinPool.V_LP_SUI_ETH,
-    lpCoinType: networkDevNetCoins.V_LP_SUI_ETH,
+    lpCoin: networkDevNetCoins.V_LP_SUI_ETH,
   },
 ];
 

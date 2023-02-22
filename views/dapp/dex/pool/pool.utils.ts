@@ -9,7 +9,7 @@ export const filterPools = (
 ): IPools =>
   RECOMMENDED_POOLS.reduce(
     ({ active, inactive }, pool) => {
-      const activePool = coinsMap[pool.lpCoinType];
+      const activePool = coinsMap[pool.lpCoin.type];
 
       return activePool
         ? {

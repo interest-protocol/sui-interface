@@ -10,7 +10,7 @@ const DEFAULT_POOL: Pool = {
   token0Balance: '0',
   token1Balance: '0',
   lpCoinSupply: '0',
-  lpCoinType: '',
+  lpCoin: '',
   poolType: '',
 };
 
@@ -42,7 +42,7 @@ const processVolatilePool = (data: undefined | GetObjectDataResponse): Pool => {
       ],
       data
     ),
-    lpCoinType: pathOr(
+    lpCoin: pathOr(
       '',
       [
         'details',
