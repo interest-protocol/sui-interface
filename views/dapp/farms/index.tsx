@@ -61,6 +61,7 @@ const Farms: FC = () => {
 
   if (error) return <ErrorView message={error} />;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const parsedData = parseFarmListData(data as any[]);
 
   return (
