@@ -1,12 +1,13 @@
+import { Network } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC, useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Container } from '@/components';
-import { FARMS } from '@/constants';
+import { COINS, FARMS } from '@/constants';
 import { Box, InfiniteScroll, Typography } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useGetCoinsPrices, useWeb3 } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
 import { LoadingSVG } from '@/svg';
 import { noop } from '@/utils';
@@ -17,6 +18,15 @@ import FarmsTable from './components/farms-table';
 import { useFarmListData } from './farms.hooks';
 import { FarmSortByFilter, FarmTypeFilter, IFarmsForm } from './farms.types';
 import { parseFarmListData } from './farms.utils';
+
+const COIN_PRICES = [
+  COINS[Network.DEVNET].BTC.type,
+  COINS[Network.DEVNET].ETH.type,
+  COINS[Network.DEVNET].DAI.type,
+  COINS[Network.DEVNET].BNB.type,
+  COINS[Network.DEVNET].USDT.type,
+  COINS[Network.DEVNET].USDC.type,
+];
 
 const Farms: FC = () => {
   const t = useTranslations();
@@ -32,6 +42,10 @@ const Farms: FC = () => {
 
   const { account } = useWeb3();
   const [isDesktop, setDesktop] = useState(false);
+
+  const prices = useGetCoinsPrices(COIN_PRICES);
+
+  console.log('>> prices :: ', prices);
 
   const handleSetDesktop = useCallback(() => {
     const mediaIsDesktop = window.matchMedia('(min-width: 64em)').matches;

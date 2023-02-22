@@ -13,6 +13,7 @@ import {
 
 import { COIN_TYPE } from './coins';
 
+export * from './coin-market-cap';
 export * from './coins';
 export * from './dex';
 export * from './farms';
