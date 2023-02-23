@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Box, Button, Modal, Typography } from '@/elements';
@@ -15,6 +15,8 @@ const SettingsDropdown: FC<SettingsDropdownProps> = ({
   localSettings,
   setLocalSettings,
 }) => {
+  const SLIPPAGE_VALUE = '0.1';
+  const [customSlippage, setCustomSlippage] = useState(localSettings.slippage);
   const t = useTranslations();
 
   const { register, setValue, getValues } = useForm<ISwapSettingsForm>({
@@ -76,12 +78,14 @@ const SettingsDropdown: FC<SettingsDropdownProps> = ({
             type="text"
             placeholder="0.5"
             label={t('dexSwap.toleranceLabel')}
+            hasBorder={SLIPPAGE_VALUE != customSlippage}
             setRegister={() =>
               register('slippage', {
                 onChange: (v: ChangeEvent<HTMLInputElement>) => {
                   const slippage = parseInputEventToNumberString(v);
                   const safeSlippage = +slippage >= 30 ? '30' : slippage;
                   setValue('slippage', safeSlippage);
+                  setCustomSlippage(safeSlippage);
                 },
               })
             }
@@ -92,8 +96,14 @@ const SettingsDropdown: FC<SettingsDropdownProps> = ({
                 height="100%"
                 variant="primary"
                 fontWeight="normal"
+                bg={
+                  SLIPPAGE_VALUE != customSlippage
+                    ? 'bottomBackground'
+                    : 'accent'
+                }
                 onClick={() => {
-                  setValue('slippage', '0.1');
+                  setValue('slippage', SLIPPAGE_VALUE);
+                  setCustomSlippage(SLIPPAGE_VALUE);
                 }}
               >
                 Auto
