@@ -4,17 +4,17 @@ import { TOKEN_SYMBOL } from '@/sdk';
 
 import { COIN_TYPE } from './coins';
 
-export const DEX_PACKAGE_ID = '0x83b97c3e097788bebcf48e84e3ce063b195f50d4';
+export const DEX_PACKAGE_ID = '0x2a8850755229ca0d939a2f1df3311838053015d4';
 
 export const VOLATILE_POOLS_OBJECT_ID =
-  '0xb30af34394285bcbb0839f1c21f9ee82c49a41ae';
+  '0x250d9b6853184d963305345001f85bd280c39409';
 
 export const DEX_BASE_TOKEN_ARRAY = [COIN_TYPE[Network.DEVNET].ETH];
 
 export const DEX_STORAGE_VOLATILE =
-  '0x99f972b9cd5211ef024ff82abe54d6e68bd1acb2';
+  '0x797e8ff495ff149eaf57cb051b547d041845e830';
 
-export const DEX_STORAGE_STABLE = '0xe96cd55627aafdd0c095223827cde244081684f4';
+export const DEX_STORAGE_STABLE = '0x5071e835d741ab2be0efeac58719fcb1b58b9b22';
 
 export const DEX_TOKENS_DATA = [
   {
