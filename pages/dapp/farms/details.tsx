@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     props: {
       messages,
       now: Date.now(),
-      pageTitle: 'farmDetails.pageTitle',
+      pageTitle: 'farmsDetails.pageTitle',
     },
   };
 };

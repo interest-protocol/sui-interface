@@ -43,7 +43,7 @@ export interface SafeFarmData {
   allocationPoints: BigNumber;
   reserve0: BigNumber;
   reserve1: BigNumber;
-  stakingTokenAddress: string;
+  stakingTokenObjectId: string;
   stakingTokenPrice: BigNumber;
   id: number;
   token1: string;

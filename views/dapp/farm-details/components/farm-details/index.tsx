@@ -35,9 +35,7 @@ const Details: FC<DetailsProps> = ({ farm }) => {
         <Typography variant="normal" textTransform="capitalize">
           {farm.id === 0
             ? `${TOKEN_SYMBOL.SUI} ${capitalize(t('common.pool'))} `
-            : `${makeFarmSymbol(farm.token0, farm.token1)} ${capitalize(
-                t('common.farm')
-              )} `}
+            : `${makeFarmSymbol(farm.token1)} ${capitalize(t('common.farm'))} `}
           {t('farmsDetails.title')}
         </Typography>
         <Typography

@@ -20,6 +20,7 @@ const FarmStakeModal: FC<FarmStakeModalProps> = ({
   amount,
   handleClose,
   farmSymbol,
+  setHasAccount,
   refetch,
 }) => {
   const t = useTranslations();
@@ -146,16 +147,12 @@ const FarmStakeModal: FC<FarmStakeModalProps> = ({
           </Box>
         </Box>
         <Box display="flex" mt="L" mb="M">
-          <Button
-            variant="primary"
-            bg="bottomBackground"
-            onClick={handleClose}
-            hover={{ bg: 'textSoft' }}
-          >
+          <Button variant="neutral" onClick={handleClose}>
             {capitalize(t('common.cancel'))}
           </Button>
           <ModalButton
             modal={modal}
+            setHasAccount={setHasAccount}
             handleClose={handleClose}
             control={control}
             isStake={isStake}

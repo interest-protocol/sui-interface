@@ -14,7 +14,7 @@ export const useFarmData = ({
 }: UseGetFarmDataArgs) => {
   const query = useSWR(
     makeSWRKey(
-      [objectId, poolObjectId, isSingleCoin, account, lpCoin.type],
+      [objectId, poolObjectId, isSingleCoin, account, lpCoin?.type],
       'useFarmData'
     ),
     async () =>

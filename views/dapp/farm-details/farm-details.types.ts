@@ -6,8 +6,13 @@ export interface FarmDetailsProps {
   objectId: string;
 }
 
+export interface SafeUserFarmData extends SafeFarmData {
+  balance: BigNumber;
+  pendingRewards: BigNumber;
+}
+
 export interface SafeUserFarmSummaryData {
-  farm: SafeFarmData;
+  farm: SafeUserFarmData;
   loading: boolean;
   intUSDPrice: BigNumber;
 }

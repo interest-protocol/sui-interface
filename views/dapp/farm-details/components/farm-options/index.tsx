@@ -22,17 +22,21 @@ const FarmOptions: FC<FarmOptionsProps> = ({
   refetch,
   loading,
   intUSDPrice,
+  hasAccountManager: [hasAccount, setHasAccount],
 }) => {
+  console.log('>> farm :: ', farm, hasAccount);
+
   const t = useTranslations();
   const { push } = useRouter();
   const [modal, setModal] = useState<StakeState | undefined>();
 
   const farmSymbol =
-    farm.id === 0 ? TOKEN_SYMBOL.SUI : makeFarmSymbol(farm.token0, farm.token1);
+    farm.id === 0 ? TOKEN_SYMBOL.IPX : makeFarmSymbol(farm.token1);
 
   const handleCloseModal = () => setModal(undefined);
 
   const handleChangeModal = (target: StakeState) => () => setModal(target);
+
   return (
     <Box
       bg="foreground"
@@ -62,7 +66,7 @@ const FarmOptions: FC<FarmOptionsProps> = ({
                 ? push({ pathname: Routes[RoutesEnum.DEX] }).then()
                 : push({
                     pathname: Routes[RoutesEnum.DEXPoolDetails],
-                    query: { address: farm.stakingTokenAddress },
+                    query: { objectId: farm.stakingTokenObjectId },
                   }).then()
             }
             hover={{
@@ -152,6 +156,7 @@ const FarmOptions: FC<FarmOptionsProps> = ({
         farm={farm}
         modal={modal}
         handleClose={handleCloseModal}
+        setHasAccount={setHasAccount}
         amount={FixedPointMath.toNumber(
           modal === StakeState.Stake ? farm.balance : farm.stakingAmount
         )}

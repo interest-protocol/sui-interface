@@ -131,6 +131,7 @@ export class Fraction {
       precision: significantDigits + 1,
       rounding: toSignificantRounding[rounding],
     });
+
     const quotient = new Decimal(this.numerator.toString())
       .div(this.denominator.toString())
       .toSignificantDigits(significantDigits);

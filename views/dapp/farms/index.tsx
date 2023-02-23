@@ -20,8 +20,8 @@ import { FarmSortByFilter, FarmTypeFilter, IFarmsForm } from './farms.types';
 import { parseFarmListData } from './farms.utils';
 
 const COIN_PRICES = [
-  COINS[Network.DEVNET].BTC.type,
   COINS[Network.DEVNET].ETH.type,
+  COINS[Network.DEVNET].BTC.type,
   COINS[Network.DEVNET].DAI.type,
   COINS[Network.DEVNET].BNB.type,
   COINS[Network.DEVNET].USDT.type,
@@ -45,8 +45,6 @@ const Farms: FC = () => {
 
   const prices = useGetCoinsPrices(COIN_PRICES);
 
-  console.log('>> prices :: ', prices);
-
   const handleSetDesktop = useCallback(() => {
     const mediaIsDesktop = window.matchMedia('(min-width: 64em)').matches;
     setDesktop(mediaIsDesktop);
@@ -59,10 +57,11 @@ const Farms: FC = () => {
 
   useEventListener('resize', handleSetDesktop, true);
 
-  if (error) return <ErrorView message={error} />;
+  if (error || prices.error)
+    return <ErrorView message={error || prices.error} />;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const parsedData = parseFarmListData(data as any[]);
+  const parsedData = parseFarmListData(data as any[], prices.data);
 
   return (
     <Box display="flex" flexDirection="column" flex="1">
@@ -115,10 +114,10 @@ const Farms: FC = () => {
             <Box>
               <FarmsTable
                 control={control}
-                loading={isLoading}
                 farms={parsedData!}
                 isDesktop={isDesktop}
                 intUSDPrice={new BigNumber(34)}
+                loading={isLoading || prices.isLoading}
               />
             </Box>
           </InfiniteScroll>

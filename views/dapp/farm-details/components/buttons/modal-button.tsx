@@ -12,6 +12,7 @@ const ModalButton: FC<ModalButtonProps> = ({
   farm,
   handleClose,
   refetch,
+  setHasAccount,
   isStake,
 }) => {
   const t = useTranslations();
@@ -41,7 +42,10 @@ const ModalButton: FC<ModalButtonProps> = ({
     showToast(handleDepositTokens(), {
       loading: capitalize(t('common.stake', { isLoading: 1 })),
       error: propOr('common.error', 'message'),
-      success: capitalize(t('common.success')),
+      success: () => {
+        setHasAccount(true);
+        return capitalize(t('common.success'));
+      },
     });
 
   const onSubmit = async () => {

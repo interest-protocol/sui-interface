@@ -7,4 +7,5 @@ export interface FarmStakeModalProps {
   farm: SafeUserFarmData;
   farmSymbol: string;
   refetch: () => Promise<void>;
+  setHasAccount: (arg: boolean) => void;
 }

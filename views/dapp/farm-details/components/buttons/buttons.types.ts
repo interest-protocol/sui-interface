@@ -14,4 +14,5 @@ export interface ModalButtonProps {
   handleClose: () => void;
   refetch: () => Promise<void>;
   isStake: boolean;
+  setHasAccount: (arg: boolean) => void;
 }
