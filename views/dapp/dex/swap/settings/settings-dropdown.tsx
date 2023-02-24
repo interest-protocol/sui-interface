@@ -26,9 +26,14 @@ const AutoButton: FC<SettingsAutoButton> = ({ control, setValue, setAuto }) => {
       height="100%"
       variant="primary"
       fontWeight="normal"
-      bg={
-        SLIPPAGE_AUTO_VALUE != currentSlippage ? 'bottomBackground' : 'accent'
+      bg={SLIPPAGE_AUTO_VALUE != currentSlippage ? 'transparent' : 'accent'}
+      border="1px solid"
+      borderColor={
+        SLIPPAGE_AUTO_VALUE != currentSlippage ? 'accentActive' : 'transparent'
       }
+      hover={{
+        bg: SLIPPAGE_AUTO_VALUE != currentSlippage ? 'accentActive' : 'accent',
+      }}
       onClick={() => {
         setValue('slippage', SLIPPAGE_AUTO_VALUE);
         setAuto(true);
@@ -56,7 +61,7 @@ const ModalBody: FC<ModalSettingsBody> = ({
       zIndex={1}
       color="text"
       bg="foreground"
-      minWidth="20rem"
+      minWidth="21rem"
       borderRadius="M"
       boxShadow="0 0 0.5rem #0006"
       width={['80%', '80%', '80%', 'unset']}
