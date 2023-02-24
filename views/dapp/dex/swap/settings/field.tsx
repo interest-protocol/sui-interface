@@ -25,7 +25,7 @@ const Field: FC<FieldProps> = ({
       {...setRegister()}
       max={max}
       textAlign="right"
-      color={hasBorder ? 'unset' : 'disabled'}
+      color={hasBorder ? 'disabled' : 'unset'}
       shieldProps={{
         p: 'S',
         my: 'M',

@@ -1,5 +1,7 @@
-import { ReactNode } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { Control, UseFormRegisterReturn } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
+import { UseFormSetValue } from 'react-hook-form';
 
 import { LocalSwapSettings } from '../swap.types';
 
@@ -28,8 +30,15 @@ export interface SettingsDropdownProps extends SwapSettingsProps {
   onClose: () => void;
 }
 
-export interface AutoFetchProps {
-  disabled?: boolean;
-  setter: (value: boolean) => void;
+export interface ModalSettingsBody {
+  onRequestClose: () => void;
+  register: UseFormRegister<ISwapSettingsForm>;
+  setValue: UseFormSetValue<ISwapSettingsForm>;
   control: Control<ISwapSettingsForm>;
+}
+
+export interface SettingsAutoButton {
+  control: ModalSettingsBody['control'];
+  setValue: ModalSettingsBody['setValue'];
+  setAuto: Dispatch<SetStateAction<boolean>>;
 }
