@@ -28,6 +28,7 @@ const SwapButton: FC<SwapButtonProps> = ({
   slippage,
   disabled,
   getValues,
+  setValue,
   tokenInType,
   tokenOutType,
 }) => {
@@ -133,6 +134,7 @@ const SwapButton: FC<SwapButtonProps> = ({
     } catch (error) {
       throw new Error(t('dexSwap.error.failedToSwap'));
     } finally {
+      resetInput();
       setLoading(false);
       await mutate();
     }
@@ -144,6 +146,11 @@ const SwapButton: FC<SwapButtonProps> = ({
       success: capitalize(t('common.success')),
       error: prop('message'),
     });
+
+  const resetInput = () => {
+    setValue('tokenIn.value', '0.0');
+    setValue('tokenOut.value', '0.0');
+  };
 
   return (
     <WalletGuardButton>

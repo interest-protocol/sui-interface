@@ -205,6 +205,7 @@ const Swap: FC = () => {
               mutate,
               control,
               coinsMap,
+              setValue,
               getValues,
               tokenInType,
               tokenOutType,

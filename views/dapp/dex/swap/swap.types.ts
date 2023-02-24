@@ -38,6 +38,7 @@ export interface SwapButtonProps {
   tokenInType: string;
   tokenOutType: string;
   control: Control<ISwapForm>;
+  setValue: UseFormSetValue<ISwapForm>;
   getValues: UseFormGetValues<ISwapForm>;
   coinsMap: Web3ManagerState['coinsMap'];
   mutate: KeyedMutator<PaginatedCoins | undefined>;
