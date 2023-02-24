@@ -2,9 +2,9 @@ import { Network } from '@mysten/sui.js';
 
 import { COIN_POOL, COINS } from './coins';
 
-export const IPX_STORAGE = '0x71d03fa7ed72156d5564dcf6930884ce77612353';
+export const IPX_STORAGE = '0x06327d0e5a3c36e1bbcd0cfb8cd66c1e5df50278';
 
-export const IPX_ACCOUNT_STORAGE = '0x9fb75f57ce415461cb23be173e67fd89ea32d5aa';
+export const IPX_ACCOUNT_STORAGE = '0x2e09ba6668983bc5389487176ec0b72428c54262';
 
 export const FARMS = [
   {
