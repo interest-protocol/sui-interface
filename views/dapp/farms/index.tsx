@@ -1,6 +1,7 @@
 import { Network } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
+import { isEmpty } from 'ramda';
 import { FC, useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -60,8 +61,7 @@ const Farms: FC = () => {
   if (error || prices.error)
     return <ErrorView message={error || prices.error} />;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const parsedData = parseFarmListData(data as any[], prices.data);
+  const parsedData = parseFarmListData(data, prices.data);
 
   return (
     <Box display="flex" flexDirection="column" flex="1">
@@ -99,7 +99,7 @@ const Farms: FC = () => {
             hasMore={false}
             next={noop}
             scrollableTarget="body"
-            dataLength={parsedData.length}
+            dataLength={isEmpty(parsedData) ? 0 : parsedData.farms.length}
             loader={
               <Box display="flex" alignItems="center" justifyContent="center">
                 <Box as="span" display="inline-block" width="1rem">
@@ -114,10 +114,10 @@ const Farms: FC = () => {
             <Box>
               <FarmsTable
                 control={control}
-                farms={parsedData!}
+                data={parsedData}
                 isDesktop={isDesktop}
                 intUSDPrice={new BigNumber(34)}
-                loading={isLoading || prices.isLoading}
+                loading={isLoading || prices.isLoading || isEmpty(parsedData)}
               />
             </Box>
           </InfiniteScroll>

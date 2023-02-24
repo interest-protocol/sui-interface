@@ -24,7 +24,7 @@ const FarmsTable: FC<FarmsTableProps> = ({
   loading,
   isDesktop,
   control,
-  farms,
+  data,
 }) => {
   const t = useTranslations();
 
@@ -36,7 +36,7 @@ const FarmsTable: FC<FarmsTableProps> = ({
   const sortBy = useWatch({ control, name: 'sortBy' });
 
   const filteredFarms = handleFilterFarms(
-    farms,
+    data.farms,
     sortBy,
     search,
     typeFilter,
@@ -124,7 +124,7 @@ const FarmsTable: FC<FarmsTableProps> = ({
                     <Link
                       href={{
                         pathname: Routes[RoutesEnum.FarmDetails],
-                        query: { objectId: farm.stakingTokenObjectId },
+                        query: { objectId: farm.objectId },
                       }}
                     >
                       <Button variant="primary" hover={{ bg: 'accentActive' }}>
@@ -135,42 +135,44 @@ const FarmsTable: FC<FarmsTableProps> = ({
                   items: [
                     <Box key={v4()} display="flex" alignItems="center">
                       <Box display="inline-flex">
-                        {getFarmsSVGByToken(farm.token0, farm.token1).map(
-                          ({ SVG, highZIndex }, index) => (
-                            <Box
-                              key={v4()}
-                              width="1.6rem"
-                              ml={index != 0 ? '-0.5rem' : 'NONE'}
-                              zIndex={
-                                index == 0
-                                  ? highZIndex
-                                    ? 3
-                                    : 'unset'
-                                  : 'unset'
-                              }
-                            >
-                              <SVG
-                                width="100%"
-                                maxHeight="1.6rem"
-                                maxWidth="1.6rem"
-                              />
-                            </Box>
-                          )
-                        )}
+                        {getFarmsSVGByToken(
+                          farm.lpCoin.type,
+                          farm.coin1.type
+                        ).map(({ SVG, highZIndex }, index) => (
+                          <Box
+                            key={v4()}
+                            width="1.6rem"
+                            ml={index != 0 ? '-0.5rem' : 'NONE'}
+                            zIndex={
+                              index == 0 ? (highZIndex ? 3 : 'unset') : 'unset'
+                            }
+                          >
+                            <SVG
+                              width="100%"
+                              maxHeight="1.6rem"
+                              maxWidth="1.6rem"
+                            />
+                          </Box>
+                        ))}
                       </Box>
                       <Typography variant="normal" ml="M">
                         {farm.id === 0
                           ? TOKEN_SYMBOL.IPX
-                          : makeFarmSymbol(farm.token1)}
+                          : makeFarmSymbol(farm.coin1.type)}
                       </Typography>
                     </Box>,
                     formatDollars(farm.tvl),
                     formatMoney(FixedPointMath.toNumber(farm.stakingAmount)),
-                    farm.apr.value().isZero() ? '0%' : farm.apr.toPercentage(),
+                    farm.apr.isZero()
+                      ? '0%'
+                      : FixedPointMath.from(farm.apr).toPercentage(),
                     `${
-                      farm.allocation.value().isZero()
+                      farm.allocationPoints.isZero()
                         ? '0%'
-                        : farm.allocation.toPercentage(2)
+                        : `${farm.allocationPoints
+                            .dividedBy(data.totalAllocationPoints)
+                            .multipliedBy(100)
+                            .decimalPlaces()}%`
                     }`,
                     <Typography
                       variant="normal"
@@ -264,28 +266,29 @@ const FarmsTable: FC<FarmsTableProps> = ({
                         justifyContent="center"
                       >
                         <Box display="inline-flex">
-                          {getFarmsSVGByToken(farm.token0, farm.token1).map(
-                            ({ SVG, highZIndex }, index) => (
-                              <Box
-                                key={v4()}
-                                width="1.6rem"
-                                ml={index != 0 ? '-0.5rem' : 'NONE'}
-                                zIndex={
-                                  index == 0
-                                    ? highZIndex
-                                      ? 3
-                                      : 'unset'
+                          {getFarmsSVGByToken(
+                            farm.lpCoin.type,
+                            farm.coin1.type
+                          ).map(({ SVG, highZIndex }, index) => (
+                            <Box
+                              key={v4()}
+                              width="1.6rem"
+                              ml={index != 0 ? '-0.5rem' : 'NONE'}
+                              zIndex={
+                                index == 0
+                                  ? highZIndex
+                                    ? 3
                                     : 'unset'
-                                }
-                              >
-                                <SVG
-                                  width="100%"
-                                  maxHeight="1.6rem"
-                                  maxWidth="1.6rem"
-                                />
-                              </Box>
-                            )
-                          )}
+                                  : 'unset'
+                              }
+                            >
+                              <SVG
+                                width="100%"
+                                maxHeight="1.6rem"
+                                maxWidth="1.6rem"
+                              />
+                            </Box>
+                          ))}
                         </Box>
                         <Typography
                           mt="M"
@@ -295,7 +298,7 @@ const FarmsTable: FC<FarmsTableProps> = ({
                         >
                           {farm.id === 0
                             ? TOKEN_SYMBOL.SUI
-                            : makeFarmSymbol(farm.token1)}
+                            : makeFarmSymbol(farm.coin1.type)}
                         </Typography>
                       </Box>
                     ),
@@ -303,7 +306,7 @@ const FarmsTable: FC<FarmsTableProps> = ({
                       <Link
                         href={{
                           pathname: Routes[RoutesEnum.FarmDetails],
-                          query: { objectId: farm.stakingTokenObjectId },
+                          query: { objectId: farm.objectId },
                         }}
                       >
                         <Button
@@ -317,13 +320,16 @@ const FarmsTable: FC<FarmsTableProps> = ({
                     items: [
                       formatDollars(farm.tvl),
                       formatMoney(FixedPointMath.toNumber(farm.stakingAmount)),
-                      farm.apr.value().isZero()
+                      farm.apr.isZero()
                         ? '0%'
-                        : farm.apr.toPercentage(),
+                        : FixedPointMath.from(farm.apr).toPercentage(),
                       `${
-                        farm.allocation.value().isZero()
+                        farm.allocationPoints.isZero()
                           ? '0%'
-                          : farm.allocation.toPercentage(2)
+                          : `${farm.allocationPoints
+                              .dividedBy(data.totalAllocationPoints)
+                              .multipliedBy(100)
+                              .decimalPlaces()}%`
                       }`,
                       <Typography
                         variant="normal"

@@ -1,19 +1,9 @@
 import { GetStaticProps, NextPage } from 'next';
 import { mergeDeepRight } from 'ramda';
-import { useEffect } from 'react';
 
-import { provider } from '@/utils';
 import DEX from '@/views/dapp/dex';
 
-const DexPage: NextPage = () => {
-  useEffect(() => {
-    provider
-      .getObject('0x06327d0e5a3c36e1bbcd0cfb8cd66c1e5df50278')
-      .then((x) => console.log(x));
-  }, []);
-
-  return <DEX />;
-};
+const DexPage: NextPage = () => <DEX />;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, dexMessages] = await Promise.all([

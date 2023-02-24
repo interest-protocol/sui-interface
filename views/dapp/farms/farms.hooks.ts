@@ -1,12 +1,12 @@
 import useSWR from 'swr';
 
 import { makeSWRKey } from '@/utils';
-import { getFarm } from '@/utils/farms';
 
 import { UseGetFarmListDataArgs } from './farms.types';
+import { getFarm } from './farms.utils';
 
-export const useFarmListData = ({ farms, account }: UseGetFarmListDataArgs) => {
-  const query = useSWR(
+export const useFarmListData = ({ farms, account }: UseGetFarmListDataArgs) =>
+  useSWR(
     makeSWRKey([farms, account], 'useFarmListData'),
     async () => Promise.all(farms.map((farm) => getFarm({ ...farm, account }))),
     {
@@ -16,6 +16,3 @@ export const useFarmListData = ({ farms, account }: UseGetFarmListDataArgs) => {
       refreshInterval: 15000,
     }
   );
-
-  return query;
-};

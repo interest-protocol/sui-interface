@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { Control } from 'react-hook-form';
 
-import { IFarmsForm } from '../../farms.types';
+import { IFarmsForm, ParsedFarmReturn } from '../../farms.types';
 import { SafeFarmData } from './../../farms.types';
 
 export interface FarmsTableProps {
@@ -9,5 +9,5 @@ export interface FarmsTableProps {
   isDesktop: boolean;
   intUSDPrice: BigNumber;
   control: Control<IFarmsForm>;
-  farms: ReadonlyArray<SafeFarmData>;
+  data: ParsedFarmReturn;
 }

@@ -1,6 +1,8 @@
+import { GetObjectDataResponse } from '@mysten/sui.js/src/types/objects';
 import BigNumber from 'bignumber.js';
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
+import { FarmType } from '@/constants';
 import { CoinData } from '@/interface';
 import { FixedPointMath } from '@/sdk';
 
@@ -39,43 +41,23 @@ export interface IFarmsForm {
   onlyFinished: boolean;
 }
 
-export interface SafeFarmData {
+export interface SafeFarmData extends FarmType {
   allocationPoints: BigNumber;
-  reserve0: BigNumber;
-  reserve1: BigNumber;
-  stakingTokenObjectId: string;
-  stakingTokenPrice: BigNumber;
   id: number;
-  token1: string;
-  token0: string;
+  coin0: CoinData;
+  coin1: CoinData;
   totalStakedAmount: BigNumber;
-  allocation: FixedPointMath;
   tvl: number;
-  apr: FixedPointMath;
+  apr: BigNumber;
   stable: boolean;
   isLive: boolean;
   stakingAmount: BigNumber;
 }
 
-export interface SafeFarmSummaryData {
+export interface ParsedFarmReturn {
   farms: ReadonlyArray<SafeFarmData>;
-  loading: boolean;
-  intUSDPrice: BigNumber;
+  totalAllocationPoints: BigNumber;
 }
-
-export type TFarmDataKeys = {
-  pools: ReadonlyArray<
-    | 'stakingToken'
-    | 'stable'
-    | 'reserve0'
-    | 'reserve1'
-    | 'allocationPoints'
-    | 'totalStakingAmount'
-    | 'totalSupply'
-    | 'stakingAmount'
-  >;
-  mintData: ReadonlyArray<'totalAllocationPoints' | 'interestPerBlock'>;
-};
 
 export interface UseGetFarmDataArgs {
   account: string | null;
@@ -83,4 +65,10 @@ export interface UseGetFarmDataArgs {
   poolObjectId: string;
   isSingleCoin: boolean;
   lpCoin: CoinData;
+}
+
+export interface GetFarmReturn {
+  objectId: string;
+  farmArray: Array<GetObjectDataResponse>;
+  accountData: null | any;
 }
