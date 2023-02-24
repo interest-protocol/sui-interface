@@ -25,15 +25,16 @@ const Field: FC<FieldProps> = ({
       {...setRegister()}
       max={max}
       textAlign="right"
-      color={hasBorder ? 'disabled' : 'unset'}
+      color={hasBorder ? 'text' : 'disabled'}
+      fontWeight={hasBorder ? 'bold' : 'unset'}
       shieldProps={{
         p: 'S',
         my: 'M',
         bg: 'background',
         overflow: 'visible',
-        border: '1px solid',
+        border: hasBorder ? '2px solid' : '1px solid',
         borderRadius: '2rem',
-        color: hasBorder ? 'unset' : 'disabled',
+        fontWeight: hasBorder ? 'bold' : 'unset',
         borderColor: hasBorder ? 'accent' : 'transparent',
         hover: {
           borderColor: hasBorder ? 'accent' : 'accentActive',

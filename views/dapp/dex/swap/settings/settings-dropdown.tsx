@@ -43,9 +43,12 @@ const ModalBody: FC<ModalSettingsBody> = ({
   onRequestClose,
   register,
   setValue,
+  getValues,
   control,
 }) => {
-  const [isAuto, setAuto] = useState(true);
+  const [isAuto, setAuto] = useState(
+    getValues('slippage') == SLIPPAGE_AUTO_VALUE
+  );
   const t = useTranslations();
   return (
     <Box
@@ -93,6 +96,7 @@ const ModalBody: FC<ModalSettingsBody> = ({
                 const slippage = parseInputEventToNumberString(v);
                 const safeSlippage = +slippage >= 30 ? '30' : slippage;
                 setValue('slippage', safeSlippage);
+                setAuto(false);
               },
             })
           }
@@ -141,6 +145,7 @@ const SettingsDropdown: FC<SettingsDropdownProps> = ({
     >
       <ModalBody
         setValue={setValue}
+        getValues={getValues}
         register={register}
         onRequestClose={onRequestClose}
         control={control}
