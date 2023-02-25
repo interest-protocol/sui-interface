@@ -32,7 +32,7 @@ const Field: FC<FieldProps> = ({
         my: 'M',
         bg: 'background',
         overflow: 'visible',
-        border: hasBorder ? '2px solid' : '1px solid',
+        border: hasBorder ? '2px solid' : '1px',
         borderRadius: '2rem',
         fontWeight: hasBorder ? 'bold' : 'unset',
         borderColor: hasBorder ? 'accent' : 'transparent',

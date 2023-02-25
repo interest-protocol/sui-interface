@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react';
 import { useTranslations } from 'next-intl';
 import { ChangeEvent, FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -18,6 +19,7 @@ import {
 const SLIPPAGE_AUTO_VALUE = '0.1';
 
 const AutoButton: FC<SettingsAutoButton> = ({ control, setValue, setAuto }) => {
+  const { dark } = useTheme() as any;
   const currentSlippage = useWatch({ control, name: 'slippage' });
   return (
     <Button
@@ -28,11 +30,21 @@ const AutoButton: FC<SettingsAutoButton> = ({ control, setValue, setAuto }) => {
       fontWeight="normal"
       bg={SLIPPAGE_AUTO_VALUE != currentSlippage ? 'transparent' : 'accent'}
       border="1px solid"
+      color={
+        SLIPPAGE_AUTO_VALUE != currentSlippage
+          ? dark
+            ? 'text'
+            : 'accentActive'
+          : dark
+          ? 'text'
+          : 'textInverted'
+      }
       borderColor={
         SLIPPAGE_AUTO_VALUE != currentSlippage ? 'accentActive' : 'transparent'
       }
       hover={{
         bg: SLIPPAGE_AUTO_VALUE != currentSlippage ? 'accentActive' : 'accent',
+        color: dark ? 'text' : 'textInverted',
       }}
       onClick={() => {
         setValue('slippage', SLIPPAGE_AUTO_VALUE);
