@@ -24,8 +24,6 @@ const FarmOptions: FC<FarmOptionsProps> = ({
   intUSDPrice,
   hasAccountManager: [hasAccount, setHasAccount],
 }) => {
-  console.log('>> farm :: ', farm, hasAccount);
-
   const t = useTranslations();
   const { push } = useRouter();
   const [modal, setModal] = useState<StakeState | undefined>();

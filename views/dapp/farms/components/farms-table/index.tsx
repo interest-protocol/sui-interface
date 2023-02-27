@@ -169,7 +169,8 @@ const FarmsTable: FC<FarmsTableProps> = ({
                         : `${farm.allocationPoints
                             .dividedBy(data.totalAllocationPoints)
                             .multipliedBy(100)
-                            .decimalPlaces()}%`
+                            .decimalPlaces(2)
+                            .toString()}%`
                     }`,
                     <Typography
                       variant="normal"
@@ -324,7 +325,8 @@ const FarmsTable: FC<FarmsTableProps> = ({
                           : `${farm.allocationPoints
                               .dividedBy(data.totalAllocationPoints)
                               .multipliedBy(100)
-                              .decimalPlaces()}%`
+                              .decimalPlaces(2)
+                              .toString()}%`
                       }`,
                       <Typography
                         variant="normal"

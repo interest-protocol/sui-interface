@@ -1,77 +1,82 @@
 import BigNumber from 'bignumber.js';
-import { propOr } from 'ramda';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
-import { FixedPointMath } from '@/sdk';
-import { getCoinTypeFromSupply, getSafeTotalBalance } from '@/utils';
+import { FARMS } from '@/constants';
+import { ZERO_BIG_NUMBER } from '@/utils';
 import {
+  calculateAPR,
+  calculateIPXUSDPrice,
+  calculateTVL,
   getAllocationPoints,
-  getBalance,
-  getReserve,
-  getToken,
+  getFarmBalance,
 } from '@/utils/farms';
 
-import { Pool } from '../dex-pool-details/dex-pool-details.types';
-import { SafeUserFarmData } from './farm-details.types';
+import { ParseFarmData } from './farm-details.types';
 
-export const parseFarmData = (
-  data: any,
-  prices: ReadonlyArray<{ type: string; price: number }>,
-  volatilePool: Pool,
-  coinsMap: Record<string, Web3ManagerSuiObject>
-): SafeUserFarmData => {
-  // TODO: unused price
-  console.log(prices);
-  console.log('>> data ::: ', data);
+const DEFAULT_FARM_DATA = {
+  ...FARMS[0],
+  apr: ZERO_BIG_NUMBER,
+  pendingRewards: ZERO_BIG_NUMBER,
+  tvl: 0,
+  allocationPoints: ZERO_BIG_NUMBER,
+  stakingAmount: ZERO_BIG_NUMBER,
+  totalStakedAmount: ZERO_BIG_NUMBER,
+  lpCoinData: {
+    type: '',
+    totalBalance: ZERO_BIG_NUMBER,
+    symbol: '',
+    objects: [],
+    decimals: 0,
+  } as Web3ManagerSuiObject,
+  ipxUSDPrice: 0,
+};
 
-  const currentPool =
-    coinsMap[getCoinTypeFromSupply(propOr('', 'lpCoin', volatilePool))];
+export const parseFarmData: ParseFarmData = ({
+  data,
+  farmMetadata,
+  ipxStorage,
+  prices,
+  coinsMap,
+  ipxPool,
+  pendingRewards,
+}) => {
+  if (!data || !ipxPool) return DEFAULT_FARM_DATA;
 
-  const balance = getSafeTotalBalance(currentPool);
+  const farm = data.farmArray[0];
+  const pool = data.farmArray[farmMetadata.isSingleCoin ? 0 : 1];
 
-  // TODO: update these calculation values
-  const id = ~~(Math.random() * 999999);
-  const tvl = ~~(Math.random() * 9999);
-  const allocation = FixedPointMath.from(BigNumber(0));
-  const allocationPoints = BigNumber(10e9 * +getAllocationPoints(0)(data));
-  const reserve0 = BigNumber(10e9 * +getReserve(0)(data));
-  const reserve1 = BigNumber(10e9 * +getReserve(1)(data));
-  const balanceX = getBalance(1, 0)(data);
-  const balanceY = getBalance(1, 1)(data);
-  const token0 = getToken(0)(data);
-  const token1 = getToken(1)(data);
+  const ipxUSDPrice = calculateIPXUSDPrice({
+    pool: ipxPool,
+    prices,
+  });
+
+  const tvl = calculateTVL({
+    prices,
+    ipxUSDPrice,
+    farm,
+    pool,
+    farmMetadata,
+  });
+
+  const allocationPoints = new BigNumber(getAllocationPoints(farm));
   const stakingAmount = BigNumber(0);
-  const totalStakedAmount = BigNumber(10e9 * +data.account ? 0 : 1);
-  const stakingTokenPrice = BigNumber((+balanceX / +balanceY) * 10 ** 9);
-  const apr = FixedPointMath.from(
-    BigNumber(
-      (10e9 * +getAllocationPoints(0)(data)) /
-        (+getAllocationPoints(1)(data) || 1)
-    )
-  );
-
-  const stakingTokenObjectId = data.objectId;
-
-  const pendingRewards = BigNumber(0);
+  const totalStakedAmount = new BigNumber(getFarmBalance(farm));
+  const lpCoinData = coinsMap[farmMetadata.lpCoin.type];
 
   return {
-    id,
-    tvl,
-    apr,
-    token0,
-    token1,
-    balance,
-    reserve0,
-    reserve1,
-    allocation,
-    stakingAmount,
+    ...farmMetadata,
     pendingRewards,
+    tvl,
+    apr: calculateAPR({
+      ipxUSDPrice,
+      ipxStorage,
+      tvl,
+      allocationPoints,
+    }),
     allocationPoints,
-    stakingTokenPrice,
+    stakingAmount,
     totalStakedAmount,
-    stakingTokenObjectId,
-    // TODO: update these hardcoded value
-    isLive: true,
-    stable: false,
+    lpCoinData,
+    ipxUSDPrice,
   };
 };

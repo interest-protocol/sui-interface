@@ -1,34 +1,30 @@
-import { Network } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
-import { find, propEq } from 'ramda';
 import { FC } from 'react';
 
 import { Container, LoadingPage } from '@/components';
-import { COINS, FARMS, RoutesEnum } from '@/constants';
-import { useGetCoinsPrices, useLocalStorage, useWeb3 } from '@/hooks';
+import { FARMS, RoutesEnum } from '@/constants';
+import {
+  useGetCoinsPrices,
+  useGetIPXStorage,
+  useLocalStorage,
+  useWeb3,
+} from '@/hooks';
 
 import { GoBack } from '../components';
 import ErrorView from '../components/error';
-import { useGetVolatilePool } from '../dex-pool-details/dex-pool-details.hooks';
 import { Details, FarmOptions } from './components';
-import { useFarmData } from './farm-details.hook';
+import { useGetFarm, useGetPendingRewards } from './farm-details.hook';
 import { FarmDetailsProps } from './farm-details.types';
 import { parseFarmData } from './farm-details.utils';
 
-const COIN_PRICES = [
-  COINS[Network.DEVNET].ETH.type,
-  COINS[Network.DEVNET].BTC.type,
-  COINS[Network.DEVNET].DAI.type,
-  COINS[Network.DEVNET].BNB.type,
-  COINS[Network.DEVNET].USDT.type,
-  COINS[Network.DEVNET].USDC.type,
-];
-
-const FarmDetails: FC<FarmDetailsProps> = ({ objectId }) => {
+const FarmDetails: FC<FarmDetailsProps> = ({ farmMetadata }) => {
   const hasAccountManager = useLocalStorage<boolean>(
     'sui-interest-farm-account',
     false
   );
+
+  const coin0 = farmMetadata.coin0;
+  const coin1 = farmMetadata.coin1;
 
   const {
     account,
@@ -37,30 +33,71 @@ const FarmDetails: FC<FarmDetailsProps> = ({ objectId }) => {
     error: web3Error,
   } = useWeb3();
 
-  const farmData = find(propEq('objectId', objectId))(FARMS) as typeof FARMS[0];
+  const { data: ipxStorage, error: ipxStorageError } = useGetIPXStorage();
 
-  const {
-    error: getPoolError,
-    data: volatilePool,
-    // mutate: updateVolatilePools,
-  } = useGetVolatilePool(farmData.poolObjectId);
-
-  const { data, mutate, isLoading, error } = useFarmData({
-    ...farmData,
+  const { data, mutate, isLoading, error } = useGetFarm({
+    ...farmMetadata,
     account,
   });
 
-  const prices = useGetCoinsPrices(COIN_PRICES);
+  const {
+    data: ipxData,
+    isLoading: isLoadingIPXData,
+    error: ipxDataError,
+  } = useGetFarm({
+    // ETH_IPX POOL
+    ...FARMS[2],
+    account,
+  });
 
-  if (isLoading || prices.isLoading || isFetchingCoinBalances)
+  const {
+    error: pendingRewardsError,
+    mutate: mutatePendingRewards,
+    data: pendingRewards,
+  } = useGetPendingRewards(account, farmMetadata);
+
+  const coinsPrices = useGetCoinsPrices([coin0.type, coin1.type]);
+
+  if (
+    isLoading ||
+    coinsPrices.isLoading ||
+    isFetchingCoinBalances ||
+    isLoadingIPXData
+  )
     return <LoadingPage />;
 
-  if (error || prices.error || getPoolError || web3Error)
+  if (
+    error ||
+    coinsPrices.error ||
+    ipxStorageError ||
+    web3Error ||
+    ipxDataError ||
+    pendingRewardsError
+  )
     return (
-      <ErrorView message={error || prices.error || getPoolError || web3Error} />
+      <ErrorView
+        message={
+          error ||
+          coinsPrices.error ||
+          ipxStorageError ||
+          web3Error ||
+          ipxDataError ||
+          pendingRewardsError
+        }
+      />
     );
 
-  const parsedData = parseFarmData(data, prices.data, volatilePool, coinsMap);
+  const parsedData = parseFarmData({
+    data,
+    farmMetadata,
+    coinsMap,
+    ipxPool: ipxData?.farmArray.length ? ipxData.farmArray[1] : undefined,
+    prices: coinsPrices.data,
+    ipxStorage,
+    pendingRewards: new BigNumber(pendingRewards),
+  });
+
+  return <div>hello world</div>;
 
   return (
     <Container dapp width="100%" mt="XL">
@@ -71,7 +108,7 @@ const FarmDetails: FC<FarmDetailsProps> = ({ objectId }) => {
         hasAccountManager={hasAccountManager}
         intUSDPrice={BigNumber(34)}
         refetch={async () => {
-          await mutate();
+          await Promise.all([mutatePendingRewards, mutate]);
         }}
         loading={false}
       />

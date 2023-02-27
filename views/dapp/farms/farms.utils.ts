@@ -1,38 +1,25 @@
-import { MoveCallTransaction, Network } from '@mysten/sui.js';
+import { Network } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { always, cond, equals, ifElse, isEmpty, not, o, prop, T } from 'ramda';
 
-import {
-  COIN_TYPE,
-  COIN_TYPE_TO_SYMBOL,
-  COINS_PACKAGE_ID,
-  EPOCHS_PER_YEAR,
-  FARMS,
-  IPX_ACCOUNT_STORAGE,
-  IPX_STORAGE,
-} from '@/constants';
+import { COIN_TYPE_TO_SYMBOL, FARMS } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
-import { FixedPointMath, TOKEN_SYMBOL } from '@/sdk';
-import { provider } from '@/utils';
+import { TOKEN_SYMBOL } from '@/sdk';
 import {
+  calculateAPR,
+  calculateIPXUSDPrice,
+  calculateTVL,
   getAllocationPoints,
   getFarmBalance,
-  getPoolCoin0Balance,
-  getPoolCoin1Balance,
-  getPoolLPCoinSupply,
 } from '@/utils/farms';
+import { GetFarmReturn } from '@/utils/farms/farms.types';
 
 import { FARMS_TOKENS_SVG_MAP } from './farms.data';
 import {
-  CalculateAPRArgs,
-  CalculateIPXPriceArgs,
-  CalculateTVLArgs,
   FarmSortByFilter,
   FarmTypeFilter,
-  GetFarmReturn,
   ParseFarmListDataReturn,
   SafeFarmData,
-  UseGetFarmDataArgs,
 } from './farms.types';
 
 export const getFarmsSVGByToken = (tokenA: string, tokenB: string) =>
@@ -151,141 +138,36 @@ export const handleFilterFarms = (
           ].every((pred) => pred(x))
         );
 
-const calculateTVL = ({
-  data,
-  prices,
-  ipxUSDPrice,
-  farmMetadata,
-}: CalculateTVLArgs) => {
-  // IPX only logic
-  if (farmMetadata.isSingleCoin) {
-    const farm = data.farmArray[0];
-    const farmBalance = new BigNumber(getFarmBalance(farm));
-    return FixedPointMath.toNumber(
-      farmBalance.multipliedBy(ipxUSDPrice),
-      farmMetadata.coin0.decimals
-    );
-  } else {
-    // if coin zero has a price
-    const coin0Price = prices[farmMetadata.coin0.type];
-
-    const farm = data.farmArray[0];
-    const pool = data.farmArray[1];
-    const lpCoinSupply = getPoolLPCoinSupply(pool);
-
-    if (!+lpCoinSupply) return 0;
-
-    if (coin0Price) {
-      const coin0Reserve = new BigNumber(getPoolCoin0Balance(pool));
-      const lpCoinPrice = coin0Reserve
-        .multipliedBy(2)
-        .multipliedBy(new BigNumber(coin0Price.price))
-        .dividedBy(new BigNumber(lpCoinSupply));
-
-      return FixedPointMath.toNumber(
-        lpCoinPrice.multipliedBy(getFarmBalance(farm)),
-        farmMetadata.coin0.decimals
-      );
-    }
-
-    // if coin one has a price
-    const coin1Price = prices[farmMetadata.coin1.type];
-
-    if (coin1Price) {
-      const coin1Reserve = new BigNumber(getPoolCoin1Balance(pool));
-      const lpCoinPrice = coin1Reserve
-        .multipliedBy(2)
-        .multipliedBy(new BigNumber(coin1Price.price))
-        .dividedBy(new BigNumber(lpCoinSupply));
-
-      return FixedPointMath.toNumber(
-        lpCoinPrice.multipliedBy(getFarmBalance(farm)),
-        farmMetadata.coin1.decimals
-      );
-    }
-  }
-
-  return 0;
-};
-
-const calculateIPXUSDPrice = ({ data, prices }: CalculateIPXPriceArgs) => {
-  // V-ETH-IPX is hardcoded on index 2
-  const [, pool] = data[2].farmArray;
-
-  const ethBalance = new BigNumber(getPoolCoin0Balance(pool));
-  const ipxBalance = new BigNumber(getPoolCoin1Balance(pool));
-  const ipxInEth = ethBalance.div(ipxBalance).multipliedBy(1e9);
-  const ethType = COIN_TYPE[Network.DEVNET].ETH;
-
-  return ipxInEth.multipliedBy(prices[ethType].price).toNumber();
-};
-
-const calculateAPR = ({
-  ipxStorage,
-  data,
-  ipxUSDPrice,
-  tvl,
-}: CalculateAPRArgs) => {
-  if (!tvl) return new BigNumber(0);
-  const farm = data.farmArray[0];
-  const allocationPoints = new BigNumber(getAllocationPoints(farm));
-
-  const percentageOfAllocation = allocationPoints.div(
-    ipxStorage.totalAllocation
-  );
-  // IPX has 9 decimals
-  const profitInUSD = FixedPointMath.toNumber(
-    percentageOfAllocation
-      .multipliedBy(ipxStorage.ipxPerEpoch)
-      .multipliedBy(EPOCHS_PER_YEAR)
-      .multipliedBy(ipxUSDPrice)
-  );
-
-  return new BigNumber(profitInUSD).div(tvl || 1);
-};
-
 export const parseFarmData =
   (prices: CoinPriceRecord, ipxUSDPrice: number, ipxStorage: IPXStorage) =>
-  (
-    acc: ParseFarmListDataReturn,
-    data: GetFarmReturn,
-    index: number
-  ): ParseFarmListDataReturn => {
+  (data: GetFarmReturn, index: number) => {
     const farmMetadata = FARMS[index];
+    const farm = data.farmArray[0];
+    const pool = data.farmArray[farmMetadata.isSingleCoin ? 0 : 1];
     const tvl = calculateTVL({
       prices,
       ipxUSDPrice,
-      data,
+      farm,
+      pool,
       farmMetadata,
     });
-    const allocationPoints = new BigNumber(
-      getAllocationPoints(data.farmArray[farmMetadata.isSingleCoin ? 0 : 1])
-    );
+
+    const allocationPoints = new BigNumber(getAllocationPoints(farm));
     const stakingAmount = BigNumber(0);
-    const totalStakedAmount = new BigNumber(
-      getFarmBalance(data.farmArray[farmMetadata.isSingleCoin ? 0 : 1])
-    );
+    const totalStakedAmount = new BigNumber(getFarmBalance(farm));
 
     return {
-      farms: [
-        ...acc.farms,
-        {
-          ...farmMetadata,
-          tvl,
-          apr: calculateAPR({
-            data,
-            ipxUSDPrice,
-            ipxStorage,
-            tvl,
-          }),
-          allocationPoints,
-          isLive: true,
-          stable: false,
-          stakingAmount,
-          totalStakedAmount,
-        },
-      ],
-      totalAllocationPoints: acc.totalAllocationPoints.plus(allocationPoints),
+      ...farmMetadata,
+      tvl,
+      apr: calculateAPR({
+        ipxUSDPrice,
+        ipxStorage,
+        tvl,
+        allocationPoints,
+      }),
+      allocationPoints,
+      stakingAmount,
+      totalStakedAmount,
     };
   };
 
@@ -294,63 +176,19 @@ export const parseFarmListData = (
   prices: CoinPriceRecord,
   ipxStorage: IPXStorage
 ): ParseFarmListDataReturn => {
-  if (!data)
+  if (!data || !data[2])
     return {
       farms: [],
       totalAllocationPoints: new BigNumber(0),
     };
 
-  const ipxUSDPrice = calculateIPXUSDPrice({ data, prices });
-
-  return data.reduce(parseFarmData(prices, ipxUSDPrice, ipxStorage), {
-    farms: [],
-    totalAllocationPoints: new BigNumber(0),
-  } as ParseFarmListDataReturn);
-};
-
-export const getFarm = async ({
-  objectId,
-  poolObjectId,
-  isSingleCoin,
-  account,
-  lpCoin,
-}: UseGetFarmDataArgs): Promise<GetFarmReturn> => {
-  const array = isSingleCoin
-    ? [provider.getObject(objectId)]
-    : [provider.getObject(objectId), provider.getObject(poolObjectId)];
-
-  const farmArray = await Promise.all(array);
-
-  if (account)
-    return (
-      provider
-        .devInspectTransaction(account, {
-          kind: 'moveCall',
-          data: {
-            function: 'borrow_account',
-            gasBudget: 5000,
-            module: 'ipx',
-            packageObjectId: COINS_PACKAGE_ID,
-            typeArguments: [lpCoin.type],
-            arguments: [IPX_STORAGE, IPX_ACCOUNT_STORAGE, account],
-          } as MoveCallTransaction,
-        })
-        .then((x) => ({
-          objectId,
-          farmArray,
-          accountData: x,
-        }))
-        // User never deposited - so it will throw an error
-        .catch(() => ({
-          objectId,
-          farmArray,
-          accountData: null,
-        }))
-    );
+  const ipxUSDPrice = calculateIPXUSDPrice({
+    pool: data[2].farmArray[1],
+    prices,
+  });
 
   return {
-    objectId,
-    farmArray,
-    accountData: null,
+    farms: data.map(parseFarmData(prices, ipxUSDPrice, ipxStorage)),
+    totalAllocationPoints: new BigNumber(ipxStorage.totalAllocation),
   };
 };

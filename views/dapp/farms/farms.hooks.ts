@@ -1,9 +1,9 @@
 import useSWR from 'swr';
 
 import { makeSWRKey } from '@/utils';
+import { getFarm } from '@/utils/farms';
 
 import { UseGetFarmListDataArgs } from './farms.types';
-import { getFarm } from './farms.utils';
 
 export const useFarmListData = ({ farms, account }: UseGetFarmListDataArgs) =>
   useSWR(
