@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { Container } from '@/components';
 import { COINS, FARMS } from '@/constants';
 import { Box, InfiniteScroll, Typography } from '@/elements';
-import { useGetCoinsPrices, useWeb3 } from '@/hooks';
+import { useGetCoinsPrices, useGetIPXStorage, useWeb3 } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
 import { LoadingSVG } from '@/svg';
 import { noop } from '@/utils';
@@ -42,6 +42,7 @@ const Farms: FC = () => {
   });
 
   const { account } = useWeb3();
+  const { data: ipxStorage, error: ipxStorageError } = useGetIPXStorage();
   const [isDesktop, setDesktop] = useState(false);
 
   const prices = useGetCoinsPrices(COIN_PRICES);
@@ -58,10 +59,10 @@ const Farms: FC = () => {
 
   useEventListener('resize', handleSetDesktop, true);
 
-  if (error || prices.error)
-    return <ErrorView message={error || prices.error} />;
+  if (error || prices.error || ipxStorageError)
+    return <ErrorView message={error || prices.error || ipxStorageError} />;
 
-  const parsedData = parseFarmListData(data, prices.data);
+  const parsedData = parseFarmListData(data, prices.data, ipxStorage);
 
   return (
     <Box display="flex" flexDirection="column" flex="1">

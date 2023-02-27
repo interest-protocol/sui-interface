@@ -2,9 +2,9 @@ import { GetObjectDataResponse } from '@mysten/sui.js/src/types/objects';
 import BigNumber from 'bignumber.js';
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
-import { FarmType } from '@/constants';
+import { FARMS, FarmType } from '@/constants';
+import { CoinPriceRecord, IPXStorage } from '@/hooks';
 import { CoinData } from '@/interface';
-import { FixedPointMath } from '@/sdk';
 
 export enum FarmSortByFilter {
   Default,
@@ -54,7 +54,7 @@ export interface SafeFarmData extends FarmType {
   stakingAmount: BigNumber;
 }
 
-export interface ParsedFarmReturn {
+export interface ParseFarmListDataReturn {
   farms: ReadonlyArray<SafeFarmData>;
   totalAllocationPoints: BigNumber;
 }
@@ -71,4 +71,23 @@ export interface GetFarmReturn {
   objectId: string;
   farmArray: Array<GetObjectDataResponse>;
   accountData: null | any;
+}
+
+export interface CalculateAPRArgs {
+  ipxUSDPrice: number;
+  ipxStorage: IPXStorage;
+  data: GetFarmReturn;
+  tvl: number;
+}
+
+export interface CalculateTVLArgs {
+  prices: CoinPriceRecord;
+  farmMetadata: typeof FARMS[number];
+  ipxUSDPrice: number;
+  data: GetFarmReturn;
+}
+
+export interface CalculateIPXPriceArgs {
+  data: Array<GetFarmReturn>;
+  prices: CoinPriceRecord;
 }

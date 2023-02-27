@@ -34,7 +34,7 @@ const getPoolBalance = (pairPosition: 0 | 1) =>
     'fields',
     'value',
     'fields',
-    `balance_${pairPosition ? 'x' : 'y'}`,
+    `balance_${pairPosition ? 'y' : 'x'}`,
   ]);
 
 export const getPoolCoin0Balance = getPoolBalance(0);

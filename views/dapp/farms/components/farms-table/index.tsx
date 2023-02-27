@@ -30,7 +30,6 @@ const FarmsTable: FC<FarmsTableProps> = ({
 
   const onlyFinished = useWatch({ control, name: 'onlyFinished' });
   const onlyStaked = useWatch({ control, name: 'onlyStaked' });
-
   const typeFilter = useWatch({ control, name: 'typeFilter' });
   const search = useWatch({ control, name: 'search' });
   const sortBy = useWatch({ control, name: 'sortBy' });
@@ -163,9 +162,7 @@ const FarmsTable: FC<FarmsTableProps> = ({
                     </Box>,
                     formatDollars(farm.tvl),
                     formatMoney(FixedPointMath.toNumber(farm.stakingAmount)),
-                    farm.apr.isZero()
-                      ? '0%'
-                      : FixedPointMath.from(farm.apr).toPercentage(),
+                    farm.apr.isZero() ? '0%' : `${farm.apr.toString()}%`,
                     `${
                       farm.allocationPoints.isZero()
                         ? '0%'
@@ -320,9 +317,7 @@ const FarmsTable: FC<FarmsTableProps> = ({
                     items: [
                       formatDollars(farm.tvl),
                       formatMoney(FixedPointMath.toNumber(farm.stakingAmount)),
-                      farm.apr.isZero()
-                        ? '0%'
-                        : FixedPointMath.from(farm.apr).toPercentage(),
+                      farm.apr.isZero() ? '0%' : `${farm.apr.toString()}%`,
                       `${
                         farm.allocationPoints.isZero()
                           ? '0%'

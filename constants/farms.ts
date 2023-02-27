@@ -1,15 +1,15 @@
 import { Network } from '@mysten/sui.js';
 
-import { COIN_POOL, COINS } from './coins';
+import { COIN_FARM, COIN_POOL, COINS } from './coins';
 
-export const IPX_STORAGE = '0x06327d0e5a3c36e1bbcd0cfb8cd66c1e5df50278';
+export const IPX_STORAGE = '0xf20065bbecea0dc2fe86682972192c5333bb2f1c';
 
-export const IPX_ACCOUNT_STORAGE = '0x2e09ba6668983bc5389487176ec0b72428c54262';
+export const IPX_ACCOUNT_STORAGE = '0xe9dbfb8d57f04b39de26b1fe3fa3edfa98df7ce1';
 
 export const FARMS = [
   {
-    objectId: '0xb3327c95acfbb3c6729c87668b9959b211f40f14',
-    poolObjectId: '0xb3327c95acfbb3c6729c87668b9959b211f40f14',
+    objectId: '0x6eec86d420895e2c5abfa90346b91f7dbd3fb083',
+    poolObjectId: '0x6eec86d420895e2c5abfa90346b91f7dbd3fb083',
     lpCoin: COINS[Network.DEVNET].IPX,
     coin0: COINS[Network.DEVNET].IPX,
     coin1: COINS[Network.DEVNET].IPX,
@@ -19,7 +19,7 @@ export const FARMS = [
     stable: false,
   },
   {
-    objectId: '0x7497d674e45b296d515a4a6d094f719e54c697b7',
+    objectId: COIN_FARM[Network.DEVNET].V_LP_SUI_ETH,
     poolObjectId: COIN_POOL[Network.DEVNET].V_LP_SUI_ETH,
     lpCoin: COINS[Network.DEVNET].V_LP_SUI_ETH,
     coin0: COINS[Network.DEVNET].SUI,
@@ -30,21 +30,21 @@ export const FARMS = [
     stable: false,
   },
   {
-    objectId: '0x8c41c1f85a877ca1d02f48d974df8418342dbcc9',
-    poolObjectId: COIN_POOL[Network.DEVNET].V_LP_BTC_ETH,
-    lpCoin: COINS[Network.DEVNET].V_LP_BTC_ETH,
-    coin0: COINS[Network.DEVNET].BTC,
-    coin1: COINS[Network.DEVNET].ETH,
+    objectId: COIN_FARM[Network.DEVNET].V_LP_ETH_IPX,
+    poolObjectId: COIN_POOL[Network.DEVNET].V_LP_ETH_IPX,
+    lpCoin: COINS[Network.DEVNET].V_LP_ETH_IPX,
+    coin0: COINS[Network.DEVNET].ETH,
+    coin1: COINS[Network.DEVNET].IPX,
     isSingleCoin: false,
     id: 2,
     isLive: true,
     stable: false,
   },
   {
-    objectId: '0xeb21a43da501c2accec8e6669c4797785b603092',
-    poolObjectId: COIN_POOL[Network.DEVNET].V_LP_BNB_ETH,
-    lpCoin: COINS[Network.DEVNET].V_LP_BNB_ETH,
-    coin0: COINS[Network.DEVNET].BNB,
+    objectId: COIN_FARM[Network.DEVNET].V_LP_BTC_ETH,
+    poolObjectId: COIN_POOL[Network.DEVNET].V_LP_BTC_ETH,
+    lpCoin: COINS[Network.DEVNET].V_LP_BTC_ETH,
+    coin0: COINS[Network.DEVNET].BTC,
     coin1: COINS[Network.DEVNET].ETH,
     isSingleCoin: false,
     id: 3,
@@ -52,35 +52,46 @@ export const FARMS = [
     stable: false,
   },
   {
-    objectId: '0xec01710017bd9a90375690e33189378cc1a31013',
-    poolObjectId: COIN_POOL[Network.DEVNET].V_LP_ETH_USDT,
-    lpCoin: COINS[Network.DEVNET].V_LP_ETH_USDT,
-    coin0: COINS[Network.DEVNET].ETH,
-    coin1: COINS[Network.DEVNET].USDT,
+    objectId: COIN_FARM[Network.DEVNET].V_LP_BNB_ETH,
+    poolObjectId: COIN_POOL[Network.DEVNET].V_LP_BNB_ETH,
+    lpCoin: COINS[Network.DEVNET].V_LP_BNB_ETH,
+    coin0: COINS[Network.DEVNET].BNB,
+    coin1: COINS[Network.DEVNET].ETH,
     isSingleCoin: false,
     id: 4,
     isLive: true,
     stable: false,
   },
   {
-    objectId: '0x7ef2a678ce80e85ad8d88fa560b18a0e0dd7fde5',
-    poolObjectId: COIN_POOL[Network.DEVNET].V_LP_ETH_USDC,
-    lpCoin: COINS[Network.DEVNET].V_LP_ETH_USDC,
+    objectId: COIN_FARM[Network.DEVNET].V_LP_ETH_USDT,
+    poolObjectId: COIN_POOL[Network.DEVNET].V_LP_ETH_USDT,
+    lpCoin: COINS[Network.DEVNET].V_LP_ETH_USDT,
     coin0: COINS[Network.DEVNET].ETH,
-    coin1: COINS[Network.DEVNET].USDC,
+    coin1: COINS[Network.DEVNET].USDT,
     isSingleCoin: false,
     id: 5,
     isLive: true,
     stable: false,
   },
   {
-    objectId: '0x63e42397f121473a1f167c3ac513d6e0dbc91963',
+    objectId: COIN_FARM[Network.DEVNET].V_LP_ETH_USDC,
+    poolObjectId: COIN_POOL[Network.DEVNET].V_LP_ETH_USDC,
+    lpCoin: COINS[Network.DEVNET].V_LP_ETH_USDC,
+    coin0: COINS[Network.DEVNET].ETH,
+    coin1: COINS[Network.DEVNET].USDC,
+    isSingleCoin: false,
+    id: 6,
+    isLive: true,
+    stable: false,
+  },
+  {
+    objectId: COIN_FARM[Network.DEVNET].V_LP_DAI_ETH,
     poolObjectId: COIN_POOL[Network.DEVNET].V_LP_DAI_ETH,
     lpCoin: COINS[Network.DEVNET].V_LP_DAI_ETH,
     coin0: COINS[Network.DEVNET].DAI,
     coin1: COINS[Network.DEVNET].ETH,
     isSingleCoin: false,
-    id: 6,
+    id: 7,
     isLive: true,
     stable: false,
   },

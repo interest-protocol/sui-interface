@@ -38,3 +38,5 @@ export const TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.DEVNET].USDC]: USDCoinSVG,
   [COIN_TYPE[Network.DEVNET].USDT]: USDTSVG,
 };
+
+export const EPOCHS_PER_YEAR = 4380;

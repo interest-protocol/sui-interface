@@ -2,7 +2,7 @@ import { Network } from '@mysten/sui.js';
 import { UseFormSetValue } from 'react-hook-form';
 
 import { ISwitchOption } from '@/components/switch/switch.types';
-import { COIN_TYPE, COINS_PACKAGE_ID } from '@/constants';
+import { COIN_TYPE } from '@/constants';
 import {
   BinanceSVG,
   BitcoinSVG,
@@ -24,7 +24,7 @@ export const FARMS_TOKENS_SVG_MAP = {
       highZIndex: false,
     },
   ],
-  [`${COINS_PACKAGE_ID}::ipx::Pool`]: [
+  [COIN_TYPE[Network.DEVNET].IPX]: [
     {
       SVG: InterestTokenSVG,
       highZIndex: false,
@@ -135,6 +135,16 @@ export const FARMS_TOKENS_SVG_MAP = {
     },
     {
       SVG: EtherSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX]: [
+    {
+      SVG: EtherSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: InterestTokenSVG,
       highZIndex: false,
     },
   ],
