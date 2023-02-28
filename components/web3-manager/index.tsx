@@ -47,7 +47,7 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
       revalidateOnFocus: false,
       revalidateOnMount: true,
       refreshWhenHidden: false,
-      refreshInterval: 5000,
+      refreshInterval: 10000,
     }
   );
 

@@ -27,10 +27,11 @@ const InputStake: FC<InputStakeProps> = ({
       </Typography>
       <Input
         type="string"
-        {...register('value', {
+        {...register('amount', {
           onChange: (v: ChangeEvent<HTMLInputElement>) => {
+            v.stopPropagation();
             setValue?.(
-              'value',
+              'amount',
               parseInputEventToNumberString(v, amount ? amount : undefined)
             );
           },
@@ -60,7 +61,9 @@ const InputStake: FC<InputStakeProps> = ({
               hover={{ bg: 'accent' }}
               active={{ bg: 'accentActive' }}
               color={dark ? 'text' : 'textInverted'}
-              onClick={() => setValue('value', numberToString(amount))}
+              onClick={() => {
+                setValue('amount', numberToString(amount));
+              }}
             >
               max
             </Button>

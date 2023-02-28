@@ -1,6 +1,6 @@
 import { Network } from '@mysten/sui.js';
 import { pathOr } from 'ramda';
-import useSWR from 'swr';
+import useSWR, { SWRConfiguration } from 'swr';
 
 import { COIN_MARKET_CAP_ID_RECORD } from '@/constants';
 import { fetcher } from '@/utils';
@@ -12,16 +12,20 @@ interface CoinPricesRecordData {
 
 export type CoinPriceRecord = Record<string, CoinPricesRecordData>;
 
-export const useGetCoinsPrices = (coinTypes: ReadonlyArray<string>) => {
+export const useGetCoinsPrices = (
+  coinTypes: ReadonlyArray<string>,
+  config: SWRConfiguration = {}
+) => {
   const {
     data: rawData,
     error,
     isLoading,
   } = useSWR(
-    `/api/v1/quote?id=${coinTypes.map(
-      (coinType) => COIN_MARKET_CAP_ID_RECORD[Network.DEVNET][coinType]
-    )}`,
-    fetcher
+    `/api/v1/quote?id=${coinTypes
+      .map((coinType) => COIN_MARKET_CAP_ID_RECORD[Network.DEVNET][coinType])
+      .filter((x) => x !== -1)}`,
+    fetcher,
+    config
   );
 
   const data = coinTypes.reduce(

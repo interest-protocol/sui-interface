@@ -15,11 +15,10 @@ import { DetailsProps } from './farm-details.types';
 
 const Details: FC<DetailsProps> = ({ farm }) => {
   const t = useTranslations();
-
   return (
     <Box>
       <Box display="flex" alignItems="center" px="L">
-        {getFarmsSVGByToken(farm.token0, farm.token1).map(
+        {getFarmsSVGByToken(farm.lpCoin.type).map(
           ({ SVG, highZIndex }, index) => (
             <Box
               mr="M"
@@ -34,8 +33,10 @@ const Details: FC<DetailsProps> = ({ farm }) => {
         )}
         <Typography variant="normal" textTransform="capitalize">
           {farm.id === 0
-            ? `${TOKEN_SYMBOL.SUI} ${capitalize(t('common.pool'))} `
-            : `${makeFarmSymbol(farm.token1)} ${capitalize(t('common.farm'))} `}
+            ? `${TOKEN_SYMBOL.IPX} ${capitalize(t('common.pool'))} `
+            : `${makeFarmSymbol(farm.coin0.type, farm.coin1.type)} ${capitalize(
+                t('common.farm')
+              )} `}
           {t('farmsDetails.title')}
         </Typography>
         <Typography
@@ -88,7 +89,9 @@ const Details: FC<DetailsProps> = ({ farm }) => {
           <Typography variant="normal" fontSize="S" mb="L">
             APR
           </Typography>
-          {farm.apr.value().isZero() ? '0%' : farm.apr.toPercentage()}
+          {farm.apr.isZero()
+            ? '0%'
+            : `${farm.apr.decimalPlaces(2).toString()}%`}
         </Box>
         <Box>
           <Typography
@@ -99,9 +102,13 @@ const Details: FC<DetailsProps> = ({ farm }) => {
           >
             {t('common.allocation')}
           </Typography>
-          {farm.allocation.value().isZero()
+          {farm.allocationPoints.isZero()
             ? '0%'
-            : farm.allocation.toPercentage(2)}
+            : `${farm.allocationPoints
+                .dividedBy(farm.totalAllocation)
+                .multipliedBy(100)
+                .decimalPlaces(2)
+                .toString()}%`}
         </Box>
       </Box>
     </Box>

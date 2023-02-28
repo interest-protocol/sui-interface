@@ -10,7 +10,7 @@ import {
   IPX_STORAGE,
 } from '@/constants';
 import { FixedPointMath } from '@/sdk';
-import { provider } from '@/utils';
+import { provider, ZERO_BIG_NUMBER } from '@/utils';
 
 import {
   CalculateAPRArgs,
@@ -33,6 +33,7 @@ export const getFarmBalance = pathOr('0', [
   'data',
   'fields',
   'value',
+  'fields',
   'balance_value',
 ]);
 
@@ -41,6 +42,7 @@ export const getPoolLPCoinSupply = pathOr('0', [
   'data',
   'fields',
   'value',
+  'fields',
   'lp_coin_supply',
   'fields',
   'value',
@@ -66,6 +68,7 @@ export const calculateAPR = ({
   ipxUSDPrice,
   tvl,
 }: CalculateAPRArgs) => {
+  if (!+ipxStorage.totalAllocation) return ZERO_BIG_NUMBER;
   const percentageOfAllocation = allocationPoints.div(
     ipxStorage.totalAllocation
   );
@@ -104,6 +107,7 @@ export const calculateTVL = ({
   // IPX only logic
   if (farmMetadata.isSingleCoin) {
     const farmBalance = new BigNumber(getFarmBalance(farm));
+
     return FixedPointMath.toNumber(
       farmBalance.multipliedBy(ipxUSDPrice),
       farmMetadata.coin0.decimals

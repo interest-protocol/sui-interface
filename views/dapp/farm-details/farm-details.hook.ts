@@ -1,6 +1,6 @@
 import { MoveCallTransaction } from '@mysten/sui.js';
 import { pathOr } from 'ramda';
-import useSWR from 'swr';
+import useSWR, { SWRConfiguration } from 'swr';
 
 import {
   COINS_PACKAGE_ID,
@@ -15,12 +15,12 @@ import { UseGetFarmArgs } from './farm-details.types';
 
 export const useGetPendingRewards = (
   account: string | null,
-  farmMetadata: FarmMetadataType
+  farmMetadata: FarmMetadataType,
+  config: SWRConfiguration = {}
 ) => {
   const { data, ...rest } = useSWR(
-    makeSWRKey([account], 'useGetPendingRewards'),
+    makeSWRKey([account, farmMetadata.lpCoin.type], 'useGetPendingRewards'),
     async () => {
-      console.log(farmMetadata.lpCoin.type, 'WTF');
       if (account)
         return provider
           .devInspectTransaction(account, {
@@ -35,13 +35,13 @@ export const useGetPendingRewards = (
             } as MoveCallTransaction,
           })
           .then((x) => x);
-      // User never deposited - so it will throw an error
     },
     {
       revalidateOnMount: true,
       revalidateOnFocus: false,
       refreshWhenHidden: false,
       refreshInterval: 15000,
+      ...config,
     }
   );
 
@@ -60,6 +60,7 @@ export const useGetFarm = ({
   account,
   lpCoin,
   objectId,
+  config = {},
 }: UseGetFarmArgs) =>
   useSWR(
     makeSWRKey(
@@ -79,5 +80,6 @@ export const useGetFarm = ({
       revalidateOnFocus: false,
       refreshWhenHidden: false,
       refreshInterval: 15000,
+      ...config,
     }
   );

@@ -33,7 +33,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-loading": "^2.0.3",
     "react-loading-skeleton": "^3.0.3",
-    "react-modal": "^3.14.4",
+    "react-modal": "^3.16.1",
     "react-spring": "^9.5.0",
     "react-switch": "^6.0.0",
     "react-tooltip": "^5.3.4",

@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import Skeleton from 'react-loading-skeleton';
 
 import Box from '@/elements/box';
 import Typography from '@/elements/typography';
@@ -12,7 +11,6 @@ const FarmCard: FC<FarmCardProps> = ({
   amount,
   shadow,
   button,
-  loading,
   amountUSD,
 }) => {
   return (
@@ -38,17 +36,17 @@ const FarmCard: FC<FarmCardProps> = ({
           maxWidth={['10rem', '10rem', '10rem', '14rem']}
           textTransform="capitalize"
         >
-          {loading ? <Skeleton height="1.2rem" width="100%" /> : title}
+          {title}
         </Typography>
         <Box
           mb={['L', 'L', 'L', 'XL']}
           textAlign={['left', 'left', 'left', 'center']}
         >
           <Typography variant="normal" width="100%">
-            {loading ? <Skeleton width="100%" /> : amount}
+            {amount}
           </Typography>
           <Typography variant="normal" width="100%">
-            {loading ? <Skeleton width="100%" /> : amountUSD}
+            {amountUSD}
           </Typography>
         </Box>
       </Box>

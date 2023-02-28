@@ -1,11 +1,9 @@
-import BigNumber from 'bignumber.js';
-
-import { SafeUserFarmData } from './../../farm-details.types';
+import { FarmDetailsData, FarmDetailsProps } from './../../farm-details.types';
 
 export interface FarmOptionsProps {
-  farm: SafeUserFarmData;
-  intUSDPrice: BigNumber;
+  farm: FarmDetailsData;
   refetch: () => Promise<void>;
-  loading: boolean;
   hasAccountManager: [boolean, (arg: boolean) => void];
+  modalState: FarmDetailsProps['modalState'];
+  setModalState: FarmDetailsProps['setModalState'];
 }

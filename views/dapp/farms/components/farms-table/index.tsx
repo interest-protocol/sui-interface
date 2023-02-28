@@ -127,7 +127,7 @@ const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
             items: [
               <Box key={v4()} display="flex" alignItems="center">
                 <Box display="inline-flex">
-                  {getFarmsSVGByToken(farm.lpCoin.type, farm.coin1.type).map(
+                  {getFarmsSVGByToken(farm.lpCoin.type).map(
                     ({ SVG, highZIndex }, index) => (
                       <Box
                         key={v4()}
@@ -167,7 +167,7 @@ const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
               ) : farm.apr.isZero() ? (
                 '0%'
               ) : (
-                `${farm.apr.toString()}%`
+                `${farm.apr.decimalPlaces(2).toString()}%`
               ),
               loading ? (
                 <Skeleton key={v4()} />
@@ -270,7 +270,7 @@ const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
                   justifyContent="center"
                 >
                   <Box display="inline-flex">
-                    {getFarmsSVGByToken(farm.lpCoin.type, farm.coin1.type).map(
+                    {getFarmsSVGByToken(farm.lpCoin.type).map(
                       ({ SVG, highZIndex }, index) => (
                         <Box
                           key={v4()}
@@ -329,7 +329,7 @@ const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
                 ) : farm.apr.isZero() ? (
                   '0%'
                 ) : (
-                  `${farm.apr.toString()}%`
+                  `${farm.apr.decimalPlaces(2).toString()}%`
                 ),
                 loading ? (
                   <Skeleton key={v4()} />

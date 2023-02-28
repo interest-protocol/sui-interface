@@ -1,18 +1,17 @@
-import { Control } from 'react-hook-form';
+import { Control, UseFormGetValues } from 'react-hook-form';
 
-import { SafeUserFarmData, StakeState } from '../../farm-details.types';
+import { FarmDetailsData } from '../../farm-details.types';
 
 export interface HarvestButtonProps {
   refetch: () => Promise<void>;
-  farm: SafeUserFarmData;
+  farm: FarmDetailsData;
 }
 
 export interface ModalButtonProps {
-  farm: SafeUserFarmData;
-  modal: StakeState | undefined;
-  control: Control<{ value: string }>;
-  handleClose: () => void;
+  farm: FarmDetailsData;
+  control: Control<{ amount: string }>;
   refetch: () => Promise<void>;
-  isStake: boolean;
   setHasAccount: (arg: boolean) => void;
+  getValues: UseFormGetValues<{ amount: string }>;
+  isStake: boolean;
 }

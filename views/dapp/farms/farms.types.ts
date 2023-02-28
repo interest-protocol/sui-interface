@@ -1,10 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { Dispatch, SetStateAction } from 'react';
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 import { FarmMetadataType, FARMS } from '@/constants';
 import { CoinData } from '@/interface';
-import { GetFarmReturn } from '@/utils/farms/farms.types';
 
 export enum FarmSortByFilter {
   Default,
@@ -22,8 +20,6 @@ export enum FarmTypeFilter {
 export interface UseGetFarmListDataArgs {
   account: string | null;
   farms: typeof FARMS;
-  data: Array<GetFarmReturn>;
-  setData: Dispatch<SetStateAction<Array<GetFarmReturn>>>;
 }
 
 export interface FarmsFiltersProps extends FarmsFilterManagerProps {
@@ -60,4 +56,10 @@ export interface SafeFarmData extends FarmMetadataType {
 export interface ParseFarmListDataReturn {
   farms: ReadonlyArray<SafeFarmData>;
   totalAllocationPoints: BigNumber;
+}
+
+export interface ParseErrorArgs {
+  error: unknown;
+  pricesError: unknown;
+  ipxStorageError: unknown;
 }

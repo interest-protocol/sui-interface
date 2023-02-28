@@ -36,6 +36,8 @@ type Props = Omit<AppProps<PageProps>, 'pageProps'> & {
   pageProps: PageProps;
 };
 
+const PREFERRED_WALLETS = ['Ethos Wallet', 'Sui Wallet'];
+
 const MyApp = ({ Component, pageProps }: Props): ReactNode => {
   return (
     <>
@@ -61,7 +63,7 @@ const MyApp = ({ Component, pageProps }: Props): ReactNode => {
         now={new Date(pageProps.now)}
         timeZone="UTC"
       >
-        <WalletKitProvider>
+        <WalletKitProvider preferredWallets={PREFERRED_WALLETS}>
           <Global styles={GlobalStyles} />
           <ThemeManager>
             <StrictMode>

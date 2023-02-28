@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
-import { Routes, RoutesEnum } from '@/constants';
+import { Routes, RoutesEnum, StakeState } from '@/constants';
 import { Typography } from '@/elements';
 import Box from '@/elements/box';
 import Button from '@/elements/button';
@@ -11,29 +11,28 @@ import { FixedPointMath } from '@/sdk/entities/fixed-point-math';
 import { capitalize, formatDollars, formatMoney } from '@/utils';
 import { makeFarmSymbol } from '@/views/dapp/farms/farms.utils';
 
-import { StakeState } from '../../farm-details.types';
 import HarvestButton from '../buttons/harvest-button';
 import EarnCard from '../farm-card';
-import FarmStakeModal from '../farm-stake-modal';
+import FarmStakeModal from '../farm-modals';
 import { FarmOptionsProps } from './farm-options.types';
 
 const FarmOptions: FC<FarmOptionsProps> = ({
   farm,
   refetch,
-  loading,
-  intUSDPrice,
   hasAccountManager: [hasAccount, setHasAccount],
+  modalState,
+  setModalState,
 }) => {
   const t = useTranslations();
   const { push } = useRouter();
-  const [modal, setModal] = useState<StakeState | undefined>();
-
   const farmSymbol =
-    farm.id === 0 ? TOKEN_SYMBOL.IPX : makeFarmSymbol(farm.token1);
+    farm.id === 0
+      ? TOKEN_SYMBOL.IPX
+      : makeFarmSymbol(farm.coin0.type, farm.coin1.type);
 
-  const handleCloseModal = () => setModal(undefined);
-
-  const handleChangeModal = (target: StakeState) => () => setModal(target);
+  const handleChangeModal = (target: StakeState) => {
+    setModalState({ isOpen: true, state: target });
+  };
 
   return (
     <Box
@@ -46,15 +45,18 @@ const FarmOptions: FC<FarmOptionsProps> = ({
       flexDirection={['column', 'column', 'column', 'unset']}
     >
       <EarnCard
-        loading={loading}
         title={capitalize(t('common.yourBalance'))}
         amountUSD={formatDollars(
-          FixedPointMath.from(farm.stakingTokenPrice)
-            .mul(farm.balance)
-            .toNumber()
+          FixedPointMath.toNumber(
+            farm.lpCoinData.totalBalance.multipliedBy(farm.lpCoinPrice),
+            farm.lpCoinData.decimals
+          )
         )}
         amount={`${formatMoney(
-          FixedPointMath.toNumber(farm.balance)
+          FixedPointMath.toNumber(
+            farm.lpCoinData.totalBalance,
+            farm.lpCoin.decimals
+          )
         )} ${farmSymbol}`}
         button={
           <Button
@@ -64,7 +66,7 @@ const FarmOptions: FC<FarmOptionsProps> = ({
                 ? push({ pathname: Routes[RoutesEnum.DEX] }).then()
                 : push({
                     pathname: Routes[RoutesEnum.DEXPoolDetails],
-                    query: { objectId: farm.stakingTokenObjectId },
+                    query: { objectId: farm.poolObjectId },
                   }).then()
             }
             hover={{
@@ -88,14 +90,14 @@ const FarmOptions: FC<FarmOptionsProps> = ({
       />
       <EarnCard
         title={t('farmsDetails.secondCardTitle')}
-        loading={loading}
         amountUSD={formatDollars(
-          FixedPointMath.from(farm.stakingTokenPrice)
-            .mul(farm.stakingAmount)
-            .toNumber()
+          FixedPointMath.toNumber(
+            farm.totalStakedAmount.multipliedBy(farm.lpCoinPrice),
+            farm.lpCoin.decimals
+          )
         )}
         amount={`${formatMoney(
-          FixedPointMath.toNumber(farm.stakingAmount)
+          FixedPointMath.toNumber(farm.totalStakedAmount, farm.lpCoin.decimals)
         )} ${farmSymbol}`}
         button={
           <Box
@@ -106,17 +108,21 @@ const FarmOptions: FC<FarmOptionsProps> = ({
             <Button
               mr="S"
               variant="primary"
-              disabled={farm.balance.isZero() || !farm.isLive}
-              onClick={handleChangeModal(StakeState.Stake)}
-              bg={farm.balance.isZero() || !farm.isLive ? 'disabled' : 'accent'}
+              disabled={farm.lpCoinData.totalBalance.isZero() || !farm.isLive}
+              onClick={() => handleChangeModal(StakeState.Stake)}
+              bg={
+                farm.lpCoinData.totalBalance.isZero() || !farm.isLive
+                  ? 'disabled'
+                  : 'accent'
+              }
               cursor={
-                farm.balance.isZero() || !farm.isLive
+                farm.lpCoinData.totalBalance.isZero() || !farm.isLive
                   ? 'not-allowed'
                   : 'pointer'
               }
               hover={{
                 bg:
-                  farm.balance.isZero() || !farm.isLive
+                  farm.lpCoinData.totalBalance.isZero() || !farm.isLive
                     ? 'disabled'
                     : 'accentActive',
               }}
@@ -125,12 +131,16 @@ const FarmOptions: FC<FarmOptionsProps> = ({
             </Button>
             <Button
               variant="primary"
-              disabled={farm.stakingAmount.isZero()}
-              onClick={handleChangeModal(StakeState.Unstake)}
-              bg={farm.stakingAmount.isZero() ? 'disabled' : 'error'}
-              cursor={farm.stakingAmount.isZero() ? 'not-allowed' : 'pointer'}
+              disabled={farm.totalStakedAmount.isZero()}
+              onClick={() => handleChangeModal(StakeState.Unstake)}
+              bg={farm.totalStakedAmount.isZero() ? 'disabled' : 'error'}
+              cursor={
+                farm.totalStakedAmount.isZero() ? 'not-allowed' : 'pointer'
+              }
               hover={{
-                bg: farm.stakingAmount.isZero() ? 'disabled' : 'errorActive',
+                bg: farm.totalStakedAmount.isZero()
+                  ? 'disabled'
+                  : 'errorActive',
               }}
             >
               -
@@ -140,26 +150,25 @@ const FarmOptions: FC<FarmOptionsProps> = ({
       />
       <EarnCard
         title={t('farmsDetails.thirdCardTitle')}
-        loading={loading}
         shadow={!farm.pendingRewards.isZero()}
         amountUSD={formatDollars(
-          FixedPointMath.from(intUSDPrice).mul(farm.pendingRewards).toNumber()
+          FixedPointMath.toNumber(
+            farm.pendingRewards.multipliedBy(farm.lpCoinPrice),
+            farm.lpCoin.decimals
+          )
         )}
         amount={`${formatMoney(FixedPointMath.toNumber(farm.pendingRewards))} ${
-          TOKEN_SYMBOL.SUI
+          TOKEN_SYMBOL.IPX
         }`}
         button={<HarvestButton farm={farm} refetch={refetch} />}
       />
       <FarmStakeModal
         farm={farm}
-        modal={modal}
-        handleClose={handleCloseModal}
         setHasAccount={setHasAccount}
-        amount={FixedPointMath.toNumber(
-          modal === StakeState.Stake ? farm.balance : farm.stakingAmount
-        )}
         farmSymbol={farmSymbol}
         refetch={refetch}
+        // setModalState={setModalState}
+        // modalState={modalState}
       />
     </Box>
   );

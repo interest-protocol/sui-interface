@@ -1,5 +1,5 @@
-import { SafeFarmData } from '@/views/dapp/farms/farms.types';
+import { FarmDetailsData } from '../../farm-details.types';
 
 export interface DetailsProps {
-  farm: SafeFarmData;
+  farm: FarmDetailsData;
 }

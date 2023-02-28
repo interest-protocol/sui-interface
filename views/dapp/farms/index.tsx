@@ -1,7 +1,7 @@
 import { Network } from '@mysten/sui.js';
 import { useTranslations } from 'next-intl';
 import { isEmpty } from 'ramda';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Container } from '@/components';
@@ -11,14 +11,13 @@ import { useGetCoinsPrices, useGetIPXStorage, useWeb3 } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
 import { LoadingSVG } from '@/svg';
 import { noop } from '@/utils';
-import { GetFarmReturn } from '@/utils/farms/farms.types';
 
 import ErrorView from '../components/error';
 import FarmsFilters from './components/farms-filters';
 import FarmsTable from './components/farms-table';
 import { useFarmListData } from './farms.hooks';
 import { FarmSortByFilter, FarmTypeFilter, IFarmsForm } from './farms.types';
-import { parseFarmListData } from './farms.utils';
+import { parseError, parseFarmListData } from './farms.utils';
 
 const COIN_PRICES = [
   COINS[Network.DEVNET].ETH.type,
@@ -31,7 +30,6 @@ const COIN_PRICES = [
 
 const Farms: FC = () => {
   const t = useTranslations();
-  const [data, setData] = useState<Array<GetFarmReturn>>([]);
   const { register, setValue, control } = useForm<IFarmsForm>({
     defaultValues: {
       search: '',
@@ -53,31 +51,25 @@ const Farms: FC = () => {
     setDesktop(mediaIsDesktop);
   }, []);
 
-  const { error } = useFarmListData({
-    data,
-    setData,
+  const { error, data } = useFarmListData({
     account,
     farms: FARMS,
   });
-  // TODO: remove this line
-  const [timestamp] = useState(Date.now());
-  // TODO: remove this line
-  useEffect(() => {
-    if (data.length === 1)
-      console.log(`${(Date.now() - timestamp) / 1000}s for 1 item`);
-
-    if (data.length === FARMS.length)
-      console.log(
-        `${(Date.now() - timestamp) / 1000}s for ${data.length} items`
-      );
-  }, [data]);
 
   useEventListener('resize', handleSetDesktop, true);
 
   if (error || prices.error || ipxStorageError)
-    return <ErrorView message={error || prices.error || ipxStorageError} />;
+    return (
+      <ErrorView
+        message={parseError({
+          error,
+          pricesError: prices.error,
+          ipxStorageError,
+        })}
+      />
+    );
 
-  const parsedData = parseFarmListData(data, prices.data, ipxStorage);
+  const parsedData = parseFarmListData(data || [], prices.data, ipxStorage);
 
   return (
     <Box display="flex" flexDirection="column" flex="1">

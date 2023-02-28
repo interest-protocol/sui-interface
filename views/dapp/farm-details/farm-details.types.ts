@@ -1,11 +1,12 @@
 import { GetObjectDataResponse } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
+import { SWRConfiguration } from 'swr';
 
 import {
   CoinsMap,
   Web3ManagerSuiObject,
 } from '@/components/web3-manager/web3-manager.types';
-import { FarmMetadataType } from '@/constants';
+import { FarmMetadataType, StakeState } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
 import { GetFarmReturn } from '@/utils/farms/farms.types';
 
@@ -13,13 +14,14 @@ export interface FarmDetailsProps {
   farmMetadata: FarmMetadataType;
 }
 
-export enum StakeState {
-  Stake,
-  Unstake,
+export interface ModalState {
+  isOpen: boolean;
+  state: StakeState;
 }
 
 export interface UseGetFarmArgs extends FarmMetadataType {
   account: string | null;
+  config?: SWRConfiguration;
 }
 
 export interface ParseFarmDataArgs {
@@ -37,10 +39,25 @@ export interface FarmDetailsData extends FarmMetadataType {
   pendingRewards: BigNumber;
   tvl: number;
   allocationPoints: BigNumber;
-  stakingAmount: BigNumber;
   totalStakedAmount: BigNumber;
   lpCoinData: Web3ManagerSuiObject;
-  ipxUSDPrice: number;
+  lpCoinPrice: number;
+  totalAllocation: string;
+}
+
+export interface CalculateLPCoinPriceArgs {
+  prices: CoinPriceRecord;
+  pool: GetObjectDataResponse;
+  farmMetadata: FarmMetadataType;
 }
 
 export type ParseFarmData = (args: ParseFarmDataArgs) => FarmDetailsData;
+
+export interface ParseErrorArgs {
+  error: unknown;
+  coinsPricesError: unknown;
+  ipxStorageError: unknown;
+  web3Error: unknown;
+  ipxDataError: unknown;
+  pendingRewardsError: unknown;
+}

@@ -24,6 +24,11 @@ export * from './social-media';
 
 export const MAX_NUMBER_INPUT_VALUE = 9000000000000000;
 
+export enum StakeState {
+  Stake,
+  Unstake,
+}
+
 export const SUI_EXPLORER = {
   [Network.DEVNET]: 'https://explorer.sui.io',
 };

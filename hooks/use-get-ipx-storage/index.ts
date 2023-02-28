@@ -45,7 +45,7 @@ export const useGetIPXStorage = () => {
       revalidateOnMount: true,
       revalidateOnFocus: false,
       refreshWhenHidden: false,
-      refreshInterval: 30000,
+      refreshInterval: 15000,
     }
   );
 

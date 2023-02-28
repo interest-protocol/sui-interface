@@ -2,16 +2,23 @@ import BigNumber from 'bignumber.js';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { FARMS } from '@/constants';
+import { FixedPointMath } from '@/sdk';
 import { ZERO_BIG_NUMBER } from '@/utils';
 import {
   calculateAPR,
   calculateIPXUSDPrice,
   calculateTVL,
   getAllocationPoints,
-  getFarmBalance,
+  getPoolCoin0Balance,
+  getPoolCoin1Balance,
+  getPoolLPCoinSupply,
 } from '@/utils/farms';
 
-import { ParseFarmData } from './farm-details.types';
+import {
+  CalculateLPCoinPriceArgs,
+  ParseErrorArgs,
+  ParseFarmData,
+} from './farm-details.types';
 
 const DEFAULT_FARM_DATA = {
   ...FARMS[0],
@@ -19,7 +26,7 @@ const DEFAULT_FARM_DATA = {
   pendingRewards: ZERO_BIG_NUMBER,
   tvl: 0,
   allocationPoints: ZERO_BIG_NUMBER,
-  stakingAmount: ZERO_BIG_NUMBER,
+  balance: ZERO_BIG_NUMBER,
   totalStakedAmount: ZERO_BIG_NUMBER,
   lpCoinData: {
     type: '',
@@ -28,7 +35,46 @@ const DEFAULT_FARM_DATA = {
     objects: [],
     decimals: 0,
   } as Web3ManagerSuiObject,
-  ipxUSDPrice: 0,
+  lpCoinPrice: 0,
+  totalAllocation: '0',
+};
+
+const calculateLPCoinPrice = ({
+  prices,
+  pool,
+  farmMetadata,
+}: CalculateLPCoinPriceArgs) => {
+  const coin0Price = prices[farmMetadata.coin0.type];
+  const lpCoinSupply = getPoolLPCoinSupply(pool);
+
+  if (!lpCoinSupply) return 0;
+
+  if (coin0Price) {
+    const coin0Balance = getPoolCoin0Balance(pool);
+    const balanceInUSD = BigNumber(coin0Balance)
+      .multipliedBy(coin0Price.price)
+      .multipliedBy(2);
+
+    return FixedPointMath.toNumber(
+      balanceInUSD.div(lpCoinSupply),
+      farmMetadata.coin0.decimals
+    );
+  }
+
+  const coin1Price = prices[farmMetadata.coin1.type];
+
+  if (coin1Price) {
+    const coin1Balance = getPoolCoin1Balance(pool);
+    const balanceInUSD = BigNumber(coin1Balance)
+      .multipliedBy(coin1Price.price)
+      .multipliedBy(2);
+    return FixedPointMath.toNumber(
+      balanceInUSD.div(lpCoinSupply),
+      farmMetadata.coin1.decimals
+    );
+  }
+
+  return 0;
 };
 
 export const parseFarmData: ParseFarmData = ({
@@ -59,9 +105,13 @@ export const parseFarmData: ParseFarmData = ({
   });
 
   const allocationPoints = new BigNumber(getAllocationPoints(farm));
-  const stakingAmount = BigNumber(0);
-  const totalStakedAmount = new BigNumber(getFarmBalance(farm));
-  const lpCoinData = coinsMap[farmMetadata.lpCoin.type];
+  // need the account logic
+  const totalStakedAmount = new BigNumber(0);
+  const lpCoinData =
+    coinsMap[farmMetadata.lpCoin.type] || DEFAULT_FARM_DATA.lpCoinData;
+  const lpCoinPrice = farmMetadata.isSingleCoin
+    ? ipxUSDPrice
+    : calculateLPCoinPrice({ prices, pool, farmMetadata });
 
   return {
     ...farmMetadata,
@@ -74,9 +124,28 @@ export const parseFarmData: ParseFarmData = ({
       allocationPoints,
     }),
     allocationPoints,
-    stakingAmount,
     totalStakedAmount,
     lpCoinData,
-    ipxUSDPrice,
+    lpCoinPrice,
+    totalAllocation: ipxStorage.totalAllocation,
   };
+};
+
+// need to translate
+export const parseError = ({
+  error,
+  coinsPricesError,
+  ipxStorageError,
+  web3Error,
+  ipxDataError,
+  pendingRewardsError,
+}: ParseErrorArgs) => {
+  if (error) return 'Failed to fetch the farm data';
+  if (coinsPricesError) return 'Failed to fetch the coin prices';
+  if (ipxStorageError) return 'Failed to fetch the IPXStorage object';
+  if (!web3Error) return 'Failed to fetch coin balances';
+  if (!ipxDataError) return 'Failed to fetch Sui-ETH pool data';
+  if (!pendingRewardsError) return 'Failed to fetch the pending rewards';
+
+  return 'error';
 };

@@ -1,30 +1,14 @@
-import useSWR, { SWRResponse } from 'swr';
+import useSWR from 'swr';
 
 import { makeSWRKey } from '@/utils';
 import { getFarm } from '@/utils/farms';
 
 import { UseGetFarmListDataArgs } from './farms.types';
 
-export const useFarmListData = ({
-  data,
-  farms,
-  account,
-  setData,
-}: UseGetFarmListDataArgs): SWRResponse<void> => {
-  const noMoreData = data.length == farms.length;
-  const validIndex = noMoreData ? data.length - 1 : data.length;
-
+export const useFarmListData = ({ farms, account }: UseGetFarmListDataArgs) => {
   return useSWR(
-    makeSWRKey([farms, account, validIndex], 'useFarmListData'),
-    async () => {
-      if (noMoreData) return;
-
-      const farmData = await getFarm({
-        ...farms[validIndex],
-        account,
-      });
-      setData([...data, farmData]);
-    },
+    makeSWRKey([farms, account], 'useFarmListData'),
+    async () => Promise.all(farms.map((farm) => getFarm({ ...farm, account }))),
     {
       revalidateOnMount: true,
       revalidateOnFocus: false,

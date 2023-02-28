@@ -2,9 +2,11 @@ import { Network } from '@mysten/sui.js';
 
 import { COIN_FARM, COIN_POOL, COINS } from './coins';
 
-export const IPX_STORAGE = '0xb47460464e458be62aeeab27d2d132b295d46ffe';
+export const IPX_STORAGE = '0x1bfa0db639aed533bd8fb919ab6fa3f16fbc193e';
 
-export const IPX_ACCOUNT_STORAGE = '0x35a08d9275134b7d57e8ee205ef17ca2a926ec2f';
+export const IPX_ACCOUNT_STORAGE = '0x70b32312d5b892ba261318e3fedf19c0fb1776b2';
+
+export const FARMS_PACKAGE_ID = '0xf946d5f17401154367c463ad4b31a3440d3da674';
 
 export const FARMS_RECORD = {
   [Network.DEVNET]: {

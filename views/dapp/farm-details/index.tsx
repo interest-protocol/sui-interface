@@ -1,8 +1,9 @@
+import { Network } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { Container, LoadingPage } from '@/components';
-import { FARMS, RoutesEnum } from '@/constants';
+import { COINS, FARMS, RoutesEnum, StakeState } from '@/constants';
 import {
   useGetCoinsPrices,
   useGetIPXStorage,
@@ -15,13 +16,18 @@ import ErrorView from '../components/error';
 import { Details, FarmOptions } from './components';
 import { useGetFarm, useGetPendingRewards } from './farm-details.hook';
 import { FarmDetailsProps } from './farm-details.types';
-import { parseFarmData } from './farm-details.utils';
+import { parseError, parseFarmData } from './farm-details.utils';
 
 const FarmDetails: FC<FarmDetailsProps> = ({ farmMetadata }) => {
   const hasAccountManager = useLocalStorage<boolean>(
     'sui-interest-farm-account',
     false
   );
+
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    state: StakeState.Stake,
+  });
 
   const coin0 = farmMetadata.coin0;
   const coin1 = farmMetadata.coin1;
@@ -38,6 +44,7 @@ const FarmDetails: FC<FarmDetailsProps> = ({ farmMetadata }) => {
   const { data, mutate, isLoading, error } = useGetFarm({
     ...farmMetadata,
     account,
+    config: { refreshInterval: 0 },
   });
 
   const {
@@ -48,23 +55,22 @@ const FarmDetails: FC<FarmDetailsProps> = ({ farmMetadata }) => {
     // ETH_IPX POOL
     ...FARMS[2],
     account,
+    config: { refreshInterval: 0 },
   });
 
   const {
     error: pendingRewardsError,
     mutate: mutatePendingRewards,
     data: pendingRewards,
-  } = useGetPendingRewards(account, farmMetadata);
+  } = useGetPendingRewards(account, farmMetadata, { refreshInterval: 0 });
 
-  const coinsPrices = useGetCoinsPrices([coin0.type, coin1.type]);
+  const coinsPrices = useGetCoinsPrices([
+    coin0.type,
+    coin1.type,
+    COINS[Network.DEVNET].ETH.type,
+  ]);
 
-  if (
-    isLoading ||
-    coinsPrices.isLoading ||
-    isFetchingCoinBalances ||
-    isLoadingIPXData
-  )
-    return <LoadingPage />;
+  if (isLoading) return <LoadingPage />;
 
   if (
     error ||
@@ -76,14 +82,14 @@ const FarmDetails: FC<FarmDetailsProps> = ({ farmMetadata }) => {
   )
     return (
       <ErrorView
-        message={
-          error ||
-          coinsPrices.error ||
-          ipxStorageError ||
-          web3Error ||
-          ipxDataError ||
-          pendingRewardsError
-        }
+        message={parseError({
+          error,
+          coinsPricesError: coinsPrices.error,
+          ipxDataError,
+          web3Error,
+          ipxStorageError,
+          pendingRewardsError,
+        })}
       />
     );
 
@@ -97,8 +103,6 @@ const FarmDetails: FC<FarmDetailsProps> = ({ farmMetadata }) => {
     pendingRewards: new BigNumber(pendingRewards),
   });
 
-  return <div>hello world</div>;
-
   return (
     <Container dapp width="100%" mt="XL">
       <GoBack route={RoutesEnum.Farms} />
@@ -106,11 +110,11 @@ const FarmDetails: FC<FarmDetailsProps> = ({ farmMetadata }) => {
       <FarmOptions
         farm={parsedData}
         hasAccountManager={hasAccountManager}
-        intUSDPrice={BigNumber(34)}
         refetch={async () => {
-          await Promise.all([mutatePendingRewards, mutate]);
+          await Promise.all([mutatePendingRewards(), mutate()]);
         }}
-        loading={false}
+        modalState={modalState}
+        setModalState={setModalState}
       />
     </Container>
   );

@@ -1,26 +1,64 @@
+import { useWalletKit } from '@mysten/wallet-kit';
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';
-import { FC, useCallback, useState } from 'react';
+import { FC, useState } from 'react';
 
+import {
+  FARMS_PACKAGE_ID,
+  IPX_ACCOUNT_STORAGE,
+  IPX_STORAGE,
+} from '@/constants';
 import { Box, Button } from '@/elements';
+import { useWeb3 } from '@/hooks';
+import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
-import { capitalize, showToast } from '@/utils';
+import { capitalize, getCoinIds, showToast, showTXSuccessToast } from '@/utils';
 
 import { ModalButtonProps } from './buttons.types';
 
 const ModalButton: FC<ModalButtonProps> = ({
   farm,
-  handleClose,
   refetch,
   setHasAccount,
+  getValues,
   isStake,
 }) => {
   const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
+  const { signAndExecuteTransaction } = useWalletKit();
+  const { coinsMap } = useWeb3();
 
-  const handleWithdrawTokens = useCallback(async () => {
-    await refetch();
-  }, [farm.stakingAmount.toString()]);
+  const handleWithdrawTokens = async () => {
+    try {
+      const value = getValues().amount;
+      if (farm.totalStakedAmount.isZero() || !+value) {
+        throw new Error('Cannot withdraw 0 tokens');
+      }
+      setLoading(true);
+
+      const amount = FixedPointMath.toBigNumber(
+        value,
+        farm.lpCoin.decimals
+      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
+
+      const tx = await signAndExecuteTransaction({
+        kind: 'moveCall',
+        data: {
+          function: 'unstake',
+          gasBudget: 15000,
+          module: 'interface',
+          packageObjectId: FARMS_PACKAGE_ID,
+          typeArguments: [farm.lpCoin.type],
+          arguments: [IPX_STORAGE, IPX_ACCOUNT_STORAGE, amount.toString()],
+        },
+      });
+      await showTXSuccessToast(tx);
+    } finally {
+      await refetch();
+      setLoading(false);
+    }
+  };
 
   const handleUnstake = () =>
     showToast(handleWithdrawTokens(), {
@@ -30,12 +68,40 @@ const ModalButton: FC<ModalButtonProps> = ({
     });
 
   const handleDepositTokens = async () => {
-    if (farm.balance.isZero()) return;
+    try {
+      const value = getValues().amount;
+      if (farm.lpCoinData.totalBalance.isZero() || !+value) {
+        throw new Error('Cannot deposit 0 tokens');
+      }
 
-    setLoading(true);
-    await refetch();
-    setLoading(false);
-    handleClose();
+      setLoading(true);
+
+      const amount = FixedPointMath.toBigNumber(
+        value,
+        farm.lpCoin.decimals
+      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
+
+      const tx = await signAndExecuteTransaction({
+        kind: 'moveCall',
+        data: {
+          function: 'stake',
+          gasBudget: 15000,
+          module: 'interface',
+          packageObjectId: FARMS_PACKAGE_ID,
+          typeArguments: [farm.lpCoin.type],
+          arguments: [
+            IPX_STORAGE,
+            IPX_ACCOUNT_STORAGE,
+            getCoinIds(coinsMap, farm.lpCoinData.type),
+            amount.toString(),
+          ],
+        },
+      });
+      await showTXSuccessToast(tx);
+    } finally {
+      await refetch();
+      setLoading(false);
+    }
   };
 
   const handleStake = () =>
