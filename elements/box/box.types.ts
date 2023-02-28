@@ -30,6 +30,7 @@ export interface BoxProps
   hover?: CSSInterpolation;
   active?: CSSInterpolation;
   as?: keyof JSX.IntrinsicElements;
+  gap?: ResponsiveValue<CSSProperties['gap']>;
   rowGap?: ResponsiveValue<CSSProperties['gap']>;
   cursor?: ResponsiveValue<CSSProperties['cursor']>;
   filter?: ResponsiveValue<CSSProperties['filter']>;

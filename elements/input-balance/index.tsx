@@ -2,59 +2,24 @@ import { useTheme } from '@emotion/react';
 import { useTranslations } from 'next-intl';
 import { ChangeEvent, FC } from 'react';
 
-import { Box, Button, Input, Typography } from '@/elements';
+import { Box, Input, Typography } from '@/elements';
 import { parseInputEventToNumberString } from '@/utils';
 
-import { ButtonMaxProps, InputBalanceProps } from './input-balance.types';
-
-const ButtonMax: FC<ButtonMaxProps> = ({
-  max,
-  disabled,
-  setValue,
-  customFunction,
-  name,
-}) => {
-  const { dark } = useTheme() as { dark: boolean };
-
-  return max ? (
-    <Button
-      p="NONE"
-      fontSize="S"
-      width="2.4rem"
-      height="2.4rem"
-      variant="primary"
-      bg="accentActive"
-      disabled={disabled || false}
-      color={dark ? 'text' : 'textInverted'}
-      hover={{ bg: 'accent' }}
-      active={{ bg: 'accentActive' }}
-      onClick={() => {
-        if (disabled || !setValue) return;
-
-        setValue?.(name, max);
-
-        customFunction && customFunction(name);
-      }}
-    >
-      max
-    </Button>
-  ) : (
-    <></>
-  );
-};
+import { InputBalanceProps } from './input-balance.types';
+import MaxButton from './max-button';
 
 const InputBalance: FC<InputBalanceProps> = ({
-  name,
-  balance,
   max,
+  name,
+  Prefix,
+  Suffix,
+  isLarge,
+  balance,
   disabled,
   register,
   setValue,
-  Prefix,
-  Suffix,
-  buttonMaxPosition,
-  isLarge,
   customFunction,
+  buttonMaxPosition,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as { dark: boolean };
@@ -86,6 +51,7 @@ const InputBalance: FC<InputBalanceProps> = ({
           my: 'M',
           width: '100%',
           display: 'grid',
+          overflow: 'hidden',
           gridTemplateColumns: '6.9rem 1fr auto',
           bg: disabled
             ? dark
@@ -94,7 +60,6 @@ const InputBalance: FC<InputBalanceProps> = ({
             : dark
             ? 'bottomBackground'
             : 'background',
-          overflow: 'visible',
           border: '1px solid',
           borderRadius: isLarge ? '5rem' : '2rem',
           borderColor: 'transparent',
@@ -106,7 +71,8 @@ const InputBalance: FC<InputBalanceProps> = ({
         Prefix={
           <>
             {buttonMaxPosition == 'left' && (
-              <ButtonMax
+              <MaxButton
+                left
                 name={name}
                 disabled={disabled}
                 setValue={setValue}
@@ -120,12 +86,12 @@ const InputBalance: FC<InputBalanceProps> = ({
         Suffix={
           <>
             {buttonMaxPosition == 'right' && (
-              <ButtonMax
+              <MaxButton
+                max={max}
                 name={name}
                 disabled={disabled}
                 setValue={setValue}
                 customFunction={customFunction}
-                max={max}
               />
             )}
             {Suffix && Suffix}
