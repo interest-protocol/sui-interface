@@ -1,9 +1,9 @@
 import { GetObjectDataResponse } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 
-import { FARMS } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
 import { CoinData } from '@/interface';
+import { SafeFarmData } from '@/views/dapp/farms/farms.types';
 
 export interface CalculateAPRArgs {
   ipxUSDPrice: number;
@@ -19,7 +19,7 @@ export interface CalculateIPXUSDPriceArgs {
 
 export interface CalculateTVLArgs {
   prices: CoinPriceRecord;
-  farmMetadata: typeof FARMS[number];
+  farmMetadata: SafeFarmData;
   ipxUSDPrice: number;
   pool: GetObjectDataResponse;
   farm: GetObjectDataResponse;

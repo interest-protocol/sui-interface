@@ -10,7 +10,6 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import NextProgress from 'next-progress';
 import { ReactNode, StrictMode } from 'react';
-import { SkeletonTheme } from 'react-loading-skeleton';
 import { TooltipProvider } from 'react-tooltip';
 
 import { LoadingPage, NextIntlProvider, ThemeManager } from '@/components';
@@ -63,21 +62,19 @@ const MyApp = ({ Component, pageProps }: Props): ReactNode => {
         timeZone="UTC"
       >
         <WalletKitProvider>
-          <SkeletonTheme baseColor="#202020" highlightColor="#444">
-            <Global styles={GlobalStyles} />
-            <ThemeManager>
-              <StrictMode>
-                <TooltipProvider>
-                  <Web3Manager>
-                    <Layout pageTitle={pageProps.pageTitle}>
-                      <Component {...pageProps} />
-                      <VercelAnalytics />
-                    </Layout>
-                  </Web3Manager>
-                </TooltipProvider>
-              </StrictMode>
-            </ThemeManager>
-          </SkeletonTheme>
+          <Global styles={GlobalStyles} />
+          <ThemeManager>
+            <StrictMode>
+              <TooltipProvider>
+                <Web3Manager>
+                  <Layout pageTitle={pageProps.pageTitle}>
+                    <Component {...pageProps} />
+                    <VercelAnalytics />
+                  </Layout>
+                </Web3Manager>
+              </TooltipProvider>
+            </StrictMode>
+          </ThemeManager>
         </WalletKitProvider>
       </NextIntlProvider>
     </>

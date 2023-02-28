@@ -27,8 +27,12 @@ export const getFarmsSVGByToken = (tokenA: string, tokenB: string) =>
   FARMS_TOKENS_SVG_MAP[tokenB] ??
   FARMS_TOKENS_SVG_MAP.default;
 
-export const makeFarmSymbol = (token: string) =>
-  COIN_TYPE_TO_SYMBOL[Network.DEVNET][token] ?? TOKEN_SYMBOL.IPX;
+export const makeFarmSymbol = (token0: string, token1: string): string =>
+  COIN_TYPE_TO_SYMBOL[Network.DEVNET][token1]
+    ? `${COIN_TYPE_TO_SYMBOL[Network.DEVNET][token0]}-${
+        COIN_TYPE_TO_SYMBOL[Network.DEVNET][token1]
+      }`
+    : COIN_TYPE_TO_SYMBOL[Network.DEVNET][token0] ?? TOKEN_SYMBOL.IPX;
 
 const sortByIdFn = (x: SafeFarmData, y: SafeFarmData) => (x.id < y.id ? -1 : 1);
 
@@ -138,33 +142,55 @@ export const handleFilterFarms = (
           ].every((pred) => pred(x))
         );
 
+const DEFAULT_PARSED_DATA: ReadonlyArray<SafeFarmData> = FARMS.map((farm) => ({
+  ...farm,
+  tvl: 0,
+  apr: BigNumber(0),
+  allocationPoints: BigNumber(0),
+  stakingAmount: BigNumber(0),
+  totalStakedAmount: BigNumber(0),
+}));
+
 export const parseFarmData =
-  (prices: CoinPriceRecord, ipxUSDPrice: number, ipxStorage: IPXStorage) =>
-  (data: GetFarmReturn, index: number) => {
-    const farmMetadata = FARMS[index];
-    const farm = data.farmArray[0];
-    const pool = data.farmArray[farmMetadata.isSingleCoin ? 0 : 1];
-    const tvl = calculateTVL({
-      prices,
-      ipxUSDPrice,
-      farm,
-      pool,
-      farmMetadata,
-    });
+  (
+    prices: CoinPriceRecord,
+    ipxUSDPrice: number,
+    ipxStorage: IPXStorage,
+    data: Array<GetFarmReturn>
+  ) =>
+  (farmMetadata: SafeFarmData, index: number) => {
+    if (!data[index]) return { ...farmMetadata, loading: true };
+
+    const farm = data[index]?.farmArray[0];
+    const pool = data[index].farmArray[farmMetadata.isSingleCoin ? 0 : 1];
+
+    const tvl = ipxUSDPrice
+      ? calculateTVL({
+          prices,
+          ipxUSDPrice,
+          farm,
+          pool,
+          farmMetadata,
+        })
+      : -1;
 
     const allocationPoints = new BigNumber(getAllocationPoints(farm));
     const stakingAmount = BigNumber(0);
     const totalStakedAmount = new BigNumber(getFarmBalance(farm));
 
+    const apr = ipxUSDPrice
+      ? calculateAPR({
+          ipxUSDPrice,
+          ipxStorage,
+          tvl,
+          allocationPoints,
+        })
+      : BigNumber(-1);
+
     return {
       ...farmMetadata,
       tvl,
-      apr: calculateAPR({
-        ipxUSDPrice,
-        ipxStorage,
-        tvl,
-        allocationPoints,
-      }),
+      apr,
       allocationPoints,
       stakingAmount,
       totalStakedAmount,
@@ -172,23 +198,21 @@ export const parseFarmData =
   };
 
 export const parseFarmListData = (
-  data: Array<GetFarmReturn> | undefined,
+  data: Array<GetFarmReturn>,
   prices: CoinPriceRecord,
   ipxStorage: IPXStorage
 ): ParseFarmListDataReturn => {
-  if (!data || !data[2])
-    return {
-      farms: [],
-      totalAllocationPoints: new BigNumber(0),
-    };
-
-  const ipxUSDPrice = calculateIPXUSDPrice({
-    pool: data[2].farmArray[1],
-    prices,
-  });
+  const ipxUSDPrice = data[2]
+    ? calculateIPXUSDPrice({
+        pool: data[2].farmArray[1],
+        prices,
+      })
+    : 0;
 
   return {
-    farms: data.map(parseFarmData(prices, ipxUSDPrice, ipxStorage)),
+    farms: DEFAULT_PARSED_DATA.map(
+      parseFarmData(prices, ipxUSDPrice, ipxStorage, data)
+    ),
     totalAllocationPoints: new BigNumber(ipxStorage.totalAllocation),
   };
 };

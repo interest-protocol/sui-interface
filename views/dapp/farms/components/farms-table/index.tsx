@@ -1,10 +1,14 @@
+import { useTheme } from '@emotion/react';
+import BigNumber from 'bignumber.js';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
+import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
 
 import { Routes, RoutesEnum } from '@/constants';
+import { Theme } from '@/design-system';
 import { Box, Button, Table, Typography } from '@/elements';
 import { FixedPointMath, TOKEN_SYMBOL } from '@/sdk';
 import { capitalize, formatDollars, formatMoney } from '@/utils';
@@ -14,19 +18,11 @@ import {
   handleFilterFarms,
   makeFarmSymbol,
 } from '../../farms.utils';
-import {
-  DesktopFarmsSkeletonRow,
-  MobileFarmsSkeletonRow,
-} from './farms-skeleton-row';
 import { FarmsTableProps } from './farms-table.types';
 
-const FarmsTable: FC<FarmsTableProps> = ({
-  loading,
-  isDesktop,
-  control,
-  data,
-}) => {
+const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
   const t = useTranslations();
+  const { dark } = useTheme() as Theme;
 
   const onlyFinished = useWatch({ control, name: 'onlyFinished' });
   const onlyStaked = useWatch({ control, name: 'onlyStaked' });
@@ -115,83 +111,96 @@ const FarmsTable: FC<FarmsTableProps> = ({
           backgroundColorMap={filteredFarms.map((farm) => ({
             desktopBg: farm.isLive ? 'foreground' : 'bottomBackground',
           }))}
-          data={
-            loading
-              ? DesktopFarmsSkeletonRow
-              : filteredFarms.map((farm) => ({
-                  button: (
-                    <Link
-                      href={{
-                        pathname: Routes[RoutesEnum.FarmDetails],
-                        query: { objectId: farm.objectId },
-                      }}
-                    >
-                      <Button variant="primary" hover={{ bg: 'accentActive' }}>
-                        {capitalize(t('common.enter'))}
-                      </Button>
-                    </Link>
-                  ),
-                  items: [
-                    <Box key={v4()} display="flex" alignItems="center">
-                      <Box display="inline-flex">
-                        {getFarmsSVGByToken(
-                          farm.lpCoin.type,
-                          farm.coin1.type
-                        ).map(({ SVG, highZIndex }, index) => (
-                          <Box
-                            key={v4()}
-                            width="1.6rem"
-                            ml={index != 0 ? '-0.5rem' : 'NONE'}
-                            zIndex={
-                              index == 0 ? (highZIndex ? 3 : 'unset') : 'unset'
-                            }
-                          >
-                            <SVG
-                              width="100%"
-                              maxHeight="1.6rem"
-                              maxWidth="1.6rem"
-                            />
-                          </Box>
-                        ))}
+          data={filteredFarms.map(({ loading, ...farm }) => ({
+            button: (
+              <Link
+                href={{
+                  pathname: Routes[RoutesEnum.FarmDetails],
+                  query: { objectId: farm.objectId },
+                }}
+              >
+                <Button variant="primary" hover={{ bg: 'accentActive' }}>
+                  {capitalize(t('common.enter'))}
+                </Button>
+              </Link>
+            ),
+            items: [
+              <Box key={v4()} display="flex" alignItems="center">
+                <Box display="inline-flex">
+                  {getFarmsSVGByToken(farm.lpCoin.type, farm.coin1.type).map(
+                    ({ SVG, highZIndex }, index) => (
+                      <Box
+                        key={v4()}
+                        width="1.6rem"
+                        ml={index != 0 ? '-0.5rem' : 'NONE'}
+                        zIndex={
+                          index == 0 ? (highZIndex ? 3 : 'unset') : 'unset'
+                        }
+                      >
+                        <SVG
+                          width="100%"
+                          maxHeight="1.6rem"
+                          maxWidth="1.6rem"
+                        />
                       </Box>
-                      <Typography variant="normal" ml="M">
-                        {farm.id === 0
-                          ? TOKEN_SYMBOL.IPX
-                          : makeFarmSymbol(farm.coin1.type)}
-                      </Typography>
-                    </Box>,
-                    formatDollars(farm.tvl),
-                    formatMoney(FixedPointMath.toNumber(farm.stakingAmount)),
-                    farm.apr.isZero() ? '0%' : `${farm.apr.toString()}%`,
-                    `${
-                      farm.allocationPoints.isZero()
-                        ? '0%'
-                        : `${farm.allocationPoints
-                            .dividedBy(data.totalAllocationPoints)
-                            .multipliedBy(100)
-                            .decimalPlaces(2)
-                            .toString()}%`
-                    }`,
-                    <Typography
-                      variant="normal"
-                      fontSize="0.70rem"
-                      bg={farm.stable ? 'accent' : 'accentAlternativeActive'}
-                      borderRadius="M"
-                      p="0.15rem"
-                      textAlign="center"
-                      cursor="pointer"
-                      width="70%"
-                      color="textInverted"
-                      key={v4()}
-                      textTransform="capitalize"
-                    >
-                      {t(farm.stable ? 'common.stable' : 'common.volatile', {
-                        count: 1,
-                      })}
-                    </Typography>,
-                  ],
-                }))
-          }
+                    )
+                  )}
+                </Box>
+                <Typography variant="normal" ml="M">
+                  {farm.id === 0
+                    ? TOKEN_SYMBOL.IPX
+                    : makeFarmSymbol(farm.coin0.type, farm.coin1.type)}
+                </Typography>
+              </Box>,
+              loading || farm.tvl === -1 ? (
+                <Skeleton key={v4()} />
+              ) : (
+                formatDollars(farm.tvl)
+              ),
+              loading ? (
+                <Skeleton key={v4()} />
+              ) : (
+                formatMoney(FixedPointMath.toNumber(farm.stakingAmount))
+              ),
+              loading || farm.apr.isEqualTo(BigNumber(-1)) ? (
+                <Skeleton key={v4()} />
+              ) : farm.apr.isZero() ? (
+                '0%'
+              ) : (
+                `${farm.apr.toString()}%`
+              ),
+              loading ? (
+                <Skeleton key={v4()} />
+              ) : (
+                `${
+                  farm.allocationPoints.isZero()
+                    ? '0%'
+                    : `${farm.allocationPoints
+                        .dividedBy(data.totalAllocationPoints)
+                        .multipliedBy(100)
+                        .decimalPlaces(2)
+                        .toString()}%`
+                }`
+              ),
+              <Typography
+                variant="normal"
+                fontSize="0.70rem"
+                bg={farm.stable ? 'accent' : 'accentAlternativeActive'}
+                borderRadius="M"
+                p="0.15rem"
+                textAlign="center"
+                cursor="pointer"
+                width="70%"
+                color={dark ? 'text' : 'textInverted'}
+                key={v4()}
+                textTransform="capitalize"
+              >
+                {t(farm.stable ? 'common.stable' : 'common.volatile', {
+                  count: 1,
+                })}
+              </Typography>,
+            ],
+          }))}
         />
       ) : (
         <Box display="flex" alignItems="center">
@@ -250,104 +259,111 @@ const FarmsTable: FC<FarmsTableProps> = ({
                 item: <>{capitalize(t('common.type'))}</>,
               },
             ]}
-            data={
-              loading
-                ? MobileFarmsSkeletonRow
-                : filteredFarms.map((farm) => ({
-                    mobileSide: (
-                      <Box
-                        mb="L"
-                        key={v4()}
-                        display="flex"
-                        alignItems="center"
-                        flexDirection="column"
-                        justifyContent="center"
-                      >
-                        <Box display="inline-flex">
-                          {getFarmsSVGByToken(
-                            farm.lpCoin.type,
-                            farm.coin1.type
-                          ).map(({ SVG, highZIndex }, index) => (
-                            <Box
-                              key={v4()}
-                              width="1.6rem"
-                              ml={index != 0 ? '-0.5rem' : 'NONE'}
-                              zIndex={
-                                index == 0
-                                  ? highZIndex
-                                    ? 3
-                                    : 'unset'
-                                  : 'unset'
-                              }
-                            >
-                              <SVG
-                                width="100%"
-                                maxHeight="1.6rem"
-                                maxWidth="1.6rem"
-                              />
-                            </Box>
-                          ))}
+            data={filteredFarms.map(({ loading, ...farm }) => ({
+              mobileSide: (
+                <Box
+                  mb="L"
+                  key={v4()}
+                  display="flex"
+                  alignItems="center"
+                  flexDirection="column"
+                  justifyContent="center"
+                >
+                  <Box display="inline-flex">
+                    {getFarmsSVGByToken(farm.lpCoin.type, farm.coin1.type).map(
+                      ({ SVG, highZIndex }, index) => (
+                        <Box
+                          key={v4()}
+                          width="1.6rem"
+                          ml={index != 0 ? '-0.5rem' : 'NONE'}
+                          zIndex={
+                            index == 0 ? (highZIndex ? 3 : 'unset') : 'unset'
+                          }
+                        >
+                          <SVG
+                            width="100%"
+                            maxHeight="1.6rem"
+                            maxWidth="1.6rem"
+                          />
                         </Box>
-                        <Typography
-                          mt="M"
-                          variant="normal"
-                          textAlign="center"
-                          whiteSpace="nowrap"
-                        >
-                          {farm.id === 0
-                            ? TOKEN_SYMBOL.SUI
-                            : makeFarmSymbol(farm.coin1.type)}
-                        </Typography>
-                      </Box>
-                    ),
-                    button: (
-                      <Link
-                        href={{
-                          pathname: Routes[RoutesEnum.FarmDetails],
-                          query: { objectId: farm.objectId },
-                        }}
-                      >
-                        <Button
-                          variant="primary"
-                          hover={{ bg: 'accentActive' }}
-                        >
-                          {capitalize(t('common.enter'))}
-                        </Button>
-                      </Link>
-                    ),
-                    items: [
-                      formatDollars(farm.tvl),
-                      formatMoney(FixedPointMath.toNumber(farm.stakingAmount)),
-                      farm.apr.isZero() ? '0%' : `${farm.apr.toString()}%`,
-                      `${
-                        farm.allocationPoints.isZero()
-                          ? '0%'
-                          : `${farm.allocationPoints
-                              .dividedBy(data.totalAllocationPoints)
-                              .multipliedBy(100)
-                              .decimalPlaces(2)
-                              .toString()}%`
-                      }`,
-                      <Typography
-                        variant="normal"
-                        fontSize="0.70rem"
-                        bg={farm.stable ? 'accent' : 'accentAlternativeActive'}
-                        borderRadius="M"
-                        py="XS"
-                        px="L"
-                        textAlign="center"
-                        cursor="pointer"
-                        key={v4()}
-                        textTransform="capitalize"
-                        as="span"
-                      >
-                        {t(farm.stable ? 'common.stable' : 'common.volatile', {
-                          count: 1,
-                        })}
-                      </Typography>,
-                    ],
-                  }))
-            }
+                      )
+                    )}
+                  </Box>
+                  <Typography
+                    mt="M"
+                    variant="normal"
+                    textAlign="center"
+                    whiteSpace="nowrap"
+                  >
+                    {farm.id === 0
+                      ? TOKEN_SYMBOL.SUI
+                      : makeFarmSymbol(farm.coin0.type, farm.coin1.type)}
+                  </Typography>
+                </Box>
+              ),
+              button: (
+                <Link
+                  href={{
+                    pathname: Routes[RoutesEnum.FarmDetails],
+                    query: { objectId: farm.objectId },
+                  }}
+                >
+                  <Button variant="primary" hover={{ bg: 'accentActive' }}>
+                    {capitalize(t('common.enter'))}
+                  </Button>
+                </Link>
+              ),
+              items: [
+                loading || farm.tvl === -1 ? (
+                  <Skeleton key={v4()} />
+                ) : (
+                  formatDollars(farm.tvl)
+                ),
+                loading ? (
+                  <Skeleton key={v4()} />
+                ) : (
+                  formatMoney(FixedPointMath.toNumber(farm.stakingAmount))
+                ),
+                loading || farm.apr.isEqualTo(BigNumber(-1)) ? (
+                  <Skeleton key={v4()} />
+                ) : farm.apr.isZero() ? (
+                  '0%'
+                ) : (
+                  `${farm.apr.toString()}%`
+                ),
+                loading ? (
+                  <Skeleton key={v4()} />
+                ) : (
+                  `${
+                    farm.allocationPoints.isZero()
+                      ? '0%'
+                      : `${farm.allocationPoints
+                          .dividedBy(data.totalAllocationPoints)
+                          .multipliedBy(100)
+                          .decimalPlaces(2)
+                          .toString()}%`
+                  }`
+                ),
+                <Typography
+                  variant="normal"
+                  fontSize="0.70rem"
+                  bg={farm.stable ? 'accent' : 'accentAlternativeActive'}
+                  borderRadius="M"
+                  py="XS"
+                  px="L"
+                  color={dark ? 'text' : 'textInverted'}
+                  textAlign="center"
+                  cursor="pointer"
+                  key={v4()}
+                  textTransform="capitalize"
+                  as="span"
+                >
+                  {t(farm.stable ? 'common.stable' : 'common.volatile', {
+                    count: 1,
+                  })}
+                </Typography>,
+              ],
+            }))}
           />
         </Box>
       )}

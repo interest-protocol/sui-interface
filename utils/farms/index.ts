@@ -91,7 +91,7 @@ export const calculateIPXUSDPrice = ({
   const ipxInEth = ethBalance.div(ipxBalance).multipliedBy(1e9);
   const ethType = COIN_TYPE[Network.DEVNET].ETH;
 
-  return ipxInEth.multipliedBy(prices[ethType].price).toNumber();
+  return ipxInEth.multipliedBy(prices[ethType]?.price ?? 0).toNumber();
 };
 
 export const calculateTVL = ({

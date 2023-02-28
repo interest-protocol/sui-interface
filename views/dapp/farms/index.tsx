@@ -1,8 +1,7 @@
 import { Network } from '@mysten/sui.js';
-import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { isEmpty } from 'ramda';
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Container } from '@/components';
@@ -12,6 +11,7 @@ import { useGetCoinsPrices, useGetIPXStorage, useWeb3 } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
 import { LoadingSVG } from '@/svg';
 import { noop } from '@/utils';
+import { GetFarmReturn } from '@/utils/farms/farms.types';
 
 import ErrorView from '../components/error';
 import FarmsFilters from './components/farms-filters';
@@ -31,6 +31,7 @@ const COIN_PRICES = [
 
 const Farms: FC = () => {
   const t = useTranslations();
+  const [data, setData] = useState<Array<GetFarmReturn>>([]);
   const { register, setValue, control } = useForm<IFarmsForm>({
     defaultValues: {
       search: '',
@@ -52,10 +53,24 @@ const Farms: FC = () => {
     setDesktop(mediaIsDesktop);
   }, []);
 
-  const { data, isLoading, error } = useFarmListData({
-    farms: FARMS,
+  const { error } = useFarmListData({
+    data,
+    setData,
     account,
+    farms: FARMS,
   });
+  // TODO: remove this line
+  const [timestamp] = useState(Date.now());
+  // TODO: remove this line
+  useEffect(() => {
+    if (data.length === 1)
+      console.log(`${(Date.now() - timestamp) / 1000}s for 1 item`);
+
+    if (data.length === FARMS.length)
+      console.log(
+        `${(Date.now() - timestamp) / 1000}s for ${data.length} items`
+      );
+  }, [data]);
 
   useEventListener('resize', handleSetDesktop, true);
 
@@ -117,8 +132,6 @@ const Farms: FC = () => {
                 control={control}
                 data={parsedData}
                 isDesktop={isDesktop}
-                intUSDPrice={new BigNumber(34)}
-                loading={isLoading || prices.isLoading || isEmpty(parsedData)}
               />
             </Box>
           </InfiniteScroll>
