@@ -2,6 +2,8 @@ import { useTheme } from '@emotion/react';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
+import { PercentSVG } from '@/svg';
+
 import Box from '../box';
 import Button from '../button';
 import { GenericMaxButtonProps, MaxButtonProps } from './input-balance.types';
@@ -55,16 +57,21 @@ const MaxButton: FC<MaxButtonProps> = ({
 
   return max ? (
     <Box
-      position="relative"
       display="flex"
+      position="relative"
       justifyContent={left ? 'flex-start' : 'flex-end'}
     >
       <GenericMaxButton
-        disabled={!!disabled}
         dark={dark}
+        disabled={!!disabled}
         onClick={() => setOpen(true)}
       >
-        max
+        <PercentSVG
+          width="100%"
+          height="100%"
+          maxWidth="1.4rem"
+          maxHeight="1.4rem"
+        />
       </GenericMaxButton>
       {isOpen && (
         <Box
@@ -82,7 +89,7 @@ const MaxButton: FC<MaxButtonProps> = ({
               disabled={!!disabled}
               onClick={() => handleMax(value)}
             >
-              {value * 100}%
+              {value === 1 ? 'max' : <>{value * 100}%</>}
             </GenericMaxButton>
           ))}
         </Box>
