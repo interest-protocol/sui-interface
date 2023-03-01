@@ -1,18 +1,66 @@
 import { Network } from '@mysten/sui.js';
-import type { GetStaticProps } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import { mergeDeepRight, pathOr } from 'ramda';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-import { FARMS_RECORD } from '@/constants';
+import { LoadingPage } from '@/components';
+import { FARMS_RECORD, StakeState } from '@/constants';
 import { withObjectIdGuard } from '@/HOC';
-import { NextPageWithObjectId } from '@/interface';
+import { NextPageDefaultProps } from '@/interface';
 import FarmDetails from '@/views/dapp/farm-details';
 
-const FarmDetailsPage: NextPageWithObjectId = ({ objectId }) => {
+const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
+  ssr: false,
+  loading: LoadingPage,
+});
+
+const Layout = dynamic(() => import('@/components/layout'), {
+  ssr: false,
+  loading: LoadingPage,
+});
+
+interface FarmDetailsPageProps extends NextPageDefaultProps {
+  objectId: string;
+}
+
+const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
+  objectId,
+  pageTitle,
+}) => {
   const farmMetadata = pathOr(null, [Network.DEVNET, objectId], FARMS_RECORD);
 
-  if (!farmMetadata) return <div>Farm does not exist</div>;
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    state: StakeState.Stake,
+  });
 
-  return <FarmDetails farmMetadata={farmMetadata} />;
+  const form = useForm({
+    defaultValues: { amount: '0' },
+  });
+
+  if (!farmMetadata)
+    return (
+      <Web3Manager>
+        <Layout pageTitle={pageTitle}>
+          <div>error no farm data</div>
+        </Layout>
+      </Web3Manager>
+    );
+
+  return (
+    <Web3Manager>
+      <Layout pageTitle={pageTitle}>
+        <FarmDetails
+          modalState={modalState}
+          setModalState={setModalState}
+          farmMetadata={farmMetadata}
+          form={form}
+        />
+      </Layout>
+    </Web3Manager>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {

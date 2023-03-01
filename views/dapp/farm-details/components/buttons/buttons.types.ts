@@ -9,7 +9,6 @@ export interface HarvestButtonProps {
 
 export interface ModalButtonProps {
   farm: FarmDetailsData;
-  control: Control<{ amount: string }>;
   refetch: () => Promise<void>;
   setHasAccount: (arg: boolean) => void;
   getValues: UseFormGetValues<{ amount: string }>;

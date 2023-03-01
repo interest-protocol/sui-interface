@@ -99,6 +99,8 @@ const ModalButton: FC<ModalButtonProps> = ({
       });
       await showTXSuccessToast(tx);
     } finally {
+      // has to save account string
+      setHasAccount(true);
       await refetch();
       setLoading(false);
     }

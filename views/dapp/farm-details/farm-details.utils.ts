@@ -143,9 +143,9 @@ export const parseError = ({
   if (error) return 'Failed to fetch the farm data';
   if (coinsPricesError) return 'Failed to fetch the coin prices';
   if (ipxStorageError) return 'Failed to fetch the IPXStorage object';
-  if (!web3Error) return 'Failed to fetch coin balances';
-  if (!ipxDataError) return 'Failed to fetch Sui-ETH pool data';
-  if (!pendingRewardsError) return 'Failed to fetch the pending rewards';
+  if (web3Error) return 'Failed to fetch coin balances';
+  if (ipxDataError) return 'Failed to fetch Sui-ETH pool data';
+  if (pendingRewardsError) return 'Failed to fetch the pending rewards';
 
   return 'error';
 };

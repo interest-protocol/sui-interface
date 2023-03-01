@@ -1,9 +1,9 @@
 import { Network } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { Container, LoadingPage } from '@/components';
-import { COINS, FARMS, RoutesEnum, StakeState } from '@/constants';
+import { COINS, FARMS, RoutesEnum } from '@/constants';
 import {
   useGetCoinsPrices,
   useGetIPXStorage,
@@ -18,16 +18,16 @@ import { useGetFarm, useGetPendingRewards } from './farm-details.hook';
 import { FarmDetailsProps } from './farm-details.types';
 import { parseError, parseFarmData } from './farm-details.utils';
 
-const FarmDetails: FC<FarmDetailsProps> = ({ farmMetadata }) => {
+const FarmDetails: FC<FarmDetailsProps> = ({
+  farmMetadata,
+  setModalState,
+  modalState,
+  form,
+}) => {
   const hasAccountManager = useLocalStorage<boolean>(
     'sui-interest-farm-account',
     false
   );
-
-  const [modalState, setModalState] = useState({
-    isOpen: false,
-    state: StakeState.Stake,
-  });
 
   const coin0 = farmMetadata.coin0;
   const coin1 = farmMetadata.coin1;
@@ -115,6 +115,7 @@ const FarmDetails: FC<FarmDetailsProps> = ({ farmMetadata }) => {
         }}
         modalState={modalState}
         setModalState={setModalState}
+        form={form}
       />
     </Container>
   );

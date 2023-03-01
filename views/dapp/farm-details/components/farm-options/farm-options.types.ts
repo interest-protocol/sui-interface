@@ -6,4 +6,5 @@ export interface FarmOptionsProps {
   hasAccountManager: [boolean, (arg: boolean) => void];
   modalState: FarmDetailsProps['modalState'];
   setModalState: FarmDetailsProps['setModalState'];
+  form: FarmDetailsProps['form'];
 }

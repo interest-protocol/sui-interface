@@ -1,5 +1,7 @@
 import { GetObjectDataResponse } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
+import { Dispatch, SetStateAction } from 'react';
+import { UseFormReturn } from 'react-hook-form';
 import { SWRConfiguration } from 'swr';
 
 import {
@@ -10,8 +12,20 @@ import { FarmMetadataType, StakeState } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
 import { GetFarmReturn } from '@/utils/farms/farms.types';
 
+export interface ModalState {
+  isOpen: boolean;
+  state: StakeState;
+}
+
+export interface Form {
+  amount: string;
+}
+
 export interface FarmDetailsProps {
   farmMetadata: FarmMetadataType;
+  modalState: ModalState;
+  setModalState: Dispatch<SetStateAction<ModalState>>;
+  form: UseFormReturn<Form>;
 }
 
 export interface ModalState {

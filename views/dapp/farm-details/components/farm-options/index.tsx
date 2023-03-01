@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { Routes, RoutesEnum, StakeState } from '@/constants';
 import { Typography } from '@/elements';
@@ -22,9 +23,11 @@ const FarmOptions: FC<FarmOptionsProps> = ({
   hasAccountManager: [hasAccount, setHasAccount],
   modalState,
   setModalState,
+  form,
 }) => {
   const t = useTranslations();
   const { push } = useRouter();
+
   const farmSymbol =
     farm.id === 0
       ? TOKEN_SYMBOL.IPX
@@ -167,8 +170,9 @@ const FarmOptions: FC<FarmOptionsProps> = ({
         setHasAccount={setHasAccount}
         farmSymbol={farmSymbol}
         refetch={refetch}
-        // setModalState={setModalState}
-        // modalState={modalState}
+        setModalState={setModalState}
+        modalState={modalState}
+        form={form}
       />
     </Box>
   );

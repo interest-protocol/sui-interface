@@ -16,16 +16,6 @@ import { LoadingPage, NextIntlProvider, ThemeManager } from '@/components';
 import { GlobalStyles } from '@/design-system';
 import { TTranslatedMessage } from '@/interface';
 
-const Layout = dynamic(() => import('../components/layout'), {
-  ssr: false,
-  loading: LoadingPage,
-});
-
-const Web3Manager = dynamic(() => import('../components/web3-manager'), {
-  ssr: false,
-  loading: LoadingPage,
-});
-
 interface PageProps {
   now: number;
   pageTitle: string;
@@ -68,12 +58,8 @@ const MyApp = ({ Component, pageProps }: Props): ReactNode => {
           <ThemeManager>
             <StrictMode>
               <TooltipProvider>
-                <Web3Manager>
-                  <Layout pageTitle={pageProps.pageTitle}>
-                    <Component {...pageProps} />
-                    <VercelAnalytics />
-                  </Layout>
-                </Web3Manager>
+                <Component {...pageProps} />
+                <VercelAnalytics />
               </TooltipProvider>
             </StrictMode>
           </ThemeManager>
