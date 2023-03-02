@@ -68,3 +68,8 @@ export interface ParseFarmDataArgs {
   type: string;
   index: number;
 }
+
+export interface ParseFarmDataReturn {
+  farms: Array<SafeFarmData>;
+  totalAllocationPoints: BigNumber;
+}
