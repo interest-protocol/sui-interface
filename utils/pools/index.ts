@@ -5,14 +5,7 @@ import {
 } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 
-import {
-  COIN_FARM_KEY_ARRAY,
-  COIN_POOL_KEY_ARRAY,
-  COINS_PACKAGE_ID,
-  DEX_STORAGE_VOLATILE,
-  IPX_ACCOUNT_STORAGE,
-  IPX_STORAGE,
-} from '@/constants';
+import { COINS_PACKAGE_ID, DEX_STORAGE_VOLATILE } from '@/constants';
 import { AddressZero } from '@/sdk';
 import {
   getDevInspectData,

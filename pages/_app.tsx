@@ -6,13 +6,12 @@ import { Global } from '@emotion/react';
 import { WalletKitProvider } from '@mysten/wallet-kit';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { AppProps } from 'next/app';
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import NextProgress from 'next-progress';
 import { ReactNode, StrictMode } from 'react';
 import { TooltipProvider } from 'react-tooltip';
 
-import { LoadingPage, NextIntlProvider, ThemeManager } from '@/components';
+import { NextIntlProvider, ThemeManager } from '@/components';
 import { GlobalStyles } from '@/design-system';
 import { TTranslatedMessage } from '@/interface';
 

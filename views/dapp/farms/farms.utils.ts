@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 import { always, cond, equals, ifElse, isEmpty, not, o, prop, T } from 'ramda';
 
 import { COIN_TYPE_TO_SYMBOL, FARMS_RECORD } from '@/constants';
-import { TTranslatedMessage } from '@/interface';
 import { TOKEN_SYMBOL } from '@/sdk';
 import {
   calculateAPR,

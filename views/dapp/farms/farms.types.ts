@@ -1,10 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { Readonly } from 'List/_api';
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 import { FarmMetadataType } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
-import { CoinData } from '@/interface';
 import { Farm } from '@/utils/farms/farms.types';
 import { Pool } from '@/utils/pools/pools.types';
 
