@@ -67,12 +67,14 @@ const Farms: FC = () => {
   if (errorFarms || prices.error || ipxStorageError || errorPools)
     return (
       <ErrorView
-        message={parseError({
-          errorFarms,
-          errorPools,
-          pricesError: prices.error,
-          ipxStorageError,
-        })}
+        message={t(
+          parseError({
+            errorFarms,
+            errorPools,
+            pricesError: prices.error,
+            ipxStorageError,
+          })
+        )}
       />
     );
 

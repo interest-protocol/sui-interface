@@ -1,8 +1,9 @@
 import { Network } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { Container, LoadingPage } from '@/components';
+import { Container } from '@/components';
 import { COINS, RoutesEnum } from '@/constants';
 import {
   useGetCoinsPrices,
@@ -31,6 +32,8 @@ const FarmDetails: FC<FarmDetailsProps> = ({
 }) => {
   const coin0 = farmMetadata.coin0;
   const coin1 = farmMetadata.coin1;
+
+  const t = useTranslations();
 
   const {
     account,
@@ -77,8 +80,6 @@ const FarmDetails: FC<FarmDetailsProps> = ({
     COINS[Network.DEVNET].ETH.type,
   ]);
 
-  if (farmsLoading) return <LoadingPage />;
-
   if (
     farmsError ||
     coinsPrices.error ||
@@ -89,14 +90,16 @@ const FarmDetails: FC<FarmDetailsProps> = ({
   )
     return (
       <ErrorView
-        message={parseError({
-          farmsError,
-          coinsPricesError: coinsPrices.error,
-          poolsError,
-          web3Error,
-          ipxStorageError,
-          pendingRewardsError,
-        })}
+        message={t(
+          parseError({
+            farmsError,
+            coinsPricesError: coinsPrices.error,
+            poolsError,
+            web3Error,
+            ipxStorageError,
+            pendingRewardsError,
+          })
+        )}
       />
     );
 
@@ -115,6 +118,7 @@ const FarmDetails: FC<FarmDetailsProps> = ({
       <GoBack route={RoutesEnum.Farms} />
       <Details farm={parsedData} />
       <FarmOptions
+        loading={farmsLoading || isFetchingCoinBalances || poolsLoading}
         farm={parsedData}
         refetch={async () => {
           await Promise.all([

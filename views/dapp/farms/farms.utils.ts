@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import { always, cond, equals, ifElse, isEmpty, not, o, prop, T } from 'ramda';
 
 import { COIN_TYPE_TO_SYMBOL, FARMS_RECORD } from '@/constants';
+import { TTranslatedMessage } from '@/interface';
 import { TOKEN_SYMBOL } from '@/sdk';
 import {
   calculateAPR,
@@ -221,13 +222,13 @@ export const parseError = ({
   pricesError,
   ipxStorageError,
 }: ParseErrorArgs) => {
-  if (errorFarms) return 'Failed to fetch Farms data';
+  if (errorFarms) return 'farms.errors.farms';
 
-  if (errorPools) return 'Failed ot fetch the pools';
+  if (errorPools) return 'farms.errors.pools';
 
-  if (pricesError) return 'Failed to fetch the coin prices';
+  if (pricesError) return 'farms.errors.prices';
 
-  if (ipxStorageError) return 'Failed to fetch the IPXStorage object';
+  if (ipxStorageError) return 'farms.errors.ipxStorage';
 
-  return 'error';
+  return 'common.error';
 };

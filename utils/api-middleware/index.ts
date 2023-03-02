@@ -4,9 +4,9 @@ const httpMethod = (
   allowedHttpMethod: 'GET' | 'POST' | 'PATCH'
 ): Middleware => {
   return async function (req, res, next) {
-    if (req.method === allowedHttpMethod || req.method == 'OPTIONS') {
+    if (req.method === allowedHttpMethod || req.method == 'OPTIONS')
       await next();
-    } else {
+    else {
       res.status(404);
       res.end();
     }

@@ -38,7 +38,6 @@ const ModalButton: FC<ModalButtonProps> = ({
   const handleWithdrawTokens = async () => {
     try {
       const value = getValues().amount;
-      console.log(value);
       if (
         farm.accountBalance.isZero() ||
         !+value ||

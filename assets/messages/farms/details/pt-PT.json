@@ -8,6 +8,14 @@
     "yourStakedLabel": "apostou",
     "modalStakedTitle": "depositar",
     "modalUnstakedTitle": "Não depositar",
-    "modalLabelInput": "Montante {type}"
+    "modalLabelInput": "Montante {type}",
+    "errors": {
+      "farm": "Falha ao trazer dados da Farm",
+      "pool": "Falha ao trazer dados da Pool",
+      "prices": "Falha ao trazer Preços",
+      "ipxStorage": "Falha ao trazer o IPXStorage Object",
+      "balances": "Falha ao trazer saldos",
+      "rewards": "Falha ao trazer os lucros pendentes"
+    }
   }
 }

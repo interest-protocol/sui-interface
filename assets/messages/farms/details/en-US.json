@@ -8,6 +8,14 @@
     "yourStakedLabel": "You staked",
     "modalStakedTitle": "Staked",
     "modalUnstakedTitle": "Unstaked",
-    "modalLabelInput": "Amount {type}"
+    "modalLabelInput": "Amount {type}",
+    "errors": {
+      "farm": "Failed to fetch Farm data",
+      "pool": "Failed to fetch Pool data",
+      "prices": "Failed to fetch coins prices",
+      "ipxStorage": "Failed to fetch the IPXStorage object",
+      "balances": "Failed to fetch the coin balances",
+      "rewards": "Failed to fetch the pending rewards"
+    }
   }
 }

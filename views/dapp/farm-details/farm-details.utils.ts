@@ -152,12 +152,12 @@ export const parseError = ({
   poolsError,
   pendingRewardsError,
 }: ParseErrorArgs) => {
-  if (farmsError) return 'Failed to fetch the farm data';
-  if (coinsPricesError) return 'Failed to fetch the coin prices';
-  if (ipxStorageError) return 'Failed to fetch the IPXStorage object';
-  if (web3Error) return 'Failed to fetch coin balances';
-  if (poolsError) return 'Failed to fetch pools';
-  if (pendingRewardsError) return 'Failed to fetch the pending rewards';
+  if (farmsError) return 'farmsDetails.errors.farm';
+  if (coinsPricesError) return 'farmsDetails.errors.prices';
+  if (ipxStorageError) return 'farmsDetails.errors.ipxStorage';
+  if (web3Error) return 'farmsDetails.errors.balances';
+  if (poolsError) return 'farmsDetails.errors.pool';
+  if (pendingRewardsError) return 'farmsDetails.errors.rewards';
 
-  return 'error';
+  return 'common.error';
 };

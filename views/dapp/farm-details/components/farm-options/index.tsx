@@ -9,6 +9,7 @@ import Button from '@/elements/button';
 import { TOKEN_SYMBOL } from '@/sdk';
 import { FixedPointMath } from '@/sdk/entities/fixed-point-math';
 import { capitalize, formatDollars, formatMoney } from '@/utils';
+import Loading from '@/views/dapp/components/loading';
 import { makeFarmSymbol } from '@/views/dapp/farms/farms.utils';
 
 import HarvestButton from '../buttons/harvest-button';
@@ -21,6 +22,7 @@ const FarmOptions: FC<FarmOptionsProps> = ({
   refetch,
   modalState,
   setModalState,
+  loading,
   form,
 }) => {
   const t = useTranslations();
@@ -34,6 +36,8 @@ const FarmOptions: FC<FarmOptionsProps> = ({
   const handleChangeModal = (target: StakeState) => {
     setModalState({ isOpen: true, state: target });
   };
+
+  if (loading) return <Loading />;
 
   return (
     <Box

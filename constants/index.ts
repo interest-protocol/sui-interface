@@ -5,6 +5,7 @@ import {
   BitcoinSVG,
   DAISVG,
   EtherSVG,
+  InterestTokenSVG,
   SuiSVG,
   UnknownCoinSVG,
   USDCoinSVG,
@@ -42,6 +43,7 @@ export const TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.DEVNET].SUI]: SuiSVG,
   [COIN_TYPE[Network.DEVNET].USDC]: USDCoinSVG,
   [COIN_TYPE[Network.DEVNET].USDT]: USDTSVG,
+  [COIN_TYPE[Network.DEVNET].IPX]: InterestTokenSVG,
 };
 
 export const EPOCHS_PER_YEAR = 4380;
