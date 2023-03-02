@@ -37,7 +37,12 @@ const FarmOptions: FC<FarmOptionsProps> = ({
     setModalState({ isOpen: true, state: target });
   };
 
-  if (loading) return <Loading />;
+  if (loading)
+    return (
+      <Box display="flex" justifyContent="center" my="XXXL">
+        <Loading />
+      </Box>
+    );
 
   return (
     <Box
