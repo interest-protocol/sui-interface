@@ -52,9 +52,13 @@ export const processSafeAmount = (
 
   if (!object) return amount;
 
+  const safeAmount = amount.gt(object.totalBalance)
+    ? object.totalBalance
+    : amount;
+
   if (
     type === COIN_TYPE[Network.DEVNET].SUI &&
-    amount.eq(object.totalBalance)
+    safeAmount.minus(gas).eq(object.totalBalance)
   ) {
     const suiObjects = [...object.objects];
     const sortedArray = suiObjects.sort((a, b) =>
@@ -62,8 +66,10 @@ export const processSafeAmount = (
     );
     const elem = sortedArray.find((elem) => elem.balance >= gas);
 
-    return elem ? amount.minus(new BigNumber(elem.balance)) : new BigNumber(0);
+    return elem
+      ? safeAmount.minus(new BigNumber(elem.balance))
+      : new BigNumber(0);
   }
 
-  return amount;
+  return safeAmount;
 };

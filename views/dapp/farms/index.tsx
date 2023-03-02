@@ -1,13 +1,17 @@
-import { Network } from '@mysten/sui.js';
 import { useTranslations } from 'next-intl';
 import { isEmpty } from 'ramda';
 import { FC, useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Container } from '@/components';
-import { COINS, FARMS } from '@/constants';
 import { Box, InfiniteScroll, Typography } from '@/elements';
-import { useGetCoinsPrices, useGetIPXStorage, useWeb3 } from '@/hooks';
+import {
+  useGetCoinsPrices,
+  useGetFarms,
+  useGetIPXStorage,
+  useGetVolatilePools,
+  useWeb3,
+} from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
 import { LoadingSVG } from '@/svg';
 import { noop } from '@/utils';
@@ -15,18 +19,14 @@ import { noop } from '@/utils';
 import ErrorView from '../components/error';
 import FarmsFilters from './components/farms-filters';
 import FarmsTable from './components/farms-table';
-import { useFarmListData } from './farms.hooks';
+import {
+  COIN_PRICES,
+  FARM_TYPE_ARGS,
+  FILLED_FARM_TYPE_ARGS,
+  FILLED_POOL_TYPE_ARGS,
+} from './farms.constants';
 import { FarmSortByFilter, FarmTypeFilter, IFarmsForm } from './farms.types';
-import { parseError, parseFarmListData } from './farms.utils';
-
-const COIN_PRICES = [
-  COINS[Network.DEVNET].ETH.type,
-  COINS[Network.DEVNET].BTC.type,
-  COINS[Network.DEVNET].DAI.type,
-  COINS[Network.DEVNET].BNB.type,
-  COINS[Network.DEVNET].USDT.type,
-  COINS[Network.DEVNET].USDC.type,
-];
+import { parseData, parseError } from './farms.utils';
 
 const Farms: FC = () => {
   const t = useTranslations();
@@ -51,25 +51,37 @@ const Farms: FC = () => {
     setDesktop(mediaIsDesktop);
   }, []);
 
-  const { error, data } = useFarmListData({
+  const { error: errorFarms, data: farms } = useGetFarms(
     account,
-    farms: FARMS,
-  });
+    FILLED_FARM_TYPE_ARGS,
+    FARM_TYPE_ARGS.length
+  );
+  const { error: errorPools, data: pools } = useGetVolatilePools(
+    account,
+    FILLED_POOL_TYPE_ARGS,
+    7
+  );
 
   useEventListener('resize', handleSetDesktop, true);
 
-  if (error || prices.error || ipxStorageError)
+  if (errorFarms || prices.error || ipxStorageError || errorPools)
     return (
       <ErrorView
         message={parseError({
-          error,
+          errorFarms,
+          errorPools,
           pricesError: prices.error,
           ipxStorageError,
         })}
       />
     );
 
-  const parsedData = parseFarmListData(data || [], prices.data, ipxStorage);
+  const parsedData = parseData({
+    pools,
+    farms,
+    ipxStorage,
+    prices: prices.data,
+  });
 
   return (
     <Box display="flex" flexDirection="column" flex="1">

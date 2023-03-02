@@ -1,28 +1,30 @@
 import { Network } from '@mysten/sui.js';
 
-import { COIN_FARM, COIN_POOL, COINS } from './coins';
+import { CoinData } from '@/interface';
 
-export const IPX_STORAGE = '0x1bfa0db639aed533bd8fb919ab6fa3f16fbc193e';
+import { COIN_POOL, COIN_TYPE, COINS } from './coins';
 
-export const IPX_ACCOUNT_STORAGE = '0x70b32312d5b892ba261318e3fedf19c0fb1776b2';
+export const IPX_STORAGE = '0x3d96f23f0694b2bb1ec68acfbaeae48eca0231c5';
 
-export const FARMS_PACKAGE_ID = '0xf946d5f17401154367c463ad4b31a3440d3da674';
+export const IPX_ACCOUNT_STORAGE = '0x6f8e9414b50e86c9b4055813f2c7c581ff1a56e7';
+
+export const FARMS_PACKAGE_ID = '0x4abf249feb6d6f7262b0dbbe61ae03e67a63193a';
 
 export const FARMS_RECORD = {
   [Network.DEVNET]: {
-    [COIN_FARM[Network.DEVNET].IPX]: {
-      objectId: COIN_FARM[Network.DEVNET].IPX,
-      poolObjectId: COIN_FARM[Network.DEVNET].IPX,
+    [COIN_TYPE[Network.DEVNET].IPX]: {
+      farmType: COIN_TYPE[Network.DEVNET].IPX,
+      poolObjectId: COIN_POOL[Network.DEVNET].V_LP_ETH_IPX,
       lpCoin: COINS[Network.DEVNET].IPX,
-      coin0: COINS[Network.DEVNET].IPX,
+      coin0: COINS[Network.DEVNET].ETH,
       coin1: COINS[Network.DEVNET].IPX,
       isSingleCoin: true,
       id: 0,
       isLive: true,
       stable: false,
     },
-    [COIN_FARM[Network.DEVNET].V_LP_SUI_ETH]: {
-      objectId: COIN_FARM[Network.DEVNET].V_LP_SUI_ETH,
+    [COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH]: {
+      farmType: COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_SUI_ETH,
       lpCoin: COINS[Network.DEVNET].V_LP_SUI_ETH,
       coin0: COINS[Network.DEVNET].SUI,
@@ -32,8 +34,8 @@ export const FARMS_RECORD = {
       isLive: true,
       stable: false,
     },
-    [COIN_FARM[Network.DEVNET].V_LP_ETH_IPX]: {
-      objectId: COIN_FARM[Network.DEVNET].V_LP_ETH_IPX,
+    [COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX]: {
+      farmType: COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_ETH_IPX,
       lpCoin: COINS[Network.DEVNET].V_LP_ETH_IPX,
       coin0: COINS[Network.DEVNET].ETH,
@@ -43,8 +45,8 @@ export const FARMS_RECORD = {
       isLive: true,
       stable: false,
     },
-    [COIN_FARM[Network.DEVNET].V_LP_BTC_ETH]: {
-      objectId: COIN_FARM[Network.DEVNET].V_LP_BTC_ETH,
+    [COIN_TYPE[Network.DEVNET].V_LP_BTC_ETH]: {
+      farmType: COIN_TYPE[Network.DEVNET].V_LP_BTC_ETH,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_BTC_ETH,
       lpCoin: COINS[Network.DEVNET].V_LP_BTC_ETH,
       coin0: COINS[Network.DEVNET].BTC,
@@ -54,8 +56,8 @@ export const FARMS_RECORD = {
       isLive: true,
       stable: false,
     },
-    [COIN_FARM[Network.DEVNET].V_LP_BNB_ETH]: {
-      objectId: COIN_FARM[Network.DEVNET].V_LP_BNB_ETH,
+    [COIN_TYPE[Network.DEVNET].V_LP_BNB_ETH]: {
+      farmType: COIN_TYPE[Network.DEVNET].V_LP_BNB_ETH,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_BNB_ETH,
       lpCoin: COINS[Network.DEVNET].V_LP_BNB_ETH,
       coin0: COINS[Network.DEVNET].BNB,
@@ -65,8 +67,8 @@ export const FARMS_RECORD = {
       isLive: true,
       stable: false,
     },
-    [COIN_FARM[Network.DEVNET].V_LP_ETH_USDT]: {
-      objectId: COIN_FARM[Network.DEVNET].V_LP_ETH_USDT,
+    [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT]: {
+      farmType: COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_ETH_USDT,
       lpCoin: COINS[Network.DEVNET].V_LP_ETH_USDT,
       coin0: COINS[Network.DEVNET].ETH,
@@ -76,8 +78,8 @@ export const FARMS_RECORD = {
       isLive: true,
       stable: false,
     },
-    [COIN_FARM[Network.DEVNET].V_LP_ETH_USDC]: {
-      objectId: COIN_FARM[Network.DEVNET].V_LP_ETH_USDC,
+    [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC]: {
+      farmType: COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_ETH_USDC,
       lpCoin: COINS[Network.DEVNET].V_LP_ETH_USDC,
       coin0: COINS[Network.DEVNET].ETH,
@@ -87,8 +89,8 @@ export const FARMS_RECORD = {
       isLive: true,
       stable: false,
     },
-    [COIN_FARM[Network.DEVNET].V_LP_DAI_ETH]: {
-      objectId: COIN_FARM[Network.DEVNET].V_LP_DAI_ETH,
+    [COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH]: {
+      farmType: COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_DAI_ETH,
       lpCoin: COINS[Network.DEVNET].V_LP_DAI_ETH,
       coin0: COINS[Network.DEVNET].DAI,
@@ -101,15 +103,14 @@ export const FARMS_RECORD = {
   },
 };
 
-export const FARMS = [
-  FARMS_RECORD[Network.DEVNET][COIN_FARM[Network.DEVNET].IPX],
-  FARMS_RECORD[Network.DEVNET][COIN_FARM[Network.DEVNET].V_LP_SUI_ETH],
-  FARMS_RECORD[Network.DEVNET][COIN_FARM[Network.DEVNET].V_LP_ETH_IPX],
-  FARMS_RECORD[Network.DEVNET][COIN_FARM[Network.DEVNET].V_LP_BTC_ETH],
-  FARMS_RECORD[Network.DEVNET][COIN_FARM[Network.DEVNET].V_LP_BNB_ETH],
-  FARMS_RECORD[Network.DEVNET][COIN_FARM[Network.DEVNET].V_LP_ETH_USDT],
-  FARMS_RECORD[Network.DEVNET][COIN_FARM[Network.DEVNET].V_LP_ETH_USDC],
-  FARMS_RECORD[Network.DEVNET][COIN_FARM[Network.DEVNET].V_LP_DAI_ETH],
-];
-
-export type FarmMetadataType = typeof FARMS[number];
+export interface FarmMetadataType {
+  farmType: string;
+  lpCoin: CoinData;
+  coin0: CoinData;
+  coin1: CoinData;
+  isSingleCoin: boolean;
+  id: number;
+  isLive: boolean;
+  stable: boolean;
+  poolObjectId: string;
+}

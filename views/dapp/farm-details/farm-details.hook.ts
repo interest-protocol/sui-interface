@@ -9,9 +9,6 @@ import {
   IPX_STORAGE,
 } from '@/constants';
 import { makeSWRKey, provider } from '@/utils';
-import { getFarm } from '@/utils/farms';
-
-import { UseGetFarmArgs } from './farm-details.types';
 
 export const useGetPendingRewards = (
   account: string | null,
@@ -53,33 +50,3 @@ export const useGetPendingRewards = (
     data: result.length ? result[0] : 0,
   };
 };
-
-export const useGetFarm = ({
-  poolObjectId,
-  isSingleCoin,
-  account,
-  lpCoin,
-  objectId,
-  config = {},
-}: UseGetFarmArgs) =>
-  useSWR(
-    makeSWRKey(
-      [objectId, poolObjectId, isSingleCoin, account, lpCoin?.type],
-      'useGetFarm'
-    ),
-    async () =>
-      await getFarm({
-        objectId,
-        poolObjectId,
-        isSingleCoin,
-        account,
-        lpCoin,
-      }),
-    {
-      revalidateOnMount: true,
-      revalidateOnFocus: false,
-      refreshWhenHidden: false,
-      refreshInterval: 15000,
-      ...config,
-    }
-  );

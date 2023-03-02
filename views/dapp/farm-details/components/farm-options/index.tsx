@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
-import { useForm } from 'react-hook-form';
 
 import { Routes, RoutesEnum, StakeState } from '@/constants';
 import { Typography } from '@/elements';
@@ -20,7 +19,6 @@ import { FarmOptionsProps } from './farm-options.types';
 const FarmOptions: FC<FarmOptionsProps> = ({
   farm,
   refetch,
-  hasAccountManager: [hasAccount, setHasAccount],
   modalState,
   setModalState,
   form,
@@ -167,7 +165,6 @@ const FarmOptions: FC<FarmOptionsProps> = ({
       />
       <FarmStakeModal
         farm={farm}
-        setHasAccount={setHasAccount}
         farmSymbol={farmSymbol}
         refetch={refetch}
         setModalState={setModalState}

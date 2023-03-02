@@ -2,7 +2,7 @@ import { Network } from '@mysten/sui.js';
 
 import { TOKEN_SYMBOL } from '@/sdk';
 
-export const COINS_PACKAGE_ID = '0xf946d5f17401154367c463ad4b31a3440d3da674';
+export const COINS_PACKAGE_ID = '0x4abf249feb6d6f7262b0dbbe61ae03e67a63193a';
 
 const DEV_NET_BASE_COINS = {
   SUI: '0x2::sui::SUI',
@@ -23,7 +23,7 @@ export const COIN_TYPE = {
     V_LP_BNB_ETH: `${COINS_PACKAGE_ID}::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.BNB}, ${DEV_NET_BASE_COINS.ETH}>`,
     V_LP_ETH_USDT: `${COINS_PACKAGE_ID}::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.ETH}, ${DEV_NET_BASE_COINS.USDT}>`,
     V_LP_ETH_USDC: `${COINS_PACKAGE_ID}::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.ETH}, ${DEV_NET_BASE_COINS.USDC}>`,
-    V_LP_DAI_ETH: `${COINS_PACKAGE_ID}::dex_volatile::VLPCoinVPool<${DEV_NET_BASE_COINS.DAI}, ${DEV_NET_BASE_COINS.ETH}>`,
+    V_LP_DAI_ETH: `${COINS_PACKAGE_ID}::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.DAI}, ${DEV_NET_BASE_COINS.ETH}>`,
     V_LP_ETH_IPX: `${COINS_PACKAGE_ID}::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.ETH}, ${DEV_NET_BASE_COINS.IPX}>`,
   },
 };
@@ -70,26 +70,13 @@ export const COIN_DECIMALS = {
 
 export const COIN_POOL = {
   [Network.DEVNET]: {
-    V_LP_SUI_ETH: '0x76b8b470c62ce6d3e2dfb55217acbbc8c05b1346',
-    V_LP_BTC_ETH: '0xc9cd6dfb99ec6044989c7d2117840bc4967076dd',
-    V_LP_BNB_ETH: '0x0f0dfbf54ed0e676a70e9a92f18e7034eeb6e9f0',
-    V_LP_ETH_USDT: '0x3f19ef686d50c46ec6d058b7475e9de860f2f9da',
-    V_LP_ETH_USDC: '0x36bd6d4d9123087dcbce63db390c9a7e28ae675c',
-    V_LP_DAI_ETH: '0x23ab67cea2bcf31646c24336c3175289f63d383e',
-    V_LP_ETH_IPX: '0x1b05670b1edc88ca6a3d3fb4d44f8891c36d3c08',
-  },
-};
-
-export const COIN_FARM = {
-  [Network.DEVNET]: {
-    V_LP_SUI_ETH: '0x7b2a8100629d19ce44bfeaa9023aa1347d6561de',
-    V_LP_BTC_ETH: '0x899980a8bc7e0a14d7034d03d025664b01579d10',
-    V_LP_BNB_ETH: '0xbace88a58142f6eff17faf24924e68eb9a6c9378',
-    V_LP_ETH_USDT: '0xf1637c64c1be4236bd26888b86c1edc93981a55e',
-    V_LP_ETH_USDC: '0xf80d0fd196aff2df5c9933e1a9075e613da46ab3',
-    V_LP_DAI_ETH: '0x6db471672b94b207cf498829920395c0dbd7a970',
-    V_LP_ETH_IPX: '0x54138a08b691422ec97f8b7c3cddae00587a47c8',
-    IPX: '0x56df3eac6053fa1eb1b9ca41687bfbd92e00ecdf',
+    V_LP_SUI_ETH: '0xfdab55898963eb3083afc370a311c63d58b814f8',
+    V_LP_BTC_ETH: '0xb61acb70e8524729981dc90a5023ea43f0260b0d',
+    V_LP_BNB_ETH: '0xcbcff09b1befb0d0d2432768e951f4786cb6037d',
+    V_LP_ETH_USDT: '0x80bb3718d81fb6bfc4efb112a052c3e974969ae3',
+    V_LP_ETH_USDC: '0xc0146b1e24b034cad125fd243dab8fa590e2515b',
+    V_LP_DAI_ETH: '0x4f18ab1c32a5119afc50a80fc9c60087aeb31f0c',
+    V_LP_ETH_IPX: '0x98ab04e341ec6bec94e7ec5d2736a0e78ad49c08',
   },
 };
 

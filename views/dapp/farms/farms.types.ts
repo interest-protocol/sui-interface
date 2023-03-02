@@ -1,8 +1,12 @@
 import BigNumber from 'bignumber.js';
+import { Readonly } from 'List/_api';
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
-import { FarmMetadataType, FARMS } from '@/constants';
+import { FarmMetadataType } from '@/constants';
+import { CoinPriceRecord, IPXStorage } from '@/hooks';
 import { CoinData } from '@/interface';
+import { Farm } from '@/utils/farms/farms.types';
+import { Pool } from '@/utils/pools/pools.types';
 
 export enum FarmSortByFilter {
   Default,
@@ -15,11 +19,6 @@ export enum FarmTypeFilter {
   All,
   Volatile,
   Stable,
-}
-
-export interface UseGetFarmListDataArgs {
-  account: string | null;
-  farms: typeof FARMS;
 }
 
 export interface FarmsFiltersProps extends FarmsFilterManagerProps {
@@ -41,25 +40,33 @@ export interface IFarmsForm {
 
 export interface SafeFarmData extends FarmMetadataType {
   allocationPoints: BigNumber;
-  id: number;
-  coin0: CoinData;
-  coin1: CoinData;
   totalStakedAmount: BigNumber;
   tvl: number;
   apr: BigNumber;
-  stable: boolean;
-  isLive: boolean;
-  stakingAmount: BigNumber;
+  accountBalance: BigNumber;
   loading?: boolean;
 }
 
-export interface ParseFarmListDataReturn {
-  farms: ReadonlyArray<SafeFarmData>;
-  totalAllocationPoints: BigNumber;
+export interface ParseDataArgs {
+  farms: ReadonlyArray<Farm> | undefined;
+  pools: ReadonlyArray<Pool> | undefined;
+  prices: CoinPriceRecord;
+  ipxStorage: IPXStorage;
 }
 
 export interface ParseErrorArgs {
-  error: unknown;
+  errorFarms: unknown;
+  errorPools: unknown;
   pricesError: unknown;
   ipxStorageError: unknown;
+}
+
+export interface ParseFarmDataArgs {
+  prices: CoinPriceRecord;
+  ipxUSDPrice: number;
+  ipxStorage: IPXStorage;
+  pools: ReadonlyArray<Pool>;
+  farms: ReadonlyArray<Farm>;
+  type: string;
+  index: number;
 }

@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
 import { FARMS_RECORD, StakeState } from '@/constants';
-import { withObjectIdGuard } from '@/HOC';
+import { withTypeGuard } from '@/HOC';
 import { NextPageDefaultProps } from '@/interface';
 import FarmDetails from '@/views/dapp/farm-details';
 
@@ -22,14 +22,14 @@ const Layout = dynamic(() => import('@/components/layout'), {
 });
 
 interface FarmDetailsPageProps extends NextPageDefaultProps {
-  objectId: string;
+  type: string;
 }
 
 const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
-  objectId,
+  type,
   pageTitle,
 }) => {
-  const farmMetadata = pathOr(null, [Network.DEVNET, objectId], FARMS_RECORD);
+  const farmMetadata = pathOr(null, [Network.DEVNET, type], FARMS_RECORD);
 
   const [modalState, setModalState] = useState({
     isOpen: false,
@@ -82,4 +82,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default withObjectIdGuard(FarmDetailsPage);
+export default withTypeGuard(FarmDetailsPage);

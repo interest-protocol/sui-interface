@@ -2,24 +2,23 @@ import { Network } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { always, cond, equals, ifElse, isEmpty, not, o, prop, T } from 'ramda';
 
-import { COIN_TYPE_TO_SYMBOL, FARMS } from '@/constants';
-import { CoinPriceRecord, IPXStorage } from '@/hooks';
+import { COIN_TYPE_TO_SYMBOL, FARMS_RECORD } from '@/constants';
 import { TOKEN_SYMBOL } from '@/sdk';
 import {
   calculateAPR,
   calculateIPXUSDPrice,
   calculateTVL,
-  getAllocationPoints,
-  getFarmBalance,
-} from '@/utils/farms';
-import { GetFarmReturn } from '@/utils/farms/farms.types';
+  ZERO_BIG_NUMBER,
+} from '@/utils';
 
+import { FARM_TYPE_ARGS } from './farms.constants';
 import { FARMS_TOKENS_SVG_MAP } from './farms.data';
 import {
   FarmSortByFilter,
   FarmTypeFilter,
+  ParseDataArgs,
   ParseErrorArgs,
-  ParseFarmListDataReturn,
+  ParseFarmDataArgs,
   SafeFarmData,
 } from './farms.types';
 
@@ -98,7 +97,7 @@ const onlyStakedOperation = ifElse<
   (x: SafeFarmData) => boolean
 >(
   equals(true),
-  always(({ stakingAmount }) => !stakingAmount.isZero()),
+  always(({ accountBalance }) => !accountBalance.isZero()),
   always(T)
 );
 
@@ -141,88 +140,94 @@ export const handleFilterFarms = (
           ].every((pred) => pred(x))
         );
 
-const DEFAULT_PARSED_DATA: ReadonlyArray<SafeFarmData> = FARMS.map((farm) => ({
-  ...farm,
-  tvl: 0,
-  apr: BigNumber(0),
-  allocationPoints: BigNumber(0),
-  stakingAmount: BigNumber(0),
-  totalStakedAmount: BigNumber(0),
-}));
+export const parseFarmData = ({
+  prices,
+  ipxUSDPrice,
+  ipxStorage,
+  pools,
+  farms,
+  type,
+  index,
+}: ParseFarmDataArgs): SafeFarmData => {
+  // First farm IPX has no pool
+  const farm = farms[index];
+  const pool = index > 0 ? pools[index - 1] : pools[index];
+  const farmMetadata = FARMS_RECORD[Network.DEVNET][type];
+  const tvl = calculateTVL({
+    prices,
+    ipxUSDPrice,
+    farm,
+    pool,
+    farmMetadata,
+  });
 
-export const parseFarmData =
-  (
-    prices: CoinPriceRecord,
-    ipxUSDPrice: number,
-    ipxStorage: IPXStorage,
-    data: Array<GetFarmReturn>
-  ) =>
-  (farmDefaultData: SafeFarmData, index: number) => {
-    if (!data[index] || !ipxUSDPrice)
-      return { ...farmDefaultData, loading: true };
+  const allocationPoints = farm.allocationPoints;
+  const accountBalance = farm.accountBalance;
+  const totalStakedAmount = farm.totalStakedAmount;
 
-    const farm = data[index]?.farmArray[0];
-    const pool = data[index].farmArray[farmDefaultData.isSingleCoin ? 0 : 1];
-
-    const tvl = calculateTVL({
-      prices,
-      ipxUSDPrice,
-      farm,
-      pool,
-      farmMetadata: FARMS[index],
-    });
-
-    const allocationPoints = new BigNumber(getAllocationPoints(farm));
-    const stakingAmount = BigNumber(0);
-    const totalStakedAmount = new BigNumber(getFarmBalance(farm));
-
-    const apr = calculateAPR({
-      ipxUSDPrice,
-      ipxStorage,
-      tvl,
-      allocationPoints,
-    });
-
-    return {
-      ...farmDefaultData,
-      tvl,
-      apr,
-      allocationPoints,
-      stakingAmount,
-      totalStakedAmount,
-    };
-  };
-
-export const parseFarmListData = (
-  data: Array<GetFarmReturn>,
-  prices: CoinPriceRecord,
-  ipxStorage: IPXStorage
-): ParseFarmListDataReturn => {
-  const ipxUSDPrice = data[2]
-    ? calculateIPXUSDPrice({
-        pool: data[2].farmArray[1],
-        prices,
-      })
-    : 0;
+  const apr = calculateAPR({
+    ipxUSDPrice,
+    ipxStorage,
+    tvl,
+    allocationPoints,
+  });
 
   return {
-    farms: DEFAULT_PARSED_DATA.map(
-      parseFarmData(prices, ipxUSDPrice, ipxStorage, data)
+    ...farmMetadata,
+    tvl,
+    apr,
+    allocationPoints,
+    accountBalance,
+    totalStakedAmount,
+  };
+};
+
+export const parseData = ({
+  prices,
+  farms,
+  ipxStorage,
+  pools,
+}: ParseDataArgs) => {
+  if (!farms || !pools || !ipxStorage || !prices)
+    return {
+      farms: [],
+      totalAllocationPoints: ZERO_BIG_NUMBER,
+    };
+
+  const ipxUSDPrice = calculateIPXUSDPrice({
+    pool: pools[1],
+    prices,
+  });
+
+  return {
+    farms: FARM_TYPE_ARGS.map((x, index) =>
+      parseFarmData({
+        ipxStorage,
+        farms,
+        pools,
+        prices,
+        ipxUSDPrice,
+        type: x,
+        index,
+      })
     ),
     totalAllocationPoints: new BigNumber(ipxStorage.totalAllocation),
   };
 };
 
 export const parseError = ({
-  error,
+  errorFarms,
+  errorPools,
   pricesError,
   ipxStorageError,
 }: ParseErrorArgs) => {
-  if (error) return 'Failed to fetch Farms data';
+  if (errorFarms) return 'Failed to fetch Farms data';
+
+  if (errorPools) return 'Failed ot fetch the pools';
 
   if (pricesError) return 'Failed to fetch the coin prices';
 
-  if (!ipxStorageError) return 'Failed to fetch the IPXStorage object';
+  if (ipxStorageError) return 'Failed to fetch the IPXStorage object';
 
   return 'error';
 };

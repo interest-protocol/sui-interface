@@ -43,6 +43,12 @@ export const RECOMMENDED_POOLS = [
     poolObjectId: networkDevNetCoinPool.V_LP_SUI_ETH,
     lpCoin: networkDevNetCoins.V_LP_SUI_ETH,
   },
+  {
+    token0: networkDevNetCoins.ETH,
+    token1: networkDevNetCoins.IPX,
+    poolObjectId: networkDevNetCoinPool.V_LP_ETH_IPX,
+    lpCoin: networkDevNetCoins.V_LP_ETH_IPX,
+  },
 ];
 
 export const POOL_METADATA_MAP = {
@@ -67,9 +73,13 @@ export const POOL_METADATA_MAP = {
       token0: networkDevNetCoins.BTC,
       token1: networkDevNetCoins.ETH,
     },
-    [networkDevNetCoinPool.V_LP_BTC_ETH]: {
+    [networkDevNetCoinPool.V_LP_BNB_ETH]: {
       token0: networkDevNetCoins.BNB,
       token1: networkDevNetCoins.ETH,
+    },
+    [networkDevNetCoinPool.V_LP_ETH_IPX]: {
+      token0: networkDevNetCoins.ETH,
+      token1: networkDevNetCoins.IPX,
     },
   },
 } as Record<string, Record<string, PoolMetadata>>;

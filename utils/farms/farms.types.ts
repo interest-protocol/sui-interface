@@ -1,9 +1,8 @@
-import { GetObjectDataResponse } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 
 import { FarmMetadataType } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
-import { CoinData } from '@/interface';
+import { Pool } from '@/utils/pools/pools.types';
 
 export interface CalculateAPRArgs {
   ipxUSDPrice: number;
@@ -13,7 +12,7 @@ export interface CalculateAPRArgs {
 }
 
 export interface CalculateIPXUSDPriceArgs {
-  pool: GetObjectDataResponse;
+  pool: Pool;
   prices: CoinPriceRecord;
 }
 
@@ -21,22 +20,12 @@ export interface CalculateTVLArgs {
   prices: CoinPriceRecord;
   farmMetadata: FarmMetadataType;
   ipxUSDPrice: number;
-  pool: GetObjectDataResponse;
-  farm: GetObjectDataResponse;
+  pool: Pool;
+  farm: Farm;
 }
 
-export interface GetFarmArgs {
-  account: string | null;
-  objectId: string;
-  poolObjectId: string;
-  isSingleCoin: boolean;
-  lpCoin: CoinData;
+export interface Farm {
+  allocationPoints: BigNumber;
+  totalStakedAmount: BigNumber;
+  accountBalance: BigNumber;
 }
-
-export interface GetFarmReturn {
-  objectId: string;
-  farmArray: Array<GetObjectDataResponse>;
-  accountData: null | any;
-}
-
-export type GetFarm = (args: GetFarmArgs) => Promise<GetFarmReturn>;

@@ -13,16 +13,22 @@ import { Box, Button } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
-import { capitalize, getCoinIds, showToast, showTXSuccessToast } from '@/utils';
+import {
+  capitalize,
+  getCoinIds,
+  processSafeAmount,
+  showToast,
+  showTXSuccessToast,
+} from '@/utils';
 
 import { ModalButtonProps } from './buttons.types';
 
 const ModalButton: FC<ModalButtonProps> = ({
   farm,
   refetch,
-  setHasAccount,
   getValues,
   isStake,
+  resetForm,
 }) => {
   const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
@@ -32,7 +38,12 @@ const ModalButton: FC<ModalButtonProps> = ({
   const handleWithdrawTokens = async () => {
     try {
       const value = getValues().amount;
-      if (farm.totalStakedAmount.isZero() || !+value) {
+      console.log(value);
+      if (
+        farm.accountBalance.isZero() ||
+        !+value ||
+        farm.accountBalance.lt(+value)
+      ) {
         throw new Error('Cannot withdraw 0 tokens');
       }
       setLoading(true);
@@ -42,6 +53,10 @@ const ModalButton: FC<ModalButtonProps> = ({
         farm.lpCoin.decimals
       ).decimalPlaces(0, BigNumber.ROUND_DOWN);
 
+      const safeAmount = amount.gt(farm.accountBalance)
+        ? farm.accountBalance
+        : amount;
+
       const tx = await signAndExecuteTransaction({
         kind: 'moveCall',
         data: {
@@ -50,13 +65,14 @@ const ModalButton: FC<ModalButtonProps> = ({
           module: 'interface',
           packageObjectId: FARMS_PACKAGE_ID,
           typeArguments: [farm.lpCoin.type],
-          arguments: [IPX_STORAGE, IPX_ACCOUNT_STORAGE, amount.toString()],
+          arguments: [IPX_STORAGE, IPX_ACCOUNT_STORAGE, safeAmount.toString()],
         },
       });
       await showTXSuccessToast(tx);
     } finally {
       await refetch();
       setLoading(false);
+      resetForm();
     }
   };
 
@@ -81,6 +97,13 @@ const ModalButton: FC<ModalButtonProps> = ({
         farm.lpCoin.decimals
       ).decimalPlaces(0, BigNumber.ROUND_DOWN);
 
+      const safeAmount = processSafeAmount(
+        amount,
+        farm.lpCoin.type,
+        coinsMap,
+        15000
+      );
+
       const tx = await signAndExecuteTransaction({
         kind: 'moveCall',
         data: {
@@ -93,16 +116,15 @@ const ModalButton: FC<ModalButtonProps> = ({
             IPX_STORAGE,
             IPX_ACCOUNT_STORAGE,
             getCoinIds(coinsMap, farm.lpCoinData.type),
-            amount.toString(),
+            safeAmount.toString(),
           ],
         },
       });
       await showTXSuccessToast(tx);
     } finally {
-      // has to save account string
-      setHasAccount(true);
       await refetch();
       setLoading(false);
+      resetForm();
     }
   };
 
@@ -110,10 +132,7 @@ const ModalButton: FC<ModalButtonProps> = ({
     showToast(handleDepositTokens(), {
       loading: capitalize(t('common.stake', { isLoading: 1 })),
       error: propOr('common.error', 'message'),
-      success: () => {
-        setHasAccount(true);
-        return capitalize(t('common.success'));
-      },
+      success: capitalize(t('common.success')),
     });
 
   const onSubmit = async () => {

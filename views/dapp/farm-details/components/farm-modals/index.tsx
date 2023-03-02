@@ -17,7 +17,6 @@ import InputStake from './input-stake';
 const FarmStakeModal: FC<FarmStakeModalProps> = ({
   farm,
   farmSymbol,
-  setHasAccount,
   refetch,
   modalState,
   setModalState,
@@ -30,7 +29,7 @@ const FarmStakeModal: FC<FarmStakeModalProps> = ({
   const isStake = modalState.state === StakeState.Stake;
 
   const amount = FixedPointMath.toNumber(
-    isStake ? farm.lpCoinData.totalBalance : farm.totalStakedAmount,
+    isStake ? farm.lpCoinData.totalBalance : farm.accountBalance,
     farm.lpCoin.decimals
   );
 
@@ -148,11 +147,11 @@ const FarmStakeModal: FC<FarmStakeModalProps> = ({
             {capitalize(t('common.cancel'))}
           </Button>
           <ModalButton
-            setHasAccount={setHasAccount}
             isStake={isStake}
             refetch={refetch}
             farm={farm}
             getValues={form.getValues}
+            resetForm={form.reset}
           />
         </Box>
       </Box>

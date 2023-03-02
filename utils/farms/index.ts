@@ -1,6 +1,6 @@
-import { MoveCallTransaction, Network } from '@mysten/sui.js';
+import { bcsForVersion, MoveCallTransaction, Network } from '@mysten/sui.js';
+import { LocalTxnDataSerializer } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
-import { pathOr } from 'ramda';
 
 import {
   COIN_TYPE,
@@ -9,58 +9,20 @@ import {
   IPX_ACCOUNT_STORAGE,
   IPX_STORAGE,
 } from '@/constants';
-import { FixedPointMath } from '@/sdk';
-import { provider, ZERO_BIG_NUMBER } from '@/utils';
+import { AddressZero, FixedPointMath } from '@/sdk';
+import {
+  getDevInspectData,
+  getDevInspectType,
+  provider,
+  ZERO_BIG_NUMBER,
+} from '@/utils';
 
 import {
   CalculateAPRArgs,
   CalculateIPXUSDPriceArgs,
   CalculateTVLArgs,
-  GetFarm,
+  Farm,
 } from './farms.types';
-
-export const getAllocationPoints = pathOr('0', [
-  'details',
-  'data',
-  'fields',
-  'value',
-  'fields',
-  'allocation_points',
-]);
-
-export const getFarmBalance = pathOr('0', [
-  'details',
-  'data',
-  'fields',
-  'value',
-  'fields',
-  'balance_value',
-]);
-
-export const getPoolLPCoinSupply = pathOr('0', [
-  'details',
-  'data',
-  'fields',
-  'value',
-  'fields',
-  'lp_coin_supply',
-  'fields',
-  'value',
-]);
-
-const getPoolBalance = (pairPosition: 0 | 1) =>
-  pathOr('0', [
-    'details',
-    'data',
-    'fields',
-    'value',
-    'fields',
-    `balance_${pairPosition ? 'y' : 'x'}`,
-  ]);
-
-export const getPoolCoin0Balance = getPoolBalance(0);
-
-export const getPoolCoin1Balance = getPoolBalance(1);
 
 export const calculateAPR = ({
   allocationPoints,
@@ -89,8 +51,8 @@ export const calculateIPXUSDPrice = ({
 }: CalculateIPXUSDPriceArgs) => {
   // V-ETH-IPX is hardcoded on index 2
 
-  const ethBalance = new BigNumber(getPoolCoin0Balance(pool));
-  const ipxBalance = new BigNumber(getPoolCoin1Balance(pool));
+  const ethBalance = pool.balanceX;
+  const ipxBalance = pool.balanceY;
   const ipxInEth = ethBalance.div(ipxBalance).multipliedBy(1e9);
   const ethType = COIN_TYPE[Network.DEVNET].ETH;
 
@@ -106,29 +68,29 @@ export const calculateTVL = ({
 }: CalculateTVLArgs) => {
   // IPX only logic
   if (farmMetadata.isSingleCoin) {
-    const farmBalance = new BigNumber(getFarmBalance(farm));
+    const farmBalance = farm.totalStakedAmount;
 
     return FixedPointMath.toNumber(
       farmBalance.multipliedBy(ipxUSDPrice),
-      farmMetadata.coin0.decimals
+      farmMetadata.lpCoin.decimals
     );
   } else {
     // if coin zero has a price
     const coin0Price = prices[farmMetadata.coin0.type];
 
-    const lpCoinSupply = getPoolLPCoinSupply(pool);
+    const lpCoinSupply = pool.lpCoinSupply;
 
     if (!+lpCoinSupply) return 0;
 
     if (coin0Price) {
-      const coin0Reserve = new BigNumber(getPoolCoin0Balance(pool));
+      const coin0Reserve = pool.balanceX;
       const lpCoinPrice = coin0Reserve
         .multipliedBy(2)
         .multipliedBy(new BigNumber(coin0Price.price))
         .dividedBy(new BigNumber(lpCoinSupply));
 
       return FixedPointMath.toNumber(
-        lpCoinPrice.multipliedBy(getFarmBalance(farm)),
+        lpCoinPrice.multipliedBy(farm.totalStakedAmount),
         farmMetadata.coin0.decimals
       );
     }
@@ -137,14 +99,14 @@ export const calculateTVL = ({
     const coin1Price = prices[farmMetadata.coin1.type];
 
     if (coin1Price) {
-      const coin1Reserve = new BigNumber(getPoolCoin1Balance(pool));
+      const coin1Reserve = pool.balanceY;
       const lpCoinPrice = coin1Reserve
         .multipliedBy(2)
         .multipliedBy(new BigNumber(coin1Price.price))
         .dividedBy(new BigNumber(lpCoinSupply));
 
       return FixedPointMath.toNumber(
-        lpCoinPrice.multipliedBy(getFarmBalance(farm)),
+        lpCoinPrice.multipliedBy(farm.totalStakedAmount),
         farmMetadata.coin1.decimals
       );
     }
@@ -153,49 +115,40 @@ export const calculateTVL = ({
   return 0;
 };
 
-export const getFarm: GetFarm = async ({
-  objectId,
-  poolObjectId,
-  isSingleCoin,
-  account,
-  lpCoin,
-}) => {
-  const array = isSingleCoin
-    ? [provider.getObject(objectId)]
-    : [provider.getObject(objectId), provider.getObject(poolObjectId)];
+export const getFarms = async (
+  account: string | null,
+  typeArgs: ReadonlyArray<string>,
+  numOfFarms: number
+): Promise<ReadonlyArray<Farm>> => {
+  const safeAccount = account || AddressZero;
+  const tx = await new LocalTxnDataSerializer(
+    provider
+  ).serializeToBytesWithoutGasInfo(safeAccount, {
+    kind: 'moveCall',
+    data: {
+      function: 'get_farms',
+      gasBudget: 5000,
+      module: 'interface',
+      packageObjectId: COINS_PACKAGE_ID,
+      arguments: [
+        IPX_STORAGE,
+        IPX_ACCOUNT_STORAGE,
+        account,
+        numOfFarms.toString(),
+      ],
+      typeArguments: typeArgs,
+    } as MoveCallTransaction,
+  });
+  const data = await provider.devInspectTransaction(safeAccount, tx);
 
-  const farmArray = await Promise.all(array);
+  const farmsArray = bcsForVersion(await provider.getRpcApiVersion()).de(
+    getDevInspectType(data),
+    Uint8Array.from(getDevInspectData(data))
+  );
 
-  if (account)
-    return (
-      provider
-        .devInspectTransaction(account, {
-          kind: 'moveCall',
-          data: {
-            function: 'borrow_account',
-            gasBudget: 5000,
-            module: 'ipx',
-            packageObjectId: COINS_PACKAGE_ID,
-            typeArguments: [lpCoin.type],
-            arguments: [IPX_STORAGE, IPX_ACCOUNT_STORAGE, account],
-          } as MoveCallTransaction,
-        })
-        .then((x) => ({
-          objectId,
-          farmArray,
-          accountData: x,
-        }))
-        // User never deposited - so it will throw an error
-        .catch(() => ({
-          objectId,
-          farmArray,
-          accountData: null,
-        }))
-    );
-
-  return {
-    objectId,
-    farmArray,
-    accountData: null,
-  };
+  return farmsArray.map((elem: ReadonlyArray<BigInt>) => ({
+    allocationPoints: BigNumber(elem[0].toString()),
+    totalStakedAmount: BigNumber(elem[1].toString()),
+    accountBalance: BigNumber(elem[2].toString()),
+  }));
 };

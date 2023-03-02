@@ -1,0 +1,36 @@
+import { Network } from '@mysten/sui.js';
+
+import { COIN_TYPE } from '@/constants';
+
+export const FARM_TYPE_ARGS_EXTRA = [
+  COIN_TYPE[Network.DEVNET].IPX,
+  COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH,
+  COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX,
+  COIN_TYPE[Network.DEVNET].V_LP_BTC_ETH,
+  COIN_TYPE[Network.DEVNET].V_LP_BNB_ETH,
+  COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT,
+  COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC,
+  COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
+  COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
+];
+
+export const POOL_TYPE_ARGS_EXTRA = [
+  COIN_TYPE[Network.DEVNET].ETH,
+  COIN_TYPE[Network.DEVNET].IPX,
+  COIN_TYPE[Network.DEVNET].SUI,
+  COIN_TYPE[Network.DEVNET].ETH,
+  COIN_TYPE[Network.DEVNET].ETH,
+  COIN_TYPE[Network.DEVNET].IPX,
+  COIN_TYPE[Network.DEVNET].BTC,
+  COIN_TYPE[Network.DEVNET].ETH,
+  COIN_TYPE[Network.DEVNET].BNB,
+  COIN_TYPE[Network.DEVNET].ETH,
+  COIN_TYPE[Network.DEVNET].ETH,
+  COIN_TYPE[Network.DEVNET].USDT,
+  COIN_TYPE[Network.DEVNET].ETH,
+  COIN_TYPE[Network.DEVNET].USDC,
+  COIN_TYPE[Network.DEVNET].DAI,
+  COIN_TYPE[Network.DEVNET].ETH,
+  COIN_TYPE[Network.DEVNET].DAI,
+  COIN_TYPE[Network.DEVNET].ETH,
+];

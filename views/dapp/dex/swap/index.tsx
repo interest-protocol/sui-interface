@@ -34,6 +34,7 @@ const Swap: FC = () => {
     'sui-interest-swap-settings',
     { slippage: '1' }
   );
+  console.log(volatilePoolsMap);
 
   const setSettings = useCallback(
     ({ slippage: newSlippage }: ISwapSettingsForm) => {

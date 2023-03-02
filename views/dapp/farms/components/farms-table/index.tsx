@@ -116,7 +116,7 @@ const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
               <Link
                 href={{
                   pathname: Routes[RoutesEnum.FarmDetails],
-                  query: { objectId: farm.objectId },
+                  query: { type: farm.farmType },
                 }}
               >
                 <Button variant="primary" hover={{ bg: 'accentActive' }}>
@@ -160,7 +160,7 @@ const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
               loading ? (
                 <Skeleton key={v4()} />
               ) : (
-                formatMoney(FixedPointMath.toNumber(farm.stakingAmount))
+                formatMoney(FixedPointMath.toNumber(farm.accountBalance))
               ),
               loading || farm.apr.isEqualTo(BigNumber(-1)) ? (
                 <Skeleton key={v4()} />
@@ -305,7 +305,7 @@ const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
                 <Link
                   href={{
                     pathname: Routes[RoutesEnum.FarmDetails],
-                    query: { objectId: farm.objectId },
+                    query: { type: farm.farmType },
                   }}
                 >
                   <Button variant="primary" hover={{ bg: 'accentActive' }}>
@@ -322,7 +322,7 @@ const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
                 loading ? (
                   <Skeleton key={v4()} />
                 ) : (
-                  formatMoney(FixedPointMath.toNumber(farm.stakingAmount))
+                  formatMoney(FixedPointMath.toNumber(farm.accountBalance))
                 ),
                 loading || farm.apr.isEqualTo(BigNumber(-1)) ? (
                   <Skeleton key={v4()} />

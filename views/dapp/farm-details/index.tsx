@@ -3,18 +3,23 @@ import BigNumber from 'bignumber.js';
 import { FC } from 'react';
 
 import { Container, LoadingPage } from '@/components';
-import { COINS, FARMS, RoutesEnum } from '@/constants';
+import { COINS, RoutesEnum } from '@/constants';
 import {
   useGetCoinsPrices,
+  useGetFarms,
   useGetIPXStorage,
-  useLocalStorage,
+  useGetVolatilePools,
   useWeb3,
 } from '@/hooks';
 
 import { GoBack } from '../components';
 import ErrorView from '../components/error';
 import { Details, FarmOptions } from './components';
-import { useGetFarm, useGetPendingRewards } from './farm-details.hook';
+import {
+  FARM_TYPE_ARGS_EXTRA,
+  POOL_TYPE_ARGS_EXTRA,
+} from './farm-details.constants';
+import { useGetPendingRewards } from './farm-details.hook';
 import { FarmDetailsProps } from './farm-details.types';
 import { parseError, parseFarmData } from './farm-details.utils';
 
@@ -24,11 +29,6 @@ const FarmDetails: FC<FarmDetailsProps> = ({
   modalState,
   form,
 }) => {
-  const hasAccountManager = useLocalStorage<boolean>(
-    'sui-interest-farm-account',
-    false
-  );
-
   const coin0 = farmMetadata.coin0;
   const coin1 = farmMetadata.coin1;
 
@@ -41,28 +41,35 @@ const FarmDetails: FC<FarmDetailsProps> = ({
 
   const { data: ipxStorage, error: ipxStorageError } = useGetIPXStorage();
 
-  const { data, mutate, isLoading, error } = useGetFarm({
-    ...farmMetadata,
-    account,
-    config: { refreshInterval: 0 },
-  });
-
-  const {
-    data: ipxData,
-    isLoading: isLoadingIPXData,
-    error: ipxDataError,
-  } = useGetFarm({
-    // ETH_IPX POOL
-    ...FARMS[2],
-    account,
-    config: { refreshInterval: 0 },
-  });
-
   const {
     error: pendingRewardsError,
     mutate: mutatePendingRewards,
     data: pendingRewards,
   } = useGetPendingRewards(account, farmMetadata, { refreshInterval: 0 });
+
+  const {
+    data: farms,
+    mutate: mutateFarms,
+    error: farmsError,
+    isLoading: farmsLoading,
+  } = useGetFarms(
+    account,
+    [farmMetadata.farmType].concat(FARM_TYPE_ARGS_EXTRA),
+    1
+  );
+
+  const {
+    data: pools,
+    mutate: mutatePools,
+    error: poolsError,
+    isLoading: poolsLoading,
+  } = useGetVolatilePools(
+    account,
+    [farmMetadata.coin0.type, farmMetadata.coin1.type].concat(
+      POOL_TYPE_ARGS_EXTRA
+    ),
+    2
+  );
 
   const coinsPrices = useGetCoinsPrices([
     coin0.type,
@@ -70,22 +77,22 @@ const FarmDetails: FC<FarmDetailsProps> = ({
     COINS[Network.DEVNET].ETH.type,
   ]);
 
-  if (isLoading) return <LoadingPage />;
+  if (farmsLoading) return <LoadingPage />;
 
   if (
-    error ||
+    farmsError ||
     coinsPrices.error ||
     ipxStorageError ||
     web3Error ||
-    ipxDataError ||
-    pendingRewardsError
+    pendingRewardsError ||
+    poolsError
   )
     return (
       <ErrorView
         message={parseError({
-          error,
+          farmsError,
           coinsPricesError: coinsPrices.error,
-          ipxDataError,
+          poolsError,
           web3Error,
           ipxStorageError,
           pendingRewardsError,
@@ -94,10 +101,10 @@ const FarmDetails: FC<FarmDetailsProps> = ({
     );
 
   const parsedData = parseFarmData({
-    data,
+    farms,
     farmMetadata,
     coinsMap,
-    ipxPool: ipxData?.farmArray.length ? ipxData.farmArray[1] : undefined,
+    pools,
     prices: coinsPrices.data,
     ipxStorage,
     pendingRewards: new BigNumber(pendingRewards),
@@ -109,9 +116,12 @@ const FarmDetails: FC<FarmDetailsProps> = ({
       <Details farm={parsedData} />
       <FarmOptions
         farm={parsedData}
-        hasAccountManager={hasAccountManager}
         refetch={async () => {
-          await Promise.all([mutatePendingRewards(), mutate()]);
+          await Promise.all([
+            mutatePendingRewards(),
+            mutateFarms(),
+            mutatePools(),
+          ]);
         }}
         modalState={modalState}
         setModalState={setModalState}

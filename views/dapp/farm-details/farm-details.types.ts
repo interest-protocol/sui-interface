@@ -1,8 +1,6 @@
-import { GetObjectDataResponse } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { Dispatch, SetStateAction } from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { SWRConfiguration } from 'swr';
 
 import {
   CoinsMap,
@@ -10,7 +8,8 @@ import {
 } from '@/components/web3-manager/web3-manager.types';
 import { FarmMetadataType, StakeState } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
-import { GetFarmReturn } from '@/utils/farms/farms.types';
+import { Farm } from '@/utils/farms/farms.types';
+import { Pool } from '@/utils/pools/pools.types';
 
 export interface ModalState {
   isOpen: boolean;
@@ -33,19 +32,14 @@ export interface ModalState {
   state: StakeState;
 }
 
-export interface UseGetFarmArgs extends FarmMetadataType {
-  account: string | null;
-  config?: SWRConfiguration;
-}
-
 export interface ParseFarmDataArgs {
   prices: CoinPriceRecord;
-  data: GetFarmReturn | undefined;
+  farms: ReadonlyArray<Farm> | undefined;
   ipxStorage: IPXStorage;
   coinsMap: CoinsMap;
   farmMetadata: FarmMetadataType;
   pendingRewards: BigNumber;
-  ipxPool: GetObjectDataResponse | undefined;
+  pools: ReadonlyArray<Pool> | undefined;
 }
 
 export interface FarmDetailsData extends FarmMetadataType {
@@ -57,21 +51,22 @@ export interface FarmDetailsData extends FarmMetadataType {
   lpCoinData: Web3ManagerSuiObject;
   lpCoinPrice: number;
   totalAllocation: string;
+  accountBalance: BigNumber;
 }
 
 export interface CalculateLPCoinPriceArgs {
   prices: CoinPriceRecord;
-  pool: GetObjectDataResponse;
+  pool: Pool;
   farmMetadata: FarmMetadataType;
 }
 
 export type ParseFarmData = (args: ParseFarmDataArgs) => FarmDetailsData;
 
 export interface ParseErrorArgs {
-  error: unknown;
+  farmsError: unknown;
   coinsPricesError: unknown;
   ipxStorageError: unknown;
   web3Error: unknown;
-  ipxDataError: unknown;
+  poolsError: unknown;
   pendingRewardsError: unknown;
 }

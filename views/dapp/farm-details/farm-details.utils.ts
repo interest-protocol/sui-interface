@@ -1,17 +1,12 @@
 import BigNumber from 'bignumber.js';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
-import { FARMS } from '@/constants';
-import { FixedPointMath } from '@/sdk';
+import { FixedPointMath, TOKEN_SYMBOL } from '@/sdk';
 import { ZERO_BIG_NUMBER } from '@/utils';
 import {
   calculateAPR,
   calculateIPXUSDPrice,
   calculateTVL,
-  getAllocationPoints,
-  getPoolCoin0Balance,
-  getPoolCoin1Balance,
-  getPoolLPCoinSupply,
 } from '@/utils/farms';
 
 import {
@@ -20,8 +15,21 @@ import {
   ParseFarmData,
 } from './farm-details.types';
 
+const DEFAULT_COIN_DATA = {
+  decimals: 0,
+  symbol: TOKEN_SYMBOL.SUI,
+  type: '',
+};
+
 const DEFAULT_FARM_DATA = {
-  ...FARMS[0],
+  farmType: '',
+  lpCoin: DEFAULT_COIN_DATA,
+  coin0: DEFAULT_COIN_DATA,
+  coin1: DEFAULT_COIN_DATA,
+  isSingleCoin: false,
+  id: 0,
+  isLive: true,
+  stable: false,
   apr: ZERO_BIG_NUMBER,
   pendingRewards: ZERO_BIG_NUMBER,
   tvl: 0,
@@ -37,6 +45,8 @@ const DEFAULT_FARM_DATA = {
   } as Web3ManagerSuiObject,
   lpCoinPrice: 0,
   totalAllocation: '0',
+  accountBalance: ZERO_BIG_NUMBER,
+  poolObjectId: '',
 };
 
 const calculateLPCoinPrice = ({
@@ -45,12 +55,12 @@ const calculateLPCoinPrice = ({
   farmMetadata,
 }: CalculateLPCoinPriceArgs) => {
   const coin0Price = prices[farmMetadata.coin0.type];
-  const lpCoinSupply = getPoolLPCoinSupply(pool);
+  const lpCoinSupply = pool.lpCoinSupply;
 
   if (!lpCoinSupply) return 0;
 
   if (coin0Price) {
-    const coin0Balance = getPoolCoin0Balance(pool);
+    const coin0Balance = pool.balanceX;
     const balanceInUSD = BigNumber(coin0Balance)
       .multipliedBy(coin0Price.price)
       .multipliedBy(2);
@@ -64,7 +74,7 @@ const calculateLPCoinPrice = ({
   const coin1Price = prices[farmMetadata.coin1.type];
 
   if (coin1Price) {
-    const coin1Balance = getPoolCoin1Balance(pool);
+    const coin1Balance = pool.balanceY;
     const balanceInUSD = BigNumber(coin1Balance)
       .multipliedBy(coin1Price.price)
       .multipliedBy(2);
@@ -78,21 +88,22 @@ const calculateLPCoinPrice = ({
 };
 
 export const parseFarmData: ParseFarmData = ({
-  data,
+  farms,
   farmMetadata,
   ipxStorage,
   prices,
   coinsMap,
-  ipxPool,
+  pools,
   pendingRewards,
 }) => {
-  if (!data || !ipxPool) return DEFAULT_FARM_DATA;
+  if (!pools || !farms) return DEFAULT_FARM_DATA;
 
-  const farm = data.farmArray[0];
-  const pool = data.farmArray[farmMetadata.isSingleCoin ? 0 : 1];
+  const farm = farms[0];
+  const pool = pools[0];
+  const ipxEthPool = pools[1];
 
   const ipxUSDPrice = calculateIPXUSDPrice({
-    pool: ipxPool,
+    pool: ipxEthPool,
     prices,
   });
 
@@ -104,9 +115,9 @@ export const parseFarmData: ParseFarmData = ({
     farmMetadata,
   });
 
-  const allocationPoints = new BigNumber(getAllocationPoints(farm));
+  const allocationPoints = new BigNumber(ipxStorage.totalAllocation);
   // need the account logic
-  const totalStakedAmount = new BigNumber(0);
+  const totalStakedAmount = farm.totalStakedAmount;
   const lpCoinData =
     coinsMap[farmMetadata.lpCoin.type] || DEFAULT_FARM_DATA.lpCoinData;
   const lpCoinPrice = farmMetadata.isSingleCoin
@@ -128,23 +139,24 @@ export const parseFarmData: ParseFarmData = ({
     lpCoinData,
     lpCoinPrice,
     totalAllocation: ipxStorage.totalAllocation,
+    accountBalance: farm.accountBalance,
   };
 };
 
 // need to translate
 export const parseError = ({
-  error,
+  farmsError,
   coinsPricesError,
   ipxStorageError,
   web3Error,
-  ipxDataError,
+  poolsError,
   pendingRewardsError,
 }: ParseErrorArgs) => {
-  if (error) return 'Failed to fetch the farm data';
+  if (farmsError) return 'Failed to fetch the farm data';
   if (coinsPricesError) return 'Failed to fetch the coin prices';
   if (ipxStorageError) return 'Failed to fetch the IPXStorage object';
   if (web3Error) return 'Failed to fetch coin balances';
-  if (ipxDataError) return 'Failed to fetch Sui-ETH pool data';
+  if (poolsError) return 'Failed to fetch pools';
   if (pendingRewardsError) return 'Failed to fetch the pending rewards';
 
   return 'error';

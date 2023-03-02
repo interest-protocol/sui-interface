@@ -1,4 +1,4 @@
-import { Control, UseFormGetValues } from 'react-hook-form';
+import { UseFormGetValues, UseFormReset } from 'react-hook-form';
 
 import { FarmDetailsData } from '../../farm-details.types';
 
@@ -10,7 +10,7 @@ export interface HarvestButtonProps {
 export interface ModalButtonProps {
   farm: FarmDetailsData;
   refetch: () => Promise<void>;
-  setHasAccount: (arg: boolean) => void;
   getValues: UseFormGetValues<{ amount: string }>;
   isStake: boolean;
+  resetForm: UseFormReset<{ amount: string }>;
 }
