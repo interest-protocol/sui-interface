@@ -70,6 +70,6 @@ export interface ParseFarmDataArgs {
 }
 
 export interface ParseFarmDataReturn {
-  farms: Array<SafeFarmData>;
+  farms: ReadonlyArray<SafeFarmData>;
   totalAllocationPoints: BigNumber;
 }
