@@ -54,12 +54,6 @@ export interface FarmDetailsData extends FarmMetadataType {
   accountBalance: BigNumber;
 }
 
-export interface CalculateLPCoinPriceArgs {
-  prices: CoinPriceRecord;
-  pool: Pool;
-  farmMetadata: FarmMetadataType;
-}
-
 export type ParseFarmData = (args: ParseFarmDataArgs) => FarmDetailsData;
 
 export interface ParseErrorArgs {

@@ -17,6 +17,7 @@ import {
   ZERO_BIG_NUMBER,
 } from '@/utils';
 
+import { calculateLPCoinPrice } from '../pools';
 import {
   CalculateAPRArgs,
   CalculateIPXUSDPriceArgs,
@@ -30,19 +31,15 @@ export const calculateAPR = ({
   ipxUSDPrice,
   tvl,
 }: CalculateAPRArgs) => {
-  if (!+ipxStorage.totalAllocation) return ZERO_BIG_NUMBER;
-  const percentageOfAllocation = allocationPoints.div(
-    ipxStorage.totalAllocation
-  );
-  // IPX has 9 decimals
-  const profitInUSD = FixedPointMath.toNumber(
-    percentageOfAllocation
-      .multipliedBy(ipxStorage.ipxPerEpoch)
-      .multipliedBy(EPOCHS_PER_YEAR)
-      .multipliedBy(ipxUSDPrice)
-  );
+  if (allocationPoints.isZero()) return ZERO_BIG_NUMBER;
 
-  return new BigNumber(profitInUSD).div(tvl || 1);
+  // IPX has 9 decimals
+  const profitInUSD = allocationPoints
+    .multipliedBy(BigNumber(ipxStorage.ipxPerEpoch).div(BigNumber(10).pow(9)))
+    .multipliedBy(EPOCHS_PER_YEAR)
+    .multipliedBy(ipxUSDPrice);
+
+  return profitInUSD.div(tvl || 1);
 };
 
 export const calculateIPXUSDPrice = ({
@@ -56,6 +53,7 @@ export const calculateIPXUSDPrice = ({
   const ipxInEth = ethBalance.div(ipxBalance).multipliedBy(1e9);
   const ethType = COIN_TYPE[Network.DEVNET].ETH;
 
+  // TODO take into account eth decimals upon deployment
   return ipxInEth.multipliedBy(prices[ethType]?.price ?? 0).toNumber();
 };
 
@@ -75,44 +73,19 @@ export const calculateTVL = ({
       farmMetadata.lpCoin.decimals
     );
   } else {
-    // if coin zero has a price
-    const coin0Price = prices[farmMetadata.coin0.type];
-
     const lpCoinSupply = pool.lpCoinSupply;
 
     if (lpCoinSupply.isZero()) return 0;
 
-    if (coin0Price?.price) {
-      const coin0Reserve = pool.balanceX;
-      const lpCoinPrice = coin0Reserve
-        .multipliedBy(2)
-        .multipliedBy(new BigNumber(coin0Price.price))
-        .dividedBy(new BigNumber(lpCoinSupply));
+    const lpCoinPrice = calculateLPCoinPrice(
+      prices,
+      farmMetadata.coin0,
+      farmMetadata.coin1,
+      pool
+    );
 
-      return FixedPointMath.toNumber(
-        lpCoinPrice.multipliedBy(farm.totalStakedAmount),
-        farmMetadata.coin0.decimals
-      );
-    }
-
-    // if coin one has a price
-    const coin1Price = prices[farmMetadata.coin1.type];
-
-    if (coin1Price?.price) {
-      const coin1Reserve = pool.balanceY;
-      const lpCoinPrice = coin1Reserve
-        .multipliedBy(2)
-        .multipliedBy(new BigNumber(coin1Price.price))
-        .dividedBy(new BigNumber(lpCoinSupply));
-
-      return FixedPointMath.toNumber(
-        lpCoinPrice.multipliedBy(farm.totalStakedAmount),
-        farmMetadata.coin1.decimals
-      );
-    }
+    return farm.totalStakedAmount.multipliedBy(lpCoinPrice).toNumber();
   }
-
-  return 0;
 };
 
 export const getFarms = async (

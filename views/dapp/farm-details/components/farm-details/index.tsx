@@ -104,11 +104,7 @@ const Details: FC<DetailsProps> = ({ farm }) => {
           </Typography>
           {farm.allocationPoints.isZero()
             ? '0%'
-            : `${farm.allocationPoints
-                .dividedBy(farm.totalAllocation)
-                .multipliedBy(100)
-                .decimalPlaces(2)
-                .toString()}%`}
+            : `${farm.allocationPoints.decimalPlaces(3).toNumber() * 100}%`}
         </Box>
       </Box>
     </Box>

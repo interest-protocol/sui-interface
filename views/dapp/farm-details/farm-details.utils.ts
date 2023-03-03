@@ -1,19 +1,16 @@
 import BigNumber from 'bignumber.js';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
-import { FixedPointMath, TOKEN_SYMBOL } from '@/sdk';
-import { ZERO_BIG_NUMBER } from '@/utils';
+import { TOKEN_SYMBOL } from '@/sdk';
 import {
   calculateAPR,
   calculateIPXUSDPrice,
+  calculateLPCoinPrice,
   calculateTVL,
-} from '@/utils/farms';
+  ZERO_BIG_NUMBER,
+} from '@/utils';
 
-import {
-  CalculateLPCoinPriceArgs,
-  ParseErrorArgs,
-  ParseFarmData,
-} from './farm-details.types';
+import { ParseErrorArgs, ParseFarmData } from './farm-details.types';
 
 const DEFAULT_COIN_DATA = {
   decimals: 0,
@@ -49,44 +46,6 @@ const DEFAULT_FARM_DATA = {
   poolObjectId: '',
 };
 
-const calculateLPCoinPrice = ({
-  prices,
-  pool,
-  farmMetadata,
-}: CalculateLPCoinPriceArgs) => {
-  const coin0Price = prices[farmMetadata.coin0.type];
-  const lpCoinSupply = pool.lpCoinSupply;
-
-  if (lpCoinSupply.isZero()) return 0;
-
-  if (coin0Price?.price) {
-    const coin0Balance = pool.balanceX;
-    const balanceInUSD = BigNumber(coin0Balance)
-      .multipliedBy(coin0Price.price)
-      .multipliedBy(2);
-
-    return FixedPointMath.toNumber(
-      balanceInUSD.div(lpCoinSupply),
-      farmMetadata.coin0.decimals
-    );
-  }
-
-  const coin1Price = prices[farmMetadata.coin1.type];
-
-  if (coin1Price?.price) {
-    const coin1Balance = pool.balanceY;
-    const balanceInUSD = BigNumber(coin1Balance)
-      .multipliedBy(coin1Price.price)
-      .multipliedBy(2);
-    return FixedPointMath.toNumber(
-      balanceInUSD.div(lpCoinSupply),
-      farmMetadata.coin1.decimals
-    );
-  }
-
-  return 0;
-};
-
 export const parseFarmData: ParseFarmData = ({
   farms,
   farmMetadata,
@@ -115,7 +74,10 @@ export const parseFarmData: ParseFarmData = ({
     farmMetadata,
   });
 
-  const allocationPoints = new BigNumber(ipxStorage.totalAllocation);
+  const allocationPoints = new BigNumber(
+    farm.allocationPoints.div(ipxStorage.totalAllocation)
+  );
+
   // need the account logic
   const totalStakedAmount = farm.totalStakedAmount;
   const lpCoinData =
@@ -123,7 +85,12 @@ export const parseFarmData: ParseFarmData = ({
 
   const lpCoinPrice = farmMetadata.isSingleCoin
     ? ipxUSDPrice
-    : calculateLPCoinPrice({ prices, pool, farmMetadata });
+    : calculateLPCoinPrice(
+        prices,
+        farmMetadata.coin0,
+        farmMetadata.coin1,
+        pool
+      );
 
   return {
     ...farmMetadata,

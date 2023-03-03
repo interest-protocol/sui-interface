@@ -169,7 +169,7 @@ export const parseFarmData = ({
     ipxUSDPrice,
     ipxStorage,
     tvl,
-    allocationPoints,
+    allocationPoints: allocationPoints.div(ipxStorage.totalAllocation),
   });
 
   return {
