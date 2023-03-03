@@ -25,7 +25,12 @@ export const useGetCoinsPrices = (
       .map((coinType) => COIN_MARKET_CAP_ID_RECORD[Network.DEVNET][coinType])
       .filter((x) => x !== -1)}`,
     fetcher,
-    config
+    {
+      revalidateOnMount: true,
+      revalidateOnFocus: false,
+      refreshInterval: 0,
+      ...config,
+    }
   );
 
   const data = coinTypes.reduce(
