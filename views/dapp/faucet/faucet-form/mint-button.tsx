@@ -10,7 +10,12 @@ import { COIN_TYPE, FAUCET_OBJECT_ID, FAUCET_PACKAGE_ID } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
-import { capitalize, provider, showToast, showTXSuccessToast } from '@/utils';
+import {
+  capitalize,
+  mystenLabsProvider,
+  showToast,
+  showTXSuccessToast,
+} from '@/utils';
 
 import { MintButtonProps } from './faucet-form.types';
 
@@ -37,7 +42,7 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
 
       if (type === COIN_TYPE[Network.DEVNET].SUI) {
         if (!account) throw new Error(t('error.accountNotFound'));
-        return await provider.requestSuiFromFaucet(account);
+        return await mystenLabsProvider.requestSuiFromFaucet(account);
       }
 
       const tx = await signAndExecuteTransaction({

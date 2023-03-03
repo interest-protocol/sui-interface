@@ -6,6 +6,8 @@ export const provider = new JsonRpcProvider(
   process.env.NEXT_PUBLIC_SUI_RPC_URL || Network.DEVNET
 );
 
+export const mystenLabsProvider = new JsonRpcProvider(Network.DEVNET);
+
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export const getDevInspectType = (x: DevInspectResults): string =>
