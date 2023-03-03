@@ -160,7 +160,12 @@ const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
               loading ? (
                 <Skeleton key={v4()} />
               ) : (
-                formatMoney(FixedPointMath.toNumber(farm.accountBalance))
+                formatMoney(
+                  FixedPointMath.toNumber(
+                    farm.accountBalance,
+                    farm.lpCoin.decimals
+                  )
+                )
               ),
               loading || farm.apr.isEqualTo(BigNumber(-1)) ? (
                 <Skeleton key={v4()} />

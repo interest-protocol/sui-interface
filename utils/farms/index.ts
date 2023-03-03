@@ -80,9 +80,9 @@ export const calculateTVL = ({
 
     const lpCoinSupply = pool.lpCoinSupply;
 
-    if (!+lpCoinSupply) return 0;
+    if (lpCoinSupply.isZero()) return 0;
 
-    if (coin0Price) {
+    if (coin0Price?.price) {
       const coin0Reserve = pool.balanceX;
       const lpCoinPrice = coin0Reserve
         .multipliedBy(2)
@@ -98,7 +98,7 @@ export const calculateTVL = ({
     // if coin one has a price
     const coin1Price = prices[farmMetadata.coin1.type];
 
-    if (coin1Price) {
+    if (coin1Price?.price) {
       const coin1Reserve = pool.balanceY;
       const lpCoinPrice = coin1Reserve
         .multipliedBy(2)
@@ -133,7 +133,7 @@ export const getFarms = async (
       arguments: [
         IPX_STORAGE,
         IPX_ACCOUNT_STORAGE,
-        account,
+        safeAccount,
         numOfFarms.toString(),
       ],
       typeArguments: typeArgs,

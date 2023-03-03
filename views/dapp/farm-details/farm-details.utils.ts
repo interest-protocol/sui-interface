@@ -57,9 +57,9 @@ const calculateLPCoinPrice = ({
   const coin0Price = prices[farmMetadata.coin0.type];
   const lpCoinSupply = pool.lpCoinSupply;
 
-  if (!lpCoinSupply) return 0;
+  if (lpCoinSupply.isZero()) return 0;
 
-  if (coin0Price) {
+  if (coin0Price?.price) {
     const coin0Balance = pool.balanceX;
     const balanceInUSD = BigNumber(coin0Balance)
       .multipliedBy(coin0Price.price)
@@ -73,7 +73,7 @@ const calculateLPCoinPrice = ({
 
   const coin1Price = prices[farmMetadata.coin1.type];
 
-  if (coin1Price) {
+  if (coin1Price?.price) {
     const coin1Balance = pool.balanceY;
     const balanceInUSD = BigNumber(coin1Balance)
       .multipliedBy(coin1Price.price)
@@ -120,6 +120,7 @@ export const parseFarmData: ParseFarmData = ({
   const totalStakedAmount = farm.totalStakedAmount;
   const lpCoinData =
     coinsMap[farmMetadata.lpCoin.type] || DEFAULT_FARM_DATA.lpCoinData;
+
   const lpCoinPrice = farmMetadata.isSingleCoin
     ? ipxUSDPrice
     : calculateLPCoinPrice({ prices, pool, farmMetadata });

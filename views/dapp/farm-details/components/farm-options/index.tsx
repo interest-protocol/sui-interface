@@ -102,12 +102,12 @@ const FarmOptions: FC<FarmOptionsProps> = ({
         title={t('farmsDetails.secondCardTitle')}
         amountUSD={formatDollars(
           FixedPointMath.toNumber(
-            farm.totalStakedAmount.multipliedBy(farm.lpCoinPrice),
+            farm.accountBalance.multipliedBy(farm.lpCoinPrice),
             farm.lpCoin.decimals
           )
         )}
         amount={`${formatMoney(
-          FixedPointMath.toNumber(farm.totalStakedAmount, farm.lpCoin.decimals)
+          FixedPointMath.toNumber(farm.accountBalance, farm.lpCoin.decimals)
         )} ${farmSymbol}`}
         button={
           <Box
@@ -143,14 +143,10 @@ const FarmOptions: FC<FarmOptionsProps> = ({
               variant="primary"
               disabled={farm.totalStakedAmount.isZero()}
               onClick={() => handleChangeModal(StakeState.Unstake)}
-              bg={farm.totalStakedAmount.isZero() ? 'disabled' : 'error'}
-              cursor={
-                farm.totalStakedAmount.isZero() ? 'not-allowed' : 'pointer'
-              }
+              bg={farm.accountBalance.isZero() ? 'disabled' : 'error'}
+              cursor={farm.accountBalance.isZero() ? 'not-allowed' : 'pointer'}
               hover={{
-                bg: farm.totalStakedAmount.isZero()
-                  ? 'disabled'
-                  : 'errorActive',
+                bg: farm.accountBalance.isZero() ? 'disabled' : 'errorActive',
               }}
             >
               -
