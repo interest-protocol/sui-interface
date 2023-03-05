@@ -1,6 +1,8 @@
 import { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
 import { withObjectIdGuard } from '@/HOC';
@@ -24,13 +26,46 @@ interface DEXPoolDetailsPageProps extends NextPageDefaultProps {
 const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
   objectId,
   pageTitle,
-}) => (
-  <Web3Manager>
-    <Layout pageTitle={pageTitle}>
-      <DEXPoolDetailsView objectId={objectId} />
-    </Layout>
-  </Web3Manager>
-);
+}) => {
+  const [loadingRemove, setLoadingRemove] = useState(false);
+  const [loadingAdd, setLoadingAdd] = useState(false);
+
+  const formAdd = useForm({
+    defaultValues: {
+      token0Amount: '0.0',
+      token1Amount: '0.0',
+      error: '',
+      token0InputLocked: false,
+      token1InputLocked: false,
+    },
+  });
+
+  const formRemove = useForm({
+    defaultValues: {
+      lpAmount: '0.0',
+    },
+  });
+
+  return (
+    <Web3Manager>
+      <Layout pageTitle={pageTitle}>
+        <DEXPoolDetailsView
+          objectId={objectId}
+          formAddLiquidity={formAdd}
+          formRemove={formRemove}
+          loadingRemoveLiquidityState={{
+            loading: loadingRemove,
+            setLoading: setLoadingRemove,
+          }}
+          loadingAddLiquidityState={{
+            loading: loadingAdd,
+            setLoading: setLoadingAdd,
+          }}
+        />
+      </Layout>
+    </Web3Manager>
+  );
+};
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, dexPoolPairMessages] = await Promise.all([

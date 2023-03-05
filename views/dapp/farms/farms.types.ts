@@ -1,5 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { Dispatch, SetStateAction } from 'react';
+import {
+  Control,
+  UseFormRegister,
+  UseFormReturn,
+  UseFormSetValue,
+} from 'react-hook-form';
 
 import { FarmMetadataType } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
@@ -72,4 +78,12 @@ export interface ParseFarmDataArgs {
 export interface ParseFarmDataReturn {
   farms: ReadonlyArray<SafeFarmData>;
   totalAllocationPoints: BigNumber;
+}
+
+export interface FarmsProps {
+  form: UseFormReturn<IFarmsForm>;
+  desktopState: {
+    isDesktop: boolean;
+    setDesktop: Dispatch<SetStateAction<boolean>>;
+  };
 }

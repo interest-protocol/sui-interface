@@ -5,13 +5,15 @@ import {
   Control,
   UseFormGetValues,
   UseFormRegister,
+  UseFormReturn,
   UseFormSetValue,
 } from 'react-hook-form';
 import { KeyedMutator } from 'swr';
 
 import { Web3ManagerState } from '@/components/web3-manager/web3-manager.types';
 
-import { SwapFormTokenData } from '../dex.types';
+import { SwapFormTokenData, SwapTokenModalMetadata } from '../dex.types';
+import { ISwapSettingsForm } from './settings/settings.types';
 
 export interface ISwapForm {
   tokenIn: SwapFormTokenData;
@@ -58,6 +60,12 @@ export interface SwapManagerWrapperProps {
   coinsMap: Web3ManagerState['coinsMap'];
   onSelectCurrency: (data: OnSelectCurrencyData) => void;
   setTokenOutIsOpenModal: Dispatch<SetStateAction<boolean>>;
+  searchingState: {
+    isSearching: boolean;
+    setIsSearching: Dispatch<SetStateAction<boolean>>;
+  };
+  formSearch: UseFormReturn<{ search: string }>;
+  searchTokenModalState: SwapTokenModalMetadata | null;
 }
 
 export interface SwapManagerProps {
@@ -80,6 +88,12 @@ export interface SwapManagerProps {
   tokenIn: SwapFormTokenData;
   hasNoMarket: boolean;
   setError: Dispatch<SetStateAction<boolean>>;
+  searchingState: {
+    isSearching: boolean;
+    setIsSearching: Dispatch<SetStateAction<boolean>>;
+  };
+  formSearch: UseFormReturn<{ search: string }>;
+  searchTokenModalState: SwapTokenModalMetadata | null;
 }
 
 export interface GetSwapPayload {
@@ -95,4 +109,33 @@ export interface LocalSwapSettings {
 
 export interface SwapPathProps {
   markets: ReadonlyArray<SwapPathObject>;
+}
+
+export interface SwapProps {
+  setLocalSettings: (x: LocalSwapSettings) => void;
+  localSettings: LocalSwapSettings;
+  formSettingsDropdown: UseFormReturn<ISwapSettingsForm>;
+  formSwap: UseFormReturn<ISwapForm>;
+  autoButtonState: {
+    isAuto: boolean;
+    setAuto: Dispatch<SetStateAction<boolean>>;
+  };
+  openModalState: {
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+  };
+  tokenInModalState: {
+    isTokenInOpenModal: boolean;
+    setTokenInIsOpenModal: Dispatch<SetStateAction<boolean>>;
+  };
+  tokenOutModalState: {
+    isTokenOutOpenModal: boolean;
+    setTokenOutIsOpenModal: Dispatch<SetStateAction<boolean>>;
+  };
+  searchingState: {
+    isSearching: boolean;
+    setIsSearching: Dispatch<SetStateAction<boolean>>;
+  };
+  formSearch: UseFormReturn<{ search: string }>;
+  searchTokenModalState: SwapTokenModalMetadata | null;
 }

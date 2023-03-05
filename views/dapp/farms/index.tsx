@@ -1,7 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { isEmpty } from 'ramda';
-import { FC, useCallback, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FC, useCallback } from 'react';
 
 import { Container } from '@/components';
 import { Box, InfiniteScroll, Typography } from '@/elements';
@@ -25,30 +24,20 @@ import {
   FILLED_FARM_TYPE_ARGS,
   FILLED_POOL_TYPE_ARGS,
 } from './farms.constants';
-import { FarmSortByFilter, FarmTypeFilter, IFarmsForm } from './farms.types';
+import { FarmsProps } from './farms.types';
 import { parseData, parseError } from './farms.utils';
 
-const Farms: FC = () => {
+const Farms: FC<FarmsProps> = ({ form, desktopState }) => {
   const t = useTranslations();
-  const { register, setValue, control } = useForm<IFarmsForm>({
-    defaultValues: {
-      search: '',
-      sortBy: FarmSortByFilter.Default,
-      typeFilter: FarmTypeFilter.All,
-      onlyFinished: false,
-      onlyStaked: false,
-    },
-  });
 
   const { account } = useWeb3();
   const { data: ipxStorage, error: ipxStorageError } = useGetIPXStorage();
-  const [isDesktop, setDesktop] = useState(false);
 
   const prices = useGetCoinsPrices(COIN_PRICES);
 
   const handleSetDesktop = useCallback(() => {
     const mediaIsDesktop = window.matchMedia('(min-width: 64em)').matches;
-    setDesktop(mediaIsDesktop);
+    desktopState.setDesktop(mediaIsDesktop);
   }, []);
 
   const { error: errorFarms, data: farms } = useGetFarms(
@@ -112,9 +101,9 @@ const Farms: FC = () => {
       >
         <Box>
           <FarmsFilters
-            control={control}
-            register={register}
-            setValue={setValue}
+            control={form.control}
+            register={form.register}
+            setValue={form.setValue}
           />
           <InfiniteScroll
             overflow="visible !important"
@@ -135,9 +124,9 @@ const Farms: FC = () => {
           >
             <Box>
               <FarmsTable
-                control={control}
+                control={form.control}
                 data={parsedData}
-                isDesktop={isDesktop}
+                isDesktop={desktopState.isDesktop}
               />
             </Box>
           </InfiniteScroll>

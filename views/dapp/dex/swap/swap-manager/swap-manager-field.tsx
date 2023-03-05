@@ -34,6 +34,9 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   tokenIn,
   hasNoMarket,
   setError,
+  searchingState,
+  formSearch,
+  searchTokenModalState,
 }) => {
   const tokenOutValue = useWatch({ control, name: 'tokenOut.value' });
 
@@ -120,6 +123,9 @@ const SwapManagerField: FC<SwapManagerProps> = ({
           onSelectCurrency={onSelectCurrency}
           symbol={getValues('tokenOut.symbol')}
           setIsModalOpen={setTokenOutIsOpenModal}
+          searchingState={searchingState}
+          formSearch={formSearch}
+          searchTokenModalState={searchTokenModalState}
         />
       }
       isLarge={true}
