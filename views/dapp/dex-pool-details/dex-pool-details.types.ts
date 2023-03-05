@@ -7,7 +7,7 @@ import { IRemoveLiquidityForm } from './components/remove-liquidity-card/remove-
 export interface DEXPoolDetailsViewProps {
   objectId: string;
   formAddLiquidity: UseFormReturn<IAddLiquidityForm>;
-  formRemove: UseFormReturn<IRemoveLiquidityForm>;
+  formRemoveLiquidity: UseFormReturn<IRemoveLiquidityForm>;
   loadingAddLiquidityState: {
     loading: boolean;
     setLoading: Dispatch<SetStateAction<boolean>>;

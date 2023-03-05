@@ -25,7 +25,7 @@ import { DEXPoolDetailsViewProps } from './dex-pool-details.types';
 const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
   objectId,
   formAddLiquidity,
-  formRemove,
+  formRemoveLiquidity,
   loadingAddLiquidityState,
   loadingRemoveLiquidityState,
 }) => {
@@ -209,7 +209,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
           refetch={async () => {
             await Promise.all([updateVolatilePools, mutate]);
           }}
-          formRemove={formRemove}
+          formRemoveLiquidity={formRemoveLiquidity}
           loadingRemoveLiquidityState={loadingRemoveLiquidityState}
         />
       </Box>

@@ -13,13 +13,13 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
   lpToken,
   refetch,
   isStable,
-  formRemove,
+  formRemoveLiquidity,
   loadingRemoveLiquidityState,
 }) => {
   const t = useTranslations();
 
-  const resetLpAmount = () => formRemove.setValue('lpAmount', '0');
-  const getLpAmount = () => formRemove.getValues('lpAmount');
+  const resetLpAmount = () => formRemoveLiquidity.setValue('lpAmount', '0');
+  const getLpAmount = () => formRemoveLiquidity.getValues('lpAmount');
   const lpBalance = getSafeTotalBalance(lpToken);
 
   return (
@@ -36,8 +36,8 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
       </Box>
       <InputBalance
         name="lpAmount"
-        register={formRemove.register}
-        setValue={formRemove.setValue}
+        register={formRemoveLiquidity.register}
+        setValue={formRemoveLiquidity.setValue}
         balance={lpBalance.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
         max={lpBalance.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
         disabled={lpBalance.isZero()}
@@ -58,7 +58,7 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
         lpToken={lpToken}
         refetch={refetch}
         isStable={isStable}
-        lpAmountControl={formRemove.control}
+        lpAmountControl={formRemoveLiquidity.control}
         getLpAmount={getLpAmount}
         resetLpAmount={resetLpAmount}
         loadingRemoveLiquidityState={loadingRemoveLiquidityState}

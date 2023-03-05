@@ -16,7 +16,7 @@ export interface RemoveLiquidityCardProps {
   tokens: TokenData[];
   refetch: () => Promise<void>;
   lpToken: Web3ManagerSuiObject;
-  formRemove: UseFormReturn<IRemoveLiquidityForm>;
+  formRemoveLiquidity: UseFormReturn<IRemoveLiquidityForm>;
   loadingRemoveLiquidityState: {
     loading: boolean;
     setLoading: Dispatch<SetStateAction<boolean>>;

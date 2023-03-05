@@ -27,10 +27,10 @@ const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
   objectId,
   pageTitle,
 }) => {
-  const [loadingRemove, setLoadingRemove] = useState(false);
-  const [loadingAdd, setLoadingAdd] = useState(false);
+  const [loadingRemoveLiquidity, setLoadingRemoveLiquidity] = useState(false);
+  const [loadingAddLiquidity, setLoadingAddLiquidity] = useState(false);
 
-  const formAdd = useForm({
+  const formAddLiquidity = useForm({
     defaultValues: {
       token0Amount: '0.0',
       token1Amount: '0.0',
@@ -40,7 +40,7 @@ const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
     },
   });
 
-  const formRemove = useForm({
+  const formRemoveLiquidity = useForm({
     defaultValues: {
       lpAmount: '0.0',
     },
@@ -51,15 +51,15 @@ const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
       <Layout pageTitle={pageTitle}>
         <DEXPoolDetailsView
           objectId={objectId}
-          formAddLiquidity={formAdd}
-          formRemove={formRemove}
+          formAddLiquidity={formAddLiquidity}
+          formRemoveLiquidity={formRemoveLiquidity}
           loadingRemoveLiquidityState={{
-            loading: loadingRemove,
-            setLoading: setLoadingRemove,
+            loading: loadingRemoveLiquidity,
+            setLoading: setLoadingRemoveLiquidity,
           }}
           loadingAddLiquidityState={{
-            loading: loadingAdd,
-            setLoading: setLoadingAdd,
+            loading: loadingAddLiquidity,
+            setLoading: setLoadingAddLiquidity,
           }}
         />
       </Layout>
