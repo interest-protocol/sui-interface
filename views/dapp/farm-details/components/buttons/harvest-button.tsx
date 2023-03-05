@@ -9,14 +9,19 @@ import {
   IPX_STORAGE,
 } from '@/constants';
 import Button from '@/elements/button';
-import { capitalize, showToast, showTXSuccessToast } from '@/utils';
+import { useWeb3 } from '@/hooks';
+import { capitalize, showToast, showTXSuccessToast, sleep } from '@/utils';
 
 import { HarvestButtonProps } from './buttons.types';
 
-const HarvestButton: FC<HarvestButtonProps> = ({ farm, refetch }) => {
+const HarvestButton: FC<HarvestButtonProps> = ({
+  farm,
+  mutatePendingRewards,
+}) => {
   const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
   const { signAndExecuteTransaction } = useWalletKit();
+  const { mutate } = useWeb3();
 
   const harvest = async () => {
     try {
@@ -35,7 +40,8 @@ const HarvestButton: FC<HarvestButtonProps> = ({ farm, refetch }) => {
       });
       await showTXSuccessToast(tx);
     } finally {
-      await refetch();
+      await sleep(2500);
+      await Promise.all([mutatePendingRewards(0n), mutate()]);
       setLoading(false);
     }
   };

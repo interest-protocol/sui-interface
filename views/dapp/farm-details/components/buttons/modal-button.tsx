@@ -19,13 +19,16 @@ import {
   processSafeAmount,
   showToast,
   showTXSuccessToast,
+  sleep,
 } from '@/utils';
 
 import { ModalButtonProps } from './buttons.types';
 
 const ModalButton: FC<ModalButtonProps> = ({
   farm,
-  refetch,
+  mutateFarms,
+  mutatePools,
+  mutatePendingRewards,
   getValues,
   isStake,
   resetForm,
@@ -68,8 +71,22 @@ const ModalButton: FC<ModalButtonProps> = ({
         },
       });
       await showTXSuccessToast(tx);
+      await sleep(2500);
+      await Promise.all([
+        mutateFarms((data) =>
+          data
+            ? [
+                {
+                  ...data[0],
+                  accountBalance: data[0].accountBalance.minus(safeAmount),
+                },
+              ]
+            : []
+        ),
+        mutatePendingRewards(0n),
+      ]);
     } finally {
-      await refetch();
+      mutatePools();
       setLoading(false);
       resetForm();
     }
@@ -120,8 +137,22 @@ const ModalButton: FC<ModalButtonProps> = ({
         },
       });
       await showTXSuccessToast(tx);
+      await sleep(2500);
+      await Promise.all([
+        mutateFarms((data) =>
+          data
+            ? [
+                {
+                  ...data[0],
+                  accountBalance: data[0].accountBalance.plus(safeAmount),
+                },
+              ]
+            : []
+        ),
+        mutatePendingRewards(0n),
+      ]);
     } finally {
-      await refetch();
+      mutatePools();
       setLoading(false);
       resetForm();
     }

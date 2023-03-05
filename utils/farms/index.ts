@@ -50,6 +50,7 @@ export const calculateIPXUSDPrice = ({
 
   const ethBalance = pool.balanceX;
   const ipxBalance = pool.balanceY;
+
   const ipxInEth = ethBalance.div(ipxBalance).multipliedBy(1e9);
   const ethType = COIN_TYPE[Network.DEVNET].ETH;
 

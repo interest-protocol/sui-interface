@@ -1,5 +1,6 @@
 import { MoveCallTransaction } from '@mysten/sui.js';
-import { pathOr } from 'ramda';
+import { bcsForVersion } from '@mysten/sui.js';
+import BigNumber from 'bignumber.js';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import {
@@ -8,7 +9,12 @@ import {
   IPX_ACCOUNT_STORAGE,
   IPX_STORAGE,
 } from '@/constants';
-import { makeSWRKey, provider } from '@/utils';
+import {
+  getDevInspectData,
+  getDevInspectType,
+  makeSWRKey,
+  provider,
+} from '@/utils';
 
 export const useGetPendingRewards = (
   account: string | null,
@@ -18,20 +24,24 @@ export const useGetPendingRewards = (
   const { data, ...rest } = useSWR(
     makeSWRKey([account, farmMetadata.lpCoin.type], 'useGetPendingRewards'),
     async () => {
-      if (account)
-        return provider
-          .devInspectTransaction(account, {
-            kind: 'moveCall',
-            data: {
-              function: 'get_pending_rewards',
-              gasBudget: 9000,
-              module: 'ipx',
-              packageObjectId: COINS_PACKAGE_ID,
-              typeArguments: [farmMetadata.lpCoin.type],
-              arguments: [IPX_STORAGE, IPX_ACCOUNT_STORAGE, account],
-            } as MoveCallTransaction,
-          })
-          .then((x) => x);
+      if (account) {
+        const data = await provider.devInspectTransaction(account, {
+          kind: 'moveCall',
+          data: {
+            function: 'get_pending_rewards',
+            gasBudget: 9000,
+            module: 'ipx',
+            packageObjectId: COINS_PACKAGE_ID,
+            typeArguments: [farmMetadata.lpCoin.type],
+            arguments: [IPX_STORAGE, IPX_ACCOUNT_STORAGE, account],
+          } as MoveCallTransaction,
+        });
+
+        return bcsForVersion(await provider.getRpcApiVersion()).de(
+          getDevInspectType(data),
+          Uint8Array.from(getDevInspectData(data))
+        );
+      }
     },
     {
       revalidateOnMount: true,
@@ -42,11 +52,10 @@ export const useGetPendingRewards = (
     }
   );
 
-  const ok = pathOr([], ['results', 'Ok'], data);
-  const result = ok.length ? ok[0] : [];
-
   return {
     ...rest,
-    data: result.length ? result[0] : 0,
+    data: data
+      ? BigNumber(data.toString()).div(BigNumber(10).pow(9))
+      : BigNumber(0),
   };
 };

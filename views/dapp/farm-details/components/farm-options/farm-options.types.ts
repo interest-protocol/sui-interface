@@ -1,10 +1,17 @@
+import BigNumber from 'bignumber.js';
+import { KeyedMutator } from 'swr';
+
+import { Farm } from '@/utils/farms/farms.types';
+
 import { FarmDetailsData, FarmDetailsProps } from './../../farm-details.types';
 
 export interface FarmOptionsProps {
   farm: FarmDetailsData;
-  refetch: () => Promise<void>;
   loading: boolean;
   modalState: FarmDetailsProps['modalState'];
   setModalState: FarmDetailsProps['setModalState'];
   form: FarmDetailsProps['form'];
+  mutateFarms: KeyedMutator<ReadonlyArray<Farm>>;
+  mutatePools: KeyedMutator<any>;
+  mutatePendingRewards: KeyedMutator<BigInt>;
 }

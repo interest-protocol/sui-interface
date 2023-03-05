@@ -17,8 +17,10 @@ import InputStake from './input-stake';
 const FarmStakeModal: FC<FarmStakeModalProps> = ({
   farm,
   farmSymbol,
-  refetch,
   modalState,
+  mutateFarms,
+  mutatePools,
+  mutatePendingRewards,
   setModalState,
   form,
 }) => {
@@ -148,7 +150,9 @@ const FarmStakeModal: FC<FarmStakeModalProps> = ({
           </Button>
           <ModalButton
             isStake={isStake}
-            refetch={refetch}
+            mutateFarms={mutateFarms}
+            mutatePools={mutatePools}
+            mutatePendingRewards={mutatePendingRewards}
             farm={farm}
             getValues={form.getValues}
             resetForm={form.reset}

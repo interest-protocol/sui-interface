@@ -19,7 +19,9 @@ import { FarmOptionsProps } from './farm-options.types';
 
 const FarmOptions: FC<FarmOptionsProps> = ({
   farm,
-  refetch,
+  mutateFarms,
+  mutatePools,
+  mutatePendingRewards,
   modalState,
   setModalState,
   loading,
@@ -158,20 +160,24 @@ const FarmOptions: FC<FarmOptionsProps> = ({
         title={t('farmsDetails.thirdCardTitle')}
         shadow={!farm.pendingRewards.isZero()}
         amountUSD={formatDollars(
-          FixedPointMath.toNumber(
-            farm.pendingRewards.multipliedBy(farm.lpCoinPrice),
-            farm.lpCoin.decimals
-          )
+          farm.pendingRewards.multipliedBy(farm.lpCoinPrice).toNumber()
         )}
-        amount={`${formatMoney(FixedPointMath.toNumber(farm.pendingRewards))} ${
+        amount={`${formatMoney(farm.pendingRewards.toNumber())} ${
           TOKEN_SYMBOL.IPX
         }`}
-        button={<HarvestButton farm={farm} refetch={refetch} />}
+        button={
+          <HarvestButton
+            farm={farm}
+            mutatePendingRewards={mutatePendingRewards}
+          />
+        }
       />
       <FarmStakeModal
         farm={farm}
         farmSymbol={farmSymbol}
-        refetch={refetch}
+        mutatePools={mutatePools}
+        mutateFarms={mutateFarms}
+        mutatePendingRewards={mutatePendingRewards}
         setModalState={setModalState}
         modalState={modalState}
         form={form}

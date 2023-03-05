@@ -120,16 +120,12 @@ const FarmDetails: FC<FarmDetailsProps> = ({
       <FarmOptions
         loading={farmsLoading || isFetchingCoinBalances || poolsLoading}
         farm={parsedData}
-        refetch={async () => {
-          await Promise.all([
-            mutatePendingRewards(),
-            mutateFarms(),
-            mutatePools(),
-          ]);
-        }}
+        mutateFarms={mutateFarms}
         modalState={modalState}
         setModalState={setModalState}
         form={form}
+        mutatePendingRewards={mutatePendingRewards}
+        mutatePools={mutatePools}
       />
     </Container>
   );
