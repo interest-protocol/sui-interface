@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js';
 import { KeyedMutator } from 'swr';
 
 import { Farm } from '@/utils/farms/farms.types';
