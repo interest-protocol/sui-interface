@@ -11,6 +11,7 @@ export { default as CopySVG } from './copy';
 export { default as DAISVG } from './dai';
 export { default as DexSVG } from './dex';
 export { default as DiscordSVG } from './discord';
+export { default as EarnSVG } from './earn';
 export { default as EmptyBoxSVG } from './empty-box';
 export { default as EtherSVG } from './ether';
 export { default as FaucetSVG } from './faucet';
