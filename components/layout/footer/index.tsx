@@ -6,7 +6,7 @@ import { v4 } from 'uuid';
 import { Container, SocialMediaCard } from '@/components';
 import { Routes, RoutesEnum, SOCIAL_MEDIAS } from '@/constants';
 import { Box, Button } from '@/elements';
-import { DexSVG, FaucetSVG, GitBookSVG } from '@/svg';
+import { DexSVG, EarnSVG, FaucetSVG, GitBookSVG } from '@/svg';
 
 const Footer: FC = () => {
   const { pathname } = useRouter();
@@ -72,6 +72,44 @@ const Footer: FC = () => {
                 style={{ marginBottom: '8px' }}
               />
               Dex
+            </Button>
+          </Link>
+          <Link href={Routes[RoutesEnum.Farms]}>
+            <Button
+              ml="S"
+              px="0.8rem"
+              fontSize="M"
+              display="flex"
+              flexDirection="column"
+              variant="primary"
+              alignItems="center"
+              borderRadius="M"
+              justifyContent="space-between"
+              bg={
+                pathname.includes(Routes[RoutesEnum.Farms]) ||
+                pathname.includes(Routes[RoutesEnum.FarmDetails])
+                  ? 'accentActive'
+                  : 'transparent'
+              }
+              hover={{ bg: 'accent', color: 'text' }}
+              active={{ bg: 'accentActive', color: 'text' }}
+              color={
+                pathname.includes(Routes[RoutesEnum.Farms]) ||
+                pathname.includes(Routes[RoutesEnum.FarmDetails])
+                  ? 'textSoft'
+                  : 'text'
+              }
+            >
+              <EarnSVG
+                width="1.1rem"
+                height="1.1rem"
+                stroke="currentColor"
+                fill="transparent"
+                maxHeight={'2.5rem'}
+                maxWidth={'auto'}
+                style={{ marginBottom: '8px' }}
+              />
+              Farms
             </Button>
           </Link>
           <Link href={Routes[RoutesEnum.Faucet]}>
