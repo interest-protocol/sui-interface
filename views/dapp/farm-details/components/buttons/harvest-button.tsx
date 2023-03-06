@@ -40,7 +40,7 @@ const HarvestButton: FC<HarvestButtonProps> = ({
       });
       await showTXSuccessToast(tx);
     } finally {
-      await sleep(2500);
+      await sleep(2000);
       await Promise.all([mutatePendingRewards(0n), mutate()]);
       setLoading(false);
     }
