@@ -57,7 +57,7 @@ const SwapSelectCurrency: FC<SwapSelectCurrencyProps> = ({
           alignItems="center"
           color={dark ? 'text' : 'textInverted'}
         >
-          <Box as="span" minWidth="1.3rem" display="inline-block" mr="M">
+          <Box as="span" minWidth="1.3rem" display="flex" mr="M">
             <SVG
               width="100%"
               maxHeight="1.3rem"
