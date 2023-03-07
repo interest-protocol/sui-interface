@@ -1,6 +1,4 @@
-import { Network } from '@mysten/sui.js';
-
-import { COIN_TYPE } from '@/constants';
+import { COIN_TYPE, Network } from '@/constants';
 
 export const FARM_TYPE_ARGS_EXTRA = [
   COIN_TYPE[Network.DEVNET].IPX,

@@ -1,8 +1,7 @@
-import { Network } from '@mysten/sui.js';
 import { pathOr } from 'ramda';
 import useSWR, { SWRConfiguration } from 'swr';
 
-import { COIN_MARKET_CAP_ID_RECORD } from '@/constants';
+import { COIN_MARKET_CAP_ID_RECORD, Network } from '@/constants';
 import { fetcher } from '@/utils';
 
 interface CoinPricesRecordData {

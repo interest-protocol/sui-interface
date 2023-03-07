@@ -1,12 +1,16 @@
 import { useTheme } from '@emotion/react';
-import { Network } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { useCallback, useState } from 'react';
 import { FC } from 'react';
 
-import { COIN_TYPE, FAUCET_OBJECT_ID, FAUCET_PACKAGE_ID } from '@/constants';
+import {
+  COIN_TYPE,
+  FAUCET_OBJECT_ID,
+  FAUCET_PACKAGE_ID,
+  Network,
+} from '@/constants';
 import { Box, Button, Typography } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';

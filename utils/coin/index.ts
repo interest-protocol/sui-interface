@@ -1,4 +1,3 @@
-import { Network } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { isEmpty, propOr } from 'ramda';
 
@@ -6,7 +5,7 @@ import {
   Web3ManagerState,
   Web3ManagerSuiObject,
 } from '@/components/web3-manager/web3-manager.types';
-import { COIN_TYPE } from '@/constants';
+import { COIN_TYPE, Network } from '@/constants';
 
 export const addCoinTypeToTokenType = (x: string): string =>
   `0x2::coin::Coin<${x}>`;

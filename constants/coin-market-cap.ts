@@ -1,6 +1,5 @@
-import { Network } from '@mysten/sui.js';
-
 import { COIN_TYPE } from './coins';
+import { Network } from './network';
 
 export const COIN_MARKET_CAP_ID_RECORD = {
   [Network.DEVNET]: {

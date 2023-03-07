@@ -1,4 +1,4 @@
-import { bcsForVersion, MoveCallTransaction, Network } from '@mysten/sui.js';
+import { bcsForVersion, MoveCallTransaction } from '@mysten/sui.js';
 import { LocalTxnDataSerializer } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 
@@ -8,6 +8,7 @@ import {
   EPOCHS_PER_YEAR,
   IPX_ACCOUNT_STORAGE,
   IPX_STORAGE,
+  Network,
 } from '@/constants';
 import { AddressZero, FixedPointMath } from '@/sdk';
 import {

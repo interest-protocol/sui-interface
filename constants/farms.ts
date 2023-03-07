@@ -1,8 +1,7 @@
-import { Network } from '@mysten/sui.js';
-
 import { CoinData } from '@/interface';
 
 import { COIN_POOL, COIN_TYPE, COINS } from './coins';
+import { Network } from './network';
 
 export const IPX_STORAGE = '0x289f1b6f796ece24d8ed04201e7e70be75085b39';
 

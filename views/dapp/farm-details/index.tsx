@@ -1,10 +1,9 @@
-import { Network } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { Container } from '@/components';
-import { COINS, RoutesEnum } from '@/constants';
+import { COINS, Network, RoutesEnum } from '@/constants';
 import {
   useGetCoinsPrices,
   useGetFarms,

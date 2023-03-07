@@ -1,4 +1,3 @@
-import { Network } from '@mysten/sui.js';
 import type { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight, pathOr } from 'ramda';
@@ -6,7 +5,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
-import { FARMS_RECORD, StakeState } from '@/constants';
+import { FARMS_RECORD, Network, StakeState } from '@/constants';
 import { withTypeGuard } from '@/HOC';
 import { NextPageDefaultProps } from '@/interface';
 import FarmDetails from '@/views/dapp/farm-details';

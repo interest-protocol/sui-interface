@@ -1,6 +1,4 @@
-import { Network } from '@mysten/sui.js';
-
-import { COIN_TYPE, COINS } from '@/constants';
+import { COIN_TYPE, COINS, Network } from '@/constants';
 
 export const COIN_PRICES = [
   COINS[Network.DEVNET].ETH.type,

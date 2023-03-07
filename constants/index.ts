@@ -1,5 +1,3 @@
-import { Network } from '@mysten/sui.js';
-
 import {
   BinanceSVG,
   BitcoinSVG,
@@ -13,12 +11,14 @@ import {
 } from '@/svg';
 
 import { COIN_TYPE } from './coins';
+import { Network } from './network';
 
 export * from './coin-market-cap';
 export * from './coins';
 export * from './dex';
 export * from './farms';
 export * from './faucet';
+export * from './network';
 export * from './pools';
 export * from './routes';
 export * from './social-media';

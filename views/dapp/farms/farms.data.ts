@@ -1,8 +1,7 @@
-import { Network } from '@mysten/sui.js';
 import { UseFormSetValue } from 'react-hook-form';
 
 import { ISwitchOption } from '@/components/switch/switch.types';
-import { COIN_TYPE } from '@/constants';
+import { COIN_TYPE, Network } from '@/constants';
 import {
   BinanceSVG,
   BitcoinSVG,

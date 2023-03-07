@@ -13,7 +13,7 @@ export const useGetVolatilePools = () => {
   const { data, ...rest } = useSWR(
     makeSWRKey(
       [VOLATILE_POOLS_OBJECT_ID],
-      provider.getObjectsOwnedByObject.name
+      provider.getObjectsOwnedByAddress.name
     ),
     async () => provider.getDynamicFields(VOLATILE_POOLS_OBJECT_ID),
     {

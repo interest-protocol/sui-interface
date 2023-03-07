@@ -1,12 +1,14 @@
-import { JsonRpcProvider, Network } from '@mysten/sui.js';
+import { Connection, devnetConnection, JsonRpcProvider } from '@mysten/sui.js';
 import { DevInspectResults } from '@mysten/sui.js/src/types';
 import { head, nth, pathOr, propOr } from 'ramda';
 
-export const provider = new JsonRpcProvider(
-  process.env.NEXT_PUBLIC_SUI_RPC_URL || Network.DEVNET
-);
+const connection = process.env.NEXT_PUBLIC_SUI_RPC_URL
+  ? new Connection({ fullnode: process.env.NEXT_PUBLIC_SUI_RPC_URL })
+  : devnetConnection;
 
-export const mystenLabsProvider = new JsonRpcProvider(Network.DEVNET);
+export const provider = new JsonRpcProvider(connection);
+
+export const mystenLabsProvider = new JsonRpcProvider(devnetConnection);
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

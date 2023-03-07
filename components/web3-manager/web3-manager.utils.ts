@@ -1,8 +1,7 @@
-import { Network } from '@mysten/sui.js';
 import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { pathOr } from 'ramda';
 
-import { COIN_DECIMALS, COIN_TYPE_TO_SYMBOL } from '@/constants';
+import { COIN_DECIMALS, COIN_TYPE_TO_SYMBOL, Network } from '@/constants';
 import { parseBigNumberish } from '@/utils';
 
 import { Web3ManagerSuiObject } from './web3-manager.types';

@@ -1,11 +1,15 @@
-import { Network } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { pathOr, propOr } from 'ramda';
 import { FC } from 'react';
 
 import { Container } from '@/components';
-import { POOL_METADATA_MAP, PoolMetadata, TOKENS_SVG_MAP } from '@/constants';
+import {
+  Network,
+  POOL_METADATA_MAP,
+  PoolMetadata,
+  TOKENS_SVG_MAP,
+} from '@/constants';
 import { Box, Typography } from '@/elements';
 import { useLocale, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';

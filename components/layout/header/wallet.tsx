@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
-import { Network } from '@mysten/sui.js';
 import { ConnectButton } from '@mysten/wallet-kit';
 import { always, pathOr } from 'ramda';
 import { FC } from 'react';
 
-import { COIN_TYPE } from '@/constants';
+import { COIN_TYPE, Network } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';

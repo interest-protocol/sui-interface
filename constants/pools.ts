@@ -1,6 +1,5 @@
-import { Network } from '@mysten/sui.js';
-
 import { COIN_POOL, COINS } from './coins';
+import { Network } from './network';
 
 const networkDevNetCoins = COINS[Network.DEVNET];
 
