@@ -51,9 +51,11 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
         max={lpBalance.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
         disabled={lpBalance.isZero()}
         Prefix={
-          <Box display="flex" width="5rem" alignItems="center" ml="S">
-            {tokens[0].Icon}
-            {tokens[1].Icon}
+          <Box display="flex" width="5rem" ml="S">
+            <Box display="flex" alignItems="center" justifyContent="center">
+              {tokens[0].Icon}
+              {tokens[1].Icon}
+            </Box>
             <Typography variant="normal" ml="M">
               LP
             </Typography>

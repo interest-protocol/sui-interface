@@ -53,12 +53,7 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
   return (
     <>
       <LinearLoader loading={isLoading} />
-      <Box
-        my="L"
-        rowGap="1rem"
-        display="grid"
-        gridTemplateColumns="auto auto 1fr"
-      >
+      <Box my="L" rowGap="1rem" display="grid" gridTemplateColumns="1fr">
         <TokenAmount
           Icon={tokens[0].Icon}
           symbol={tokens[0].symbol}
