@@ -1,5 +1,4 @@
 export const incrementTX = (address: string) =>
-  // Default options are marked with *
   fetch(
     'https://ipx-analytics-server.vercel.app/api/v1/analytics/incrementTX',
     {
