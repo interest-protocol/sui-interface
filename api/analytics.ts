@@ -1,7 +1,7 @@
 export const incrementTX = async (address: string) => {
   // Default options are marked with *
   const response = await fetch(
-    'ipx-analytics-server.vercel.app/api/v1/analytics/incrementTX',
+    'https://ipx-analytics-server.vercel.app/api/v1/analytics/incrementTX',
     {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
