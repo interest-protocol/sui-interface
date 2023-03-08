@@ -38,26 +38,26 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
 
   const handleOnMint = useCallback(async () => {
     try {
-      // setLoading(true);
-      // const type = getValues('type');
-      //
-      // if (type === COIN_TYPE[Network.DEVNET].SUI) {
-      //   if (!account) throw new Error(t('error.accountNotFound'));
-      //   return await mystenLabsProvider.requestSuiFromFaucet(account);
-      // }
-      //
-      // const tx = await signAndExecuteTransaction({
-      //   kind: 'moveCall',
-      //   data: {
-      //     function: 'mint',
-      //     gasBudget: 1000,
-      //     module: 'faucet',
-      //     packageObjectId: FAUCET_PACKAGE_ID,
-      //     typeArguments: [type],
-      //     arguments: [FAUCET_OBJECT_ID, COIN_MINT_AMOUNT[type] || '1'],
-      //   },
-      // });
-      // await showTXSuccessToast(tx);
+      setLoading(true);
+      const type = getValues('type');
+
+      if (type === COIN_TYPE[Network.DEVNET].SUI) {
+        if (!account) throw new Error(t('error.accountNotFound'));
+        return await mystenLabsProvider.requestSuiFromFaucet(account);
+      }
+
+      const tx = await signAndExecuteTransaction({
+        kind: 'moveCall',
+        data: {
+          function: 'mint',
+          gasBudget: 1000,
+          module: 'faucet',
+          packageObjectId: FAUCET_PACKAGE_ID,
+          typeArguments: [type],
+          arguments: [FAUCET_OBJECT_ID, COIN_MINT_AMOUNT[type] || '1'],
+        },
+      });
+      await showTXSuccessToast(tx);
     } finally {
       setLoading(false);
       await mutate();
