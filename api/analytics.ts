@@ -1,8 +1,9 @@
-export const incrementTX = async (address: string) => {
+export const incrementTX = (address: string) =>
   // Default options are marked with *
-  const response = await fetch(
+  fetch(
     'https://ipx-analytics-server.vercel.app/api/v1/analytics/incrementTX',
     {
+      mode: 'cors',
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       credentials: 'include', // include, *same-origin, omit
       headers: {
@@ -10,6 +11,6 @@ export const incrementTX = async (address: string) => {
       },
       body: JSON.stringify({ address }), // body data type must match "Content-Type" header
     }
-  );
-  return response.json();
-};
+  )
+    .then()
+    .catch(console.error);
