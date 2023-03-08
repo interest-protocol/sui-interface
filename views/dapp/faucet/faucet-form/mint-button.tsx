@@ -6,6 +6,7 @@ import { prop } from 'ramda';
 import { useCallback, useState } from 'react';
 import { FC } from 'react';
 
+import { incrementTX } from '@/api/analytics';
 import { COIN_TYPE, FAUCET_OBJECT_ID, FAUCET_PACKAGE_ID } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
 import { useWeb3 } from '@/hooks';
@@ -60,6 +61,7 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
     } finally {
       setLoading(false);
       await mutate();
+      incrementTX(account || '');
     }
   }, []);
 
