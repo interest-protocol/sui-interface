@@ -64,7 +64,7 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
       incrementTX(account ?? '');
       return;
     } catch {
-      throw new Error('failed to remove liquidity');
+      throw new Error(t('dexPoolPair.error.failedRemove'));
     } finally {
       loadingRemoveLiquidityState.setLoading(false);
       await refetch();

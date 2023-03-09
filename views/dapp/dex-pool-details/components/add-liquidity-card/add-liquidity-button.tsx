@@ -94,7 +94,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
       incrementTX(account ?? '');
       return;
     } catch {
-      throw new Error(t('dexPoolPair.error.failed'));
+      throw new Error(t('dexPoolPair.error.failedAdd'));
     } finally {
       loadingAddLiquidityState.setLoading(false);
       await refetch();

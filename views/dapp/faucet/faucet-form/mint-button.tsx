@@ -72,7 +72,7 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
 
   const onMint = () =>
     showToast(handleOnMint(), {
-      loading: `Loading`,
+      loading: t('common.loading', { loading: Number(true) }),
       success: capitalize(t('common.success')),
       error: prop('message'),
     });

@@ -47,7 +47,7 @@ const ModalButton: FC<ModalButtonProps> = ({
         !+value ||
         farm.accountBalance.lt(+value)
       ) {
-        throw new Error('Cannot withdraw 0 tokens');
+        throw new Error(t('farmsDetails.errors.noTokens'));
       }
       setLoading(true);
 

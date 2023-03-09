@@ -10,6 +10,7 @@
     "modalUnstakedTitle": "Não depositar",
     "modalLabelInput": "Montante {type}",
     "errors": {
+      "noTokens": "Não podes levantar 0 tokens",
       "farm": "Falha ao trazer dados da Farm",
       "pool": "Falha ao trazer dados da Pool",
       "prices": "Falha ao trazer Preços",

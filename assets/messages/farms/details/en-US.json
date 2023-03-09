@@ -10,6 +10,7 @@
     "modalUnstakedTitle": "Unstaked",
     "modalLabelInput": "Amount {type}",
     "errors": {
+      "noTokens": "Cannot withdraw 0 tokens",
       "farm": "Failed to fetch Farm data",
       "pool": "Failed to fetch Pool data",
       "prices": "Failed to fetch coins prices",
