@@ -1,5 +1,21 @@
+import { Dispatch, SetStateAction } from 'react';
+import { UseFormReturn } from 'react-hook-form';
+
+import { IAddLiquidityForm } from './components/add-liquidity-card/add-liquidity-card.types';
+import { IRemoveLiquidityForm } from './components/remove-liquidity-card/remove-liquidity-card.types';
+
 export interface DEXPoolDetailsViewProps {
   objectId: string;
+  formAddLiquidity: UseFormReturn<IAddLiquidityForm>;
+  formRemoveLiquidity: UseFormReturn<IRemoveLiquidityForm>;
+  loadingAddLiquidityState: {
+    loading: boolean;
+    setLoading: Dispatch<SetStateAction<boolean>>;
+  };
+  loadingRemoveLiquidityState: {
+    loading: boolean;
+    setLoading: Dispatch<SetStateAction<boolean>>;
+  };
 }
 
 export interface LiquidityDetailsCardLineProps {

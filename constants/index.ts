@@ -47,3 +47,5 @@ export const TOKENS_SVG_MAP = {
 };
 
 export const EPOCHS_PER_YEAR = 4380;
+
+export const TOAST_DURATION = 10000;

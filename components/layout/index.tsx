@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Tooltip } from 'react-tooltip';
 
+import { TOAST_DURATION } from '@/constants';
 import { Theme } from '@/design-system';
 import { Box } from '@/elements';
 import ErrorBoundary from '@/views/dapp/components/error-boundary';
@@ -27,6 +28,7 @@ const Layout: FC<LayoutProps> = ({ pageTitle = '', children }) => {
               borderRadius: radii.M,
               background: colors.foreground,
             },
+            duration: TOAST_DURATION,
           }}
         />
         <Header />

@@ -1,7 +1,6 @@
 import { useTheme } from '@emotion/react';
 import { not } from 'ramda';
-import { FC, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FC } from 'react';
 
 import { TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
@@ -21,15 +20,11 @@ const SwapSelectCurrency: FC<SwapSelectCurrencyProps> = ({
   currentToken,
   setIsModalOpen,
   onSelectCurrency,
+  searchingState,
+  formSearch,
+  searchTokenModalState,
 }) => {
   const { dark } = useTheme() as { dark: boolean };
-  const [isSearching, setIsSearching] = useState(false);
-  const { control, register } = useForm({
-    defaultValues: {
-      search: '',
-    },
-    mode: 'onBlur',
-  });
 
   const toggleOpenModal = () => setIsModalOpen(not);
 
@@ -57,7 +52,7 @@ const SwapSelectCurrency: FC<SwapSelectCurrencyProps> = ({
           alignItems="center"
           color={dark ? 'text' : 'textInverted'}
         >
-          <Box as="span" minWidth="1.3rem" display="inline-block" mr="M">
+          <Box as="span" minWidth="1.3rem" display="flex" mr="M">
             <SVG
               width="100%"
               maxHeight="1.3rem"
@@ -86,14 +81,18 @@ const SwapSelectCurrency: FC<SwapSelectCurrencyProps> = ({
           onSelectCurrency={onSelectCurrency}
           currentToken={currentToken}
           fromRight={fromRight}
-          control={control}
+          control={formSearch.control}
           tokens={tokens}
-          isSearching={isSearching}
+          isSearching={searchingState.isSearching}
           isModalOpen={isModalOpen}
           toggleModal={toggleOpenModal}
-          setIsSearching={setIsSearching}
+          setIsSearching={searchingState.setIsSearching}
+          searchTokenModalState={searchTokenModalState}
           Input={
-            <SwapSearchToken register={register} isSearching={isSearching} />
+            <SwapSearchToken
+              register={formSearch.register}
+              isSearching={searchingState.isSearching}
+            />
           }
         />
       )}

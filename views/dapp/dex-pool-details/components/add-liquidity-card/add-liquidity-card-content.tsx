@@ -22,6 +22,7 @@ const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
   setValue,
   getValues,
   fetchingInitialData,
+  loadingAddLiquidityState,
 }) => {
   const t = useTranslations();
 
@@ -61,6 +62,7 @@ const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
             tokens={tokens}
             refetch={refetch}
             getValues={getValues}
+            loadingAddLiquidityState={loadingAddLiquidityState}
           />
         </Box>
       </WalletGuardButton>

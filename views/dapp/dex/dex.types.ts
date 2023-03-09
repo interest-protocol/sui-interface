@@ -1,6 +1,6 @@
 import { BigNumber } from 'bignumber.js';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { Control, UseFormRegister } from 'react-hook-form';
+import { Control, UseFormRegister, UseFormReturn } from 'react-hook-form';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 
@@ -32,6 +32,12 @@ export interface SwapSelectCurrencyProps {
   tokens: Record<string, Web3ManagerSuiObject>;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
   onSelectCurrency: (data: OnSelectCurrencyData) => void;
+  searchingState: {
+    isSearching: boolean;
+    setIsSearching: Dispatch<SetStateAction<boolean>>;
+  };
+  formSearch: UseFormReturn<{ search: string }>;
+  searchTokenModalState: SwapTokenModalMetadata | null;
 }
 
 export interface SwapCurrencyDropdownProps {
@@ -45,6 +51,7 @@ export interface SwapCurrencyDropdownProps {
   setIsSearching: Dispatch<SetStateAction<boolean>>;
   currentToken: SwapSelectCurrencyProps['currentToken'];
   onSelectCurrency: SwapSelectCurrencyProps['onSelectCurrency'];
+  searchTokenModalState: SwapTokenModalMetadata | null;
 }
 
 export interface SwapSearchTokenProps {

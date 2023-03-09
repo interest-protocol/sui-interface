@@ -5,9 +5,10 @@ import { Container } from '@/components';
 import { Box, Typography } from '@/elements';
 
 import GoBack from '../components/go-back';
+import { FaucetProps } from './faucet.types';
 import FaucetForm from './faucet-form';
 
-const Faucet: FC = () => {
+const Faucet: FC<FaucetProps> = ({ form }) => {
   const t = useTranslations();
 
   return (
@@ -30,7 +31,7 @@ const Faucet: FC = () => {
             {t('common.recommendedToken')}
           </Typography>
         </Box>
-        <FaucetForm />
+        <FaucetForm form={form} />
       </Container>
     </Box>
   );

@@ -1,5 +1,5 @@
 import { not } from 'ramda';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { Box } from '@/elements';
 import { CogsSVG } from '@/svg';
@@ -8,12 +8,13 @@ import { SwapSettingsProps } from './settings.types';
 import SettingsDropdown from './settings-dropdown';
 
 const SettingsModal: FC<SwapSettingsProps> = ({
-  localSettings,
   setLocalSettings,
+  formSettingsDropdown,
+  autoButtonState,
+  openModalState,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const closeModal = () => setIsOpen(false);
-  const toggle = () => setIsOpen(not);
+  const closeModal = () => openModalState.setIsOpen(false);
+  const toggle = () => openModalState.setIsOpen(not);
 
   return (
     <>
@@ -33,10 +34,11 @@ const SettingsModal: FC<SwapSettingsProps> = ({
         <CogsSVG width="1.5rem" maxHeight="1.5rem" maxWidth="1.5rem" />
       </Box>
       <SettingsDropdown
-        isOpen={isOpen}
+        isOpen={openModalState.isOpen}
         onClose={closeModal}
-        localSettings={localSettings}
         setLocalSettings={setLocalSettings}
+        formSettingsDropdown={formSettingsDropdown}
+        autoButtonState={autoButtonState}
       />
     </>
   );

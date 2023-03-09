@@ -2,7 +2,7 @@ import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { DEX_PACKAGE_ID, DEX_STORAGE_VOLATILE } from '@/constants';
 import { Box, Button } from '@/elements';
@@ -21,17 +21,17 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
   objectIds,
   token0,
   token1,
+  loadingRemoveLiquidityState,
 }) => {
   const t = useTranslations();
-  const [loading, setLoading] = useState(false);
   const { signAndExecuteTransaction } = useWalletKit();
 
-  const disabled = isFetching || loading;
+  const disabled = isFetching || loadingRemoveLiquidityState.loading;
 
   const handleRemoveLiquidity = async () => {
     try {
       if (disabled) return;
-      setLoading(true);
+      loadingRemoveLiquidityState.setLoading(true);
 
       const lpAmount = getLpAmount();
 
@@ -61,7 +61,7 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
     } catch (error) {
       throw new Error('failed to remove liquidity');
     } finally {
-      setLoading(false);
+      loadingRemoveLiquidityState.setLoading(false);
       await refetch();
     }
   };
@@ -82,8 +82,12 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
       bg={disabled ? 'disabled' : 'error'}
       hover={{ bg: disabled ? 'disabled' : 'errorActive' }}
     >
-      {capitalize(t('common.remove', { isLoading: Number(loading) }))}{' '}
-      {loading && (
+      {capitalize(
+        t('common.remove', {
+          isLoading: Number(loadingRemoveLiquidityState.loading),
+        })
+      )}{' '}
+      {loadingRemoveLiquidityState.loading && (
         <Box
           ml="M"
           as="span"

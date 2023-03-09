@@ -5,6 +5,7 @@ import { prop } from 'ramda';
 import { useCallback, useState } from 'react';
 import { FC } from 'react';
 
+import { incrementTX } from '@/api/analytics';
 import {
   COIN_TYPE,
   FAUCET_OBJECT_ID,
@@ -64,6 +65,7 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
     } finally {
       setLoading(false);
       await mutate();
+      incrementTX(account || '');
     }
   }, []);
 
