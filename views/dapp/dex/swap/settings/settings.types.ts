@@ -1,9 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import {
-  Control,
-  UseFormGetValues,
-  UseFormRegisterReturn,
-} from 'react-hook-form';
+import { Control, UseFormRegisterReturn, UseFormReturn } from 'react-hook-form';
 import { UseFormRegister } from 'react-hook-form';
 import { UseFormSetValue } from 'react-hook-form';
 
@@ -26,20 +22,37 @@ export interface FieldProps {
 
 export interface SwapSettingsProps {
   setLocalSettings: (x: LocalSwapSettings) => void;
-  localSettings: LocalSwapSettings;
+  formSettingsDropdown: UseFormReturn<ISwapSettingsForm>;
+  autoButtonState: {
+    isAuto: boolean;
+    setAuto: Dispatch<SetStateAction<boolean>>;
+  };
+  openModalState: {
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+  };
 }
 
-export interface SettingsDropdownProps extends SwapSettingsProps {
+export interface SettingsDropdownProps {
+  setLocalSettings: (x: LocalSwapSettings) => void;
   isOpen: boolean;
   onClose: () => void;
+  formSettingsDropdown: UseFormReturn<ISwapSettingsForm>;
+  autoButtonState: {
+    isAuto: boolean;
+    setAuto: Dispatch<SetStateAction<boolean>>;
+  };
 }
 
 export interface ModalSettingsBody {
   onRequestClose: () => void;
   register: UseFormRegister<ISwapSettingsForm>;
   setValue: UseFormSetValue<ISwapSettingsForm>;
-  getValues: UseFormGetValues<ISwapSettingsForm>;
   control: Control<ISwapSettingsForm>;
+  autoButtonState: {
+    isAuto: boolean;
+    setAuto: Dispatch<SetStateAction<boolean>>;
+  };
 }
 
 export interface SettingsAutoButton {

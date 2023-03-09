@@ -22,7 +22,13 @@ import { IToken } from './components/add-liquidity-card/add-liquidity-card.types
 import { useGetVolatilePool } from './dex-pool-details.hooks';
 import { DEXPoolDetailsViewProps } from './dex-pool-details.types';
 
-const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
+const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
+  objectId,
+  formAddLiquidity,
+  formRemoveLiquidity,
+  loadingAddLiquidityState,
+  loadingRemoveLiquidityState,
+}) => {
   const t = useTranslations();
 
   const {
@@ -189,6 +195,8 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
           refetch={async () => {
             await Promise.all([updateVolatilePools, mutate]);
           }}
+          formAddLiquidity={formAddLiquidity}
+          loadingAddLiquidityState={loadingAddLiquidityState}
         />
         <RemoveLiquidityCard
           isStable={false}
@@ -201,6 +209,8 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
           refetch={async () => {
             await Promise.all([updateVolatilePools, mutate]);
           }}
+          formRemoveLiquidity={formRemoveLiquidity}
+          loadingRemoveLiquidityState={loadingRemoveLiquidityState}
         />
       </Box>
     </Container>

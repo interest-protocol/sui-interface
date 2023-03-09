@@ -4,7 +4,7 @@ import { mergeDeepRight } from 'ramda';
 
 import { LoadingPage } from '@/components';
 import { NextPageWithProps } from '@/interface';
-import DEX from '@/views/dapp/dex';
+import DEXPoolView from '@/views/dapp/dex/pool-view';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
@@ -19,7 +19,7 @@ const Layout = dynamic(() => import('@/components/layout'), {
 const DEXPoolPage: NextPageWithProps = ({ pageTitle }) => (
   <Web3Manager>
     <Layout pageTitle={pageTitle}>
-      <DEX />
+      <DEXPoolView />
     </Layout>
   </Web3Manager>
 );
