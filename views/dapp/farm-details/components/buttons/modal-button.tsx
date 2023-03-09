@@ -38,8 +38,8 @@ const ModalButton: FC<ModalButtonProps> = ({
   const { signAndExecuteTransaction } = useWalletKit();
   const { coinsMap } = useWeb3();
 
-  const handleWithdrawTokens = useSubmitTX(async () => {
-    try {
+  const handleWithdrawTokens = useSubmitTX(
+    async () => {
       const value = getValues().amount;
       if (
         farm.accountBalance.isZero() ||
@@ -85,12 +85,14 @@ const ModalButton: FC<ModalButtonProps> = ({
         ),
         mutatePendingRewards(0n),
       ]);
-    } finally {
+    },
+    undefined,
+    () => {
       mutatePools();
       setLoading(false);
       resetForm();
     }
-  });
+  );
 
   const handleUnstake = () =>
     showToast(handleWithdrawTokens(), {
@@ -99,8 +101,8 @@ const ModalButton: FC<ModalButtonProps> = ({
       success: capitalize(t('common.success')),
     });
 
-  const handleDepositTokens = useSubmitTX(async () => {
-    try {
+  const handleDepositTokens = useSubmitTX(
+    async () => {
       const value = getValues().amount;
       if (farm.lpCoinData.totalBalance.isZero() || !+value) {
         throw new Error('Cannot deposit 0 tokens');
@@ -151,12 +153,14 @@ const ModalButton: FC<ModalButtonProps> = ({
         ),
         mutatePendingRewards(0n),
       ]);
-    } finally {
+    },
+    undefined,
+    () => {
       mutatePools();
       setLoading(false);
       resetForm();
     }
-  });
+  );
 
   const handleStake = () =>
     showToast(handleDepositTokens(), {

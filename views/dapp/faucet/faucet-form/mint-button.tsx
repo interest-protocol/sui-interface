@@ -40,8 +40,8 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
   const { account, mutate } = useWeb3();
 
   const handleOnMint = useCallback(
-    useSubmitTX(async () => {
-      try {
+    useSubmitTX(
+      async () => {
         setLoading(true);
         const type = getValues('type');
 
@@ -63,11 +63,13 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
           },
         });
         await showTXSuccessToast(tx);
-      } finally {
+      },
+      undefined,
+      async () => {
         setLoading(false);
         await mutate();
       }
-    }),
+    ),
     []
   );
 

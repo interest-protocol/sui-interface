@@ -45,8 +45,8 @@ const SwapButton: FC<SwapButtonProps> = ({
     !+tokenInValue ||
     !findMarket(data, tokenInType, tokenOutType).length;
 
-  const handleSwap = useSubmitTX(async () => {
-    try {
+  const handleSwap = useSubmitTX(
+    async () => {
       if (disabled) return;
       setLoading(true);
 
@@ -132,14 +132,16 @@ const SwapButton: FC<SwapButtonProps> = ({
       }
 
       throw new Error(t('dexSwap.error.soonFeature'));
-    } catch (error) {
+    },
+    () => {
       throw new Error(t('dexSwap.error.failedToSwap'));
-    } finally {
+    },
+    async () => {
       resetInput();
       setLoading(false);
       await mutate();
     }
-  });
+  );
 
   const swap = () =>
     showToast(handleSwap(), {

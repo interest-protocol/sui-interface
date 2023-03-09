@@ -23,8 +23,8 @@ const HarvestButton: FC<HarvestButtonProps> = ({
   const { signAndExecuteTransaction } = useWalletKit();
   const { mutate } = useWeb3();
 
-  const harvest = useSubmitTX(async () => {
-    try {
+  const harvest = useSubmitTX(
+    async () => {
       setLoading(true);
 
       const tx = await signAndExecuteTransaction({
@@ -39,12 +39,14 @@ const HarvestButton: FC<HarvestButtonProps> = ({
         },
       });
       await showTXSuccessToast(tx);
-    } finally {
+    },
+    undefined,
+    async () => {
       await sleep(3000);
       await Promise.all([mutatePendingRewards(0n), mutate()]);
       setLoading(false);
     }
-  });
+  );
 
   const handleHarvest = () =>
     showToast(harvest(), {

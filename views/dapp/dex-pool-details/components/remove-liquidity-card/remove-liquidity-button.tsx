@@ -29,8 +29,8 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
 
   const disabled = isFetching || loadingRemoveLiquidityState.loading;
 
-  const handleRemoveLiquidity = useSubmitTX(async () => {
-    try {
+  const handleRemoveLiquidity = useSubmitTX(
+    async () => {
       if (disabled) return;
       loadingRemoveLiquidityState.setLoading(true);
 
@@ -59,13 +59,15 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
         },
       });
       return await showTXSuccessToast(tx);
-    } catch (error) {
+    },
+    () => {
       throw new Error('failed to remove liquidity');
-    } finally {
+    },
+    async () => {
       loadingRemoveLiquidityState.setLoading(false);
       await refetch();
     }
-  });
+  );
 
   const removeLiquidity = () =>
     showToast(handleRemoveLiquidity(), {

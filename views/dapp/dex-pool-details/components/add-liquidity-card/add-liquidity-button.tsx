@@ -33,8 +33,8 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
   const { coinsMap } = useWeb3();
   const { signAndExecuteTransaction } = useWalletKit();
 
-  const handleAddLiquidity = useSubmitTX(async () => {
-    try {
+  const handleAddLiquidity = useSubmitTX(
+    async () => {
       if (tokens.length !== 2 || isEmpty(coinsMap))
         throw new Error('Error fetching coins data');
 
@@ -90,13 +90,15 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
         },
       });
       return await showTXSuccessToast(tx);
-    } catch {
+    },
+    () => {
       throw new Error(t('dexPoolPair.error.failed'));
-    } finally {
+    },
+    async () => {
       loadingAddLiquidityState.setLoading(false);
       await refetch();
     }
-  });
+  );
 
   const addLiquidity = () =>
     showToast(handleAddLiquidity(), {
