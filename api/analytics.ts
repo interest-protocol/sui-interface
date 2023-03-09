@@ -1,6 +1,6 @@
 export const incrementTX = (address: string) =>
   fetch(
-    'https://ipx-analytics-server.vercel.app/api/v1/analytics/incrementTX',
+    `${process.env.NEXT_PUBLIC_IPX_ANALYTICS_SERVER_URL}api/v1/analytics/incrementTX`,
     {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
