@@ -3,13 +3,14 @@ import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';
 import { FC, useState } from 'react';
 
+import { incrementTX } from '@/api/analytics';
 import {
   FARMS_PACKAGE_ID,
   IPX_ACCOUNT_STORAGE,
   IPX_STORAGE,
 } from '@/constants';
 import Button from '@/elements/button';
-import { useSubmitTX, useWeb3 } from '@/hooks';
+import { useWeb3 } from '@/hooks';
 import { capitalize, showToast, showTXSuccessToast, sleep } from '@/utils';
 
 import { HarvestButtonProps } from './buttons.types';
@@ -21,10 +22,10 @@ const HarvestButton: FC<HarvestButtonProps> = ({
   const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
   const { signAndExecuteTransaction } = useWalletKit();
-  const { mutate } = useWeb3();
+  const { mutate, account } = useWeb3();
 
-  const harvest = useSubmitTX(
-    async () => {
+  const harvest = async () => {
+    try {
       setLoading(true);
 
       const tx = await signAndExecuteTransaction({
@@ -39,14 +40,13 @@ const HarvestButton: FC<HarvestButtonProps> = ({
         },
       });
       await showTXSuccessToast(tx);
-    },
-    undefined,
-    async () => {
+      incrementTX(account ?? '');
+    } finally {
       await sleep(3000);
       await Promise.all([mutatePendingRewards(0n), mutate()]);
       setLoading(false);
     }
-  );
+  };
 
   const handleHarvest = () =>
     showToast(harvest(), {

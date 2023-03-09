@@ -4,13 +4,14 @@ import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';
 import { FC, useState } from 'react';
 
+import { incrementTX } from '@/api/analytics';
 import {
   FARMS_PACKAGE_ID,
   IPX_ACCOUNT_STORAGE,
   IPX_STORAGE,
 } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useSubmitTX, useWeb3 } from '@/hooks';
+import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import {
@@ -36,10 +37,10 @@ const ModalButton: FC<ModalButtonProps> = ({
   const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
   const { signAndExecuteTransaction } = useWalletKit();
-  const { coinsMap } = useWeb3();
+  const { coinsMap, account } = useWeb3();
 
-  const handleWithdrawTokens = useSubmitTX(
-    async () => {
+  const handleWithdrawTokens = async () => {
+    try {
       const value = getValues().amount;
       if (
         farm.accountBalance.isZero() ||
@@ -71,6 +72,7 @@ const ModalButton: FC<ModalButtonProps> = ({
         },
       });
       await showTXSuccessToast(tx);
+      incrementTX(account ?? '');
       await sleep(3000);
       await Promise.all([
         mutateFarms((data) =>
@@ -85,14 +87,12 @@ const ModalButton: FC<ModalButtonProps> = ({
         ),
         mutatePendingRewards(0n),
       ]);
-    },
-    undefined,
-    () => {
+    } finally {
       mutatePools();
       setLoading(false);
       resetForm();
     }
-  );
+  };
 
   const handleUnstake = () =>
     showToast(handleWithdrawTokens(), {
@@ -101,8 +101,8 @@ const ModalButton: FC<ModalButtonProps> = ({
       success: capitalize(t('common.success')),
     });
 
-  const handleDepositTokens = useSubmitTX(
-    async () => {
+  const handleDepositTokens = async () => {
+    try {
       const value = getValues().amount;
       if (farm.lpCoinData.totalBalance.isZero() || !+value) {
         throw new Error('Cannot deposit 0 tokens');
@@ -139,6 +139,7 @@ const ModalButton: FC<ModalButtonProps> = ({
         },
       });
       await showTXSuccessToast(tx);
+      incrementTX(account ?? '');
       await sleep(3000);
       await Promise.all([
         mutateFarms((data) =>
@@ -153,14 +154,12 @@ const ModalButton: FC<ModalButtonProps> = ({
         ),
         mutatePendingRewards(0n),
       ]);
-    },
-    undefined,
-    () => {
+    } finally {
       mutatePools();
       setLoading(false);
       resetForm();
     }
-  );
+  };
 
   const handleStake = () =>
     showToast(handleDepositTokens(), {

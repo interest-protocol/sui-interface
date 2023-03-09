@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { isEmpty, prop } from 'ramda';
 import { FC } from 'react';
 
+import { incrementTX } from '@/api/analytics';
 import {
   DEX_PACKAGE_ID,
   DEX_STORAGE_STABLE,
@@ -30,11 +31,11 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
   loadingAddLiquidityState,
 }) => {
   const t = useTranslations();
-  const { coinsMap } = useWeb3();
+  const { coinsMap, account } = useWeb3();
   const { signAndExecuteTransaction } = useWalletKit();
 
-  const handleAddLiquidity = useSubmitTX(
-    async () => {
+  const handleAddLiquidity = async () => {
+    try {
       if (tokens.length !== 2 || isEmpty(coinsMap))
         throw new Error('Error fetching coins data');
 
@@ -89,16 +90,16 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
           ],
         },
       });
-      return await showTXSuccessToast(tx);
-    },
-    () => {
+      await showTXSuccessToast(tx);
+      incrementTX(account ?? '');
+      return;
+    } catch {
       throw new Error(t('dexPoolPair.error.failed'));
-    },
-    async () => {
+    } finally {
       loadingAddLiquidityState.setLoading(false);
       await refetch();
     }
-  );
+  };
 
   const addLiquidity = () =>
     showToast(handleAddLiquidity(), {

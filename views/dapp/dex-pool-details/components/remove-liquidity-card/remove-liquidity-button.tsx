@@ -4,9 +4,10 @@ import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC } from 'react';
 
+import { incrementTX } from '@/api/analytics';
 import { DEX_PACKAGE_ID, DEX_STORAGE_VOLATILE } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useSubmitTX } from '@/hooks';
+import { useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import { showToast, showTXSuccessToast } from '@/utils';
 import { capitalize } from '@/utils';
@@ -25,12 +26,13 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
   loadingRemoveLiquidityState,
 }) => {
   const t = useTranslations();
+  const { account } = useWeb3();
   const { signAndExecuteTransaction } = useWalletKit();
 
   const disabled = isFetching || loadingRemoveLiquidityState.loading;
 
-  const handleRemoveLiquidity = useSubmitTX(
-    async () => {
+  const handleRemoveLiquidity = async () => {
+    try {
       if (disabled) return;
       loadingRemoveLiquidityState.setLoading(true);
 
@@ -58,16 +60,16 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
           ],
         },
       });
-      return await showTXSuccessToast(tx);
-    },
-    () => {
+      await showTXSuccessToast(tx);
+      incrementTX(account ?? '');
+      return;
+    } catch {
       throw new Error('failed to remove liquidity');
-    },
-    async () => {
+    } finally {
       loadingRemoveLiquidityState.setLoading(false);
       await refetch();
     }
-  );
+  };
 
   const removeLiquidity = () =>
     showToast(handleRemoveLiquidity(), {
