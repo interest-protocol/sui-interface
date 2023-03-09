@@ -11,6 +11,7 @@ import {
   DEX_STORAGE_VOLATILE,
 } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
+import { useSubmitTX } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import { capitalize, showToast, showTXSuccessToast } from '@/utils';
@@ -44,7 +45,7 @@ const SwapButton: FC<SwapButtonProps> = ({
     !+tokenInValue ||
     !findMarket(data, tokenInType, tokenOutType).length;
 
-  const handleSwap = async () => {
+  const handleSwap = useSubmitTX(async () => {
     try {
       if (disabled) return;
       setLoading(true);
@@ -138,7 +139,7 @@ const SwapButton: FC<SwapButtonProps> = ({
       setLoading(false);
       await mutate();
     }
-  };
+  });
 
   const swap = () =>
     showToast(handleSwap(), {

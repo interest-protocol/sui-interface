@@ -10,7 +10,7 @@ import {
   DEX_STORAGE_VOLATILE,
 } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useSubmitTX, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import {
@@ -33,7 +33,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
   const { coinsMap } = useWeb3();
   const { signAndExecuteTransaction } = useWalletKit();
 
-  const handleAddLiquidity = async () => {
+  const handleAddLiquidity = useSubmitTX(async () => {
     try {
       if (tokens.length !== 2 || isEmpty(coinsMap))
         throw new Error('Error fetching coins data');
@@ -96,7 +96,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
       loadingAddLiquidityState.setLoading(false);
       await refetch();
     }
-  };
+  });
 
   const addLiquidity = () =>
     showToast(handleAddLiquidity(), {

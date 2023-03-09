@@ -5,7 +5,6 @@ import { prop } from 'ramda';
 import { useCallback, useState } from 'react';
 import { FC } from 'react';
 
-import { incrementTX } from '@/api/analytics';
 import {
   COIN_TYPE,
   FAUCET_OBJECT_ID,
@@ -13,7 +12,7 @@ import {
   Network,
 } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useSubmitTX, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,
@@ -40,34 +39,37 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
   const { signAndExecuteTransaction } = useWalletKit();
   const { account, mutate } = useWeb3();
 
-  const handleOnMint = useCallback(async () => {
-    try {
-      setLoading(true);
-      const type = getValues('type');
+  const handleOnMint = useCallback(
+    useSubmitTX(async () => {
+      try {
+        setLoading(true);
+        const type = getValues('type');
 
-      if (type === COIN_TYPE[Network.DEVNET].SUI) {
-        if (!account) throw new Error(t('error.accountNotFound'));
-        return await mystenLabsProvider.requestSuiFromFaucet(account);
+        if (type === COIN_TYPE[Network.DEVNET].SUI) {
+          if (!account) throw new Error(t('error.accountNotFound'));
+          await mystenLabsProvider.requestSuiFromFaucet(account);
+          return;
+        }
+
+        const tx = await signAndExecuteTransaction({
+          kind: 'moveCall',
+          data: {
+            function: 'mint',
+            gasBudget: 1000,
+            module: 'faucet',
+            packageObjectId: FAUCET_PACKAGE_ID,
+            typeArguments: [type],
+            arguments: [FAUCET_OBJECT_ID, COIN_MINT_AMOUNT[type] || '1'],
+          },
+        });
+        await showTXSuccessToast(tx);
+      } finally {
+        setLoading(false);
+        await mutate();
       }
-
-      const tx = await signAndExecuteTransaction({
-        kind: 'moveCall',
-        data: {
-          function: 'mint',
-          gasBudget: 1000,
-          module: 'faucet',
-          packageObjectId: FAUCET_PACKAGE_ID,
-          typeArguments: [type],
-          arguments: [FAUCET_OBJECT_ID, COIN_MINT_AMOUNT[type] || '1'],
-        },
-      });
-      await showTXSuccessToast(tx);
-    } finally {
-      setLoading(false);
-      await mutate();
-      incrementTX(account || '');
-    }
-  }, []);
+    }),
+    []
+  );
 
   const onMint = () =>
     showToast(handleOnMint(), {

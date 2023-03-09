@@ -9,7 +9,7 @@ import {
   IPX_STORAGE,
 } from '@/constants';
 import Button from '@/elements/button';
-import { useWeb3 } from '@/hooks';
+import { useSubmitTX, useWeb3 } from '@/hooks';
 import { capitalize, showToast, showTXSuccessToast, sleep } from '@/utils';
 
 import { HarvestButtonProps } from './buttons.types';
@@ -23,7 +23,7 @@ const HarvestButton: FC<HarvestButtonProps> = ({
   const { signAndExecuteTransaction } = useWalletKit();
   const { mutate } = useWeb3();
 
-  const harvest = async () => {
+  const harvest = useSubmitTX(async () => {
     try {
       setLoading(true);
 
@@ -44,7 +44,7 @@ const HarvestButton: FC<HarvestButtonProps> = ({
       await Promise.all([mutatePendingRewards(0n), mutate()]);
       setLoading(false);
     }
-  };
+  });
 
   const handleHarvest = () =>
     showToast(harvest(), {

@@ -10,7 +10,7 @@ import {
   IPX_STORAGE,
 } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useSubmitTX, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import {
@@ -38,7 +38,7 @@ const ModalButton: FC<ModalButtonProps> = ({
   const { signAndExecuteTransaction } = useWalletKit();
   const { coinsMap } = useWeb3();
 
-  const handleWithdrawTokens = async () => {
+  const handleWithdrawTokens = useSubmitTX(async () => {
     try {
       const value = getValues().amount;
       if (
@@ -90,7 +90,7 @@ const ModalButton: FC<ModalButtonProps> = ({
       setLoading(false);
       resetForm();
     }
-  };
+  });
 
   const handleUnstake = () =>
     showToast(handleWithdrawTokens(), {
@@ -99,7 +99,7 @@ const ModalButton: FC<ModalButtonProps> = ({
       success: capitalize(t('common.success')),
     });
 
-  const handleDepositTokens = async () => {
+  const handleDepositTokens = useSubmitTX(async () => {
     try {
       const value = getValues().amount;
       if (farm.lpCoinData.totalBalance.isZero() || !+value) {
@@ -156,7 +156,7 @@ const ModalButton: FC<ModalButtonProps> = ({
       setLoading(false);
       resetForm();
     }
-  };
+  });
 
   const handleStake = () =>
     showToast(handleDepositTokens(), {
@@ -165,9 +165,7 @@ const ModalButton: FC<ModalButtonProps> = ({
       success: capitalize(t('common.success')),
     });
 
-  const onSubmit = async () => {
-    isStake ? await handleStake() : await handleUnstake();
-  };
+  const onSubmit = async () => await (isStake ? handleStake : handleUnstake)();
 
   return (
     <Button

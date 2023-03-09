@@ -6,6 +6,7 @@ import { FC } from 'react';
 
 import { DEX_PACKAGE_ID, DEX_STORAGE_VOLATILE } from '@/constants';
 import { Box, Button } from '@/elements';
+import { useSubmitTX } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import { showToast, showTXSuccessToast } from '@/utils';
 import { capitalize } from '@/utils';
@@ -28,7 +29,7 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
 
   const disabled = isFetching || loadingRemoveLiquidityState.loading;
 
-  const handleRemoveLiquidity = async () => {
+  const handleRemoveLiquidity = useSubmitTX(async () => {
     try {
       if (disabled) return;
       loadingRemoveLiquidityState.setLoading(true);
@@ -64,7 +65,7 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
       loadingRemoveLiquidityState.setLoading(false);
       await refetch();
     }
-  };
+  });
 
   const removeLiquidity = () =>
     showToast(handleRemoveLiquidity(), {
