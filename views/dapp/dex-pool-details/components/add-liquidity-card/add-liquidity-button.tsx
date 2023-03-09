@@ -11,7 +11,7 @@ import {
   DEX_STORAGE_VOLATILE,
 } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useSubmitTX, useWeb3 } from '@/hooks';
+import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import {
