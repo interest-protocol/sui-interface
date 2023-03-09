@@ -3,27 +3,29 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-tooltip/dist/react-tooltip.css';
 
 import { Global } from '@emotion/react';
-import { WalletKitProvider } from '@mysten/wallet-kit';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { AppProps } from 'next/app';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import NextProgress from 'next-progress';
 import { ReactNode, StrictMode } from 'react';
 import { TooltipProvider } from 'react-tooltip';
 
-import { NextIntlProvider, ThemeManager } from '@/components';
+import { LoadingPage, NextIntlProvider, ThemeManager } from '@/components';
 import { GlobalStyles } from '@/design-system';
-import { TTranslatedMessage } from '@/interface';
+import { NextPageDefaultProps } from '@/interface';
 
-interface PageProps {
-  now: number;
-  pageTitle: string;
-  messages: TTranslatedMessage;
-}
-
-type Props = Omit<AppProps<PageProps>, 'pageProps'> & {
-  pageProps: PageProps;
+type Props = Omit<AppProps<NextPageDefaultProps>, 'pageProps'> & {
+  pageProps: NextPageDefaultProps;
 };
+
+const WalletKitProvider = dynamic(
+  () => import('@mysten/wallet-kit').then((mod) => mod.WalletKitProvider),
+  {
+    ssr: false,
+    loading: LoadingPage,
+  }
+);
 
 const MyApp = ({ Component, pageProps }: Props): ReactNode => {
   return (

@@ -18,7 +18,7 @@ export interface CoinData {
 }
 
 export interface NextPageDefaultProps {
-  messages: IntlMessages;
+  messages: TTranslatedMessage;
   now: number;
   pageTitle: string;
 }

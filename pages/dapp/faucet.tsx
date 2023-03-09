@@ -1,11 +1,10 @@
-import { Network } from '@mysten/sui.js';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
-import { FAUCET_TOKENS } from '@/constants';
+import { FAUCET_TOKENS, Network } from '@/constants';
 import { NextPageWithProps } from '@/interface';
 import Faucet from '@/views/dapp/faucet';
 
