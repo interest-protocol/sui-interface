@@ -71,7 +71,7 @@ const ModalButton: FC<ModalButtonProps> = ({
         },
       });
       await showTXSuccessToast(tx);
-      await sleep(2000);
+      await sleep(3000);
       await Promise.all([
         mutateFarms((data) =>
           data
@@ -137,7 +137,7 @@ const ModalButton: FC<ModalButtonProps> = ({
         },
       });
       await showTXSuccessToast(tx);
-      await sleep(2000);
+      await sleep(3000);
       await Promise.all([
         mutateFarms((data) =>
           data
