@@ -35,12 +35,12 @@ const secondary = css`
   outline: none;
   display: flex;
   cursor: pointer;
-  align-items: flex;
   position: relative;
   border-radius: 2rem;
-  color: ${colors.text};
-  justify-content: flex;
+  align-items: center;
   display: inline-block;
+  justify-content: center;
+  color: ${colors.accentActive};
   padding: ${space.L} ${space.XL};
   background: ${colors.accentSoft};
   border: 1px solid ${colors.accentActive};

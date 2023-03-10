@@ -96,7 +96,7 @@ const FarmStakeModal: FC<FarmStakeModalProps> = ({
           <InputStake
             setValue={form.setValue}
             register={form.register}
-            amount={amount}
+            balance={amount}
             currencyPrefix={
               <Box display="flex" alignItems="center">
                 <Box display="inline-flex">

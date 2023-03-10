@@ -17,7 +17,8 @@ const GenericMaxButton: FC<GenericMaxButtonProps> = ({
     ml="S"
     fontSize="XS"
     onClick={onClick}
-    variant="neutral"
+    variant="secondary"
+    // color="textInverted"
     justifyContent="center"
     disabled={disabled || false}
   >
@@ -48,7 +49,7 @@ const MaxButton: FC<MaxButtonProps> = ({
           disabled={!!disabled}
           onClick={() => handleMax(value)}
         >
-          {value === 1 ? 'max' : <>{value * 100}%</>}
+          {value === 1 ? 'Max' : <>{value * 100}%</>}
         </GenericMaxButton>
       ))}
     </Box>
