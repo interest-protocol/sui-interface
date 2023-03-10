@@ -58,8 +58,8 @@ const MaxButton: FC<MaxButtonProps> = ({
   return max ? (
     <Box
       display="flex"
-      position="relative"
-      justifyContent={left ? 'flex-start' : 'flex-end'}
+      flexDirection="column"
+      alignItems={left ? 'flex-start' : 'flex-end'}
     >
       <GenericMaxButton
         dark={dark}
@@ -77,7 +77,6 @@ const MaxButton: FC<MaxButtonProps> = ({
         <Box
           gap="0.2rem"
           display="flex"
-          position="absolute"
           minWidth={left ? '20rem' : 'unset'}
           justifyContent={left ? 'flex-start' : 'flex-end'}
           background={dark ? 'bottomBackground' : 'background'}
