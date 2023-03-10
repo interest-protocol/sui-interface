@@ -25,7 +25,6 @@ export interface MaxButtonProps {
 }
 
 export interface GenericMaxButtonProps {
-  dark: boolean;
   disabled: boolean;
   onClick: () => void;
 }

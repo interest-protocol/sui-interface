@@ -30,13 +30,19 @@ const InputBalance: FC<InputBalanceProps> = ({
   };
 
   return (
-    <Box display="flex" flexDirection="column-reverse" alignItems="flex-end">
+    <Box
+      display="flex"
+      position="relative"
+      alignItems="flex-end"
+      flexDirection="column-reverse"
+    >
       <Input
-        max={balance}
         type="text"
+        max={balance}
         onFocus={onFocus}
         placeholder="0.0"
         disabled={disabled || false}
+        fontSize={isLarge ? 'L' : 'M'}
         {...register(name, {
           onChange: (v: ChangeEvent<HTMLInputElement>) => {
             setValue?.(
@@ -49,10 +55,9 @@ const InputBalance: FC<InputBalanceProps> = ({
         shieldProps={{
           p: isLarge ? 'L' : 'S',
           my: 'M',
+          pl: isLarge ? 'XL' : 'M',
           width: '100%',
-          display: 'grid',
           overflow: 'hidden',
-          gridTemplateColumns: '6.9rem 1fr auto',
           bg: disabled
             ? dark
               ? 'background'
@@ -68,35 +73,18 @@ const InputBalance: FC<InputBalanceProps> = ({
             borderColor: 'accentActive',
           },
         }}
-        Prefix={
-          <>
-            {buttonMaxPosition == 'left' && (
-              <MaxButton
-                left
-                name={name}
-                disabled={disabled}
-                setValue={setValue}
-                customFunction={customFunction}
-                max={max}
-              />
-            )}
-            {Prefix && Prefix}
-          </>
+        Prefix={Prefix}
+        Bottom={
+          <MaxButton
+            max={max}
+            name={name}
+            disabled={disabled}
+            setValue={setValue}
+            customFunction={customFunction}
+            left={buttonMaxPosition == 'left'}
+          />
         }
-        Suffix={
-          <>
-            {buttonMaxPosition == 'right' && (
-              <MaxButton
-                max={max}
-                name={name}
-                disabled={disabled}
-                setValue={setValue}
-                customFunction={customFunction}
-              />
-            )}
-            {Suffix && Suffix}
-          </>
-        }
+        Suffix={Suffix}
       />
       <Box
         py="S"

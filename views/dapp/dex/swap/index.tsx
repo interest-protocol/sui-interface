@@ -143,7 +143,7 @@ const Swap: FC<SwapProps> = ({
               register={formSwap.register}
               setValue={formSwap.setValue}
               disabled={false}
-              Prefix={
+              Suffix={
                 <SwapSelectCurrency
                   tokens={coinsMap}
                   currentToken={tokenInType}

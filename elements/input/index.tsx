@@ -12,6 +12,7 @@ const Input = forwardRef(
     {
       Prefix,
       Suffix,
+      Bottom,
       shieldProps,
       onClickPrefix,
       onClickSuffix,
@@ -50,8 +51,23 @@ const Input = forwardRef(
             {Prefix}
           </Box>
         )}
-        <Box flex="1">
-          <InputField px="L" color="text" ref={ref} {...props} />
+        <Box
+          flex="1"
+          {...(!!Bottom && {
+            display: 'flex',
+            flexDirection: 'column',
+          })}
+        >
+          <InputField
+            px="L"
+            color="text"
+            ref={ref}
+            {...props}
+            {...(!!Bottom && {
+              py: 'M',
+            })}
+          />
+          {Bottom}
         </Box>
         {Suffix && (
           <Box

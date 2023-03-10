@@ -30,6 +30,7 @@ export interface InputFieldProps
 export interface InputProps extends InputFieldProps {
   Prefix?: ReactNode;
   Suffix?: ReactNode;
+  Bottom?: ReactNode;
   shieldProps?: BoxProps;
   onClickPrefix?: () => void;
   onClickSuffix?: () => void;

@@ -113,7 +113,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
       register={register}
       setValue={setValue}
       disabled
-      Prefix={
+      Suffix={
         <SwapSelectCurrency
           tokens={coinsMap}
           currentToken={tokenOutType}

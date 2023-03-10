@@ -50,14 +50,14 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
           name={INPUT_NAMES[index]}
           balance={FixedPointMath.toNumber(balance, decimals).toString()}
           max={FixedPointMath.toNumber(balance, decimals).toString()}
-          Prefix={
+          Suffix={
             <Box
               px="M"
               width="4.5rem"
               lineHeight="0"
               display="flex"
               alignItems="center"
-              borderRight="1px solid"
+              borderLeft="1px solid"
               borderColor="bottomBackground"
             >
               <Box
