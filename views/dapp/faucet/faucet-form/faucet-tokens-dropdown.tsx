@@ -10,7 +10,7 @@ import { FaucetCurrencyDropdownProps, IToken } from '../faucet.types';
 
 const renderData = (
   data: ReadonlyArray<IToken>,
-  onSelectCurrency: (address: string) => void
+  onSelectCurrency: (objectId: string) => void
 ): ReadonlyArray<IDropdownData> =>
   data.map(({ symbol, type, Icon }) => {
     const SVG = Icon;

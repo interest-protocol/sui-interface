@@ -1,7 +1,6 @@
-import { Network } from '@mysten/sui.js';
 import { v4 } from 'uuid';
 
-import { FAUCET_TOKENS } from '@/constants';
+import { FAUCET_TOKENS, Network } from '@/constants';
 import { Box } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { ZERO_BIG_NUMBER } from '@/utils';

@@ -24,6 +24,7 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
   getLpAmount,
   resetLpAmount,
   lpAmountControl,
+  loadingRemoveLiquidityState,
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
@@ -53,12 +54,7 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
   return (
     <>
       <LinearLoader loading={isLoading} />
-      <Box
-        my="L"
-        rowGap="1rem"
-        display="grid"
-        gridTemplateColumns="auto auto 1fr"
-      >
+      <Box my="L" rowGap="1rem" display="grid" gridTemplateColumns="1fr">
         <TokenAmount
           Icon={tokens[0].Icon}
           symbol={tokens[0].symbol}
@@ -89,6 +85,7 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
             objectIds={objectIds}
             token0={token0}
             token1={token1}
+            loadingRemoveLiquidityState={loadingRemoveLiquidityState}
           />
         </Box>
       </WalletGuardButton>

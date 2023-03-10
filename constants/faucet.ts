@@ -1,4 +1,3 @@
-import { Network } from '@mysten/sui.js';
 import { FC } from 'react';
 
 import { SVGProps } from '@/components/svg/svg.types';
@@ -14,10 +13,11 @@ import {
 } from '@/svg';
 
 import { COIN_TYPE } from './coins';
+import { Network } from './network';
 
-export const FAUCET_PACKAGE_ID = '0x2a8850755229ca0d939a2f1df3311838053015d4';
+export const FAUCET_PACKAGE_ID = '0x8f65e0e3d27ca57e7d66bc76832c366e49f043a2';
 
-export const FAUCET_OBJECT_ID = '0x7f3936a61fb25eee6cc886c8b19b3e12dfc924c0';
+export const FAUCET_OBJECT_ID = '0xf7666e6647db106c41347eabf3ae594deff9e659';
 
 export const FAUCET_TOKENS = {
   [Network.DEVNET]: [

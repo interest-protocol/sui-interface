@@ -5,10 +5,7 @@ import { Container, Switch } from '@/components';
 import { Routes, RoutesEnum } from '@/constants';
 import { Box } from '@/elements';
 
-import Pool from './pool';
-import Swap from './swap';
-
-const DEXView: FC = () => {
+const DEXViewWrapper: FC = ({ children }) => {
   const { pathname, push } = useRouter();
 
   const isSwap = !pathname.includes(Routes[RoutesEnum.DEXPool]);
@@ -37,9 +34,9 @@ const DEXView: FC = () => {
           ]}
         />
       </Box>
-      {isSwap ? <Swap /> : <Pool />}
+      {children}
     </Container>
   );
 };
 
-export default DEXView;
+export default DEXViewWrapper;

@@ -1,4 +1,3 @@
-import { Network } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { isEmpty, propOr } from 'ramda';
 
@@ -6,7 +5,7 @@ import {
   Web3ManagerState,
   Web3ManagerSuiObject,
 } from '@/components/web3-manager/web3-manager.types';
-import { COIN_TYPE } from '@/constants';
+import { COIN_TYPE, Network } from '@/constants';
 
 export const addCoinTypeToTokenType = (x: string): string =>
   `0x2::coin::Coin<${x}>`;
@@ -52,9 +51,13 @@ export const processSafeAmount = (
 
   if (!object) return amount;
 
+  const safeAmount = amount.gt(object.totalBalance)
+    ? object.totalBalance
+    : amount;
+
   if (
     type === COIN_TYPE[Network.DEVNET].SUI &&
-    amount.eq(object.totalBalance)
+    safeAmount.minus(gas).eq(object.totalBalance)
   ) {
     const suiObjects = [...object.objects];
     const sortedArray = suiObjects.sort((a, b) =>
@@ -62,8 +65,10 @@ export const processSafeAmount = (
     );
     const elem = sortedArray.find((elem) => elem.balance >= gas);
 
-    return elem ? amount.minus(new BigNumber(elem.balance)) : new BigNumber(0);
+    return elem
+      ? safeAmount.minus(new BigNumber(elem.balance))
+      : new BigNumber(0);
   }
 
-  return amount;
+  return safeAmount;
 };

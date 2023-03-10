@@ -1,17 +1,12 @@
 import { useTranslations } from 'next-intl';
 import { isEmpty } from 'ramda';
 import { FC } from 'react';
-import { useForm } from 'react-hook-form';
 import { v4 } from 'uuid';
 
 import { Box, InputBalance, Typography } from '@/elements';
 import { FixedPointMath } from '@/sdk';
 
-import {
-  AddLiquidityCardProps,
-  IAddLiquidityForm,
-  INPUT_NAMES,
-} from './add-liquidity-card.types';
+import { AddLiquidityCardProps, INPUT_NAMES } from './add-liquidity-card.types';
 import AddLiquidityCardContent from './add-liquidity-card-content';
 import AddLiquidityManager from './add-liquidity-manager';
 
@@ -20,28 +15,18 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
   fetchingInitialData,
   refetch,
   pool,
+  formAddLiquidity,
+  loadingAddLiquidityState,
 }) => {
   const t = useTranslations();
 
-  const { register, setValue, control, getValues } = useForm<IAddLiquidityForm>(
-    {
-      defaultValues: {
-        token0Amount: '0.0',
-        token1Amount: '0.0',
-        error: '',
-        token0InputLocked: false,
-        token1InputLocked: false,
-      },
-    }
-  );
-
   const customInputFunction = (name: string) => {
     if (name === 'token0Amount') {
-      setValue('token0InputLocked', true);
-      setValue('token1InputLocked', false);
+      formAddLiquidity.setValue('token0InputLocked', true);
+      formAddLiquidity.setValue('token1InputLocked', false);
     } else {
-      setValue('token1InputLocked', true);
-      setValue('token0InputLocked', false);
+      formAddLiquidity.setValue('token1InputLocked', true);
+      formAddLiquidity.setValue('token0InputLocked', false);
     }
   };
 
@@ -60,8 +45,8 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
       {tokens.map(({ balance, Icon, symbol, decimals }, index) => (
         <InputBalance
           key={v4()}
-          register={register}
-          setValue={setValue}
+          register={formAddLiquidity.register}
+          setValue={formAddLiquidity.setValue}
           name={INPUT_NAMES[index]}
           balance={FixedPointMath.toNumber(balance, decimals).toString()}
           max={FixedPointMath.toNumber(balance, decimals).toString()}
@@ -97,15 +82,16 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
       <AddLiquidityCardContent
         tokens={tokens}
         refetch={refetch}
-        control={control}
-        setValue={setValue}
+        control={formAddLiquidity.control}
+        setValue={formAddLiquidity.setValue}
         fetchingInitialData={fetchingInitialData}
-        getValues={getValues}
+        getValues={formAddLiquidity.getValues}
+        loadingAddLiquidityState={loadingAddLiquidityState}
       />
       {tokens.length == 2 && !isEmpty(pool) && (
         <AddLiquidityManager
-          control={control}
-          setValue={setValue}
+          control={formAddLiquidity.control}
+          setValue={formAddLiquidity.setValue}
           token0={tokens[0]}
           token1={tokens[1]}
           pool={pool}

@@ -1,32 +1,23 @@
-import { Network } from '@mysten/sui.js';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
-import { useForm } from 'react-hook-form';
 
-import { FAUCET_TOKENS } from '@/constants';
+import { FAUCET_TOKENS, Network } from '@/constants';
 import { Box, Typography } from '@/elements';
 
 import { WalletGuardButton } from '../../components';
-import { IFaucetForm } from '../faucet.types';
+import { FaucetProps } from '../faucet.types';
 import BalanceList from './balance-list';
 import FaucetSelectCurrency from './faucet-select-currency';
 import MintButton from './mint-button';
 
 const tokens = FAUCET_TOKENS[Network.DEVNET];
 
-const FaucetForm: FC = () => {
+const FaucetForm: FC<FaucetProps> = ({ form }) => {
   const t = useTranslations();
 
-  const { getValues, setValue } = useForm<IFaucetForm>({
-    defaultValues: {
-      type: tokens?.[0]?.type ?? '',
-      amount: 0,
-    },
-  });
-
   const onSelectCurrency = (type: string) => {
-    setValue('type', type);
-    setValue('amount', 0);
+    form.setValue('type', type);
+    form.setValue('amount', 0);
   };
 
   return (
@@ -55,7 +46,7 @@ const FaucetForm: FC = () => {
             onSelectCurrency={onSelectCurrency}
           />
           <WalletGuardButton>
-            <MintButton getValues={getValues} />
+            <MintButton getValues={form.getValues} />
           </WalletGuardButton>
         </Box>
         <Box

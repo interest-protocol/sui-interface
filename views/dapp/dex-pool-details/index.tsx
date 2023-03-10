@@ -1,11 +1,15 @@
-import { Network } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { pathOr, propOr } from 'ramda';
 import { FC } from 'react';
 
 import { Container } from '@/components';
-import { POOL_METADATA_MAP, PoolMetadata, TOKENS_SVG_MAP } from '@/constants';
+import {
+  Network,
+  POOL_METADATA_MAP,
+  PoolMetadata,
+  TOKENS_SVG_MAP,
+} from '@/constants';
 import { Box, Typography } from '@/elements';
 import { useLocale, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
@@ -22,7 +26,13 @@ import { IToken } from './components/add-liquidity-card/add-liquidity-card.types
 import { useGetVolatilePool } from './dex-pool-details.hooks';
 import { DEXPoolDetailsViewProps } from './dex-pool-details.types';
 
-const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
+const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
+  objectId,
+  formAddLiquidity,
+  formRemoveLiquidity,
+  loadingAddLiquidityState,
+  loadingRemoveLiquidityState,
+}) => {
   const t = useTranslations();
 
   const {
@@ -100,7 +110,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
     {
       symbol: token0.symbol,
       Icon: (
-        <Box as="span" display="inline-block" width="1rem">
+        <Box as="span" display="flex" width="1rem">
           <FirstIcon width="100%" maxHeight="1rem" maxWidth="1rem" />
         </Box>
       ),
@@ -110,7 +120,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
     {
       symbol: token1.symbol,
       Icon: (
-        <Box as="span" display="inline-block" width="1rem">
+        <Box as="span" display="flex" width="1rem">
           <SecondIcon width="100%" maxHeight="1rem" maxWidth="1rem" />
         </Box>
       ),
@@ -189,18 +199,22 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({ objectId }) => {
           refetch={async () => {
             await Promise.all([updateVolatilePools, mutate]);
           }}
+          formAddLiquidity={formAddLiquidity}
+          loadingAddLiquidityState={loadingAddLiquidityState}
         />
         <RemoveLiquidityCard
           isStable={false}
           lpToken={
             coinsMap[
-              getCoinTypeFromSupply(propOr('', 'lpCoinType', volatilePool))
+              getCoinTypeFromSupply(propOr('', 'lpCoin', volatilePool))
             ] || {}
           }
           tokens={removeLiquidityTokens}
           refetch={async () => {
             await Promise.all([updateVolatilePools, mutate]);
           }}
+          formRemoveLiquidity={formRemoveLiquidity}
+          loadingRemoveLiquidityState={loadingRemoveLiquidityState}
         />
       </Box>
     </Container>

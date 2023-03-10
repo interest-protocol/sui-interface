@@ -1,16 +1,26 @@
 import { useTheme } from '@emotion/react';
-import { Network } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { useCallback, useState } from 'react';
 import { FC } from 'react';
 
-import { COIN_TYPE, FAUCET_OBJECT_ID, FAUCET_PACKAGE_ID } from '@/constants';
+import { incrementTX } from '@/api/analytics';
+import {
+  COIN_TYPE,
+  FAUCET_OBJECT_ID,
+  FAUCET_PACKAGE_ID,
+  Network,
+} from '@/constants';
 import { Box, Button, Typography } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
-import { capitalize, provider, showToast, showTXSuccessToast } from '@/utils';
+import {
+  capitalize,
+  mystenLabsProvider,
+  showToast,
+  showTXSuccessToast,
+} from '@/utils';
 
 import { MintButtonProps } from './faucet-form.types';
 
@@ -37,7 +47,8 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
 
       if (type === COIN_TYPE[Network.DEVNET].SUI) {
         if (!account) throw new Error(t('error.accountNotFound'));
-        return await provider.requestSuiFromFaucet(account);
+        await mystenLabsProvider.requestSuiFromFaucet(account);
+        return;
       }
 
       const tx = await signAndExecuteTransaction({
@@ -52,6 +63,7 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
         },
       });
       await showTXSuccessToast(tx);
+      incrementTX(account ?? '');
     } finally {
       setLoading(false);
       await mutate();
@@ -60,7 +72,7 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
 
   const onMint = () =>
     showToast(handleOnMint(), {
-      loading: `Loading`,
+      loading: t('common.loading', { loading: Number(true) }),
       success: capitalize(t('common.success')),
       error: prop('message'),
     });

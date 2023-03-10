@@ -5,12 +5,14 @@ import { prop } from 'ramda';
 import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
+import { incrementTX } from '@/api/analytics';
 import {
   DEX_PACKAGE_ID,
   DEX_STORAGE_STABLE,
   DEX_STORAGE_VOLATILE,
 } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
+import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import { capitalize, showToast, showTXSuccessToast } from '@/utils';
@@ -33,6 +35,7 @@ const SwapButton: FC<SwapButtonProps> = ({
   tokenOutType,
 }) => {
   const t = useTranslations();
+  const { account } = useWeb3();
   const { data } = useGetVolatilePools();
   const [loading, setLoading] = useState(false);
   const { signAndExecuteTransaction } = useWalletKit();
@@ -99,7 +102,9 @@ const SwapButton: FC<SwapButtonProps> = ({
             ],
           },
         });
-        return await showTXSuccessToast(tx);
+        await showTXSuccessToast(tx);
+        incrementTX(account ?? '');
+        return;
       }
 
       // One Hop Swap
@@ -127,11 +132,13 @@ const SwapButton: FC<SwapButtonProps> = ({
             ],
           },
         });
-        return await showTXSuccessToast(tx);
+        await showTXSuccessToast(tx);
+        incrementTX(account ?? '');
+        return;
       }
 
       throw new Error(t('dexSwap.error.soonFeature'));
-    } catch (error) {
+    } catch {
       throw new Error(t('dexSwap.error.failedToSwap'));
     } finally {
       resetInput();

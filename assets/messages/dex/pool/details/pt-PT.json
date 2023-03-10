@@ -11,7 +11,8 @@
       "pairDoesNotExist": "O mercado com o endereço {objectId} não existe.",
       "unableToAdd": "Não é possível adicionar liquidez de 0",
       "notEnough": "Não tens coins suficientes",
-      "failed": "Falha ao adicionar",
+      "failedAdd": "Falha ao adicionar liquidez",
+      "failedRemove": "Falha ao remover liquidez",
       "cannotWithdraw": "Não podes sacar 0 lp tokens",
       "increaseAmount": "Deposite mais {symbol}",
       "notEnoughGas": "Não tem SUI suficiente para cobrir a taxa de gás."

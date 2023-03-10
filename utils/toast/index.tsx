@@ -1,8 +1,8 @@
-import { Network, SuiTransactionResponse } from '@mysten/sui.js';
+import { SuiTransactionResponse } from '@mysten/sui.js';
 import { propOr } from 'ramda';
 import toast from 'react-hot-toast';
 
-import { SUI_EXPLORER } from '@/constants';
+import { Network, SUI_EXPLORER } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { SuiSVG } from '@/svg';
 import { tryCatch } from '@/utils/promise';
@@ -21,7 +21,7 @@ export const showTXSuccessToast = async (
       target="__black"
       rel="noreferrer nofollow"
       href={`${SUI_EXPLORER[Network.DEVNET]}/transaction/${
-        tx.certificate.transactionDigest
+        tx.certificate?.transactionDigest
       }?network=${NETWORK_RECORD[Network.DEVNET]}`}
     >
       <Box display="flex" alignItems="center">

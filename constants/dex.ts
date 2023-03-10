@@ -1,20 +1,19 @@
-import { Network } from '@mysten/sui.js';
-
 import { TOKEN_SYMBOL } from '@/sdk';
 
 import { COIN_TYPE } from './coins';
+import { Network } from './network';
 
-export const DEX_PACKAGE_ID = '0x2a8850755229ca0d939a2f1df3311838053015d4';
+export const DEX_PACKAGE_ID = '0x8f65e0e3d27ca57e7d66bc76832c366e49f043a2';
 
 export const VOLATILE_POOLS_OBJECT_ID =
-  '0x250d9b6853184d963305345001f85bd280c39409';
+  '0x09f8691c7fa21e834904aa28d80e88556db19ffd';
 
 export const DEX_BASE_TOKEN_ARRAY = [COIN_TYPE[Network.DEVNET].ETH];
 
 export const DEX_STORAGE_VOLATILE =
-  '0x797e8ff495ff149eaf57cb051b547d041845e830';
+  '0x9de42d1af1f5dd5678c194bff0981cf271f06e74';
 
-export const DEX_STORAGE_STABLE = '0x5071e835d741ab2be0efeac58719fcb1b58b9b22';
+export const DEX_STORAGE_STABLE = '0x66e8f066a518833763232bd260be108b7f89adff';
 
 export const DEX_TOKENS_DATA = [
   {
@@ -58,5 +57,11 @@ export const DEX_TOKENS_DATA = [
     decimals: 0,
     type: COIN_TYPE[Network.DEVNET].USDC,
     name: 'USD Coin',
+  },
+  {
+    symbol: TOKEN_SYMBOL.IPX,
+    decimals: 9,
+    type: COIN_TYPE[Network.DEVNET].IPX,
+    name: 'Interest Protocol Coin',
   },
 ];

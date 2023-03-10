@@ -24,3 +24,5 @@ export interface Web3ManagerState {
 export interface Web3ManagerProps {
   children: ReactNode;
 }
+
+export type CoinsMap = Web3ManagerState['coinsMap'];

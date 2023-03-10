@@ -30,7 +30,8 @@ const withParamsGuard: TWithParamsGuard = (paramsKeys, Component) => () => {
 
   if (!isReady) return <Loading />;
 
-  if (!params.length) return <ErrorView message={t('error.wrongParams')} />;
+  if (!params.every((param) => !!param))
+    return <ErrorView message={t('error.wrongParams')} />;
 
   return (
     <Component

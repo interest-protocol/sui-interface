@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { FC, ReactNode, useMemo, useState } from 'react';
+import { FC, ReactNode, useMemo } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
 import { v4 } from 'uuid';
@@ -75,10 +75,11 @@ const SwapCurrencyDropdown: FC<SwapCurrencyDropdownProps> = ({
   isModalOpen,
   currentToken,
   onSelectCurrency,
+  searchTokenModalState,
 }) => {
   const t = useTranslations();
   const search = useWatch({ control, name: 'search' });
-  const [searchedToken] = useState<null | SwapTokenModalMetadata>(null);
+  const searchedToken = searchTokenModalState;
 
   const [debouncedSearch] = useDebounce(search, 800);
 

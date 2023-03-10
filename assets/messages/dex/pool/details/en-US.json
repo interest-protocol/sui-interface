@@ -11,7 +11,8 @@
       "pairDoesNotExist": "The pair with address {objectId} does not exist",
       "unableToAdd": "Unable to add 0 liquidity",
       "notEnough": "Not enough coins",
-      "failed": "Failed to add liquidity",
+      "failedAdd": "Failed to add liquidity",
+      "failedRemove": "Failed to remove liquidity",
       "cannotWithdraw": "Cannot withdraw 0 lp tokens",
       "increaseAmount": "Increase the {symbol} amount",
       "notEnoughGas": "Not enough SUI to cover the gas fee"

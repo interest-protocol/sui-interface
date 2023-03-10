@@ -1,6 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { ReactNode } from 'react';
-import { Control, UseFormGetValues, UseFormSetValue } from 'react-hook-form';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
+import {
+  Control,
+  UseFormGetValues,
+  UseFormReturn,
+  UseFormSetValue,
+} from 'react-hook-form';
 
 import { Pool } from '../../dex-pool-details.types';
 
@@ -25,6 +30,11 @@ export interface AddLiquidityCardProps {
   fetchingInitialData: boolean;
   refetch: () => Promise<void>;
   pool: Pool;
+  formAddLiquidity: UseFormReturn<IAddLiquidityForm>;
+  loadingAddLiquidityState: {
+    loading: boolean;
+    setLoading: Dispatch<SetStateAction<boolean>>;
+  };
 }
 
 export interface AddLiquidityCardContentProps {
@@ -34,6 +44,10 @@ export interface AddLiquidityCardContentProps {
   setValue: UseFormSetValue<IAddLiquidityForm>;
   getValues: UseFormGetValues<IAddLiquidityForm>;
   fetchingInitialData: AddLiquidityCardProps['fetchingInitialData'];
+  loadingAddLiquidityState: {
+    loading: boolean;
+    setLoading: Dispatch<SetStateAction<boolean>>;
+  };
 }
 
 export interface BalanceErrorProps {
@@ -51,6 +65,10 @@ export interface AddLiquidityCardButtonProps {
   getValues: UseFormGetValues<IAddLiquidityForm>;
   refetch: () => Promise<void>;
   tokens: IToken[];
+  loadingAddLiquidityState: {
+    loading: boolean;
+    setLoading: Dispatch<SetStateAction<boolean>>;
+  };
 }
 
 export const INPUT_NAMES = ['token0Amount', 'token1Amount'] as Array<

@@ -11,7 +11,7 @@
       "amountOut": "Failed to fetch the amount out",
       "sameOut": "Cannot swap the same token",
       "balances": "Failed to fetch balances",
-      "noMarket": "This pair has not market",
+      "noMarket": "This pair has no market",
       "infoNoPool": "This pair has no liquidity. Try a higher amount or add liquidity",
       "noPool": "No pool found! Try an existing pool",
       "error": "Failed to swap: try a higher slippage or smaller amount",

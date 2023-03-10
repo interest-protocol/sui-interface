@@ -1,0 +1,22 @@
+{
+  "farmsDetails": {
+    "pageTitle": "Farm Details",
+    "title": "Details",
+    "secondCardTitle": "Staked",
+    "thirdCardTitle": "Rewards",
+    "thirdCardButton": "{isLoading, plural, =1 {Harvesting...} other {Harvest}}",
+    "yourStakedLabel": "You staked",
+    "modalStakedTitle": "Staked",
+    "modalUnstakedTitle": "Unstaked",
+    "modalLabelInput": "Amount {type}",
+    "errors": {
+      "noTokens": "Cannot withdraw 0 tokens",
+      "farm": "Failed to fetch Farm data",
+      "pool": "Failed to fetch Pool data",
+      "prices": "Failed to fetch coins prices",
+      "ipxStorage": "Failed to fetch the IPXStorage object",
+      "balances": "Failed to fetch the coin balances",
+      "rewards": "Failed to fetch the pending rewards"
+    }
+  }
+}

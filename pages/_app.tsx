@@ -3,39 +3,29 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-tooltip/dist/react-tooltip.css';
 
 import { Global } from '@emotion/react';
-import { WalletKitProvider } from '@mysten/wallet-kit';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import NextProgress from 'next-progress';
 import { ReactNode, StrictMode } from 'react';
-import { SkeletonTheme } from 'react-loading-skeleton';
 import { TooltipProvider } from 'react-tooltip';
 
 import { LoadingPage, NextIntlProvider, ThemeManager } from '@/components';
 import { GlobalStyles } from '@/design-system';
-import { TTranslatedMessage } from '@/interface';
+import { NextPageDefaultProps } from '@/interface';
 
-const Layout = dynamic(() => import('../components/layout'), {
-  ssr: false,
-  loading: LoadingPage,
-});
-
-const Web3Manager = dynamic(() => import('../components/web3-manager'), {
-  ssr: false,
-  loading: LoadingPage,
-});
-
-interface PageProps {
-  now: number;
-  pageTitle: string;
-  messages: TTranslatedMessage;
-}
-
-type Props = Omit<AppProps<PageProps>, 'pageProps'> & {
-  pageProps: PageProps;
+type Props = Omit<AppProps<NextPageDefaultProps>, 'pageProps'> & {
+  pageProps: NextPageDefaultProps;
 };
+
+const WalletKitProvider = dynamic(
+  () => import('@mysten/wallet-kit').then((mod) => mod.WalletKitProvider),
+  {
+    ssr: false,
+    loading: LoadingPage,
+  }
+);
 
 const MyApp = ({ Component, pageProps }: Props): ReactNode => {
   return (
@@ -63,21 +53,15 @@ const MyApp = ({ Component, pageProps }: Props): ReactNode => {
         timeZone="UTC"
       >
         <WalletKitProvider>
-          <SkeletonTheme baseColor="#202020" highlightColor="#444">
-            <Global styles={GlobalStyles} />
-            <ThemeManager>
-              <StrictMode>
-                <TooltipProvider>
-                  <Web3Manager>
-                    <Layout pageTitle={pageProps.pageTitle}>
-                      <Component {...pageProps} />
-                      <VercelAnalytics />
-                    </Layout>
-                  </Web3Manager>
-                </TooltipProvider>
-              </StrictMode>
-            </ThemeManager>
-          </SkeletonTheme>
+          <Global styles={GlobalStyles} />
+          <ThemeManager>
+            <StrictMode>
+              <TooltipProvider>
+                <Component {...pageProps} />
+                <VercelAnalytics />
+              </TooltipProvider>
+            </StrictMode>
+          </ThemeManager>
         </WalletKitProvider>
       </NextIntlProvider>
     </>

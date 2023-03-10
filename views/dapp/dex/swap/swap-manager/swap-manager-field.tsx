@@ -1,11 +1,10 @@
-import { Network } from '@mysten/sui.js';
 import { BigNumber } from 'bignumber.js';
 import { pathOr } from 'ramda';
 import { FC, useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
 import useSWR from 'swr';
 
-import { COIN_DECIMALS } from '@/constants';
+import { COIN_DECIMALS, Network } from '@/constants';
 import InputBalance from '@/elements/input-balance';
 import { FixedPointMath } from '@/sdk';
 import { formatMoney, makeSWRKey, provider, ZERO_BIG_NUMBER } from '@/utils';
@@ -34,6 +33,9 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   tokenIn,
   hasNoMarket,
   setError,
+  searchingState,
+  formSearch,
+  searchTokenModalState,
 }) => {
   const tokenOutValue = useWatch({ control, name: 'tokenOut.value' });
 
@@ -120,6 +122,9 @@ const SwapManagerField: FC<SwapManagerProps> = ({
           onSelectCurrency={onSelectCurrency}
           symbol={getValues('tokenOut.symbol')}
           setIsModalOpen={setTokenOutIsOpenModal}
+          searchingState={searchingState}
+          formSearch={formSearch}
+          searchTokenModalState={searchTokenModalState}
         />
       }
       isLarge={true}

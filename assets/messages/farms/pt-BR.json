@@ -1,0 +1,18 @@
+{
+  "farms": {
+    "pageTitle": "Farms",
+    "filterStaked": "Apenas stake",
+    "column1Tip": "Valor Total Retido",
+    "column2Tip": "O seu montante de tokens na farm",
+    "column3Tip": "Taxa anual em percentagem <br/> juro anual gerado",
+    "column4": "Alocação",
+    "column4Tip": "Representa a % da Interest Token criado em comparação com outros pools.",
+    "column5Tip": "Volátil ou Estável.",
+    "errors": {
+      "farms": "Falha ao trazer dados das Farms",
+      "pools": "Falha ao trazer dados das Pools",
+      "prices": "Falha ao trazer preços das Moedas",
+      "ipxStorage": "Falha ao trazer o IPXStorage object"
+    }
+  }
+}

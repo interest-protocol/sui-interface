@@ -1,7 +1,6 @@
 import { useTheme } from '@emotion/react';
 import { useTranslations } from 'next-intl';
-import { ChangeEvent, FC, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { ChangeEvent, FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { Box, Button, Modal, Typography } from '@/elements';
@@ -10,7 +9,6 @@ import { parseInputEventToNumberString } from '@/utils';
 
 import Field from './field';
 import {
-  ISwapSettingsForm,
   ModalSettingsBody,
   SettingsAutoButton,
   SettingsDropdownProps,
@@ -60,12 +58,9 @@ const ModalBody: FC<ModalSettingsBody> = ({
   onRequestClose,
   register,
   setValue,
-  getValues,
   control,
+  autoButtonState,
 }) => {
-  const [isAuto, setAuto] = useState(
-    getValues('slippage') == SLIPPAGE_AUTO_VALUE
-  );
   const t = useTranslations();
   return (
     <Box
@@ -106,20 +101,20 @@ const ModalBody: FC<ModalSettingsBody> = ({
           type="text"
           placeholder="0.5"
           label={t('dexSwap.toleranceLabel')}
-          hasBorder={!isAuto}
+          hasBorder={!autoButtonState.isAuto}
           setRegister={() =>
             register('slippage', {
               onChange: (v: ChangeEvent<HTMLInputElement>) => {
                 const slippage = parseInputEventToNumberString(v);
                 const safeSlippage = +slippage >= 30 ? '30' : slippage;
                 setValue('slippage', safeSlippage);
-                setAuto(false);
+                autoButtonState.setAuto(false);
               },
             })
           }
           prefix={
             <AutoButton
-              setAuto={setAuto}
+              setAuto={autoButtonState.setAuto}
               setValue={setValue}
               control={control}
             />
@@ -134,19 +129,12 @@ const ModalBody: FC<ModalSettingsBody> = ({
 const SettingsDropdown: FC<SettingsDropdownProps> = ({
   isOpen,
   onClose,
-  localSettings,
   setLocalSettings,
+  formSettingsDropdown,
+  autoButtonState,
 }) => {
-  const { register, setValue, getValues, control } = useForm<ISwapSettingsForm>(
-    {
-      defaultValues: {
-        slippage: localSettings.slippage,
-      },
-    }
-  );
-
   const onRequestClose = () => {
-    setLocalSettings(getValues());
+    setLocalSettings(formSettingsDropdown.getValues());
     onClose();
   };
 
@@ -161,11 +149,11 @@ const SettingsDropdown: FC<SettingsDropdownProps> = ({
       }}
     >
       <ModalBody
-        setValue={setValue}
-        getValues={getValues}
-        register={register}
+        setValue={formSettingsDropdown.setValue}
+        register={formSettingsDropdown.register}
         onRequestClose={onRequestClose}
-        control={control}
+        control={formSettingsDropdown.control}
+        autoButtonState={autoButtonState}
       />
     </Modal>
   );

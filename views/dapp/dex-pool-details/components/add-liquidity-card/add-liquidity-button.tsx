@@ -2,8 +2,9 @@ import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { isEmpty, prop } from 'ramda';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
+import { incrementTX } from '@/api/analytics';
 import {
   DEX_PACKAGE_ID,
   DEX_STORAGE_STABLE,
@@ -27,10 +28,10 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
   tokens,
   refetch,
   getValues,
+  loadingAddLiquidityState,
 }) => {
-  const [loading, setLoading] = useState(false);
   const t = useTranslations();
-  const { coinsMap } = useWeb3();
+  const { coinsMap, account } = useWeb3();
   const { signAndExecuteTransaction } = useWalletKit();
 
   const handleAddLiquidity = async () => {
@@ -45,7 +46,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
       if (!+token0Amount || !+token1Amount)
         throw new Error(t('dexPoolPair.error.unableToAdd'));
 
-      setLoading(true);
+      loadingAddLiquidityState.setLoading(true);
 
       const amount0 = FixedPointMath.toBigNumber(
         token0Amount,
@@ -89,11 +90,13 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
           ],
         },
       });
-      return await showTXSuccessToast(tx);
+      await showTXSuccessToast(tx);
+      incrementTX(account ?? '');
+      return;
     } catch {
-      throw new Error(t('dexPoolPair.error.failed'));
+      throw new Error(t('dexPoolPair.error.failedAdd'));
     } finally {
-      setLoading(false);
+      loadingAddLiquidityState.setLoading(false);
       await refetch();
     }
   };
@@ -110,13 +113,15 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
       width="100%"
       display="flex"
       variant="primary"
-      disabled={loading}
+      disabled={loadingAddLiquidityState.loading}
       alignItems="center"
       justifyContent="center"
       onClick={addLiquidity}
     >
-      {capitalize(t('common.add', { isLoading: Number(loading) }))}
-      {loading && (
+      {capitalize(
+        t('common.add', { isLoading: Number(loadingAddLiquidityState.loading) })
+      )}
+      {loadingAddLiquidityState.loading && (
         <Box
           ml="M"
           as="span"
