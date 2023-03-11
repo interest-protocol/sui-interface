@@ -20,7 +20,6 @@ import {
   processSafeAmount,
   showToast,
   showTXSuccessToast,
-  sleep,
 } from '@/utils';
 
 import { ModalButtonProps } from './buttons.types';
@@ -60,35 +59,33 @@ const ModalButton: FC<ModalButtonProps> = ({
         ? farm.accountBalance
         : amount;
 
-      const tx = await signAndExecuteTransaction({
-        kind: 'moveCall',
-        data: {
-          function: 'unstake',
-          gasBudget: 15000,
-          module: 'interface',
-          packageObjectId: FARMS_PACKAGE_ID,
-          typeArguments: [farm.lpCoin.type],
-          arguments: [IPX_STORAGE, IPX_ACCOUNT_STORAGE, safeAmount.toString()],
+      const tx = await signAndExecuteTransaction(
+        {
+          kind: 'moveCall',
+          data: {
+            function: 'unstake',
+            gasBudget: 15000,
+            module: 'interface',
+            packageObjectId: FARMS_PACKAGE_ID,
+            typeArguments: [farm.lpCoin.type],
+            arguments: [
+              IPX_STORAGE,
+              IPX_ACCOUNT_STORAGE,
+              safeAmount.toString(),
+            ],
+          },
         },
-      });
-      await showTXSuccessToast(tx);
-      incrementTX(account ?? '');
-      await sleep(3000);
-      await Promise.all([
-        mutateFarms((data) =>
-          data
-            ? [
-                {
-                  ...data[0],
-                  accountBalance: data[0].accountBalance.minus(safeAmount),
-                },
-              ]
-            : []
-        ),
-        mutatePendingRewards(0n),
-      ]);
+        { requestType: 'WaitForEffectsCert' }
+      );
+
+      if (tx.effects.status.status === 'success') {
+        await showTXSuccessToast(tx);
+        incrementTX(account ?? '');
+      }
     } finally {
       mutatePools();
+      mutatePendingRewards();
+      mutateFarms();
       setLoading(false);
       resetForm();
     }
@@ -122,40 +119,33 @@ const ModalButton: FC<ModalButtonProps> = ({
         15000
       );
 
-      const tx = await signAndExecuteTransaction({
-        kind: 'moveCall',
-        data: {
-          function: 'stake',
-          gasBudget: 15000,
-          module: 'interface',
-          packageObjectId: FARMS_PACKAGE_ID,
-          typeArguments: [farm.lpCoin.type],
-          arguments: [
-            IPX_STORAGE,
-            IPX_ACCOUNT_STORAGE,
-            getCoinIds(coinsMap, farm.lpCoinData.type),
-            safeAmount.toString(),
-          ],
+      const tx = await signAndExecuteTransaction(
+        {
+          kind: 'moveCall',
+          data: {
+            function: 'stake',
+            gasBudget: 15000,
+            module: 'interface',
+            packageObjectId: FARMS_PACKAGE_ID,
+            typeArguments: [farm.lpCoin.type],
+            arguments: [
+              IPX_STORAGE,
+              IPX_ACCOUNT_STORAGE,
+              getCoinIds(coinsMap, farm.lpCoinData.type),
+              safeAmount.toString(),
+            ],
+          },
         },
-      });
-      await showTXSuccessToast(tx);
-      incrementTX(account ?? '');
-      await sleep(3000);
-      await Promise.all([
-        mutateFarms((data) =>
-          data
-            ? [
-                {
-                  ...data[0],
-                  accountBalance: data[0].accountBalance.plus(safeAmount),
-                },
-              ]
-            : []
-        ),
-        mutatePendingRewards(0n),
-      ]);
+        { requestType: 'WaitForEffectsCert' }
+      );
+      if (tx.effects.status.status === 'success') {
+        await showTXSuccessToast(tx);
+        incrementTX(account ?? '');
+      }
     } finally {
       mutatePools();
+      mutatePendingRewards();
+      mutateFarms();
       setLoading(false);
       resetForm();
     }
