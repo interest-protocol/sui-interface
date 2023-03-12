@@ -1,6 +1,7 @@
 import {
   DiscordSVG,
   GithubSVG,
+  InstagramSVG,
   MediumSVG,
   TelegramSVG,
   TwitterSVG,
@@ -22,6 +23,11 @@ export const SOCIAL_MEDIAS = [
     title: 'Telegram',
     link: 'https://t.me/interestprotocol',
     Logo: TelegramSVG,
+  },
+  {
+    title: 'Instagram',
+    link: 'https://www.instagram.com/interest.protocol/?igshid=YmMyMTA2M2Y%3D',
+    Logo: InstagramSVG,
   },
   {
     title: 'GitHub',
