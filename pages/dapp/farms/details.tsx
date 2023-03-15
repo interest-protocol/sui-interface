@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
 import { FARMS_RECORD, Network, StakeState } from '@/constants';
+import { ModalProvider } from '@/context/modal';
 import { withTypeGuard } from '@/HOC';
 import { NextPageDefaultProps } from '@/interface';
 import FarmDetails from '@/views/dapp/farm-details';
@@ -49,16 +50,18 @@ const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
     );
 
   return (
-    <Web3Manager>
-      <Layout pageTitle={pageTitle}>
-        <FarmDetails
-          modalState={modalState}
-          setModalState={setModalState}
-          farmMetadata={farmMetadata}
-          form={form}
-        />
-      </Layout>
-    </Web3Manager>
+    <ModalProvider>
+      <Web3Manager>
+        <Layout pageTitle={pageTitle}>
+          <FarmDetails
+            modalState={modalState}
+            setModalState={setModalState}
+            farmMetadata={farmMetadata}
+            form={form}
+          />
+        </Layout>
+      </Web3Manager>
+    </ModalProvider>
   );
 };
 

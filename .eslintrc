@@ -5,7 +5,7 @@
         "map": [
           ["@/HOC", "./components/HOC"],
           ["@/components", "./components"],
-          ["@/connectors", "./connectors"],
+          ["@/context", "./context"],
           ["@/constants", "./constants"],
           ["@/design-system", "./design-system"],
           ["@/elements", "./elements"],

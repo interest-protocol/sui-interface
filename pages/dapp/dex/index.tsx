@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
 import { DEX_TOKENS_DATA } from '@/constants';
+import { ModalProvider } from '@/context/modal';
 import { useLocalStorage } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import { TOKEN_SYMBOL } from '@/sdk';
@@ -77,19 +78,21 @@ const DexPage: NextPageWithProps = ({ pageTitle }) => {
   );
 
   return (
-    <Web3Manager>
-      <Layout pageTitle={pageTitle}>
-        <DEXSwapView
-          formSwap={formSwap}
-          openModalState={{ isOpen, setIsOpen }}
-          setLocalSettings={setLocalSettings}
-          localSettings={localSettings}
-          formSettingsDropdown={formSettingsDropdown}
-          autoButtonState={{ isAuto, setAuto }}
-          searchTokenModalState={searchedToken}
-        />
-      </Layout>
-    </Web3Manager>
+    <ModalProvider>
+      <Web3Manager>
+        <Layout pageTitle={pageTitle}>
+          <DEXSwapView
+            formSwap={formSwap}
+            openModalState={{ isOpen, setIsOpen }}
+            setLocalSettings={setLocalSettings}
+            localSettings={localSettings}
+            formSettingsDropdown={formSettingsDropdown}
+            autoButtonState={{ isAuto, setAuto }}
+            searchTokenModalState={searchedToken}
+          />
+        </Layout>
+      </Web3Manager>
+    </ModalProvider>
   );
 };
 

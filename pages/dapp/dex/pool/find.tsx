@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
 
 import { LoadingPage } from '@/components';
+import { ModalProvider } from '@/context/modal';
 import DEXFindPool from '@/views/dapp/dex-find-pool';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
@@ -16,11 +17,13 @@ const Layout = dynamic(() => import('@/components/layout'), {
 });
 
 const DEXFindPoolPage: NextPage<{ pageTitle: string }> = ({ pageTitle }) => (
-  <Web3Manager>
-    <Layout pageTitle={pageTitle}>
-      <DEXFindPool />
-    </Layout>
-  </Web3Manager>
+  <ModalProvider>
+    <Web3Manager>
+      <Layout pageTitle={pageTitle}>
+        <DEXFindPool />
+      </Layout>
+    </Web3Manager>
+  </ModalProvider>
 );
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
