@@ -19,11 +19,11 @@ const DEXViewWrapper: FC = ({ children }) => {
       justifyContent="center"
     >
       <Box
-        bg="foreground"
-        textAlign="center"
-        mt="0.5rem"
         p="L"
+        mt="0.5rem"
+        bg="foreground"
         borderRadius="L"
+        textAlign="center"
         minWidth={['17rem', '40rem']}
       >
         <Switch
