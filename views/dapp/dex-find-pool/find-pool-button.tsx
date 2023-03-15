@@ -30,6 +30,8 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
     try {
       const pairId = getRecommendedPairId(tokenAType, tokenBType);
 
+      console.log('>> pairId :: ', pairId);
+
       if (pairId)
         return await push({
           pathname: Routes[RoutesEnum.DEXPoolDetails],

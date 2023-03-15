@@ -1,4 +1,4 @@
-import { and, find, or, pathOr, propEq } from 'ramda';
+import { and, find, or, pathOr } from 'ramda';
 
 import { RECOMMENDED_POOLS } from '@/constants';
 
@@ -7,10 +7,11 @@ export const getRecommendedPairId = (tokenA: string, tokenB: string): string =>
     '',
     ['poolObjectId'],
     find(
-      or(
-        and(propEq('token0', tokenA), propEq('token1', tokenB)),
-        and(propEq('token0', tokenB), propEq('token1', tokenA))
-      ),
+      ({ token0, token1 }) =>
+        or(
+          and(token0.type === tokenA, token1.type === tokenB),
+          and(token0.type === tokenB, token1.type === tokenA)
+        ),
       RECOMMENDED_POOLS
     )
   );
