@@ -14,8 +14,6 @@ import { FindPoolButtonProps } from './dex-find-pool.types';
 import { getRecommendedPairId } from './dex-find-pool.utils';
 
 const FindPoolButton: FC<FindPoolButtonProps> = ({
-  isStable,
-  getValues,
   tokenBType,
   tokenAType,
   isCreatingPair,
@@ -64,13 +62,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const openModal = () =>
     setModal(
-      <CreatePoolPopup
-        isStable={isStable}
-        onCancel={handleClose}
-        onContinue={handleCreatePair}
-        symbol0={getValues('tokenA.symbol')}
-        symbol1={getValues('tokenB.symbol')}
-      />
+      <CreatePoolPopup onCancel={handleClose} onContinue={handleCreatePair} />
     );
 
   return (

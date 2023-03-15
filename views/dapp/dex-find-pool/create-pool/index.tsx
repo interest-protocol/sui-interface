@@ -33,9 +33,7 @@ const CreatePool: FC<CreatePoolProps> = ({
       borderRadius="M"
     >
       <Typography variant="normal" textTransform="uppercase" mb="L">
-        {t('dexPoolFind.createPoolTitle', {
-          isStable: Number(getValues('isStable')),
-        })}
+        {t('dexPoolFind.createPoolTitle')}
       </Typography>
       <Typography
         p="L"
@@ -73,11 +71,7 @@ const CreatePool: FC<CreatePoolProps> = ({
           <InfoSVG width="100%" maxHeight="1.5rem" maxWidth="1.5rem" />
         </Box>
         <Typography variant="normal" fontSize="0.85rem">
-          {t(
-            `dexPoolFind.createPoolInfo.${
-              getValues('isStable') ? 'stable' : 'volatile'
-            }`
-          )}
+          {t('dexPoolFind.createPoolInfo')}
         </Typography>
       </Box>
     </Box>

@@ -1,25 +1,18 @@
-import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
-import { Switch } from '@/components';
 import { Box } from '@/elements';
 import { useWeb3 } from '@/hooks';
-import { capitalize } from '@/utils';
 
 import SelectCurrency from '../components/select-currency';
 import { FindPoolProps } from './dex-find-pool.types';
 
 const FindPool: FC<FindPoolProps> = ({
   control,
-  setValue,
   getValues,
-  setCreatingPair,
   onSelectCurrency,
 }) => {
-  const t = useTranslations();
   const { coinsMap } = useWeb3();
-  const isStable = useWatch({ control, name: `isStable` });
   const typeA = useWatch({ control, name: `tokenA.type` });
   const typeB = useWatch({ control, name: `tokenB.type` });
 
@@ -49,35 +42,6 @@ const FindPool: FC<FindPoolProps> = ({
           symbol={getValues('tokenA.symbol')}
           onSelectCurrency={onSelectCurrency('tokenA')}
         />
-        <Box
-          width="100%"
-          textAlign="center"
-          order={[1, 1, 1, 0]}
-          mt={['L', 'L', 'L', 'NONE']}
-        >
-          <Switch
-            thin
-            defaultValue={isStable ? 'stable' : 'volatile'}
-            options={[
-              {
-                value: 'stable',
-                displayValue: capitalize(t('common.stable', { count: 1 })),
-                onSelect: () => {
-                  setValue('isStable', true);
-                  setCreatingPair(false);
-                },
-              },
-              {
-                value: 'volatile',
-                displayValue: capitalize(t('common.volatile', { count: 1 })),
-                onSelect: () => {
-                  setValue('isStable', false);
-                  setCreatingPair(false);
-                },
-              },
-            ]}
-          />
-        </Box>
         <SelectCurrency
           tokens={coinsMap}
           currentToken={typeB}

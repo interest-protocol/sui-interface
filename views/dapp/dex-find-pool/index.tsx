@@ -24,13 +24,11 @@ const DEXFindPool: FC = () => {
     defaultValues: {
       tokenA: { ...DEX_TOKENS_DATA[0], value: '0' },
       tokenB: { ...DEX_TOKENS_DATA[1], value: '0' },
-      isStable: false,
     },
   });
 
   // We want the form to re-render if types change
   const tokenAType = useWatch({ control, name: 'tokenA.type' });
-  const isStable = useWatch({ control, name: 'isStable' });
   const tokenBType = useWatch({ control, name: 'tokenB.type' });
 
   const onSelectCurrency =
@@ -60,9 +58,7 @@ const DEXFindPool: FC = () => {
       </Typography>
       <FindPool
         control={control}
-        setValue={setValue}
         getValues={getValues}
-        setCreatingPair={setCreatingPair}
         onSelectCurrency={onSelectCurrency}
       />
       {isCreatingPair && (
@@ -77,10 +73,8 @@ const DEXFindPool: FC = () => {
       <FindPoolButton
         account={account ?? ''}
         control={control}
-        getValues={getValues}
         tokenAType={tokenAType}
         tokenBType={tokenBType}
-        isStable={isStable}
         setCreatingPair={setCreatingPair}
         isCreatingPair={isCreatingPair}
       />
