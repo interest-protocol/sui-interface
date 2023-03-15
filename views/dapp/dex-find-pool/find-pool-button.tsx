@@ -1,12 +1,11 @@
 import { toHEX } from '@mysten/bcs';
-import { MoveEvent } from '@mysten/sui.js';
 import { MoveCallTransaction } from '@mysten/sui.js/src';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 
 import {
   COINS_PACKAGE_ID,
@@ -23,7 +22,6 @@ import {
   capitalize,
   getCoinIds,
   getDevInspectData,
-  mystenLabsProvider,
   provider,
   showToast,
   showTXSuccessToast,
@@ -126,8 +124,6 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
 
       await showTXSuccessToast(tx);
 
-      console.log(tx);
-
       const filteredEvents = tx.effects.events?.filter((event) => {
         if ('moveEvent' in event) {
           const data = event.moveEvent;
@@ -154,7 +150,6 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
 
       throw new Error('Cannot find the pool id');
     } catch (error) {
-      console.log(error);
       throw new Error('Failed to create pool');
     } finally {
       setLoading(false);

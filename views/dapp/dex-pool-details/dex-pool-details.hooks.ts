@@ -57,10 +57,8 @@ export const useGetVolatilePool = (objectId: string) => {
     }
   );
 
-  console.log('raw data', data);
-
   const processedData = processVolatilePool(data);
-  console.log(processedData);
+
   return {
     error,
     isLoading,
