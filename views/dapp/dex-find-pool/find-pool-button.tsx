@@ -77,7 +77,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
         pathname: Routes[RoutesEnum.DEXPoolDetails],
         query: { objectId: `0x${toHEX(getDevInspectData(response))}` },
       });
-    } catch (error) {
+    } catch {
       throw new Error('Error connecting'); // TODO: translate this message
     } finally {
       setLoading(false);
@@ -171,7 +171,6 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
       error: prop('message'),
     });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const openModal = () =>
     setModal(
       <CreatePoolPopup onCancel={handleClose} onContinue={handleCreatePair} />

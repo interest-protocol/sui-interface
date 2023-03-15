@@ -19,7 +19,9 @@ const DEFAULT_POOL: Pool = {
 const processVolatilePool = (data: undefined | GetObjectDataResponse): Pool => {
   if (!data) return DEFAULT_POOL;
 
-  const poolType = pathOr('', ['details', 'data', 'type'], data);
+  const poolType: string = pathOr('', ['details', 'data', 'type'], data);
+
+  if (!poolType) return DEFAULT_POOL;
 
   const x = poolType.split('<')[1];
   const tokens = x.split(',');
