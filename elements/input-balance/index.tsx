@@ -47,7 +47,7 @@ const InputBalance: FC<InputBalanceProps> = ({
           onChange: (v: ChangeEvent<HTMLInputElement>) => {
             setValue?.(
               name,
-              parseInputEventToNumberString(v, max ? +max : undefined)
+              parseInputEventToNumberString(v, balance ? +balance : undefined)
             );
             customFunction && customFunction(name);
           },

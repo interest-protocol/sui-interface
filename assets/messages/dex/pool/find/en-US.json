@@ -10,8 +10,8 @@
     "createPoolAdvice": "This pool does not exist! Please, create one now.",
     "createPoolInfo": "Important: You are creating a market designed for uncorrelated assets. E.g., BTC/ETH.",
     "createPoolPopup": {
-      "title": "Recommendation",
-      "description": "We recommend making a volatile market for {symbol0} and {symbol1}.",
+      "title": "Advice",
+      "description": "You are making a volatile market for {symbol0} and {symbol1}.",
       "submit": "Create Anyway"
     },
     "switchOption1": "Recommended",
