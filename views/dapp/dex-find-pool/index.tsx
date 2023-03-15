@@ -6,6 +6,7 @@ import { Container } from '@/components';
 import { DEX_TOKENS_DATA } from '@/constants';
 import { Typography } from '@/elements';
 import { useWeb3 } from '@/hooks';
+import { AddressZero } from '@/sdk';
 
 import { GoBack } from '../components';
 import { OnSelectCurrency } from '../components/select-currency/select-currency.types';
@@ -60,12 +61,13 @@ const DEXFindPool: FC = () => {
         />
       )}
       <FindPoolButton
-        account={account ?? ''}
+        account={account ?? AddressZero}
         control={control}
         tokenAType={tokenAType}
         tokenBType={tokenBType}
         setCreatingPair={setCreatingPair}
         isCreatingPair={isCreatingPair}
+        getValues={getValues}
       />
     </Container>
   );

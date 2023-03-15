@@ -12,50 +12,36 @@ const DEFAULT_POOL: Pool = {
   lpCoinSupply: '0',
   lpCoin: '',
   poolType: '',
+  token0Type: '',
+  token1Type: '',
 };
 
 const processVolatilePool = (data: undefined | GetObjectDataResponse): Pool => {
   if (!data) return DEFAULT_POOL;
 
+  const poolType = pathOr('', ['details', 'data', 'type'], data);
+
+  const x = poolType.split('<')[1];
+  const tokens = x.split(',');
+  const token0Type = tokens[0];
+  const y = tokens[1];
+  const token1Type = y.substring(1, y.length - 1);
   return {
-    token0Balance: pathOr(
-      '',
-      ['details', 'data', 'fields', 'value', 'fields', 'balance_x'],
-      data
-    ),
-    token1Balance: pathOr(
-      '',
-      ['details', 'data', 'fields', 'value', 'fields', 'balance_y'],
-      data
-    ),
+    token0Balance: pathOr('', ['details', 'data', 'fields', 'balance_x'], data),
+    token1Balance: pathOr('', ['details', 'data', 'fields', 'balance_y'], data),
     lpCoinSupply: pathOr(
       '',
-      [
-        'details',
-        'data',
-        'fields',
-        'value',
-        'fields',
-        'lp_coin_supply',
-        'fields',
-        'value',
-      ],
+      ['details', 'data', 'fields', 'lp_coin_supply', 'fields', 'value'],
       data
     ),
     lpCoin: pathOr(
       '',
-      [
-        'details',
-        'data',
-        'fields',
-        'value',
-        'fields',
-        'lp_coin_supply',
-        'type',
-      ],
+      ['details', 'data', 'fields', 'lp_coin_supply', 'type'],
       data
     ),
-    poolType: pathOr('', ['details', 'data', 'fields', 'value', 'type'], data),
+    poolType,
+    token0Type,
+    token1Type,
   };
 };
 
@@ -71,8 +57,10 @@ export const useGetVolatilePool = (objectId: string) => {
     }
   );
 
-  const processedData = processVolatilePool(data);
+  console.log('raw data', data);
 
+  const processedData = processVolatilePool(data);
+  console.log(processedData);
   return {
     error,
     isLoading,

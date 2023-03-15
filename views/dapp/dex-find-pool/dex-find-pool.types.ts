@@ -50,11 +50,6 @@ export interface PriceProps {
   control: Control<DexFindPoolForm>;
 }
 
-export interface UseAddNativeTokenLiquidityArgs {
-  control: Control<DexFindPoolForm>;
-  account: string;
-}
-
 export interface FindPoolButtonProps {
   account: string;
   tokenAType: string;
@@ -62,4 +57,5 @@ export interface FindPoolButtonProps {
   isCreatingPair: boolean;
   control: Control<DexFindPoolForm>;
   setCreatingPair: Dispatch<SetStateAction<boolean>>;
+  getValues: UseFormGetValues<DexFindPoolForm>;
 }

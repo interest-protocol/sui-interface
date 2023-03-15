@@ -15,9 +15,9 @@ import {
 import { COIN_TYPE } from './coins';
 import { Network } from './network';
 
-export const FAUCET_PACKAGE_ID = '0xb48622ffc926f6e30944e2837ad623c9e3633ced';
+export const FAUCET_PACKAGE_ID = '0x7519197dd8e31b375b4550017e64dc640743fcdd';
 
-export const FAUCET_OBJECT_ID = '0xb2ac364104c5d1df801843ec7d7244484f0e10c3';
+export const FAUCET_OBJECT_ID = '0x36742068080148b71df83ffb600b66e65629c8e2';
 
 export const FAUCET_TOKENS = {
   [Network.DEVNET]: [

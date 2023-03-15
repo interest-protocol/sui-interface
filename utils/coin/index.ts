@@ -22,7 +22,8 @@ export const getCoinTypeFromSupply = (x: string) => {
 
 export const getCoinIds = (
   coinsMap: Web3ManagerState['coinsMap'],
-  type: string
+  type: string,
+  gasCost = 9000
 ) => {
   if (isEmpty(coinsMap)) return [];
   const object = coinsMap[type];
@@ -31,7 +32,7 @@ export const getCoinIds = (
     const suiObjects = [...object.objects];
     const gasObjectIndex = suiObjects
       .sort((a, b) => (a.balance > b.balance ? 1 : -1))
-      .findIndex((elem) => elem.balance >= 9000);
+      .findIndex((elem) => elem.balance >= gasCost);
 
     return suiObjects
       .filter((_, index) => index !== gasObjectIndex)

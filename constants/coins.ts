@@ -2,7 +2,7 @@ import { TOKEN_SYMBOL } from '@/sdk';
 
 import { Network } from './network';
 
-export const COINS_PACKAGE_ID = '0xb48622ffc926f6e30944e2837ad623c9e3633ced';
+export const COINS_PACKAGE_ID = '0x7519197dd8e31b375b4550017e64dc640743fcdd';
 
 const DEV_NET_BASE_COINS = {
   SUI: '0x2::sui::SUI',
@@ -70,16 +70,15 @@ export const COIN_DECIMALS = {
 
 export const COIN_POOL = {
   [Network.DEVNET]: {
-    V_LP_SUI_ETH: '0xd775021eecaf7ff02f3162b609d0b880f02d74fb',
-    V_LP_BTC_ETH: '0xfb5a0c80a7cfea11a1bb007c63cdecc9adf58b7f',
-    V_LP_BNB_ETH: '0xac2b2c403784761b08c7ea276b436cf3f1e3e451',
-    V_LP_ETH_USDT: '0xf0804984d33e44e183a9584396ce05b0dc591717',
-    V_LP_ETH_USDC: '0x715ad382d51df0ff13223c3e6f72895f583861ea',
-    V_LP_DAI_ETH: '0x062f82b4a3fc3cc55d04e8dcda77be1097f40581',
-    V_LP_ETH_IPX: '0x84d727e981d597aa1ecdc365930379db30ae6180',
+    V_LP_SUI_ETH: '0x2b7115592bd6e80754d1f612da5e28f770176cc7',
+    V_LP_BTC_ETH: '0x0d14c299e5becd306affec948df99309cfb0fe20',
+    V_LP_BNB_ETH: '0xdd194ba383d9c449a3cf8403fc543c34f480ccd2',
+    V_LP_ETH_USDT: '0x8c3bfa8784cb76a0826c3c477bcb8aeaa9fc0881',
+    V_LP_ETH_USDC: '0x79e6b684a4e26b937bfd6918a46c584aff1dfd1c',
+    V_LP_DAI_ETH: '0x3c241305bb172bf89a9002c1ef2bad1cd8fbd52d',
+    V_LP_ETH_IPX: '0x343b03139a0cf001412831928499021fac647e5e',
   },
 };
-
 export const COINS = {
   [Network.DEVNET]: {
     ETH: {
@@ -164,5 +163,18 @@ export const COINS = {
       symbol: TOKEN_SYMBOL.V_LP_ETH_IPX,
       type: COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX,
     },
+  },
+};
+
+export const COIN_TYPE_TO_COIN = {
+  [Network.DEVNET]: {
+    [COIN_TYPE[Network.DEVNET].ETH]: COINS[Network.DEVNET].ETH,
+    [COIN_TYPE[Network.DEVNET].BTC]: COINS[Network.DEVNET].BTC,
+    [COIN_TYPE[Network.DEVNET].BNB]: COINS[Network.DEVNET].BNB,
+    [COIN_TYPE[Network.DEVNET].SUI]: COINS[Network.DEVNET].SUI,
+    [COIN_TYPE[Network.DEVNET].DAI]: COINS[Network.DEVNET].DAI,
+    [COIN_TYPE[Network.DEVNET].USDC]: COINS[Network.DEVNET].USDC,
+    [COIN_TYPE[Network.DEVNET].USDT]: COINS[Network.DEVNET].USDT,
+    [COIN_TYPE[Network.DEVNET].IPX]: COINS[Network.DEVNET].IPX,
   },
 };

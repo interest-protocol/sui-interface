@@ -1,27 +1,32 @@
-import { bcsForVersion, ID_STRUCT_NAME } from '@mysten/sui.js';
+import { toHEX } from '@mysten/bcs';
+import { MoveEvent } from '@mysten/sui.js';
 import { MoveCallTransaction } from '@mysten/sui.js/src';
+import { useWalletKit } from '@mysten/wallet-kit';
+import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import {
   COINS_PACKAGE_ID,
   DEX_STORAGE_VOLATILE,
-  IPX_ACCOUNT_STORAGE,
-  IPX_STORAGE,
+  FAUCET_PACKAGE_ID,
   Routes,
   RoutesEnum,
 } from '@/constants';
 import { Box, Button } from '@/elements';
+import { useWeb3 } from '@/hooks';
 import { useModal } from '@/hooks/use-modal';
-import { AddressZero } from '@/sdk';
+import { AddressZero, FixedPointMath } from '@/sdk';
 import {
   capitalize,
+  getCoinIds,
   getDevInspectData,
-  getDevInspectType,
+  mystenLabsProvider,
   provider,
   showToast,
+  showTXSuccessToast,
 } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
@@ -34,19 +39,20 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
   tokenAType,
   isCreatingPair,
   setCreatingPair,
+  getValues,
 }) => {
   const t = useTranslations();
   const { push } = useRouter();
   const [loading, setLoading] = useState(false);
   const { setModal, handleClose } = useModal();
+  const { signAndExecuteTransaction } = useWalletKit();
+  const { coinsMap } = useWeb3();
 
   const enterPool = async () => {
     setLoading(true);
 
     try {
       const pairId = getRecommendedPairId(tokenAType, tokenBType);
-
-      console.log(pairId, 'aa');
 
       if (pairId)
         return await push({
@@ -66,22 +72,90 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
         } as MoveCallTransaction,
       });
 
-      console.log(response);
-      console.log(getDevInspectType(response));
-      console.log(getDevInspectData(response));
-
       if (response.effects.status.status === 'failure')
         return setCreatingPair(true);
 
-      const poolId = bcsForVersion(await provider.getRpcApiVersion()).de(
-        'address',
-        Uint8Array.from(getDevInspectData(response))
-      );
+      await push({
+        pathname: Routes[RoutesEnum.DEXPoolDetails],
+        query: { objectId: `0x${toHEX(getDevInspectData(response))}` },
+      });
+    } catch (error) {
+      throw new Error('Error connecting'); // TODO: translate this message
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      console.log(poolId);
+  const createPair = async () => {
+    try {
+      setLoading(true);
+
+      const tokenA = getValues('tokenA');
+      const tokenB = getValues('tokenB');
+
+      if (!+tokenA.value || !+tokenB.value)
+        throw new Error('Both coins must have a value');
+
+      const amountA = FixedPointMath.toBigNumber(
+        tokenA.value,
+        tokenA.decimals
+      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
+
+      const amountB = FixedPointMath.toBigNumber(
+        tokenB.value,
+        tokenB.decimals
+      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
+
+      const tx = await signAndExecuteTransaction({
+        kind: 'moveCall',
+        data: {
+          function: 'create_pool',
+          gasBudget: 12000,
+          module: 'interface',
+          packageObjectId: FAUCET_PACKAGE_ID,
+          typeArguments: [tokenAType, tokenBType],
+          arguments: [
+            DEX_STORAGE_VOLATILE,
+            getCoinIds(coinsMap, tokenA.type, 12000),
+            getCoinIds(coinsMap, tokenB.type, 12000),
+            amountA.toString(),
+            amountB.toString(),
+          ],
+        },
+      });
+
+      await showTXSuccessToast(tx);
+
+      console.log(tx);
+
+      const filteredEvents = tx.effects.events?.filter((event) => {
+        if ('moveEvent' in event) {
+          const data = event.moveEvent;
+
+          return data.packageId === COINS_PACKAGE_ID;
+        }
+
+        return false;
+      });
+
+      if (!filteredEvents || !filteredEvents.length)
+        throw new Error('Cannot find the pool id');
+
+      const firstEvent = filteredEvents[0];
+
+      if ('moveEvent' in firstEvent) {
+        const data = firstEvent.moveEvent;
+
+        await push({
+          pathname: Routes[RoutesEnum.DEXPoolDetails],
+          query: { objectId: data.fields.id },
+        });
+      }
+
+      throw new Error('Cannot find the pool id');
     } catch (error) {
       console.log(error);
-      throw new Error('Error connecting'); // TODO: translate this message
+      throw new Error('Failed to create pool');
     } finally {
       setLoading(false);
     }
@@ -96,7 +170,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
 
   const handleCreatePair = () =>
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    showToast((async () => {})(), {
+    showToast(createPair(), {
       loading: t('dexPoolFind.buttonPool', { isLoading: 1 }),
       success: capitalize(t('common.success')),
       error: prop('message'),
@@ -124,7 +198,12 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
             {t('dexPoolFind.buttonSameToken')}
           </Button>
         ) : isCreatingPair ? (
-          <Button width="100%" variant="primary" disabled={loading}>
+          <Button
+            onClick={openModal}
+            width="100%"
+            variant="primary"
+            disabled={loading}
+          >
             {t('dexPoolFind.buttonPool', { isLoading: Number(loading) })}
           </Button>
         ) : (

@@ -1,17 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { pathOr, propOr } from 'ramda';
+import { propOr } from 'ramda';
 import { FC } from 'react';
 
 import { Container } from '@/components';
-import {
-  Network,
-  POOL_METADATA_MAP,
-  PoolMetadata,
-  TOKENS_SVG_MAP,
-} from '@/constants';
+import { COIN_TYPE_TO_COIN, Network, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { useLocale, useWeb3 } from '@/hooks';
+import { CoinData } from '@/interface';
 import { FixedPointMath } from '@/sdk';
 import { TimesSVG } from '@/svg';
 import { getCoinTypeFromSupply, getSafeTotalBalance } from '@/utils';
@@ -41,21 +37,31 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
     mutate,
     error: web3Error,
   } = useWeb3();
+
   const {
     error,
     data: volatilePool,
     mutate: updateVolatilePools,
+    isLoading,
   } = useGetVolatilePool(objectId);
 
   const { currentLocale } = useLocale();
 
-  const poolMetadata: PoolMetadata | null = pathOr(
+  const token0 = propOr(
     null,
-    [Network.DEVNET, objectId],
-    POOL_METADATA_MAP
-  );
+    volatilePool.token0Type,
+    COIN_TYPE_TO_COIN[Network.DEVNET]
+  ) as CoinData;
 
-  if (!poolMetadata)
+  const token1 = propOr(
+    null,
+    volatilePool.token1Type,
+    COIN_TYPE_TO_COIN[Network.DEVNET]
+  ) as CoinData;
+
+  if (isLoading) return <div>loading</div>;
+
+  if (!token0 || !token1)
     return (
       <Box
         my="XXXL"
@@ -74,8 +80,6 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
     );
 
   const DefaultIcon = TOKENS_SVG_MAP.default;
-
-  const { token0, token1 } = poolMetadata as PoolMetadata;
 
   const FirstIcon = TOKENS_SVG_MAP[token0.type] ?? DefaultIcon;
 
