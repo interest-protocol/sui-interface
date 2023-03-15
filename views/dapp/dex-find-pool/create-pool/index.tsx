@@ -17,7 +17,6 @@ const TOKEN_NAMES = ['tokenA', 'tokenB'] as ReadonlyArray<
 
 const CreatePool: FC<CreatePoolProps> = ({
   control,
-  refetch,
   register,
   setValue,
   getValues,
@@ -53,7 +52,6 @@ const CreatePool: FC<CreatePoolProps> = ({
         <CreatePoolField
           key={v4()}
           name={name}
-          refetch={refetch}
           register={register}
           setValue={setValue}
           getValues={getValues}

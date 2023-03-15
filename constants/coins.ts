@@ -2,7 +2,7 @@ import { TOKEN_SYMBOL } from '@/sdk';
 
 import { Network } from './network';
 
-export const COINS_PACKAGE_ID = '0x8f65e0e3d27ca57e7d66bc76832c366e49f043a2';
+export const COINS_PACKAGE_ID = '0xb48622ffc926f6e30944e2837ad623c9e3633ced';
 
 const DEV_NET_BASE_COINS = {
   SUI: '0x2::sui::SUI',
@@ -70,13 +70,13 @@ export const COIN_DECIMALS = {
 
 export const COIN_POOL = {
   [Network.DEVNET]: {
-    V_LP_SUI_ETH: '0xa5aac47c019341825c64955739cfe30d3b78cb6d',
-    V_LP_BTC_ETH: '0xa19329c7a989c5d41b56af56db868c48738ee5c3',
-    V_LP_BNB_ETH: '0xf2c6ed339f0a4477d5ac572336b80c25cafc1325',
-    V_LP_ETH_USDT: '0x6fa24e45df300f794841625717074b3ae152c742',
-    V_LP_ETH_USDC: '0x767823cbc1afd97b9ba36d1665dc34bdb926078c',
-    V_LP_DAI_ETH: '0x837a8547f2374c2f83c0026fc66d2d0c34b3d4df',
-    V_LP_ETH_IPX: '0xd95ef39b423c71e036200565b5b2107cfeff38f5',
+    V_LP_SUI_ETH: '0xd775021eecaf7ff02f3162b609d0b880f02d74fb',
+    V_LP_BTC_ETH: '0xfb5a0c80a7cfea11a1bb007c63cdecc9adf58b7f',
+    V_LP_BNB_ETH: '0xac2b2c403784761b08c7ea276b436cf3f1e3e451',
+    V_LP_ETH_USDT: '0xf0804984d33e44e183a9584396ce05b0dc591717',
+    V_LP_ETH_USDC: '0x715ad382d51df0ff13223c3e6f72895f583861ea',
+    V_LP_DAI_ETH: '0x062f82b4a3fc3cc55d04e8dcda77be1097f40581',
+    V_LP_ETH_IPX: '0x84d727e981d597aa1ecdc365930379db30ae6180',
   },
 };
 

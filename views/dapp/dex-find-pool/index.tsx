@@ -8,7 +8,6 @@ import { Typography } from '@/elements';
 import { useWeb3 } from '@/hooks';
 
 import { GoBack } from '../components';
-import ErrorView from '../components/error';
 import { OnSelectCurrency } from '../components/select-currency/select-currency.types';
 import CreatePool from './create-pool';
 import { DexFindPoolForm } from './dex-find-pool.types';
@@ -19,7 +18,6 @@ const DEXFindPool: FC = () => {
   const { account } = useWeb3();
   const t = useTranslations();
   const [isCreatingPair, setCreatingPair] = useState(false);
-
   const { setValue, control, getValues, register } = useForm<DexFindPoolForm>({
     defaultValues: {
       tokenA: { ...DEX_TOKENS_DATA[0], value: '0' },
@@ -42,14 +40,6 @@ const DEXFindPool: FC = () => {
       setCreatingPair(false);
     };
 
-  // TODO: replace to data fetcher
-  const error = false;
-  // TODO: Remove this ignore
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const refetch = async () => {};
-
-  if (error) return <ErrorView message={t('dexPoolFind.balanceError')} />;
-
   return (
     <Container py="XL" dapp>
       <GoBack routeBack />
@@ -67,7 +57,6 @@ const DEXFindPool: FC = () => {
           control={control}
           register={register}
           setValue={setValue}
-          refetch={refetch}
         />
       )}
       <FindPoolButton

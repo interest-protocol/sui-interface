@@ -1,3 +1,4 @@
+import { bcs } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';

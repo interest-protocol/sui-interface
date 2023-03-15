@@ -1,12 +1,28 @@
+import { bcsForVersion, ID_STRUCT_NAME } from '@mysten/sui.js';
+import { MoveCallTransaction } from '@mysten/sui.js/src';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
-import { Routes, RoutesEnum } from '@/constants';
+import {
+  COINS_PACKAGE_ID,
+  DEX_STORAGE_VOLATILE,
+  IPX_ACCOUNT_STORAGE,
+  IPX_STORAGE,
+  Routes,
+  RoutesEnum,
+} from '@/constants';
 import { Box, Button } from '@/elements';
 import { useModal } from '@/hooks/use-modal';
-import { capitalize, showToast } from '@/utils';
+import { AddressZero } from '@/sdk';
+import {
+  capitalize,
+  getDevInspectData,
+  getDevInspectType,
+  provider,
+  showToast,
+} from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
 import CreatePoolPopup from './create-pool-popup';
@@ -30,7 +46,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
     try {
       const pairId = getRecommendedPairId(tokenAType, tokenBType);
 
-      console.log('>> pairId :: ', pairId);
+      console.log(pairId, 'aa');
 
       if (pairId)
         return await push({
@@ -38,8 +54,33 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
           query: { objectId: pairId },
         });
 
-      setCreatingPair(true);
-    } catch {
+      const response = await provider.devInspectTransaction(AddressZero, {
+        kind: 'moveCall',
+        data: {
+          function: 'get_v_pool_id',
+          gasBudget: 5000,
+          module: 'interface',
+          packageObjectId: COINS_PACKAGE_ID,
+          arguments: [DEX_STORAGE_VOLATILE],
+          typeArguments: [tokenAType, tokenBType],
+        } as MoveCallTransaction,
+      });
+
+      console.log(response);
+      console.log(getDevInspectType(response));
+      console.log(getDevInspectData(response));
+
+      if (response.effects.status.status === 'failure')
+        return setCreatingPair(true);
+
+      const poolId = bcsForVersion(await provider.getRpcApiVersion()).de(
+        'address',
+        Uint8Array.from(getDevInspectData(response))
+      );
+
+      console.log(poolId);
+    } catch (error) {
+      console.log(error);
       throw new Error('Error connecting'); // TODO: translate this message
     } finally {
       setLoading(false);

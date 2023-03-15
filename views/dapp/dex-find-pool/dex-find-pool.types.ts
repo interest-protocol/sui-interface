@@ -37,7 +37,6 @@ export interface CreatePoolProps {
   register: UseFormRegister<DexFindPoolForm>;
   setValue: UseFormSetValue<DexFindPoolForm>;
   getValues: UseFormGetValues<DexFindPoolForm>;
-  refetch: () => Promise<void>;
 }
 
 export interface CreatePoolFieldProps {
@@ -45,7 +44,6 @@ export interface CreatePoolFieldProps {
   register: UseFormRegister<DexFindPoolForm>;
   setValue: UseFormSetValue<DexFindPoolForm>;
   getValues: UseFormGetValues<DexFindPoolForm>;
-  refetch: () => Promise<void>;
 }
 
 export interface PriceProps {
