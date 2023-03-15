@@ -19,7 +19,6 @@ const InputBalance: FC<InputBalanceProps> = ({
   register,
   setValue,
   customFunction,
-  buttonMaxPosition,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as { dark: boolean };
@@ -43,6 +42,7 @@ const InputBalance: FC<InputBalanceProps> = ({
         placeholder="0.0"
         disabled={disabled || false}
         fontSize={isLarge ? 'L' : 'M'}
+        opacity={disabled == undefined ? 1 : disabled ? 0.7 : 1}
         {...register(name, {
           onChange: (v: ChangeEvent<HTMLInputElement>) => {
             setValue?.(
@@ -53,11 +53,17 @@ const InputBalance: FC<InputBalanceProps> = ({
           },
         })}
         shieldProps={{
-          p: isLarge ? 'L' : 'S',
           my: 'M',
-          pl: isLarge ? 'XL' : 'M',
           width: '100%',
           overflow: 'hidden',
+          border: '1px solid',
+          p: isLarge ? 'L' : 'S',
+          pl: isLarge ? 'XL' : 'M',
+          borderColor: 'transparent',
+          borderRadius: isLarge ? '5rem' : '2rem',
+          hover: !disabled && {
+            borderColor: 'accentActive',
+          },
           bg: disabled
             ? dark
               ? 'background'
@@ -65,24 +71,18 @@ const InputBalance: FC<InputBalanceProps> = ({
             : dark
             ? 'bottomBackground'
             : 'background',
-          border: '1px solid',
-          borderRadius: isLarge ? '5rem' : '2rem',
-          borderColor: 'transparent',
-          opacity: disabled == undefined ? 1 : disabled ? 0.7 : 1,
-          hover: !disabled && {
-            borderColor: 'accentActive',
-          },
         }}
         Prefix={Prefix}
         Bottom={
-          <MaxButton
-            max={max}
-            name={name}
-            disabled={disabled}
-            setValue={setValue}
-            customFunction={customFunction}
-            left={buttonMaxPosition == 'left'}
-          />
+          max && (
+            <MaxButton
+              name={name}
+              max={balance}
+              disabled={disabled}
+              setValue={setValue}
+              customFunction={customFunction}
+            />
+          )
         }
         Suffix={Suffix}
       />

@@ -1,14 +1,15 @@
-import { useTheme } from '@emotion/react';
+import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import { Routes, RoutesEnum } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
 
 import Pools from './pools';
 
 const Pool: FC = () => {
   const t = useTranslations();
-  const { dark } = useTheme() as { dark: boolean };
+  const { push } = useRouter();
 
   return (
     <>
@@ -33,32 +34,13 @@ const Pool: FC = () => {
           <Box position="relative">
             <Button
               px="XL"
-              disabled
               type="button"
-              bg="disabled"
               variant="primary"
-              cursor="not-allowed"
-              // onClick={() => push(Routes[RoutesEnum.DEXFindPool])}
               ml={['unset', 'auto']}
+              onClick={() => push(Routes[RoutesEnum.DEXFindPool])}
             >
               {t('dexPool.button')}
             </Button>
-            <Typography
-              px="M"
-              py="S"
-              ml="M"
-              as="span"
-              bg="warning"
-              top="-.5rem"
-              right="-.5rem"
-              variant="small"
-              borderRadius="S"
-              position="absolute"
-              display="inline-block"
-              color={dark ? 'text' : 'textInverted'}
-            >
-              {t('common.soon')}
-            </Typography>
           </Box>
         </Box>
         <Pools />

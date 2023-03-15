@@ -16,13 +16,11 @@ const InputStake: FC<InputStakeProps> = ({
       {label}:
     </Typography>
     <InputBalance
+      max
       name="amount"
-      max={String(balance)}
       balance={String(balance)}
       register={register}
       setValue={setValue}
-      isLarge={false}
-      buttonMaxPosition={'left'}
       Suffix={
         <Box
           px="L"

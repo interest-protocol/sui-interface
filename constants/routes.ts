@@ -9,6 +9,7 @@ export enum RoutesEnum {
   Farms = 'farms',
   FarmDetails = 'farms-details',
   DEXPool = 'dex-pool',
+  DEXFindPool = 'dex-find-pool',
   DEXPoolDetails = 'dex-pool-details',
   Faucet = 'faucet',
 }
@@ -24,6 +25,7 @@ export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.Farms]: '/dapp/farms',
   [RoutesEnum.FarmDetails]: '/dapp/farms/details',
   [RoutesEnum.DEXPool]: '/dapp/dex/pool',
+  [RoutesEnum.DEXFindPool]: '/dapp/dex/pool/find',
   [RoutesEnum.DEXPoolDetails]: '/dapp/dex/pool/details',
   [RoutesEnum.Faucet]: '/dapp/faucet',
 };

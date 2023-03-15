@@ -35,11 +35,11 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
         </Typography>
       </Box>
       <InputBalance
+        max
         name="lpAmount"
         register={formRemoveLiquidity.register}
         setValue={formRemoveLiquidity.setValue}
         balance={lpBalance.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
-        max={lpBalance.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()}
         disabled={lpBalance.isZero()}
         Suffix={
           <Box display="flex" width="5rem" ml="S">
@@ -52,8 +52,6 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
             </Typography>
           </Box>
         }
-        isLarge={false}
-        buttonMaxPosition="left"
       />
       <RemoveLiquidityCardContent
         tokens={tokens}

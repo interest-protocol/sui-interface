@@ -11,10 +11,6 @@ const DEXSwapView: FC<SwapProps> = ({
   formSettingsDropdown,
   autoButtonState,
   openModalState,
-  tokenInModalState,
-  tokenOutModalState,
-  searchingState,
-  formSearch,
   searchTokenModalState,
 }) => (
   <DEXViewWrapper>
@@ -25,10 +21,6 @@ const DEXSwapView: FC<SwapProps> = ({
       formSettingsDropdown={formSettingsDropdown}
       autoButtonState={autoButtonState}
       openModalState={openModalState}
-      tokenInModalState={tokenInModalState}
-      tokenOutModalState={tokenOutModalState}
-      searchingState={searchingState}
-      formSearch={formSearch}
       searchTokenModalState={searchTokenModalState}
     />
   </DEXViewWrapper>

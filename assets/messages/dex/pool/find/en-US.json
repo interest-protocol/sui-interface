@@ -6,16 +6,15 @@
     "buttonSameToken": "Choose different tokens",
     "buttonPool": "{isLoading, plural, =1 {Creating Pool...} other {Create Pool}}",
     "balanceError": "Failed to connect to the blockchain",
-    "createPoolTitle": "Create a {isStable, plural, =1 {Stable} other {Volatile}} Pool",
+    "createPoolTitle": "Create a Volatile Pool",
     "createPoolAdvice": "This pool does not exist! Please, create one now.",
-    "createPoolInfo": {
-      "stable": "Important: You are creating a market designed for correlated assets. Make sure that the tokens are pegged to the same asset, e.g., BUSD/USDC.",
-      "volatile": " Important: You are creating a market designed for uncorrelated assets. E.g., BTC/ETH."
-    },
+    "createPoolInfo": "Important: You are creating a market designed for uncorrelated assets. E.g., BTC/ETH.",
     "createPoolPopup": {
       "title": "Recommendation",
-      "description": "We recommend making a {type} market for {symbol0} and {symbol1}.",
+      "description": "We recommend making a volatile market for {symbol0} and {symbol1}.",
       "submit": "Create Anyway"
-    }
+    },
+    "switchOption1": "Recommended",
+    "switchOption2": "Added By Me"
   }
 }

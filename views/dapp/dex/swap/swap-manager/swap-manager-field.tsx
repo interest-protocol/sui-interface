@@ -9,7 +9,7 @@ import InputBalance from '@/elements/input-balance';
 import { FixedPointMath } from '@/sdk';
 import { formatMoney, makeSWRKey, provider, ZERO_BIG_NUMBER } from '@/utils';
 
-import SwapSelectCurrency from '../../components/swap-select-currency';
+import SwapSelectCurrency from '../../../components/select-currency';
 import { SwapManagerProps } from '../swap.types';
 import { findSwapAmountOutput, getSwapPayload } from '../swap.utils';
 
@@ -25,16 +25,12 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   tokenOutType,
   onSelectCurrency,
   volatilePoolsMap,
-  isTokenOutOpenModal,
-  setTokenOutIsOpenModal,
   setIsFetchingSwapAmount,
   setIsZeroSwapAmount,
   isFetchingSwapAmount,
   tokenIn,
   hasNoMarket,
   setError,
-  searchingState,
-  formSearch,
   searchTokenModalState,
 }) => {
   const tokenOutValue = useWatch({ control, name: 'tokenOut.value' });
@@ -100,35 +96,30 @@ const SwapManagerField: FC<SwapManagerProps> = ({
     tokenOutValue,
     isFetchingSwapAmount,
   ]);
-
+  const balance = formatMoney(
+    FixedPointMath.toNumber(
+      pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
+      pathOr(0, [tokenOutType, 'decimals'], coinsMap)
+    )
+  );
   return (
     <InputBalance
-      balance={formatMoney(
-        FixedPointMath.toNumber(
-          pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
-          pathOr(0, [tokenOutType, 'decimals'], coinsMap)
-        )
-      )}
-      name="tokenOut.value"
+      isLarge
+      disabled
+      balance={balance}
       register={register}
       setValue={setValue}
-      disabled
+      name="tokenOut.value"
       Suffix={
         <SwapSelectCurrency
           tokens={coinsMap}
           currentToken={tokenOutType}
-          isModalOpen={isTokenOutOpenModal}
           type={getValues('tokenOut.type')}
           onSelectCurrency={onSelectCurrency}
           symbol={getValues('tokenOut.symbol')}
-          setIsModalOpen={setTokenOutIsOpenModal}
-          searchingState={searchingState}
-          formSearch={formSearch}
           searchTokenModalState={searchTokenModalState}
         />
       }
-      isLarge={true}
-      buttonMaxPosition="right"
     />
   );
 };

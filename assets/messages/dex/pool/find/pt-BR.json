@@ -6,16 +6,15 @@
     "buttonSameToken": "Escolha tokens diferentes",
     "buttonPool": "{isLoading, plural, =1 {Criando a Pool...} other {Criar Pool}}",
     "balanceError": "Erro a conetar com a blockchain",
-    "createPoolTitle": "Criando uma Pool {isStable, plural, =1 {Estável} other {Volátil}}",
+    "createPoolTitle": "Criando uma Pool Volátil",
     "createPoolAdvice": "Esta pool não existe! Por favor, crie uma agora.",
-    "createPoolInfo": {
-      "stable": "Importante: Você está criando um mercado projetado para bens correlacionados. Certifique-se de que os tokens estejam conectados ao mesmo ativo, por exemplo, BUSD/USDC.",
-      "volatile": "Importante: Você está criando um mercado projetado para produtos não corrigidos. Por exemplo, BTC/ETH."
-    },
+    "createPoolInfo": "Importante: Você está criando um mercado projetado para produtos não corrigidos. Por exemplo, BTC/ETH.",
     "createPoolPopup": {
       "title": "Recomendação",
-      "description": "Recomendamos que crie um mercado {type} para {symbol0} e {symbol1}.",
+      "description": "Recomendamos que crie um mercado volátil para {symbol0} e {symbol1}.",
       "submit": "Continuar"
-    }
+    },
+    "switchOption1": "Recomendado",
+    "switchOption2": "Adicionados por mim"
   }
 }

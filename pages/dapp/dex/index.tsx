@@ -9,7 +9,7 @@ import { DEX_TOKENS_DATA } from '@/constants';
 import { useLocalStorage } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import { TOKEN_SYMBOL } from '@/sdk';
-import { SwapTokenModalMetadata } from '@/views/dapp/dex/dex.types';
+import { TokenModalMetadata } from '@/views/dapp/components/select-currency/select-currency.types';
 import { LocalSwapSettings } from '@/views/dapp/dex/swap/swap.types';
 import DEXSwapView from '@/views/dapp/dex/swap-view';
 
@@ -41,18 +41,8 @@ const Layout = dynamic(() => import('@/components/layout'), {
 });
 
 const DexPage: NextPageWithProps = ({ pageTitle }) => {
-  const [isTokenInOpenModal, setTokenInIsOpenModal] = useState(false);
-  const [isTokenOutOpenModal, setTokenOutIsOpenModal] = useState(false);
-  const [isSearching, setIsSearching] = useState(false);
-  const [searchedToken] = useState<null | SwapTokenModalMetadata>(null);
   const [isOpen, setIsOpen] = useState(false);
-
-  const formSearch = useForm({
-    defaultValues: {
-      search: '',
-    },
-    mode: 'onBlur',
-  });
+  const [searchedToken] = useState<null | TokenModalMetadata>(null);
 
   const [localSettings, setLocalSettings] = useLocalStorage<LocalSwapSettings>(
     'sui-interest-swap-settings',
@@ -91,15 +81,11 @@ const DexPage: NextPageWithProps = ({ pageTitle }) => {
       <Layout pageTitle={pageTitle}>
         <DEXSwapView
           formSwap={formSwap}
-          tokenInModalState={{ isTokenInOpenModal, setTokenInIsOpenModal }}
-          tokenOutModalState={{ isTokenOutOpenModal, setTokenOutIsOpenModal }}
           openModalState={{ isOpen, setIsOpen }}
           setLocalSettings={setLocalSettings}
           localSettings={localSettings}
           formSettingsDropdown={formSettingsDropdown}
           autoButtonState={{ isAuto, setAuto }}
-          formSearch={formSearch}
-          searchingState={{ isSearching, setIsSearching }}
           searchTokenModalState={searchedToken}
         />
       </Layout>

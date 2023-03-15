@@ -10,25 +10,22 @@ import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import { formatMoney, ZERO_BIG_NUMBER } from '@/utils';
 
-import SwapSelectCurrency from '../components/swap-select-currency';
+import SelectCurrency from '../../components/select-currency';
+import { OnSelectCurrency } from '../../components/select-currency/select-currency.types';
 import SettingsModal from './settings';
 import { ISwapSettingsForm } from './settings/settings.types';
 import { useGetVolatilePools } from './swap.hooks';
-import { OnSelectCurrencyData, SwapProps } from './swap.types';
+import { SwapProps } from './swap.types';
 
 const SwapManager = dynamic(() => import('./swap-manager'));
 
 const Swap: FC<SwapProps> = ({
   formSwap,
-  setLocalSettings,
   localSettings,
-  formSettingsDropdown,
-  autoButtonState,
   openModalState,
-  tokenInModalState,
-  tokenOutModalState,
-  searchingState,
-  formSearch,
+  autoButtonState,
+  setLocalSettings,
+  formSettingsDropdown,
   searchTokenModalState,
 }) => {
   const { coinsMap, mutate, account } = useWeb3();
@@ -57,23 +54,20 @@ const Swap: FC<SwapProps> = ({
   };
 
   const onSelectCurrency =
-    (name: 'tokenIn' | 'tokenOut') =>
-    ({ type, decimals, symbol }: OnSelectCurrencyData) => {
+    (name: 'tokenIn' | 'tokenOut'): OnSelectCurrency =>
+    ({ type, decimals, symbol }) => {
       formSwap.setValue(`${name}.type`, type);
       formSwap.setValue(`${name}.decimals`, decimals);
       formSwap.setValue(`${name}.symbol`, symbol);
       formSwap.setValue('tokenOut.value', '0.0');
       formSwap.setValue('tokenIn.value', '0.0');
-      tokenInModalState.isTokenInOpenModal &&
-        tokenInModalState.setTokenInIsOpenModal(false);
-      tokenOutModalState.isTokenOutOpenModal &&
-        tokenOutModalState.setTokenOutIsOpenModal(false);
     };
 
   const tokenInType = useWatch({
     control: formSwap.control,
     name: 'tokenIn.type',
   });
+
   const tokenOutType = useWatch({
     control: formSwap.control,
     name: 'tokenOut.type',
@@ -121,6 +115,10 @@ const Swap: FC<SwapProps> = ({
             justifyContent="space-evenly"
           >
             <InputBalance
+              max
+              name="tokenIn.value"
+              register={formSwap.register}
+              setValue={formSwap.setValue}
               balance={formatMoney(
                 FixedPointMath.toNumber(
                   pathOr(
@@ -131,36 +129,20 @@ const Swap: FC<SwapProps> = ({
                   pathOr(0, [tokenInType, 'decimals'], coinsMap)
                 )
               )}
-              max={FixedPointMath.toNumber(
-                pathOr(
-                  ZERO_BIG_NUMBER,
-                  [tokenInType, 'totalBalance'],
-                  coinsMap
-                ),
-                pathOr(0, [tokenInType, 'decimals'], coinsMap)
-              ).toString()}
-              name="tokenIn.value"
-              register={formSwap.register}
-              setValue={formSwap.setValue}
-              disabled={false}
               Suffix={
-                <SwapSelectCurrency
+                <SelectCurrency
                   tokens={coinsMap}
                   currentToken={tokenInType}
-                  searchingState={searchingState}
-                  formSearch={formSearch}
-                  isModalOpen={tokenInModalState.isTokenInOpenModal}
                   type={formSwap.getValues('tokenIn.type')}
                   symbol={formSwap.getValues('tokenIn.symbol')}
-                  setIsModalOpen={tokenInModalState.setTokenInIsOpenModal}
                   onSelectCurrency={onSelectCurrency('tokenIn')}
                   searchTokenModalState={searchTokenModalState}
                 />
               }
               isLarge={true}
-              buttonMaxPosition="right"
             />
             <Box
+              zIndex={1}
               width="3rem"
               height="3rem"
               display="flex"
@@ -184,17 +166,16 @@ const Swap: FC<SwapProps> = ({
             </Box>
           </Box>
           <SwapManager
-            control={formSwap.control}
             account={account}
+            coinsMap={coinsMap}
+            tokenInType={tokenInType}
+            control={formSwap.control}
+            tokenOutType={tokenOutType}
             setValue={formSwap.setValue}
             register={formSwap.register}
-            coinsMap={coinsMap}
             getValues={formSwap.getValues}
-            tokenInType={tokenInType}
-            tokenOutType={tokenOutType}
             volatilePoolsMap={volatilePoolsMap}
-            isTokenOutOpenModal={tokenOutModalState.isTokenOutOpenModal}
-            setTokenOutIsOpenModal={tokenOutModalState.setTokenOutIsOpenModal}
+            searchTokenModalState={searchTokenModalState}
             onSelectCurrency={onSelectCurrency('tokenOut')}
             swapButtonProps={{
               mutate,
@@ -206,9 +187,6 @@ const Swap: FC<SwapProps> = ({
               tokenOutType,
               slippage: localSettings.slippage,
             }}
-            searchingState={searchingState}
-            formSearch={formSearch}
-            searchTokenModalState={searchTokenModalState}
           />
         </Box>
       )}

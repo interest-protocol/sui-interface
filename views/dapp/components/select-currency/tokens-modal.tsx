@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC, ReactNode, useMemo } from 'react';
 import { useWatch } from 'react-hook-form';
@@ -5,19 +6,20 @@ import { useDebounce } from 'use-debounce';
 import { v4 } from 'uuid';
 
 import { DEX_TOKENS_DATA, TOKENS_SVG_MAP } from '@/constants';
-import { Box, Button, Modal, Typography } from '@/elements';
+import { Box, Button, Typography } from '@/elements';
 import { FixedPointMath } from '@/sdk';
 import { LineLoaderSVG, TimesSVG } from '@/svg';
 import { capitalize, formatMoney } from '@/utils';
 
 import {
-  SwapCurrencyDropdownProps,
-  SwapTokenModalMetadata,
-} from '../../../dex.types';
-import { OnSelectCurrencyData } from '../../../swap/swap.types';
+  CurrencyDropdownProps,
+  OnSelectCurrency,
+  OnSelectCurrencyData,
+  TokenModalMetadata,
+} from './select-currency.types';
 
 const renderData = (
-  tokens: ReadonlyArray<SwapTokenModalMetadata>,
+  tokens: ReadonlyArray<TokenModalMetadata>,
   onSelectCurrency: (data: OnSelectCurrencyData) => void,
   currentToken: string
 ): ReadonlyArray<ReactNode> => {
@@ -66,13 +68,12 @@ const renderData = (
   });
 };
 
-const SwapCurrencyDropdown: FC<SwapCurrencyDropdownProps> = ({
+const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
   Input,
   tokens,
   control,
   isSearching,
   toggleModal,
-  isModalOpen,
   currentToken,
   onSelectCurrency,
   searchTokenModalState,
@@ -83,12 +84,16 @@ const SwapCurrencyDropdown: FC<SwapCurrencyDropdownProps> = ({
 
   const [debouncedSearch] = useDebounce(search, 800);
 
-  const allTokens: ReadonlyArray<SwapTokenModalMetadata> = useMemo(
+  const handleSelectCurrency: OnSelectCurrency = (args) => {
+    onSelectCurrency(args);
+    toggleModal?.();
+  };
+
+  const allTokens: ReadonlyArray<TokenModalMetadata> = useMemo(
     () =>
       DEX_TOKENS_DATA.map((item) => ({
         ...item,
-        totalBalance:
-          tokens[item.type]?.totalBalance ?? FixedPointMath.toBigNumber(0),
+        totalBalance: tokens[item.type]?.totalBalance ?? BigNumber(0),
       })),
     [tokens]
   );
@@ -100,20 +105,13 @@ const SwapCurrencyDropdown: FC<SwapCurrencyDropdownProps> = ({
         ({ type, symbol }) =>
           symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
           type == debouncedSearch
-      ) as ReadonlyArray<SwapTokenModalMetadata>),
+      ) as ReadonlyArray<TokenModalMetadata>),
     ],
     [debouncedSearch, searchedToken]
   );
 
   return (
-    <Modal
-      modalProps={{
-        isOpen: isModalOpen,
-        shouldCloseOnEsc: true,
-        onRequestClose: toggleModal,
-      }}
-      background="#0004"
-    >
+    <>
       <Box display="flex" justifyContent="flex-end">
         <Box display="flex" textAlign="right" justifyContent="flex-end" mb="M">
           <Button
@@ -142,7 +140,7 @@ const SwapCurrencyDropdown: FC<SwapCurrencyDropdownProps> = ({
                 {capitalize(t('common.load', { isLoading: 1 }))}
               </Typography>
             ) : filteredTokens.length ? (
-              renderData(filteredTokens, onSelectCurrency, currentToken)
+              renderData(filteredTokens, handleSelectCurrency, currentToken)
             ) : (
               <Typography variant="normal" color="text">
                 {capitalize(t('common.notFound'))}
@@ -157,12 +155,12 @@ const SwapCurrencyDropdown: FC<SwapCurrencyDropdownProps> = ({
             gridGap="0.3rem"
             maxHeight="20rem"
           >
-            {renderData(allTokens, onSelectCurrency, currentToken)}
+            {renderData(allTokens, handleSelectCurrency, currentToken)}
           </Box>
         )}
       </Box>
-    </Modal>
+    </>
   );
 };
 
-export default SwapCurrencyDropdown;
+export default CurrencyDropdown;

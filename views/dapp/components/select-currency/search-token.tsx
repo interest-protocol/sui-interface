@@ -4,12 +4,9 @@ import { FC } from 'react';
 import { Input } from '@/elements';
 import { capitalize } from '@/utils';
 
-import { SwapSearchTokenProps } from '../../../dex.types';
+import { SearchTokenProps } from './select-currency.types';
 
-const SwapSearchToken: FC<SwapSearchTokenProps> = ({
-  register,
-  isSearching,
-}) => {
+const SearchToken: FC<SearchTokenProps> = ({ register, isSearching }) => {
   const t = useTranslations();
 
   return (
@@ -28,4 +25,4 @@ const SwapSearchToken: FC<SwapSearchTokenProps> = ({
     />
   );
 };
-export default SwapSearchToken;
+export default SearchToken;
