@@ -36,8 +36,6 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
           mintAmount: +amount * 10 ** 9,
         });
 
-        console.log(byteCode);
-
         const tx = await signAndExecuteTransaction({
           kind: 'publish',
           data: { compiledModules: byteCode, gasBudget: 15000 },
