@@ -8,6 +8,13 @@ const connection = process.env.NEXT_PUBLIC_SUI_RPC_URL
 
 export const provider = new JsonRpcProvider(connection);
 
+export const wsProvider = new JsonRpcProvider(
+  new Connection({
+    fullnode:
+      process.env.NEXT_PUBLIC_SUI_WS_URL || 'wss://fullnode.devnet.sui.io:443',
+  })
+);
+
 export const mystenLabsProvider = new JsonRpcProvider(devnetConnection);
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());

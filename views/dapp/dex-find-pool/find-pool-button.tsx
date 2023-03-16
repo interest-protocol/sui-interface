@@ -25,6 +25,7 @@ import {
   provider,
   showToast,
   showTXSuccessToast,
+  wsProvider,
 } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
@@ -44,7 +45,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
   const [loading, setLoading] = useState(false);
   const { setModal, handleClose } = useModal();
   const { signAndExecuteTransaction } = useWalletKit();
-  const { coinsMap } = useWeb3();
+  const { coinsMap, account } = useWeb3();
 
   const enterPool = async () => {
     setLoading(true);
@@ -91,6 +92,8 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
       const tokenA = getValues('tokenA');
       const tokenB = getValues('tokenB');
 
+      if (!account) throw new Error('No account found');
+
       if (!+tokenA.value || !+tokenB.value)
         throw new Error('Both coins must have a value');
 
@@ -124,31 +127,27 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
 
       await showTXSuccessToast(tx);
 
-      const filteredEvents = tx.effects.events?.filter((event) => {
-        if ('moveEvent' in event) {
-          const data = event.moveEvent;
-
-          return data.packageId === COINS_PACKAGE_ID;
+      const subscriptionId = await wsProvider.subscribeEvent(
+        {
+          All: [
+            { Package: COINS_PACKAGE_ID },
+            { SenderAddress: account },
+            { EventType: 'MoveEvent' },
+          ],
+        },
+        async (data) => {
+          if ('moveEvent' in data.event) {
+            const id = data.event.moveEvent.fields.id;
+            if (id) {
+              await wsProvider.unsubscribeEvent(subscriptionId);
+              await push({
+                pathname: Routes[RoutesEnum.DEXPoolDetails],
+                query: { objectId: id },
+              });
+            }
+          }
         }
-
-        return false;
-      });
-
-      if (!filteredEvents || !filteredEvents.length)
-        throw new Error('Cannot find the pool id');
-
-      const firstEvent = filteredEvents[0];
-
-      if ('moveEvent' in firstEvent) {
-        const data = firstEvent.moveEvent;
-
-        await push({
-          pathname: Routes[RoutesEnum.DEXPoolDetails],
-          query: { objectId: data.fields.id },
-        });
-      }
-
-      throw new Error('Cannot find the pool id');
+      );
     } catch (error) {
       throw new Error('Failed to create pool');
     } finally {
