@@ -8,6 +8,8 @@ import Typography from '@/elements/typography';
 import { CreatePoolPopupProps } from './create-pool-modal.types';
 
 const CreatePoolPopup: FC<CreatePoolPopupProps> = ({
+  symbol0,
+  symbol1,
   onCancel,
   onContinue,
 }) => {
@@ -29,12 +31,15 @@ const CreatePoolPopup: FC<CreatePoolPopupProps> = ({
       >
         {t('dexPoolFind.createPoolPopup.title')}
       </Typography>
+      <Typography variant="normal" my="XL">
+        {t('dexPoolFind.createPoolPopup.description', { symbol0, symbol1 })}
+      </Typography>
       <Box display="grid" gridTemplateColumns="1fr 1fr" columnGap="1rem">
         <Button
+          bg="error"
           variant="primary"
           onClick={onCancel}
-          bg="bottomBackground"
-          hover={{ bg: 'disabled' }}
+          hover={{ bg: 'errorActive' }}
         >
           <Typography
             as="span"

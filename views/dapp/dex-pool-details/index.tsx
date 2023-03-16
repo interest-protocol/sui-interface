@@ -89,8 +89,8 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
     {
       symbol: token0.symbol,
       Icon: (
-        <Box as="span" display="inline-flex" width="1rem">
-          <FirstIcon width="100%" maxHeight="1rem" maxWidth="1rem" />
+        <Box as="span" display="inline-flex" width="1.2rem">
+          <FirstIcon width="100%" maxHeight="1.2rem" maxWidth="1.2rem" />
         </Box>
       ),
       balance: getSafeTotalBalance(coinsMap[token0.type]),
@@ -100,8 +100,8 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
     {
       symbol: token1.symbol,
       Icon: (
-        <Box as="span" display="inline-flex" width="1rem">
-          <SecondIcon width="100%" maxHeight="1rem" maxWidth="1rem" />
+        <Box as="span" display="inline-flex" width="1.2rem">
+          <SecondIcon width="100%" maxHeight="1.2rem" maxWidth="1.2rem" />
         </Box>
       ),
       balance: getSafeTotalBalance(coinsMap[token1.type]),

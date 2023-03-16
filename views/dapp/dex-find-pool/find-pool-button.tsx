@@ -173,7 +173,12 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
 
   const openModal = () =>
     setModal(
-      <CreatePoolPopup onCancel={handleClose} onContinue={handleCreatePair} />
+      <CreatePoolPopup
+        onCancel={handleClose}
+        onContinue={handleCreatePair}
+        symbol0={getValues('tokenA.symbol')}
+        symbol1={getValues('tokenB.symbol')}
+      />
     );
 
   return (

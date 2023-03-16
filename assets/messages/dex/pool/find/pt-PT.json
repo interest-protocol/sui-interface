@@ -10,8 +10,8 @@
     "createPoolAdvice": "Esta pool não existe! Por favor, crie uma agora.",
     "createPoolInfo": "Importante: Você está criando um mercado projetado para produtos não corrigidos. Por exemplo, BTC/ETH.",
     "createPoolPopup": {
-      "title": "Recomendação",
-      "description": "Recomendamos que crie um mercado volátil para {symbol0} e {symbol1}.",
+      "title": "Aviso",
+      "description": "Você está a criar um mercado volátil para {symbol0} e {symbol1}.",
       "submit": "Continuar"
     },
     "switchOption1": "Recomendado",

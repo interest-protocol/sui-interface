@@ -32,20 +32,11 @@ const CreatePoolField: FC<CreatePoolFieldProps> = ({
       name={`${name}.value`}
       disabled={!token.type}
       Suffix={
-        <Box
-          m="M"
-          p="M"
-          pr="L"
-          opacity="0.7"
-          display="flex"
-          bg="accentActive"
-          alignItems="center"
-          borderRadius="2rem"
-        >
-          <Box width="1.5rem" height="1.5rem" mr="M">
+        <Box m="M" p="M" display="flex" alignItems="center">
+          <Typography variant="normal">{token.symbol}</Typography>
+          <Box width="1.5rem" height="1.5rem" ml="M">
             <SVG maxWidth="100%" maxHeight="100%" width="100%" />
           </Box>
-          <Typography variant="normal">{token.symbol}</Typography>
         </Box>
       }
     />
