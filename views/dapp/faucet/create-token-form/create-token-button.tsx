@@ -31,7 +31,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
       if (isValid) {
         const byteCode = await getTokenByteCode({
           decimals: 9,
-          symbol,
+          symbol: symbol.trim().split(' ')[0], // make sure it is one word
           name,
           mintAmount: +amount * 10 ** 9,
         });
