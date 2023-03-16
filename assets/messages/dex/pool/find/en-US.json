@@ -15,6 +15,12 @@
       "submit": "Create Anyway"
     },
     "switchOption1": "Recommended",
-    "switchOption2": "Added By Me"
+    "switchOption2": "Added By Me",
+    "errors": {
+      "create": "Failed to create pool",
+      "value": "Both coins must have a value",
+      "noAccount": "No account found",
+      "connecting": "Error connecting"
+    }
   }
 }

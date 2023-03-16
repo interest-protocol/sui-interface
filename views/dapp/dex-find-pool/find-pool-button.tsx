@@ -34,11 +34,11 @@ import { FindPoolButtonProps } from './dex-find-pool.types';
 import { getRecommendedPairId } from './dex-find-pool.utils';
 
 const FindPoolButton: FC<FindPoolButtonProps> = ({
+  getValues,
   tokenBType,
   tokenAType,
   isCreatingPair,
   setCreatingPair,
-  getValues,
 }) => {
   const t = useTranslations();
   const { push } = useRouter();
@@ -79,7 +79,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
         query: { objectId: `0x${toHEX(getDevInspectData(response))}` },
       });
     } catch {
-      throw new Error('Error connecting'); // TODO: translate this message
+      throw new Error(t('dexPoolFind.errors.connecting'));
     } finally {
       setLoading(false);
     }
@@ -92,10 +92,10 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
       const tokenA = getValues('tokenA');
       const tokenB = getValues('tokenB');
 
-      if (!account) throw new Error('No account found');
+      if (!account) throw new Error();
 
       if (!+tokenA.value || !+tokenB.value)
-        throw new Error('Both coins must have a value');
+        throw new Error(t('dexPoolFind.errors.value'));
 
       const amountA = FixedPointMath.toBigNumber(
         tokenA.value,
@@ -148,8 +148,8 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
           }
         }
       );
-    } catch (error) {
-      throw new Error('Failed to create pool');
+    } catch {
+      throw new Error(t('dexPoolFind.errors.create'));
     } finally {
       setLoading(false);
     }
@@ -163,7 +163,6 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
     });
 
   const handleCreatePair = () =>
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     showToast(createPair(), {
       loading: t('dexPoolFind.buttonPool', { isLoading: 1 }),
       success: capitalize(t('common.success')),

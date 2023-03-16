@@ -15,6 +15,12 @@
       "submit": "Continuar"
     },
     "switchOption1": "Recomendado",
-    "switchOption2": "Adicionados por mim"
+    "switchOption2": "Adicionados por mim",
+    "errors": {
+      "create": "Falha ao criar mercado",
+      "value": "Ambos tokens devem ter valor",
+      "noAccount": "Conta não encontrada",
+      "connecting": "Erro ao conectar"
+    }
   }
 }
