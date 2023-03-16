@@ -1,11 +1,16 @@
+import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
+import { incrementCreatedCoins } from '@/api/analytics';
+import { getTokenByteCode } from '@/api/token';
 import { Box, Button, Typography } from '@/elements';
+import { useWeb3 } from '@/hooks';
+import { AddressZero } from '@/sdk';
 import { LoadingSVG } from '@/svg';
-import { capitalize, showToast } from '@/utils';
+import { capitalize, showToast, showTXSuccessToast } from '@/utils';
 
 import { CreateTokenButtonProps } from './create-token-form.types';
 
@@ -13,27 +18,48 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
   control,
   handleCloseModal,
 }) => {
-  const name = useWatch({ control, name: 'name' });
-  const symbol = useWatch({ control, name: 'symbol' });
-  const amount = useWatch({ control, name: 'amount' });
-
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const t = useTranslations();
+  const { name, symbol, amount } = useWatch({ control });
+  const { signAndExecuteTransaction } = useWalletKit();
+  const { account } = useWeb3();
+  const isValid = name && symbol && amount && +amount > 0;
 
-  const isValid = useMemo(
-    () => name && symbol && +amount > 0,
-    [name, symbol, amount]
-  );
+  const createToken = async () => {
+    try {
+      setLoading(true);
+      if (isValid) {
+        const byteCode = await getTokenByteCode({
+          decimals: 9,
+          symbol,
+          name,
+          mintAmount: +amount * 10 ** 9,
+        });
+
+        console.log(byteCode);
+
+        const tx = await signAndExecuteTransaction({
+          kind: 'publish',
+          data: { compiledModules: byteCode, gasBudget: 15000 },
+        });
+
+        await showTXSuccessToast(tx);
+        await incrementCreatedCoins(account || AddressZero);
+      }
+    } catch (error) {
+      throw new Error(t('faucet.errorCreateToken'));
+    } finally {
+      setLoading(false);
+      handleCloseModal();
+    }
+  };
 
   const safeCreateToken = () =>
-    showToast(
-      (async () => setTimeout(handleCloseModal, Math.random() * 2500))(),
-      {
-        loading: `${t('faucet.modalButton', { isLoading: 1 })}`,
-        success: capitalize(t('common.success')),
-        error: prop('message'),
-      }
-    );
+    showToast(createToken(), {
+      loading: `${t('faucet.modalButton', { isLoading: 1 })}`,
+      success: capitalize(t('common.success')),
+      error: prop('message'),
+    });
 
   return (
     <Button

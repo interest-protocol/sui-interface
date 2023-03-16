@@ -13,6 +13,7 @@
     "modalInputAmount": "Amount",
     "notFoundToken": "Not found token",
     "select": "Select a token",
-    "type": "Type {label}"
+    "type": "Type {label}",
+    "errorCreateToken": "Failed to create the token"
   }
 }

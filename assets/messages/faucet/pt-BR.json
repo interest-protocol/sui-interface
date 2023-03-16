@@ -13,6 +13,7 @@
     "modalInputAmount": "Montante",
     "notFoundToken": "Nenhum token encontrado",
     "select": "Selecione um token",
-    "type": "Escreva o {label}"
+    "type": "Escreva o {label}",
+    "errorCreateToken": "Ocorreu um error ao criar o token"
   }
 }
