@@ -149,7 +149,7 @@ const SwapButton: FC<SwapButtonProps> = ({
 
   const swap = () =>
     showToast(handleSwap(), {
-      loading: `Loading`,
+      loading: capitalize(t('common.loading')),
       success: capitalize(t('common.success')),
       error: prop('message'),
     });

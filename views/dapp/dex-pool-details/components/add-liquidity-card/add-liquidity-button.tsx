@@ -103,7 +103,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
 
   const addLiquidity = () =>
     showToast(handleAddLiquidity(), {
-      loading: `Loading`,
+      loading: capitalize(t('common.loading')),
       success: capitalize(t('common.success')),
       error: prop('message'),
     });

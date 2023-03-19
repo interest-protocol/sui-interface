@@ -1,72 +1,27 @@
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { FC, ReactNode, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
-import { v4 } from 'uuid';
 
-import { DEX_TOKENS_DATA, TOKENS_SVG_MAP } from '@/constants';
-import { Box, Button, Typography } from '@/elements';
-import { FixedPointMath } from '@/sdk';
+import { Switch } from '@/components';
+import { COIN_TYPE, DEX_TOKENS_DATA, Network } from '@/constants';
+import { Box, Button, InfiniteScroll, Typography } from '@/elements';
 import { LineLoaderSVG, TimesSVG } from '@/svg';
-import { capitalize, formatMoney } from '@/utils';
+import { capitalize } from '@/utils';
 
 import {
   CurrencyDropdownProps,
   OnSelectCurrency,
-  OnSelectCurrencyData,
   TokenModalMetadata,
 } from './select-currency.types';
+import { renderData } from './select-currency.utils';
 
-const renderData = (
-  tokens: ReadonlyArray<TokenModalMetadata>,
-  onSelectCurrency: (data: OnSelectCurrencyData) => void,
-  currentToken: string
-): ReadonlyArray<ReactNode> => {
-  const DefaultTokenSVG = TOKENS_SVG_MAP.default;
-
-  return tokens.map(({ type, symbol, decimals, totalBalance }) => {
-    const SVG = TOKENS_SVG_MAP[type] ?? DefaultTokenSVG;
-
-    const isDisabled = type == currentToken;
-    const handleSelectCurrency = () =>
-      !isDisabled && onSelectCurrency({ type, symbol, decimals });
-
-    return (
-      <Box
-        m="XS"
-        px="M"
-        py="S"
-        key={v4()}
-        color="text"
-        display="flex"
-        border="1px solid"
-        alignItems="center"
-        borderRadius="2.5rem"
-        borderColor="transparent"
-        justifyContent="space-between"
-        onClick={handleSelectCurrency}
-        cursor={isDisabled ? 'not-allowed' : 'pointer'}
-        bg={isDisabled ? 'textSoft' : 'bottomBackground'}
-        hover={{
-          borderColor: isDisabled ? 'transparent' : 'accent',
-        }}
-      >
-        <Box my="M" display="flex" alignItems="center">
-          <Box as="span" display="inline-flex" width="1rem" alignItems="center">
-            <SVG width="100%" maxHeight="1rem" maxWidth="1rem" />
-          </Box>
-          <Typography mx="M" as="span" variant="normal">
-            {symbol?.toUpperCase()}
-          </Typography>
-        </Box>
-        <Typography variant="normal">
-          {formatMoney(FixedPointMath.toNumber(totalBalance, decimals))}
-        </Typography>
-      </Box>
-    );
-  });
-};
+const BASE_TOKENS_TYPES = [
+  COIN_TYPE[Network.DEVNET].ETH,
+  COIN_TYPE[Network.DEVNET].USDC,
+  COIN_TYPE[Network.DEVNET].SUI,
+];
 
 const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
   Input,
@@ -81,6 +36,7 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
   const t = useTranslations();
   const search = useWatch({ control, name: 'search' });
   const searchedToken = searchTokenModalState;
+  const [isRecommended, setRecommended] = useState(true);
 
   const [debouncedSearch] = useDebounce(search, 800);
 
@@ -89,12 +45,38 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
     toggleModal?.();
   };
 
-  const allTokens: ReadonlyArray<TokenModalMetadata> = useMemo(
+  const [allTokens, baseTokens] = useMemo(
     () =>
-      DEX_TOKENS_DATA.map((item) => ({
-        ...item,
-        totalBalance: tokens[item.type]?.totalBalance ?? BigNumber(0),
-      })),
+      DEX_TOKENS_DATA.reduce(
+        (acc, item) => {
+          if (BASE_TOKENS_TYPES.includes(item.type))
+            return [
+              acc[0],
+              [
+                ...acc[1],
+                {
+                  ...item,
+                  totalBalance: tokens[item.type]?.totalBalance ?? BigNumber(0),
+                },
+              ],
+            ];
+
+          return [
+            [
+              ...acc[0],
+              {
+                ...item,
+                totalBalance: tokens[item.type]?.totalBalance ?? BigNumber(0),
+              },
+            ],
+            acc[1],
+          ];
+        },
+        [[], []] as [
+          ReadonlyArray<TokenModalMetadata>,
+          ReadonlyArray<TokenModalMetadata>
+        ]
+      ),
     [tokens]
   );
 
@@ -148,14 +130,46 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
             )}
           </Box>
         ) : (
-          <Box
-            mt="M"
-            display="grid"
-            overflowY="auto"
-            gridGap="0.3rem"
-            maxHeight="20rem"
-          >
-            {renderData(allTokens, handleSelectCurrency, currentToken)}
+          <Box>
+            <Box display="flex" my="L">
+              {renderData(baseTokens, handleSelectCurrency, currentToken, true)}
+            </Box>
+            <Box display="flex" justifyContent="center">
+              <Switch
+                defaultValue={isRecommended ? 'internal' : 'external'}
+                options={[
+                  { value: 'internal', onSelect: () => setRecommended(true) },
+                  { value: 'external', onSelect: () => setRecommended(false) },
+                ]}
+              />
+            </Box>
+            {isRecommended ? (
+              <Box
+                mt="M"
+                display="grid"
+                overflowY="auto"
+                gridGap="0.3rem"
+                maxHeight="20rem"
+              >
+                {renderData(allTokens, handleSelectCurrency, currentToken)}
+              </Box>
+            ) : (
+              // TODO: Redo the logic
+              <InfiniteScroll
+                mt="M"
+                display="grid"
+                gridGap="0.3rem"
+                maxHeight="10rem"
+                hasMore={true}
+                loader={<LineLoaderSVG />}
+                dataLength={allTokens.length * 4}
+                next={() => {
+                  console.log('>> next');
+                }}
+              >
+                {renderData(allTokens, handleSelectCurrency, currentToken)}
+              </InfiniteScroll>
+            )}
           </Box>
         )}
       </Box>

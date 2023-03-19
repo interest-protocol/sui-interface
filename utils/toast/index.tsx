@@ -50,9 +50,9 @@ export const showTXSuccessToast = async (
 export function showToast<T>(
   fn: Promise<T>,
   msgs: ToastMsgs = {
-    loading: 'Submitting tx...',
-    success: 'Success!',
-    error: propOr('Something went wrong', 'message'),
+    loading: 'Submitting tx...', // TODO: translate this message
+    success: 'Success!', // TODO: translate this message
+    error: propOr('Something went wrong', 'message'), // TODO: translate this message
   },
   options: ToastOpts = undefined
 ): Promise<T | undefined> {

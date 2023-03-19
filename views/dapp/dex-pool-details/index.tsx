@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';
 import { FC } from 'react';
 
-import { Container } from '@/components';
+import { Container, LoadingPage } from '@/components';
 import { COIN_TYPE_TO_COIN, Network, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { useLocale, useWeb3 } from '@/hooks';
@@ -59,7 +59,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
     COIN_TYPE_TO_COIN[Network.DEVNET]
   ) as CoinData;
 
-  if (isLoading) return <div>loading</div>;
+  if (isLoading) return <LoadingPage />;
 
   if (!token0 || !token1)
     return (
