@@ -56,10 +56,11 @@ export const findMarket = (
 ): ReadonlyArray<SwapPathObject> => {
   if (isEmpty(data)) return [];
 
-  const pool =
-    data[addCoinTypeToTokenType(tokenInType)][
-      addCoinTypeToTokenType(tokenOutType)
-    ];
+  const pool = pathOr(
+    null,
+    [addCoinTypeToTokenType(tokenInType), addCoinTypeToTokenType(tokenOutType)],
+    data
+  );
 
   // No Hop Swap X -> Y
   if (pool)
