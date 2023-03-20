@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import { TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
+import { useWeb3 } from '@/hooks';
 import { useModal } from '@/hooks/use-modal';
 import { ArrowSVG } from '@/svg';
 
@@ -13,7 +14,6 @@ import TokensModal from './tokens-modal';
 
 const SelectCurrency: FC<SelectCurrencyProps> = ({
   type,
-  tokens,
   symbol,
   disabled,
   fromRight,
@@ -25,7 +25,7 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
   const [loading, setIsLoading] = useState(false);
   const { dark } = useTheme() as { dark: boolean };
   const SVG = TOKENS_SVG_MAP[type] ?? TOKENS_SVG_MAP.default;
-
+  const { coinsMap, coins } = useWeb3();
   const { control, register } = useForm({
     defaultValues: {
       search: '',
@@ -35,7 +35,8 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
   const openModal = () =>
     setModal(
       <TokensModal
-        tokens={tokens}
+        coinsMap={coinsMap}
+        coins={coins}
         control={control}
         fromRight={fromRight}
         isSearching={loading}

@@ -65,3 +65,21 @@ export const DEX_TOKENS_DATA = [
     name: 'Interest Protocol Coin',
   },
 ];
+
+export const BASE_TOKENS_TYPES = {
+  [Network.DEVNET]: [
+    COIN_TYPE[Network.DEVNET].ETH,
+    COIN_TYPE[Network.DEVNET].USDC,
+    COIN_TYPE[Network.DEVNET].SUI,
+  ],
+};
+
+export const RECOMMENDED_TOKENS_TYPES = {
+  [Network.DEVNET]: [
+    COIN_TYPE[Network.DEVNET].DAI,
+    COIN_TYPE[Network.DEVNET].BTC,
+    COIN_TYPE[Network.DEVNET].IPX,
+    COIN_TYPE[Network.DEVNET].USDT,
+    COIN_TYPE[Network.DEVNET].BNB,
+  ],
+};

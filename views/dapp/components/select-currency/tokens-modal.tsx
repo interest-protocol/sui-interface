@@ -1,43 +1,40 @@
-import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
 
 import { Switch } from '@/components';
-import { COIN_TYPE, DEX_TOKENS_DATA, Network } from '@/constants';
+import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
+import {
+  BASE_TOKENS_TYPES,
+  Network,
+  RECOMMENDED_TOKENS_TYPES,
+} from '@/constants';
 import { Box, Button, InfiniteScroll, Typography } from '@/elements';
 import { LineLoaderSVG, TimesSVG } from '@/svg';
-import { capitalize } from '@/utils';
+import { capitalize, noop } from '@/utils';
 
 import {
   CurrencyDropdownProps,
   OnSelectCurrency,
-  TokenModalMetadata,
 } from './select-currency.types';
 import { renderData } from './select-currency.utils';
 
-const BASE_TOKENS_TYPES = [
-  COIN_TYPE[Network.DEVNET].ETH,
-  COIN_TYPE[Network.DEVNET].USDC,
-  COIN_TYPE[Network.DEVNET].SUI,
-];
-
 const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
   Input,
-  tokens,
   control,
   isSearching,
   toggleModal,
   currentToken,
   onSelectCurrency,
   searchTokenModalState,
+  coinsMap,
+  coins,
 }) => {
   const t = useTranslations();
   const search = useWatch({ control, name: 'search' });
   const searchedToken = searchTokenModalState;
   const [isRecommended, setRecommended] = useState(true);
-
   const [debouncedSearch] = useDebounce(search, 800);
 
   const handleSelectCurrency: OnSelectCurrency = (args) => {
@@ -45,52 +42,61 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
     toggleModal?.();
   };
 
-  const [allTokens, baseTokens] = useMemo(
-    () =>
-      DEX_TOKENS_DATA.reduce(
-        (acc, item) => {
-          if (BASE_TOKENS_TYPES.includes(item.type))
-            return [
-              acc[0],
-              [
-                ...acc[1],
-                {
-                  ...item,
-                  totalBalance: tokens[item.type]?.totalBalance ?? BigNumber(0),
-                },
-              ],
-            ];
+  const [baseTokens, recommendedTokens, otherTokens] = useMemo(() => {
+    const baseTokens = BASE_TOKENS_TYPES[Network.DEVNET].reduce((acc, type) => {
+      const coin = coinsMap[type];
 
-          return [
-            [
-              ...acc[0],
-              {
-                ...item,
-                totalBalance: tokens[item.type]?.totalBalance ?? BigNumber(0),
-              },
-            ],
-            acc[1],
-          ];
-        },
-        [[], []] as [
-          ReadonlyArray<TokenModalMetadata>,
-          ReadonlyArray<TokenModalMetadata>
-        ]
-      ),
-    [tokens]
-  );
+      return coin ? acc.concat([coin]) : acc;
+    }, [] as ReadonlyArray<Web3ManagerSuiObject>);
 
-  const filteredTokens = useMemo(
-    () => [
-      ...(searchedToken ? [searchedToken] : []),
-      ...(allTokens.filter(
-        ({ type, symbol }) =>
-          symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
-          type == debouncedSearch
-      ) as ReadonlyArray<TokenModalMetadata>),
-    ],
-    [debouncedSearch, searchedToken]
-  );
+    const recommendedTokens = RECOMMENDED_TOKENS_TYPES[Network.DEVNET].reduce(
+      (acc, type) => {
+        const coin = coinsMap[type];
+
+        return coin ? acc.concat([coin]) : acc;
+      },
+      [] as ReadonlyArray<Web3ManagerSuiObject>
+    );
+
+    const otherTokens = coins.filter(
+      ({ type }) =>
+        !BASE_TOKENS_TYPES[Network.DEVNET].includes(type) &&
+        !RECOMMENDED_TOKENS_TYPES[Network.DEVNET].includes(type)
+    );
+
+    return [baseTokens, recommendedTokens, otherTokens] as [
+      ReadonlyArray<Web3ManagerSuiObject>,
+      ReadonlyArray<Web3ManagerSuiObject>,
+      ReadonlyArray<Web3ManagerSuiObject>
+    ];
+  }, [coinsMap, coins.length]);
+
+  const filteredTokens = useMemo(() => {
+    const array =
+      searchedToken && searchedToken.type && coinsMap[searchedToken.type]
+        ? [coinsMap[searchedToken.type]]
+        : [];
+
+    const filteredTokensArray = isRecommended
+      ? recommendedTokens.filter(
+          ({ type, symbol }) =>
+            symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
+            type == debouncedSearch
+        )
+      : otherTokens.filter(
+          ({ type, symbol }) =>
+            symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
+            type == debouncedSearch
+        );
+
+    return array.concat(filteredTokensArray);
+  }, [
+    debouncedSearch,
+    searchedToken,
+    isRecommended,
+    otherTokens,
+    recommendedTokens,
+  ]);
 
   return (
     <>
@@ -151,23 +157,24 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
                 gridGap="0.3rem"
                 maxHeight="20rem"
               >
-                {renderData(allTokens, handleSelectCurrency, currentToken)}
+                {renderData(
+                  recommendedTokens,
+                  handleSelectCurrency,
+                  currentToken
+                )}
               </Box>
             ) : (
-              // TODO: Redo the logic
               <InfiniteScroll
                 mt="M"
+                hasMore={false}
                 display="grid"
                 gridGap="0.3rem"
                 maxHeight="10rem"
-                hasMore={true}
                 loader={<LineLoaderSVG />}
-                dataLength={allTokens.length * 4}
-                next={() => {
-                  console.log('>> next');
-                }}
+                dataLength={otherTokens.length}
+                next={noop}
               >
-                {renderData(allTokens, handleSelectCurrency, currentToken)}
+                {renderData(otherTokens, handleSelectCurrency, currentToken)}
               </InfiniteScroll>
             )}
           </Box>

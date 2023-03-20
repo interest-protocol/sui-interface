@@ -32,7 +32,6 @@ export interface SelectCurrencyProps {
   fromRight?: boolean;
   currentToken: string;
   onSelectCurrency: OnSelectCurrency;
-  tokens: Record<string, Web3ManagerSuiObject>;
   searchTokenModalState: TokenModalMetadata | null;
 }
 
@@ -42,7 +41,8 @@ export interface CurrencyDropdownProps {
   isSearching: boolean;
   toggleModal: () => void;
   control: Control<SearchFieldForm>;
-  tokens: Record<string, Web3ManagerSuiObject>;
+  coinsMap: Record<string, Web3ManagerSuiObject>;
+  coins: ReadonlyArray<Web3ManagerSuiObject>;
   setIsSearching: Dispatch<SetStateAction<boolean>>;
   currentToken: string;
   searchTokenModalState: TokenModalMetadata | null;

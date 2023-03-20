@@ -131,7 +131,6 @@ const Swap: FC<SwapProps> = ({
               )}
               Suffix={
                 <SelectCurrency
-                  tokens={coinsMap}
                   currentToken={tokenInType}
                   type={formSwap.getValues('tokenIn.type')}
                   symbol={formSwap.getValues('tokenIn.symbol')}

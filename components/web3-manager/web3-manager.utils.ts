@@ -59,7 +59,7 @@ export const parseCoins = (data: PaginatedCoins | undefined | never[]) => {
           [Network.DEVNET, type],
           COIN_TYPE_TO_SYMBOL
         );
-        const decimals = pathOr(0, [Network.DEVNET, type], COIN_DECIMALS);
+        const decimals = pathOr(-1, [Network.DEVNET, type], COIN_DECIMALS);
         const updatedMap = {
           ...map,
           [type]: {
