@@ -57,7 +57,7 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
       cursor="pointer"
       alignItems="center"
       bg="accentActive"
-      hover={{ bg: 'accent' }}
+      nHover={{ bg: 'accent' }}
       justifyContent="space-between"
       transition="background-color 1s"
       onClick={disabled ? undefined : openModal}
@@ -82,7 +82,7 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
           as="span"
           variant="normal"
           display={['none', 'block']}
-          active={{ color: 'accentActive' }}
+          nActive={{ color: 'accentActive' }}
         >
           {symbol.length > 4
             ? symbol.toUpperCase().slice(0, 4)

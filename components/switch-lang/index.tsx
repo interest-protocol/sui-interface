@@ -39,7 +39,7 @@ const SwitchLang: FC<SwitchLangProps> = ({ isMobile }) => {
               height="3rem"
               display="flex"
               alignItems="center"
-              hover={{
+              nHover={{
                 color: currentLocale === locale ? 'unset' : 'textInverted',
               }}
             >

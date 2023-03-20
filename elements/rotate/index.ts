@@ -1,5 +1,6 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { PropsWithChildren } from 'react';
 
 import Box from '../box';
 import { BoxProps } from '../box/box.types';
@@ -13,7 +14,7 @@ const rotate = keyframes`
   }
 `;
 
-const Rotate = styled(Box)<BoxProps>`
+const Rotate = styled(Box)<PropsWithChildren<BoxProps>>`
   animation: ${rotate} infinite 1.5s linear;
 `;
 

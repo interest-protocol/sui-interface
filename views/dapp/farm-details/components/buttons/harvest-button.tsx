@@ -68,7 +68,7 @@ const HarvestButton: FC<HarvestButtonProps> = ({
       disabled={farm.pendingRewards.isZero()}
       bg={!farm.pendingRewards.isZero() ? 'success' : 'disabled'}
       cursor={!farm.pendingRewards.isZero() ? 'pointer' : 'not-allowed'}
-      hover={{
+      nHover={{
         bg: !farm.pendingRewards.isZero() ? 'successActive' : 'disabled',
       }}
     >

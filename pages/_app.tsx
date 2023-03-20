@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import NextProgress from 'next-progress';
 import { ReactNode, StrictMode } from 'react';
-import { TooltipProvider } from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 
 import { LoadingPage, NextIntlProvider, ThemeManager } from '@/components';
 import { GlobalStyles } from '@/design-system';
@@ -56,10 +56,9 @@ const MyApp = ({ Component, pageProps }: Props): ReactNode => {
           <Global styles={GlobalStyles} />
           <ThemeManager>
             <StrictMode>
-              <TooltipProvider>
-                <Component {...pageProps} />
-                <VercelAnalytics />
-              </TooltipProvider>
+              <Component {...pageProps} />
+              <Tooltip id="interest-tooltip" />
+              <VercelAnalytics />
             </StrictMode>
           </ThemeManager>
         </WalletKitProvider>

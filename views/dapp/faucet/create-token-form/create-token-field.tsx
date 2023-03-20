@@ -39,7 +39,7 @@ const CreateTokenField: FC<CreateTokenFieldProps> = ({
           overflow: 'visible',
           border: '1px solid',
           borderColor: 'transparent',
-          hover: {
+          nHover: {
             borderColor: 'accentBackground',
           },
         }}

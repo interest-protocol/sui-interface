@@ -1,16 +1,17 @@
-import { forwardRef, RefAttributes } from 'react';
+import stylin, { variant } from '@stylin.js/react';
+import { forwardRef, PropsWithChildren } from 'react';
 
-import stylin, { variant } from '@/stylin';
+import { TypographyElementProps, TypographyProps } from './typography.types';
 
-import { TypographyProps } from './typography.types';
+const Typography = forwardRef(
+  ({ as, ...props }: PropsWithChildren<TypographyProps>, ref) => {
+    const TypographyElement = stylin<TypographyElementProps>(as || 'p')(
+      variant({ scale: 'typography', property: 'variant' })
+    );
 
-const Typography = forwardRef(({ as, ...props }: TypographyProps, ref) => {
-  const TypographyElement = stylin<TypographyProps & RefAttributes<unknown>>(
-    as || 'p'
-  )(variant({ scale: 'typography', property: 'variant' }));
-
-  return <TypographyElement ref={ref} {...props} />;
-});
+    return <TypographyElement ref={ref} {...props} />;
+  }
+);
 
 Typography.displayName = 'Typography';
 

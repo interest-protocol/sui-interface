@@ -33,8 +33,6 @@
       "@/interface": ["./interface"],
       "@/sdk": ["./sdk"],
       "@/sdk/*": ["./sdk/*"],
-      "@/stylin": ["./stylin"],
-      "@/stylin/*": ["./stylin/*"],
       "@/hooks": ["./hooks"],
       "@/hooks/*": ["./hooks/*"],
       "@/utils": ["./utils"],

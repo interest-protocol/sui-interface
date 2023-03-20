@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
 import { Container, Switch } from '@/components';
 import { Routes, RoutesEnum } from '@/constants';
 import { Box } from '@/elements';
+import { IEmptyObj } from '@/interface';
 
-const DEXViewWrapper: FC = ({ children }) => {
+const DEXViewWrapper: FC<PropsWithChildren<IEmptyObj>> = ({ children }) => {
   const { pathname, push } = useRouter();
 
   const isSwap = !pathname.includes(Routes[RoutesEnum.DEXPool]);

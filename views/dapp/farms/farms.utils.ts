@@ -82,9 +82,13 @@ const searchOperation = cond([
 ]);
 
 const typeOperation = cond([
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   [equals(FarmTypeFilter.Stable), always(prop<string, boolean>('stable'))],
   [
     equals(FarmTypeFilter.Volatile),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     always(o(not, prop<'stable', boolean>('stable'))),
   ],
   [T, always(T)],

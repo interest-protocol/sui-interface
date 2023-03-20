@@ -90,7 +90,7 @@ const MobileMenu: FC<SwitchThemeProps> = ({ changeTheme, dark }) => {
                     textAlign="center"
                     bg="accentActive"
                     textTransform="uppercase"
-                    hover={{
+                    nHover={{
                       bg: 'warning',
                     }}
                   >

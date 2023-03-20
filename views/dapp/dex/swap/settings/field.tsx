@@ -36,7 +36,7 @@ const Field: FC<FieldProps> = ({
         borderRadius: '2rem',
         fontWeight: hasBorder ? 'bold' : 'unset',
         borderColor: hasBorder ? 'accent' : 'transparent',
-        hover: {
+        nHover: {
           borderColor: hasBorder ? 'accent' : 'accentActive',
         },
       }}

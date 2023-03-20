@@ -75,7 +75,7 @@ const DropdownTableRow: FC<DropdownTableRowProps> = ({
               width="3.3rem"
               variant="secondary"
               onClick={toggleDropdown}
-              hover={{ bg: 'accentActive' }}
+              nHover={{ bg: 'accentActive' }}
               bg={isOpenDropdown ? 'accent' : 'bottomBackground'}
             >
               <AnimatedBox
@@ -129,7 +129,7 @@ const DropdownTableRow: FC<DropdownTableRowProps> = ({
               height="2.5rem"
               variant="secondary"
               onClick={toggleDropdown}
-              hover={{ bg: 'accentActive' }}
+              nHover={{ bg: 'accentActive' }}
               bg={isOpenDropdown ? 'accent' : 'bottomBackground'}
             >
               <AnimatedBox

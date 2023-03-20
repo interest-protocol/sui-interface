@@ -2,7 +2,7 @@ import {
   DefaultToastOptions,
   Renderable,
   ValueOrFunction,
-} from 'react-hot-toast/dist/core/types';
+} from 'react-hot-toast';
 
 export interface ToastMsgs {
   loading: Renderable;

@@ -48,7 +48,7 @@ const renderData = (
         onClick={handleSelectCurrency}
         cursor={isDisabled ? 'not-allowed' : 'pointer'}
         bg={isDisabled ? 'textSoft' : 'bottomBackground'}
-        hover={{
+        nHover={{
           borderColor: isDisabled ? 'transparent' : 'accent',
         }}
       >

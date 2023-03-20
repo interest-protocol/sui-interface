@@ -1,9 +1,11 @@
+import stylin from '@stylin.js/react';
+import { PropsWithChildren } from 'react';
 import InfiniteScroll_, { Props } from 'react-infinite-scroll-component';
 
-import stylin from '@/stylin';
+import { BoxElementProps } from '../box/box.types';
 
-import { BoxProps } from '../box/box.types';
-
-const InfiniteScroll = stylin<BoxProps & Props>(InfiniteScroll_ as any)();
+const InfiniteScroll = stylin<PropsWithChildren<BoxElementProps & Props>>(
+  InfiniteScroll_ as any
+)();
 
 export default InfiniteScroll;

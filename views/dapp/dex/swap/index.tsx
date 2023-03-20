@@ -158,7 +158,7 @@ const Swap: FC<SwapProps> = ({
               justifyContent="center"
               mt={['-1rem', '-1.5rem']}
               mb={['-1.2rem', '-1.5rem']}
-              hover={{
+              nHover={{
                 boxShadow: '0 0 0.5rem #0055FF',
               }}
             >

@@ -2,9 +2,9 @@ import { useTheme } from '@emotion/react';
 import Head from 'next/head';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
-import MessageKeys from 'use-intl/dist/utils/MessageKeys';
 
 import { Theme } from '@/design-system';
+import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
 const SEO: FC<{ pageTitle: string }> = ({ pageTitle }) => {
@@ -58,10 +58,7 @@ const SEO: FC<{ pageTitle: string }> = ({ pageTitle }) => {
       <meta name="msapplication-TileColor" content="#da532c" />
       <link rel="apple-touch-icon" href="/logo192.png" />
       <title>
-        {pageTitle &&
-          `${capitalize(
-            t(pageTitle as MessageKeys<IntlMessages, keyof IntlMessages>)
-          )} | `}
+        {pageTitle && `${capitalize(t(pageTitle as TTranslatedMessage))} | `}
         Interest Protocol
       </title>
     </Head>

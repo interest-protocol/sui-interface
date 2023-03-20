@@ -1,4 +1,4 @@
-import { Component, ReactNode } from 'react';
+import { Component, ReactElement } from 'react';
 
 import { Props, State } from './error-boundary.types';
 import BoundaryMessage from './error-boundary-message';
@@ -12,12 +12,11 @@ class ErrorBoundary extends Component<Props, State> {
     return { error };
   }
 
-  render = (): ReactNode =>
-    this.state.error ? (
-      <BoundaryMessage {...this.state} />
-    ) : (
-      this.props.children
-    );
+  render(): ReactElement {
+    if (this.state.error) return <BoundaryMessage {...this.state} />;
+
+    return <>{this.props.children}</>;
+  }
 }
 
 export default ErrorBoundary;

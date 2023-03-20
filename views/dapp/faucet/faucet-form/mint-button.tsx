@@ -83,7 +83,7 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
       onClick={onMint}
       variant="primary"
       disabled={loading}
-      hover={{ bg: 'accent' }}
+      nHover={{ bg: 'accent' }}
       bg={!loading ? 'accentActive' : 'disabled'}
       cursor={loading ? 'not-allowed' : 'pointer'}
       color={dark ? 'text' : 'textInverted'}

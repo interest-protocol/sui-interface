@@ -15,7 +15,7 @@ const SwitchTheme: FC<SwitchThemeProps> = ({ changeTheme, dark }) => (
     onClick={changeTheme}
     color="text"
     cursor="pointer"
-    hover={{ color: 'accent' }}
+    nHover={{ color: 'accent' }}
   >
     {!dark ? (
       <MoonSVG

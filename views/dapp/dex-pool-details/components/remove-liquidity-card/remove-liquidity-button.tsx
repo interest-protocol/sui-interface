@@ -85,7 +85,7 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
       disabled={disabled}
       onClick={removeLiquidity}
       bg={disabled ? 'disabled' : 'error'}
-      hover={{ bg: disabled ? 'disabled' : 'errorActive' }}
+      nHover={{ bg: disabled ? 'disabled' : 'errorActive' }}
     >
       {capitalize(
         t('common.remove', {

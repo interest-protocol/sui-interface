@@ -25,7 +25,7 @@ const SettingsModal: FC<SwapSettingsProps> = ({
         justifyContent="center"
         transform="rotate(0deg)"
         transition="all 300ms ease-in-out"
-        hover={{
+        nHover={{
           color: 'accent',
           transform: 'rotate(90deg)',
         }}

@@ -9,7 +9,7 @@ const SocialMediaCard: FC<SocialMediaCardProps> = ({ title, link, Logo }) => (
     <Box
       width="2.5rem"
       height="2.5rem"
-      hover={{
+      nHover={{
         bg: 'accent',
         transform: 'scale(1.2)',
       }}

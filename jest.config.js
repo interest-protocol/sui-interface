@@ -25,8 +25,6 @@ const customJestConfig = {
     "@/design-system": "<rootDir>/design-system",
     "@/design-system/(.*)$": "<rootDir>/design-system/$1",
     "@/state/(.*)$": "<rootDir>/state/$1",
-    "@/stylin": "<rootDir>/stylin",
-    "@/stylin/(.*)$": "<rootDir>/stylin/$1",
     "@/svg/(.*)$": "<rootDir>/components/svg/$1",
     "@/svg": "<rootDir>/components/svg/index",
     "@/utils/(.*)$": "<rootDir>/utils/$1",

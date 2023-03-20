@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { v4 } from 'uuid';
 
 import Box from '../box';
@@ -7,7 +7,7 @@ import { GenericMaxButtonProps, MaxButtonProps } from './input-balance.types';
 
 const MAX_VALUES = [1, 0.5, 0.25];
 
-const GenericMaxButton: FC<GenericMaxButtonProps> = ({
+const GenericMaxButton: FC<PropsWithChildren<GenericMaxButtonProps>> = ({
   onClick,
   disabled,
   children,
@@ -18,7 +18,6 @@ const GenericMaxButton: FC<GenericMaxButtonProps> = ({
     fontSize="XS"
     onClick={onClick}
     variant="secondary"
-    // color="textInverted"
     justifyContent="center"
     disabled={disabled || false}
   >

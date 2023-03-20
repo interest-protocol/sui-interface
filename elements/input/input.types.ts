@@ -1,31 +1,22 @@
-import { CSSProperties, InputHTMLAttributes, ReactNode } from 'react';
+import { StylinComponentProps } from '@stylin.js/react';
 import {
-  BorderProps,
-  ColorProps,
-  DisplayProps,
-  LayoutProps,
-  ShadowProps,
-  SpaceProps,
-  TypographyProps,
-} from 'styled-system';
+  CSSProperties,
+  InputHTMLAttributes,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 
 import { BoxProps } from '../box/box.types';
-import { TStyles } from './../../stylin/stylin.types';
+
+export type InputElementProps = RefAttributes<unknown> &
+  Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    'color' | 'translate' | 'height' | 'width'
+  >;
 
 export interface InputFieldProps
-  extends ColorProps,
-    SpaceProps,
-    BorderProps,
-    DisplayProps,
-    LayoutProps,
-    ShadowProps,
-    TypographyProps,
-    Omit<
-      InputHTMLAttributes<HTMLInputElement>,
-      'color' | 'width' | 'height' | 'size'
-    > {
-  focus?: TStyles;
-}
+  extends StylinComponentProps,
+    InputElementProps {}
 
 export interface InputProps extends InputFieldProps {
   Prefix?: ReactNode;

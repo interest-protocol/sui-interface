@@ -126,7 +126,7 @@ const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
                         query: { type: farm.farmType },
                       }}
                     >
-                      <Button variant="primary" hover={{ bg: 'accentActive' }}>
+                      <Button variant="primary" nHover={{ bg: 'accentActive' }}>
                         {capitalize(t('common.enter'))}
                       </Button>
                     </Link>
@@ -334,7 +334,7 @@ const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
                       >
                         <Button
                           variant="primary"
-                          hover={{ bg: 'accentActive' }}
+                          nHover={{ bg: 'accentActive' }}
                         >
                           {capitalize(t('common.enter'))}
                         </Button>

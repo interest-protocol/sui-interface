@@ -167,7 +167,7 @@ const SwapButton: FC<SwapButtonProps> = ({
         variant="primary"
         onClick={swap}
         disabled={loading || isDisabled}
-        hover={{
+        nHover={{
           bg: loading || isDisabled ? 'disabled' : 'accentAlternativeActive',
         }}
         cursor={loading ? 'progress' : isDisabled ? 'not-allowed' : 'pointer'}

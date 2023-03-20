@@ -2,9 +2,9 @@ import { useTranslations } from 'next-intl';
 import { always, cond, equals, T } from 'ramda';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
-import MessageKeys from 'use-intl/dist/utils/MessageKeys';
 
 import { Box, Dropdown, Typography } from '@/elements';
+import { TTranslatedMessage } from '@/interface';
 import { ArrowSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
@@ -59,10 +59,8 @@ const SortFilter: FC<SortFilterProps> = ({ control, setValue }) => {
                 textTransform="capitalize"
               >
                 {t(
-                  ('common.' + parseFarmSortByEnum(sortBy)) as MessageKeys<
-                    IntlMessages,
-                    keyof IntlMessages
-                  >
+                  ('common.' +
+                    parseFarmSortByEnum(sortBy)) as TTranslatedMessage
                 )}
               </Typography>
             </Box>

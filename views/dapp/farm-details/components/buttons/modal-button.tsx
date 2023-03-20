@@ -169,7 +169,7 @@ const ModalButton: FC<ModalButtonProps> = ({
       alignItems="center"
       justifyContent="center"
       bg={loading ? 'accentActive' : 'accent'}
-      hover={{ bg: 'accentActive' }}
+      nHover={{ bg: 'accentActive' }}
       onClick={onSubmit}
       disabled={loading}
     >

@@ -40,12 +40,12 @@ export interface TableRowProps {
   hasButton: boolean;
   separated?: boolean;
   isDesktop?: boolean;
+  bg?: BoxProps['bg'];
   mobileSide: ReactNode;
   handleClick?: () => void;
   specialRowHover?: boolean;
-  bg?: BoxProps['backgroundColor'];
+  desktopBg?: BoxProps['bg'];
   headings: ReadonlyArray<IHeading>;
-  desktopBg?: BoxProps['backgroundColor'];
 }
 
 export interface TableLoadingProps {
