@@ -47,6 +47,6 @@ export interface DropdownTableRowProps {
   dropdown: IDropdown;
   sideContent?: ReactNode;
   headings: ReadonlyArray<ITableHeading>;
-  bg?: BoxProps['backgroundColor'];
-  desktopBg?: BoxProps['backgroundColor'];
+  bg?: BoxProps['bg'];
+  desktopBg?: BoxProps['bg'];
 }

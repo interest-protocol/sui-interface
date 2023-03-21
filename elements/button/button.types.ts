@@ -1,34 +1,13 @@
-import { ButtonHTMLAttributes, CSSProperties, ElementType } from 'react';
-import {
-  BackgroundProps,
-  BorderProps,
-  ColorProps,
-  DisplayProps,
-  FlexboxProps,
-  LayoutProps,
-  PositionProps,
-  ShadowProps,
-  SpaceProps,
-  TypographyProps,
-} from 'styled-system';
+import { StylinComponentProps } from '@stylin.js/react';
+import { ButtonHTMLAttributes, ElementType, RefAttributes } from 'react';
 
-import { TStyles } from '@/stylin/stylin.types';
+export type ButtonElementProps = Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'color' | 'translate'
+> &
+  RefAttributes<unknown>;
 
-export interface ButtonProps
-  extends ColorProps,
-    SpaceProps,
-    PositionProps,
-    BorderProps,
-    LayoutProps,
-    FlexboxProps,
-    DisplayProps,
-    ShadowProps,
-    BackgroundProps,
-    TypographyProps,
-    Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
+export interface ButtonProps extends StylinComponentProps, ButtonElementProps {
   as?: ElementType;
-  hover?: TStyles;
-  active?: TStyles;
-  cursor?: CSSProperties['cursor'];
   variant: 'primary' | 'secondary' | 'tertiary' | 'neutral';
 }

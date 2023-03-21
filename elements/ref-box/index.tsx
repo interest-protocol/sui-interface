@@ -1,14 +1,17 @@
-import { forwardRef, RefAttributes } from 'react';
+import stylin from '@stylin.js/react';
+import { forwardRef, PropsWithChildren, RefAttributes } from 'react';
 
-import stylin from '@/stylin';
+import { BoxElementProps, BoxProps } from '../box/box.types';
 
-import { BoxProps } from '../box/box.types';
+const RefBox = forwardRef(
+  ({ as, ...props }: PropsWithChildren<BoxProps>, ref) => {
+    const BoxElement = stylin<BoxElementProps & RefAttributes<unknown>>(
+      as || 'div'
+    )();
 
-const RefBox = forwardRef(({ as, ...props }: BoxProps, ref) => {
-  const BoxElement = stylin<BoxProps & RefAttributes<unknown>>(as || 'div')();
-
-  return <BoxElement {...props} ref={ref} />;
-});
+    return <BoxElement {...props} ref={ref} />;
+  }
+);
 
 RefBox.displayName = 'RefBox';
 

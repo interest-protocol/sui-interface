@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
 import Box from '../box';
 import { DropdownTableCellProps } from './dropdown-table.types';
 
-const DropdownTableCell: FC<DropdownTableCellProps> = ({
+const DropdownTableCell: FC<PropsWithChildren<DropdownTableCellProps>> = ({
   as,
   tip,
   children,
@@ -11,7 +11,8 @@ const DropdownTableCell: FC<DropdownTableCellProps> = ({
   <Box
     py="L"
     px="M"
-    data-tip={tip}
+    data-tooltip-id="interest-tooltip"
+    data-tooltip-content={tip}
     textAlign="left"
     fontWeight="400"
     {...(tip && { cursor: 'help' })}

@@ -42,10 +42,10 @@ const DropdownItem: FC<DropdownItemProps> = ({
           : 'bottomBackground',
         ...(!isSelected &&
           !disabled && {
-            hover: {
+            nHover: {
               bg: bg || 'accent',
             },
-            active: {
+            nActive: {
               bg: bgSelected || 'accentActive',
             },
           }),

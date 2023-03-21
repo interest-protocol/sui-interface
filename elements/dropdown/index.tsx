@@ -72,10 +72,10 @@ const Dropdown: FC<DropdownProps> = ({
           display="inline-flex"
           onClick={toggleDropdown}
           bg={isOpen ? bg || 'accentActive' : 'bottomBackground'}
-          hover={{
+          nHover={{
             bg: bg || 'accent',
           }}
-          active={{
+          nActive={{
             bg: bgSelected || 'accentActive',
           }}
         >

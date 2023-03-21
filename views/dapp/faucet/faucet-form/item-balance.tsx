@@ -41,7 +41,7 @@ const OpenDetails: FC<{
           color="text"
           width="0.5rem"
           display="inline-block"
-          hover={{ color: 'accent' }}
+          nHover={{ color: 'accent' }}
           style={{ transform }}
         >
           <ArrowSVG

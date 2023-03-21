@@ -36,8 +36,8 @@ const renderData = (
               mx="M"
               as="span"
               variant="normal"
-              hover={{ color: 'accent' }}
-              active={{ color: 'accentActive' }}
+              nHover={{ color: 'accent' }}
+              nActive={{ color: 'accentActive' }}
             >
               {symbol}
             </Typography>
@@ -92,8 +92,8 @@ const FaucetTokensDropdown: FC<FaucetCurrencyDropdownProps> = ({
               mx="M"
               as="span"
               variant="normal"
-              hover={{ color: 'accent' }}
-              active={{ color: 'accentActive' }}
+              nHover={{ color: 'accent' }}
+              nActive={{ color: 'accentActive' }}
               textTransform="capitalize"
             >
               {tokens?.[0]?.symbol}

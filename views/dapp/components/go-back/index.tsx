@@ -23,7 +23,7 @@ const GoBack: FC<GoBackProps> = ({ route, routeBack }) => {
       whiteSpace="nowrap"
       textTransform="uppercase"
       onClick={backToHome}
-      hover={{ color: 'accent' }}
+      nHover={{ color: 'accent' }}
     >
       &larr; {t('common.back')}
     </Typography>

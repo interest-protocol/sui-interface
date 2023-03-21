@@ -1,11 +1,10 @@
-import { forwardRef, RefAttributes } from 'react';
+import stylin, { variant } from '@stylin.js/react';
+import { forwardRef, PropsWithChildren } from 'react';
 
-import stylin, { variant } from '@/stylin';
+import { ButtonElementProps, ButtonProps } from './button.types';
 
-import { ButtonProps } from './button.types';
-
-const Button = forwardRef((props: ButtonProps, ref) => {
-  const ButtonElement = stylin<ButtonProps & RefAttributes<unknown>>('button')(
+const Button = forwardRef((props: PropsWithChildren<ButtonProps>, ref) => {
+  const ButtonElement = stylin<ButtonElementProps>('button')(
     variant({ scale: 'buttons', property: 'variant' })
   );
 

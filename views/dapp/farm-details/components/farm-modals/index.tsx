@@ -69,7 +69,7 @@ const FarmStakeModal: FC<FarmStakeModalProps> = ({
               px="L"
               variant="primary"
               onClick={handleClose}
-              hover={{
+              nHover={{
                 bg: 'accentActive',
               }}
             >

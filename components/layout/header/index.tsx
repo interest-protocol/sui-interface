@@ -67,8 +67,8 @@ const Header: FC = () => {
               maxWidth="50px"
               maxHeight="50px"
               cursor="pointer"
-              hover={{ color: 'accent' }}
-              active={{ color: 'accentActive' }}
+              nHover={{ color: 'accent' }}
+              nActive={{ color: 'accentActive' }}
             >
               <LogoSVG
                 maxHeight="2.5rem"
@@ -95,7 +95,7 @@ const Header: FC = () => {
               color={
                 pathname.includes(Routes[RoutesEnum.DEX]) ? 'accent' : 'inherit'
               }
-              hover={{ color: 'accentActive' }}
+              nHover={{ color: 'accentActive' }}
             >
               DEX
             </Typography>
@@ -112,7 +112,7 @@ const Header: FC = () => {
                   ? 'accent'
                   : 'inherit'
               }
-              hover={{ color: 'accentActive' }}
+              nHover={{ color: 'accentActive' }}
             >
               FARMS
             </Typography>
@@ -127,7 +127,7 @@ const Header: FC = () => {
                   ? 'accent'
                   : 'inherit'
               }
-              hover={{ color: 'accentActive' }}
+              nHover={{ color: 'accentActive' }}
             >
               FAUCET
             </Typography>
@@ -151,7 +151,7 @@ const Header: FC = () => {
                   onClick={handleChangeTheme}
                   color="text"
                   cursor="pointer"
-                  hover={{ color: 'accent' }}
+                  nHover={{ color: 'accent' }}
                 >
                   {!dark ? (
                     <MoonSVG

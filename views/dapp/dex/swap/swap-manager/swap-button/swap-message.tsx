@@ -1,8 +1,8 @@
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
-import MessageKeys from 'use-intl/dist/utils/MessageKeys';
 
 import { Box, Typography } from '@/elements';
+import { TTranslatedMessage } from '@/interface';
 
 import { SwapMessageProps } from './swap-button.types';
 
@@ -32,7 +32,7 @@ const SwapMessage: FC<SwapMessageProps> = ({
         maxWidth="40rem"
         overflow="hidden"
       >
-        {t(message as MessageKeys<IntlMessages, keyof IntlMessages>, extraData)}
+        {t(message as TTranslatedMessage, extraData)}
       </Typography>
     </Box>
   );

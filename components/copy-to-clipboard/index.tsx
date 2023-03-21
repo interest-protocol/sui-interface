@@ -28,7 +28,7 @@ const CopyToClipboard: FC<CopyToClipboardProps> = ({
         <Box
           as="span"
           cursor="pointer"
-          hover={{ color: 'accent' }}
+          nHover={{ color: 'accent' }}
           onClick={copyToClipboard}
           {...props}
         >

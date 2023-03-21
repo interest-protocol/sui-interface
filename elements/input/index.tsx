@@ -1,11 +1,8 @@
-import { css } from '@emotion/react';
-import React, { forwardRef, RefAttributes } from 'react';
-
-import stylin from '@/stylin';
+import stylin from '@stylin.js/react';
+import { forwardRef } from 'react';
 
 import Box from '../box';
-import { InputProps } from './input.types';
-import { InputFieldProps } from './input.types';
+import { InputElementProps, InputProps } from './input.types';
 
 const Input = forwardRef(
   (
@@ -20,24 +17,20 @@ const Input = forwardRef(
     }: InputProps,
     ref
   ) => {
-    const InputField = stylin<InputFieldProps & RefAttributes<unknown>>(
-      'input'
-    )(
-      css({
-        width: '100%',
-        height: '100%',
-        border: 'none',
-        outline: 'none',
+    const InputField = stylin<InputElementProps>('input')({
+      width: '100%',
+      height: '100%',
+      border: 'none',
+      outline: 'none',
+      background: 'transparent',
+      overflow: 'hidden',
+      '&:-internal-autofill-selected': {
         background: 'transparent',
-        overflow: 'hidden',
-        '&:-internal-autofill-selected': {
-          background: 'transparent',
-        },
-        '&:focus-visible': {
-          outline: 'none',
-        },
-      })
-    );
+      },
+      '&:focus-visible': {
+        outline: 'none',
+      },
+    });
 
     return (
       <Box display="flex" overflow="hidden" {...shieldProps}>

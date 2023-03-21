@@ -210,7 +210,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
             disabled={loading}
             onClick={handleEnterPool}
             bg={loading ? 'accentActive' : 'accent'}
-            hover={{ bg: loading ? 'disabled' : 'accentActive' }}
+            nHover={{ bg: loading ? 'disabled' : 'accentActive' }}
           >
             {t('dexPoolFind.button', { isLoading: Number(loading) })}
           </Button>

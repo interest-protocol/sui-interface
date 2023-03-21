@@ -81,7 +81,7 @@ const FarmOptions: FC<FarmOptionsProps> = ({
                     query: { objectId: farm.poolObjectId },
                   }).then()
             }
-            hover={{
+            nHover={{
               bg: farm.isLive ? 'accentActive' : 'disabled',
               cursor: farm.isLive ? 'pointer' : 'not-allowed',
             }}
@@ -132,7 +132,7 @@ const FarmOptions: FC<FarmOptionsProps> = ({
                   ? 'not-allowed'
                   : 'pointer'
               }
-              hover={{
+              nHover={{
                 bg:
                   farm.lpCoinData.totalBalance.isZero() || !farm.isLive
                     ? 'disabled'
@@ -147,7 +147,7 @@ const FarmOptions: FC<FarmOptionsProps> = ({
               onClick={() => handleChangeModal(StakeState.Unstake)}
               bg={farm.accountBalance.isZero() ? 'disabled' : 'error'}
               cursor={farm.accountBalance.isZero() ? 'not-allowed' : 'pointer'}
-              hover={{
+              nHover={{
                 bg: farm.accountBalance.isZero() ? 'disabled' : 'errorActive',
               }}
             >

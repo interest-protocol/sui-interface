@@ -39,7 +39,7 @@ const CreatePoolPopup: FC<CreatePoolPopupProps> = ({
           bg="error"
           variant="primary"
           onClick={onCancel}
-          hover={{ bg: 'errorActive' }}
+          nHover={{ bg: 'errorActive' }}
         >
           <Typography
             as="span"
@@ -53,7 +53,7 @@ const CreatePoolPopup: FC<CreatePoolPopupProps> = ({
         <Button
           variant="primary"
           onClick={onContinue}
-          hover={{ bg: 'accentActive' }}
+          nHover={{ bg: 'accentActive' }}
         >
           {t('dexPoolFind.createPoolPopup.submit')}
         </Button>

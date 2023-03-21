@@ -30,7 +30,7 @@ const CreateTokenForm: FC<CreateTokenFormProps> = ({ handleCloseModal }) => {
           px="L"
           variant="primary"
           onClick={handleCloseModal}
-          hover={{
+          nHover={{
             bg: 'accentActive',
           }}
         >

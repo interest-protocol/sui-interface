@@ -57,8 +57,8 @@ const Footer: FC = () => {
                   ? 'accentActive'
                   : 'transparent'
               }
-              hover={{ bg: 'accent', color: 'text' }}
-              active={{ bg: 'accentActive', color: 'text' }}
+              nHover={{ bg: 'accent', color: 'text' }}
+              nActive={{ bg: 'accentActive', color: 'text' }}
               color={
                 pathname.includes(Routes[RoutesEnum.DEX]) ? 'textSoft' : 'text'
               }
@@ -91,8 +91,8 @@ const Footer: FC = () => {
                   ? 'accentActive'
                   : 'transparent'
               }
-              hover={{ bg: 'accent', color: 'text' }}
-              active={{ bg: 'accentActive', color: 'text' }}
+              nHover={{ bg: 'accent', color: 'text' }}
+              nActive={{ bg: 'accentActive', color: 'text' }}
               color={
                 pathname.includes(Routes[RoutesEnum.Farms]) ||
                 pathname.includes(Routes[RoutesEnum.FarmDetails])
@@ -128,8 +128,8 @@ const Footer: FC = () => {
                   ? 'accentActive'
                   : 'transparent'
               }
-              hover={{ bg: 'accent', color: 'text' }}
-              active={{ bg: 'accentActive', color: 'text' }}
+              nHover={{ bg: 'accent', color: 'text' }}
+              nActive={{ bg: 'accentActive', color: 'text' }}
               color={
                 pathname.includes(Routes[RoutesEnum.Faucet])
                   ? 'textSoft'

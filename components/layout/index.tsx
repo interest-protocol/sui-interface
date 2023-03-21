@@ -1,5 +1,5 @@
 import { useTheme } from '@emotion/react';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Tooltip } from 'react-tooltip';
 
@@ -13,8 +13,12 @@ import Footer from './footer';
 import Header from './header';
 import { LayoutProps } from './layout.types';
 
-const Layout: FC<LayoutProps> = ({ pageTitle = '', children }) => {
+const Layout: FC<PropsWithChildren<LayoutProps>> = ({
+  pageTitle = '',
+  children,
+}) => {
   const { colors, radii } = useTheme() as Theme;
+
   return (
     <ErrorBoundary>
       <Box color="text" height="100vh" display="flex" flexDirection="column">

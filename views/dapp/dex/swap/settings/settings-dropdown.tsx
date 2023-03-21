@@ -40,7 +40,7 @@ const AutoButton: FC<SettingsAutoButton> = ({ control, setValue, setAuto }) => {
       borderColor={
         SLIPPAGE_AUTO_VALUE != currentSlippage ? 'accentActive' : 'transparent'
       }
-      hover={{
+      nHover={{
         bg: SLIPPAGE_AUTO_VALUE != currentSlippage ? 'accentActive' : 'accent',
         color: dark ? 'text' : 'textInverted',
       }}

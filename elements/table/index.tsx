@@ -18,9 +18,10 @@ const Cell: FC<CellProps> = ({ as, tip, children }) => (
   <Box
     py="L"
     px="M"
-    data-tip={tip}
+    data-tooltip-id="interest-tooltip"
+    data-tooltip-content={tip}
     textAlign="left"
-    fontWeight="400"
+    fontWeight={400}
     {...(tip && { cursor: 'help' })}
     role={as == 'td' ? 'gridcell' : 'columnheader'}
   >
@@ -78,7 +79,7 @@ const TableRow: FC<TableRowProps> = ({
         {...(specialRowHover && {
           borderRadius: 'L',
         })}
-        hover={
+        nHover={
           specialRowHover || separated
             ? {
                 borderColor: 'accent',
@@ -117,7 +118,7 @@ const TableRow: FC<TableRowProps> = ({
         borderRadius="M"
         onClick={handleClick}
         display={['block', 'block', 'block', 'none']}
-        hover={{
+        nHover={{
           bg: 'bottomBackground',
         }}
       >

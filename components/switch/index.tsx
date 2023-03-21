@@ -40,7 +40,7 @@ const Switch: FC<SwitchProps> = ({
           px={thin ? 'L' : 'XL'}
           justifyContent="center"
           textTransform="capitalize"
-          hover={{ bg: value === selected ? 'accent' : 'transparent' }}
+          nHover={{ bg: value === selected ? 'accent' : 'transparent' }}
           bg={value === selected ? bgSelected || 'accentActive' : 'transparent'}
           color={
             value === selected

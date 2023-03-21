@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC, useMemo } from 'react';
@@ -9,7 +8,7 @@ import Loading from '@/views/dapp/components/loading';
 type TWithParamsGuard = (
   paramsKeys: ReadonlyArray<string>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Component: NextPage<any>
+  Component: FC<any>
 ) => FC;
 
 // eslint-disable-next-line react/display-name

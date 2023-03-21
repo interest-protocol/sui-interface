@@ -1,11 +1,10 @@
-import { FC } from 'react';
+import stylin from '@stylin.js/react';
+import { FC, PropsWithChildren } from 'react';
 
-import stylin from '@/stylin';
+import { BoxElementProps, BoxProps } from './box.types';
 
-import { BoxProps } from './box.types';
-
-const Box: FC<BoxProps> = ({ as, ...props }: BoxProps) => {
-  const StyledBox = stylin<BoxProps>(as || 'div')();
+const Box: FC<PropsWithChildren<BoxProps>> = ({ as, ...props }) => {
+  const StyledBox = stylin<BoxElementProps>(as || 'div')();
 
   return <StyledBox {...props} />;
 };

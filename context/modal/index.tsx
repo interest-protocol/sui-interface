@@ -1,6 +1,13 @@
-import { createContext, FC, ReactNode, useState } from 'react';
+import {
+  createContext,
+  FC,
+  PropsWithChildren,
+  ReactNode,
+  useState,
+} from 'react';
 
 import Modal from '@/elements/modal';
+import { IEmptyObj } from '@/interface';
 
 export interface ModalContext {
   handleClose: () => void;
@@ -10,7 +17,9 @@ export interface ModalContext {
 
 const modalContext = createContext({} as ModalContext);
 
-export const ModalProvider: FC = ({ children }) => {
+export const ModalProvider: FC<PropsWithChildren<IEmptyObj>> = ({
+  children,
+}) => {
   const { Provider } = modalContext;
   const [component, setComponent] = useState<ReactNode>(null);
   const [onClose, setOnClose] = useState<(() => void) | null>(null);

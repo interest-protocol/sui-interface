@@ -61,7 +61,7 @@ const InputBalance: FC<InputBalanceProps> = ({
           pl: isLarge ? 'XL' : 'M',
           borderColor: 'transparent',
           borderRadius: isLarge ? '5rem' : '2rem',
-          hover: !disabled && {
+          nHover: !disabled && {
             borderColor: 'accentActive',
           },
           bg: disabled
