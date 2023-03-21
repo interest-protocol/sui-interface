@@ -147,14 +147,16 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
             </Box>
             <Box display="flex" justifyContent="center">
               <Switch
-                defaultValue={isRecommended ? 'internal' : 'external'}
+                defaultValue={isRecommended ? 'recommended' : 'added'}
                 options={[
                   {
-                    value: t('common.recommendedToken'),
+                    value: 'recommended',
+                    displayValue: t('common.recommended'),
                     onSelect: () => setRecommended(true),
                   },
                   {
-                    value: t('common.addedByUser'),
+                    value: 'added',
+                    displayValue: t('common.addedByUser'),
                     onSelect: () => setRecommended(false),
                   },
                 ]}
