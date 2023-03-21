@@ -2,7 +2,7 @@ import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { isEmpty, prop } from 'ramda';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
 import {
@@ -28,12 +28,11 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
   tokens,
   refetch,
   getValues,
-  loadingAddLiquidityState,
 }) => {
   const t = useTranslations();
   const { coinsMap, account } = useWeb3();
   const { signAndExecuteTransaction } = useWalletKit();
-
+  const [loading, setLoading] = useState(false);
   const handleAddLiquidity = async () => {
     try {
       if (tokens.length !== 2 || isEmpty(coinsMap))
@@ -46,7 +45,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
       if (!+token0Amount || !+token1Amount)
         throw new Error(t('dexPoolPair.error.unableToAdd'));
 
-      loadingAddLiquidityState.setLoading(true);
+      setLoading(true);
 
       const amount0 = FixedPointMath.toBigNumber(
         token0Amount,
@@ -96,7 +95,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
     } catch {
       throw new Error(t('dexPoolPair.error.failedAdd'));
     } finally {
-      loadingAddLiquidityState.setLoading(false);
+      setLoading(false);
       await refetch();
     }
   };
@@ -113,15 +112,13 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
       width="100%"
       display="flex"
       variant="primary"
-      disabled={loadingAddLiquidityState.loading}
+      disabled={loading}
       alignItems="center"
       justifyContent="center"
       onClick={addLiquidity}
     >
-      {capitalize(
-        t('common.add', { isLoading: Number(loadingAddLiquidityState.loading) })
-      )}
-      {loadingAddLiquidityState.loading && (
+      {capitalize(t('common.add', { isLoading: Number(loading) }))}
+      {loading && (
         <Box
           ml="M"
           as="span"

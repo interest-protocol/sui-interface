@@ -1,7 +1,6 @@
 import { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
@@ -27,9 +26,6 @@ const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
   objectId,
   pageTitle,
 }) => {
-  const [loadingRemoveLiquidity, setLoadingRemoveLiquidity] = useState(false);
-  const [loadingAddLiquidity, setLoadingAddLiquidity] = useState(false);
-
   const formAddLiquidity = useForm({
     defaultValues: {
       token0Amount: '0.0',
@@ -53,14 +49,6 @@ const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
           objectId={objectId}
           formAddLiquidity={formAddLiquidity}
           formRemoveLiquidity={formRemoveLiquidity}
-          loadingRemoveLiquidityState={{
-            loading: loadingRemoveLiquidity,
-            setLoading: setLoadingRemoveLiquidity,
-          }}
-          loadingAddLiquidityState={{
-            loading: loadingAddLiquidity,
-            setLoading: setLoadingAddLiquidity,
-          }}
         />
       </Layout>
     </Web3Manager>

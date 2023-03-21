@@ -2,7 +2,7 @@ import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
 import { DEX_PACKAGE_ID, DEX_STORAGE_VOLATILE } from '@/constants';
@@ -23,18 +23,18 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
   objectIds,
   token0,
   token1,
-  loadingRemoveLiquidityState,
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
   const { signAndExecuteTransaction } = useWalletKit();
+  const [loading, setLoading] = useState(false);
 
-  const disabled = isFetching || loadingRemoveLiquidityState.loading;
+  const disabled = isFetching || loading;
 
   const handleRemoveLiquidity = async () => {
     try {
       if (disabled) return;
-      loadingRemoveLiquidityState.setLoading(true);
+      setLoading(true);
 
       const lpAmount = getLpAmount();
 
@@ -66,7 +66,7 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
     } catch {
       throw new Error(t('dexPoolPair.error.failedRemove'));
     } finally {
-      loadingRemoveLiquidityState.setLoading(false);
+      setLoading(false);
       await refetch();
     }
   };
@@ -89,10 +89,10 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
     >
       {capitalize(
         t('common.remove', {
-          isLoading: Number(loadingRemoveLiquidityState.loading),
+          isLoading: Number(loading),
         })
       )}{' '}
-      {loadingRemoveLiquidityState.loading && (
+      {loading && (
         <Box
           ml="M"
           as="span"

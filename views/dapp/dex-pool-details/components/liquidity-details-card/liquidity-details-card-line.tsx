@@ -10,7 +10,7 @@ const LiquidityDetailsCardLine: FC<LiquidityDetailsCardLineProps> = ({
   value,
   symbol,
 }) => {
-  const TokenSVG = TOKENS_SVG_MAP[type];
+  const TokenSVG = TOKENS_SVG_MAP[type] ?? TOKENS_SVG_MAP.default;
 
   return (
     <Box display="flex" justifyContent="space-between" my="M">

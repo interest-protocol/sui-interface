@@ -1,5 +1,6 @@
 export * from './use-click-outside-listener-ref';
 export * from './use-event-listener';
+export * from './use-get-coin-metadata';
 export * from './use-get-coins-prices';
 export * from './use-get-farms';
 export * from './use-get-ipx-storage';

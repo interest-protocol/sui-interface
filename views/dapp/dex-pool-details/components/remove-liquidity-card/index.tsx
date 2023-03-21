@@ -14,7 +14,6 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
   refetch,
   isStable,
   formRemoveLiquidity,
-  loadingRemoveLiquidityState,
 }) => {
   const t = useTranslations();
 
@@ -61,7 +60,6 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
         lpAmountControl={formRemoveLiquidity.control}
         getLpAmount={getLpAmount}
         resetLpAmount={resetLpAmount}
-        loadingRemoveLiquidityState={loadingRemoveLiquidityState}
       />
     </Box>
   );

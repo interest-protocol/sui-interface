@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { ReactNode } from 'react';
 import { Control, UseFormReturn } from 'react-hook-form';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
@@ -17,10 +17,6 @@ export interface RemoveLiquidityCardProps {
   refetch: () => Promise<void>;
   lpToken: Web3ManagerSuiObject;
   formRemoveLiquidity: UseFormReturn<IRemoveLiquidityForm>;
-  loadingRemoveLiquidityState: {
-    loading: boolean;
-    setLoading: Dispatch<SetStateAction<boolean>>;
-  };
 }
 
 export interface RemoveLiquidityCardContentProps {
@@ -31,10 +27,6 @@ export interface RemoveLiquidityCardContentProps {
   refetch: () => Promise<void>;
   lpToken: Web3ManagerSuiObject;
   lpAmountControl: Control<IRemoveLiquidityForm>;
-  loadingRemoveLiquidityState: {
-    loading: boolean;
-    setLoading: Dispatch<SetStateAction<boolean>>;
-  };
 }
 
 export interface IRemoveLiquidityForm {
@@ -54,10 +46,6 @@ export interface RemoveLiquidityButtonProps {
   objectIds: ReadonlyArray<string>;
   token0: TokenData;
   token1: TokenData;
-  loadingRemoveLiquidityState: {
-    loading: boolean;
-    setLoading: Dispatch<SetStateAction<boolean>>;
-  };
 }
 
 export interface TokenAmountProps {

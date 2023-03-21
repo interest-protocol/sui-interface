@@ -16,7 +16,6 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
   refetch,
   pool,
   formAddLiquidity,
-  loadingAddLiquidityState,
 }) => {
   const t = useTranslations();
 
@@ -75,7 +74,6 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
         setValue={formAddLiquidity.setValue}
         fetchingInitialData={fetchingInitialData}
         getValues={formAddLiquidity.getValues}
-        loadingAddLiquidityState={loadingAddLiquidityState}
       />
       {tokens.length == 2 && !isEmpty(pool) && (
         <AddLiquidityManager
