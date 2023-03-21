@@ -62,7 +62,7 @@ export const parseCoins = (
           pathOr(null, [Network.DEVNET, type], COIN_TYPE_TO_SYMBOL) ??
           pathOr(null, [type, 'symbol'], localTokens) ??
           getSymbolByType(type) ??
-          type;
+          type.slice(-4);
 
         const decimals =
           pathOr(null, [Network.DEVNET, type], COIN_DECIMALS) ??

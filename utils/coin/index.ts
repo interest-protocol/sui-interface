@@ -12,8 +12,9 @@ export const addCoinTypeToTokenType = (x: string): string =>
 
 export const getSymbolByType = (type: string): string => {
   const poolTokens = type
-    .match(/::[a-z]+::+([^,]+).+?::[a-z]+::([^>]+)/i)
-    ?.slice(1, 3);
+    .match(/::[a-z]+::+([^>,]+).+?::[a-z]+::([^>,]+)/i)
+    ?.slice(1, 3)
+    .map((text) => text.match(/[A-Z]+/g)?.[0]);
 
   if (!poolTokens) return type.match(/::[a-z]+::+([^,]+)/i)?.pop() ?? type;
 
