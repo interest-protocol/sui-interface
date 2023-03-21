@@ -1,86 +1,43 @@
-import { FC } from 'react';
+import { useTheme } from '@emotion/react';
+import { FC, useMemo } from 'react';
+
+import { Theme } from '@/design-system';
 
 import { SVGProps } from './svg.types';
 
-const UnknownCoin: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => (
-  <svg
-    style={{ maxWidth: maxWidth, maxHeight: maxHeight }}
-    viewBox="0 0 950 950"
-    fill="none"
-    {...props}
-  >
-    <g filter="url(#filter0_i_2_16)">
-      <circle cx="475" cy="475" r="475" fill="url(#paint0_linear_2_16)" />
-    </g>
-    <path
-      d="M427.426 700.364V696.392C427.867 654.249 432.28 620.711 440.665 595.778C449.049 570.846 460.964 550.657 476.409 535.212C491.854 519.767 510.388 505.535 532.011 492.517C545.029 484.574 556.723 475.196 567.094 464.385C577.464 453.353 585.628 440.666 591.585 426.324C597.763 411.982 600.852 396.096 600.852 378.665C600.852 357.042 595.777 338.287 585.628 322.401C575.478 306.514 561.909 294.268 544.919 285.663C527.929 277.058 509.064 272.756 488.324 272.756C470.231 272.756 452.8 276.507 436.031 284.008C419.262 291.51 405.251 303.315 393.999 319.422C382.746 335.529 376.237 356.6 374.472 382.636H291.068C292.833 345.127 302.542 313.023 320.193 286.325C338.065 259.627 361.564 239.218 390.689 225.097C420.035 210.975 452.58 203.915 488.324 203.915C527.157 203.915 560.916 211.637 589.599 227.082C618.504 242.527 640.789 263.709 656.455 290.628C672.341 317.546 680.284 348.216 680.284 382.636C680.284 406.907 676.533 428.861 669.031 448.499C661.75 468.136 651.159 485.677 637.259 501.122C623.579 516.567 607.03 530.247 587.614 542.162C568.197 554.297 552.642 567.095 540.947 580.554C529.253 593.793 520.759 609.569 515.463 627.882C510.168 646.196 507.299 669.032 506.858 696.392V700.364H427.426ZM469.79 896.295C453.462 896.295 439.451 890.448 427.757 878.754C416.063 867.06 410.216 853.049 410.216 836.722C410.216 820.394 416.063 806.383 427.757 794.689C439.451 782.995 453.462 777.148 469.79 777.148C486.117 777.148 500.128 782.995 511.822 794.689C523.517 806.383 529.364 820.394 529.364 836.722C529.364 847.533 526.606 857.462 521.09 866.509C515.794 875.555 508.623 882.836 499.577 888.352C490.751 893.648 480.822 896.295 469.79 896.295Z"
-      fill="black"
-    />
-    <circle cx="675.5" cy="780.5" r="28.5" fill="black" />
-    <circle cx="274.5" cy="780.5" r="28.5" fill="black" />
-    <circle cx="675.5" cy="166.5" r="28.5" fill="black" />
-    <circle cx="274.5" cy="166.5" r="28.5" fill="black" />
-    <circle cx="797.5" cy="649.5" r="28.5" fill="black" />
-    <circle cx="155.5" cy="649.5" r="28.5" fill="black" />
-    <circle cx="797.5" cy="301.5" r="28.5" fill="black" />
-    <circle cx="155.5" cy="301.5" r="28.5" fill="black" />
-    <circle cx="843.5" cy="475.5" r="28.5" fill="black" />
-    <circle cx="107.5" cy="475.5" r="28.5" fill="black" />
-    <circle cx="475.5" cy="107.5" r="59.5" fill="black" />
-    <defs>
-      <filter
-        id="filter0_i_2_16"
-        x="0"
-        y="0"
-        width="950"
-        height="950"
-        filterUnits="userSpaceOnUse"
-        colorInterpolationFilters="sRGB"
-      >
-        <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          result="shape"
-        />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-          result="hardAlpha"
-        />
-        <feMorphology
-          radius="44"
-          operator="erode"
-          in="SourceAlpha"
-          result="effect1_innerShadow_2_16"
-        />
-        <feOffset />
-        <feGaussianBlur stdDeviation="46.5" />
-        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
-        />
-        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2_16" />
-      </filter>
-      <linearGradient
-        id="paint0_linear_2_16"
-        x1="83.5"
-        y1="313.5"
-        x2="950"
-        y2="596.5"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor="#AD8700" />
-        <stop offset="0.275067" stopColor="#FFDA58" />
-        <stop offset="0.48837" stopColor="white" />
-        <stop offset="0.791123" stopColor="#FFDE6B" />
-        <stop offset="1" stopColor="#997B0F" />
-      </linearGradient>
-    </defs>
-  </svg>
-);
+const UnknownCoin: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => {
+  const { colors } = useTheme() as Theme;
+  const color = useMemo(
+    () =>
+      `rgba(${Math.random() * 255},${Math.random() * 255},${
+        Math.random() * 255
+      }, 0.7)`,
+    []
+  );
+
+  return (
+    <svg
+      style={{ maxWidth: maxWidth, maxHeight: maxHeight }}
+      viewBox="0 0 26 26"
+      fill="none"
+      {...props}
+    >
+      <path
+        d="M13 25C19.6274 25 25 19.6274 25 13C25 6.37258 19.6274 1 13 1C6.37258 1 1 6.37258 1 13C1 19.6274 6.37258 25 13 25Z"
+        fill="#48464A"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="square"
+        strokeLinejoin="round"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M14 4V5V6.11252C14.8255 6.30066 15.5821 6.71814 16.182 7.318C16.8113 7.9474 17.2399 8.7492 17.4135 9.6221C17.5872 10.495 17.4981 11.3998 17.1575 12.2221C16.8169 13.0443 16.2401 13.7471 15.5001 14.2416C15.0413 14.5482 14.5325 14.7661 14 14.8875V15V16H12V15V14L13 13C13.4945 13 13.9778 12.8534 14.3889 12.5787C14.8 12.304 15.1205 11.9135 15.3097 11.4567C15.4989 10.9999 15.5484 10.4972 15.452 10.0123C15.3555 9.5273 15.1174 9.0819 14.7678 8.7322C14.4181 8.3826 13.9727 8.1445 13.4877 8.048C13.0028 7.9516 12.5001 8.0011 12.0433 8.1903C11.5865 8.3795 11.196 8.7 10.9213 9.1111C10.6466 9.5222 10.5 10.0055 10.5 10.5V11.5H8.5V10.5C8.5 9.61 8.7639 8.74 9.2584 7.9999C9.7529 7.2599 10.4557 6.68314 11.2779 6.34254C11.5128 6.24527 11.7544 6.1685 12 6.11252V5V4H14ZM14 20V18H12V20H14Z"
+        fill={colors.textInverted}
+      />
+    </svg>
+  );
+};
 
 export default UnknownCoin;
