@@ -14,6 +14,7 @@ export const getTokenByteCode = async (
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json',
+        ...(!process.env.production && { mode: 'cors' }),
       },
       body: JSON.stringify(data), // body data type must match "Content-Type" header
     }

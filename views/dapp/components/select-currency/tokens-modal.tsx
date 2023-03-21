@@ -12,7 +12,7 @@ import {
 } from '@/constants';
 import { Box, Button, InfiniteScroll, Typography } from '@/elements';
 import { LineLoaderSVG, TimesSVG } from '@/svg';
-import { capitalize, noop } from '@/utils';
+import { capitalize, getSymbolByType, noop } from '@/utils';
 
 import {
   CurrencyDropdownProps,
@@ -58,11 +58,16 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
       [] as ReadonlyArray<Web3ManagerSuiObject>
     );
 
-    const otherTokens = coins.filter(
-      ({ type }) =>
-        !BASE_TOKENS_TYPES[Network.DEVNET].includes(type) &&
-        !RECOMMENDED_TOKENS_TYPES[Network.DEVNET].includes(type)
-    );
+    const otherTokens = coins
+      .filter(
+        ({ type }) =>
+          !BASE_TOKENS_TYPES[Network.DEVNET].includes(type) &&
+          !RECOMMENDED_TOKENS_TYPES[Network.DEVNET].includes(type)
+      )
+      .map((token) => ({
+        ...token,
+        symbol: getSymbolByType(token.type) ?? token.symbol,
+      }));
 
     return [baseTokens, recommendedTokens, otherTokens] as [
       ReadonlyArray<Web3ManagerSuiObject>,
@@ -144,8 +149,14 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
               <Switch
                 defaultValue={isRecommended ? 'internal' : 'external'}
                 options={[
-                  { value: 'internal', onSelect: () => setRecommended(true) },
-                  { value: 'external', onSelect: () => setRecommended(false) },
+                  {
+                    value: t('common.recommendedToken'),
+                    onSelect: () => setRecommended(true),
+                  },
+                  {
+                    value: t('common.addedByUser'),
+                    onSelect: () => setRecommended(false),
+                  },
                 ]}
               />
             </Box>
@@ -169,7 +180,7 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
                 hasMore={false}
                 display="grid"
                 gridGap="0.3rem"
-                maxHeight="10rem"
+                maxHeight="20rem"
                 loader={<LineLoaderSVG />}
                 dataLength={otherTokens.length}
                 next={noop}

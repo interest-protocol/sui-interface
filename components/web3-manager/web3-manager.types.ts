@@ -3,6 +3,12 @@ import BigNumber from 'bignumber.js';
 import { ReactNode } from 'react';
 import { KeyedMutator } from 'swr';
 
+export interface LocalTokenMetaData {
+  type: string;
+  symbol: string;
+  decimals: number;
+}
+
 export interface Web3ManagerSuiObject {
   type: string;
   symbol: string;

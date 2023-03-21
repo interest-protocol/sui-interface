@@ -72,14 +72,14 @@ export const renderData = (
             <SVG width="100%" maxHeight="1rem" maxWidth="1rem" />
           </Box>
           <Typography mx="M" as="span" variant="normal">
-            {symbol.length > 4
-              ? symbol.slice(-4).toUpperCase()
-              : symbol.toUpperCase()}
+            {symbol}
           </Typography>
         </Box>
         {!noBalance && (
           <Typography variant="normal">
-            {formatMoney(FixedPointMath.toNumber(totalBalance, decimals))}
+            {decimals !== -1
+              ? formatMoney(FixedPointMath.toNumber(totalBalance, decimals))
+              : 'N/A'}
           </Typography>
         )}
       </Box>

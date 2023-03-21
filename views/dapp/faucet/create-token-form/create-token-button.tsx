@@ -7,19 +7,26 @@ import { useWatch } from 'react-hook-form';
 import { incrementCreatedCoins } from '@/api/analytics';
 import { getTokenByteCode } from '@/api/token';
 import { Box, Button, Typography } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useLocalStorage, useWeb3 } from '@/hooks';
 import { AddressZero } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import { capitalize, showToast, showTXSuccessToast } from '@/utils';
 
-import { CreateTokenButtonProps } from './create-token-form.types';
+import {
+  CreateTokenButtonProps,
+  CreateTokenTXEvents,
+} from './create-token-form.types';
 
 const CreateTokenButton: FC<CreateTokenButtonProps> = ({
   control,
   handleCloseModal,
 }) => {
-  const [loading, setLoading] = useState(false);
   const t = useTranslations();
+  const [loading, setLoading] = useState(false);
+  const [localTokens, setLocalTokens] = useLocalStorage(
+    'sui-interest-tokens',
+    {}
+  );
   const { name, symbol, amount } = useWatch({ control });
   const { signAndExecuteTransaction } = useWalletKit();
   const { account } = useWeb3();
@@ -42,6 +49,20 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
         });
 
         await showTXSuccessToast(tx);
+
+        const type = (tx.effects.events as CreateTokenTXEvents)?.find(
+          ({ coinBalanceChange }) =>
+            coinBalanceChange && coinBalanceChange.transactionModule !== 'gas'
+        )!.coinBalanceChange.coinType;
+
+        setLocalTokens({
+          ...localTokens,
+          [type]: {
+            type,
+            symbol,
+            decimals: 9,
+          },
+        });
         await incrementCreatedCoins(account || AddressZero);
       }
     } catch (error) {

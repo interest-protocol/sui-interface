@@ -2,8 +2,15 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { safeStringify } from '@/utils';
 
+type LocalStorageKeys = `sui-interest-${
+  | 'tokens'
+  | 'farm-account'
+  | 'theme'
+  | 'swap-settings'
+  | 'tokens'}`;
+
 export function useLocalStorage<T>(
-  keyName: string,
+  keyName: LocalStorageKeys,
   defaultValue: T
 ): [T, (value: T) => void] {
   const [storedValue, setStoredValue] = useState(defaultValue);

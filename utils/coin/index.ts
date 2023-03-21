@@ -10,6 +10,16 @@ import { COIN_TYPE, Network } from '@/constants';
 export const addCoinTypeToTokenType = (x: string): string =>
   `0x2::coin::Coin<${x}>`;
 
+export const getSymbolByType = (type: string): string => {
+  const poolTokens = type
+    .match(/::[a-z]+::+([^,]+).+?::[a-z]+::([^>]+)/i)
+    ?.slice(1, 3);
+
+  if (!poolTokens) return type.match(/::[a-z]+::+([^,]+)/i)?.pop() ?? type;
+
+  return poolTokens.join('-');
+};
+
 export const getSafeTotalBalance = propOr(new BigNumber(0), 'totalBalance') as (
   x: Web3ManagerSuiObject
 ) => BigNumber;
