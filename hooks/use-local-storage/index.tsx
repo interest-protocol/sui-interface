@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { safeStringify } from '@/utils';
 
+import { useIsMounted } from '../use-is-mounted';
+
 type LocalStorageKeys = `sui-interest-${
   | 'tokens'
   | 'farm-account'
@@ -13,6 +15,7 @@ export function useLocalStorage<T>(
   keyName: LocalStorageKeys,
   defaultValue: T
 ): [T, (value: T) => void] {
+  const isMounted = useIsMounted();
   const [storedValue, setStoredValue] = useState(defaultValue);
 
   useEffect(() => {
@@ -28,7 +31,7 @@ export function useLocalStorage<T>(
     } catch (err) {
       setStoredValue(defaultValue);
     }
-  }, [keyName]);
+  }, [keyName, isMounted]);
 
   const setValue = useCallback(
     (newValue: T) => {
@@ -38,7 +41,7 @@ export function useLocalStorage<T>(
         setStoredValue(newValue);
       }
     },
-    [storedValue, keyName]
+    [storedValue, keyName, isMounted]
   );
 
   return [storedValue, setValue];

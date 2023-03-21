@@ -10,15 +10,33 @@ import { COIN_TYPE, Network } from '@/constants';
 export const addCoinTypeToTokenType = (x: string): string =>
   `0x2::coin::Coin<${x}>`;
 
+export const isSymbol = (text: string): boolean =>
+  new RegExp(/^[A-Z-]+$/g).test(text);
+
 export const getSymbolByType = (type: string): string => {
   const poolTokens = type
     .match(/::[a-z]+::+([^>,]+).+?::[a-z]+::([^>,]+)/i)
-    ?.slice(1, 3)
+    ?.filter(isSymbol)
     .map((text) => text.match(/[A-Z]+/g)?.[0]);
 
-  if (!poolTokens) return type.match(/::[a-z]+::+([^,]+)/i)?.pop() ?? type;
+  if (!poolTokens)
+    return (
+      type
+        .match(/::[a-z]+::+([^,]+)/i)
+        ?.filter(isSymbol)
+        .join('-') ?? ''
+    );
 
   return poolTokens.join('-');
+};
+
+export const safeSymbol = (symbol: string, type: string): string => {
+  if (isSymbol(symbol)) return symbol;
+
+  const newSymbol =
+    getSymbolByType(type) || type.match(/[a-zA-Z]+/g)?.pop() || type.slice(-4);
+
+  return newSymbol;
 };
 
 export const getSafeTotalBalance = propOr(new BigNumber(0), 'totalBalance') as (

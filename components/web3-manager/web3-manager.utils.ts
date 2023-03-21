@@ -3,7 +3,7 @@ import { pathOr } from 'ramda';
 
 import { COIN_DECIMALS, COIN_TYPE_TO_SYMBOL, Network } from '@/constants';
 import { CoinData } from '@/interface';
-import { getSymbolByType, parseBigNumberish } from '@/utils';
+import { parseBigNumberish, safeSymbol } from '@/utils';
 
 import { Web3ManagerSuiObject } from './web3-manager.types';
 
@@ -61,7 +61,7 @@ export const parseCoins = (
         const symbol =
           pathOr(null, [Network.DEVNET, type], COIN_TYPE_TO_SYMBOL) ??
           pathOr(null, [type, 'symbol'], localTokens) ??
-          getSymbolByType(type) ??
+          safeSymbol(type, type) ??
           type.slice(-4);
 
         const decimals =

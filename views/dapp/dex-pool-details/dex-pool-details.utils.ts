@@ -1,7 +1,8 @@
 import { CoinMetadata } from '@mysten/sui.js/src/types';
 
 import { CoinData } from '@/interface';
-import { getSymbolByType } from '@/utils';
+
+import { safeSymbol } from './../../../utils/coin/index';
 
 export const makeToken = (
   type: string,
@@ -12,14 +13,14 @@ export const makeToken = (
 
   if (coinMetadata)
     return {
-      decimals: coinMetadata.decimals,
       symbol: coinMetadata.symbol,
+      decimals: coinMetadata.decimals,
       type,
     };
 
   return {
     decimals: 0,
     type,
-    symbol: getSymbolByType(type),
+    symbol: safeSymbol(type, type),
   };
 };
