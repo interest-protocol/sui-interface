@@ -112,7 +112,6 @@ const SwapManagerField: FC<SwapManagerProps> = ({
       name="tokenOut.value"
       Suffix={
         <SwapSelectCurrency
-          tokens={coinsMap}
           currentToken={tokenOutType}
           type={getValues('tokenOut.type')}
           onSelectCurrency={onSelectCurrency}
