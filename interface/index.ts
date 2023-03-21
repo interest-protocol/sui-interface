@@ -35,7 +35,7 @@ export type BigNumberish = BigNumber | bigint | string | number;
 
 export interface CoinData {
   decimals: number;
-  symbol: TOKEN_SYMBOL;
+  symbol: TOKEN_SYMBOL | string;
   type: string;
 }
 

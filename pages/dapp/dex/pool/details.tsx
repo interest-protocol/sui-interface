@@ -27,9 +27,6 @@ const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
   objectId,
   pageTitle,
 }) => {
-  const [loadingRemoveLiquidity, setLoadingRemoveLiquidity] = useState(false);
-  const [loadingAddLiquidity, setLoadingAddLiquidity] = useState(false);
-
   const formAddLiquidity = useForm({
     defaultValues: {
       token0Amount: '0.0',
@@ -53,14 +50,6 @@ const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
           objectId={objectId}
           formAddLiquidity={formAddLiquidity}
           formRemoveLiquidity={formRemoveLiquidity}
-          loadingRemoveLiquidityState={{
-            loading: loadingRemoveLiquidity,
-            setLoading: setLoadingRemoveLiquidity,
-          }}
-          loadingAddLiquidityState={{
-            loading: loadingAddLiquidity,
-            setLoading: setLoadingAddLiquidity,
-          }}
         />
       </Layout>
     </Web3Manager>

@@ -3,13 +3,10 @@ import { createContext, FC, useMemo } from 'react';
 import useSWR from 'swr';
 
 import { useLocalStorage } from '@/hooks';
+import { CoinData } from '@/interface';
 import { makeSWRKey, provider } from '@/utils';
 
-import {
-  LocalTokenMetaData,
-  Web3ManagerProps,
-  Web3ManagerState,
-} from './web3-manager.types';
+import { Web3ManagerProps, Web3ManagerState } from './web3-manager.types';
 import { parseCoins } from './web3-manager.utils';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -45,13 +42,13 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
       refreshInterval: 10000,
     }
   );
-  const [localTokens] = useLocalStorage<Record<string, LocalTokenMetaData>>(
+  const [localTokens] = useLocalStorage<Record<string, CoinData>>(
     'sui-interest-tokens',
     {}
   );
   const [coins, coinsMap] = useMemo(
     () => parseCoins(data, localTokens),
-    [data]
+    [data, localTokens]
   );
 
   return (

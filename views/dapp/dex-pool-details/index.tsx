@@ -1,16 +1,22 @@
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { propOr } from 'ramda';
-import { FC } from 'react';
+import { isNil, propOr } from 'ramda';
+import { FC, useEffect } from 'react';
 
 import { Container, LoadingPage } from '@/components';
 import { COIN_TYPE_TO_COIN, Network, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
-import { useLocale, useWeb3 } from '@/hooks';
+import {
+  useGetCoinMetadata,
+  useLocale,
+  useLocalStorage,
+  useWeb3,
+} from '@/hooks';
 import { CoinData } from '@/interface';
 import { FixedPointMath } from '@/sdk';
 import { TimesSVG } from '@/svg';
 import { getCoinTypeFromSupply, getSafeTotalBalance } from '@/utils';
+import { makeToken } from '@/views/dapp/dex-pool-details/dex-pool-details.utils';
 
 import GoBack from '../components/go-back';
 import {
@@ -26,8 +32,6 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
   objectId,
   formAddLiquidity,
   formRemoveLiquidity,
-  loadingAddLiquidityState,
-  loadingRemoveLiquidityState,
 }) => {
   const t = useTranslations();
 
@@ -47,21 +51,57 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
 
   const { currentLocale } = useLocale();
 
-  const token0 = propOr(
-    null,
-    volatilePool.token0Type,
-    COIN_TYPE_TO_COIN[Network.DEVNET]
-  ) as CoinData;
+  const [localTokens, setLocalTokens] = useLocalStorage<
+    Record<string, CoinData>
+  >('sui-interest-tokens', {});
 
-  const token1 = propOr(
-    null,
+  const unsafeToken0 =
+    (propOr(
+      null,
+      volatilePool.token0Type,
+      COIN_TYPE_TO_COIN[Network.DEVNET]
+    ) as CoinData) ?? propOr(null, volatilePool.token0Type, localTokens);
+
+  const unsafeToken1 =
+    (propOr(
+      null,
+      volatilePool.token1Type,
+      COIN_TYPE_TO_COIN[Network.DEVNET]
+    ) as CoinData) ?? propOr(null, volatilePool.token1Type, localTokens);
+
+  const { data: coin0Metadata } = useGetCoinMetadata(volatilePool.token0Type, {
+    isPaused: () => !isNil(unsafeToken0),
+  });
+
+  const { data: coin1Metadata } = useGetCoinMetadata(volatilePool.token1Type, {
+    isPaused: () => !isNil(unsafeToken1),
+  });
+
+  const token0 = makeToken(
+    volatilePool.token0Type,
+    unsafeToken0,
+    coin0Metadata
+  );
+
+  const token1 = makeToken(
     volatilePool.token1Type,
-    COIN_TYPE_TO_COIN[Network.DEVNET]
-  ) as CoinData;
+    unsafeToken1,
+    coin1Metadata
+  );
+
+  useEffect(() => {
+    const localToken0 = localTokens[token0.type];
+
+    if (!localToken0) setLocalTokens({ ...localTokens, [token0.type]: token0 });
+
+    const localToken1 = localTokens[token1.type];
+
+    if (!localToken1) setLocalTokens({ ...localTokens, [token1.type]: token1 });
+  }, [setLocalTokens, localTokens, token0, token1]);
 
   if (isLoading) return <LoadingPage />;
 
-  if (!token0 || !token1)
+  if (error)
     return (
       <Box
         my="XXXL"
@@ -133,7 +173,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
     },
   ];
 
-  if (error || web3Error)
+  if (web3Error)
     return (
       <Box
         my="XXXL"
@@ -204,7 +244,6 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
             await Promise.all([updateVolatilePools, mutate]);
           }}
           formAddLiquidity={formAddLiquidity}
-          loadingAddLiquidityState={loadingAddLiquidityState}
         />
         <RemoveLiquidityCard
           isStable={false}
@@ -218,7 +257,6 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
             await Promise.all([updateVolatilePools, mutate]);
           }}
           formRemoveLiquidity={formRemoveLiquidity}
-          loadingRemoveLiquidityState={loadingRemoveLiquidityState}
         />
       </Box>
     </Container>
