@@ -49,7 +49,7 @@ export interface CurrencyDropdownProps {
   searchTokenModalState: TokenModalMetadata | null;
   onSelectCurrency: SelectCurrencyProps['onSelectCurrency'];
 
-  addLocalToken: (x: CoinData) => void;
+  addLocalToken: (x: CoinData) => Promise<void>;
 }
 
 export interface SearchTokenProps {
