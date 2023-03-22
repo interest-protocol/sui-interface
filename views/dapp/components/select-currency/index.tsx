@@ -4,8 +4,9 @@ import { useForm } from 'react-hook-form';
 
 import { TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useLocalStorage, useWeb3 } from '@/hooks';
 import { useModal } from '@/hooks/use-modal';
+import { CoinData } from '@/interface';
 import { ArrowSVG } from '@/svg';
 
 import SearchToken from './search-token';
@@ -25,13 +26,20 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
   const [loading, setIsLoading] = useState(false);
   const { dark } = useTheme() as { dark: boolean };
   const SVG = TOKENS_SVG_MAP[type] ?? TOKENS_SVG_MAP.default;
-  const { coinsMap, coins } = useWeb3();
+  const { coinsMap, coins, mutate } = useWeb3();
   const { control, register } = useForm({
     defaultValues: {
       search: '',
     },
   });
+  const [localTokens, setLocalTokens] = useLocalStorage<
+    Record<string, CoinData>
+  >('sui-interest-tokens', {});
 
+  const addLocalToken = async (data: CoinData) => {
+    setLocalTokens({ ...localTokens, [data.type]: data });
+    await mutate();
+  };
   const openModal = () =>
     setModal(
       <TokensModal
@@ -46,6 +54,7 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
         setIsSearching={setIsLoading}
         searchTokenModalState={searchTokenModalState}
         Input={<SearchToken isSearching={loading} register={register} />}
+        addLocalToken={addLocalToken}
       />
     );
 

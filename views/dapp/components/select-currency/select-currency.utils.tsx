@@ -5,8 +5,9 @@ import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.typ
 import { TOKENS_SVG_MAP } from '@/constants';
 import Box from '@/elements/box';
 import Typography from '@/elements/typography';
+import { CoinData } from '@/interface';
 import { FixedPointMath } from '@/sdk';
-import { formatMoney, provider } from '@/utils';
+import { asyncNoop, formatMoney, provider } from '@/utils';
 
 import { OnSelectCurrencyData } from './select-currency.types';
 
@@ -14,7 +15,8 @@ export const renderData = (
   tokens: ReadonlyArray<Web3ManagerSuiObject>,
   onSelectCurrency: (data: OnSelectCurrencyData) => void,
   currentToken: string,
-  noBalance = false
+  noBalance = false,
+  addLocalToken: (x: CoinData) => Promise<void> = asyncNoop
 ): ReadonlyArray<ReactNode> => {
   const DefaultTokenSVG = TOKENS_SVG_MAP.default;
 
@@ -28,13 +30,19 @@ export const renderData = (
       if (decimals === -1) {
         return provider
           .getCoinMetadata(type)
-          .then((metadata) =>
-            onSelectCurrency({
+          .then((metadata) => {
+            addLocalToken({
               type,
               symbol: metadata.symbol,
               decimals: metadata.decimals,
-            })
-          )
+            }).then(() =>
+              onSelectCurrency({
+                type,
+                symbol: metadata.symbol,
+                decimals: metadata.decimals,
+              })
+            );
+          })
           .catch(() =>
             onSelectCurrency({
               type,
