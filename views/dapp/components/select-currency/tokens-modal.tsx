@@ -30,6 +30,7 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
   searchTokenModalState,
   coinsMap,
   coins,
+  addLocalToken,
 }) => {
   const t = useTranslations();
   const search = useWatch({ control, name: 'search' });
@@ -187,7 +188,13 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
                 dataLength={otherTokens.length}
                 next={noop}
               >
-                {renderData(otherTokens, handleSelectCurrency, currentToken)}
+                {renderData(
+                  otherTokens,
+                  handleSelectCurrency,
+                  currentToken,
+                  false,
+                  addLocalToken
+                )}
               </InfiniteScroll>
             )}
           </Box>

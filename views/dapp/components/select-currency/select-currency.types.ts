@@ -3,6 +3,7 @@ import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { Control, UseFormRegister } from 'react-hook-form';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
+import { CoinData } from '@/interface';
 
 export interface SearchFieldForm {
   search: string;
@@ -47,6 +48,8 @@ export interface CurrencyDropdownProps {
   currentToken: string;
   searchTokenModalState: TokenModalMetadata | null;
   onSelectCurrency: SelectCurrencyProps['onSelectCurrency'];
+
+  addLocalToken: (x: CoinData) => Promise<void>;
 }
 
 export interface SearchTokenProps {

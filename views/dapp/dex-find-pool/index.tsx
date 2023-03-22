@@ -36,6 +36,7 @@ const DEXFindPool: FC = () => {
       setValue(`${name}.type`, type);
       setValue(`${name}.decimals`, decimals);
       setValue(`${name}.symbol`, symbol);
+      setValue(`${name}.name`, symbol);
       setValue('tokenA.value', '0.0');
       setValue('tokenB.value', '0.0');
       setCreatingPair(false);
