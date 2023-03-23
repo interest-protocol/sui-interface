@@ -1,12 +1,37 @@
 import BigNumber from 'bignumber.js';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { Control, UseFormRegister } from 'react-hook-form';
 
+import { SVGProps } from '@/components/svg/svg.types';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { CoinData } from '@/interface';
 
 export interface SearchFieldForm {
   search: string;
+}
+
+export type RenderData = (
+  tokens: ReadonlyArray<Web3ManagerSuiObject>,
+  onSelectCurrency: (data: OnSelectCurrencyData) => void,
+  currentToken: string,
+  isSearching?: boolean,
+  noBalance?: boolean,
+  addLocalToken?: (x: CoinData) => Promise<void>,
+  removeLocalToken?: (type: string) => void
+) => ReadonlyArray<ReactNode>;
+
+export interface CurrencyTokenItemProps {
+  type: string;
+  symbol: string;
+  decimals: number;
+  noBalance: boolean;
+  currentToken: string;
+  isSearching?: boolean;
+  totalBalance: BigNumber;
+  DefaultTokenSVG: FC<SVGProps>;
+  addLocalToken: (x: CoinData) => Promise<void>;
+  onSelectCurrency: (data: OnSelectCurrencyData) => void;
+  removeLocalToken: ((type: string) => void) | undefined;
 }
 
 export interface OnSelectCurrencyData {

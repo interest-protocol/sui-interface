@@ -58,6 +58,7 @@
     "network": "{count, plural, =1 {rede} other {redes}}",
     "docs": "documentação",
     "error": "erro",
+    "wallet": "carteira",
     "submit": "{isLoading, plural, =1 {processando...} other {processe}}",
     "backHome": "Voltar ao Início",
     "chooseToken": "Escolha o Token",

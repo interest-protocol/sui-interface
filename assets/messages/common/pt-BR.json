@@ -53,6 +53,7 @@
     "unstake": "{isLoading, plural, =1 {unstaking...} other {unstake}}",
     "farm": "farm",
     "select": "selecione",
+    "wallet": "carteira",
     "check": "{isLoading, plural, =1 {verificando...} other {verificar}}",
     "seoDescription": "Use as suas crypto para pedir emprestado Dinero, uma moeda estável, de graça.",
     "network": "{count, plural, =1 {rede} other {redes}}",

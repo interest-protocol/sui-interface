@@ -1,4 +1,6 @@
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
+import { always, cond, equals, T } from 'ramda';
 import { FC, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
@@ -11,6 +13,8 @@ import {
   RECOMMENDED_TOKENS_TYPES,
 } from '@/constants';
 import { Box, Button, InfiniteScroll, Typography } from '@/elements';
+import { useLocalStorage } from '@/hooks';
+import { CoinData } from '@/interface';
 import { LineLoaderSVG, TimesSVG } from '@/svg';
 import { capitalize, getSymbolByType, noop } from '@/utils';
 
@@ -35,47 +39,67 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
   const t = useTranslations();
   const search = useWatch({ control, name: 'search' });
   const searchedToken = searchTokenModalState;
-  const [isRecommended, setRecommended] = useState(true);
+  const [tab, setTab] = useState<'recommended' | 'wallet' | 'added'>(
+    'recommended'
+  );
   const [debouncedSearch] = useDebounce(search, 800);
+  const [localTokens, setLocalTokens] = useLocalStorage<
+    Record<string, CoinData>
+  >('sui-interest-tokens', {});
 
   const handleSelectCurrency: OnSelectCurrency = (args) => {
     onSelectCurrency(args);
     toggleModal?.();
   };
 
-  const [baseTokens, recommendedTokens, otherTokens] = useMemo(() => {
-    const baseTokens = BASE_TOKENS_TYPES[Network.DEVNET].reduce((acc, type) => {
-      const coin = coinsMap[type];
+  const [baseTokens, recommendedTokens, walletTokens, addedTokens] =
+    useMemo(() => {
+      const baseTokens = BASE_TOKENS_TYPES[Network.DEVNET].reduce(
+        (acc, type) => {
+          const coin = coinsMap[type];
 
-      return coin ? acc.concat([coin]) : acc;
-    }, [] as ReadonlyArray<Web3ManagerSuiObject>);
+          return coin ? acc.concat([coin]) : acc;
+        },
+        [] as ReadonlyArray<Web3ManagerSuiObject>
+      );
 
-    const recommendedTokens = RECOMMENDED_TOKENS_TYPES[Network.DEVNET].reduce(
-      (acc, type) => {
-        const coin = coinsMap[type];
+      const recommendedTokens = RECOMMENDED_TOKENS_TYPES[Network.DEVNET].reduce(
+        (acc, type) => {
+          const coin = coinsMap[type];
 
-        return coin ? acc.concat([coin]) : acc;
-      },
-      [] as ReadonlyArray<Web3ManagerSuiObject>
-    );
+          return coin ? acc.concat([coin]) : acc;
+        },
+        [] as ReadonlyArray<Web3ManagerSuiObject>
+      );
 
-    const otherTokens = coins
-      .filter(
-        ({ type }) =>
-          !BASE_TOKENS_TYPES[Network.DEVNET].includes(type) &&
-          !RECOMMENDED_TOKENS_TYPES[Network.DEVNET].includes(type)
+      const walletTokens = coins
+        .filter(
+          ({ type }) =>
+            !BASE_TOKENS_TYPES[Network.DEVNET].includes(type) &&
+            !RECOMMENDED_TOKENS_TYPES[Network.DEVNET].includes(type)
+        )
+        .map((token) => ({
+          ...token,
+          symbol: getSymbolByType(token.type) ?? token.symbol,
+        }));
+
+      const addedTokens: ReadonlyArray<Web3ManagerSuiObject> = Object.values(
+        localTokens
       )
-      .map((token) => ({
-        ...token,
-        symbol: getSymbolByType(token.type) ?? token.symbol,
-      }));
+        .filter(({ type }) => !coinsMap[type])
+        .map((tokenData) => ({
+          ...tokenData,
+          objects: [],
+          totalBalance: BigNumber(0),
+        }));
 
-    return [baseTokens, recommendedTokens, otherTokens] as [
-      ReadonlyArray<Web3ManagerSuiObject>,
-      ReadonlyArray<Web3ManagerSuiObject>,
-      ReadonlyArray<Web3ManagerSuiObject>
-    ];
-  }, [coinsMap, coins.length]);
+      return [baseTokens, recommendedTokens, walletTokens, addedTokens] as [
+        ReadonlyArray<Web3ManagerSuiObject>,
+        ReadonlyArray<Web3ManagerSuiObject>,
+        ReadonlyArray<Web3ManagerSuiObject>,
+        ReadonlyArray<Web3ManagerSuiObject>
+      ];
+    }, [coinsMap, coins.length]);
 
   const filteredTokens = useMemo(() => {
     const array =
@@ -83,13 +107,13 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
         ? [coinsMap[searchedToken.type]]
         : [];
 
-    const filteredTokensArray = isRecommended
+    const filteredTokensArray = tab
       ? recommendedTokens.filter(
           ({ type, symbol }) =>
             symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
             type == debouncedSearch
         )
-      : otherTokens.filter(
+      : [...walletTokens, ...addedTokens].filter(
           ({ type, symbol }) =>
             symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
             type == debouncedSearch
@@ -99,10 +123,23 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
   }, [
     debouncedSearch,
     searchedToken,
-    isRecommended,
-    otherTokens,
+    tab,
+    walletTokens,
+    addedTokens,
     recommendedTokens,
   ]);
+
+  const handleRemoveFromLocal = (type: string) => {
+    const tokens = Object.values(localTokens).reduce(
+      (acc, token) => ({
+        ...acc,
+        ...(type != token.type ? { [token.type]: token } : {}),
+      }),
+      {}
+    );
+
+    setLocalTokens(tokens);
+  };
 
   return (
     <>
@@ -144,59 +181,105 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
         ) : (
           <Box>
             <Box display="flex" my="L">
-              {renderData(baseTokens, handleSelectCurrency, currentToken, true)}
+              {renderData(
+                baseTokens,
+                handleSelectCurrency,
+                currentToken,
+                false,
+                true
+              )}
             </Box>
             <Box display="flex" justifyContent="center">
               <Switch
-                defaultValue={isRecommended ? 'recommended' : 'added'}
+                defaultValue={tab}
                 options={[
                   {
                     value: 'recommended',
                     displayValue: t('common.recommended'),
-                    onSelect: () => setRecommended(true),
+                    onSelect: () => setTab('recommended'),
+                  },
+                  {
+                    value: 'wallet',
+                    displayValue: t('common.wallet'),
+                    onSelect: () => setTab('wallet'),
                   },
                   {
                     value: 'added',
                     displayValue: t('common.addedByUser'),
-                    onSelect: () => setRecommended(false),
+                    onSelect: () => setTab('added'),
                   },
                 ]}
               />
             </Box>
-            {isRecommended ? (
-              <Box
-                mt="M"
-                display="grid"
-                overflowY="auto"
-                gridGap="0.3rem"
-                maxHeight="20rem"
-              >
-                {renderData(
-                  recommendedTokens,
-                  handleSelectCurrency,
-                  currentToken
-                )}
-              </Box>
-            ) : (
-              <InfiniteScroll
-                mt="M"
-                hasMore={false}
-                display="grid"
-                gridGap="0.3rem"
-                maxHeight="20rem"
-                loader={<LineLoaderSVG />}
-                dataLength={otherTokens.length}
-                next={noop}
-              >
-                {renderData(
-                  otherTokens,
-                  handleSelectCurrency,
-                  currentToken,
-                  false,
-                  addLocalToken
-                )}
-              </InfiniteScroll>
-            )}
+            {cond([
+              [
+                equals('recommended'),
+                always(
+                  <Box
+                    mt="M"
+                    display="grid"
+                    overflowY="auto"
+                    gridGap="0.3rem"
+                    maxHeight="20rem"
+                  >
+                    {renderData(
+                      recommendedTokens,
+                      handleSelectCurrency,
+                      currentToken
+                    )}
+                  </Box>
+                ),
+              ],
+              [
+                equals('wallet'),
+                always(
+                  <InfiniteScroll
+                    mt="M"
+                    hasMore={false}
+                    display="grid"
+                    gridGap="0.3rem"
+                    maxHeight="20rem"
+                    loader={<LineLoaderSVG />}
+                    dataLength={walletTokens.length}
+                    next={noop}
+                  >
+                    {renderData(
+                      walletTokens,
+                      handleSelectCurrency,
+                      currentToken,
+                      false,
+                      false,
+                      addLocalToken
+                    )}
+                  </InfiniteScroll>
+                ),
+              ],
+              [
+                T,
+                always(
+                  <InfiniteScroll
+                    mt="M"
+                    hasMore={false}
+                    display="grid"
+                    gridGap="0.3rem"
+                    maxHeight="20rem"
+                    loader={<LineLoaderSVG />}
+                    dataLength={addedTokens.length}
+                    next={noop}
+                  >
+                    {renderData(
+                      addedTokens,
+                      handleSelectCurrency,
+                      currentToken,
+                      false,
+                      true,
+                      addLocalToken,
+                      handleRemoveFromLocal
+                    )}
+                  </InfiniteScroll>
+                ),
+              ],
+            ])(tab)}
           </Box>
         )}
       </Box>
