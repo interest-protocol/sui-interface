@@ -77,6 +77,8 @@ const DexPage: NextPageWithProps = ({ pageTitle }) => {
     formSettingsDropdown.getValues('slippage') == SLIPPAGE_AUTO_VALUE
   );
 
+  console.log('>> PAGE: ok');
+
   return (
     <ModalProvider>
       <Web3Manager>

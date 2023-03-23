@@ -20,6 +20,7 @@ const modalContext = createContext({} as ModalContext);
 export const ModalProvider: FC<PropsWithChildren<IEmptyObj>> = ({
   children,
 }) => {
+  console.log('>> MODAL: ok');
   const { Provider } = modalContext;
   const [component, setComponent] = useState<ReactNode>(null);
   const [onClose, setOnClose] = useState<(() => void) | null>(null);

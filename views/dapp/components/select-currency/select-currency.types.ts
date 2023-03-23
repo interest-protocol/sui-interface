@@ -1,5 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { Dispatch, FC, ReactNode, SetStateAction } from 'react';
+import {
+  Dispatch,
+  FC,
+  MouseEvent as ReactMouseEvent,
+  ReactNode,
+  SetStateAction,
+} from 'react';
 import { Control, UseFormRegister } from 'react-hook-form';
 
 import { SVGProps } from '@/components/svg/svg.types';
@@ -10,6 +16,10 @@ export interface SearchFieldForm {
   search: string;
 }
 
+export type RemoveLocalToken = (
+  type: string
+) => (event: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => void;
+
 export type RenderData = (
   tokens: ReadonlyArray<Web3ManagerSuiObject>,
   onSelectCurrency: (data: OnSelectCurrencyData) => void,
@@ -17,7 +27,7 @@ export type RenderData = (
   isSearching?: boolean,
   noBalance?: boolean,
   addLocalToken?: (x: CoinData) => Promise<void>,
-  removeLocalToken?: (type: string) => void
+  removeLocalToken?: RemoveLocalToken
 ) => ReadonlyArray<ReactNode>;
 
 export interface CurrencyTokenItemProps {
@@ -31,7 +41,7 @@ export interface CurrencyTokenItemProps {
   DefaultTokenSVG: FC<SVGProps>;
   addLocalToken: (x: CoinData) => Promise<void>;
   onSelectCurrency: (data: OnSelectCurrencyData) => void;
-  removeLocalToken: ((type: string) => void) | undefined;
+  removeLocalToken: RemoveLocalToken | undefined;
 }
 
 export interface OnSelectCurrencyData {

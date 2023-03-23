@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { always, cond, equals, T } from 'ramda';
-import { FC, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
 
@@ -16,11 +16,12 @@ import { Box, Button, InfiniteScroll, Typography } from '@/elements';
 import { useLocalStorage } from '@/hooks';
 import { CoinData } from '@/interface';
 import { LineLoaderSVG, TimesSVG } from '@/svg';
-import { capitalize, getSymbolByType, noop } from '@/utils';
+import { capitalize, getSymbolByType, isType, noop } from '@/utils';
 
 import {
   CurrencyDropdownProps,
   OnSelectCurrency,
+  RemoveLocalToken,
 } from './select-currency.types';
 import { renderData } from './select-currency.utils';
 
@@ -42,6 +43,9 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
   const [tab, setTab] = useState<'recommended' | 'wallet' | 'added'>(
     'recommended'
   );
+  const [askedToken, setAskedToken] = useState<Web3ManagerSuiObject | null>(
+    null
+  );
   const [debouncedSearch] = useDebounce(search, 800);
   const [localTokens, setLocalTokens] = useLocalStorage<
     Record<string, CoinData>
@@ -51,6 +55,8 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
     onSelectCurrency(args);
     toggleModal?.();
   };
+
+  console.log('ok');
 
   const [baseTokens, recommendedTokens, walletTokens, addedTokens] =
     useMemo(() => {
@@ -107,17 +113,18 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
         ? [coinsMap[searchedToken.type]]
         : [];
 
-    const filteredTokensArray = tab
-      ? recommendedTokens.filter(
-          ({ type, symbol }) =>
-            symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
-            type == debouncedSearch
-        )
-      : [...walletTokens, ...addedTokens].filter(
-          ({ type, symbol }) =>
-            symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
-            type == debouncedSearch
-        );
+    const filteredTokensArray =
+      tab === 'recommended'
+        ? recommendedTokens.filter(
+            ({ type, symbol }) =>
+              symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
+              type == debouncedSearch
+          )
+        : [...walletTokens, ...addedTokens].filter(
+            ({ type, symbol }) =>
+              symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
+              type == debouncedSearch
+          );
 
     return array.concat(filteredTokensArray);
   }, [
@@ -129,17 +136,27 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
     recommendedTokens,
   ]);
 
-  const handleRemoveFromLocal = (type: string) => {
-    const tokens = Object.values(localTokens).reduce(
-      (acc, token) => ({
-        ...acc,
-        ...(type != token.type ? { [token.type]: token } : {}),
-      }),
-      {}
-    );
+  useEffect(() => {
+    if (!filteredTokens.length && debouncedSearch && isType(debouncedSearch)) {
+      // TODO: ask to blockchain and add to setAskedToken({ type, symbol, balance, ....})
+      return;
+    }
+    if (askedToken) setAskedToken(null);
+  }, [filteredTokens, debouncedSearch]);
 
-    setLocalTokens(tokens);
-  };
+  const handleRemoveFromLocal: RemoveLocalToken =
+    (type) =>
+    ({ preventDefault }) => {
+      preventDefault();
+      const tokens = Object.values(localTokens).reduce(
+        (acc, token) => ({
+          ...acc,
+          ...(type != token.type ? { [token.type]: token } : {}),
+        }),
+        {}
+      );
+      setLocalTokens(tokens);
+    };
 
   return (
     <>
@@ -172,6 +189,15 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
               </Typography>
             ) : filteredTokens.length ? (
               renderData(filteredTokens, handleSelectCurrency, currentToken)
+            ) : askedToken ? (
+              renderData(
+                [askedToken],
+                handleSelectCurrency,
+                currentToken,
+                true,
+                true,
+                addLocalToken
+              )
             ) : (
               <Typography variant="normal" color="text">
                 {capitalize(t('common.notFound'))}
@@ -191,6 +217,7 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
             </Box>
             <Box display="flex" justifyContent="center">
               <Switch
+                thin
                 defaultValue={tab}
                 options={[
                   {

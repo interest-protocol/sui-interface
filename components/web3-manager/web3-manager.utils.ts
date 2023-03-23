@@ -61,18 +61,19 @@ export const parseCoins = (
         const symbol =
           pathOr(null, [Network.DEVNET, type], COIN_TYPE_TO_SYMBOL) ??
           pathOr(null, [type, 'symbol'], localTokens) ??
-          safeSymbol(type, type) ??
-          type.slice(-4);
+          safeSymbol(type, type);
 
         const decimals =
           pathOr(null, [Network.DEVNET, type], COIN_DECIMALS) ??
           pathOr(-1, [type, 'decimals'], localTokens);
 
+        const symbolArray = symbol.trim().split(' ');
+
         const updatedMap = {
           ...map,
           [type]: {
             type,
-            symbol,
+            symbol: symbolArray[symbolArray.length - 1],
             decimals,
             totalBalance: currentCoinBalance,
             objects: [object],
@@ -83,7 +84,7 @@ export const parseCoins = (
           ...list,
           {
             type,
-            symbol,
+            symbol: symbolArray[symbolArray.length - 1],
             decimals,
             totalBalance: currentCoinBalance,
             objects: [object],

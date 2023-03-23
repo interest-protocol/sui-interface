@@ -29,6 +29,8 @@ export const Web3ManagerContext = createContext<Web3ManagerState>(
 const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   const { isError, currentAccount, isConnected } = useWalletKit();
 
+  console.log('>> WEB3: ok');
+
   const { data, error, mutate, isLoading } = useSWR(
     makeSWRKey([currentAccount], provider.getAllCoins.name),
     async () => {
@@ -46,8 +48,9 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
     'sui-interest-tokens',
     {}
   );
+
   const [coins, coinsMap] = useMemo(
-    () => parseCoins(data, localTokens),
+    () => parseCoins(data, localTokens ?? {}),
     [data, localTokens]
   );
 

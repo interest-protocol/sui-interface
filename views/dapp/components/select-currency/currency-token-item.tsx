@@ -103,8 +103,13 @@ const CurrencyTokenItem: FC<CurrencyTokenItemProps> = ({
             : 'N/A'}
         </Typography>
       )}
-      {removeLocalToken != undefined && (
-        <Button variant="primary" bg="error" nHover={{ bg: 'errorActive' }}>
+      {!!removeLocalToken && (
+        <Button
+          bg="error"
+          variant="primary"
+          nHover={{ bg: 'errorActive' }}
+          onClick={removeLocalToken(type)}
+        >
           {t('common.remove', { isLoading: Number(false) })}
         </Button>
       )}
