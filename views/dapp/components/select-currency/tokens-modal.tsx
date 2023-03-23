@@ -12,7 +12,7 @@ import {
 } from '@/constants';
 import { Box, Button, InfiniteScroll, Typography } from '@/elements';
 import { LineLoaderSVG, TimesSVG } from '@/svg';
-import { capitalize, getSymbolByType, noop } from '@/utils';
+import { capitalize, noop } from '@/utils';
 
 import {
   CurrencyDropdownProps,
@@ -59,23 +59,18 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
       [] as ReadonlyArray<Web3ManagerSuiObject>
     );
 
-    const otherTokens = coins
-      .filter(
-        ({ type }) =>
-          !BASE_TOKENS_TYPES[Network.DEVNET].includes(type) &&
-          !RECOMMENDED_TOKENS_TYPES[Network.DEVNET].includes(type)
-      )
-      .map((token) => ({
-        ...token,
-        symbol: getSymbolByType(token.type) ?? token.symbol,
-      }));
+    const otherTokens = coins.filter(
+      ({ type }) =>
+        !BASE_TOKENS_TYPES[Network.DEVNET].includes(type) &&
+        !RECOMMENDED_TOKENS_TYPES[Network.DEVNET].includes(type)
+    );
 
     return [baseTokens, recommendedTokens, otherTokens] as [
       ReadonlyArray<Web3ManagerSuiObject>,
       ReadonlyArray<Web3ManagerSuiObject>,
       ReadonlyArray<Web3ManagerSuiObject>
     ];
-  }, [coinsMap, coins.length]);
+  }, [coinsMap, coins]);
 
   const filteredTokens = useMemo(() => {
     const array =
