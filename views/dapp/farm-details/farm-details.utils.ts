@@ -37,6 +37,7 @@ const DEFAULT_FARM_DATA = {
     type: '',
     totalBalance: ZERO_BIG_NUMBER,
     symbol: '',
+    stable: false,
     objects: [],
     decimals: 0,
   } as Web3ManagerSuiObject,
