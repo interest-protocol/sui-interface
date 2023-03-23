@@ -28,6 +28,26 @@ export const COIN_TYPE = {
   },
 };
 
+export const COIN_TYPE_TO_STABLE = {
+  [Network.DEVNET]: {
+    [COIN_TYPE[Network.DEVNET].BNB]: false,
+    [COIN_TYPE[Network.DEVNET].ETH]: false,
+    [COIN_TYPE[Network.DEVNET].BTC]: false,
+    [COIN_TYPE[Network.DEVNET].USDT]: false,
+    [COIN_TYPE[Network.DEVNET].USDC]: false,
+    [COIN_TYPE[Network.DEVNET].DAI]: false,
+    [COIN_TYPE[Network.DEVNET].SUI]: false,
+    [COIN_TYPE[Network.DEVNET].IPX]: false,
+    [COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH]: false,
+    [COIN_TYPE[Network.DEVNET].V_LP_BTC_ETH]: false,
+    [COIN_TYPE[Network.DEVNET].V_LP_BNB_ETH]: false,
+    [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT]: false,
+    [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC]: false,
+    [COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH]: false,
+    [COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX]: false,
+  },
+};
+
 export const COIN_TYPE_TO_SYMBOL = {
   [Network.DEVNET]: {
     [COIN_TYPE[Network.DEVNET].BNB]: TOKEN_SYMBOL.BNB,

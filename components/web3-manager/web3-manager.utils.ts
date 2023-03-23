@@ -5,6 +5,7 @@ import { COIN_DECIMALS, COIN_TYPE_TO_SYMBOL, Network } from '@/constants';
 import { CoinData } from '@/interface';
 import { parseBigNumberish, safeSymbol } from '@/utils';
 
+import { COIN_TYPE_TO_STABLE } from './../../constants/coins';
 import { Web3ManagerSuiObject } from './web3-manager.types';
 
 export const parseCoins = (
@@ -68,10 +69,16 @@ export const parseCoins = (
           pathOr(null, [Network.DEVNET, type], COIN_DECIMALS) ??
           pathOr(-1, [type, 'decimals'], localTokens);
 
+        const stable =
+          pathOr(null, [Network.DEVNET, type], COIN_TYPE_TO_STABLE) ??
+          pathOr(null, [type, 'stable'], localTokens) ??
+          false;
+
         const updatedMap = {
           ...map,
           [type]: {
             type,
+            stable,
             symbol,
             decimals,
             totalBalance: currentCoinBalance,
@@ -83,6 +90,7 @@ export const parseCoins = (
           ...list,
           {
             type,
+            stable,
             symbol,
             decimals,
             totalBalance: currentCoinBalance,

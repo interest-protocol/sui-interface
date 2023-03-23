@@ -6,6 +6,7 @@ import { KeyedMutator } from 'swr';
 export interface Web3ManagerSuiObject {
   type: string;
   symbol: string;
+  stable: boolean;
   totalBalance: BigNumber;
   objects: ReadonlyArray<CoinStruct>;
   decimals: number;

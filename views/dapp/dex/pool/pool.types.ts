@@ -20,6 +20,7 @@ interface IToken {
 interface IPool {
   token0: IToken;
   token1: IToken;
+  stable: boolean;
   decimals: number;
   balance: BigNumber;
   poolObjectId: string;

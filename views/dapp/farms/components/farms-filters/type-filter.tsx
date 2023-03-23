@@ -85,9 +85,7 @@ const TypeFilter: FC<TypeFilterProps> = ({ control, setValue }) => {
                   </Typography>
                 </Box>
               ),
-              onSelect: () => {
-                setValue('typeFilter', FarmTypeFilter.All);
-              },
+              onSelect: () => setValue('typeFilter', FarmTypeFilter.All),
             },
             {
               value: 'stable',
@@ -103,9 +101,7 @@ const TypeFilter: FC<TypeFilterProps> = ({ control, setValue }) => {
                   </Typography>
                 </Box>
               ),
-              onSelect: () => {
-                setValue('typeFilter', FarmTypeFilter.Stable);
-              },
+              onSelect: () => setValue('typeFilter', FarmTypeFilter.Stable),
             },
             {
               value: 'volatile',
@@ -121,9 +117,7 @@ const TypeFilter: FC<TypeFilterProps> = ({ control, setValue }) => {
                   </Typography>
                 </Box>
               ),
-              onSelect: () => {
-                setValue('typeFilter', FarmTypeFilter.Volatile);
-              },
+              onSelect: () => setValue('typeFilter', FarmTypeFilter.Volatile),
             },
           ]}
         />

@@ -99,6 +99,18 @@ export const FARMS_RECORD = {
       isLive: true,
       stable: false,
     },
+    // TODO: REMOVE FAKE POOL BELLOW
+    [COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH]: {
+      farmType: COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
+      poolObjectId: COIN_POOL[Network.DEVNET].V_LP_DAI_ETH,
+      lpCoin: COINS[Network.DEVNET].V_LP_DAI_ETH,
+      coin0: COINS[Network.DEVNET].DAI,
+      coin1: COINS[Network.DEVNET].ETH,
+      isSingleCoin: false,
+      id: 7,
+      isLive: true,
+      stable: true,
+    },
   },
 };
 
