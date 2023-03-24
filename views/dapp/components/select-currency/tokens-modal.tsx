@@ -56,8 +56,6 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
     toggleModal?.();
   };
 
-  console.log('ok');
-
   const [baseTokens, recommendedTokens, walletTokens, addedTokens] =
     useMemo(() => {
       const baseTokens = BASE_TOKENS_TYPES[Network.DEVNET].reduce(
