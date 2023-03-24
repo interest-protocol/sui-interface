@@ -44,7 +44,7 @@ const Swap: FC<SwapProps> = ({
     },
     []
   );
-
+  console.log('render');
   const flipTokens = () => {
     const tokenIn = formSwap.getValues('tokenIn');
     const tokenOut = formSwap.getValues('tokenOut');

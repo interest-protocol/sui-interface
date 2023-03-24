@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { always, cond, equals, T } from 'ramda';
+import { always, assoc, cond, dissoc, equals, T } from 'ramda';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
@@ -16,7 +16,7 @@ import { Box, Button, InfiniteScroll, Typography } from '@/elements';
 import { useLocalStorage } from '@/hooks';
 import { CoinData } from '@/interface';
 import { LineLoaderSVG, TimesSVG } from '@/svg';
-import { capitalize, getSymbolByType, isType, noop } from '@/utils';
+import { capitalize, getSymbolByType, isType, noop, provider } from '@/utils';
 
 import {
   CurrencyDropdownProps,
@@ -76,26 +76,21 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
         [] as ReadonlyArray<Web3ManagerSuiObject>
       );
 
-      const walletTokens = coins
-        .filter(
-          ({ type }) =>
-            !BASE_TOKENS_TYPES[Network.DEVNET].includes(type) &&
-            !RECOMMENDED_TOKENS_TYPES[Network.DEVNET].includes(type)
-        )
-        .map((token) => ({
-          ...token,
-          symbol: getSymbolByType(token.type) ?? token.symbol,
-        }));
+      const walletTokens = coins.filter(
+        ({ type }) =>
+          !BASE_TOKENS_TYPES[Network.DEVNET].includes(type) &&
+          !RECOMMENDED_TOKENS_TYPES[Network.DEVNET].includes(type)
+      );
 
       const addedTokens: ReadonlyArray<Web3ManagerSuiObject> = Object.values(
         localTokens
-      )
-        .filter(({ type }) => !coinsMap[type])
-        .map((tokenData) => ({
-          ...tokenData,
-          objects: [],
-          totalBalance: BigNumber(0),
-        }));
+      ).reduce((acc, elem) => {
+        if (coinsMap[elem.type]) return acc;
+
+        return acc.concat([
+          { ...elem, objects: [], totalBalance: BigNumber(0) },
+        ]);
+      }, [] as ReadonlyArray<Web3ManagerSuiObject>);
 
       return [baseTokens, recommendedTokens, walletTokens, addedTokens] as [
         ReadonlyArray<Web3ManagerSuiObject>,
@@ -135,26 +130,68 @@ const CurrencyDropdown: FC<CurrencyDropdownProps> = ({
   ]);
 
   useEffect(() => {
-    if (!filteredTokens.length && debouncedSearch && isType(debouncedSearch)) {
-      // TODO: ask to blockchain and add to setAskedToken({ type, symbol, balance, ....})
-      return;
-    }
-    if (askedToken) setAskedToken(null);
-  }, [filteredTokens, debouncedSearch]);
+    if (
+      !filteredTokens.length &&
+      debouncedSearch &&
+      isType(debouncedSearch) &&
+      (!askedToken || askedToken.type !== debouncedSearch)
+    ) {
+      provider
+        .getCoinMetadata(debouncedSearch)
+        .then((metadata) => {
+          setAskedToken({
+            symbol: metadata.symbol,
+            decimals: metadata.decimals,
+            type: debouncedSearch,
+            objects: [],
+            totalBalance: BigNumber(0),
+          });
+          setLocalTokens(
+            assoc(
+              debouncedSearch,
+              {
+                symbol: metadata.symbol,
+                decimals: metadata.decimals,
+                type: debouncedSearch,
+              },
+              localTokens
+            )
+          );
+        })
+        .catch(() => {
+          console.log('cacthed');
+          const symbol = getSymbolByType(debouncedSearch);
+          setAskedToken({
+            symbol,
+            decimals: 0,
+            type: debouncedSearch,
+            objects: [],
+            totalBalance: BigNumber(0),
+          });
 
-  const handleRemoveFromLocal: RemoveLocalToken =
-    (type) =>
-    ({ preventDefault }) => {
-      preventDefault();
-      const tokens = Object.values(localTokens).reduce(
-        (acc, token) => ({
-          ...acc,
-          ...(type != token.type ? { [token.type]: token } : {}),
-        }),
-        {}
-      );
-      setLocalTokens(tokens);
-    };
+          setLocalTokens(
+            assoc(
+              debouncedSearch,
+              {
+                symbol,
+                decimals: 0,
+                type: debouncedSearch,
+              },
+              localTokens
+            )
+          );
+        });
+    }
+  }, [filteredTokens, debouncedSearch, localTokens, askedToken]);
+
+  useEffect(() => {
+    if (!debouncedSearch) setAskedToken(null);
+  }, [debouncedSearch]);
+
+  const handleRemoveFromLocal: RemoveLocalToken = (type) => () => {
+    setLocalTokens(dissoc(type, localTokens));
+    setAskedToken(null);
+  };
 
   return (
     <>
