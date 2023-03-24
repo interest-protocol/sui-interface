@@ -1,16 +1,13 @@
 import { useWalletKit } from '@mysten/wallet-kit';
 import { createContext, FC, useMemo } from 'react';
 import useSWR from 'swr';
+import { useReadLocalStorage } from 'usehooks-ts';
 
-import { useLocalStorage } from '@/hooks';
 import { CoinData } from '@/interface';
-import { makeSWRKey, provider } from '@/utils';
+import { makeSWRKey, noop, provider } from '@/utils';
 
 import { Web3ManagerProps, Web3ManagerState } from './web3-manager.types';
 import { parseCoins } from './web3-manager.utils';
-
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const defaultMutate: any = () => {};
 
 const CONTEXT_DE_DEFAULT_STATE = {
   account: null,
@@ -18,7 +15,7 @@ const CONTEXT_DE_DEFAULT_STATE = {
   coinsMap: {},
   connected: false,
   error: false,
-  mutate: defaultMutate,
+  mutate: noop,
   isFetchingCoinBalances: false,
 };
 
@@ -28,8 +25,6 @@ export const Web3ManagerContext = createContext<Web3ManagerState>(
 
 const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   const { isError, currentAccount, isConnected } = useWalletKit();
-
-  console.log('>> WEB3: ok');
 
   const { data, error, mutate, isLoading } = useSWR(
     makeSWRKey([currentAccount], provider.getAllCoins.name),
@@ -44,9 +39,8 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
       refreshInterval: 10000,
     }
   );
-  const [localTokens] = useLocalStorage<Record<string, CoinData>>(
-    'sui-interest-tokens',
-    {}
+  const localTokens = useReadLocalStorage<Record<string, CoinData>>(
+    'sui-interest-tokens'
   );
 
   const [coins, coinsMap] = useMemo(

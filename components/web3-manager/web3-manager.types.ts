@@ -11,14 +11,6 @@ export interface Web3ManagerSuiObject {
   decimals: number;
 }
 
-export interface Web3ManagerSuiObject {
-  type: string;
-  symbol: string;
-  totalBalance: BigNumber;
-  objects: ReadonlyArray<CoinStruct>;
-  decimals: number;
-}
-
 export interface Web3ManagerState {
   account: null | string;
   coins: ReadonlyArray<Web3ManagerSuiObject>;
