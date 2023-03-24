@@ -92,12 +92,12 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
   useEffect(() => {
     const localToken0 = localTokens[token0.type];
 
-    if (localToken0) setLocalTokens({ ...localTokens, [token0.type]: token0 });
+    if (!localToken0) setLocalTokens({ ...localTokens, [token0.type]: token0 });
 
     const localToken1 = localTokens[token1.type];
 
-    if (localToken1) setLocalTokens({ ...localTokens, [token1.type]: token1 });
-  }, [token0, token1]);
+    if (!localToken1) setLocalTokens({ ...localTokens, [token1.type]: token1 });
+  }, [token0.type, token1.type]);
 
   if (isLoading) return <LoadingPage />;
 
