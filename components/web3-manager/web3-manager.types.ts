@@ -13,8 +13,6 @@ export interface Web3ManagerSuiObject {
   decimals: number;
 }
 
-export type LocalTokenData = Record<string, CoinData>;
-
 export interface Web3ManagerState {
   account: null | string;
   coins: ReadonlyArray<Web3ManagerSuiObject>;

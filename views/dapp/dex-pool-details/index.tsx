@@ -4,7 +4,6 @@ import { isNil, propOr } from 'ramda';
 import { FC, useEffect } from 'react';
 
 import { Container, LoadingPage } from '@/components';
-import { LocalTokenData } from '@/components/web3-manager/web3-manager.types';
 import { COIN_TYPE_TO_COIN, Network, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
 import {
@@ -13,7 +12,7 @@ import {
   useLocalStorage,
   useWeb3,
 } from '@/hooks';
-import { CoinData } from '@/interface';
+import { CoinData, LocalTokenMetadataRecord } from '@/interface';
 import { FixedPointMath } from '@/sdk';
 import { TimesSVG } from '@/svg';
 import { getCoinTypeFromSupply, getSafeTotalBalance } from '@/utils';
@@ -43,10 +42,11 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
     error: web3Error,
   } = useWeb3();
 
-  const [localTokens, setLocalTokens] = useLocalStorage<LocalTokenData>(
-    'sui-interest-favorite-tokens',
-    {}
-  );
+  const [localTokens, setLocalTokens] =
+    useLocalStorage<LocalTokenMetadataRecord>(
+      'sui-interest-tokens-metadata',
+      {}
+    );
 
   const {
     error,

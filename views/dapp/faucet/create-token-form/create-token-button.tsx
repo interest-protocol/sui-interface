@@ -6,9 +6,9 @@ import { useWatch } from 'react-hook-form';
 
 import { incrementCreatedCoins } from '@/api/analytics';
 import { getTokenByteCode } from '@/api/token';
-import { LocalTokenData } from '@/components/web3-manager/web3-manager.types';
 import { Box, Button, Typography } from '@/elements';
 import { useLocalStorage, useWeb3 } from '@/hooks';
+import { LocalTokenMetadataRecord } from '@/interface';
 import { AddressZero } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import { capitalize, showToast, showTXSuccessToast } from '@/utils';
@@ -29,10 +29,11 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
   const { account } = useWeb3();
   const isValid = name && symbol && amount && +amount > 0;
 
-  const [localTokens, setLocalTokens] = useLocalStorage<LocalTokenData>(
-    'sui-interest-created-tokens',
-    {}
-  );
+  const [localTokens, setLocalTokens] =
+    useLocalStorage<LocalTokenMetadataRecord>(
+      'sui-interest-tokens-metadata',
+      {}
+    );
 
   const createToken = async () => {
     try {

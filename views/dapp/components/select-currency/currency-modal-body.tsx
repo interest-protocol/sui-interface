@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { always, assoc, cond, equals, T } from 'ramda';
+import { always, cond, equals, T } from 'ramda';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
@@ -24,12 +24,11 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
   control,
   coinsMap,
   currentToken,
-  addLocalToken,
   favoriteTokens,
   setFavoriteTokens,
   handleSelectCurrency,
   searchTokenModalState,
-  handleRemoveFromLocal,
+  handleRemoveFromFavorite,
 }) => {
   const t = useTranslations();
   const [loading, setLoading] = useState(false);
@@ -39,6 +38,11 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
   const search = useWatch({ control, name: 'search' });
 
   const [debouncedSearch, { isPending }] = useDebounce(search, 800);
+
+  const favoriteTokensMap = favoriteTokens.reduce(
+    (acc, elem) => ({ ...acc, [elem]: true }),
+    {}
+  );
 
   const [recommendedTokens, walletTokens, favorites] = useMemo(() => {
     const recommendedTokens = RECOMMENDED_TOKENS_TYPES[Network.DEVNET].reduce(
@@ -53,15 +57,22 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
     const walletTokens = coins.filter(
       ({ type }) =>
         !BASE_TOKENS_TYPES[Network.DEVNET].includes(type) &&
-        !RECOMMENDED_TOKENS_TYPES[Network.DEVNET].includes(type) &&
-        !favoriteTokens[type]
+        !RECOMMENDED_TOKENS_TYPES[Network.DEVNET].includes(type)
     );
 
-    const favorites = Object.values(favoriteTokens).map((elem) => ({
-      ...elem,
-      objects: [],
-      totalBalance: BigNumber(0),
-    }));
+    const favorites = favoriteTokens.map((type) => {
+      const coin = coinsMap[type];
+
+      return coin
+        ? coin
+        : {
+            type,
+            symbol: getSymbolByType(type),
+            totalBalance: BigNumber(0),
+            objects: [],
+            decimals: -1,
+          };
+    });
 
     return [recommendedTokens, walletTokens, favorites] as [
       ReadonlyArray<Web3ManagerSuiObject>,
@@ -122,17 +133,6 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
             objects: [],
             totalBalance: BigNumber(0),
           });
-          setFavoriteTokens(
-            assoc(
-              debouncedSearch,
-              {
-                symbol,
-                decimals,
-                type: debouncedSearch,
-              },
-              favoriteTokens
-            )
-          );
         })
         .catch(() => {
           const decimals = 0;
@@ -144,18 +144,6 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
             objects: [],
             totalBalance: BigNumber(0),
           });
-
-          setFavoriteTokens(
-            assoc(
-              debouncedSearch,
-              {
-                symbol,
-                decimals,
-                type: debouncedSearch,
-              },
-              favoriteTokens
-            )
-          );
         })
         .finally(() => setLoading(false));
     }
@@ -174,11 +162,16 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
             <Typography variant="normal" color="text">
               {capitalize(t('common.load', { isLoading: 1 }))}
             </Typography>
-          ) : filteredTokens.length ? (
+          ) : filteredTokens.length || askedToken ? (
             renderData({
-              tokens: filteredTokens,
+              tokens: askedToken
+                ? [askedToken].concat(filteredTokens)
+                : filteredTokens,
               onSelectCurrency: handleSelectCurrency,
               currentToken,
+              setFavoriteTokens,
+              handleRemoveFromFavorite,
+              favoriteTokensMap,
             })
           ) : (
             <Typography variant="normal" color="text">
@@ -205,6 +198,8 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
               tokens: recommendedTokens,
               onSelectCurrency: handleSelectCurrency,
               currentToken,
+              setFavoriteTokens,
+              favoriteTokensMap,
             })
           ),
         ],
@@ -213,10 +208,11 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
           always(
             renderData({
               currentToken,
-              addLocalToken,
-              isWallet: true,
               tokens: walletTokens,
               onSelectCurrency: handleSelectCurrency,
+              setFavoriteTokens,
+              handleRemoveFromFavorite,
+              favoriteTokensMap,
             })
           ),
         ],
@@ -225,11 +221,12 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
           always(
             renderData({
               currentToken,
-              addLocalToken,
               noBalance: true,
               tokens: favorites,
               onSelectCurrency: handleSelectCurrency,
-              removeLocalToken: handleRemoveFromLocal,
+              handleRemoveFromFavorite,
+              setFavoriteTokens,
+              favoriteTokensMap,
             })
           ),
         ],

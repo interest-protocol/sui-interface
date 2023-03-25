@@ -1,14 +1,10 @@
-import { PaginatedCoins } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { FC, ReactNode } from 'react';
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { KeyedMutator } from 'swr';
 
 import { SVGProps } from '@/components/svg/svg.types';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { CoinData } from '@/interface';
-
-import { LocalTokenData } from './../../../../components/web3-manager/web3-manager.types';
 
 export interface SearchFieldForm {
   search: string;
@@ -18,28 +14,26 @@ export type CurrencyModalTabKeys = 'recommended' | 'wallet' | 'favorites';
 
 type AddLocaToken = (x: CoinData) => Promise<void>;
 
-export type RemoveLocalToken = (type: string) => () => Promise<void>;
-
 export interface StaringProps {
   unStar?: boolean;
-  onClick: ReturnType<RemoveLocalToken> | (() => AddLocaToken);
+  onClick: () => void;
 }
 
 export interface RenderDataArgs {
-  isWallet?: boolean;
   noBalance?: boolean;
   currentToken: string;
-  isSearching?: boolean;
   addLocalToken?: AddLocaToken;
-  removeLocalToken?: RemoveLocalToken;
+  handleRemoveFromFavorite?: (x: string) => void;
   onSelectCurrency: (data: OnSelectCurrencyData) => void;
   tokens: ReadonlyArray<Web3ManagerSuiObject>;
+  setFavoriteTokens: (type: string) => void;
+  favoriteTokensMap?: Record<string, true>;
 }
 
 export type RenderData = (ags: RenderDataArgs) => ReadonlyArray<ReactNode>;
 
 export interface CurrencyTokenItemProps
-  extends Omit<RenderDataArgs, 'tokens'>,
+  extends Omit<RenderDataArgs, 'tokens' | 'addLocalToken'>,
     Web3ManagerSuiObject {
   DefaultTokenSVG: FC<SVGProps>;
 }
@@ -78,7 +72,6 @@ export interface CurrencyDropdownProps {
   coins: ReadonlyArray<Web3ManagerSuiObject>;
   coinsMap: Record<string, Web3ManagerSuiObject>;
   searchTokenModalState: TokenModalMetadata | null;
-  mutate: KeyedMutator<PaginatedCoins | undefined>;
   onSelectCurrency: SelectCurrencyProps['onSelectCurrency'];
 }
 
@@ -90,14 +83,13 @@ export interface SearchTokenProps {
 export interface CurrencyDropdownBodyProps {
   currentToken: string;
   tab: CurrencyModalTabKeys;
-  addLocalToken: AddLocaToken;
-  favoriteTokens: LocalTokenData;
+  favoriteTokens: ReadonlyArray<string>;
   control: Control<SearchFieldForm>;
-  handleRemoveFromLocal: RemoveLocalToken;
+  handleRemoveFromFavorite: (x: string) => void;
   askedToken: Web3ManagerSuiObject | null;
   coins: ReadonlyArray<Web3ManagerSuiObject>;
   coinsMap: Record<string, Web3ManagerSuiObject>;
   searchTokenModalState: TokenModalMetadata | null;
-  setFavoriteTokens: (data: LocalTokenData) => void;
+  setFavoriteTokens: (data: string) => void;
   handleSelectCurrency: (data: OnSelectCurrencyData) => void;
 }
