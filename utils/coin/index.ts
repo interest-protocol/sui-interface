@@ -14,7 +14,7 @@ export const isSymbol = (text: string): boolean =>
   new RegExp(/^[A-Z-]+$/g).test(text);
 
 export const isType = (text: string): boolean =>
-  new RegExp(/0x[a-z0-9]+::[a-z_]+::[a-zA-Z]+/i).test(text);
+  new RegExp(/0x[a-z0-9]+::[a-z0-9_]+::[a-zA-Z0-9]+/i).test(text);
 
 export const getSymbolByType = (type: string): string => {
   const poolTokens = type

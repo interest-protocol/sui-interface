@@ -22,7 +22,8 @@ export type RemoveLocalToken = (type: string) => () => Promise<void>;
 
 export interface StaringProps {
   unStar?: boolean;
-  onClick: ReturnType<RemoveLocalToken> | (() => AddLocaToken);
+  isDisabled?: boolean;
+  onClick?: ReturnType<RemoveLocalToken> | (() => AddLocaToken);
 }
 
 export interface RenderDataArgs {

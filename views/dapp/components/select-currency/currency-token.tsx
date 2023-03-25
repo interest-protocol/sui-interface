@@ -10,17 +10,17 @@ import { asyncNoop, formatMoney, provider } from '@/utils';
 
 import { CurrencyTokenItemProps, StaringProps } from './select-currency.types';
 
-const Staring: FC<StaringProps> = ({ unStar, onClick }) => (
+const Staring: FC<StaringProps> = ({ unStar, onClick, isDisabled }) => (
   <Box
     mx="M"
     width="2rem"
     height="2rem"
     display="flex"
     borderRadius="L"
-    onClick={onClick}
     alignItems="center"
     justifyContent="center"
     nHover={{ bg: '#0002' }}
+    {...(isDisabled && { onClick, opacity: 0.7 })}
   >
     <StarSVG maxHeight="1rem" maxWidth="1rem" width="100%" noFill={!unStar} />
   </Box>
@@ -131,7 +131,10 @@ const CurrencyToken: FC<CurrencyTokenItemProps> = ({
           <Staring unStar onClick={removeLocalToken(type)} />
         )}
         {(isWallet || isSearching) && (
-          <Staring onClick={handleAddToken({ type, symbol, decimals })} />
+          <Staring
+            isDisabled={isDisabled}
+            onClick={handleAddToken({ type, symbol, decimals })}
+          />
         )}
       </Box>
     </Box>
