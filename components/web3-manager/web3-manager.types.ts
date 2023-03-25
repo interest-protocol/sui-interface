@@ -3,8 +3,6 @@ import BigNumber from 'bignumber.js';
 import { ReactNode } from 'react';
 import { KeyedMutator } from 'swr';
 
-import { CoinData } from '@/interface';
-
 export interface Web3ManagerSuiObject {
   type: string;
   symbol: string;
