@@ -1,11 +1,11 @@
 import { useLocalStorage as useLocalStorageHook } from 'usehooks-ts';
 
 type LocalStorageKeys = `sui-interest-${
-  | 'tokens'
   | 'farm-account'
   | 'theme'
   | 'swap-settings'
-  | 'tokens'}`;
+  | 'created-tokens'
+  | 'favorite-tokens'}`;
 
 export function useLocalStorage<T>(
   keyName: LocalStorageKeys,

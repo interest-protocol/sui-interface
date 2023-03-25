@@ -4,6 +4,7 @@ import { isNil, propOr } from 'ramda';
 import { FC, useEffect } from 'react';
 
 import { Container, LoadingPage } from '@/components';
+import { LocalTokenData } from '@/components/web3-manager/web3-manager.types';
 import { COIN_TYPE_TO_COIN, Network, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
 import {
@@ -42,6 +43,11 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
     error: web3Error,
   } = useWeb3();
 
+  const [localTokens, setLocalTokens] = useLocalStorage<LocalTokenData>(
+    'sui-interest-favorite-tokens',
+    {}
+  );
+
   const {
     error,
     data: volatilePool,
@@ -50,10 +56,6 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
   } = useGetVolatilePool(objectId);
 
   const { currentLocale } = useLocale();
-
-  const [localTokens, setLocalTokens] = useLocalStorage<
-    Record<string, CoinData>
-  >('sui-interest-tokens', {});
 
   const unsafeToken0 =
     (propOr(

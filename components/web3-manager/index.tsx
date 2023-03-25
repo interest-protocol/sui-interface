@@ -1,12 +1,15 @@
 import { useWalletKit } from '@mysten/wallet-kit';
 import { createContext, FC, useMemo } from 'react';
 import useSWR from 'swr';
-import { useReadLocalStorage } from 'usehooks-ts';
 
-import { CoinData } from '@/interface';
+import { useLocalStorage } from '@/hooks';
 import { makeSWRKey, noop, provider } from '@/utils';
 
-import { Web3ManagerProps, Web3ManagerState } from './web3-manager.types';
+import {
+  LocalTokenData,
+  Web3ManagerProps,
+  Web3ManagerState,
+} from './web3-manager.types';
 import { parseCoins } from './web3-manager.utils';
 
 const CONTEXT_DE_DEFAULT_STATE = {
@@ -39,9 +42,18 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
       refreshInterval: 10000,
     }
   );
-  const localTokens = useReadLocalStorage<Record<string, CoinData>>(
-    'sui-interest-tokens'
+
+  const [createdTokens] = useLocalStorage<LocalTokenData>(
+    'sui-interest-created-tokens',
+    {}
   );
+
+  const [favoriteTokens] = useLocalStorage<LocalTokenData>(
+    'sui-interest-favorite-tokens',
+    {}
+  );
+
+  const localTokens = { ...createdTokens, ...favoriteTokens };
 
   const [coins, coinsMap] = useMemo(
     () => parseCoins(data, localTokens ?? {}),

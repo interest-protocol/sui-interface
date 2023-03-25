@@ -1,47 +1,47 @@
+import { PaginatedCoins } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
-import {
-  Dispatch,
-  FC,
-  MouseEvent as ReactMouseEvent,
-  ReactNode,
-  SetStateAction,
-} from 'react';
-import { Control, UseFormRegister } from 'react-hook-form';
+import { FC, ReactNode } from 'react';
+import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { KeyedMutator } from 'swr';
 
 import { SVGProps } from '@/components/svg/svg.types';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { CoinData } from '@/interface';
 
+import { LocalTokenData } from './../../../../components/web3-manager/web3-manager.types';
+
 export interface SearchFieldForm {
   search: string;
 }
 
-export type RemoveLocalToken = (
-  type: string
-) => (event: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => void;
+export type CurrencyModalTabKeys = 'recommended' | 'wallet' | 'favorites';
 
-export type RenderData = (
-  tokens: ReadonlyArray<Web3ManagerSuiObject>,
-  onSelectCurrency: (data: OnSelectCurrencyData) => void,
-  currentToken: string,
-  isSearching?: boolean,
-  noBalance?: boolean,
-  addLocalToken?: (x: CoinData) => Promise<void>,
-  removeLocalToken?: RemoveLocalToken
-) => ReadonlyArray<ReactNode>;
+type AddLocaToken = (x: CoinData) => Promise<void>;
 
-export interface CurrencyTokenItemProps {
-  type: string;
-  symbol: string;
-  decimals: number;
-  noBalance: boolean;
+export type RemoveLocalToken = (type: string) => () => Promise<void>;
+
+export interface StaringProps {
+  unStar?: boolean;
+  onClick: ReturnType<RemoveLocalToken> | (() => AddLocaToken);
+}
+
+export interface RenderDataArgs {
+  isWallet?: boolean;
+  noBalance?: boolean;
   currentToken: string;
   isSearching?: boolean;
-  totalBalance: BigNumber;
-  DefaultTokenSVG: FC<SVGProps>;
-  addLocalToken: (x: CoinData) => Promise<void>;
+  addLocalToken?: AddLocaToken;
+  removeLocalToken?: RemoveLocalToken;
   onSelectCurrency: (data: OnSelectCurrencyData) => void;
-  removeLocalToken: RemoveLocalToken | undefined;
+  tokens: ReadonlyArray<Web3ManagerSuiObject>;
+}
+
+export type RenderData = (ags: RenderDataArgs) => ReadonlyArray<ReactNode>;
+
+export interface CurrencyTokenItemProps
+  extends Omit<RenderDataArgs, 'tokens'>,
+    Web3ManagerSuiObject {
+  DefaultTokenSVG: FC<SVGProps>;
 }
 
 export interface OnSelectCurrencyData {
@@ -72,22 +72,32 @@ export interface SelectCurrencyProps {
 }
 
 export interface CurrencyDropdownProps {
-  Input: ReactNode;
   fromRight?: boolean;
-  isSearching: boolean;
-  toggleModal: () => void;
-  control: Control<SearchFieldForm>;
-  coinsMap: Record<string, Web3ManagerSuiObject>;
-  coins: ReadonlyArray<Web3ManagerSuiObject>;
-  setIsSearching: Dispatch<SetStateAction<boolean>>;
   currentToken: string;
+  toggleModal: () => void;
+  coins: ReadonlyArray<Web3ManagerSuiObject>;
+  coinsMap: Record<string, Web3ManagerSuiObject>;
   searchTokenModalState: TokenModalMetadata | null;
+  mutate: KeyedMutator<PaginatedCoins | undefined>;
   onSelectCurrency: SelectCurrencyProps['onSelectCurrency'];
-
-  addLocalToken: (x: CoinData) => Promise<void>;
 }
 
 export interface SearchTokenProps {
-  isSearching: boolean;
+  setValue: UseFormSetValue<SearchFieldForm>;
   register: UseFormRegister<SearchFieldForm>;
+}
+
+export interface CurrencyDropdownBodyProps {
+  currentToken: string;
+  tab: CurrencyModalTabKeys;
+  addLocalToken: AddLocaToken;
+  favoriteTokens: LocalTokenData;
+  control: Control<SearchFieldForm>;
+  handleRemoveFromLocal: RemoveLocalToken;
+  askedToken: Web3ManagerSuiObject | null;
+  coins: ReadonlyArray<Web3ManagerSuiObject>;
+  coinsMap: Record<string, Web3ManagerSuiObject>;
+  searchTokenModalState: TokenModalMetadata | null;
+  setFavoriteTokens: (data: LocalTokenData) => void;
+  handleSelectCurrency: (data: OnSelectCurrencyData) => void;
 }
