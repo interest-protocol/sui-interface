@@ -2,14 +2,14 @@ import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { pathOr } from 'ramda';
 
 import { COIN_DECIMALS, COIN_TYPE_TO_SYMBOL, Network } from '@/constants';
-import { CoinData } from '@/interface';
+import { LocalTokenMetadataRecord } from '@/interface';
 import { parseBigNumberish, safeSymbol } from '@/utils';
 
 import { Web3ManagerSuiObject } from './web3-manager.types';
 
 export const parseCoins = (
   data: PaginatedCoins | undefined | never[],
-  localTokens: Record<string, CoinData>
+  localTokens: LocalTokenMetadataRecord
 ) => {
   if (!data)
     return [[], {}] as [
@@ -58,6 +58,7 @@ export const parseCoins = (
             Record<string, Web3ManagerSuiObject>
           ];
         }
+
         const symbol =
           pathOr(null, [Network.DEVNET, type], COIN_TYPE_TO_SYMBOL) ??
           pathOr(null, [type, 'symbol'], localTokens) ??

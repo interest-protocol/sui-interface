@@ -15,7 +15,7 @@ import { Box, Button } from '@/elements';
 import { useLocalStorage } from '@/hooks';
 import { LocalTokenMetadataRecord } from '@/interface';
 import { TimesSVG } from '@/svg';
-import { provider } from '@/utils';
+import { isCoinData, provider } from '@/utils';
 
 import CurrencyModalBody from './currency-modal-body';
 import SearchToken from './search-token';
@@ -83,8 +83,19 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
         });
         return;
       }
+      if (!isCoinData(storedToken)) throw new Error();
+
       onSelectCurrency(storedToken);
-    } catch {
+    } catch (error) {
+      if (
+        !storedToken &&
+        (error as Error).message.startsWith('Error fetching CoinMetadata')
+      )
+        setLocalTokensMetadata({
+          ...localTokensMetadata,
+          [args.type]: 'no-metadata',
+        });
+
       onSelectCurrency({ ...args, decimals: 0 });
     } finally {
       setFetchingData(false);
