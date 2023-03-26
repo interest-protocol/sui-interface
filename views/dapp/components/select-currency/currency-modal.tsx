@@ -1,14 +1,21 @@
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Switch } from '@/components';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
-import { BASE_TOKENS_TYPES, Network } from '@/constants';
+import {
+  BASE_TOKENS_TYPES,
+  COIN_DECIMALS,
+  COIN_SYMBOL,
+  Network,
+} from '@/constants';
 import { Box, Button } from '@/elements';
 import { useLocalStorage } from '@/hooks';
 import { LocalTokenMetadataRecord } from '@/interface';
 import { TimesSVG } from '@/svg';
+import { provider } from '@/utils';
 
 import CurrencyModalBody from './currency-modal-body';
 import SearchToken from './search-token';
@@ -28,6 +35,7 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
   searchTokenModalState,
 }) => {
   const t = useTranslations();
+  const [fetchingData, setFetchingData] = useState(false);
   const [tab, setTab] = useState<CurrencyModalTabKeys>('recommended');
   const [askedToken, setAskedToken] = useState<Web3ManagerSuiObject | null>(
     null
@@ -55,30 +63,47 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
       {}
     );
 
-  const handleSelectCurrency: OnSelectCurrency = (args) => {
-    onSelectCurrency(args);
+  const handleSelectCurrency: OnSelectCurrency = async (args) => {
     const isSaved = localTokensMetadata[args.type];
 
-    if (!isSaved) {
-      setLocalTokensMetadata({
-        ...localTokensMetadata,
-        [args.type]: {
-          symbol: args.symbol,
+    try {
+      if (!isSaved) {
+        setFetchingData(true);
+        const { symbol, decimals } = await provider.getCoinMetadata(args.type);
+
+        const tokenMetaData = {
+          symbol: symbol,
           type: args.type,
-          decimals: args.decimals,
-        },
-      });
+          decimals: decimals,
+        };
+
+        setLocalTokensMetadata({
+          ...localTokensMetadata,
+          [args.type]: tokenMetaData,
+        });
+        return;
+      }
+      onSelectCurrency(isSaved);
+    } catch {
+      onSelectCurrency({ ...args, decimals: 0 });
+    } finally {
+      setFetchingData(false);
+      toggleModal?.();
     }
-    toggleModal?.();
   };
 
   const baseTokens = useMemo(
     () =>
-      BASE_TOKENS_TYPES[Network.DEVNET].reduce((acc, type) => {
-        const coin = coinsMap[type];
-
-        return coin ? acc.concat([coin]) : acc;
-      }, [] as ReadonlyArray<Web3ManagerSuiObject>),
+      BASE_TOKENS_TYPES[Network.DEVNET].map(
+        (type) =>
+          coinsMap[type] ?? {
+            type,
+            objects: [],
+            totalBalance: BigNumber(0),
+            symbol: COIN_SYMBOL[Network.DEVNET][type],
+            decimals: COIN_DECIMALS[Network.DEVNET][type],
+          }
+      ),
     []
   );
 
@@ -117,11 +142,11 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
         <Box>
           <Box display="flex" my="L">
             {renderData({
-              tokens: baseTokens,
-              onSelectCurrency: handleSelectCurrency,
               currentToken,
               noBalance: true,
               setFavoriteTokens,
+              tokens: baseTokens,
+              onSelectCurrency: handleSelectCurrency,
             })}
           </Box>
           <Box display="flex" justifyContent="center">
@@ -155,6 +180,7 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
           coinsMap={coinsMap}
           askedToken={askedToken}
           currentToken={currentToken}
+          fetchingMetaData={fetchingData}
           favoriteTokens={favoriteTokens}
           setFavoriteTokens={setFavoriteTokens}
           handleSelectCurrency={handleSelectCurrency}

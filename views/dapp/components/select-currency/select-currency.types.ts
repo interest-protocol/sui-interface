@@ -83,6 +83,7 @@ export interface SearchTokenProps {
 
 export interface CurrencyDropdownBodyProps {
   currentToken: string;
+  fetchingMetaData: boolean;
   tab: CurrencyModalTabKeys;
   favoriteTokens: ReadonlyArray<string>;
   control: Control<SearchFieldForm>;

@@ -3,6 +3,7 @@
     "dex": "dex",
     "soon": "em breve",
     "pool": "pool",
+    "notFoundToken": "Meta dados do token não encontrados",
     "searchTokenInputDescription": "Procurar por nome, símbolo ou tipo...",
     "swap": "{isLoading, plural, =1 {trocando...} other {trocar}}",
     "balance": "saldo",

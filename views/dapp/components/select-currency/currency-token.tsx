@@ -12,6 +12,7 @@ import { CurrencyTokenItemProps, StaringProps } from './select-currency.types';
 const Staring: FC<StaringProps> = ({ unStar, onClick, isDisabled }) => (
   <Box
     mx="M"
+    opacity="1"
     width="2rem"
     height="2rem"
     display="flex"
@@ -19,7 +20,7 @@ const Staring: FC<StaringProps> = ({ unStar, onClick, isDisabled }) => (
     alignItems="center"
     justifyContent="center"
     nHover={{ bg: '#0002' }}
-    {...(isDisabled && { onClick, opacity: 0.7 })}
+    {...(!isDisabled && { onClick, opacity: 1 })}
   >
     <StarSVG maxHeight="1rem" maxWidth="1rem" width="100%" noFill={!unStar} />
   </Box>
@@ -34,9 +35,9 @@ const CurrencyToken: FC<CurrencyTokenItemProps> = ({
   DefaultTokenSVG,
   onSelectCurrency,
   noBalance = false,
-  handleRemoveFromFavorite,
   setFavoriteTokens,
   favoriteTokensMap = {},
+  handleRemoveFromFavorite,
 }) => {
   const SVG = TOKENS_SVG_MAP[type] ?? DefaultTokenSVG;
 
