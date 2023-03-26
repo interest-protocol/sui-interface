@@ -64,10 +64,10 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
     );
 
   const handleSelectCurrency: OnSelectCurrency = async (args) => {
-    const isSaved = localTokensMetadata[args.type];
+    const storedToken = localTokensMetadata[args.type];
 
     try {
-      if (!isSaved) {
+      if (!storedToken) {
         setFetchingData(true);
         const { symbol, decimals } = await provider.getCoinMetadata(args.type);
 
@@ -83,7 +83,7 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
         });
         return;
       }
-      onSelectCurrency(isSaved);
+      onSelectCurrency(storedToken);
     } catch {
       onSelectCurrency({ ...args, decimals: 0 });
     } finally {
