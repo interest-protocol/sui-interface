@@ -22,7 +22,6 @@ import SearchToken from './search-token';
 import {
   CurrencyDropdownProps,
   CurrencyModalTabKeys,
-  OnSelectCurrency,
 } from './select-currency.types';
 import { renderData } from './select-currency.utils';
 
