@@ -11,11 +11,9 @@ import {
 import { KeyedMutator } from 'swr';
 
 import { Web3ManagerState } from '@/components/web3-manager/web3-manager.types';
+import { CoinData } from '@/interface';
 
-import {
-  OnSelectCurrencyData,
-  TokenModalMetadata,
-} from '../../components/select-currency/select-currency.types';
+import { TokenModalMetadata } from '../../components/select-currency/select-currency.types';
 import { SwapFormTokenData } from '../dex.types';
 import { ISwapSettingsForm } from './settings/settings.types';
 
@@ -55,7 +53,7 @@ export interface SwapManagerWrapperProps {
   setValue: UseFormSetValue<ISwapForm>;
   getValues: UseFormGetValues<ISwapForm>;
   coinsMap: Web3ManagerState['coinsMap'];
-  onSelectCurrency: (data: OnSelectCurrencyData) => void;
+  onSelectCurrency: (data: CoinData) => void;
   searchTokenModalState: TokenModalMetadata | null;
 }
 
@@ -76,7 +74,7 @@ export interface SwapManagerProps {
   setDisabled: Dispatch<SetStateAction<boolean>>;
   searchTokenModalState: TokenModalMetadata | null;
   setIsZeroSwapAmount: Dispatch<SetStateAction<boolean>>;
-  onSelectCurrency: (data: OnSelectCurrencyData) => void;
+  onSelectCurrency: (data: CoinData) => void;
   setIsFetchingSwapAmount: Dispatch<SetStateAction<boolean>>;
 }
 

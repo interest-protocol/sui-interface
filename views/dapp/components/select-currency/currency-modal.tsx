@@ -13,16 +13,15 @@ import {
 } from '@/constants';
 import { Box, Button } from '@/elements';
 import { useLocalStorage } from '@/hooks';
-import { LocalTokenMetadataRecord } from '@/interface';
+import { CoinData, LocalTokenMetadataRecord } from '@/interface';
 import { TimesSVG } from '@/svg';
-import { isCoinData, provider } from '@/utils';
+import { provider } from '@/utils';
 
 import CurrencyModalBody from './currency-modal-body';
 import SearchToken from './search-token';
 import {
   CurrencyDropdownProps,
   CurrencyModalTabKeys,
-  OnSelectCurrency,
 } from './select-currency.types';
 import { renderData } from './select-currency.utils';
 
@@ -63,40 +62,59 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
       {}
     );
 
-  const handleSelectCurrency: OnSelectCurrency = async (args) => {
+  const handleSelectCurrency = async (args: CoinData) => {
     const storedToken = localTokensMetadata[args.type];
 
     try {
-      if (!storedToken) {
-        setFetchingData(true);
-        const { symbol, decimals } = await provider.getCoinMetadata(args.type);
-
-        const tokenMetaData = {
-          symbol: symbol,
-          type: args.type,
-          decimals: decimals,
-        };
-
-        setLocalTokensMetadata({
-          ...localTokensMetadata,
-          [args.type]: tokenMetaData,
-        });
+      if (storedToken) {
+        onSelectCurrency(storedToken);
         return;
       }
-      if (!isCoinData(storedToken)) throw new Error();
 
-      onSelectCurrency({ ...args, ...storedToken });
+      if (args.decimals > -1) {
+        setLocalTokensMetadata({
+          ...localTokensMetadata,
+          [args.type]: args,
+        });
+        onSelectCurrency(args);
+        return;
+      }
+
+      setFetchingData(true);
+      const { symbol, decimals } = await provider.getCoinMetadata(args.type);
+
+      const tokenMetaData = {
+        symbol: symbol,
+        type: args.type,
+        decimals: decimals,
+      };
+
+      setLocalTokensMetadata({
+        ...localTokensMetadata,
+        [args.type]: tokenMetaData,
+      });
+
+      onSelectCurrency(tokenMetaData);
     } catch (error) {
+      const decimals = args.decimals === -1 ? 0 : args.decimals;
+
       if (
         !storedToken &&
+        coinsMap[args.type] &&
         (error as Error).message.startsWith('Error fetching CoinMetadata')
       )
         setLocalTokensMetadata({
           ...localTokensMetadata,
-          [args.type]: 'no-metadata',
+          [args.type]: {
+            ...args,
+            decimals,
+          },
         });
 
-      onSelectCurrency({ ...args, decimals: 0 });
+      onSelectCurrency({
+        ...args,
+        decimals,
+      });
     } finally {
       setFetchingData(false);
       toggleModal?.();

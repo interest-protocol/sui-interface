@@ -6,7 +6,6 @@ import {
   Web3ManagerSuiObject,
 } from '@/components/web3-manager/web3-manager.types';
 import { COIN_TYPE, Network } from '@/constants';
-import { CoinData } from '@/interface';
 
 export const addCoinTypeToTokenType = (x: string): string =>
   `0x2::coin::Coin<${x}>`;
@@ -108,6 +107,3 @@ export const processSafeAmount = (
 
   return safeAmount;
 };
-
-export const isCoinData = (data: CoinData | string): data is CoinData =>
-  typeof data !== 'string';

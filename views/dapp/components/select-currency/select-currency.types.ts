@@ -25,7 +25,7 @@ export interface RenderDataArgs {
   currentToken: string;
   addLocalToken?: AddLocaToken;
   handleRemoveFromFavorite?: (x: string) => void;
-  onSelectCurrency: (data: OnSelectCurrencyData) => void;
+  onSelectCurrency: (data: CoinData) => Promise<void>;
   tokens: ReadonlyArray<Web3ManagerSuiObject>;
   setFavoriteTokens: (type: string) => void;
   favoriteTokensMap?: Record<string, true>;
@@ -39,12 +39,6 @@ export interface CurrencyTokenItemProps
   DefaultTokenSVG: FC<SVGProps>;
 }
 
-export interface OnSelectCurrencyData {
-  type: string;
-  symbol: string;
-  decimals: number;
-}
-
 export interface TokenModalMetadata {
   name: string;
   symbol: string;
@@ -53,7 +47,7 @@ export interface TokenModalMetadata {
   totalBalance: BigNumber;
 }
 
-export type OnSelectCurrency = (data: OnSelectCurrencyData) => void;
+export type OnSelectCurrency = (data: CoinData) => void;
 
 export interface SelectCurrencyProps {
   type: string;
@@ -93,5 +87,5 @@ export interface CurrencyDropdownBodyProps {
   coinsMap: Record<string, Web3ManagerSuiObject>;
   searchTokenModalState: TokenModalMetadata | null;
   setFavoriteTokens: (data: string) => void;
-  handleSelectCurrency: (data: OnSelectCurrencyData) => void;
+  handleSelectCurrency: (data: CoinData) => Promise<void>;
 }
