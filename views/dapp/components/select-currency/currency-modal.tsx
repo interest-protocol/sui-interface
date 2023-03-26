@@ -1,17 +1,13 @@
 import { useTranslations } from 'next-intl';
-import { dissoc } from 'ramda';
 import { FC, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Switch } from '@/components';
-import {
-  LocalTokenData,
-  Web3ManagerSuiObject,
-} from '@/components/web3-manager/web3-manager.types';
+import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { BASE_TOKENS_TYPES, Network } from '@/constants';
 import { Box, Button } from '@/elements';
 import { useLocalStorage } from '@/hooks';
-import { CoinData } from '@/interface';
+import { LocalTokenMetadataRecord } from '@/interface';
 import { TimesSVG } from '@/svg';
 
 import CurrencyModalBody from './currency-modal-body';
@@ -20,13 +16,11 @@ import {
   CurrencyDropdownProps,
   CurrencyModalTabKeys,
   OnSelectCurrency,
-  RemoveLocalToken,
 } from './select-currency.types';
 import { renderData } from './select-currency.utils';
 
 const CurrencyModal: FC<CurrencyDropdownProps> = ({
   coins,
-  mutate,
   coinsMap,
   toggleModal,
   currentToken,
@@ -50,23 +44,31 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
     setValue('search', '');
   };
 
-  const [favoriteTokens, setFavoriteTokens] = useLocalStorage<LocalTokenData>(
+  const [favoriteTokens, addFavorite] = useLocalStorage<ReadonlyArray<string>>(
     'sui-interest-favorite-tokens',
-    {}
+    []
   );
 
-  const addFavoriteToken = async (data: CoinData) => {
-    setFavoriteTokens({ ...favoriteTokens, [data.type]: data });
-    await mutate();
-  };
-
-  const removeFavoriteToken = async (type: string) => {
-    setFavoriteTokens(dissoc(type, favoriteTokens));
-    await mutate();
-  };
+  const [localTokensMetadata, setLocalTokensMetadata] =
+    useLocalStorage<LocalTokenMetadataRecord>(
+      'sui-interest-tokens-metadata',
+      {}
+    );
 
   const handleSelectCurrency: OnSelectCurrency = (args) => {
     onSelectCurrency(args);
+    const isSaved = localTokensMetadata[args.type];
+
+    if (!isSaved) {
+      setLocalTokensMetadata({
+        ...localTokensMetadata,
+        [args.type]: {
+          symbol: args.symbol,
+          type: args.type,
+          decimals: args.decimals,
+        },
+      });
+    }
     toggleModal?.();
   };
 
@@ -80,9 +82,14 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
     []
   );
 
-  const handleRemoveFromLocal: RemoveLocalToken = (type) => async () => {
-    await removeFavoriteToken(type);
+  const handleRemoveFromFavorite = (type: string) => {
+    addFavorite(favoriteTokens.filter((x) => x !== type));
     askedToken && setAskedToken(null);
+  };
+
+  const setFavoriteTokens = (type: string) => {
+    if (favoriteTokens.includes(type)) return;
+    addFavorite(favoriteTokens.concat([type]));
   };
 
   return (
@@ -114,6 +121,7 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
               onSelectCurrency: handleSelectCurrency,
               currentToken,
               noBalance: true,
+              setFavoriteTokens,
             })}
           </Box>
           <Box display="flex" justifyContent="center">
@@ -148,11 +156,10 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
           askedToken={askedToken}
           currentToken={currentToken}
           favoriteTokens={favoriteTokens}
-          addLocalToken={addFavoriteToken}
           setFavoriteTokens={setFavoriteTokens}
           handleSelectCurrency={handleSelectCurrency}
           searchTokenModalState={searchTokenModalState}
-          handleRemoveFromLocal={handleRemoveFromLocal}
+          handleRemoveFromFavorite={handleRemoveFromFavorite}
         />
       </Box>
     </>

@@ -22,14 +22,13 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
 }) => {
   const { dark } = useTheme() as Theme;
   const { setModal, handleClose } = useModal();
-  const { coinsMap, coins, mutate } = useWeb3();
+  const { coinsMap, coins } = useWeb3();
   const SVG = TOKENS_SVG_MAP[type] ?? TOKENS_SVG_MAP.default;
 
   const openModal = () =>
     setModal(
       <CurrencyModal
         coins={coins}
-        mutate={mutate}
         coinsMap={coinsMap}
         fromRight={fromRight}
         toggleModal={handleClose}

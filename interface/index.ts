@@ -46,3 +46,5 @@ export interface NextPageDefaultProps {
 }
 
 export type NextPageWithProps = NextPage<NextPageDefaultProps>;
+
+export type LocalTokenMetadataRecord = Record<string, CoinData>;

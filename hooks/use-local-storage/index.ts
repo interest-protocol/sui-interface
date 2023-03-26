@@ -4,7 +4,7 @@ type LocalStorageKeys = `sui-interest-${
   | 'farm-account'
   | 'theme'
   | 'swap-settings'
-  | 'created-tokens'
+  | 'tokens-metadata'
   | 'favorite-tokens'}`;
 
 export function useLocalStorage<T>(
