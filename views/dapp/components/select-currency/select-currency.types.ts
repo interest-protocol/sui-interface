@@ -29,6 +29,7 @@ export interface RenderDataArgs {
   tokens: ReadonlyArray<Web3ManagerSuiObject>;
   setFavoriteTokens: (type: string) => void;
   favoriteTokensMap?: Record<string, true>;
+  autoAdd?: boolean;
 }
 
 export type RenderData = (ags: RenderDataArgs) => ReadonlyArray<ReactNode>;

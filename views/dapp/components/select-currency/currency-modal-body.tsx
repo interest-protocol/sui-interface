@@ -166,6 +166,7 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
               favoriteTokensMap,
               handleRemoveFromFavorite,
               noBalance: !!askedToken,
+              autoAdd: !!askedToken,
             })
           ) : (
             <Typography variant="normal" color="text">

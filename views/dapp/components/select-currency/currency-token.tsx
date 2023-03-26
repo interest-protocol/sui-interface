@@ -29,6 +29,7 @@ const Staring: FC<StaringProps> = ({ unStar, onClick, isDisabled }) => (
 const CurrencyToken: FC<CurrencyTokenItemProps> = ({
   type,
   symbol,
+  autoAdd,
   decimals,
   totalBalance,
   currentToken,
@@ -46,6 +47,7 @@ const CurrencyToken: FC<CurrencyTokenItemProps> = ({
   const handleSelectCurrency = async () => {
     if (isDisabled) return;
 
+    autoAdd && setFavoriteTokens(type);
     await onSelectCurrency({ type, symbol, decimals });
   };
 
