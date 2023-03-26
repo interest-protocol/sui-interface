@@ -85,7 +85,7 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
       }
       if (!isCoinData(storedToken)) throw new Error();
 
-      onSelectCurrency(storedToken);
+      onSelectCurrency({ ...args, ...storedToken });
     } catch (error) {
       if (
         !storedToken &&
