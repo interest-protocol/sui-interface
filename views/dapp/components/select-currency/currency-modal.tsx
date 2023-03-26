@@ -13,7 +13,7 @@ import {
 } from '@/constants';
 import { Box, Button } from '@/elements';
 import { useLocalStorage } from '@/hooks';
-import { LocalTokenMetadataRecord } from '@/interface';
+import { CoinData, LocalTokenMetadataRecord } from '@/interface';
 import { TimesSVG } from '@/svg';
 import { provider } from '@/utils';
 
@@ -63,11 +63,20 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
       {}
     );
 
-  const handleSelectCurrency: OnSelectCurrency = async (args) => {
+  const handleSelectCurrency = async (args: CoinData) => {
     const storedToken = localTokensMetadata[args.type];
 
+    if (storedToken) onSelectCurrency(storedToken);
+
+    if (args.decimals > 0) {
+      setLocalTokensMetadata({
+        ...localTokensMetadata,
+        [args.type]: args,
+      });
+    }
+
     try {
-      if (!storedToken) {
+      if (args.decimals === -1) {
         setFetchingData(true);
         const { symbol, decimals } = await provider.getCoinMetadata(args.type);
 
@@ -81,9 +90,12 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
           ...localTokensMetadata,
           [args.type]: tokenMetaData,
         });
-        return;
+        return onSelectCurrency(tokenMetaData);
       }
-      onSelectCurrency(storedToken);
+      onSelectCurrency({
+        ...args,
+        decimals: args.decimals === -1 ? 0 : args.decimals,
+      });
     } catch {
       onSelectCurrency({ ...args, decimals: 0 });
     } finally {

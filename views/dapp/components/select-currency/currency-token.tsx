@@ -5,7 +5,7 @@ import { TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { FixedPointMath } from '@/sdk';
 import { StarSVG } from '@/svg';
-import { formatMoney, provider } from '@/utils';
+import { formatMoney } from '@/utils';
 
 import { CurrencyTokenItemProps, StaringProps } from './select-currency.types';
 
@@ -43,29 +43,10 @@ const CurrencyToken: FC<CurrencyTokenItemProps> = ({
 
   const isDisabled = type == currentToken;
 
-  const handleSelectCurrency = () => {
+  const handleSelectCurrency = async () => {
     if (isDisabled) return;
 
-    if (decimals === -1) {
-      return provider
-        .getCoinMetadata(type)
-        .then((metadata) => {
-          onSelectCurrency({
-            type,
-            symbol: metadata.symbol,
-            decimals: metadata.decimals,
-          });
-        })
-        .catch(() =>
-          onSelectCurrency({
-            type,
-            symbol,
-            decimals: 0,
-          })
-        );
-    }
-
-    onSelectCurrency({ type, symbol, decimals });
+    await onSelectCurrency({ type, symbol, decimals });
   };
 
   return (
