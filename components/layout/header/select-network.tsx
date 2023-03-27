@@ -97,7 +97,7 @@ const SelectNetwork: FC = () => {
               </Typography>
             </Box>
           ),
-          disabled: true,
+          disabled: Network.DEVNET === network,
         },
         {
           value: `sui-tesnet`,
@@ -158,7 +158,7 @@ const SelectNetwork: FC = () => {
               </Typography>
             </Box>
           ),
-          disabled: true,
+          disabled: Network.TESTNET === network,
         },
         {
           value: 'bsct',
