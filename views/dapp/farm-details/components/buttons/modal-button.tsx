@@ -5,13 +5,9 @@ import { propOr } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import {
-  FARMS_PACKAGE_ID,
-  IPX_ACCOUNT_STORAGE,
-  IPX_STORAGE,
-} from '@/constants';
+import { OBJECT_RECORD } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useSuiNetwork, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import {
@@ -37,6 +33,9 @@ const ModalButton: FC<ModalButtonProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const { signAndExecuteTransaction } = useWalletKit();
   const { coinsMap, account } = useWeb3();
+  const { network } = useSuiNetwork();
+
+  const objects = OBJECT_RECORD[network];
 
   const handleWithdrawTokens = async () => {
     try {
@@ -66,11 +65,11 @@ const ModalButton: FC<ModalButtonProps> = ({
             function: 'unstake',
             gasBudget: 15000,
             module: 'interface',
-            packageObjectId: FARMS_PACKAGE_ID,
+            packageObjectId: objects.PACKAGE_ID,
             typeArguments: [farm.lpCoin.type],
             arguments: [
-              IPX_STORAGE,
-              IPX_ACCOUNT_STORAGE,
+              objects.IPX_STORAGE,
+              objects.IPX_ACCOUNT_STORAGE,
               safeAmount.toString(),
             ],
           },
@@ -126,11 +125,11 @@ const ModalButton: FC<ModalButtonProps> = ({
             function: 'stake',
             gasBudget: 15000,
             module: 'interface',
-            packageObjectId: FARMS_PACKAGE_ID,
+            packageObjectId: objects.PACKAGE_ID,
             typeArguments: [farm.lpCoin.type],
             arguments: [
-              IPX_STORAGE,
-              IPX_ACCOUNT_STORAGE,
+              objects.IPX_STORAGE,
+              objects.IPX_ACCOUNT_STORAGE,
               getCoinIds(coinsMap, farm.lpCoinData.type),
               safeAmount.toString(),
             ],

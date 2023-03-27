@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 import useSWR from 'swr';
 
-import { VOLATILE_POOLS_OBJECT_ID } from '@/constants';
-import { makeSWRKey, provider } from '@/utils';
+import { OBJECT_RECORD } from '@/constants';
+import { useProvider, useSuiNetwork } from '@/hooks';
+import { makeSWRKey } from '@/utils';
 
 import { parsePools } from './swap.utils';
 
@@ -10,12 +11,17 @@ import { parsePools } from './swap.utils';
  * @dev The stable pools will be hardcoded as they can only be deployed by the dev team.
  */
 export const useGetVolatilePools = () => {
+  const { provider } = useProvider();
+  const { network } = useSuiNetwork();
   const { data, ...rest } = useSWR(
     makeSWRKey(
-      [VOLATILE_POOLS_OBJECT_ID],
+      [OBJECT_RECORD[network].VOLATILE_POOLS_OBJECT_ID],
       provider.getObjectsOwnedByAddress.name
     ),
-    async () => provider.getDynamicFields(VOLATILE_POOLS_OBJECT_ID),
+    async () =>
+      provider.getDynamicFields(
+        OBJECT_RECORD[network].VOLATILE_POOLS_OBJECT_ID
+      ),
     {
       revalidateOnFocus: false,
       revalidateOnMount: true,

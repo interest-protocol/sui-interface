@@ -6,12 +6,9 @@ import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { incrementTX } from '@/api/analytics';
-import {
-  DEX_PACKAGE_ID,
-  DEX_STORAGE_STABLE,
-  DEX_STORAGE_VOLATILE,
-} from '@/constants';
+import { OBJECT_RECORD } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
+import { useSuiNetwork } from '@/hooks';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
@@ -39,13 +36,14 @@ const SwapButton: FC<SwapButtonProps> = ({
   const { data } = useGetVolatilePools();
   const [loading, setLoading] = useState(false);
   const { signAndExecuteTransaction } = useWalletKit();
+  const { network } = useSuiNetwork();
 
   const tokenInValue = useWatch({ control, name: 'tokenIn.value' });
 
   const isDisabled =
     disabled ||
     !+tokenInValue ||
-    !findMarket(data, tokenInType, tokenOutType).length;
+    !findMarket(network, data, tokenInType, tokenOutType).length;
 
   const handleSwap = async () => {
     try {
@@ -60,7 +58,7 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       if (!+tokenIn.value) throw new Error(t('dexSwap.error.cannotSell0'));
 
-      const path = findMarket(data, tokenIn.type, tokenOut.type);
+      const path = findMarket(network, data, tokenIn.type, tokenOut.type);
 
       if (!path.length) throw new Error(t('dexSwap.error.noMarket'));
 
@@ -78,6 +76,8 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       const minAmountOut = getAmountMinusSlippage(amountOut, slippage);
 
+      const objects = OBJECT_RECORD[network];
+
       // no hop swap
       if (!firstSwapObject.baseTokens.length) {
         const tx = await signAndExecuteTransaction({
@@ -86,14 +86,14 @@ const SwapButton: FC<SwapButtonProps> = ({
             function: 'swap',
             gasBudget: 9000,
             module: 'interface',
-            packageObjectId: DEX_PACKAGE_ID,
+            packageObjectId: objects.PACKAGE_ID,
             typeArguments: [
               firstSwapObject.tokenInType,
               firstSwapObject.tokenOutType,
             ],
             arguments: [
-              DEX_STORAGE_VOLATILE,
-              DEX_STORAGE_STABLE,
+              objects.DEX_STORAGE_VOLATILE,
+              objects.DEX_STORAGE_STABLE,
               getCoinIds(coinsMap, firstSwapObject.tokenInType),
               [],
               amount.toString(),
@@ -115,15 +115,15 @@ const SwapButton: FC<SwapButtonProps> = ({
             function: 'one_hop_swap',
             gasBudget: 9000,
             module: 'interface',
-            packageObjectId: DEX_PACKAGE_ID,
+            packageObjectId: objects.PACKAGE_ID,
             typeArguments: [
               firstSwapObject.tokenInType,
               firstSwapObject.tokenOutType,
               firstSwapObject.baseTokens[0],
             ],
             arguments: [
-              DEX_STORAGE_VOLATILE,
-              DEX_STORAGE_STABLE,
+              objects.DEX_STORAGE_VOLATILE,
+              objects.DEX_STORAGE_STABLE,
               getCoinIds(coinsMap, firstSwapObject.tokenInType),
               [],
               amount.toString(),

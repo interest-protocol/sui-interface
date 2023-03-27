@@ -4,13 +4,9 @@ import { propOr } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import {
-  FARMS_PACKAGE_ID,
-  IPX_ACCOUNT_STORAGE,
-  IPX_STORAGE,
-} from '@/constants';
+import { OBJECT_RECORD } from '@/constants';
 import Button from '@/elements/button';
-import { useWeb3 } from '@/hooks';
+import { useSuiNetwork, useWeb3 } from '@/hooks';
 import { capitalize, showToast, showTXSuccessToast } from '@/utils';
 
 import { HarvestButtonProps } from './buttons.types';
@@ -23,9 +19,11 @@ const HarvestButton: FC<HarvestButtonProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const { signAndExecuteTransaction } = useWalletKit();
   const { mutate, account } = useWeb3();
+  const { network } = useSuiNetwork();
 
   const harvest = async () => {
     try {
+      const objects = OBJECT_RECORD[network];
       setLoading(true);
 
       const tx = await signAndExecuteTransaction(
@@ -35,9 +33,9 @@ const HarvestButton: FC<HarvestButtonProps> = ({
             function: 'get_rewards',
             gasBudget: 15000,
             module: 'interface',
-            packageObjectId: FARMS_PACKAGE_ID,
+            packageObjectId: objects.PACKAGE_ID,
             typeArguments: [farm.lpCoin.type],
-            arguments: [IPX_STORAGE, IPX_ACCOUNT_STORAGE],
+            arguments: [objects.IPX_STORAGE, objects.IPX_ACCOUNT_STORAGE],
           },
         },
         { requestType: 'WaitForEffectsCert' }

@@ -19,10 +19,10 @@ export * from './dex';
 export * from './farms';
 export * from './faucet';
 export * from './network';
+export * from './objects';
 export * from './pools';
 export * from './routes';
 export * from './social-media';
-
 export const MAX_NUMBER_INPUT_VALUE = 9000000000000000;
 
 export enum StakeState {
@@ -44,6 +44,14 @@ export const TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.DEVNET].USDC]: USDCoinSVG,
   [COIN_TYPE[Network.DEVNET].USDT]: USDTSVG,
   [COIN_TYPE[Network.DEVNET].IPX]: InterestTokenSVG,
+  [COIN_TYPE[Network.TESTNET].BNB]: BinanceSVG,
+  [COIN_TYPE[Network.TESTNET].BTC]: BitcoinSVG,
+  [COIN_TYPE[Network.TESTNET].DAI]: DAISVG,
+  [COIN_TYPE[Network.TESTNET].ETH]: EtherSVG,
+  [COIN_TYPE[Network.TESTNET].SUI]: SuiSVG,
+  [COIN_TYPE[Network.TESTNET].USDC]: USDCoinSVG,
+  [COIN_TYPE[Network.TESTNET].USDT]: USDTSVG,
+  [COIN_TYPE[Network.TESTNET].IPX]: InterestTokenSVG,
 };
 
 export const EPOCHS_PER_YEAR = 4380;

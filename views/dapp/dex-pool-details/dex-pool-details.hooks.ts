@@ -2,7 +2,8 @@ import { GetObjectDataResponse } from '@mysten/sui.js/src/types';
 import { pathOr } from 'ramda';
 import useSWR from 'swr';
 
-import { makeSWRKey, provider } from '@/utils';
+import { useProvider } from '@/hooks';
+import { makeSWRKey } from '@/utils';
 
 import { Pool } from './dex-pool-details.types';
 
@@ -48,6 +49,7 @@ const processVolatilePool = (data: undefined | GetObjectDataResponse): Pool => {
 };
 
 export const useGetVolatilePool = (objectId: string) => {
+  const { provider } = useProvider();
   const { data, isLoading, mutate, error } = useSWR(
     makeSWRKey([objectId], provider.getObject.name),
     () => provider.getObject(objectId),

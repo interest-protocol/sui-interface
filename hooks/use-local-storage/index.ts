@@ -5,7 +5,8 @@ type LocalStorageKeys = `sui-interest-${
   | 'theme'
   | 'swap-settings'
   | 'tokens-metadata'
-  | 'favorite-tokens'}`;
+  | 'favorite-tokens'
+  | 'network'}`;
 
 export function useLocalStorage<T>(
   keyName: LocalStorageKeys,

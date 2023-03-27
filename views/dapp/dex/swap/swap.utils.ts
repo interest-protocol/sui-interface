@@ -4,12 +4,7 @@ import { DynamicFieldInfo } from '@mysten/sui.js/src/types/dynamic_fields';
 import BigNumber from 'bignumber.js';
 import { has, isEmpty, pathOr, propOr } from 'ramda';
 
-import {
-  DEX_BASE_TOKEN_ARRAY,
-  DEX_PACKAGE_ID,
-  DEX_STORAGE_STABLE,
-  DEX_STORAGE_VOLATILE,
-} from '@/constants';
+import { DEX_BASE_TOKEN_ARRAY, Network, OBJECT_RECORD } from '@/constants';
 import { FixedPointMath } from '@/sdk';
 import { addCoinTypeToTokenType } from '@/utils';
 import { getCoinIds } from '@/utils';
@@ -50,6 +45,7 @@ export const parsePools = (data: undefined | DynamicFieldInfo[]) => {
 
 // TODO Need to add two hop swap logic
 export const findMarket = (
+  network: Network,
   data: PoolsMap,
   tokenInType: string,
   tokenOutType: string
@@ -73,7 +69,7 @@ export const findMarket = (
     ];
 
   // One Hop Swap
-  return DEX_BASE_TOKEN_ARRAY.reduce(
+  return DEX_BASE_TOKEN_ARRAY[network].reduce(
     (acc, element): ReadonlyArray<SwapPathObject> => {
       const firstPool = pathOr(
         null,
@@ -119,17 +115,20 @@ export const getSwapPayload = ({
   tokenOutType,
   coinsMap,
   volatilesPools,
+  network,
 }: GetSwapPayload): UnserializedSignableTransaction | null => {
   if (isEmpty(volatilesPools)) return null;
   if (!tokenIn.value) return null;
 
-  const path = findMarket(volatilesPools, tokenIn.type, tokenOutType);
+  const path = findMarket(network, volatilesPools, tokenIn.type, tokenOutType);
 
   if (!path.length) return null;
 
   const firstSwapObject = path[0];
 
   const amount = FixedPointMath.toBigNumber(tokenIn.value, tokenIn.decimals);
+
+  const objects = OBJECT_RECORD[network];
 
   // no hop swap
   if (!firstSwapObject.baseTokens.length) {
@@ -139,14 +138,14 @@ export const getSwapPayload = ({
         function: 'swap',
         gasBudget: 9000,
         module: 'interface',
-        packageObjectId: DEX_PACKAGE_ID,
+        packageObjectId: objects.PACKAGE_ID,
         typeArguments: [
           firstSwapObject.tokenInType,
           firstSwapObject.tokenOutType,
         ],
         arguments: [
-          DEX_STORAGE_VOLATILE,
-          DEX_STORAGE_STABLE,
+          objects.DEX_STORAGE_VOLATILE,
+          objects.DEX_STORAGE_STABLE,
           getCoinIds(coinsMap, firstSwapObject.tokenInType),
           [],
           amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
@@ -165,15 +164,15 @@ export const getSwapPayload = ({
         function: 'one_hop_swap',
         gasBudget: 9000,
         module: 'interface',
-        packageObjectId: DEX_PACKAGE_ID,
+        packageObjectId: objects.PACKAGE_ID,
         typeArguments: [
           firstSwapObject.tokenInType,
           firstSwapObject.tokenOutType,
           firstSwapObject.baseTokens[0],
         ],
         arguments: [
-          DEX_STORAGE_VOLATILE,
-          DEX_STORAGE_STABLE,
+          objects.DEX_STORAGE_VOLATILE,
+          objects.DEX_STORAGE_STABLE,
           getCoinIds(coinsMap, firstSwapObject.tokenInType),
           [],
           amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
@@ -188,6 +187,7 @@ export const getSwapPayload = ({
 };
 
 export const findSwapAmountOutput = (
+  network: Network,
   data: DevInspectResults | undefined,
   tokenOutType: string
 ) => {
@@ -203,7 +203,7 @@ export const findSwapAmountOutput = (
 
     const packageId = propOr(null, 'packageId', coinBalanceChange);
 
-    if (packageId !== DEX_PACKAGE_ID) return false;
+    if (packageId !== OBJECT_RECORD[network].PACKAGE_ID) return false;
 
     const coinType = propOr(null, 'coinType', coinBalanceChange);
 

@@ -5,13 +5,9 @@ import { isEmpty, prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import {
-  DEX_PACKAGE_ID,
-  DEX_STORAGE_STABLE,
-  DEX_STORAGE_VOLATILE,
-} from '@/constants';
+import { OBJECT_RECORD } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useSuiNetwork, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import {
@@ -33,8 +29,11 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
   const { coinsMap, account } = useWeb3();
   const { signAndExecuteTransaction } = useWalletKit();
   const [loading, setLoading] = useState(false);
+  const { network } = useSuiNetwork();
+
   const handleAddLiquidity = async () => {
     try {
+      const objects = OBJECT_RECORD[network];
       if (tokens.length !== 2 || isEmpty(coinsMap))
         throw new Error('Error fetching coins data');
 
@@ -75,11 +74,11 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
           function: 'add_liquidity',
           gasBudget: 9000,
           module: 'interface',
-          packageObjectId: DEX_PACKAGE_ID,
+          packageObjectId: objects.PACKAGE_ID,
           typeArguments: [token0.type, token1.type],
           arguments: [
-            DEX_STORAGE_VOLATILE,
-            DEX_STORAGE_STABLE,
+            objects.DEX_STORAGE_VOLATILE,
+            objects.DEX_STORAGE_STABLE,
             vector0,
             vector1,
             safeAmount0.toString(),

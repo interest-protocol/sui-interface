@@ -147,6 +147,130 @@ export const FARMS_TOKENS_SVG_MAP = {
       highZIndex: false,
     },
   ],
+  [COIN_TYPE[Network.TESTNET].IPX]: [
+    {
+      SVG: InterestTokenSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].BNB]: [
+    {
+      SVG: BinanceSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].BTC]: [
+    {
+      SVG: BitcoinSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].DAI]: [
+    {
+      SVG: DAISVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].ETH]: [
+    {
+      SVG: EtherSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].SUI]: [
+    {
+      SVG: SuiSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].USDC]: [
+    {
+      SVG: USDCoinSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].USDT]: [
+    {
+      SVG: USDTSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].IPX]: [
+    {
+      SVG: InterestTokenSVG,
+      highZIndex: true,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].V_LP_BNB_ETH]: [
+    {
+      SVG: BinanceSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: EtherSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].V_LP_BTC_ETH]: [
+    {
+      SVG: BitcoinSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: EtherSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH]: [
+    {
+      SVG: DAISVG,
+      highZIndex: true,
+    },
+    {
+      SVG: EtherSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: [
+    {
+      SVG: EtherSVG,
+      highZIndex: false,
+    },
+    {
+      SVG: USDCoinSVG,
+      highZIndex: true,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT]: [
+    {
+      SVG: EtherSVG,
+      highZIndex: false,
+    },
+    {
+      SVG: USDTSVG,
+      highZIndex: true,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].V_LP_SUI_ETH]: [
+    {
+      SVG: SuiSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: EtherSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: [
+    {
+      SVG: EtherSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: InterestTokenSVG,
+      highZIndex: false,
+    },
+  ],
 };
 
 export const getFilterSwitchDefaultData = (

@@ -11,6 +11,7 @@ import {
 import { KeyedMutator } from 'swr';
 
 import { Web3ManagerState } from '@/components/web3-manager/web3-manager.types';
+import { Network } from '@/constants';
 import { CoinData } from '@/interface';
 
 import { TokenModalMetadata } from '../../components/select-currency/select-currency.types';
@@ -83,6 +84,7 @@ export interface GetSwapPayload {
   tokenOutType: string;
   coinsMap: Web3ManagerState['coinsMap'];
   volatilesPools: PoolsMap;
+  network: Network;
 }
 
 export interface LocalSwapSettings {

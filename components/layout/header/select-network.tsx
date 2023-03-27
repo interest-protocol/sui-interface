@@ -1,12 +1,20 @@
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import { Network } from '@/constants';
 import { Box, Dropdown, Typography } from '@/elements';
+import { useSuiNetwork } from '@/hooks';
 import { AnchorSVG, ArrowSVG, BinanceTestSVG, SuiSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
 const SelectNetwork: FC = () => {
   const t = useTranslations();
+  const { network, setNetwork } = useSuiNetwork();
+
+  const handleSetNetwork = (x: Network) => {
+    if (x === network) return;
+    setNetwork(x);
+  };
 
   return (
     <Dropdown
@@ -32,6 +40,7 @@ const SelectNetwork: FC = () => {
       data={[
         {
           value: `sui`,
+          onSelect: () => handleSetNetwork(Network.DEVNET),
           displayTitle: (
             <Box display="flex" alignItems="center" py="S">
               <Box
@@ -56,7 +65,7 @@ const SelectNetwork: FC = () => {
                 color="text"
                 display={['none', 'none', 'flex', 'flex']}
               >
-                SUI
+                SUI DevNet
               </Typography>
             </Box>
           ),
@@ -84,7 +93,68 @@ const SelectNetwork: FC = () => {
                 color="text"
                 display="flex"
               >
-                SUI
+                SUI DevNet
+              </Typography>
+            </Box>
+          ),
+          disabled: true,
+        },
+        {
+          value: `sui-tesnet`,
+          onSelect: () => handleSetNetwork(Network.TESTNET),
+          displayTitle: (
+            <Box display="flex" alignItems="center" py="S">
+              <Box
+                as="span"
+                display="inline-block"
+                width={['1rem', '1rem', '1rem', '1.5rem']}
+                height={['1rem', '1rem', '1rem', '1.5rem']}
+                color="text"
+              >
+                <SuiSVG
+                  width="100%"
+                  height="100%"
+                  fill="currentColor"
+                  maxHeight="1.5rem"
+                  maxWidth="1.5rem"
+                />
+              </Box>
+              <Typography
+                variant="normal"
+                mx="M"
+                whiteSpace="nowrap"
+                color="text"
+                display={['none', 'none', 'flex', 'flex']}
+              >
+                SUI TestNet
+              </Typography>
+            </Box>
+          ),
+          displayOption: (
+            <Box pl="L" display="flex" alignItems="center">
+              <Box
+                as="span"
+                display="inline-block"
+                width="1.5rem"
+                height="1.5rem"
+                color="text"
+              >
+                <SuiSVG
+                  width="100%"
+                  height="100%"
+                  fill="currentColor"
+                  maxHeight="1.5rem"
+                  maxWidth="1.5rem"
+                />
+              </Box>
+              <Typography
+                variant="normal"
+                mx="M"
+                whiteSpace="nowrap"
+                color="text"
+                display="flex"
+              >
+                SUI TestNet
               </Typography>
             </Box>
           ),

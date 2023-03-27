@@ -6,32 +6,32 @@ import { useCallback, useState } from 'react';
 import { FC } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import {
-  COIN_TYPE,
-  FAUCET_OBJECT_ID,
-  FAUCET_PACKAGE_ID,
-  Network,
-} from '@/constants';
+import { COIN_TYPE, Network, OBJECT_RECORD } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useProvider, useSuiNetwork, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
-import {
-  capitalize,
-  mystenLabsProvider,
-  showToast,
-  showTXSuccessToast,
-} from '@/utils';
+import { capitalize, showToast, showTXSuccessToast } from '@/utils';
 
 import { MintButtonProps } from './faucet-form.types';
 
 const COIN_MINT_AMOUNT = {
-  [COIN_TYPE[Network.DEVNET].BNB]: '10',
-  [COIN_TYPE[Network.DEVNET].ETH]: '5',
-  [COIN_TYPE[Network.DEVNET].BTC]: '5',
-  [COIN_TYPE[Network.DEVNET].USDT]: '2000',
-  [COIN_TYPE[Network.DEVNET].USDC]: '2000',
-  [COIN_TYPE[Network.DEVNET].DAI]: '2000',
-} as Record<string, string>;
+  [Network.DEVNET]: {
+    [COIN_TYPE[Network.DEVNET].BNB]: '10',
+    [COIN_TYPE[Network.DEVNET].ETH]: '5',
+    [COIN_TYPE[Network.DEVNET].BTC]: '5',
+    [COIN_TYPE[Network.DEVNET].USDT]: '2000',
+    [COIN_TYPE[Network.DEVNET].USDC]: '2000',
+    [COIN_TYPE[Network.DEVNET].DAI]: '2000',
+  } as Record<string, string>,
+  [Network.TESTNET]: {
+    [COIN_TYPE[Network.TESTNET].BNB]: '10',
+    [COIN_TYPE[Network.TESTNET].ETH]: '5',
+    [COIN_TYPE[Network.TESTNET].BTC]: '5',
+    [COIN_TYPE[Network.TESTNET].USDT]: '2000',
+    [COIN_TYPE[Network.TESTNET].USDC]: '2000',
+    [COIN_TYPE[Network.TESTNET].DAI]: '2000',
+  } as Record<string, string>,
+};
 
 const MintButton: FC<MintButtonProps> = ({ getValues }) => {
   const t = useTranslations();
@@ -40,8 +40,12 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
   const { signAndExecuteTransaction } = useWalletKit();
   const { account, mutate } = useWeb3();
 
+  const { mystenLabsProvider } = useProvider();
+  const { network } = useSuiNetwork();
+
   const handleOnMint = useCallback(async () => {
     try {
+      const objects = OBJECT_RECORD[network];
       setLoading(true);
       const type = getValues('type');
 
@@ -57,9 +61,12 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
           function: 'mint',
           gasBudget: 1000,
           module: 'faucet',
-          packageObjectId: FAUCET_PACKAGE_ID,
+          packageObjectId: objects.PACKAGE_ID,
           typeArguments: [type],
-          arguments: [FAUCET_OBJECT_ID, COIN_MINT_AMOUNT[type] || '1'],
+          arguments: [
+            objects.FAUCET_OBJECT_ID,
+            COIN_MINT_AMOUNT[network][type] || '1',
+          ],
         },
       });
       await showTXSuccessToast(tx);

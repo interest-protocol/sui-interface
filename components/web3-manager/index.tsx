@@ -3,13 +3,14 @@ import { createContext, FC, useMemo } from 'react';
 import useSWR from 'swr';
 import { useReadLocalStorage } from 'usehooks-ts';
 
+import { useProvider } from '@/hooks';
 import { LocalTokenMetadataRecord } from '@/interface';
-import { makeSWRKey, noop, provider } from '@/utils';
+import { makeSWRKey, noop } from '@/utils';
 
 import { Web3ManagerProps, Web3ManagerState } from './web3-manager.types';
 import { parseCoins } from './web3-manager.utils';
 
-const CONTEXT_DE_DEFAULT_STATE = {
+const CONTEXT_DEFAULT_STATE = {
   account: null,
   coins: [],
   coinsMap: {},
@@ -20,11 +21,13 @@ const CONTEXT_DE_DEFAULT_STATE = {
 };
 
 export const Web3ManagerContext = createContext<Web3ManagerState>(
-  CONTEXT_DE_DEFAULT_STATE
+  CONTEXT_DEFAULT_STATE
 );
 
 const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   const { isError, currentAccount, isConnected } = useWalletKit();
+
+  const { provider } = useProvider();
 
   const { data, error, mutate, isLoading } = useSWR(
     makeSWRKey([currentAccount], provider.getAllCoins.name),

@@ -3,24 +3,19 @@ import { bcsForVersion } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import useSWR, { SWRConfiguration } from 'swr';
 
-import {
-  COINS_PACKAGE_ID,
-  FarmMetadataType,
-  IPX_ACCOUNT_STORAGE,
-  IPX_STORAGE,
-} from '@/constants';
-import {
-  getDevInspectData,
-  getDevInspectType,
-  makeSWRKey,
-  provider,
-} from '@/utils';
+import { FarmMetadataType, OBJECT_RECORD } from '@/constants';
+import { useProvider, useSuiNetwork } from '@/hooks';
+import { getDevInspectData, getDevInspectType, makeSWRKey } from '@/utils';
 
 export const useGetPendingRewards = (
   account: string | null,
   farmMetadata: FarmMetadataType,
   config: SWRConfiguration = {}
 ) => {
+  const { provider } = useProvider();
+  const { network } = useSuiNetwork();
+  const objects = OBJECT_RECORD[network];
+
   const { data, ...rest } = useSWR(
     makeSWRKey([account, farmMetadata.lpCoin.type], 'useGetPendingRewards'),
     async () => {
@@ -31,9 +26,13 @@ export const useGetPendingRewards = (
             function: 'get_pending_rewards',
             gasBudget: 9000,
             module: 'ipx',
-            packageObjectId: COINS_PACKAGE_ID,
+            packageObjectId: objects.PACKAGE_ID,
             typeArguments: [farmMetadata.lpCoin.type],
-            arguments: [IPX_STORAGE, IPX_ACCOUNT_STORAGE, account],
+            arguments: [
+              objects.IPX_STORAGE,
+              objects.IPX_ACCOUNT_STORAGE,
+              account,
+            ],
           } as MoveCallTransaction,
         });
 

@@ -5,9 +5,10 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
-import { FARMS_RECORD, Network, StakeState } from '@/constants';
+import { FARMS_RECORD, StakeState } from '@/constants';
 import { ModalProvider } from '@/context/modal';
 import { withTypeGuard } from '@/HOC';
+import { useSuiNetwork } from '@/hooks';
 import { NextPageDefaultProps } from '@/interface';
 import FarmDetails from '@/views/dapp/farm-details';
 
@@ -29,7 +30,8 @@ const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
   type,
   pageTitle,
 }) => {
-  const farmMetadata = pathOr(null, [Network.DEVNET, type], FARMS_RECORD);
+  const { network } = useSuiNetwork();
+  const farmMetadata = pathOr(null, [network, type], FARMS_RECORD);
 
   const [modalState, setModalState] = useState({
     isOpen: false,

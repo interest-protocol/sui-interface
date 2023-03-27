@@ -2,8 +2,11 @@ import { GetObjectDataResponse } from '@mysten/sui.js';
 import { pathOr } from 'ramda';
 import useSWR from 'swr';
 
-import { IPX_STORAGE } from '@/constants';
-import { makeSWRKey, provider } from '@/utils';
+import { OBJECT_RECORD } from '@/constants';
+import { makeSWRKey } from '@/utils';
+
+import { useProvider } from '../use-provider';
+import { useSuiNetwork } from '../use-sui-network';
 
 const DEFAULT_IPX_STORAGE = {
   ipxPerEpoch: '0',
@@ -38,9 +41,13 @@ const parseIPXStorage = (data: GetObjectDataResponse | undefined) => {
 };
 
 export const useGetIPXStorage = () => {
+  const { provider } = useProvider();
+  const { network } = useSuiNetwork();
+  const objects = OBJECT_RECORD[network];
+
   const { data, ...rest } = useSWR(
-    makeSWRKey([IPX_STORAGE], 'useGetTotalAllocation'),
-    async () => provider.getObject(IPX_STORAGE),
+    makeSWRKey([objects.IPX_STORAGE], 'useGetTotalAllocation'),
+    async () => provider.getObject(objects.IPX_STORAGE),
     {
       revalidateOnMount: true,
       revalidateOnFocus: false,

@@ -5,6 +5,7 @@ export { default as LoadingPage } from './loading-page';
 export { default as NextIntlProvider } from './next-intl-provider';
 export { default as SEO } from './SEO';
 export { default as SocialMediaCard } from './social-media-card';
+export { default as SuiProvider } from './sui-provider';
 export { default as Switch } from './switch';
 export { default as SwitchLang } from './switch-lang';
 export { default as ThemeManager } from './theme-manager';

@@ -7,25 +7,17 @@ import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
-import {
-  COINS_PACKAGE_ID,
-  DEX_STORAGE_VOLATILE,
-  FAUCET_PACKAGE_ID,
-  Routes,
-  RoutesEnum,
-} from '@/constants';
+import { OBJECT_RECORD, Routes, RoutesEnum } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useProvider, useSuiNetwork, useWeb3 } from '@/hooks';
 import { useModal } from '@/hooks/use-modal';
 import { AddressZero, FixedPointMath } from '@/sdk';
 import {
   capitalize,
   getCoinIds,
   getDevInspectData,
-  provider,
   showToast,
   showTXSuccessToast,
-  wsProvider,
 } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
@@ -46,12 +38,16 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
   const { setModal, handleClose } = useModal();
   const { signAndExecuteTransaction } = useWalletKit();
   const { coinsMap, account } = useWeb3();
+  const { provider, wsProvider } = useProvider();
+  const { network } = useSuiNetwork();
+
+  const objects = OBJECT_RECORD[network];
 
   const enterPool = async () => {
     setLoading(true);
 
     try {
-      const pairId = getRecommendedPairId(tokenAType, tokenBType);
+      const pairId = getRecommendedPairId(network, tokenAType, tokenBType);
 
       if (pairId)
         return await push({
@@ -65,8 +61,8 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
           function: 'get_v_pool_id',
           gasBudget: 5000,
           module: 'interface',
-          packageObjectId: COINS_PACKAGE_ID,
-          arguments: [DEX_STORAGE_VOLATILE],
+          packageObjectId: objects.PACKAGE_ID,
+          arguments: [objects.DEX_STORAGE_VOLATILE],
           typeArguments: [tokenAType, tokenBType],
         } as MoveCallTransaction,
       });
@@ -113,10 +109,10 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
           function: 'create_pool',
           gasBudget: 12000,
           module: 'interface',
-          packageObjectId: FAUCET_PACKAGE_ID,
+          packageObjectId: objects.PACKAGE_ID,
           typeArguments: [tokenAType, tokenBType],
           arguments: [
-            DEX_STORAGE_VOLATILE,
+            objects.DEX_STORAGE_VOLATILE,
             getCoinIds(coinsMap, tokenA.type, 12000),
             getCoinIds(coinsMap, tokenB.type, 12000),
             amountA.toString(),
@@ -130,7 +126,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
       const subscriptionId = await wsProvider.subscribeEvent(
         {
           All: [
-            { Package: COINS_PACKAGE_ID },
+            { Package: objects.PACKAGE_ID },
             { SenderAddress: account },
             { EventType: 'MoveEvent' },
           ],

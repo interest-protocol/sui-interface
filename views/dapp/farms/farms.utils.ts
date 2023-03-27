@@ -57,24 +57,11 @@ const searchOperation = cond([
     (search: string) => {
       const parsedSearch = search.toLocaleLowerCase();
       return ({ coin0, coin1 }: SafeFarmData) => {
-        const erc0 = {
-          name: 'SUI',
-          symbol: 'SUI',
-          type: 'ajdfhasjklf',
-        };
-        const erc1 = {
-          name: 'SUI',
-          symbol: 'SUI',
-          type: 'ajdfhasjklf',
-        };
-
         return (
           coin0.type.toLocaleLowerCase().includes(parsedSearch) ||
           coin1.type.toLocaleLowerCase().includes(parsedSearch) ||
-          erc0.name.toLocaleLowerCase().includes(parsedSearch) ||
-          erc1.name.toLocaleLowerCase().includes(parsedSearch) ||
-          erc0.symbol.toLocaleLowerCase().includes(parsedSearch) ||
-          erc1.symbol.toLocaleLowerCase().includes(parsedSearch)
+          coin0.symbol.toLocaleLowerCase().includes(parsedSearch) ||
+          coin1.symbol.toLocaleLowerCase().includes(parsedSearch)
         );
       };
     },
@@ -190,6 +177,7 @@ export const parseData = ({
   farms,
   ipxStorage,
   pools,
+  network,
 }: ParseDataArgs) => {
   if (!farms || !pools || !ipxStorage || !prices)
     return {
@@ -203,7 +191,7 @@ export const parseData = ({
   });
 
   return {
-    farms: FARM_TYPE_ARGS.map((x, index) =>
+    farms: FARM_TYPE_ARGS[network].map((x, index) =>
       parseFarmData({
         ipxStorage,
         farms,

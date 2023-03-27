@@ -1,8 +1,12 @@
 import { and, find, or, pathOr } from 'ramda';
 
-import { RECOMMENDED_POOLS } from '@/constants';
+import { Network, RECOMMENDED_POOLS } from '@/constants';
 
-export const getRecommendedPairId = (tokenA: string, tokenB: string): string =>
+export const getRecommendedPairId = (
+  network: Network,
+  tokenA: string,
+  tokenB: string
+): string =>
   pathOr(
     '',
     ['poolObjectId'],
@@ -12,6 +16,6 @@ export const getRecommendedPairId = (tokenA: string, tokenB: string): string =>
           and(token0.type === tokenA, token1.type === tokenB),
           and(token0.type === tokenB, token1.type === tokenA)
         ),
-      RECOMMENDED_POOLS
+      RECOMMENDED_POOLS[network]
     )
   );

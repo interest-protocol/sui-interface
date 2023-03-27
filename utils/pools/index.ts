@@ -5,14 +5,14 @@ import {
 } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 
-import { COINS_PACKAGE_ID, DEX_STORAGE_VOLATILE } from '@/constants';
+import { Network, OBJECT_RECORD } from '@/constants';
 import { CoinPriceRecord } from '@/hooks';
 import { CoinData } from '@/interface';
 import { AddressZero } from '@/sdk';
 import {
+  devNetMystenLabsProvider,
   getDevInspectData,
   getDevInspectType,
-  provider,
 } from '@/utils/provider';
 
 import { Pool } from './pools.types';
@@ -65,11 +65,16 @@ export const calculateLPCoinPrice = (
 };
 
 export const getVolatilePools = async (
+  network: Network,
+  provider: typeof devNetMystenLabsProvider,
   account: string | null,
   typeArgs: ReadonlyArray<string>,
   numOfPools: number
 ) => {
   const safeAccount = account || AddressZero;
+
+  const objects = OBJECT_RECORD[network];
+
   const tx = await new LocalTxnDataSerializer(
     provider
   ).serializeToBytesWithoutGasInfo(safeAccount, {
@@ -78,8 +83,8 @@ export const getVolatilePools = async (
       function: 'get_v_pools',
       gasBudget: 5000,
       module: 'interface',
-      packageObjectId: COINS_PACKAGE_ID,
-      arguments: [DEX_STORAGE_VOLATILE, numOfPools.toString()],
+      packageObjectId: objects.PACKAGE_ID,
+      arguments: [objects.DEX_STORAGE_VOLATILE, numOfPools.toString()],
       typeArguments: typeArgs,
     } as MoveCallTransaction,
   });

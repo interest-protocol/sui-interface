@@ -2,10 +2,10 @@ import { MoveCallTransaction } from '@mysten/sui.js/src/signers/txn-data-seriali
 import BigNumber from 'bignumber.js';
 import useSWR from 'swr';
 
-import { DEX_PACKAGE_ID, DEX_STORAGE_VOLATILE } from '@/constants';
+import { OBJECT_RECORD } from '@/constants';
+import { useProvider, useSuiNetwork } from '@/hooks';
 import { AddressZero } from '@/sdk';
 import { makeSWRKey } from '@/utils';
-import { provider } from '@/utils';
 
 import { UseGetRemoveLiquidityAmountsArgs } from './remove-liquidity-card.types';
 import { getAmountsFromDevInspect } from './remove-liquidity-card.utils';
@@ -17,6 +17,11 @@ export const useGetRemoveLiquidityAmounts = ({
   account,
   objectIds,
 }: UseGetRemoveLiquidityAmountsArgs) => {
+  const { provider } = useProvider();
+  const { network } = useSuiNetwork();
+
+  const objects = OBJECT_RECORD[network];
+
   const { isLoading, data, error } = useSWR(
     makeSWRKey(
       [account, token1Type, token0Type, account],
@@ -30,10 +35,10 @@ export const useGetRemoveLiquidityAmounts = ({
           function: 'remove_v_liquidity',
           gasBudget: 9000,
           module: 'interface',
-          packageObjectId: DEX_PACKAGE_ID,
+          packageObjectId: objects.PACKAGE_ID,
           typeArguments: [token0Type, token1Type],
           arguments: [
-            DEX_STORAGE_VOLATILE,
+            objects.DEX_STORAGE_VOLATILE,
             objectIds || [],
             new BigNumber(lpAmount)
               .decimalPlaces(0, BigNumber.ROUND_DOWN)
@@ -60,6 +65,6 @@ export const useGetRemoveLiquidityAmounts = ({
       isLoading &&
       !!+lpAmount,
     error,
-    data: getAmountsFromDevInspect(data, token0Type, token1Type),
+    data: getAmountsFromDevInspect(network, data, token0Type, token1Type),
   };
 };

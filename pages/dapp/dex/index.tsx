@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { LoadingPage } from '@/components';
 import { DEX_TOKENS_DATA } from '@/constants';
 import { ModalProvider } from '@/context/modal';
-import { useLocalStorage } from '@/hooks';
+import { useLocalStorage, useSuiNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import { TOKEN_SYMBOL } from '@/sdk';
 import { TokenModalMetadata } from '@/views/dapp/components/select-currency/select-currency.types';
@@ -23,14 +23,6 @@ const DEFAULT_UNKNOWN_DATA = {
   type: '',
 };
 
-const SUI =
-  find(propEq('symbol', TOKEN_SYMBOL.SUI), DEX_TOKENS_DATA) ??
-  DEFAULT_UNKNOWN_DATA;
-
-const ETH =
-  find(propEq('symbol', TOKEN_SYMBOL.ETH), DEX_TOKENS_DATA) ??
-  DEFAULT_UNKNOWN_DATA;
-
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
   loading: LoadingPage,
@@ -42,6 +34,15 @@ const Layout = dynamic(() => import('@/components/layout'), {
 });
 
 const DexPage: NextPageWithProps = ({ pageTitle }) => {
+  const { network } = useSuiNetwork();
+  const SUI =
+    find(propEq('symbol', TOKEN_SYMBOL.SUI), DEX_TOKENS_DATA[network]) ??
+    DEFAULT_UNKNOWN_DATA;
+
+  const ETH =
+    find(propEq('symbol', TOKEN_SYMBOL.ETH), DEX_TOKENS_DATA[network]) ??
+    DEFAULT_UNKNOWN_DATA;
+
   const [isOpen, setIsOpen] = useState(false);
   const [searchedToken] = useState<null | TokenModalMetadata>(null);
 

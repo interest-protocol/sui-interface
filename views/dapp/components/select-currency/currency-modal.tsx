@@ -12,10 +12,9 @@ import {
   Network,
 } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useLocalStorage } from '@/hooks';
+import { useLocalStorage, useProvider } from '@/hooks';
 import { CoinData, LocalTokenMetadataRecord } from '@/interface';
 import { TimesSVG } from '@/svg';
-import { provider } from '@/utils';
 
 import CurrencyModalBody from './currency-modal-body';
 import SearchToken from './search-token';
@@ -39,6 +38,8 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
   const [askedToken, setAskedToken] = useState<Web3ManagerSuiObject | null>(
     null
   );
+
+  const { provider } = useProvider();
 
   const { control, register, setValue } = useForm({
     defaultValues: {

@@ -6,8 +6,9 @@ import useSWR from 'swr';
 
 import { COIN_DECIMALS, Network } from '@/constants';
 import InputBalance from '@/elements/input-balance';
+import { useProvider, useSuiNetwork } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
-import { formatMoney, makeSWRKey, provider, ZERO_BIG_NUMBER } from '@/utils';
+import { formatMoney, makeSWRKey, ZERO_BIG_NUMBER } from '@/utils';
 
 import SwapSelectCurrency from '../../../components/select-currency';
 import { SwapManagerProps } from '../swap.types';
@@ -35,11 +36,15 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 }) => {
   const tokenOutValue = useWatch({ control, name: 'tokenOut.value' });
 
+  const { provider } = useProvider();
+  const { network } = useSuiNetwork();
+
   const devInspectTransactionPayload = getSwapPayload({
     tokenIn,
     coinsMap,
     tokenOutType,
     volatilesPools: volatilePoolsMap,
+    network,
   });
 
   const { error } = useSWR(
@@ -59,7 +64,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
     {
       onError: () => setError(true),
       onSuccess: (data) => {
-        const amount = findSwapAmountOutput(data, tokenOutType);
+        const amount = findSwapAmountOutput(network, data, tokenOutType);
         setError(false);
 
         setIsZeroSwapAmount(!amount);

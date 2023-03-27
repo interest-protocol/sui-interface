@@ -3,12 +3,13 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { Container } from '@/components';
-import { COINS, Network, RoutesEnum } from '@/constants';
+import { COINS, RoutesEnum } from '@/constants';
 import {
   useGetCoinsPrices,
   useGetFarms,
   useGetIPXStorage,
   useGetVolatilePools,
+  useSuiNetwork,
   useWeb3,
 } from '@/hooks';
 
@@ -34,6 +35,8 @@ const FarmDetails: FC<FarmDetailsProps> = ({
 
   const t = useTranslations();
 
+  const { network } = useSuiNetwork();
+
   const {
     account,
     coinsMap,
@@ -56,7 +59,7 @@ const FarmDetails: FC<FarmDetailsProps> = ({
     isLoading: farmsLoading,
   } = useGetFarms(
     account,
-    [farmMetadata.farmType].concat(FARM_TYPE_ARGS_EXTRA),
+    [farmMetadata.farmType].concat(FARM_TYPE_ARGS_EXTRA[network]),
     1
   );
 
@@ -68,7 +71,7 @@ const FarmDetails: FC<FarmDetailsProps> = ({
   } = useGetVolatilePools(
     account,
     [farmMetadata.coin0.type, farmMetadata.coin1.type].concat(
-      POOL_TYPE_ARGS_EXTRA
+      POOL_TYPE_ARGS_EXTRA[network]
     ),
     2
   );
@@ -76,7 +79,7 @@ const FarmDetails: FC<FarmDetailsProps> = ({
   const coinsPrices = useGetCoinsPrices([
     coin0.type,
     coin1.type,
-    COINS[Network.DEVNET].ETH.type,
+    COINS[network].ETH.type,
   ]);
 
   if (

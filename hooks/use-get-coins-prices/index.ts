@@ -4,6 +4,8 @@ import useSWR, { SWRConfiguration } from 'swr';
 import { COIN_MARKET_CAP_ID_RECORD, Network } from '@/constants';
 import { fetcher } from '@/utils';
 
+import { useSuiNetwork } from '../use-sui-network';
+
 interface CoinPricesRecordData {
   type: string;
   price: number;
@@ -15,13 +17,14 @@ export const useGetCoinsPrices = (
   coinTypes: ReadonlyArray<string>,
   config: SWRConfiguration = {}
 ) => {
+  const { network } = useSuiNetwork();
   const {
     data: rawData,
     error,
     isLoading,
   } = useSWR(
     `/api/v1/quote?id=${coinTypes
-      .map((coinType) => COIN_MARKET_CAP_ID_RECORD[Network.DEVNET][coinType])
+      .map((coinType) => COIN_MARKET_CAP_ID_RECORD[network][coinType])
       .filter((x) => x !== -1)}`,
     fetcher,
     {

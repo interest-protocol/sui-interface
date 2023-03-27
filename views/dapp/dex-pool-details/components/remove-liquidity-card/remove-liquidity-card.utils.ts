@@ -2,9 +2,10 @@ import { DevInspectResults } from '@mysten/sui.js/src/types';
 import { CoinBalanceChangeEvent } from '@mysten/sui.js/src/types/events';
 import { path, pathOr, propOr } from 'ramda';
 
-import { DEX_PACKAGE_ID } from '@/constants';
+import { Network, OBJECT_RECORD } from '@/constants';
 
 export const getAmountsFromDevInspect = (
+  network: Network,
   results: DevInspectResults | undefined,
   token0Type: string,
   token1Type: string
@@ -25,7 +26,8 @@ export const getAmountsFromDevInspect = (
 
     const packageId = propOr(null, 'packageId', coinBalanceChange);
 
-    if (!packageId || packageId !== DEX_PACKAGE_ID) return false;
+    if (!packageId || packageId !== OBJECT_RECORD[network].PACKAGE_ID)
+      return false;
 
     const coinType = propOr(null, 'coinType', coinBalanceChange);
 

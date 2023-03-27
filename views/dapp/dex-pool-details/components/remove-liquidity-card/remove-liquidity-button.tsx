@@ -5,9 +5,9 @@ import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import { DEX_PACKAGE_ID, DEX_STORAGE_VOLATILE } from '@/constants';
+import { OBJECT_RECORD } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useSuiNetwork, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import { showToast, showTXSuccessToast } from '@/utils';
 import { capitalize } from '@/utils';
@@ -28,11 +28,13 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
   const { account } = useWeb3();
   const { signAndExecuteTransaction } = useWalletKit();
   const [loading, setLoading] = useState(false);
+  const { network } = useSuiNetwork();
 
   const disabled = isFetching || loading;
 
   const handleRemoveLiquidity = async () => {
     try {
+      const objects = OBJECT_RECORD[network];
       if (disabled) return;
       setLoading(true);
 
@@ -47,10 +49,10 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
           function: 'remove_v_liquidity',
           gasBudget: 9000,
           module: 'interface',
-          packageObjectId: DEX_PACKAGE_ID,
+          packageObjectId: objects.PACKAGE_ID,
           typeArguments: [token0.type, token1.type],
           arguments: [
-            DEX_STORAGE_VOLATILE,
+            objects.DEX_STORAGE_VOLATILE,
             objectIds as string[],
             new BigNumber(lpAmount)
               .decimalPlaces(0, BigNumber.ROUND_DOWN)

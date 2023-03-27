@@ -8,4 +8,6 @@ export * from './use-get-volatile-pools';
 export * from './use-local-storage';
 export * from './use-locale';
 export * from './use-previous';
+export * from './use-provider';
+export * from './use-sui-network';
 export * from './use-web3';

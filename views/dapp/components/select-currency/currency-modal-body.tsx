@@ -14,8 +14,9 @@ import {
   RECOMMENDED_TOKENS_TYPES,
 } from '@/constants';
 import { Box, Typography } from '@/elements';
+import { useProvider } from '@/hooks';
 import { LineLoaderSVG } from '@/svg';
-import { capitalize, getSymbolByType, isType, provider } from '@/utils';
+import { capitalize, getSymbolByType, isType } from '@/utils';
 
 import { CurrencyDropdownBodyProps } from './select-currency.types';
 import { renderData } from './select-currency.utils';
@@ -46,6 +47,8 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
     (acc, elem) => ({ ...acc, [elem]: true }),
     {}
   );
+
+  const { provider } = useProvider();
 
   const [recommendedTokens, walletTokens, favorites] = useMemo(() => {
     const recommendedTokens: ReadonlyArray<Web3ManagerSuiObject> =

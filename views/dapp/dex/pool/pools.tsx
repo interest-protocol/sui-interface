@@ -3,7 +3,7 @@ import { FC, useMemo } from 'react';
 import { v4 } from 'uuid';
 
 import { Box, Typography } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useSuiNetwork, useWeb3 } from '@/hooks';
 
 import { filterPools } from './pool.utils';
 import PoolRow from './pool-row';
@@ -11,8 +11,12 @@ import PoolRow from './pool-row';
 const Pools: FC = () => {
   const { coinsMap } = useWeb3();
   const t = useTranslations();
+  const { network } = useSuiNetwork();
 
-  const { active, inactive } = useMemo(() => filterPools(coinsMap), [coinsMap]);
+  const { active, inactive } = useMemo(
+    () => filterPools(network, coinsMap),
+    [coinsMap, network]
+  );
 
   return (
     <Box pb="L" pt="M" mb="L" px="L" bg="foreground" borderRadius="M">
