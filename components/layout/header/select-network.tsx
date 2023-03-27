@@ -131,34 +131,51 @@ const SelectNetwork: FC = () => {
             </Box>
           ),
           displayOption: (
-            <Box pl="L" display="flex" alignItems="center">
-              <Box
-                as="span"
-                display="inline-block"
-                width="1.5rem"
-                height="1.5rem"
-                color="text"
-              >
-                <SuiSVG
-                  width="100%"
-                  height="100%"
-                  fill="currentColor"
-                  maxHeight="1.5rem"
-                  maxWidth="1.5rem"
-                />
+            <Box
+              px="L"
+              width="100%"
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Box display="flex" alignItems="center">
+                <Box
+                  as="span"
+                  display="inline-block"
+                  width="1.5rem"
+                  height="1.5rem"
+                  color="text"
+                >
+                  <SuiSVG
+                    width="100%"
+                    height="100%"
+                    fill="currentColor"
+                    maxHeight="1.5rem"
+                    maxWidth="1.5rem"
+                  />
+                </Box>
+                <Typography
+                  variant="normal"
+                  mx="M"
+                  whiteSpace="nowrap"
+                  color="text"
+                  display="flex"
+                >
+                  SUI TestNet
+                </Typography>
               </Box>
-              <Typography
-                variant="normal"
-                mx="M"
-                whiteSpace="nowrap"
-                color="text"
-                display="flex"
+              <Box
+                px="M"
+                py="S"
+                borderRadius="2rem"
+                color="textInverted"
+                bg="accentSecondary"
               >
-                SUI TestNet
-              </Typography>
+                {t('common.soon')}
+              </Box>
             </Box>
           ),
-          disabled: Network.TESTNET === network,
+          disabled: true,
         },
         {
           value: 'bsct',

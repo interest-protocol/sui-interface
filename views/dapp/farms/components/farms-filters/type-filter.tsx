@@ -44,7 +44,7 @@ const TypeFilter: FC<TypeFilterProps> = ({ control, setValue }) => {
         <Dropdown
           buttonMode
           mode="select"
-          bgSelected="accentAlternativeBackground"
+          bgSelected="accentOutline"
           emptyMessage={capitalize(t('common.notFound'))}
           suffix={
             <Box ml="L" width="0.6rem">
