@@ -1,5 +1,6 @@
 import {
   bcsForVersion,
+  JsonRpcProvider,
   LocalTxnDataSerializer,
   MoveCallTransaction,
 } from '@mysten/sui.js';
@@ -9,11 +10,7 @@ import { Network, OBJECT_RECORD } from '@/constants';
 import { CoinPriceRecord } from '@/hooks';
 import { CoinData } from '@/interface';
 import { AddressZero } from '@/sdk';
-import {
-  devNetMystenLabsProvider,
-  getDevInspectData,
-  getDevInspectType,
-} from '@/utils/provider';
+import { getDevInspectData, getDevInspectType } from '@/utils/provider';
 
 import { Pool } from './pools.types';
 
@@ -66,7 +63,7 @@ export const calculateLPCoinPrice = (
 
 export const getVolatilePools = async (
   network: Network,
-  provider: typeof devNetMystenLabsProvider,
+  provider: JsonRpcProvider,
   account: string | null,
   typeArgs: ReadonlyArray<string>,
   numOfPools: number

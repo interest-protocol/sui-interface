@@ -1,22 +1,19 @@
-import { bcsForVersion, MoveCallTransaction } from '@mysten/sui.js';
+import {
+  bcsForVersion,
+  JsonRpcProvider,
+  MoveCallTransaction,
+} from '@mysten/sui.js';
 import { LocalTxnDataSerializer } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 
 import {
   COIN_TYPE,
-  COINS_PACKAGE_ID,
   EPOCHS_PER_YEAR,
-  IPX_ACCOUNT_STORAGE,
-  IPX_STORAGE,
   Network,
+  OBJECT_RECORD,
 } from '@/constants';
 import { AddressZero, FixedPointMath } from '@/sdk';
-import {
-  getDevInspectData,
-  getDevInspectType,
-  provider,
-  ZERO_BIG_NUMBER,
-} from '@/utils';
+import { getDevInspectData, getDevInspectType, ZERO_BIG_NUMBER } from '@/utils';
 
 import { calculateLPCoinPrice } from '../pools';
 import {
@@ -91,10 +88,13 @@ export const calculateTVL = ({
 };
 
 export const getFarms = async (
+  network: Network,
+  provider: JsonRpcProvider,
   account: string | null,
   typeArgs: ReadonlyArray<string>,
   numOfFarms: number
 ): Promise<ReadonlyArray<Farm>> => {
+  const objects = OBJECT_RECORD[network];
   const safeAccount = account || AddressZero;
   const tx = await new LocalTxnDataSerializer(
     provider
@@ -104,10 +104,10 @@ export const getFarms = async (
       function: 'get_farms',
       gasBudget: 5000,
       module: 'interface',
-      packageObjectId: COINS_PACKAGE_ID,
+      packageObjectId: objects.PACKAGE_ID,
       arguments: [
-        IPX_STORAGE,
-        IPX_ACCOUNT_STORAGE,
+        objects.IPX_STORAGE,
+        objects.IPX_ACCOUNT_STORAGE,
         safeAccount,
         numOfFarms.toString(),
       ],

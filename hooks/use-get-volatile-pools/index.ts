@@ -14,7 +14,7 @@ export const useGetVolatilePools = (
   const { network } = useSuiNetwork();
   const { provider } = useProvider();
   return useSWR(
-    makeSWRKey([account, typeArgs, numOfPools], 'useGetVolatilePools'),
+    makeSWRKey([network, account, typeArgs, numOfPools], 'useGetVolatilePools'),
     async () =>
       getVolatilePools(network, provider, account, typeArgs, numOfPools),
     {
