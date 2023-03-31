@@ -56,9 +56,7 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
 
       if (type === COIN_TYPE[Network.DEVNET].SUI) {
         if (!account) throw new Error(t('error.accountNotFound'));
-        await provider.requestSuiFromFaucet(
-          '0xb088a18bea6bff0491794333d46f6e3645ff1ca307e7a4848c282729ee8dba8f'
-        );
+        await provider.requestSuiFromFaucet(account);
         return;
       }
 

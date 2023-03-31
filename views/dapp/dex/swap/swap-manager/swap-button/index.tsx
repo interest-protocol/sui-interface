@@ -1,4 +1,5 @@
-import { TransactionBlock } from '@mysten/sui.js';
+import { BCS } from '@mysten/bcs';
+import { bcs, MakeMoveVecTransaction, TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
@@ -13,12 +14,21 @@ import { useWeb3 } from '@/hooks';
 import { useNetwork } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
-import { capitalize, getCoinIds, showToast, showTXSuccessToast } from '@/utils';
+import {
+  capitalize,
+  showToast,
+  showTXSuccessToast,
+  throwTXIfNotSuccessful,
+} from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
 import { useGetVolatilePools } from '../../swap.hooks';
 import { SwapButtonProps } from '../../swap.types';
-import { findMarket, getAmountMinusSlippage } from '../../swap.utils';
+import {
+  findMarket,
+  getAmountMinusSlippage,
+  handleSwapFirstVectorParameter,
+} from '../../swap.utils';
 
 const SwapButton: FC<SwapButtonProps> = ({
   mutate,
@@ -38,8 +48,6 @@ const SwapButton: FC<SwapButtonProps> = ({
   const { signAndExecuteTransactionBlock } = useWalletKit();
   const { network } = useNetwork();
 
-  const objects = OBJECT_RECORD[network];
-
   const tokenInValue = useWatch({ control, name: 'tokenIn.value' });
 
   const isDisabled =
@@ -49,6 +57,7 @@ const SwapButton: FC<SwapButtonProps> = ({
 
   const handleSwap = async () => {
     try {
+      const objects = OBJECT_RECORD[network];
       if (disabled) return;
       setLoading(true);
 
@@ -57,6 +66,8 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       if (!tokenIn || !tokenOut)
         throw new Error(t('dexSwap.error.select2Tokens'));
+
+      if (!account) throw new Error(t('error.accountNotFound'));
 
       if (!+tokenIn.value) throw new Error(t('dexSwap.error.cannotSell0'));
 
@@ -83,32 +94,42 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       const minAmountOut = getAmountMinusSlippage(amountOut, slippage);
 
-      const transactionBlock = new TransactionBlock();
+      const txb = new TransactionBlock();
 
-      transactionBlock.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::swap`,
-        typeArguments: [
-          firstSwapObject.tokenInType,
-          firstSwapObject.tokenOutType,
-        ],
-        arguments: [
-          transactionBlock.object(objects.DEX_STORAGE_VOLATILE),
-          transactionBlock.object(objects.DEX_STORAGE_STABLE),
-          transactionBlock.pure(
-            getCoinIds(network, coinsMap, firstSwapObject.tokenInType)
-          ),
-          transactionBlock.pure([]),
-          transactionBlock.pure(amount.toString()),
-          transactionBlock.pure('0'),
-          transactionBlock.pure(minAmountOut.toString()),
-        ],
+      const firstVectorParameter = handleSwapFirstVectorParameter({
+        txb,
+        type: firstSwapObject.tokenInType,
+        coinsMap,
+        amount: amount.toString(),
       });
 
       // no hop swap
       if (!firstSwapObject.baseTokens.length) {
-        const tx = await signAndExecuteTransactionBlock({
-          transactionBlock,
+        txb.moveCall({
+          target: `${objects.PACKAGE_ID}::interface::swap`,
+          typeArguments: [
+            firstSwapObject.tokenInType,
+            firstSwapObject.tokenOutType,
+          ],
+          arguments: [
+            txb.object(objects.DEX_STORAGE_VOLATILE),
+            txb.object(objects.DEX_STORAGE_STABLE),
+            firstVectorParameter,
+            txb.pure([], 'vector<X>'),
+            txb.pure(amount.toString()),
+            txb.pure('0'),
+            txb.pure(minAmountOut.toString()),
+          ],
         });
+        const tx = await signAndExecuteTransactionBlock({
+          transactionBlock: txb,
+          chain: network,
+          requestType: 'WaitForEffectsCert',
+          options: { showEffects: true },
+        });
+
+        throwTXIfNotSuccessful(tx);
+
         await showTXSuccessToast(tx, network);
         incrementTX(account ?? '');
         return;
@@ -116,9 +137,8 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       // One Hop Swap
       if (firstSwapObject?.baseTokens.length === 1) {
-        const transactionBlock = new TransactionBlock();
-
-        transactionBlock.moveCall({
+        console.log(objects.DEX_STORAGE_STABLE);
+        txb.moveCall({
           target: `${objects.PACKAGE_ID}::interface::one_hop_swap`,
           typeArguments: [
             firstSwapObject.tokenInType,
@@ -126,28 +146,37 @@ const SwapButton: FC<SwapButtonProps> = ({
             firstSwapObject.baseTokens[0],
           ],
           arguments: [
-            transactionBlock.object(objects.DEX_STORAGE_VOLATILE),
-            transactionBlock.object(objects.DEX_STORAGE_STABLE),
-            transactionBlock.pure(
-              getCoinIds(network, coinsMap, firstSwapObject.tokenInType)
-            ),
-            transactionBlock.pure([]),
-            transactionBlock.pure(amount.toString()),
-            transactionBlock.pure('0'),
-            transactionBlock.pure(minAmountOut.toString()),
+            txb.object(objects.DEX_STORAGE_VOLATILE),
+            txb.object(objects.DEX_STORAGE_STABLE),
+            firstVectorParameter,
+            txb.makeMoveVec({ objects: [], type: 'T' }),
+            txb.pure(amount.toString()),
+            txb.pure('0'),
+            txb.pure(minAmountOut.toString()),
           ],
         });
 
         const tx = await signAndExecuteTransactionBlock({
-          transactionBlock,
+          transactionBlock: txb,
+          chain: network,
+          requestType: 'WaitForEffectsCert',
+          options: { showEffects: true, showInput: true },
         });
+
+        console.log('ONE HOP SWAP');
+
+        console.log(tx);
+
+        throwTXIfNotSuccessful(tx);
+
         await showTXSuccessToast(tx, network);
         incrementTX(account ?? '');
         return;
       }
 
       throw new Error(t('dexSwap.error.soonFeature'));
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new Error(t('dexSwap.error.failedToSwap'));
     } finally {
       resetInput();

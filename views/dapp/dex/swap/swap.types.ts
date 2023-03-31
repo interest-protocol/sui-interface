@@ -1,3 +1,4 @@
+import { TransactionBlock } from '@mysten/sui.js';
 import { DevInspectResults } from '@mysten/sui.js/src/types';
 import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { DynamicFieldInfo } from '@mysten/sui.js/src/types/dynamic_fields';
@@ -11,7 +12,10 @@ import {
 } from 'react-hook-form';
 import { KeyedMutator } from 'swr';
 
-import { Web3ManagerState } from '@/components/web3-manager/web3-manager.types';
+import {
+  CoinsMap,
+  Web3ManagerState,
+} from '@/components/web3-manager/web3-manager.types';
 import { Network } from '@/constants';
 import { CoinData } from '@/interface';
 
@@ -122,4 +126,11 @@ export interface FindMarketArgs {
 export interface FindSwapAmountOutput {
   packageId: string;
   data: DevInspectResults | undefined;
+}
+
+export interface HandleSwapFirstVectorParameter {
+  txb: TransactionBlock;
+  coinsMap: CoinsMap;
+  type: string;
+  amount: string;
 }

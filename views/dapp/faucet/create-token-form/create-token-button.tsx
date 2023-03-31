@@ -78,7 +78,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
         const tx = await signAndExecuteTransactionBlock({
           transactionBlock,
           chain: walletAccount?.chains[0] || Network.DEVNET,
-          options: { showBalanceChanges: true },
+          options: { showBalanceChanges: true, showEffects: true },
         });
 
         throwTXIfNotSuccessful(tx);
