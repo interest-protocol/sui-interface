@@ -9,7 +9,7 @@ import { capitalize } from '@/utils';
 
 const SelectNetwork: FC = () => {
   const t = useTranslations();
-  const { setNetwork } = useNetwork();
+  const { network, setNetwork } = useNetwork();
 
   return (
     <Dropdown
@@ -31,10 +31,10 @@ const SelectNetwork: FC = () => {
         </Typography>
       }
       header={capitalize(t('common.chooseNetwork'))}
-      defaultValue={`sui`}
+      defaultValue={network}
       data={[
         {
-          value: `sui`,
+          value: Network.DEVNET,
           onSelect: () => setNetwork(Network.DEVNET),
           displayTitle: (
             <Box display="flex" alignItems="center" py="S">
@@ -94,7 +94,7 @@ const SelectNetwork: FC = () => {
           ),
         },
         {
-          value: `sui-tesnet`,
+          value: Network.TESTNET,
           onSelect: () => setNetwork(Network.TESTNET),
           displayTitle: (
             <Box display="flex" alignItems="center" py="S">
