@@ -4,10 +4,11 @@ import { FC, useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
 import useSWR from 'swr';
 
-import { COIN_DECIMALS, Network } from '@/constants';
+import { COIN_DECIMALS, OBJECT_RECORD } from '@/constants';
 import InputBalance from '@/elements/input-balance';
+import { useNetwork, useProvider } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
-import { formatMoney, makeSWRKey, provider, ZERO_BIG_NUMBER } from '@/utils';
+import { formatMoney, makeSWRKey, ZERO_BIG_NUMBER } from '@/utils';
 
 import SwapSelectCurrency from '../../../components/select-currency';
 import { SwapManagerProps } from '../swap.types';
@@ -35,31 +36,40 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 }) => {
   const tokenOutValue = useWatch({ control, name: 'tokenOut.value' });
 
+  const { provider } = useProvider();
+  const { network } = useNetwork();
+
   const devInspectTransactionPayload = getSwapPayload({
     tokenIn,
     coinsMap,
     tokenOutType,
     volatilesPools: volatilePoolsMap,
+    network,
   });
 
   const { error } = useSWR(
     makeSWRKey(
       [account, devInspectTransactionPayload, tokenIn.value, tokenIn.type],
-      provider.devInspectTransaction.name
+      provider.devInspectTransactionBlock.name
     ),
     async () => {
       if (!devInspectTransactionPayload || !account || !+tokenIn.value) return;
       setIsFetchingSwapAmount(true);
 
-      return provider.devInspectTransaction(
-        account!,
-        devInspectTransactionPayload!
-      );
+      return provider.devInspectTransactionBlock({
+        transactionBlock: devInspectTransactionPayload!,
+        sender: account!,
+      });
     },
     {
-      onError: () => setError(true),
+      onError: () => {
+        setError(true);
+      },
       onSuccess: (data) => {
-        const amount = findSwapAmountOutput(data, tokenOutType);
+        const amount = findSwapAmountOutput({
+          data,
+          packageId: OBJECT_RECORD[network].PACKAGE_ID,
+        });
         setError(false);
 
         setIsZeroSwapAmount(!amount);
@@ -67,8 +77,8 @@ const SwapManagerField: FC<SwapManagerProps> = ({
           'tokenOut.value',
           FixedPointMath.toNumber(
             new BigNumber(amount),
-            COIN_DECIMALS[Network.DEVNET][tokenOutType],
-            COIN_DECIMALS[Network.DEVNET][tokenOutType]
+            COIN_DECIMALS[network][tokenOutType],
+            COIN_DECIMALS[network][tokenOutType]
           ).toString()
         );
         setIsFetchingSwapAmount(false);

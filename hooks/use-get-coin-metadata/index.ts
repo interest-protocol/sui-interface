@@ -1,14 +1,17 @@
 import useSWR, { SWRConfiguration } from 'swr';
 
-import { makeSWRKey, provider } from '@/utils';
+import { makeSWRKey } from '@/utils';
+
+import { useProvider } from '../use-provider';
 
 export const useGetCoinMetadata = (
   type: string,
   config: SWRConfiguration = {}
 ) => {
+  const { provider } = useProvider();
   const { data, isLoading, mutate, error } = useSWR(
     makeSWRKey([type], provider.getCoinMetadata.name),
-    () => provider.getCoinMetadata(type),
+    () => provider.getCoinMetadata({ coinType: type }),
     {
       revalidateOnMount: true,
       revalidateOnFocus: false,

@@ -10,12 +10,11 @@ import {
   BASE_TOKENS_TYPES,
   COIN_DECIMALS,
   COIN_SYMBOL,
-  Network,
   RECOMMENDED_TOKENS_TYPES,
 } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { LineLoaderSVG } from '@/svg';
-import { capitalize, getSymbolByType, isType, provider } from '@/utils';
+import { capitalize, getSymbolByType, isType } from '@/utils';
 
 import { CurrencyDropdownBodyProps } from './select-currency.types';
 import { renderData } from './select-currency.utils';
@@ -32,6 +31,8 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
   handleSelectCurrency,
   searchTokenModalState,
   handleRemoveFromFavorite,
+  provider,
+  network,
 }) => {
   const t = useTranslations();
   const [loading, setLoading] = useState(false);
@@ -49,12 +50,12 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
 
   const [recommendedTokens, walletTokens, favorites] = useMemo(() => {
     const recommendedTokens: ReadonlyArray<Web3ManagerSuiObject> =
-      RECOMMENDED_TOKENS_TYPES[Network.DEVNET].map(
+      RECOMMENDED_TOKENS_TYPES[network].map(
         (type) =>
           coinsMap[type] ?? {
             type,
-            symbol: COIN_SYMBOL[Network.DEVNET][type],
-            decimals: COIN_DECIMALS[Network.DEVNET][type],
+            symbol: COIN_SYMBOL[network][type],
+            decimals: COIN_DECIMALS[network][type],
             objects: [],
             totalBalance: BigNumber(0),
           }
@@ -62,8 +63,8 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
 
     const walletTokens = coins.filter(
       ({ type }) =>
-        !BASE_TOKENS_TYPES[Network.DEVNET].includes(type) &&
-        !RECOMMENDED_TOKENS_TYPES[Network.DEVNET].includes(type)
+        !BASE_TOKENS_TYPES[network].includes(type) &&
+        !RECOMMENDED_TOKENS_TYPES[network].includes(type)
     );
 
     const favorites = favoriteTokens.map(
@@ -82,7 +83,7 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
       ReadonlyArray<Web3ManagerSuiObject>,
       ReadonlyArray<Web3ManagerSuiObject>
     ];
-  }, [coinsMap, coins.length]);
+  }, [coinsMap, coins.length, network]);
 
   const filteredTokens = useMemo(() => {
     const array =
@@ -113,6 +114,7 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
     walletTokens,
     favorites,
     recommendedTokens,
+    network,
   ]);
 
   useEffect(() => {
@@ -127,7 +129,7 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
     ) {
       setLoading(true);
       provider
-        .getCoinMetadata(debouncedSearch)
+        .getCoinMetadata({ coinType: debouncedSearch })
         .then(({ symbol, decimals }) => {
           setAskedToken({
             symbol,

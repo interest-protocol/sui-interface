@@ -1,9 +1,11 @@
+import { JsonRpcProvider } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { FC, ReactNode } from 'react';
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 import { SVGProps } from '@/components/svg/svg.types';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
+import { Network } from '@/constants';
 import { CoinData } from '@/interface';
 
 export interface SearchFieldForm {
@@ -69,6 +71,10 @@ export interface CurrencyDropdownProps {
   coinsMap: Record<string, Web3ManagerSuiObject>;
   searchTokenModalState: TokenModalMetadata | null;
   onSelectCurrency: SelectCurrencyProps['onSelectCurrency'];
+
+  provider: JsonRpcProvider;
+
+  network: Network;
 }
 
 export interface SearchTokenProps {
@@ -89,4 +95,6 @@ export interface CurrencyDropdownBodyProps {
   searchTokenModalState: TokenModalMetadata | null;
   setFavoriteTokens: (data: string) => void;
   handleSelectCurrency: (data: CoinData) => Promise<void>;
+  provider: JsonRpcProvider;
+  network: Network;
 }

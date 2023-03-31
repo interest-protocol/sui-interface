@@ -24,12 +24,14 @@ import {
 export const getFarmsSVGByToken = (lpCoinType: string) =>
   FARMS_TOKENS_SVG_MAP[lpCoinType] ?? FARMS_TOKENS_SVG_MAP.default;
 
-export const makeFarmSymbol = (token0: string, token1: string): string =>
-  COIN_TYPE_TO_SYMBOL[Network.DEVNET][token1]
-    ? `${COIN_TYPE_TO_SYMBOL[Network.DEVNET][token0]}-${
-        COIN_TYPE_TO_SYMBOL[Network.DEVNET][token1]
-      }`
-    : COIN_TYPE_TO_SYMBOL[Network.DEVNET][token0] ?? TOKEN_SYMBOL.IPX;
+export const makeFarmSymbol = (
+  network: Network,
+  token0: string,
+  token1: string
+): string =>
+  COIN_TYPE_TO_SYMBOL[network][token1]
+    ? `${COIN_TYPE_TO_SYMBOL[network][token0]}-${COIN_TYPE_TO_SYMBOL[network][token1]}`
+    : COIN_TYPE_TO_SYMBOL[network][token0] ?? TOKEN_SYMBOL.IPX;
 
 const sortByIdFn = (x: SafeFarmData, y: SafeFarmData) => (x.id < y.id ? -1 : 1);
 
@@ -57,24 +59,11 @@ const searchOperation = cond([
     (search: string) => {
       const parsedSearch = search.toLocaleLowerCase();
       return ({ coin0, coin1 }: SafeFarmData) => {
-        const erc0 = {
-          name: 'SUI',
-          symbol: 'SUI',
-          type: 'ajdfhasjklf',
-        };
-        const erc1 = {
-          name: 'SUI',
-          symbol: 'SUI',
-          type: 'ajdfhasjklf',
-        };
-
         return (
           coin0.type.toLocaleLowerCase().includes(parsedSearch) ||
           coin1.type.toLocaleLowerCase().includes(parsedSearch) ||
-          erc0.name.toLocaleLowerCase().includes(parsedSearch) ||
-          erc1.name.toLocaleLowerCase().includes(parsedSearch) ||
-          erc0.symbol.toLocaleLowerCase().includes(parsedSearch) ||
-          erc1.symbol.toLocaleLowerCase().includes(parsedSearch)
+          coin0.symbol.toLocaleLowerCase().includes(parsedSearch) ||
+          coin1.symbol.toLocaleLowerCase().includes(parsedSearch)
         );
       };
     },
@@ -151,11 +140,12 @@ export const parseFarmData = ({
   farms,
   type,
   index,
+  network,
 }: ParseFarmDataArgs): SafeFarmData => {
   // First farm IPX has no pool
   const farm = farms[index];
   const pool = index > 0 ? pools[index - 1] : pools[index];
-  const farmMetadata = FARMS_RECORD[Network.DEVNET][type];
+  const farmMetadata = FARMS_RECORD[network][type];
   const tvl = calculateTVL({
     prices,
     ipxUSDPrice,
@@ -190,6 +180,7 @@ export const parseData = ({
   farms,
   ipxStorage,
   pools,
+  network,
 }: ParseDataArgs) => {
   if (!farms || !pools || !ipxStorage || !prices)
     return {
@@ -200,10 +191,11 @@ export const parseData = ({
   const ipxUSDPrice = calculateIPXUSDPrice({
     pool: pools[1],
     prices,
+    network,
   });
 
   return {
-    farms: FARM_TYPE_ARGS.map((x, index) =>
+    farms: FARM_TYPE_ARGS[network].map((x, index) =>
       parseFarmData({
         ipxStorage,
         farms,
@@ -212,6 +204,7 @@ export const parseData = ({
         ipxUSDPrice,
         type: x,
         index,
+        network,
       })
     ),
     totalAllocationPoints: new BigNumber(ipxStorage.totalAllocation),

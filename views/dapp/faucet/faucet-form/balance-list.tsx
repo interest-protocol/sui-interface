@@ -1,13 +1,11 @@
 import { v4 } from 'uuid';
 
-import { FAUCET_TOKENS, Network } from '@/constants';
+import { FAUCET_TOKENS } from '@/constants';
 import { Box } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useNetwork, useWeb3 } from '@/hooks';
 import { ZERO_BIG_NUMBER } from '@/utils';
 
 import ItemBalance from './item-balance';
-
-const tokens = FAUCET_TOKENS[Network.DEVNET];
 
 const DEFAULT_COIN = {
   type: 'Unknown',
@@ -19,6 +17,10 @@ const DEFAULT_COIN = {
 
 const BalanceList = () => {
   const { coinsMap } = useWeb3();
+
+  const { network } = useNetwork();
+
+  const tokens = FAUCET_TOKENS[network];
 
   return (
     <Box display="grid" overflowY="auto" gridGap="0.25rem" alignItems="start">

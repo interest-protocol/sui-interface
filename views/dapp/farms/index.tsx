@@ -9,6 +9,7 @@ import {
   useGetFarms,
   useGetIPXStorage,
   useGetVolatilePools,
+  useNetwork,
   useWeb3,
 } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
@@ -31,9 +32,10 @@ const Farms: FC<FarmsProps> = ({ form, desktopState }) => {
   const t = useTranslations();
 
   const { account } = useWeb3();
+  const { network } = useNetwork();
   const { data: ipxStorage, error: ipxStorageError } = useGetIPXStorage();
 
-  const prices = useGetCoinsPrices(COIN_PRICES);
+  const prices = useGetCoinsPrices(COIN_PRICES[network]);
 
   const handleSetDesktop = useCallback(() => {
     const mediaIsDesktop = window.matchMedia('(min-width: 64em)').matches;
@@ -42,12 +44,12 @@ const Farms: FC<FarmsProps> = ({ form, desktopState }) => {
 
   const { error: errorFarms, data: farms } = useGetFarms(
     account,
-    FILLED_FARM_TYPE_ARGS,
-    FARM_TYPE_ARGS.length
+    FILLED_FARM_TYPE_ARGS[network],
+    FARM_TYPE_ARGS[network].length
   );
   const { error: errorPools, data: pools } = useGetVolatilePools(
     account,
-    FILLED_POOL_TYPE_ARGS,
+    FILLED_POOL_TYPE_ARGS[network],
     7
   );
 
@@ -72,6 +74,7 @@ const Farms: FC<FarmsProps> = ({ form, desktopState }) => {
     farms,
     ipxStorage,
     prices: prices.data,
+    network,
   });
 
   return (

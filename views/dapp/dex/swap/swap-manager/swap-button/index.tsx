@@ -1,3 +1,4 @@
+import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
@@ -6,17 +7,13 @@ import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { incrementTX } from '@/api/analytics';
-import {
-  DEX_PACKAGE_ID,
-  DEX_STORAGE_STABLE,
-  DEX_STORAGE_VOLATILE,
-} from '@/constants';
+import { OBJECT_RECORD } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
 import { useWeb3 } from '@/hooks';
+import { useNetwork } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
-import { capitalize, showToast, showTXSuccessToast } from '@/utils';
-import { getCoinIds } from '@/utils';
+import { capitalize, getCoinIds, showToast, showTXSuccessToast } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
 import { useGetVolatilePools } from '../../swap.hooks';
@@ -38,14 +35,17 @@ const SwapButton: FC<SwapButtonProps> = ({
   const { account } = useWeb3();
   const { data } = useGetVolatilePools();
   const [loading, setLoading] = useState(false);
-  const { signAndExecuteTransaction } = useWalletKit();
+  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { network } = useNetwork();
+
+  const objects = OBJECT_RECORD[network];
 
   const tokenInValue = useWatch({ control, name: 'tokenIn.value' });
 
   const isDisabled =
     disabled ||
     !+tokenInValue ||
-    !findMarket(data, tokenInType, tokenOutType).length;
+    !findMarket({ data, tokenInType, tokenOutType, network }).length;
 
   const handleSwap = async () => {
     try {
@@ -60,7 +60,12 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       if (!+tokenIn.value) throw new Error(t('dexSwap.error.cannotSell0'));
 
-      const path = findMarket(data, tokenIn.type, tokenOut.type);
+      const path = findMarket({
+        data,
+        network,
+        tokenOutType: tokenOut.type,
+        tokenInType: tokenIn.type,
+      });
 
       if (!path.length) throw new Error(t('dexSwap.error.noMarket'));
 
@@ -78,61 +83,65 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       const minAmountOut = getAmountMinusSlippage(amountOut, slippage);
 
+      const transactionBlock = new TransactionBlock();
+
+      transactionBlock.moveCall({
+        target: `${objects.PACKAGE_ID}::interface::swap`,
+        typeArguments: [
+          firstSwapObject.tokenInType,
+          firstSwapObject.tokenOutType,
+        ],
+        arguments: [
+          transactionBlock.object(objects.DEX_STORAGE_VOLATILE),
+          transactionBlock.object(objects.DEX_STORAGE_STABLE),
+          transactionBlock.pure(
+            getCoinIds(network, coinsMap, firstSwapObject.tokenInType)
+          ),
+          transactionBlock.pure([]),
+          transactionBlock.pure(amount.toString()),
+          transactionBlock.pure('0'),
+          transactionBlock.pure(minAmountOut.toString()),
+        ],
+      });
+
       // no hop swap
       if (!firstSwapObject.baseTokens.length) {
-        const tx = await signAndExecuteTransaction({
-          kind: 'moveCall',
-          data: {
-            function: 'swap',
-            gasBudget: 9000,
-            module: 'interface',
-            packageObjectId: DEX_PACKAGE_ID,
-            typeArguments: [
-              firstSwapObject.tokenInType,
-              firstSwapObject.tokenOutType,
-            ],
-            arguments: [
-              DEX_STORAGE_VOLATILE,
-              DEX_STORAGE_STABLE,
-              getCoinIds(coinsMap, firstSwapObject.tokenInType),
-              [],
-              amount.toString(),
-              '0',
-              minAmountOut.toString(),
-            ],
-          },
+        const tx = await signAndExecuteTransactionBlock({
+          transactionBlock,
         });
-        await showTXSuccessToast(tx);
+        await showTXSuccessToast(tx, network);
         incrementTX(account ?? '');
         return;
       }
 
       // One Hop Swap
       if (firstSwapObject?.baseTokens.length === 1) {
-        const tx = await signAndExecuteTransaction({
-          kind: 'moveCall',
-          data: {
-            function: 'one_hop_swap',
-            gasBudget: 9000,
-            module: 'interface',
-            packageObjectId: DEX_PACKAGE_ID,
-            typeArguments: [
-              firstSwapObject.tokenInType,
-              firstSwapObject.tokenOutType,
-              firstSwapObject.baseTokens[0],
-            ],
-            arguments: [
-              DEX_STORAGE_VOLATILE,
-              DEX_STORAGE_STABLE,
-              getCoinIds(coinsMap, firstSwapObject.tokenInType),
-              [],
-              amount.toString(),
-              '0',
-              minAmountOut.toString(),
-            ],
-          },
+        const transactionBlock = new TransactionBlock();
+
+        transactionBlock.moveCall({
+          target: `${objects.PACKAGE_ID}::interface::one_hop_swap`,
+          typeArguments: [
+            firstSwapObject.tokenInType,
+            firstSwapObject.tokenOutType,
+            firstSwapObject.baseTokens[0],
+          ],
+          arguments: [
+            transactionBlock.object(objects.DEX_STORAGE_VOLATILE),
+            transactionBlock.object(objects.DEX_STORAGE_STABLE),
+            transactionBlock.pure(
+              getCoinIds(network, coinsMap, firstSwapObject.tokenInType)
+            ),
+            transactionBlock.pure([]),
+            transactionBlock.pure(amount.toString()),
+            transactionBlock.pure('0'),
+            transactionBlock.pure(minAmountOut.toString()),
+          ],
         });
-        await showTXSuccessToast(tx);
+
+        const tx = await signAndExecuteTransactionBlock({
+          transactionBlock,
+        });
+        await showTXSuccessToast(tx, network);
         incrementTX(account ?? '');
         return;
       }

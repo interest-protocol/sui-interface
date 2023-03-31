@@ -1,3 +1,4 @@
+import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
@@ -5,9 +6,9 @@ import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import { DEX_PACKAGE_ID, DEX_STORAGE_VOLATILE } from '@/constants';
+import { OBJECT_RECORD } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useNetwork, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import { showToast, showTXSuccessToast } from '@/utils';
 import { capitalize } from '@/utils';
@@ -26,13 +27,16 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
-  const { signAndExecuteTransaction } = useWalletKit();
+  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { network } = useNetwork();
+
   const [loading, setLoading] = useState(false);
 
   const disabled = isFetching || loading;
 
   const handleRemoveLiquidity = async () => {
     try {
+      const objects = OBJECT_RECORD[network];
       if (disabled) return;
       setLoading(true);
 
@@ -41,26 +45,32 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
       if (!+lpAmount || !objectIds.length)
         throw new Error(t('dexPoolPair.error.cannotWithdraw'));
 
-      const tx = await signAndExecuteTransaction({
-        kind: 'moveCall',
-        data: {
-          function: 'remove_v_liquidity',
-          gasBudget: 9000,
-          module: 'interface',
-          packageObjectId: DEX_PACKAGE_ID,
-          typeArguments: [token0.type, token1.type],
-          arguments: [
-            DEX_STORAGE_VOLATILE,
-            objectIds as string[],
+      const transactionBlock = new TransactionBlock();
+
+      transactionBlock.moveCall({
+        target: `${objects.PACKAGE_ID}::interface::remove_v_liquidity`,
+        typeArguments: [token0.type, token1.type],
+        arguments: [
+          transactionBlock.object(objects.DEX_STORAGE_VOLATILE),
+          transactionBlock.pure(objectIds || []),
+          transactionBlock.pure(
             new BigNumber(lpAmount)
               .decimalPlaces(0, BigNumber.ROUND_DOWN)
-              .toString(),
-            token0Amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
-            token1Amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
-          ],
-        },
+              .toString()
+          ),
+          transactionBlock.pure(
+            token0Amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()
+          ),
+          transactionBlock.pure(
+            token1Amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()
+          ),
+        ],
       });
-      await showTXSuccessToast(tx);
+
+      const tx = await signAndExecuteTransactionBlock({
+        transactionBlock,
+      });
+      await showTXSuccessToast(tx, network);
       incrementTX(account ?? '');
       return;
     } catch {

@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { TOKENS_SVG_MAP } from '@/constants';
 import { Theme } from '@/design-system';
 import { Box, Typography } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { useModal } from '@/hooks/use-modal';
 import { ArrowSVG } from '@/svg';
 
@@ -24,6 +24,8 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
   const { setModal, handleClose } = useModal();
   const { coinsMap, coins } = useWeb3();
   const SVG = TOKENS_SVG_MAP[type] ?? TOKENS_SVG_MAP.default;
+  const { network } = useNetwork();
+  const { provider } = useProvider();
 
   const openModal = () =>
     setModal(
@@ -35,6 +37,8 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
         currentToken={currentToken}
         onSelectCurrency={onSelectCurrency}
         searchTokenModalState={searchTokenModalState}
+        network={network}
+        provider={provider}
       />
     );
 

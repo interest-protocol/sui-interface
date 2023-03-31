@@ -79,7 +79,8 @@
     "fetchingContract": "Erro ao obter os contractos",
     "fetchingBalances": "Erro ao obter os saldos",
     "accountNotFound": "Nenhuma conta encontrada",
-    "tokenNotFound": "nenhum token encontrado"
+    "tokenNotFound": "nenhum token encontrado",
+    "chainNotFound": "Chain não encontrado"
   },
   "wallet": {
     "wrongNetwork": {

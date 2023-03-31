@@ -79,7 +79,8 @@
     "fetchingContract": "Error fetching contract",
     "fetchingBalances": "Error fetching balances",
     "accountNotFound": "No account found",
-    "tokenNotFound": "token not found"
+    "tokenNotFound": "token not found",
+    "chainNotFound": "Missing chain"
   },
   "wallet": {
     "wrongNetwork": {

@@ -10,6 +10,7 @@ import { v4 } from 'uuid';
 import { Routes, RoutesEnum } from '@/constants';
 import { Theme } from '@/design-system';
 import { Box, Button, Table, Typography } from '@/elements';
+import { useNetwork } from '@/hooks';
 import { FixedPointMath, TOKEN_SYMBOL } from '@/sdk';
 import { capitalize, formatDollars, formatMoney } from '@/utils';
 
@@ -27,6 +28,7 @@ import { FarmsTableProps } from './farms-table.types';
 const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
+  const { network } = useNetwork();
 
   const onlyFinished = useWatch({ control, name: 'onlyFinished' });
   const onlyStaked = useWatch({ control, name: 'onlyStaked' });
@@ -160,7 +162,11 @@ const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
                       <Typography variant="normal" ml="M">
                         {farm.id === 0
                           ? TOKEN_SYMBOL.IPX
-                          : makeFarmSymbol(farm.coin0.type, farm.coin1.type)}
+                          : makeFarmSymbol(
+                              network,
+                              farm.coin0.type,
+                              farm.coin1.type
+                            )}
                       </Typography>
                     </Box>,
                     loading || farm.tvl === -1 ? (
@@ -321,7 +327,11 @@ const FarmsTable: FC<FarmsTableProps> = ({ data, control, isDesktop }) => {
                         >
                           {farm.id === 0
                             ? TOKEN_SYMBOL.SUI
-                            : makeFarmSymbol(farm.coin0.type, farm.coin1.type)}
+                            : makeFarmSymbol(
+                                network,
+                                farm.coin0.type,
+                                farm.coin1.type
+                              )}
                         </Typography>
                       </Box>
                     ),

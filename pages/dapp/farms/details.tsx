@@ -1,14 +1,18 @@
 import type { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
+import { useTranslations } from 'next-intl';
 import { mergeDeepRight, pathOr } from 'ramda';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
-import { FARMS_RECORD, Network, StakeState } from '@/constants';
+import { FARMS_RECORD, StakeState } from '@/constants';
 import { ModalProvider } from '@/context/modal';
+import { Box, Typography } from '@/elements';
 import { withTypeGuard } from '@/HOC';
+import { useNetwork } from '@/hooks';
 import { NextPageDefaultProps } from '@/interface';
+import { TimesSVG } from '@/svg';
 import FarmDetails from '@/views/dapp/farm-details';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
@@ -29,7 +33,8 @@ const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
   type,
   pageTitle,
 }) => {
-  const farmMetadata = pathOr(null, [Network.DEVNET, type], FARMS_RECORD);
+  const { network } = useNetwork();
+  const farmMetadata = pathOr(null, [network, type], FARMS_RECORD);
 
   const [modalState, setModalState] = useState({
     isOpen: false,
@@ -40,11 +45,26 @@ const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
     defaultValues: { amount: '0' },
   });
 
+  const t = useTranslations();
+
   if (!farmMetadata)
     return (
       <Web3Manager>
         <Layout pageTitle={pageTitle}>
-          <div>error no farm data</div>
+          <Box
+            my="XXXL"
+            display="flex"
+            alignItems="center"
+            flexDirection="column"
+            justifyContent="center"
+          >
+            <Box color="error">
+              <TimesSVG width="10rem" maxHeight="10rem" maxWidth="10rem" />
+            </Box>
+            <Typography variant="normal">
+              {t('farmsDetails.errors.farm')}
+            </Typography>
+          </Box>
         </Layout>
       </Web3Manager>
     );

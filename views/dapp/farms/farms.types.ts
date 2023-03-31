@@ -7,7 +7,7 @@ import {
   UseFormSetValue,
 } from 'react-hook-form';
 
-import { FarmMetadataType } from '@/constants';
+import { FarmMetadataType, Network } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
 import { Farm } from '@/utils/farms/farms.types';
 import { Pool } from '@/utils/pools/pools.types';
@@ -56,6 +56,7 @@ export interface ParseDataArgs {
   pools: ReadonlyArray<Pool> | undefined;
   prices: CoinPriceRecord;
   ipxStorage: IPXStorage;
+  network: Network;
 }
 
 export interface ParseErrorArgs {
@@ -73,6 +74,7 @@ export interface ParseFarmDataArgs {
   farms: ReadonlyArray<Farm>;
   type: string;
   index: number;
+  network: Network;
 }
 
 export interface ParseFarmDataReturn {

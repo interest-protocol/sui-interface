@@ -5,7 +5,7 @@ import {
   Web3ManagerState,
   Web3ManagerSuiObject,
 } from '@/components/web3-manager/web3-manager.types';
-import { COIN_TYPE, Network } from '@/constants';
+import { COIN_TYPE, GAS_COST, Network } from '@/constants';
 
 export const addCoinTypeToTokenType = (x: string): string =>
   `0x2::coin::Coin<${x}>`;
@@ -55,18 +55,20 @@ export const getCoinTypeFromSupply = (x: string) => {
 };
 
 export const getCoinIds = (
+  network: Network,
   coinsMap: Web3ManagerState['coinsMap'],
   type: string,
-  gasCost = 9000
+  gasCost?: number
 ) => {
+  const cost = gasCost ? gasCost : GAS_COST[network];
   if (isEmpty(coinsMap)) return [];
   const object = coinsMap[type];
   if (!object) return [];
-  if (type === COIN_TYPE[Network.DEVNET].SUI) {
+  if (type === COIN_TYPE[network].SUI) {
     const suiObjects = [...object.objects];
     const gasObjectIndex = suiObjects
       .sort((a, b) => (a.balance > b.balance ? 1 : -1))
-      .findIndex((elem) => elem.balance >= gasCost);
+      .findIndex((elem) => elem.balance >= cost);
 
     return suiObjects
       .filter((_, index) => index !== gasObjectIndex)

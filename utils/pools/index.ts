@@ -1,21 +1,13 @@
-import {
-  bcsForVersion,
-  LocalTxnDataSerializer,
-  MoveCallTransaction,
-} from '@mysten/sui.js';
+import { bcsForVersion, TransactionBlock } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 
-import { COINS_PACKAGE_ID, DEX_STORAGE_VOLATILE } from '@/constants';
+import { OBJECT_RECORD } from '@/constants';
 import { CoinPriceRecord } from '@/hooks';
 import { CoinData } from '@/interface';
 import { AddressZero } from '@/sdk';
-import {
-  getDevInspectData,
-  getDevInspectType,
-  provider,
-} from '@/utils/provider';
+import { getDevInspectData, getDevInspectType } from '@/utils/provider';
 
-import { Pool } from './pools.types';
+import { GetVolatilePoolsArgs, Pool } from './pools.types';
 
 export const getOptimalCoin0Value = (
   coinYAmount: BigNumber,
@@ -64,26 +56,30 @@ export const calculateLPCoinPrice = (
   return 0;
 };
 
-export const getVolatilePools = async (
-  account: string | null,
-  typeArgs: ReadonlyArray<string>,
-  numOfPools: number
-) => {
+export const getVolatilePools = async ({
+  account,
+  numOfPools,
+  provider,
+  typeArgs,
+  network,
+}: GetVolatilePoolsArgs) => {
   const safeAccount = account || AddressZero;
-  const tx = await new LocalTxnDataSerializer(
-    provider
-  ).serializeToBytesWithoutGasInfo(safeAccount, {
-    kind: 'moveCall',
-    data: {
-      function: 'get_v_pools',
-      gasBudget: 5000,
-      module: 'interface',
-      packageObjectId: COINS_PACKAGE_ID,
-      arguments: [DEX_STORAGE_VOLATILE, numOfPools.toString()],
-      typeArguments: typeArgs,
-    } as MoveCallTransaction,
+
+  const transactionBlock = new TransactionBlock();
+
+  transactionBlock.moveCall({
+    target: `${OBJECT_RECORD[network].PACKAGE_ID}::interface::get_v_pools`,
+    typeArguments: typeArgs,
+    arguments: [
+      transactionBlock.object(OBJECT_RECORD[network].DEX_STORAGE_VOLATILE),
+      transactionBlock.pure(numOfPools.toString()),
+    ],
   });
-  const data = await provider.devInspectTransaction(safeAccount, tx);
+
+  const data = await provider.devInspectTransactionBlock({
+    sender: safeAccount,
+    transactionBlock,
+  });
   const poolsArray = bcsForVersion(await provider.getRpcApiVersion()).de(
     getDevInspectType(data),
     Uint8Array.from(getDevInspectData(data))

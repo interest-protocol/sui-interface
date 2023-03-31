@@ -9,6 +9,7 @@ import {
   useGetFarms,
   useGetIPXStorage,
   useGetVolatilePools,
+  useNetwork,
   useWeb3,
 } from '@/hooks';
 
@@ -41,6 +42,8 @@ const FarmDetails: FC<FarmDetailsProps> = ({
     error: web3Error,
   } = useWeb3();
 
+  const { network } = useNetwork();
+
   const { data: ipxStorage, error: ipxStorageError } = useGetIPXStorage();
 
   const {
@@ -56,7 +59,7 @@ const FarmDetails: FC<FarmDetailsProps> = ({
     isLoading: farmsLoading,
   } = useGetFarms(
     account,
-    [farmMetadata.farmType].concat(FARM_TYPE_ARGS_EXTRA),
+    [farmMetadata.farmType].concat(FARM_TYPE_ARGS_EXTRA[network]),
     1
   );
 
@@ -68,7 +71,7 @@ const FarmDetails: FC<FarmDetailsProps> = ({
   } = useGetVolatilePools(
     account,
     [farmMetadata.coin0.type, farmMetadata.coin1.type].concat(
-      POOL_TYPE_ARGS_EXTRA
+      POOL_TYPE_ARGS_EXTRA[network]
     ),
     2
   );

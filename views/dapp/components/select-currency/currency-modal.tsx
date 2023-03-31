@@ -5,17 +5,11 @@ import { useForm } from 'react-hook-form';
 
 import { Switch } from '@/components';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
-import {
-  BASE_TOKENS_TYPES,
-  COIN_DECIMALS,
-  COIN_SYMBOL,
-  Network,
-} from '@/constants';
+import { BASE_TOKENS_TYPES, COIN_DECIMALS, COIN_SYMBOL } from '@/constants';
 import { Box, Button } from '@/elements';
 import { useLocalStorage } from '@/hooks';
 import { CoinData, LocalTokenMetadataRecord } from '@/interface';
 import { TimesSVG } from '@/svg';
-import { provider } from '@/utils';
 
 import CurrencyModalBody from './currency-modal-body';
 import SearchToken from './search-token';
@@ -32,6 +26,8 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
   currentToken,
   onSelectCurrency,
   searchTokenModalState,
+  provider,
+  network,
 }) => {
   const t = useTranslations();
   const [fetchingData, setFetchingData] = useState(false);
@@ -81,7 +77,9 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
       }
 
       setFetchingData(true);
-      const { symbol, decimals } = await provider.getCoinMetadata(args.type);
+      const { symbol, decimals } = await provider.getCoinMetadata({
+        coinType: args.type,
+      });
 
       const tokenMetaData = {
         symbol: symbol,
@@ -121,19 +119,15 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
     }
   };
 
-  const baseTokens = useMemo(
-    () =>
-      BASE_TOKENS_TYPES[Network.DEVNET].map(
-        (type) =>
-          coinsMap[type] ?? {
-            type,
-            objects: [],
-            totalBalance: BigNumber(0),
-            symbol: COIN_SYMBOL[Network.DEVNET][type],
-            decimals: COIN_DECIMALS[Network.DEVNET][type],
-          }
-      ),
-    []
+  const baseTokens = BASE_TOKENS_TYPES[network].map(
+    (type) =>
+      coinsMap[type] ?? {
+        type,
+        objects: [],
+        totalBalance: BigNumber(0),
+        symbol: COIN_SYMBOL[network][type],
+        decimals: COIN_DECIMALS[network][type],
+      }
   );
 
   const handleRemoveFromFavorite = (type: string) => {
@@ -215,6 +209,8 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
           handleSelectCurrency={handleSelectCurrency}
           searchTokenModalState={searchTokenModalState}
           handleRemoveFromFavorite={handleRemoveFromFavorite}
+          provider={provider}
+          network={network}
         />
       </Box>
     </>

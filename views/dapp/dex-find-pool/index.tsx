@@ -5,7 +5,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { Container } from '@/components';
 import { DEX_TOKENS_DATA } from '@/constants';
 import { Typography } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useNetwork, useWeb3 } from '@/hooks';
 import { AddressZero } from '@/sdk';
 
 import { GoBack } from '../components';
@@ -18,11 +18,13 @@ import FindPoolButton from './find-pool-button';
 const DEXFindPool: FC = () => {
   const { account } = useWeb3();
   const t = useTranslations();
+  const { network } = useNetwork();
+
   const [isCreatingPair, setCreatingPair] = useState(false);
   const { setValue, control, getValues, register } = useForm<DexFindPoolForm>({
     defaultValues: {
-      tokenA: { ...DEX_TOKENS_DATA[0], value: '0' },
-      tokenB: { ...DEX_TOKENS_DATA[1], value: '0' },
+      tokenA: { ...DEX_TOKENS_DATA[network][0], value: '0' },
+      tokenB: { ...DEX_TOKENS_DATA[network][1], value: '0' },
     },
   });
 

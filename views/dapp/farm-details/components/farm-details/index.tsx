@@ -4,6 +4,7 @@ import { v4 } from 'uuid';
 
 import Box from '@/elements/box';
 import Typography from '@/elements/typography';
+import { useNetwork } from '@/hooks';
 import { TOKEN_SYMBOL } from '@/sdk';
 import { capitalize, formatDollars } from '@/utils';
 import {
@@ -15,6 +16,7 @@ import { DetailsProps } from './farm-details.types';
 
 const Details: FC<DetailsProps> = ({ farm }) => {
   const t = useTranslations();
+  const { network } = useNetwork();
   return (
     <Box>
       <Box display="flex" alignItems="center" px="L">
@@ -34,9 +36,11 @@ const Details: FC<DetailsProps> = ({ farm }) => {
         <Typography variant="normal" textTransform="capitalize">
           {farm.id === 0
             ? `${TOKEN_SYMBOL.IPX} ${capitalize(t('common.pool'))} `
-            : `${makeFarmSymbol(farm.coin0.type, farm.coin1.type)} ${capitalize(
-                t('common.farm')
-              )} `}
+            : `${makeFarmSymbol(
+                network,
+                farm.coin0.type,
+                farm.coin1.type
+              )} ${capitalize(t('common.farm'))} `}
           {t('farmsDetails.title')}
         </Typography>
         <Typography

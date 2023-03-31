@@ -1,22 +1,9 @@
-import { bcsForVersion, MoveCallTransaction } from '@mysten/sui.js';
-import { LocalTxnDataSerializer } from '@mysten/sui.js';
+import { bcsForVersion, TransactionBlock } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 
-import {
-  COIN_TYPE,
-  COINS_PACKAGE_ID,
-  EPOCHS_PER_YEAR,
-  IPX_ACCOUNT_STORAGE,
-  IPX_STORAGE,
-  Network,
-} from '@/constants';
+import { COIN_TYPE, EPOCHS_PER_YEAR, OBJECT_RECORD } from '@/constants';
 import { AddressZero, FixedPointMath } from '@/sdk';
-import {
-  getDevInspectData,
-  getDevInspectType,
-  provider,
-  ZERO_BIG_NUMBER,
-} from '@/utils';
+import { getDevInspectData, getDevInspectType, ZERO_BIG_NUMBER } from '@/utils';
 
 import { calculateLPCoinPrice } from '../pools';
 import {
@@ -24,6 +11,7 @@ import {
   CalculateIPXUSDPriceArgs,
   CalculateTVLArgs,
   Farm,
+  GetFarmArgs,
 } from './farms.types';
 
 export const calculateAPR = ({
@@ -46,6 +34,7 @@ export const calculateAPR = ({
 export const calculateIPXUSDPrice = ({
   pool,
   prices,
+  network,
 }: CalculateIPXUSDPriceArgs) => {
   // V-ETH-IPX is hardcoded on index 2
 
@@ -53,7 +42,7 @@ export const calculateIPXUSDPrice = ({
   const ipxBalance = pool.balanceY;
 
   const ipxInEth = ethBalance.div(ipxBalance).multipliedBy(1e9);
-  const ethType = COIN_TYPE[Network.DEVNET].ETH;
+  const ethType = COIN_TYPE[network].ETH;
 
   // TODO take into account eth decimals upon deployment
   return ipxInEth.multipliedBy(prices[ethType]?.price ?? 0).toNumber();
@@ -90,31 +79,33 @@ export const calculateTVL = ({
   }
 };
 
-export const getFarms = async (
-  account: string | null,
-  typeArgs: ReadonlyArray<string>,
-  numOfFarms: number
-): Promise<ReadonlyArray<Farm>> => {
+export const getFarms = async ({
+  numOfFarms,
+  provider,
+  network,
+  typeArgs,
+  account,
+}: GetFarmArgs): Promise<ReadonlyArray<Farm>> => {
+  const objects = OBJECT_RECORD[network];
   const safeAccount = account || AddressZero;
-  const tx = await new LocalTxnDataSerializer(
-    provider
-  ).serializeToBytesWithoutGasInfo(safeAccount, {
-    kind: 'moveCall',
-    data: {
-      function: 'get_farms',
-      gasBudget: 5000,
-      module: 'interface',
-      packageObjectId: COINS_PACKAGE_ID,
-      arguments: [
-        IPX_STORAGE,
-        IPX_ACCOUNT_STORAGE,
-        safeAccount,
-        numOfFarms.toString(),
-      ],
-      typeArguments: typeArgs,
-    } as MoveCallTransaction,
+
+  const transactionBlock = new TransactionBlock();
+
+  transactionBlock.moveCall({
+    target: `${OBJECT_RECORD[network].PACKAGE_ID}::interface::get_farms`,
+    typeArguments: typeArgs,
+    arguments: [
+      transactionBlock.object(objects.IPX_STORAGE),
+      transactionBlock.object(objects.IPX_ACCOUNT_STORAGE),
+      transactionBlock.pure(safeAccount),
+      transactionBlock.pure(numOfFarms.toString()),
+    ],
   });
-  const data = await provider.devInspectTransaction(safeAccount, tx);
+
+  const data = await provider.devInspectTransactionBlock({
+    transactionBlock,
+    sender: safeAccount,
+  });
 
   const farmsArray = bcsForVersion(await provider.getRpcApiVersion()).de(
     getDevInspectType(data),

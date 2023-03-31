@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { Container } from '@/components';
+import Web3Manager from '@/components/web3-manager';
 import { Box, Button, Typography } from '@/elements';
 import { useModal } from '@/hooks/use-modal';
 
@@ -16,7 +17,11 @@ const Faucet: FC<FaucetProps> = ({ form }) => {
   const { setModal, handleClose } = useModal();
 
   const openModal = () =>
-    setModal(<CreateTokenForm handleCloseModal={handleClose} />);
+    setModal(
+      <Web3Manager>
+        <CreateTokenForm handleCloseModal={handleClose} />
+      </Web3Manager>
+    );
 
   return (
     <Box display="flex" flexDirection="column">

@@ -2,15 +2,22 @@ import useSWR, { SWRConfiguration } from 'swr';
 
 import { getVolatilePools, makeSWRKey } from '@/utils';
 
+import { useNetwork } from '../use-network';
+import { useProvider } from '../use-provider';
+
 export const useGetVolatilePools = (
   account: string | null,
-  typeArgs: ReadonlyArray<string>,
+  typeArgs: Array<string>,
   numOfPools: number,
   config: SWRConfiguration = {}
-) =>
-  useSWR(
+) => {
+  const { network } = useNetwork();
+  const { provider } = useProvider();
+
+  return useSWR(
     makeSWRKey([account, typeArgs, numOfPools], 'useGetVolatilePools'),
-    async () => getVolatilePools(account, typeArgs, numOfPools),
+    async () =>
+      getVolatilePools({ account, numOfPools, network, typeArgs, provider }),
     {
       revalidateOnMount: true,
       revalidateOnFocus: false,
@@ -19,3 +26,4 @@ export const useGetVolatilePools = (
       ...config,
     }
   );
+};

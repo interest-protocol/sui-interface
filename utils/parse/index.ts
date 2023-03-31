@@ -1,6 +1,4 @@
-import { always, ifElse, isNil, toString, tryCatch } from 'ramda';
-
-export const safeStringify = tryCatch(JSON.stringify, always(''));
+import { always, ifElse, isNil, toString } from 'ramda';
 
 export const makeSWRKey = (
   args: ReadonlyArray<unknown>,

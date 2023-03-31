@@ -1,8 +1,9 @@
-import { GetObjectDataResponse } from '@mysten/sui.js/src/types';
+import { SuiObjectResponse } from '@mysten/sui.js';
 import { pathOr } from 'ramda';
 import useSWR from 'swr';
 
-import { makeSWRKey, provider } from '@/utils';
+import { useProvider } from '@/hooks';
+import { makeSWRKey } from '@/utils';
 
 import { Pool } from './dex-pool-details.types';
 
@@ -16,10 +17,10 @@ const DEFAULT_POOL: Pool = {
   token1Type: '',
 };
 
-const processVolatilePool = (data: undefined | GetObjectDataResponse): Pool => {
+const processVolatilePool = (data: undefined | SuiObjectResponse): Pool => {
   if (!data) return DEFAULT_POOL;
 
-  const poolType: string = pathOr('', ['details', 'data', 'type'], data);
+  const poolType: string = pathOr('', ['data', 'type'], data);
 
   if (!poolType) return DEFAULT_POOL;
 
@@ -29,16 +30,16 @@ const processVolatilePool = (data: undefined | GetObjectDataResponse): Pool => {
   const y = tokens[1];
   const token1Type = y.substring(1, y.length - 1);
   return {
-    token0Balance: pathOr('', ['details', 'data', 'fields', 'balance_x'], data),
-    token1Balance: pathOr('', ['details', 'data', 'fields', 'balance_y'], data),
+    token0Balance: pathOr('', ['data', 'content', 'fields', 'balance_x'], data),
+    token1Balance: pathOr('', ['data', 'content', 'fields', 'balance_y'], data),
     lpCoinSupply: pathOr(
       '',
-      ['details', 'data', 'fields', 'lp_coin_supply', 'fields', 'value'],
+      ['data', 'content', 'fields', 'lp_coin_supply', 'fields', 'value'],
       data
     ),
     lpCoin: pathOr(
       '',
-      ['details', 'data', 'fields', 'lp_coin_supply', 'type'],
+      ['data', 'content', 'fields', 'lp_coin_supply', 'type'],
       data
     ),
     poolType,
@@ -48,9 +49,14 @@ const processVolatilePool = (data: undefined | GetObjectDataResponse): Pool => {
 };
 
 export const useGetVolatilePool = (objectId: string) => {
+  const { provider } = useProvider();
   const { data, isLoading, mutate, error } = useSWR(
     makeSWRKey([objectId], provider.getObject.name),
-    () => provider.getObject(objectId),
+    () =>
+      provider.getObject({
+        id: objectId,
+        options: { showContent: true, showType: true },
+      }),
     {
       revalidateOnMount: true,
       revalidateOnFocus: false,

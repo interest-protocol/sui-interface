@@ -2,20 +2,40 @@ import { Connection, devnetConnection, JsonRpcProvider } from '@mysten/sui.js';
 import { DevInspectResults } from '@mysten/sui.js/src/types';
 import { head, nth, pathOr, propOr } from 'ramda';
 
-const connection = process.env.NEXT_PUBLIC_SUI_RPC_URL
-  ? new Connection({ fullnode: process.env.NEXT_PUBLIC_SUI_RPC_URL })
-  : devnetConnection;
+export const devNetProvider = new JsonRpcProvider(
+  process.env.NEXT_PUBLIC_SUI_DEVNET_RPC_URL
+    ? new Connection({
+        fullnode: process.env.NEXT_PUBLIC_SUI_DEVNET_RPC_URL,
+        faucet: devnetConnection.faucet,
+      })
+    : devnetConnection
+);
 
-export const provider = new JsonRpcProvider(connection);
-
-export const wsProvider = new JsonRpcProvider(
+export const testNetProvider = new JsonRpcProvider(
   new Connection({
-    fullnode:
-      process.env.NEXT_PUBLIC_SUI_WS_URL || 'wss://fullnode.devnet.sui.io:443',
+    fullnode: process.env.NEXT_PUBLIC_SUI_TESTNET_RPC_URL
+      ? process.env.NEXT_PUBLIC_SUI_TESTNET_RPC_URL
+      : 'https://fullnode.testnet.sui.io:443',
+    faucet: 'https://faucet.testnet.sui.io/gas',
   })
 );
 
-export const mystenLabsProvider = new JsonRpcProvider(devnetConnection);
+export const devNetWSProvider = new JsonRpcProvider(
+  new Connection({
+    fullnode:
+      process.env.NEXT_PUBLIC_SUI_DEVNET_WS_URL || devnetConnection.websocket,
+    faucet: devnetConnection.faucet,
+  })
+);
+
+export const testNetWSProvider = new JsonRpcProvider(
+  new Connection({
+    fullnode:
+      process.env.NEXT_PUBLIC_SUI_TESTNET_WS_URL ||
+      'wss://fullnode.testnet.sui.io:443',
+    faucet: 'https://faucet.testnet.sui.io/gas',
+  })
+);
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

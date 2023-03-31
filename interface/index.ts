@@ -48,3 +48,8 @@ export interface NextPageDefaultProps {
 export type NextPageWithProps = NextPage<NextPageDefaultProps>;
 
 export type LocalTokenMetadataRecord = Record<string, CoinData>;
+
+export interface CompiledModules {
+  dependencies: ReadonlyArray<string>;
+  modules: ReadonlyArray<string>;
+}

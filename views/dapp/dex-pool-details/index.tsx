@@ -4,12 +4,13 @@ import { isNil, propOr } from 'ramda';
 import { FC, useEffect } from 'react';
 
 import { Container, LoadingPage } from '@/components';
-import { COIN_TYPE_TO_COIN, Network, TOKENS_SVG_MAP } from '@/constants';
+import { COIN_TYPE_TO_COIN, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
 import {
   useGetCoinMetadata,
   useLocale,
   useLocalStorage,
+  useNetwork,
   useWeb3,
 } from '@/hooks';
 import { CoinData, LocalTokenMetadataRecord } from '@/interface';
@@ -42,6 +43,8 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
     error: web3Error,
   } = useWeb3();
 
+  const { network } = useNetwork();
+
   const [localTokens, setLocalTokens] =
     useLocalStorage<LocalTokenMetadataRecord>(
       'sui-interest-tokens-metadata',
@@ -61,14 +64,14 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
     (propOr(
       null,
       volatilePool.token0Type,
-      COIN_TYPE_TO_COIN[Network.DEVNET]
+      COIN_TYPE_TO_COIN[network]
     ) as CoinData) ?? propOr(null, volatilePool.token0Type, localTokens);
 
   const unsafeToken1 =
     (propOr(
       null,
       volatilePool.token1Type,
-      COIN_TYPE_TO_COIN[Network.DEVNET]
+      COIN_TYPE_TO_COIN[network]
     ) as CoinData) ?? propOr(null, volatilePool.token1Type, localTokens);
 
   const { data: coin0Metadata, error: coin0MetadataError } = useGetCoinMetadata(

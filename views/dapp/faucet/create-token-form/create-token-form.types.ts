@@ -24,10 +24,3 @@ export interface CreateTokenButtonProps {
   handleCloseModal: () => void;
   control: Control<TCreateTokenForm>;
 }
-
-export type CreateTokenTXEvents = {
-  coinBalanceChange: {
-    transactionModule: string;
-    coinType: string;
-  };
-}[];
