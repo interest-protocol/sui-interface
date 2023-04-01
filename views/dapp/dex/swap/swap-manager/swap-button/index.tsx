@@ -1,5 +1,4 @@
-import { BCS } from '@mysten/bcs';
-import { bcs, MakeMoveVecTransaction, TransactionBlock } from '@mysten/sui.js';
+import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
@@ -16,6 +15,7 @@ import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,
+  createVectorParameter,
   showToast,
   showTXSuccessToast,
   throwTXIfNotSuccessful,
@@ -24,11 +24,7 @@ import { WalletGuardButton } from '@/views/dapp/components';
 
 import { useGetVolatilePools } from '../../swap.hooks';
 import { SwapButtonProps } from '../../swap.types';
-import {
-  findMarket,
-  getAmountMinusSlippage,
-  handleSwapFirstVectorParameter,
-} from '../../swap.utils';
+import { findMarket, getAmountMinusSlippage } from '../../swap.utils';
 
 const SwapButton: FC<SwapButtonProps> = ({
   mutate,
@@ -96,7 +92,7 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       const txb = new TransactionBlock();
 
-      const firstVectorParameter = handleSwapFirstVectorParameter({
+      const firstVectorParameter = createVectorParameter({
         txb,
         type: firstSwapObject.tokenInType,
         coinsMap,
@@ -106,18 +102,13 @@ const SwapButton: FC<SwapButtonProps> = ({
       // no hop swap
       if (!firstSwapObject.baseTokens.length) {
         txb.moveCall({
-          target: `${objects.PACKAGE_ID}::interface::swap`,
-          typeArguments: [
-            firstSwapObject.tokenInType,
-            firstSwapObject.tokenOutType,
-          ],
+          target: `${objects.PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
+          typeArguments: firstSwapObject.typeArgs,
           arguments: [
             txb.object(objects.DEX_STORAGE_VOLATILE),
             txb.object(objects.DEX_STORAGE_STABLE),
             firstVectorParameter,
-            txb.pure([], 'vector<X>'),
             txb.pure(amount.toString()),
-            txb.pure('0'),
             txb.pure(minAmountOut.toString()),
           ],
         });
@@ -137,21 +128,14 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       // One Hop Swap
       if (firstSwapObject?.baseTokens.length === 1) {
-        console.log(objects.DEX_STORAGE_STABLE);
         txb.moveCall({
-          target: `${objects.PACKAGE_ID}::interface::one_hop_swap`,
-          typeArguments: [
-            firstSwapObject.tokenInType,
-            firstSwapObject.tokenOutType,
-            firstSwapObject.baseTokens[0],
-          ],
+          target: `${objects.PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
+          typeArguments: firstSwapObject.typeArgs,
           arguments: [
             txb.object(objects.DEX_STORAGE_VOLATILE),
             txb.object(objects.DEX_STORAGE_STABLE),
             firstVectorParameter,
-            txb.makeMoveVec({ objects: [], type: 'T' }),
             txb.pure(amount.toString()),
-            txb.pure('0'),
             txb.pure(minAmountOut.toString()),
           ],
         });
@@ -163,10 +147,6 @@ const SwapButton: FC<SwapButtonProps> = ({
           options: { showEffects: true, showInput: true },
         });
 
-        console.log('ONE HOP SWAP');
-
-        console.log(tx);
-
         throwTXIfNotSuccessful(tx);
 
         await showTXSuccessToast(tx, network);
@@ -175,8 +155,7 @@ const SwapButton: FC<SwapButtonProps> = ({
       }
 
       throw new Error(t('dexSwap.error.soonFeature'));
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new Error(t('dexSwap.error.failedToSwap'));
     } finally {
       resetInput();

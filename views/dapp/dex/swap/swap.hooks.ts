@@ -18,7 +18,7 @@ export const useGetVolatilePools = () => {
 
   const { data, ...rest } = useSWR(
     makeSWRKey(
-      [objects.VOLATILE_POOLS_OBJECT_ID],
+      [objects.VOLATILE_POOLS_OBJECT_ID, network],
       provider.getDynamicFields.name
     ),
     async () =>

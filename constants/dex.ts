@@ -140,3 +140,10 @@ export const RECOMMENDED_TOKENS_TYPES = {
     COIN_TYPE[Network.TESTNET].BNB,
   ],
 };
+
+export enum DexFunctions {
+  SwapX = 'swap_x',
+  SwapY = 'swap_y',
+  OneHopSwap = 'one_hop_swap',
+  TwoHopSwap = 'two_hop_swap',
+}

@@ -1,5 +1,5 @@
 import { DevInspectResults } from '@mysten/sui.js/src/types';
-import { path, pathOr, propOr } from 'ramda';
+import { pathOr } from 'ramda';
 
 export const getAmountsFromDevInspect = (
   packageId: string,
@@ -8,36 +8,16 @@ export const getAmountsFromDevInspect = (
   token1Type: string
 ) => {
   if (!results) return null;
-  const events = pathOr(null, ['effects', 'events'], results);
+  const events = results.events;
 
-  if (!events) return null;
-  const filteredEvents = (
-    events as ReadonlyArray<DevInspectResults['events']>
-  ).filter((event) => {
-    const coinBalanceChange = propOr(null, 'coinBalanceChange', event);
+  if (!events || !events.length) return null;
 
-    const changeType = propOr(null, 'changeType', coinBalanceChange);
+  const firstEvent = events[0];
 
-    if (!changeType || changeType !== 'Receive') return false;
+  if (firstEvent.packageId !== packageId) return null;
 
-    const packageId = propOr(null, 'packageId', coinBalanceChange);
-
-    if (!packageId || packageId !== packageId) return false;
-
-    const coinType = propOr(null, 'coinType', coinBalanceChange);
-
-    return !(!coinType && coinType !== token0Type && coinType !== token1Type);
-  });
-
-  return filteredEvents.reduce(
-    (acc, event) => ({
-      ...acc,
-      [path(['coinBalanceChange', 'coinType'], event) as string]: pathOr(
-        0,
-        ['coinBalanceChange', 'amount'],
-        event
-      ) as number,
-    }),
-    {} as Record<string, number>
-  );
+  return {
+    [token0Type]: pathOr('0', ['parsedJson', 'coin_x_out'], firstEvent),
+    [token1Type]: pathOr('0', ['parsedJson', 'coin_y_out'], firstEvent),
+  };
 };

@@ -13,10 +13,11 @@ import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,
-  getCoinIds,
+  createVectorParameter,
   processSafeAmount,
   showToast,
   showTXSuccessToast,
+  throwTXIfNotSuccessful,
 } from '@/utils';
 
 import { AddLiquidityCardButtonProps } from './add-liquidity-card.types';
@@ -53,10 +54,10 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
         token0.decimals
       ).decimalPlaces(0, BigNumber.ROUND_UP);
 
-      const vector0 = getCoinIds(network, coinsMap, token0.type);
-      const vector1 = getCoinIds(network, coinsMap, token1.type);
-
-      if (!vector0.length || !vector1.length)
+      if (
+        !coinsMap[token0.type].objects.length ||
+        !coinsMap[token1.type].objects.length
+      )
         throw new Error(t('dexPoolPair.error.notEnough'));
 
       const safeAmount0 = processSafeAmount(amount0, token0.type, coinsMap);
@@ -69,26 +70,46 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
       if (safeAmount0.isZero() || safeAmount1.isZero())
         throw new Error(t('dexPoolPair.error.notEnoughGas'));
 
-      const transactionBlock = new TransactionBlock();
+      const txb = new TransactionBlock();
 
-      transactionBlock.moveCall({
+      const vector0 = createVectorParameter({
+        txb,
+        type: token0.type,
+        coinsMap,
+        amount: safeAmount0.toString(),
+      });
+
+      const vector1 = createVectorParameter({
+        txb,
+        type: token1.type,
+        coinsMap,
+        amount: safeAmount1.toString(),
+      });
+
+      txb.moveCall({
         target: `${objects.PACKAGE_ID}::interface::add_liquidity`,
         typeArguments: [token0.type, token1.type],
         arguments: [
-          transactionBlock.object(objects.DEX_STORAGE_VOLATILE),
-          transactionBlock.object(objects.DEX_STORAGE_STABLE),
-          transactionBlock.pure(vector0),
-          transactionBlock.pure(vector1),
-          transactionBlock.pure(safeAmount0.toString()),
-          transactionBlock.pure(safeAmount1.toString()),
-          transactionBlock.pure(true),
-          transactionBlock.pure('0'),
+          txb.object(objects.DEX_STORAGE_VOLATILE),
+          txb.object(objects.DEX_STORAGE_STABLE),
+          vector0,
+          vector1,
+          txb.pure(safeAmount0.toString()),
+          txb.pure(safeAmount1.toString()),
+          txb.pure(true),
+          txb.pure('0'),
         ],
       });
 
       const tx = await signAndExecuteTransactionBlock({
-        transactionBlock,
+        transactionBlock: txb,
+        chain: network,
+        options: { showEffects: true },
+        requestType: 'WaitForEffectsCert',
       });
+
+      throwTXIfNotSuccessful(tx);
+
       await showTXSuccessToast(tx, network);
       incrementTX(account ?? '');
       return;

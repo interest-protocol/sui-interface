@@ -1,5 +1,5 @@
 import { useTheme } from '@emotion/react';
-import { TransactionBlock } from '@mysten/sui.js';
+import { SUI_TYPE_ARG, TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { pathOr, prop } from 'ramda';
@@ -22,12 +22,12 @@ import { MintButtonProps } from './faucet-form.types';
 
 const COIN_MINT_AMOUNT = {
   [Network.DEVNET]: {
-    [COIN_TYPE[Network.DEVNET].BNB]: '10',
-    [COIN_TYPE[Network.DEVNET].ETH]: '5',
-    [COIN_TYPE[Network.DEVNET].BTC]: '5',
-    [COIN_TYPE[Network.DEVNET].USDT]: '2000',
-    [COIN_TYPE[Network.DEVNET].USDC]: '2000',
-    [COIN_TYPE[Network.DEVNET].DAI]: '2000',
+    [COIN_TYPE[Network.DEVNET].BNB]: '1000',
+    [COIN_TYPE[Network.DEVNET].ETH]: '50000',
+    [COIN_TYPE[Network.DEVNET].BTC]: '500',
+    [COIN_TYPE[Network.DEVNET].USDT]: '20000000',
+    [COIN_TYPE[Network.DEVNET].USDC]: '20000000',
+    [COIN_TYPE[Network.DEVNET].DAI]: '20000000',
   } as Record<string, string>,
   [Network.TESTNET]: {
     [COIN_TYPE[Network.TESTNET].BNB]: '10',
@@ -54,7 +54,7 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
       setLoading(true);
       const type = getValues('type');
 
-      if (type === COIN_TYPE[Network.DEVNET].SUI) {
+      if (type === SUI_TYPE_ARG) {
         if (!account) throw new Error(t('error.accountNotFound'));
         await provider.requestSuiFromFaucet(account);
         return;
