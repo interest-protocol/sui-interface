@@ -22,16 +22,16 @@ import { MintButtonProps } from './faucet-form.types';
 
 const COIN_MINT_AMOUNT = {
   [Network.DEVNET]: {
-    [COIN_TYPE[Network.DEVNET].BNB]: '1000',
-    [COIN_TYPE[Network.DEVNET].ETH]: '50000',
-    [COIN_TYPE[Network.DEVNET].BTC]: '500',
-    [COIN_TYPE[Network.DEVNET].USDT]: '20000000',
-    [COIN_TYPE[Network.DEVNET].USDC]: '20000000',
-    [COIN_TYPE[Network.DEVNET].DAI]: '20000000',
+    [COIN_TYPE[Network.DEVNET].BNB]: '10',
+    [COIN_TYPE[Network.DEVNET].ETH]: '10',
+    [COIN_TYPE[Network.DEVNET].BTC]: '5',
+    [COIN_TYPE[Network.DEVNET].USDT]: '2000',
+    [COIN_TYPE[Network.DEVNET].USDC]: '2000',
+    [COIN_TYPE[Network.DEVNET].DAI]: '2000',
   } as Record<string, string>,
   [Network.TESTNET]: {
     [COIN_TYPE[Network.TESTNET].BNB]: '10',
-    [COIN_TYPE[Network.TESTNET].ETH]: '5',
+    [COIN_TYPE[Network.TESTNET].ETH]: '10',
     [COIN_TYPE[Network.TESTNET].BTC]: '5',
     [COIN_TYPE[Network.TESTNET].USDT]: '2000',
     [COIN_TYPE[Network.TESTNET].USDC]: '2000',
@@ -53,6 +53,8 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
       const objects = OBJECT_RECORD[network];
       setLoading(true);
       const type = getValues('type');
+
+      if (!type) throw new Error(t('error.tokenNotFound'));
 
       if (type === SUI_TYPE_ARG) {
         if (!account) throw new Error(t('error.accountNotFound'));

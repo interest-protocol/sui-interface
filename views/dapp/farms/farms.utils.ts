@@ -10,7 +10,7 @@ import {
   ZERO_BIG_NUMBER,
 } from '@/utils';
 
-import { FARM_TYPE_ARGS } from './farms.constants';
+import { COIN_TYPE_ARRAY_UI } from './farms.constants';
 import { FARMS_TOKENS_SVG_MAP } from './farms.data';
 import {
   FarmSortByFilter,
@@ -182,20 +182,27 @@ export const parseData = ({
   pools,
   network,
 }: ParseDataArgs) => {
-  if (!farms || !pools || !ipxStorage || !prices)
+  if (
+    !farms ||
+    !pools ||
+    !ipxStorage ||
+    !prices ||
+    !farms.length ||
+    !pools.length
+  )
     return {
       farms: [],
       totalAllocationPoints: ZERO_BIG_NUMBER,
     };
 
   const ipxUSDPrice = calculateIPXUSDPrice({
-    pool: pools[1],
+    pool: pools[0],
     prices,
     network,
   });
 
   return {
-    farms: FARM_TYPE_ARGS[network].map((x, index) =>
+    farms: COIN_TYPE_ARRAY_UI[network].map((x, index) =>
       parseFarmData({
         ipxStorage,
         farms,
@@ -215,15 +222,12 @@ export const parseError = ({
   errorFarms,
   errorPools,
   pricesError,
-  ipxStorageError,
 }: ParseErrorArgs) => {
   if (errorFarms) return 'farms.errors.farms';
 
   if (errorPools) return 'farms.errors.pools';
 
   if (pricesError) return 'farms.errors.prices';
-
-  if (ipxStorageError) return 'farms.errors.ipxStorage';
 
   return 'common.error';
 };

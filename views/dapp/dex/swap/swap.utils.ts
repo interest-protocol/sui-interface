@@ -135,7 +135,7 @@ export const getSwapPayload = ({
   network,
 }: GetSwapPayload): TransactionBlock | null => {
   if (isEmpty(volatilesPools)) return null;
-  if (!tokenIn.value) return null;
+  if (!tokenIn || !tokenIn.value) return null;
 
   const path = findMarket({
     data: volatilesPools,

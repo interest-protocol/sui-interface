@@ -9,8 +9,7 @@ import {
 
 import { FarmMetadataType, Network } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
-import { Farm } from '@/utils/farms/farms.types';
-import { Pool } from '@/utils/pools/pools.types';
+import { Farm, Pool } from '@/interface';
 
 export enum FarmSortByFilter {
   Default,
@@ -52,8 +51,8 @@ export interface SafeFarmData extends FarmMetadataType {
 }
 
 export interface ParseDataArgs {
-  farms: ReadonlyArray<Farm> | undefined;
-  pools: ReadonlyArray<Pool> | undefined;
+  farms: ReadonlyArray<Farm>;
+  pools: ReadonlyArray<Pool>;
   prices: CoinPriceRecord;
   ipxStorage: IPXStorage;
   network: Network;
@@ -63,7 +62,6 @@ export interface ParseErrorArgs {
   errorFarms: unknown;
   errorPools: unknown;
   pricesError: unknown;
-  ipxStorageError: unknown;
 }
 
 export interface ParseFarmDataArgs {

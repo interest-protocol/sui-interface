@@ -1,12 +1,13 @@
 import BigNumber from 'bignumber.js';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
-import { TOKEN_SYMBOL } from '@/sdk';
+import { AddressZero, TOKEN_SYMBOL } from '@/sdk';
 import {
   calculateAPR,
   calculateIPXUSDPrice,
   calculateLPCoinPrice,
   calculateTVL,
+  parseSuiObjectDataToPools,
   ZERO_BIG_NUMBER,
 } from '@/utils';
 
@@ -44,6 +45,7 @@ const DEFAULT_FARM_DATA = {
   totalAllocation: '0',
   accountBalance: ZERO_BIG_NUMBER,
   poolObjectId: '',
+  farmObjectId: AddressZero,
 };
 
 export const parseFarmData: ParseFarmData = ({
@@ -54,16 +56,20 @@ export const parseFarmData: ParseFarmData = ({
   coinsMap,
   pools,
   pendingRewards,
+  network,
 }) => {
-  if (!pools || !farms) return DEFAULT_FARM_DATA;
+  if (!pools || !farms || !pools.length) return DEFAULT_FARM_DATA;
+
+  const parsedPools = parseSuiObjectDataToPools(pools);
 
   const farm = farms[0];
-  const pool = pools[0];
-  const ipxEthPool = pools[1];
+  const pool = parsedPools[0];
+  const ipxEthPool = parsedPools[1];
 
   const ipxUSDPrice = calculateIPXUSDPrice({
     pool: ipxEthPool,
     prices,
+    network,
   });
 
   const tvl = calculateTVL({

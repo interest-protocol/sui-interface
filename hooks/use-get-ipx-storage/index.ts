@@ -17,24 +17,24 @@ const DEFAULT_IPX_STORAGE = {
 
 export type IPXStorage = typeof DEFAULT_IPX_STORAGE;
 
-const parseIPXStorage = (data: SuiObjectResponse | undefined) => {
+export const parseIPXStorage = (data: SuiObjectResponse | undefined) => {
   if (!data) return DEFAULT_IPX_STORAGE;
 
   return {
     ipxPerEpoch: pathOr(
       '0',
-      ['details', 'data', 'fields', 'ipx_per_epoch'],
+      ['data', 'content', 'fields', 'ipx_per_epoch'],
       data
     ),
-    startEpoch: pathOr('0', ['details', 'data', 'fields', 'start_epoch'], data),
+    startEpoch: pathOr('0', ['data', 'content', 'fields', 'start_epoch'], data),
     ipxSupply: pathOr(
       '0',
-      ['details', 'data', 'fields', 'supply', 'fields', 'value'],
+      ['data', 'content', 'fields', 'supply', 'fields', 'value'],
       data
     ),
     totalAllocation: pathOr(
       '0',
-      ['details', 'data', 'fields', 'total_allocation_points'],
+      ['data', 'content', 'fields', 'total_allocation_points'],
       data
     ),
   };
@@ -46,8 +46,12 @@ export const useGetIPXStorage = () => {
   const objects = OBJECT_RECORD[network];
 
   const { data, ...rest } = useSWR(
-    makeSWRKey([objects.IPX_STORAGE], 'useGetTotalAllocation'),
-    async () => provider.getObject({ id: objects.IPX_STORAGE }),
+    makeSWRKey([objects.IPX_STORAGE], 'useGetIPXStorage'),
+    async () =>
+      provider.getObject({
+        id: objects.IPX_STORAGE,
+        options: { showContent: true },
+      }),
     {
       revalidateOnMount: true,
       revalidateOnFocus: false,

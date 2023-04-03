@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Switch } from '@/components';

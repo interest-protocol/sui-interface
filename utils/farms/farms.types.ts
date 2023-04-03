@@ -1,9 +1,8 @@
-import { JsonRpcProvider } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 
 import { FarmMetadataType, Network } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
-import { Pool } from '@/utils/pools/pools.types';
+import { Farm, Pool } from '@/interface';
 
 export interface CalculateAPRArgs {
   ipxUSDPrice: number;
@@ -24,18 +23,4 @@ export interface CalculateTVLArgs {
   ipxUSDPrice: number;
   pool: Pool;
   farm: Farm;
-}
-
-export interface Farm {
-  allocationPoints: BigNumber;
-  totalStakedAmount: BigNumber;
-  accountBalance: BigNumber;
-}
-
-export interface GetFarmArgs {
-  network: Network;
-  provider: JsonRpcProvider;
-  account: string | null;
-  typeArgs: Array<string>;
-  numOfFarms: number;
 }

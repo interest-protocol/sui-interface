@@ -1,5 +1,5 @@
 import { BigNumber } from 'bignumber.js';
-import { pathOr } from 'ramda';
+import { pathOr, prop } from 'ramda';
 import { FC, useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
 import useSWR from 'swr';
@@ -49,11 +49,22 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 
   const { error } = useSWR(
     makeSWRKey(
-      [account, devInspectTransactionPayload, tokenIn.value, tokenIn.type],
+      [
+        account,
+        devInspectTransactionPayload,
+        prop('value', tokenIn),
+        prop('type', tokenIn),
+      ],
       provider.devInspectTransactionBlock.name
     ),
     async () => {
-      if (!devInspectTransactionPayload || !account || !+tokenIn.value) return;
+      if (
+        !devInspectTransactionPayload ||
+        !account ||
+        !tokenIn ||
+        !+tokenIn.value
+      )
+        return;
       setIsFetchingSwapAmount(true);
 
       return provider.devInspectTransactionBlock({

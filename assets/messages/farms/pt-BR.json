@@ -11,8 +11,7 @@
     "errors": {
       "farms": "Falha ao trazer dados das Farms",
       "pools": "Falha ao trazer dados das Pools",
-      "prices": "Falha ao trazer preços das Moedas",
-      "ipxStorage": "Falha ao trazer o IPXStorage object"
+      "prices": "Falha ao trazer preços das Moedas"
     }
   }
 }

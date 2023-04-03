@@ -1,4 +1,4 @@
-import { COIN_TYPE, COINS, Network } from '@/constants';
+import { COIN_POOL, COIN_TYPE, COINS, Network } from '@/constants';
 
 export const COIN_PRICES = {
   [Network.DEVNET]: [
@@ -19,89 +19,82 @@ export const COIN_PRICES = {
   ],
 };
 
-export const FARM_TYPE_ARGS = {
+// The order has to remain the same
+
+export const POOL_IDS_RECORD = {
+  [Network.DEVNET]: [
+    COIN_POOL[Network.DEVNET].V_LP_ETH_IPX,
+    COIN_POOL[Network.DEVNET].V_LP_SUI_ETH,
+    COIN_POOL[Network.DEVNET].V_LP_BTC_ETH,
+    COIN_POOL[Network.DEVNET].V_LP_BNB_ETH,
+    COIN_POOL[Network.DEVNET].V_LP_ETH_USDC,
+    COIN_POOL[Network.DEVNET].V_LP_ETH_USDT,
+    COIN_POOL[Network.DEVNET].V_LP_DAI_ETH,
+  ],
+  [Network.TESTNET]: [
+    COIN_POOL[Network.TESTNET].V_LP_ETH_IPX,
+    COIN_POOL[Network.TESTNET].V_LP_SUI_ETH,
+    COIN_POOL[Network.TESTNET].V_LP_BTC_ETH,
+    COIN_POOL[Network.TESTNET].V_LP_BNB_ETH,
+    COIN_POOL[Network.TESTNET].V_LP_ETH_USDC,
+    COIN_POOL[Network.TESTNET].V_LP_ETH_USDT,
+    COIN_POOL[Network.TESTNET].V_LP_DAI_ETH,
+  ],
+};
+
+export const FARM_IDS_RECORD_FIRST_CALL = {
   [Network.DEVNET]: [
     COIN_TYPE[Network.DEVNET].IPX,
-    COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH,
     COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX,
+    COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH,
     COIN_TYPE[Network.DEVNET].V_LP_BTC_ETH,
     COIN_TYPE[Network.DEVNET].V_LP_BNB_ETH,
-    COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT,
-    COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC,
-    COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
   ],
   [Network.TESTNET]: [
     COIN_TYPE[Network.TESTNET].IPX,
-    COIN_TYPE[Network.TESTNET].V_LP_SUI_ETH,
     COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX,
+    COIN_TYPE[Network.TESTNET].V_LP_SUI_ETH,
     COIN_TYPE[Network.TESTNET].V_LP_BTC_ETH,
     COIN_TYPE[Network.TESTNET].V_LP_BNB_ETH,
-    COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT,
+  ],
+};
+
+export const FARM_IDS_RECORD_SECOND_CALL = {
+  [Network.DEVNET]: [
+    COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC,
+    COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT,
+    COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
+    COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
+    COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
+  ],
+  [Network.TESTNET]: [
     COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC,
+    COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT,
+    COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH,
+    COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT,
     COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH,
   ],
 };
-export const FILLED_FARM_TYPE_ARGS = {
-  [Network.DEVNET]: FARM_TYPE_ARGS[Network.DEVNET].concat([
-    COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
-    COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
-  ]),
-  [Network.TESTNET]: FARM_TYPE_ARGS[Network.TESTNET].concat([
-    COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
-    COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
-  ]),
-};
 
-export const POOL_TYPE_ARGS = {
+export const COIN_TYPE_ARRAY_UI = {
   [Network.DEVNET]: [
-    COIN_TYPE[Network.DEVNET].SUI,
-    COIN_TYPE[Network.DEVNET].ETH,
-    COIN_TYPE[Network.DEVNET].ETH,
     COIN_TYPE[Network.DEVNET].IPX,
-    COIN_TYPE[Network.DEVNET].BTC,
-    COIN_TYPE[Network.DEVNET].ETH,
-    COIN_TYPE[Network.DEVNET].BNB,
-    COIN_TYPE[Network.DEVNET].ETH,
-    COIN_TYPE[Network.DEVNET].ETH,
-    COIN_TYPE[Network.DEVNET].USDT,
-    COIN_TYPE[Network.DEVNET].ETH,
-    COIN_TYPE[Network.DEVNET].USDC,
-    COIN_TYPE[Network.DEVNET].DAI,
-    COIN_TYPE[Network.DEVNET].ETH,
+    COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX,
+    COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH,
+    COIN_TYPE[Network.DEVNET].V_LP_BTC_ETH,
+    COIN_TYPE[Network.DEVNET].V_LP_BNB_ETH,
+    COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC,
+    COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT,
+    COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
   ],
   [Network.TESTNET]: [
-    COIN_TYPE[Network.TESTNET].SUI,
-    COIN_TYPE[Network.TESTNET].ETH,
-    COIN_TYPE[Network.TESTNET].ETH,
     COIN_TYPE[Network.TESTNET].IPX,
-    COIN_TYPE[Network.TESTNET].BTC,
-    COIN_TYPE[Network.TESTNET].ETH,
-    COIN_TYPE[Network.TESTNET].BNB,
-    COIN_TYPE[Network.TESTNET].ETH,
-    COIN_TYPE[Network.TESTNET].ETH,
-    COIN_TYPE[Network.TESTNET].USDT,
-    COIN_TYPE[Network.TESTNET].ETH,
-    COIN_TYPE[Network.TESTNET].USDC,
-    COIN_TYPE[Network.TESTNET].DAI,
-    COIN_TYPE[Network.TESTNET].ETH,
+    COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX,
+    COIN_TYPE[Network.TESTNET].V_LP_SUI_ETH,
+    COIN_TYPE[Network.TESTNET].V_LP_BTC_ETH,
+    COIN_TYPE[Network.TESTNET].V_LP_BNB_ETH,
+    COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC,
+    COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT,
+    COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH,
   ],
-};
-
-export const FILLED_POOL_TYPE_ARGS = {
-  [Network.DEVNET]: POOL_TYPE_ARGS[Network.DEVNET].concat([
-    COIN_TYPE[Network.DEVNET].ETH,
-    COIN_TYPE[Network.DEVNET].USDT,
-    COIN_TYPE[Network.DEVNET].ETH,
-    COIN_TYPE[Network.DEVNET].USDC,
-    COIN_TYPE[Network.DEVNET].DAI,
-    COIN_TYPE[Network.DEVNET].ETH,
-  ]),
-  [Network.TESTNET]: POOL_TYPE_ARGS[Network.TESTNET].concat([
-    COIN_TYPE[Network.TESTNET].ETH,
-    COIN_TYPE[Network.TESTNET].USDT,
-    COIN_TYPE[Network.TESTNET].ETH,
-    COIN_TYPE[Network.TESTNET].USDC,
-    COIN_TYPE[Network.TESTNET].DAI,
-    COIN_TYPE[Network.TESTNET].ETH,
-  ]),
 };
