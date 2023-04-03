@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { find, mergeDeepRight, propEq } from 'ramda';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
@@ -11,7 +11,7 @@ import { useLocalStorage, useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import { TOKEN_SYMBOL } from '@/sdk';
 import { TokenModalMetadata } from '@/views/dapp/components/select-currency/select-currency.types';
-import { LocalSwapSettings } from '@/views/dapp/dex/swap/swap.types';
+import { ISwapForm, LocalSwapSettings } from '@/views/dapp/dex/swap/swap.types';
 import DEXSwapView from '@/views/dapp/dex/swap-view';
 
 const SLIPPAGE_AUTO_VALUE = '0.1';
@@ -52,22 +52,22 @@ const DexPage: NextPageWithProps = ({ pageTitle }) => {
     { slippage: '1' }
   );
 
-  const formSwap = useForm({
-    defaultValues: {
-      tokenIn: {
-        type: SUI.type,
-        value: '0.0',
-        decimals: SUI.decimals,
-        symbol: SUI.symbol,
-      },
-      tokenOut: {
-        type: ETH.type,
-        value: '0.0',
-        decimals: ETH.decimals,
-        symbol: ETH.symbol,
-      },
-    },
-  });
+  const formSwap = useForm<ISwapForm>();
+
+  useEffect(() => {
+    formSwap.setValue('tokenIn', {
+      type: SUI.type,
+      value: '0.0',
+      decimals: SUI.decimals,
+      symbol: SUI.symbol,
+    });
+    formSwap.setValue('tokenOut', {
+      type: ETH.type,
+      value: '0.0',
+      decimals: ETH.decimals,
+      symbol: ETH.symbol,
+    });
+  }, [network]);
 
   const formSettingsDropdown = useForm({
     defaultValues: {

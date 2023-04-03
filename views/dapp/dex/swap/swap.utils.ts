@@ -1,17 +1,15 @@
-import {
-  SUI_TYPE_ARG,
-  SuiEvent,
-  TransactionBlock,
-  TypeTagSerializer,
-} from '@mysten/sui.js';
+import { TransactionBlock } from '@mysten/sui.js';
 import { DynamicFieldInfo } from '@mysten/sui.js/src/types/dynamic_fields';
 import BigNumber from 'bignumber.js';
-import { has, isEmpty, last, pathOr, propOr } from 'ramda';
+import { isEmpty, last, pathOr } from 'ramda';
 
-import { DEX_BASE_TOKEN_ARRAY, OBJECT_RECORD } from '@/constants';
+import { DEX_BASE_TOKEN_ARRAY, DexFunctions, OBJECT_RECORD } from '@/constants';
 import { FixedPointMath } from '@/sdk';
-import { addCoinTypeToTokenType } from '@/utils';
-import { getCoinIds } from '@/utils';
+import {
+  addCoinTypeToTokenType,
+  createVectorParameter,
+  getCoinsFromPoolType,
+} from '@/utils';
 
 import {
   FindMarketArgs,
@@ -69,14 +67,21 @@ export const findMarket = ({
   );
 
   // No Hop Swap X -> Y
-  if (pool)
+  if (pool) {
+    const poolType = (pool as DynamicFieldInfo).objectType;
+    const [coinXType, coinYType] = getCoinsFromPoolType(poolType);
+
     return [
       {
         baseTokens: [],
         tokenInType,
         tokenOutType,
+        functionName:
+          tokenInType === coinXType ? DexFunctions.SwapX : DexFunctions.SwapY,
+        typeArgs: [coinXType, coinYType],
       },
     ];
+  }
 
   // One Hop Swap
   return DEX_BASE_TOKEN_ARRAY[network].reduce(
@@ -99,6 +104,8 @@ export const findMarket = ({
             baseTokens: [element],
             tokenOutType,
             tokenInType,
+            functionName: DexFunctions.OneHopSwap,
+            typeArgs: [tokenInType, element, tokenOutType],
           },
         ];
 
@@ -148,75 +155,23 @@ export const getSwapPayload = ({
   const txb = new TransactionBlock();
   const objects = OBJECT_RECORD[network];
 
-  if (firstSwapObject.tokenInType === SUI_TYPE_ARG) {
-    const [coin] = txb.splitCoins(txb.gas, [txb.pure(safeAmount.toString())]);
-
-    // no hop swap
-    if (!firstSwapObject.baseTokens.length) {
-      txb.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::swap`,
-        typeArguments: [SUI_TYPE_ARG, firstSwapObject.tokenOutType],
-        arguments: [
-          txb.object(objects.DEX_STORAGE_VOLATILE),
-          txb.object(objects.DEX_STORAGE_STABLE),
-          txb.makeMoveVec({
-            objects: [coin],
-          }),
-          txb.pure([], 'vector<Y>'),
-          txb.pure(safeAmount.toString()),
-          txb.pure('0'),
-          txb.pure('0'),
-        ],
-      });
-      return txb;
-    }
-
-    // One Hop Swap
-    if (firstSwapObject.baseTokens.length === 1) {
-      txb.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::one_hop_swap`,
-        typeArguments: [
-          SUI_TYPE_ARG,
-          firstSwapObject.tokenOutType,
-          firstSwapObject.baseTokens[0],
-        ],
-        arguments: [
-          txb.object(objects.DEX_STORAGE_VOLATILE),
-          txb.object(objects.DEX_STORAGE_STABLE),
-          txb.makeMoveVec({
-            objects: [coin],
-          }),
-          txb.pure([], 'vector<Y>'),
-          txb.pure(amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()),
-          txb.pure('0'),
-          txb.pure('0'),
-        ],
-      });
-      return txb;
-    }
-  }
+  const firstCoinVector = createVectorParameter({
+    txb,
+    coinsMap,
+    amount: safeAmount.toString(),
+    type: tokenIn.type,
+  });
 
   // no hop swap
   if (!firstSwapObject.baseTokens.length) {
     txb.moveCall({
-      target: `${objects.PACKAGE_ID}::interface::swap`,
-      typeArguments: [
-        firstSwapObject.tokenInType,
-        firstSwapObject.tokenOutType,
-      ],
+      target: `${objects.PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
+      typeArguments: firstSwapObject.typeArgs,
       arguments: [
         txb.object(objects.DEX_STORAGE_VOLATILE),
         txb.object(objects.DEX_STORAGE_STABLE),
-        txb.makeMoveVec({
-          objects: getCoinIds(
-            network,
-            coinsMap,
-            firstSwapObject.tokenInType
-          ).map((x) => txb.object(x)),
-        }),
-        txb.pure([], 'vector<Y>'),
+        firstCoinVector,
         txb.pure(safeAmount.toString()),
-        txb.pure('0'),
         txb.pure('0'),
       ],
     });
@@ -226,25 +181,13 @@ export const getSwapPayload = ({
   // One Hop Swap
   if (firstSwapObject.baseTokens.length === 1) {
     txb.moveCall({
-      target: `${objects.PACKAGE_ID}::interface::one_hop_swap`,
-      typeArguments: [
-        firstSwapObject.tokenInType,
-        firstSwapObject.tokenOutType,
-        firstSwapObject.baseTokens[0],
-      ],
+      target: `${objects.PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
+      typeArguments: firstSwapObject.typeArgs,
       arguments: [
         txb.object(objects.DEX_STORAGE_VOLATILE),
         txb.object(objects.DEX_STORAGE_STABLE),
-        txb.makeMoveVec({
-          objects: getCoinIds(
-            network,
-            coinsMap,
-            firstSwapObject.tokenInType
-          ).map((x) => txb.object(x)),
-        }),
-        txb.pure([], 'vector<Y>'),
+        firstCoinVector,
         txb.pure(amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()),
-        txb.pure('0'),
         txb.pure('0'),
       ],
     });

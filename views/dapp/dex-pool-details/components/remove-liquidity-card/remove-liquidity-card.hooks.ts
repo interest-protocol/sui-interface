@@ -28,28 +28,28 @@ export const useGetRemoveLiquidityAmounts = ({
       provider.devInspectTransactionBlock.name
     ),
     () => {
-      if (!account || !objectIds || !+lpAmount) return;
+      if (!account || !objectIds.length || !+lpAmount) return;
 
-      const transactionBlock = new TransactionBlock();
+      const txb = new TransactionBlock();
 
-      transactionBlock.moveCall({
+      txb.moveCall({
         target: `${objects.PACKAGE_ID}::interface::remove_v_liquidity`,
         typeArguments: [token0Type, token1Type],
         arguments: [
-          transactionBlock.object(objects.DEX_STORAGE_VOLATILE),
-          transactionBlock.pure(objectIds || []),
-          transactionBlock.pure(
+          txb.object(objects.DEX_STORAGE_VOLATILE),
+          txb.makeMoveVec({ objects: objectIds.map((x) => txb.pure(x)) }),
+          txb.pure(
             new BigNumber(lpAmount)
               .decimalPlaces(0, BigNumber.ROUND_DOWN)
               .toString()
           ),
-          transactionBlock.pure('0'),
-          transactionBlock.pure('0'),
+          txb.pure('0'),
+          txb.pure('0'),
         ],
       });
 
       return provider.devInspectTransactionBlock({
-        transactionBlock,
+        transactionBlock: txb,
         sender: account ?? AddressZero,
       });
     },

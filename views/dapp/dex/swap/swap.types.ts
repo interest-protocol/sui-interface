@@ -12,7 +12,7 @@ import {
 import { KeyedMutator } from 'swr';
 
 import { Web3ManagerState } from '@/components/web3-manager/web3-manager.types';
-import { Network } from '@/constants';
+import { DexFunctions, Network } from '@/constants';
 import { CoinData } from '@/interface';
 
 import { TokenModalMetadata } from '../../components/select-currency/select-currency.types';
@@ -30,6 +30,8 @@ export interface SwapPathObject {
   baseTokens: ReadonlyArray<string>;
   tokenInType: string;
   tokenOutType: string;
+  functionName: DexFunctions;
+  typeArgs: Array<string>;
 }
 
 export interface SwapButtonProps {

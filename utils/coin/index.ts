@@ -1,3 +1,4 @@
+import { SUI_TYPE_ARG } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { isEmpty, propOr } from 'ramda';
 
@@ -6,6 +7,8 @@ import {
   Web3ManagerSuiObject,
 } from '@/components/web3-manager/web3-manager.types';
 import { COIN_TYPE, GAS_COST, Network } from '@/constants';
+
+import { CreateVectorParameterArgs } from './coin.types';
 
 export const addCoinTypeToTokenType = (x: string): string =>
   `0x2::coin::Coin<${x}>`;
@@ -81,31 +84,36 @@ export const getCoinIds = (
 export const processSafeAmount = (
   amount: BigNumber,
   type: string,
-  coinsMap: Web3ManagerState['coinsMap'],
-  gas = 9000
+  coinsMap: Web3ManagerState['coinsMap']
 ): BigNumber => {
   const object = coinsMap[type];
 
   if (!object) return amount;
 
-  const safeAmount = amount.gt(object.totalBalance)
-    ? object.totalBalance
-    : amount;
+  return amount.gt(object.totalBalance) ? object.totalBalance : amount;
+};
 
-  if (
-    type === COIN_TYPE[Network.DEVNET].SUI &&
-    safeAmount.minus(gas).eq(object.totalBalance)
-  ) {
-    const suiObjects = [...object.objects];
-    const sortedArray = suiObjects.sort((a, b) =>
-      a.balance > b.balance ? 1 : -1
-    );
-    const elem = sortedArray.find((elem) => elem.balance >= gas);
+export const getCoinsFromPoolType = (poolType: string): [string, string] => [
+  poolType.split('<')[1].split(',')[0].trim(),
+  poolType.split('<')[1].split(',')[1].split('>')[0].trim(),
+];
 
-    return elem
-      ? safeAmount.minus(new BigNumber(elem.balance))
-      : new BigNumber(0);
+export const createVectorParameter = ({
+  txb,
+  type,
+  coinsMap,
+  amount,
+}: CreateVectorParameterArgs) => {
+  if (type === SUI_TYPE_ARG) {
+    const [coin] = txb.splitCoins(txb.gas, [txb.pure(amount.toString())]);
+    return txb.makeMoveVec({
+      objects: [coin],
+    });
   }
 
-  return safeAmount;
+  return txb.makeMoveVec({
+    objects: coinsMap[type]
+      ? coinsMap[type].objects.map((x) => txb.object(x.coinObjectId))
+      : [],
+  });
 };

@@ -13,7 +13,13 @@ import { useWeb3 } from '@/hooks';
 import { useNetwork } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
-import { capitalize, getCoinIds, showToast, showTXSuccessToast } from '@/utils';
+import {
+  capitalize,
+  createVectorParameter,
+  showToast,
+  showTXSuccessToast,
+  throwTXIfNotSuccessful,
+} from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
 import { useGetVolatilePools } from '../../swap.hooks';
@@ -38,8 +44,6 @@ const SwapButton: FC<SwapButtonProps> = ({
   const { signAndExecuteTransactionBlock } = useWalletKit();
   const { network } = useNetwork();
 
-  const objects = OBJECT_RECORD[network];
-
   const tokenInValue = useWatch({ control, name: 'tokenIn.value' });
 
   const isDisabled =
@@ -49,6 +53,7 @@ const SwapButton: FC<SwapButtonProps> = ({
 
   const handleSwap = async () => {
     try {
+      const objects = OBJECT_RECORD[network];
       if (disabled) return;
       setLoading(true);
 
@@ -57,6 +62,8 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       if (!tokenIn || !tokenOut)
         throw new Error(t('dexSwap.error.select2Tokens'));
+
+      if (!account) throw new Error(t('error.accountNotFound'));
 
       if (!+tokenIn.value) throw new Error(t('dexSwap.error.cannotSell0'));
 
@@ -83,32 +90,37 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       const minAmountOut = getAmountMinusSlippage(amountOut, slippage);
 
-      const transactionBlock = new TransactionBlock();
+      const txb = new TransactionBlock();
 
-      transactionBlock.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::swap`,
-        typeArguments: [
-          firstSwapObject.tokenInType,
-          firstSwapObject.tokenOutType,
-        ],
-        arguments: [
-          transactionBlock.object(objects.DEX_STORAGE_VOLATILE),
-          transactionBlock.object(objects.DEX_STORAGE_STABLE),
-          transactionBlock.pure(
-            getCoinIds(network, coinsMap, firstSwapObject.tokenInType)
-          ),
-          transactionBlock.pure([]),
-          transactionBlock.pure(amount.toString()),
-          transactionBlock.pure('0'),
-          transactionBlock.pure(minAmountOut.toString()),
-        ],
+      const firstVectorParameter = createVectorParameter({
+        txb,
+        type: firstSwapObject.tokenInType,
+        coinsMap,
+        amount: amount.toString(),
       });
 
       // no hop swap
       if (!firstSwapObject.baseTokens.length) {
-        const tx = await signAndExecuteTransactionBlock({
-          transactionBlock,
+        txb.moveCall({
+          target: `${objects.PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
+          typeArguments: firstSwapObject.typeArgs,
+          arguments: [
+            txb.object(objects.DEX_STORAGE_VOLATILE),
+            txb.object(objects.DEX_STORAGE_STABLE),
+            firstVectorParameter,
+            txb.pure(amount.toString()),
+            txb.pure(minAmountOut.toString()),
+          ],
         });
+        const tx = await signAndExecuteTransactionBlock({
+          transactionBlock: txb,
+          chain: network,
+          requestType: 'WaitForEffectsCert',
+          options: { showEffects: true },
+        });
+
+        throwTXIfNotSuccessful(tx);
+
         await showTXSuccessToast(tx, network);
         incrementTX(account ?? '');
         return;
@@ -116,31 +128,27 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       // One Hop Swap
       if (firstSwapObject?.baseTokens.length === 1) {
-        const transactionBlock = new TransactionBlock();
-
-        transactionBlock.moveCall({
-          target: `${objects.PACKAGE_ID}::interface::one_hop_swap`,
-          typeArguments: [
-            firstSwapObject.tokenInType,
-            firstSwapObject.tokenOutType,
-            firstSwapObject.baseTokens[0],
-          ],
+        txb.moveCall({
+          target: `${objects.PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
+          typeArguments: firstSwapObject.typeArgs,
           arguments: [
-            transactionBlock.object(objects.DEX_STORAGE_VOLATILE),
-            transactionBlock.object(objects.DEX_STORAGE_STABLE),
-            transactionBlock.pure(
-              getCoinIds(network, coinsMap, firstSwapObject.tokenInType)
-            ),
-            transactionBlock.pure([]),
-            transactionBlock.pure(amount.toString()),
-            transactionBlock.pure('0'),
-            transactionBlock.pure(minAmountOut.toString()),
+            txb.object(objects.DEX_STORAGE_VOLATILE),
+            txb.object(objects.DEX_STORAGE_STABLE),
+            firstVectorParameter,
+            txb.pure(amount.toString()),
+            txb.pure(minAmountOut.toString()),
           ],
         });
 
         const tx = await signAndExecuteTransactionBlock({
-          transactionBlock,
+          transactionBlock: txb,
+          chain: network,
+          requestType: 'WaitForEffectsCert',
+          options: { showEffects: true, showInput: true },
         });
+
+        throwTXIfNotSuccessful(tx);
+
         await showTXSuccessToast(tx, network);
         incrementTX(account ?? '');
         return;
