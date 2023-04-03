@@ -39,25 +39,17 @@ export const testNetWSProvider = new JsonRpcProvider(
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export const getDevInspectType = (x: DevInspectResults): string =>
-  nth(
-    1,
-    head(
-      propOr(
-        [],
-        'returnValues',
-        nth(1, head(pathOr([], ['results', 'Ok'], x)) || [])
-      ) as any
-    )
-  )!;
+export const getReturnValuesFromInspectResults = (
+  x: DevInspectResults
+): [number[], string] | null => {
+  const results = propOr([], 'results', x) as DevInspectResults['results'];
+  const firstElem = head(results!);
 
-export const getDevInspectData = (x: DevInspectResults): any =>
-  head(
-    head(
-      propOr(
-        [],
-        'returnValues',
-        nth(1, head(pathOr([], ['results', 'Ok'], x)) || [])
-      ) as any
-    )!
-  );
+  if (!firstElem) return null;
+
+  const returnValues = firstElem.returnValues;
+
+  if (!returnValues) return null;
+  const result = head(returnValues);
+  return result ? result : null;
+};

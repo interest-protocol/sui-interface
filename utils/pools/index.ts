@@ -1,13 +1,9 @@
-import { bcsForVersion, TransactionBlock } from '@mysten/sui.js';
+import { SuiObjectResponse } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
+import { pathOr } from 'ramda';
 
-import { OBJECT_RECORD } from '@/constants';
 import { CoinPriceRecord } from '@/hooks';
-import { CoinData } from '@/interface';
-import { AddressZero } from '@/sdk';
-import { getDevInspectData, getDevInspectType } from '@/utils/provider';
-
-import { GetVolatilePoolsArgs, Pool } from './pools.types';
+import { CoinData, Pool } from '@/interface';
 
 export const getOptimalCoin0Value = (
   coinYAmount: BigNumber,
@@ -56,38 +52,19 @@ export const calculateLPCoinPrice = (
   return 0;
 };
 
-export const getVolatilePools = async ({
-  account,
-  numOfPools,
-  provider,
-  typeArgs,
-  network,
-}: GetVolatilePoolsArgs) => {
-  const safeAccount = account || AddressZero;
+export const parseSuiObjectDataToPools = (x: SuiObjectResponse[]) =>
+  x.map(({ data }) => {
+    const balanceX = pathOr('0', ['content', 'fields', 'balance_x'], data);
+    const balanceY = pathOr('0', ['content', 'fields', 'balance_y'], data);
+    const lpCoinSupply = pathOr(
+      '0',
+      ['content', 'fields', 'lp_coin_supply', 'fields', 'value'],
+      data
+    );
 
-  const transactionBlock = new TransactionBlock();
-
-  transactionBlock.moveCall({
-    target: `${OBJECT_RECORD[network].PACKAGE_ID}::interface::get_v_pools`,
-    typeArguments: typeArgs,
-    arguments: [
-      transactionBlock.object(OBJECT_RECORD[network].DEX_STORAGE_VOLATILE),
-      transactionBlock.pure(numOfPools.toString()),
-    ],
+    return {
+      balanceX: BigNumber(balanceX),
+      balanceY: BigNumber(balanceY),
+      lpCoinSupply: BigNumber(lpCoinSupply),
+    };
   });
-
-  const data = await provider.devInspectTransactionBlock({
-    sender: safeAccount,
-    transactionBlock,
-  });
-  const poolsArray = bcsForVersion(await provider.getRpcApiVersion()).de(
-    getDevInspectType(data),
-    Uint8Array.from(getDevInspectData(data))
-  );
-
-  return poolsArray.map((x: ReadonlyArray<BigInt>) => ({
-    balanceX: BigNumber(x[0].toString()),
-    balanceY: BigNumber(x[1].toString()),
-    lpCoinSupply: BigNumber(x[2].toString()),
-  }));
-};

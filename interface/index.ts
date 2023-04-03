@@ -53,3 +53,15 @@ export interface CompiledModules {
   dependencies: ReadonlyArray<string>;
   modules: ReadonlyArray<string>;
 }
+
+export interface Farm {
+  allocationPoints: BigNumber;
+  totalStakedAmount: BigNumber;
+  accountBalance: BigNumber;
+}
+
+export interface Pool {
+  balanceX: BigNumber;
+  balanceY: BigNumber;
+  lpCoinSupply: BigNumber;
+}

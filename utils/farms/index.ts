@@ -1,17 +1,14 @@
-import { bcsForVersion, TransactionBlock } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 
-import { COIN_TYPE, EPOCHS_PER_YEAR, OBJECT_RECORD } from '@/constants';
-import { AddressZero, FixedPointMath } from '@/sdk';
-import { getDevInspectData, getDevInspectType, ZERO_BIG_NUMBER } from '@/utils';
+import { COIN_TYPE, EPOCHS_PER_YEAR } from '@/constants';
+import { FixedPointMath } from '@/sdk';
+import { ZERO_BIG_NUMBER } from '@/utils';
 
 import { calculateLPCoinPrice } from '../pools';
 import {
   CalculateAPRArgs,
   CalculateIPXUSDPriceArgs,
   CalculateTVLArgs,
-  Farm,
-  GetFarmArgs,
 } from './farms.types';
 
 export const calculateAPR = ({
@@ -79,42 +76,11 @@ export const calculateTVL = ({
   }
 };
 
-export const getFarms = async ({
-  numOfFarms,
-  provider,
-  network,
-  typeArgs,
-  account,
-}: GetFarmArgs): Promise<ReadonlyArray<Farm>> => {
-  const objects = OBJECT_RECORD[network];
-  const safeAccount = account || AddressZero;
-
-  const transactionBlock = new TransactionBlock();
-
-  transactionBlock.moveCall({
-    target: `${OBJECT_RECORD[network].PACKAGE_ID}::interface::get_farms`,
-    typeArguments: typeArgs,
-    arguments: [
-      transactionBlock.object(objects.IPX_STORAGE),
-      transactionBlock.object(objects.IPX_ACCOUNT_STORAGE),
-      transactionBlock.pure(safeAccount),
-      transactionBlock.pure(numOfFarms.toString()),
-    ],
-  });
-
-  const data = await provider.devInspectTransactionBlock({
-    transactionBlock,
-    sender: safeAccount,
-  });
-
-  const farmsArray = bcsForVersion(await provider.getRpcApiVersion()).de(
-    getDevInspectType(data),
-    Uint8Array.from(getDevInspectData(data))
-  );
-
-  return farmsArray.map((elem: ReadonlyArray<BigInt>) => ({
+export const parseSuiRawDataToFarms = (
+  x: ReadonlyArray<ReadonlyArray<BigInt>>
+) =>
+  x.map((elem: ReadonlyArray<BigInt>) => ({
     allocationPoints: BigNumber(elem[0].toString()),
     totalStakedAmount: BigNumber(elem[1].toString()),
     accountBalance: BigNumber(elem[2].toString()),
   }));
-};

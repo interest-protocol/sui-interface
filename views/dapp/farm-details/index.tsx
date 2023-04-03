@@ -3,24 +3,20 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { Container } from '@/components';
-import { COINS, Network, RoutesEnum } from '@/constants';
+import { COIN_POOL, COINS, RoutesEnum } from '@/constants';
 import {
   useGetCoinsPrices,
-  useGetFarms,
   useGetIPXStorage,
-  useGetVolatilePools,
+  useGetMultiGetObjects,
   useNetwork,
   useWeb3,
 } from '@/hooks';
+import { AddressZero } from '@/sdk';
 
 import { GoBack } from '../components';
 import ErrorView from '../components/error';
 import { Details, FarmOptions } from './components';
-import {
-  FARM_TYPE_ARGS_EXTRA,
-  POOL_TYPE_ARGS_EXTRA,
-} from './farm-details.constants';
-import { useGetPendingRewards } from './farm-details.hook';
+import { useGetFarm, useGetPendingRewards } from './farm-details.hook';
 import { FarmDetailsProps } from './farm-details.types';
 import { parseError, parseFarmData } from './farm-details.utils';
 
@@ -53,33 +49,28 @@ const FarmDetails: FC<FarmDetailsProps> = ({
   } = useGetPendingRewards(account, farmMetadata, { refreshInterval: 0 });
 
   const {
+    error: farmsError,
     data: farms,
     mutate: mutateFarms,
-    error: farmsError,
     isLoading: farmsLoading,
-  } = useGetFarms(
-    account,
-    [farmMetadata.farmType].concat(FARM_TYPE_ARGS_EXTRA[network]),
-    1
-  );
+  } = useGetFarm(farmMetadata.lpCoin.type, account || AddressZero);
 
   const {
     data: pools,
     mutate: mutatePools,
     error: poolsError,
     isLoading: poolsLoading,
-  } = useGetVolatilePools(
-    account,
-    [farmMetadata.coin0.type, farmMetadata.coin1.type].concat(
-      POOL_TYPE_ARGS_EXTRA[network]
-    ),
-    2
-  );
+  } = useGetMultiGetObjects([
+    farmMetadata.poolObjectId === COIN_POOL[network].V_LP_ETH_IPX
+      ? COIN_POOL[network].V_LP_BNB_ETH
+      : farmMetadata.poolObjectId,
+    COIN_POOL[network].V_LP_ETH_IPX,
+  ]);
 
   const coinsPrices = useGetCoinsPrices([
     coin0.type,
     coin1.type,
-    COINS[Network.DEVNET].ETH.type,
+    COINS[network].ETH.type,
   ]);
 
   if (
@@ -113,6 +104,7 @@ const FarmDetails: FC<FarmDetailsProps> = ({
     prices: coinsPrices.data,
     ipxStorage,
     pendingRewards: new BigNumber(pendingRewards),
+    network,
   });
 
   return (
