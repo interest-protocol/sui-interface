@@ -69,8 +69,6 @@ const DexPage: NextPageWithProps = ({ pageTitle }) => {
     });
   }, [network]);
 
-  if (!formSwap.getValues()) return <div>loading</div>;
-
   const formSettingsDropdown = useForm({
     defaultValues: {
       slippage: localSettings.slippage,
@@ -80,6 +78,8 @@ const DexPage: NextPageWithProps = ({ pageTitle }) => {
   const [isAuto, setAuto] = useState(
     formSettingsDropdown.getValues('slippage') == SLIPPAGE_AUTO_VALUE
   );
+
+  if (!formSwap.getValues()) return <div>loading</div>;
 
   return (
     <ModalProvider>
