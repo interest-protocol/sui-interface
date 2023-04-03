@@ -13,10 +13,11 @@ import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { AddressZero, FixedPointMath } from '@/sdk';
 import {
   capitalize,
-  getCoinIds,
-  getDevInspectData,
+  createVectorParameter,
+  getReturnValuesFromInspectResults,
   showToast,
   showTXSuccessToast,
+  throwTXIfNotSuccessful,
 } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
@@ -38,7 +39,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
   const { signAndExecuteTransactionBlock } = useWalletKit();
   const { coinsMap, account } = useWeb3();
   const { network } = useNetwork();
-  const { provider, wsProvider } = useProvider();
+  const { provider } = useProvider();
 
   const objects = OBJECT_RECORD[network];
 
@@ -65,15 +66,18 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
       const response = await provider.devInspectTransactionBlock({
         transactionBlock,
         sender: account ?? AddressZero,
-        gasPrice: 50000,
       });
 
       if (response.effects.status.status === 'failure')
         return setCreatingPair(true);
 
+      const data = getReturnValuesFromInspectResults(response);
+
+      if (!data || data[0]) return;
+
       await push({
         pathname: Routes[RoutesEnum.DEXPoolDetails],
-        query: { objectId: `0x${toHEX(getDevInspectData(response))}` },
+        query: { objectId: `0x${toHEX(Uint8Array.from(data[0]))}` },
       });
     } catch {
       throw new Error(t('dexPoolFind.errors.connecting'));
@@ -89,7 +93,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
       const tokenA = getValues('tokenA');
       const tokenB = getValues('tokenB');
 
-      if (!account) throw new Error();
+      if (!account) throw new Error(t('error.accountNotFound'));
 
       if (!+tokenA.value || !+tokenB.value)
         throw new Error(t('dexPoolFind.errors.value'));
@@ -104,43 +108,51 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
         tokenB.decimals
       ).decimalPlaces(0, BigNumber.ROUND_DOWN);
 
-      const transactionBlock = new TransactionBlock();
+      const txb = new TransactionBlock();
 
-      transactionBlock.moveCall({
+      txb.moveCall({
         target: `${objects.PACKAGE_ID}::interface::create_pool`,
         arguments: [
-          transactionBlock.object(objects.DEX_STORAGE_VOLATILE),
-          transactionBlock.pure(getCoinIds(network, coinsMap, tokenA.type)),
-          transactionBlock.pure(getCoinIds(network, coinsMap, tokenB.type)),
-          transactionBlock.pure(amountA.toString()),
-          transactionBlock.pure(amountB.toString()),
+          txb.object(objects.DEX_STORAGE_VOLATILE),
+          createVectorParameter({
+            txb,
+            type: tokenA.type,
+            coinsMap,
+            amount: amountA.toString(),
+          }),
+          createVectorParameter({
+            txb,
+            type: tokenB.type,
+            coinsMap,
+            amount: amountB.toString(),
+          }),
+          txb.pure(amountA.toString()),
+          txb.pure(amountB.toString()),
         ],
+        typeArguments: [tokenA.type, tokenB.type],
       });
 
       const tx = await signAndExecuteTransactionBlock({
-        transactionBlock,
+        transactionBlock: txb,
         requestType: 'WaitForEffectsCert',
+        options: { showEffects: true, showEvents: true },
       });
+
+      throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
 
-      const subscriptionId = await wsProvider.subscribeEvent({
-        filter: {
-          All: [{ Package: objects.PACKAGE_ID }, { Sender: account }],
-        },
-        onMessage: async (data) => {
-          if (data.sender === account) {
-            const id = data.parsedJson?.id;
-            if (id) {
-              await wsProvider.unsubscribeEvent({ id: subscriptionId });
-              await push({
-                pathname: Routes[RoutesEnum.DEXPoolDetails],
-                query: { objectId: id },
-              });
-            }
-          }
-        },
-      });
+      if (
+        tx.events &&
+        tx.events.length &&
+        tx.events[0].parsedJson &&
+        tx.events[0].parsedJson.id
+      ) {
+        await push({
+          pathname: Routes[RoutesEnum.DEXPoolDetails],
+          query: { objectId: tx.events[0].parsedJson?.id },
+        });
+      }
     } catch {
       throw new Error(t('dexPoolFind.errors.create'));
     } finally {
