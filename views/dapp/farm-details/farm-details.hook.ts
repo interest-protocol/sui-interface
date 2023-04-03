@@ -1,4 +1,4 @@
-import { normalizeSuiObjectId, TransactionBlock } from '@mysten/sui.js';
+import { TransactionBlock } from '@mysten/sui.js';
 import { bcsForVersion } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import useSWR, { SWRConfiguration } from 'swr';

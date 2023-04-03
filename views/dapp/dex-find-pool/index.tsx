@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { Container } from '@/components';
@@ -21,16 +21,21 @@ const DEXFindPool: FC = () => {
   const { network } = useNetwork();
 
   const [isCreatingPair, setCreatingPair] = useState(false);
-  const { setValue, control, getValues, register } = useForm<DexFindPoolForm>({
-    defaultValues: {
-      tokenA: { ...DEX_TOKENS_DATA[network][0], value: '0' },
-      tokenB: { ...DEX_TOKENS_DATA[network][1], value: '0' },
-    },
-  });
+  const { setValue, control, getValues, register } = useForm<DexFindPoolForm>();
+
+  const tokenADefault = { ...DEX_TOKENS_DATA[network][0], value: '0' };
+  const tokenBDefault = { ...DEX_TOKENS_DATA[network][1], value: '0' };
+
+  useEffect(() => {
+    setValue('tokenA', tokenADefault);
+    setValue('tokenB', tokenBDefault);
+  }, [network]);
 
   // We want the form to re-render if types change
-  const tokenAType = useWatch({ control, name: 'tokenA.type' });
-  const tokenBType = useWatch({ control, name: 'tokenB.type' });
+  const tokenAType =
+    useWatch({ control, name: 'tokenA.type' }) || tokenADefault.type;
+  const tokenBType =
+    useWatch({ control, name: 'tokenB.type' }) || tokenBDefault.type;
 
   const onSelectCurrency =
     (name: 'tokenA' | 'tokenB'): OnSelectCurrency =>

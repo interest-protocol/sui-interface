@@ -2,10 +2,7 @@ import BigNumber from 'bignumber.js';
 import { ReactNode } from 'react';
 import { Control, UseFormReturn } from 'react-hook-form';
 
-import {
-  CoinsMap,
-  Web3ManagerSuiObject,
-} from '@/components/web3-manager/web3-manager.types';
+import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 
 interface TokenData {
   symbol: string;
