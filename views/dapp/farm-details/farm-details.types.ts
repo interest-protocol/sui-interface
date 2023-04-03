@@ -9,7 +9,7 @@ import {
 } from '@/components/web3-manager/web3-manager.types';
 import { FarmMetadataType, Network, StakeState } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
-import { Farm, Pool } from '@/interface';
+import { Farm } from '@/interface';
 
 export interface ModalState {
   isOpen: boolean;
