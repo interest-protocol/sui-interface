@@ -10,6 +10,7 @@ import { ModalProvider } from '@/context/modal';
 import { useLocalStorage, useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import { TOKEN_SYMBOL } from '@/sdk';
+import Loading from '@/views/dapp/components/loading';
 import { TokenModalMetadata } from '@/views/dapp/components/select-currency/select-currency.types';
 import { ISwapForm, LocalSwapSettings } from '@/views/dapp/dex/swap/swap.types';
 import DEXSwapView from '@/views/dapp/dex/swap-view';
@@ -79,7 +80,7 @@ const DexPage: NextPageWithProps = ({ pageTitle }) => {
     formSettingsDropdown.getValues('slippage') == SLIPPAGE_AUTO_VALUE
   );
 
-  if (!formSwap.getValues()) return <div>loading</div>;
+  if (!formSwap.getValues()) return <Loading />;
 
   return (
     <ModalProvider>
