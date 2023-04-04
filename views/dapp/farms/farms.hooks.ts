@@ -48,7 +48,7 @@ export const useGetFarms = (
         arguments: [
           txb.object(objects.IPX_STORAGE),
           txb.object(objects.IPX_ACCOUNT_STORAGE),
-          txb.pure(account),
+          txb.pure(account || AddressZero),
           txb.pure(5),
         ],
         typeArguments: farmIds1,
@@ -61,7 +61,7 @@ export const useGetFarms = (
         arguments: [
           txb2.object(objects.IPX_STORAGE),
           txb2.object(objects.IPX_ACCOUNT_STORAGE),
-          txb2.pure(account),
+          txb2.pure(account || AddressZero),
           txb2.pure(3),
         ],
         typeArguments: farmIds2,
