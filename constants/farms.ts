@@ -154,7 +154,7 @@ export const FARMS_RECORD = {
     [COIN_TYPE[Network.TESTNET].V_LP_BNB_ETH]: {
       farmType: COIN_TYPE[Network.TESTNET].V_LP_BNB_ETH,
       farmObjectId: COIN_FARM[Network.TESTNET].BNB_ETH,
-      poolObjectId: COIN_POOL[Network.DEVNET].V_LP_BNB_ETH,
+      poolObjectId: COIN_POOL[Network.TESTNET].V_LP_BNB_ETH,
       lpCoin: COINS[Network.TESTNET].V_LP_BNB_ETH,
       coin0: COINS[Network.TESTNET].BNB,
       coin1: COINS[Network.TESTNET].ETH,
