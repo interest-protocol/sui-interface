@@ -49,8 +49,9 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   );
 
   const [coins, coinsMap] = useMemo(
-    () => parseCoins(data, tokensMetadataRecord ?? {}),
-    [data, tokensMetadataRecord]
+    () =>
+      parseCoins({ data, localTokens: tokensMetadataRecord ?? {}, network }),
+    [data, tokensMetadataRecord, network]
   );
 
   return (

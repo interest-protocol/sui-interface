@@ -4,6 +4,9 @@ import BigNumber from 'bignumber.js';
 import { ReactNode } from 'react';
 import { KeyedMutator } from 'swr';
 
+import { Network } from '@/constants';
+import { LocalTokenMetadataRecord } from '@/interface';
+
 export interface Web3ManagerSuiObject {
   type: string;
   symbol: string;
@@ -28,3 +31,9 @@ export interface Web3ManagerProps {
 }
 
 export type CoinsMap = Web3ManagerState['coinsMap'];
+
+export interface ParseCoinsArg {
+  data: PaginatedCoins | undefined | never[];
+  localTokens: LocalTokenMetadataRecord;
+  network: Network;
+}

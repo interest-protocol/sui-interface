@@ -73,6 +73,8 @@ const Swap: FC<SwapProps> = ({
     name: 'tokenOut.type',
   });
 
+  console.log(coinsMap);
+
   return (
     <Box
       my="L"
