@@ -1,6 +1,6 @@
 import { KeyedMutator } from 'swr';
 
-import { Farm } from '@/utils/farms/farms.types';
+import { Farm } from '@/interface';
 
 import { FarmDetailsData, FarmDetailsProps } from './../../farm-details.types';
 
@@ -10,7 +10,7 @@ export interface FarmOptionsProps {
   modalState: FarmDetailsProps['modalState'];
   setModalState: FarmDetailsProps['setModalState'];
   form: FarmDetailsProps['form'];
-  mutateFarms: KeyedMutator<ReadonlyArray<Farm>>;
+  mutateFarms: KeyedMutator<Farm[]>;
   mutatePools: KeyedMutator<any>;
   mutatePendingRewards: KeyedMutator<BigInt>;
 }

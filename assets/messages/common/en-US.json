@@ -3,6 +3,7 @@
     "dex": "dex",
     "soon": "soon",
     "pool": "pool",
+    "notFoundToken": "Token meta data not found",
     "searchTokenInputDescription": "Search by name, symbol or type...",
     "swap": "{isLoading, plural, =1 {swapping} other {swap}}",
     "balance": "balance",
@@ -62,9 +63,10 @@
     "backHome": "Back Home",
     "chooseToken": "Choose token",
     "chooseNetwork": "Choose Network",
+    "wallet": "wallet",
     "recommendedToken": "Recommended Token",
     "recommended": "Recommended",
-    "addedByUser": "Added by user",
+    "favorites": "Favorites",
     "moreDetails": "more details",
     "copyObjectNumber": "copy objectId",
     "followUs": "FOLLOW US",
@@ -77,7 +79,8 @@
     "fetchingContract": "Error fetching contract",
     "fetchingBalances": "Error fetching balances",
     "accountNotFound": "No account found",
-    "tokenNotFound": "token not found"
+    "tokenNotFound": "token not found",
+    "chainNotFound": "Missing chain"
   },
   "wallet": {
     "wrongNetwork": {

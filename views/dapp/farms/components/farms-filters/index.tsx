@@ -61,7 +61,7 @@ const FarmsFilters: FC<FarmsFiltersProps> = ({
             fontSize="S"
             placeholder={capitalize(t('common.searchTokenInputDescription'))}
             nFocus={{
-              borderColor: 'accentAlternativeBackground',
+              borderColor: 'accentOutline',
             }}
           />
         </Box>

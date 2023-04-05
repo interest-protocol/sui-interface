@@ -1,17 +1,18 @@
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { find, mergeDeepRight, propEq } from 'ramda';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
 import { DEX_TOKENS_DATA } from '@/constants';
 import { ModalProvider } from '@/context/modal';
-import { useLocalStorage } from '@/hooks';
+import { useLocalStorage, useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import { TOKEN_SYMBOL } from '@/sdk';
+import Loading from '@/views/dapp/components/loading';
 import { TokenModalMetadata } from '@/views/dapp/components/select-currency/select-currency.types';
-import { LocalSwapSettings } from '@/views/dapp/dex/swap/swap.types';
+import { ISwapForm, LocalSwapSettings } from '@/views/dapp/dex/swap/swap.types';
 import DEXSwapView from '@/views/dapp/dex/swap-view';
 
 const SLIPPAGE_AUTO_VALUE = '0.1';
@@ -22,14 +23,6 @@ const DEFAULT_UNKNOWN_DATA = {
   decimals: 0,
   type: '',
 };
-
-const SUI =
-  find(propEq('symbol', TOKEN_SYMBOL.SUI), DEX_TOKENS_DATA) ??
-  DEFAULT_UNKNOWN_DATA;
-
-const ETH =
-  find(propEq('symbol', TOKEN_SYMBOL.ETH), DEX_TOKENS_DATA) ??
-  DEFAULT_UNKNOWN_DATA;
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
@@ -42,6 +35,16 @@ const Layout = dynamic(() => import('@/components/layout'), {
 });
 
 const DexPage: NextPageWithProps = ({ pageTitle }) => {
+  const { network } = useNetwork();
+
+  const SUI =
+    find(propEq('symbol', TOKEN_SYMBOL.SUI), DEX_TOKENS_DATA[network]) ??
+    DEFAULT_UNKNOWN_DATA;
+
+  const ETH =
+    find(propEq('symbol', TOKEN_SYMBOL.ETH), DEX_TOKENS_DATA[network]) ??
+    DEFAULT_UNKNOWN_DATA;
+
   const [isOpen, setIsOpen] = useState(false);
   const [searchedToken] = useState<null | TokenModalMetadata>(null);
 
@@ -50,22 +53,22 @@ const DexPage: NextPageWithProps = ({ pageTitle }) => {
     { slippage: '1' }
   );
 
-  const formSwap = useForm({
-    defaultValues: {
-      tokenIn: {
-        type: SUI.type,
-        value: '0.0',
-        decimals: SUI.decimals,
-        symbol: SUI.symbol,
-      },
-      tokenOut: {
-        type: ETH.type,
-        value: '0.0',
-        decimals: ETH.decimals,
-        symbol: ETH.symbol,
-      },
-    },
-  });
+  const formSwap = useForm<ISwapForm>();
+
+  useEffect(() => {
+    formSwap.setValue('tokenIn', {
+      type: SUI.type,
+      value: '0.0',
+      decimals: SUI.decimals,
+      symbol: SUI.symbol,
+    });
+    formSwap.setValue('tokenOut', {
+      type: ETH.type,
+      value: '0.0',
+      decimals: ETH.decimals,
+      symbol: ETH.symbol,
+    });
+  }, [network]);
 
   const formSettingsDropdown = useForm({
     defaultValues: {
@@ -76,6 +79,8 @@ const DexPage: NextPageWithProps = ({ pageTitle }) => {
   const [isAuto, setAuto] = useState(
     formSettingsDropdown.getValues('slippage') == SLIPPAGE_AUTO_VALUE
   );
+
+  if (!formSwap.getValues()) return <Loading />;
 
   return (
     <ModalProvider>

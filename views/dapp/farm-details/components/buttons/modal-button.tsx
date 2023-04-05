@@ -1,3 +1,4 @@
+import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
@@ -5,21 +6,17 @@ import { propOr } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import {
-  FARMS_PACKAGE_ID,
-  IPX_ACCOUNT_STORAGE,
-  IPX_STORAGE,
-} from '@/constants';
+import { OBJECT_RECORD } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useWeb3 } from '@/hooks';
+import { useNetwork, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,
-  getCoinIds,
   processSafeAmount,
   showToast,
   showTXSuccessToast,
+  throwTXIfNotSuccessful,
 } from '@/utils';
 
 import { ModalButtonProps } from './buttons.types';
@@ -35,11 +32,13 @@ const ModalButton: FC<ModalButtonProps> = ({
 }) => {
   const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
-  const { signAndExecuteTransaction } = useWalletKit();
+  const { signAndExecuteTransactionBlock } = useWalletKit();
   const { coinsMap, account } = useWeb3();
+  const { network } = useNetwork();
 
   const handleWithdrawTokens = async () => {
     try {
+      const objects = OBJECT_RECORD[network];
       const value = getValues().amount;
       if (
         farm.accountBalance.isZero() ||
@@ -59,29 +58,28 @@ const ModalButton: FC<ModalButtonProps> = ({
         ? farm.accountBalance
         : amount;
 
-      const tx = await signAndExecuteTransaction(
-        {
-          kind: 'moveCall',
-          data: {
-            function: 'unstake',
-            gasBudget: 15000,
-            module: 'interface',
-            packageObjectId: FARMS_PACKAGE_ID,
-            typeArguments: [farm.lpCoin.type],
-            arguments: [
-              IPX_STORAGE,
-              IPX_ACCOUNT_STORAGE,
-              safeAmount.toString(),
-            ],
-          },
-        },
-        { requestType: 'WaitForEffectsCert' }
-      );
+      const txb = new TransactionBlock();
 
-      if (tx.effects.status.status === 'success') {
-        await showTXSuccessToast(tx);
-        incrementTX(account ?? '');
-      }
+      txb.moveCall({
+        target: `${objects.PACKAGE_ID}::interface::unstake`,
+        typeArguments: [farm.lpCoin.type],
+        arguments: [
+          txb.object(objects.IPX_STORAGE),
+          txb.object(objects.IPX_ACCOUNT_STORAGE),
+          txb.pure(safeAmount.toString()),
+        ],
+      });
+
+      const tx = await signAndExecuteTransactionBlock({
+        transactionBlock: txb,
+        requestType: 'WaitForEffectsCert',
+        options: { showEffects: true },
+      });
+
+      throwTXIfNotSuccessful(tx);
+
+      await showTXSuccessToast(tx, network);
+      incrementTX(account ?? '');
     } finally {
       mutatePools();
       mutatePendingRewards();
@@ -100,9 +98,10 @@ const ModalButton: FC<ModalButtonProps> = ({
 
   const handleDepositTokens = async () => {
     try {
+      const objects = OBJECT_RECORD[network];
       const value = getValues().amount;
       if (farm.lpCoinData.totalBalance.isZero() || !+value) {
-        throw new Error('Cannot deposit 0 tokens');
+        throw new Error(t('error.generic'));
       }
 
       setLoading(true);
@@ -112,36 +111,33 @@ const ModalButton: FC<ModalButtonProps> = ({
         farm.lpCoin.decimals
       ).decimalPlaces(0, BigNumber.ROUND_DOWN);
 
-      const safeAmount = processSafeAmount(
-        amount,
-        farm.lpCoin.type,
-        coinsMap,
-        15000
-      );
+      const safeAmount = processSafeAmount(amount, farm.lpCoin.type, coinsMap);
+      const txb = new TransactionBlock();
 
-      const tx = await signAndExecuteTransaction(
-        {
-          kind: 'moveCall',
-          data: {
-            function: 'stake',
-            gasBudget: 15000,
-            module: 'interface',
-            packageObjectId: FARMS_PACKAGE_ID,
-            typeArguments: [farm.lpCoin.type],
-            arguments: [
-              IPX_STORAGE,
-              IPX_ACCOUNT_STORAGE,
-              getCoinIds(coinsMap, farm.lpCoinData.type),
-              safeAmount.toString(),
-            ],
-          },
-        },
-        { requestType: 'WaitForEffectsCert' }
-      );
-      if (tx.effects.status.status === 'success') {
-        await showTXSuccessToast(tx);
-        incrementTX(account ?? '');
-      }
+      txb.moveCall({
+        target: `${objects.PACKAGE_ID}::interface::stake`,
+        typeArguments: [farm.lpCoin.type],
+        arguments: [
+          txb.object(objects.IPX_STORAGE),
+          txb.object(objects.IPX_ACCOUNT_STORAGE),
+          txb.makeMoveVec({
+            objects: coinsMap[farm.lpCoin.type].objects.map((x) =>
+              txb.object(x.coinObjectId)
+            ),
+          }),
+          txb.pure(safeAmount.toString()),
+        ],
+      });
+      const tx = await signAndExecuteTransactionBlock({
+        transactionBlock: txb,
+        requestType: 'WaitForEffectsCert',
+        options: { showEffects: true },
+      });
+
+      throwTXIfNotSuccessful(tx);
+
+      await showTXSuccessToast(tx, network);
+      incrementTX(account ?? '');
     } finally {
       mutatePools();
       mutatePendingRewards();

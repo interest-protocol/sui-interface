@@ -1,3 +1,5 @@
+import { CompiledModules } from '@/interface';
+
 interface GetTokenByteCoreArgs {
   name: string;
   decimals: number;
@@ -7,7 +9,7 @@ interface GetTokenByteCoreArgs {
 
 export const getTokenByteCode = async (
   data: GetTokenByteCoreArgs
-): Promise<ReadonlyArray<string>> => {
+): Promise<CompiledModules> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_IPX_ANALYTICS_SERVER_URL}api/v1/token/makeToken`,
     {

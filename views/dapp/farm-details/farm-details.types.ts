@@ -1,3 +1,4 @@
+import { SuiObjectResponse } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { Dispatch, SetStateAction } from 'react';
 import { UseFormReturn } from 'react-hook-form';
@@ -6,10 +7,9 @@ import {
   CoinsMap,
   Web3ManagerSuiObject,
 } from '@/components/web3-manager/web3-manager.types';
-import { FarmMetadataType, StakeState } from '@/constants';
+import { FarmMetadataType, Network, StakeState } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
-import { Farm } from '@/utils/farms/farms.types';
-import { Pool } from '@/utils/pools/pools.types';
+import { Farm } from '@/interface';
 
 export interface ModalState {
   isOpen: boolean;
@@ -39,7 +39,8 @@ export interface ParseFarmDataArgs {
   coinsMap: CoinsMap;
   farmMetadata: FarmMetadataType;
   pendingRewards: BigNumber;
-  pools: ReadonlyArray<Pool> | undefined;
+  pools: SuiObjectResponse[] | undefined;
+  network: Network;
 }
 
 export interface FarmDetailsData extends FarmMetadataType {

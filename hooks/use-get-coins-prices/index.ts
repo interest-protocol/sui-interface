@@ -1,9 +1,10 @@
 import { pathOr } from 'ramda';
 import useSWR, { SWRConfiguration } from 'swr';
 
-import { COIN_MARKET_CAP_ID_RECORD, Network } from '@/constants';
+import { COIN_MARKET_CAP_ID_RECORD } from '@/constants';
 import { fetcher } from '@/utils';
 
+import { useNetwork } from '../use-network';
 interface CoinPricesRecordData {
   type: string;
   price: number;
@@ -15,13 +16,14 @@ export const useGetCoinsPrices = (
   coinTypes: ReadonlyArray<string>,
   config: SWRConfiguration = {}
 ) => {
+  const { network } = useNetwork();
   const {
     data: rawData,
     error,
     isLoading,
   } = useSWR(
     `/api/v1/quote?id=${coinTypes
-      .map((coinType) => COIN_MARKET_CAP_ID_RECORD[Network.DEVNET][coinType])
+      .map((coinType) => COIN_MARKET_CAP_ID_RECORD[network][coinType])
       .filter((x) => x !== -1)}`,
     fetcher,
     {
@@ -41,7 +43,7 @@ export const useGetCoinsPrices = (
           0,
           [
             'data',
-            COIN_MARKET_CAP_ID_RECORD[Network.DEVNET][coinType],
+            COIN_MARKET_CAP_ID_RECORD[network][coinType],
             'quote',
             'USD',
             'price',

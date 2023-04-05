@@ -1,17 +1,12 @@
-import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { pathOr } from 'ramda';
 
-import { COIN_DECIMALS, COIN_TYPE_TO_SYMBOL, Network } from '@/constants';
-import { CoinData } from '@/interface';
+import { COIN_DECIMALS, COIN_TYPE_TO_SYMBOL } from '@/constants';
 import { parseBigNumberish, safeSymbol } from '@/utils';
 
 import { COIN_TYPE_TO_STABLE } from './../../constants/coins';
-import { Web3ManagerSuiObject } from './web3-manager.types';
+import { ParseCoinsArg, Web3ManagerSuiObject } from './web3-manager.types';
 
-export const parseCoins = (
-  data: PaginatedCoins | undefined | never[],
-  localTokens: Record<string, CoinData>
-) => {
+export const parseCoins = ({ data, localTokens, network }: ParseCoinsArg) => {
   if (!data)
     return [[], {}] as [
       ReadonlyArray<Web3ManagerSuiObject>,
@@ -59,17 +54,18 @@ export const parseCoins = (
             Record<string, Web3ManagerSuiObject>
           ];
         }
+
         const symbol =
-          pathOr(null, [Network.DEVNET, type], COIN_TYPE_TO_SYMBOL) ??
+          pathOr(null, [network, type], COIN_TYPE_TO_SYMBOL) ??
           pathOr(null, [type, 'symbol'], localTokens) ??
           safeSymbol(type, type);
 
         const decimals =
-          pathOr(null, [Network.DEVNET, type], COIN_DECIMALS) ??
+          pathOr(null, [network, type], COIN_DECIMALS) ??
           pathOr(-1, [type, 'decimals'], localTokens);
 
         const stable =
-          pathOr(null, [Network.DEVNET, type], COIN_TYPE_TO_STABLE) ??
+          pathOr(null, [network, type], COIN_TYPE_TO_STABLE) ??
           pathOr(null, [type, 'stable'], localTokens) ??
           false;
 

@@ -2,6 +2,7 @@ export { default as Container } from './container';
 export { default as CopyToClipboard } from './copy-to-clipboard';
 export { ConnectWallet } from './layout/header/wallet';
 export { default as LoadingPage } from './loading-page';
+export { default as NetworkProvider } from './network-provider';
 export { default as NextIntlProvider } from './next-intl-provider';
 export { default as SEO } from './SEO';
 export { default as SocialMediaCard } from './social-media-card';

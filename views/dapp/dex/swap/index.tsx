@@ -8,7 +8,7 @@ import { Box, InputBalance } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
-import { formatMoney, ZERO_BIG_NUMBER } from '@/utils';
+import { ZERO_BIG_NUMBER } from '@/utils';
 
 import SelectCurrency from '../../components/select-currency';
 import { OnSelectCurrency } from '../../components/select-currency/select-currency.types';
@@ -119,16 +119,14 @@ const Swap: FC<SwapProps> = ({
               name="tokenIn.value"
               register={formSwap.register}
               setValue={formSwap.setValue}
-              balance={formatMoney(
-                FixedPointMath.toNumber(
-                  pathOr(
-                    ZERO_BIG_NUMBER,
-                    [tokenInType, 'totalBalance'],
-                    coinsMap
-                  ),
-                  pathOr(0, [tokenInType, 'decimals'], coinsMap)
-                )
-              )}
+              balance={FixedPointMath.toNumber(
+                pathOr(
+                  ZERO_BIG_NUMBER,
+                  [tokenInType, 'totalBalance'],
+                  coinsMap
+                ),
+                pathOr(0, [tokenInType, 'decimals'], coinsMap)
+              ).toString()}
               Suffix={
                 <SelectCurrency
                   currentToken={tokenInType}

@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
 
+import { useNetwork } from '@/hooks';
 import { LoadingSVG, TimesSVG } from '@/svg';
 
 import { SwapManagerWrapperProps } from '../swap.types';
@@ -23,12 +24,14 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
     useWatch({ control: props.control, name: 'tokenIn' }),
     900
   );
+  const { network } = useNetwork();
 
-  const markets = findMarket(
-    props.volatilePoolsMap,
-    props.tokenInType,
-    props.tokenOutType
-  );
+  const markets = findMarket({
+    data: props.volatilePoolsMap,
+    tokenInType: props.tokenInType,
+    tokenOutType: props.tokenOutType,
+    network,
+  });
   const hasNoMarket = !markets.length;
 
   const readyToSwap =

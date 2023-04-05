@@ -1,5 +1,5 @@
 import { toHEX } from '@mysten/bcs';
-import { MoveCallTransaction } from '@mysten/sui.js/src';
+import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/router';
@@ -7,25 +7,17 @@ import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
-import {
-  COINS_PACKAGE_ID,
-  DEX_STORAGE_VOLATILE,
-  FAUCET_PACKAGE_ID,
-  Routes,
-  RoutesEnum,
-} from '@/constants';
+import { OBJECT_RECORD, Routes, RoutesEnum } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useWeb3 } from '@/hooks';
-import { useModal } from '@/hooks/use-modal';
+import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { AddressZero, FixedPointMath } from '@/sdk';
 import {
   capitalize,
-  getCoinIds,
-  getDevInspectData,
-  provider,
+  createVectorParameter,
+  getReturnValuesFromInspectResults,
   showToast,
   showTXSuccessToast,
-  wsProvider,
+  throwTXIfNotSuccessful,
 } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
@@ -44,14 +36,18 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
   const { push } = useRouter();
   const [loading, setLoading] = useState(false);
   const { setModal, handleClose } = useModal();
-  const { signAndExecuteTransaction } = useWalletKit();
+  const { signAndExecuteTransactionBlock } = useWalletKit();
   const { coinsMap, account } = useWeb3();
+  const { network } = useNetwork();
+  const { provider } = useProvider();
+
+  const objects = OBJECT_RECORD[network];
 
   const enterPool = async () => {
     setLoading(true);
 
     try {
-      const pairId = getRecommendedPairId(tokenAType, tokenBType);
+      const pairId = getRecommendedPairId(network, tokenAType, tokenBType);
 
       if (pairId)
         return await push({
@@ -59,24 +55,29 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
           query: { objectId: pairId },
         });
 
-      const response = await provider.devInspectTransaction(AddressZero, {
-        kind: 'moveCall',
-        data: {
-          function: 'get_v_pool_id',
-          gasBudget: 5000,
-          module: 'interface',
-          packageObjectId: COINS_PACKAGE_ID,
-          arguments: [DEX_STORAGE_VOLATILE],
-          typeArguments: [tokenAType, tokenBType],
-        } as MoveCallTransaction,
+      const transactionBlock = new TransactionBlock();
+
+      transactionBlock.moveCall({
+        target: `${objects.PACKAGE_ID}::interface::get_v_pool_id`,
+        arguments: [transactionBlock.object(objects.DEX_STORAGE_VOLATILE)],
+        typeArguments: [tokenAType, tokenBType],
+      });
+
+      const response = await provider.devInspectTransactionBlock({
+        transactionBlock,
+        sender: account ?? AddressZero,
       });
 
       if (response.effects.status.status === 'failure')
         return setCreatingPair(true);
 
+      const data = getReturnValuesFromInspectResults(response);
+
+      if (!data || data[0]) return;
+
       await push({
         pathname: Routes[RoutesEnum.DEXPoolDetails],
-        query: { objectId: `0x${toHEX(getDevInspectData(response))}` },
+        query: { objectId: `0x${toHEX(Uint8Array.from(data[0]))}` },
       });
     } catch {
       throw new Error(t('dexPoolFind.errors.connecting'));
@@ -92,7 +93,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
       const tokenA = getValues('tokenA');
       const tokenB = getValues('tokenB');
 
-      if (!account) throw new Error();
+      if (!account) throw new Error(t('error.accountNotFound'));
 
       if (!+tokenA.value || !+tokenB.value)
         throw new Error(t('dexPoolFind.errors.value'));
@@ -107,47 +108,51 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
         tokenB.decimals
       ).decimalPlaces(0, BigNumber.ROUND_DOWN);
 
-      const tx = await signAndExecuteTransaction({
-        kind: 'moveCall',
-        data: {
-          function: 'create_pool',
-          gasBudget: 12000,
-          module: 'interface',
-          packageObjectId: FAUCET_PACKAGE_ID,
-          typeArguments: [tokenAType, tokenBType],
-          arguments: [
-            DEX_STORAGE_VOLATILE,
-            getCoinIds(coinsMap, tokenA.type, 12000),
-            getCoinIds(coinsMap, tokenB.type, 12000),
-            amountA.toString(),
-            amountB.toString(),
-          ],
-        },
+      const txb = new TransactionBlock();
+
+      txb.moveCall({
+        target: `${objects.PACKAGE_ID}::interface::create_pool`,
+        arguments: [
+          txb.object(objects.DEX_STORAGE_VOLATILE),
+          createVectorParameter({
+            txb,
+            type: tokenA.type,
+            coinsMap,
+            amount: amountA.toString(),
+          }),
+          createVectorParameter({
+            txb,
+            type: tokenB.type,
+            coinsMap,
+            amount: amountB.toString(),
+          }),
+          txb.pure(amountA.toString()),
+          txb.pure(amountB.toString()),
+        ],
+        typeArguments: [tokenA.type, tokenB.type],
       });
 
-      await showTXSuccessToast(tx);
+      const tx = await signAndExecuteTransactionBlock({
+        transactionBlock: txb,
+        requestType: 'WaitForEffectsCert',
+        options: { showEffects: true, showEvents: true },
+      });
 
-      const subscriptionId = await wsProvider.subscribeEvent(
-        {
-          All: [
-            { Package: COINS_PACKAGE_ID },
-            { SenderAddress: account },
-            { EventType: 'MoveEvent' },
-          ],
-        },
-        async (data) => {
-          if ('moveEvent' in data.event) {
-            const id = data.event.moveEvent.fields.id;
-            if (id) {
-              await wsProvider.unsubscribeEvent(subscriptionId);
-              await push({
-                pathname: Routes[RoutesEnum.DEXPoolDetails],
-                query: { objectId: id },
-              });
-            }
-          }
-        }
-      );
+      throwTXIfNotSuccessful(tx);
+
+      await showTXSuccessToast(tx, network);
+
+      if (
+        tx.events &&
+        tx.events.length &&
+        tx.events[0].parsedJson &&
+        tx.events[0].parsedJson.id
+      ) {
+        await push({
+          pathname: Routes[RoutesEnum.DEXPoolDetails],
+          query: { objectId: tx.events[0].parsedJson?.id },
+        });
+      }
     } catch {
       throw new Error(t('dexPoolFind.errors.create'));
     } finally {

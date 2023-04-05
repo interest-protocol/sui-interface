@@ -1,9 +1,11 @@
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
 
 import Box from '@/elements/box';
 import Typography from '@/elements/typography';
+import { useNetwork } from '@/hooks';
 import { TOKEN_SYMBOL } from '@/sdk';
 import { capitalize, formatDollars } from '@/utils';
 import {
@@ -13,8 +15,9 @@ import {
 
 import { DetailsProps } from './farm-details.types';
 
-const Details: FC<DetailsProps> = ({ farm }) => {
+const Details: FC<DetailsProps> = ({ farm, loading }) => {
   const t = useTranslations();
+  const { network } = useNetwork();
   return (
     <Box>
       <Box display="flex" alignItems="center" px="L">
@@ -32,11 +35,17 @@ const Details: FC<DetailsProps> = ({ farm }) => {
           )
         )}
         <Typography variant="normal" textTransform="capitalize">
-          {farm.id === 0
-            ? `${TOKEN_SYMBOL.IPX} ${capitalize(t('common.pool'))} `
-            : `${makeFarmSymbol(farm.coin0.type, farm.coin1.type)} ${capitalize(
-                t('common.farm')
-              )} `}
+          {loading ? (
+            <Skeleton />
+          ) : farm.id === 0 ? (
+            `${TOKEN_SYMBOL.IPX} ${capitalize(t('common.pool'))} `
+          ) : (
+            `${makeFarmSymbol(
+              network,
+              farm.coin0.type,
+              farm.coin1.type
+            )} ${capitalize(t('common.farm'))} `
+          )}
           {t('farmsDetails.title')}
         </Typography>
         <Typography
@@ -53,9 +62,13 @@ const Details: FC<DetailsProps> = ({ farm }) => {
           textTransform="capitalize"
           bg={farm.stable ? 'accent' : 'accentAlternativeActive'}
         >
-          {t(farm.stable ? 'common.stable' : 'common.volatile', {
-            count: 1,
-          })}
+          {loading ? (
+            <Skeleton />
+          ) : (
+            t(farm.stable ? 'common.stable' : 'common.volatile', {
+              count: 1,
+            })
+          )}
         </Typography>
       </Box>
       <Box
@@ -104,7 +117,10 @@ const Details: FC<DetailsProps> = ({ farm }) => {
           </Typography>
           {farm.allocationPoints.isZero()
             ? '0%'
-            : `${farm.allocationPoints.decimalPlaces(3).toNumber() * 100}%`}
+            : `${farm.allocationPoints
+                .multipliedBy(100)
+                .decimalPlaces(3)
+                .toNumber()}%`}
         </Box>
       </Box>
     </Box>

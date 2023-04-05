@@ -1,12 +1,15 @@
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import { Network } from '@/constants';
 import { Box, Dropdown, Typography } from '@/elements';
+import { useNetwork } from '@/hooks';
 import { AnchorSVG, ArrowSVG, BinanceTestSVG, SuiSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
 const SelectNetwork: FC = () => {
   const t = useTranslations();
+  const { network, setNetwork } = useNetwork();
 
   return (
     <Dropdown
@@ -28,10 +31,11 @@ const SelectNetwork: FC = () => {
         </Typography>
       }
       header={capitalize(t('common.chooseNetwork'))}
-      defaultValue={`sui`}
+      defaultValue={network}
       data={[
         {
-          value: `sui`,
+          value: Network.DEVNET,
+          onSelect: () => setNetwork(Network.DEVNET),
           displayTitle: (
             <Box display="flex" alignItems="center" py="S">
               <Box
@@ -56,7 +60,7 @@ const SelectNetwork: FC = () => {
                 color="text"
                 display={['none', 'none', 'flex', 'flex']}
               >
-                SUI
+                SUI DevNet
               </Typography>
             </Box>
           ),
@@ -84,11 +88,78 @@ const SelectNetwork: FC = () => {
                 color="text"
                 display="flex"
               >
-                SUI
+                SUI DevNet
               </Typography>
             </Box>
           ),
-          disabled: true,
+        },
+        {
+          value: Network.TESTNET,
+          onSelect: () => setNetwork(Network.TESTNET),
+          displayTitle: (
+            <Box display="flex" alignItems="center" py="S">
+              <Box
+                as="span"
+                display="inline-block"
+                width={['1rem', '1rem', '1rem', '1.5rem']}
+                height={['1rem', '1rem', '1rem', '1.5rem']}
+                color="text"
+              >
+                <SuiSVG
+                  width="100%"
+                  height="100%"
+                  fill="currentColor"
+                  maxHeight="1.5rem"
+                  maxWidth="1.5rem"
+                />
+              </Box>
+              <Typography
+                variant="normal"
+                mx="M"
+                whiteSpace="nowrap"
+                color="text"
+                display={['none', 'none', 'flex', 'flex']}
+              >
+                SUI TestNet
+              </Typography>
+            </Box>
+          ),
+          displayOption: (
+            <Box
+              px="L"
+              width="100%"
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Box display="flex" alignItems="center">
+                <Box
+                  as="span"
+                  display="inline-block"
+                  width="1.5rem"
+                  height="1.5rem"
+                  color="text"
+                >
+                  <SuiSVG
+                    width="100%"
+                    height="100%"
+                    fill="currentColor"
+                    maxHeight="1.5rem"
+                    maxWidth="1.5rem"
+                  />
+                </Box>
+                <Typography
+                  variant="normal"
+                  mx="M"
+                  whiteSpace="nowrap"
+                  color="text"
+                  display="flex"
+                >
+                  SUI TestNet
+                </Typography>
+              </Box>
+            </Box>
+          ),
         },
         {
           value: 'bsct',

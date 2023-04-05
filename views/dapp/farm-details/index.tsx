@@ -1,25 +1,22 @@
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 import { Container } from '@/components';
-import { COINS, Network, RoutesEnum } from '@/constants';
+import { COIN_POOL, COINS, RoutesEnum } from '@/constants';
 import {
   useGetCoinsPrices,
-  useGetFarms,
   useGetIPXStorage,
-  useGetVolatilePools,
+  useGetMultiGetObjects,
+  useNetwork,
   useWeb3,
 } from '@/hooks';
+import { AddressZero } from '@/sdk';
 
 import { GoBack } from '../components';
 import ErrorView from '../components/error';
 import { Details, FarmOptions } from './components';
-import {
-  FARM_TYPE_ARGS_EXTRA,
-  POOL_TYPE_ARGS_EXTRA,
-} from './farm-details.constants';
-import { useGetPendingRewards } from './farm-details.hook';
+import { useGetFarm, useGetPendingRewards } from './farm-details.hook';
 import { FarmDetailsProps } from './farm-details.types';
 import { parseError, parseFarmData } from './farm-details.utils';
 
@@ -41,6 +38,8 @@ const FarmDetails: FC<FarmDetailsProps> = ({
     error: web3Error,
   } = useWeb3();
 
+  const { network } = useNetwork();
+
   const { data: ipxStorage, error: ipxStorageError } = useGetIPXStorage();
 
   const {
@@ -50,34 +49,34 @@ const FarmDetails: FC<FarmDetailsProps> = ({
   } = useGetPendingRewards(account, farmMetadata, { refreshInterval: 0 });
 
   const {
+    error: farmsError,
     data: farms,
     mutate: mutateFarms,
-    error: farmsError,
     isLoading: farmsLoading,
-  } = useGetFarms(
-    account,
-    [farmMetadata.farmType].concat(FARM_TYPE_ARGS_EXTRA),
-    1
-  );
+  } = useGetFarm(farmMetadata.lpCoin.type, account || AddressZero);
 
   const {
     data: pools,
     mutate: mutatePools,
     error: poolsError,
     isLoading: poolsLoading,
-  } = useGetVolatilePools(
-    account,
-    [farmMetadata.coin0.type, farmMetadata.coin1.type].concat(
-      POOL_TYPE_ARGS_EXTRA
-    ),
-    2
-  );
+  } = useGetMultiGetObjects([
+    farmMetadata.poolObjectId === COIN_POOL[network].V_LP_ETH_IPX
+      ? COIN_POOL[network].V_LP_BNB_ETH
+      : farmMetadata.poolObjectId,
+    COIN_POOL[network].V_LP_ETH_IPX,
+  ]);
 
   const coinsPrices = useGetCoinsPrices([
     coin0.type,
     coin1.type,
-    COINS[Network.DEVNET].ETH.type,
+    COINS[network].ETH.type,
   ]);
+
+  const loading = useMemo(
+    () => farmsLoading || isFetchingCoinBalances || poolsLoading,
+    [farmsLoading, isFetchingCoinBalances, poolsLoading]
+  );
 
   if (
     farmsError ||
@@ -110,14 +109,15 @@ const FarmDetails: FC<FarmDetailsProps> = ({
     prices: coinsPrices.data,
     ipxStorage,
     pendingRewards: new BigNumber(pendingRewards),
+    network,
   });
 
   return (
     <Container dapp width="100%" mt="XL">
       <GoBack route={RoutesEnum.Farms} />
-      <Details farm={parsedData} />
+      <Details farm={parsedData} loading={loading} />
       <FarmOptions
-        loading={farmsLoading || isFetchingCoinBalances || poolsLoading}
+        loading={loading}
         farm={parsedData}
         mutateFarms={mutateFarms}
         modalState={modalState}

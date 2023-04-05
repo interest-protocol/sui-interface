@@ -1,3 +1,4 @@
 export enum Network {
-  DEVNET = 'DEVNET',
+  DEVNET = 'sui:devnet',
+  TESTNET = 'sui:testnet',
 }

@@ -1,43 +1,44 @@
 import { Connection, devnetConnection, JsonRpcProvider } from '@mysten/sui.js';
 import { DevInspectResults } from '@mysten/sui.js/src/types';
-import { head, nth, pathOr, propOr } from 'ramda';
+import { head, propOr } from 'ramda';
 
-const connection = process.env.NEXT_PUBLIC_SUI_RPC_URL
-  ? new Connection({ fullnode: process.env.NEXT_PUBLIC_SUI_RPC_URL })
-  : devnetConnection;
+export const devNetProvider = new JsonRpcProvider(
+  process.env.NEXT_PUBLIC_SUI_DEVNET_RPC_URL
+    ? new Connection({
+        fullnode: process.env.NEXT_PUBLIC_SUI_DEVNET_RPC_URL,
+        faucet: devnetConnection.faucet,
+        websocket:
+          process.env.NEXT_PUBLIC_SUI_DEVNET_WS_URL ||
+          devnetConnection.websocket,
+      })
+    : devnetConnection
+);
 
-export const provider = new JsonRpcProvider(connection);
-
-export const wsProvider = new JsonRpcProvider(
+export const testNetProvider = new JsonRpcProvider(
   new Connection({
-    fullnode:
-      process.env.NEXT_PUBLIC_SUI_WS_URL || 'wss://fullnode.devnet.sui.io:443',
+    fullnode: process.env.NEXT_PUBLIC_SUI_TESTNET_RPC_URL
+      ? process.env.NEXT_PUBLIC_SUI_TESTNET_RPC_URL
+      : 'https://fullnode.testnet.sui.io:443',
+    websocket:
+      process.env.NEXT_PUBLIC_SUI_TESTNET_WS_URL ||
+      'wss://fullnode.testnet.sui.io:443',
+    faucet: 'https://faucet.testnet.sui.io/gas',
   })
 );
 
-export const mystenLabsProvider = new JsonRpcProvider(devnetConnection);
-
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export const getDevInspectType = (x: DevInspectResults): string =>
-  nth(
-    1,
-    head(
-      propOr(
-        [],
-        'returnValues',
-        nth(1, head(pathOr([], ['results', 'Ok'], x)) || [])
-      ) as any
-    )
-  )!;
+export const getReturnValuesFromInspectResults = (
+  x: DevInspectResults
+): [number[], string] | null => {
+  const results = propOr([], 'results', x) as DevInspectResults['results'];
+  const firstElem = head(results!);
 
-export const getDevInspectData = (x: DevInspectResults): any =>
-  head(
-    head(
-      propOr(
-        [],
-        'returnValues',
-        nth(1, head(pathOr([], ['results', 'Ok'], x)) || [])
-      ) as any
-    )!
-  );
+  if (!firstElem) return null;
+
+  const returnValues = firstElem.returnValues;
+
+  if (!returnValues) return null;
+  const result = head(returnValues);
+  return result ? result : null;
+};

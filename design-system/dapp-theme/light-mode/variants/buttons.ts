@@ -50,7 +50,9 @@ const secondary = css`
     background: ${colors.accentActive};
   }
   &:disabled {
+    border: none;
     cursor: not-allowed;
+    color: ${colors.accentSoft};
     background: ${colors.disabled};
     &:hover {
       background: ${colors.disabled};

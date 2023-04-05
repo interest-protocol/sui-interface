@@ -3,37 +3,38 @@ import { createContext, FC, useMemo } from 'react';
 import useSWR from 'swr';
 import { useReadLocalStorage } from 'usehooks-ts';
 
-import { CoinData } from '@/interface';
-import { makeSWRKey, provider } from '@/utils';
+import { useNetwork, useProvider } from '@/hooks';
+import { LocalTokenMetadataRecord } from '@/interface';
+import { makeSWRKey, noop } from '@/utils';
 
 import { Web3ManagerProps, Web3ManagerState } from './web3-manager.types';
 import { parseCoins } from './web3-manager.utils';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const defaultMutate: any = () => {};
-
-const CONTEXT_DE_DEFAULT_STATE = {
+const CONTEXT_DEFAULT_STATE = {
   account: null,
+  walletAccount: null,
   coins: [],
   coinsMap: {},
   connected: false,
   error: false,
-  mutate: defaultMutate,
+  mutate: noop,
   isFetchingCoinBalances: false,
 };
 
 export const Web3ManagerContext = createContext<Web3ManagerState>(
-  CONTEXT_DE_DEFAULT_STATE
+  CONTEXT_DEFAULT_STATE
 );
 
 const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   const { isError, currentAccount, isConnected } = useWalletKit();
+  const { provider } = useProvider();
+  const { network } = useNetwork();
 
   const { data, error, mutate, isLoading } = useSWR(
-    makeSWRKey([currentAccount], provider.getAllCoins.name),
+    makeSWRKey([currentAccount, network], provider.getAllCoins.name),
     async () => {
-      if (!currentAccount) return;
-      return await provider.getAllCoins(currentAccount!);
+      if (!currentAccount?.address) return;
+      return await provider.getAllCoins({ owner: currentAccount.address });
     },
     {
       revalidateOnFocus: false,
@@ -42,18 +43,22 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
       refreshInterval: 10000,
     }
   );
-  const localTokens = useReadLocalStorage<Record<string, CoinData>>(
-    'sui-interest-tokens'
+
+  const tokensMetadataRecord = useReadLocalStorage<LocalTokenMetadataRecord>(
+    'sui-interest-tokens-metadata'
   );
+
   const [coins, coinsMap] = useMemo(
-    () => parseCoins(data, localTokens ?? {}),
-    [data, localTokens]
+    () =>
+      parseCoins({ data, localTokens: tokensMetadataRecord ?? {}, network }),
+    [data, tokensMetadataRecord, network]
   );
 
   return (
     <Web3ManagerContext.Provider
       value={{
-        account: currentAccount,
+        account: currentAccount?.address || null,
+        walletAccount: currentAccount || null,
         error: isError || !!error,
         connected: isConnected,
         coins,

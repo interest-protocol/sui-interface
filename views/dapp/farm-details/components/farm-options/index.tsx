@@ -6,6 +6,7 @@ import { Routes, RoutesEnum, StakeState } from '@/constants';
 import { Typography } from '@/elements';
 import Box from '@/elements/box';
 import Button from '@/elements/button';
+import { useNetwork } from '@/hooks';
 import { TOKEN_SYMBOL } from '@/sdk';
 import { FixedPointMath } from '@/sdk/entities/fixed-point-math';
 import { capitalize, formatDollars, formatMoney } from '@/utils';
@@ -29,11 +30,12 @@ const FarmOptions: FC<FarmOptionsProps> = ({
 }) => {
   const t = useTranslations();
   const { push } = useRouter();
+  const { network } = useNetwork();
 
   const farmSymbol =
     farm.id === 0
       ? TOKEN_SYMBOL.IPX
-      : makeFarmSymbol(farm.coin0.type, farm.coin1.type);
+      : makeFarmSymbol(network, farm.coin0.type, farm.coin1.type);
 
   const handleChangeModal = (target: StakeState) => {
     setModalState({ isOpen: true, state: target });

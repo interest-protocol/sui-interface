@@ -1,4 +1,5 @@
-export const AddressZero = '0x0000000000000000000000000000000000000000';
+export const AddressZero =
+  '0x0000000000000000000000000000000000000000000000000000000000000000';
 
 export enum Rounding {
   ROUND_DOWN,
@@ -16,7 +17,7 @@ export enum TOKEN_SYMBOL {
   USDC = 'USDC',
   USDT = 'USDT',
   SUI = 'SUI',
-  IPX = ' IPX',
+  IPX = 'IPX',
   V_LP_SUI_ETH = 'vSUI-ETH',
   V_LP_BTC_ETH = 'vBTC-ETH',
   V_LP_BNB_ETH = 'vBNB-ETH',

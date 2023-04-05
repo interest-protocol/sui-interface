@@ -4,13 +4,7 @@ import { FC, useCallback } from 'react';
 
 import { Container } from '@/components';
 import { Box, InfiniteScroll, Typography } from '@/elements';
-import {
-  useGetCoinsPrices,
-  useGetFarms,
-  useGetIPXStorage,
-  useGetVolatilePools,
-  useWeb3,
-} from '@/hooks';
+import { useGetCoinsPrices, useNetwork, useWeb3 } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
 import { LoadingSVG } from '@/svg';
 import { noop } from '@/utils';
@@ -18,12 +12,8 @@ import { noop } from '@/utils';
 import ErrorView from '../components/error';
 import FarmsFilters from './components/farms-filters';
 import FarmsTable from './components/farms-table';
-import {
-  COIN_PRICES,
-  FARM_TYPE_ARGS,
-  FILLED_FARM_TYPE_ARGS,
-  FILLED_POOL_TYPE_ARGS,
-} from './farms.constants';
+import { COIN_PRICES } from './farms.constants';
+import { useGetFarms, useGetIPXStorageAndPools } from './farms.hooks';
 import { FarmsProps } from './farms.types';
 import { parseData, parseError } from './farms.utils';
 
@@ -31,29 +21,22 @@ const Farms: FC<FarmsProps> = ({ form, desktopState }) => {
   const t = useTranslations();
 
   const { account } = useWeb3();
-  const { data: ipxStorage, error: ipxStorageError } = useGetIPXStorage();
+  const { network } = useNetwork();
 
-  const prices = useGetCoinsPrices(COIN_PRICES);
+  const prices = useGetCoinsPrices(COIN_PRICES[network]);
 
   const handleSetDesktop = useCallback(() => {
     const mediaIsDesktop = window.matchMedia('(min-width: 64em)').matches;
     desktopState.setDesktop(mediaIsDesktop);
   }, []);
 
-  const { error: errorFarms, data: farms } = useGetFarms(
-    account,
-    FILLED_FARM_TYPE_ARGS,
-    FARM_TYPE_ARGS.length
-  );
-  const { error: errorPools, data: pools } = useGetVolatilePools(
-    account,
-    FILLED_POOL_TYPE_ARGS,
-    7
-  );
+  const { error: errorFarms, data: farms } = useGetFarms(account);
+
+  const { ipxStorage, pools, error: errorPools } = useGetIPXStorageAndPools();
 
   useEventListener('resize', handleSetDesktop, true);
 
-  if (errorFarms || prices.error || ipxStorageError || errorPools)
+  if (errorFarms || prices.error || errorPools)
     return (
       <ErrorView
         message={t(
@@ -61,7 +44,6 @@ const Farms: FC<FarmsProps> = ({ form, desktopState }) => {
             errorFarms,
             errorPools,
             pricesError: prices.error,
-            ipxStorageError,
           })
         )}
       />
@@ -72,6 +54,7 @@ const Farms: FC<FarmsProps> = ({ form, desktopState }) => {
     farms,
     ipxStorage,
     prices: prices.data,
+    network,
   });
 
   return (

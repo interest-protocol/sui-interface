@@ -28,6 +28,7 @@ export { default as LogoSVG } from './logo';
 export { default as MediumSVG } from './medium';
 export { default as MoonSVG } from './moon';
 export { default as PTFlagSVG } from './pt-flag';
+export { default as StarSVG } from './star';
 export { default as SuiSVG } from './sui';
 export { default as SunSVG } from './sun';
 export { default as SwapArrowSVG } from './swap-arrow';

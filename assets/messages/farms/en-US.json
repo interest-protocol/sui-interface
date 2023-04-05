@@ -11,8 +11,7 @@
     "errors": {
       "farms": "Failed to fetch Farms data",
       "pools": "Failed to fetch Pools data",
-      "prices": "Failed to fetch coins prices",
-      "ipxStorage": "Failed to fetch the IPXStorage object"
+      "prices": "Failed to fetch coins prices"
     }
   }
 }

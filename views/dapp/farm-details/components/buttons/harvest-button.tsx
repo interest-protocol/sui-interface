@@ -1,16 +1,13 @@
+import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import {
-  FARMS_PACKAGE_ID,
-  IPX_ACCOUNT_STORAGE,
-  IPX_STORAGE,
-} from '@/constants';
+import { OBJECT_RECORD } from '@/constants';
 import Button from '@/elements/button';
-import { useWeb3 } from '@/hooks';
+import { useNetwork, useWeb3 } from '@/hooks';
 import { capitalize, showToast, showTXSuccessToast } from '@/utils';
 
 import { HarvestButtonProps } from './buttons.types';
@@ -21,30 +18,34 @@ const HarvestButton: FC<HarvestButtonProps> = ({
 }) => {
   const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
-  const { signAndExecuteTransaction } = useWalletKit();
+  const { signAndExecuteTransactionBlock } = useWalletKit();
   const { mutate, account } = useWeb3();
+
+  const { network } = useNetwork();
 
   const harvest = async () => {
     try {
+      const objects = OBJECT_RECORD[network];
       setLoading(true);
 
-      const tx = await signAndExecuteTransaction(
-        {
-          kind: 'moveCall',
-          data: {
-            function: 'get_rewards',
-            gasBudget: 15000,
-            module: 'interface',
-            packageObjectId: FARMS_PACKAGE_ID,
-            typeArguments: [farm.lpCoin.type],
-            arguments: [IPX_STORAGE, IPX_ACCOUNT_STORAGE],
-          },
-        },
-        { requestType: 'WaitForEffectsCert' }
-      );
+      const transactionBlock = new TransactionBlock();
 
-      if (tx.effects.status.status === 'success') {
-        await showTXSuccessToast(tx);
+      transactionBlock.moveCall({
+        target: `${objects.PACKAGE_ID}::interface::get_rewards`,
+        typeArguments: [farm.lpCoin.type],
+        arguments: [
+          transactionBlock.object(objects.IPX_STORAGE),
+          transactionBlock.object(objects.IPX_ACCOUNT_STORAGE),
+        ],
+      });
+
+      const tx = await signAndExecuteTransactionBlock({
+        transactionBlock,
+        requestType: 'WaitForEffectsCert',
+      });
+
+      if (tx?.effects?.status.status === 'success') {
+        await showTXSuccessToast(tx, network);
         incrementTX(account ?? '');
       }
     } finally {

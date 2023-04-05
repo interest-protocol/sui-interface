@@ -1,15 +1,19 @@
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
-import { RECOMMENDED_POOLS } from '@/constants';
+import { Network, RECOMMENDED_POOLS } from '@/constants';
 import { ZERO_BIG_NUMBER } from '@/utils';
 
 import { IPools } from './pool.types';
 
 export const filterPools = (
-  coinsMap: Record<string, Web3ManagerSuiObject>
+  network: Network,
+  coinsMap: Record<string, Web3ManagerSuiObject>,
+  stable: boolean
 ): IPools =>
-  RECOMMENDED_POOLS.reduce(
+  RECOMMENDED_POOLS[network].reduce(
     ({ active, inactive }, pool) => {
       const activePool = coinsMap[pool.lpCoin.type];
+
+      if (pool.stable !== stable) return { active, inactive };
 
       return activePool
         ? {

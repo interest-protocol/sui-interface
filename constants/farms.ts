@@ -1,18 +1,13 @@
 import { CoinData } from '@/interface';
 
-import { COIN_POOL, COIN_TYPE, COINS } from './coins';
+import { COIN_FARM, COIN_POOL, COIN_TYPE, COINS } from './coins';
 import { Network } from './network';
-
-export const IPX_STORAGE = '0xedb55018461586c9414881d5d013fce2f344180a';
-
-export const IPX_ACCOUNT_STORAGE = '0xa76791de9bff6678116c13d8eeb003165b2281fd';
-
-export const FARMS_PACKAGE_ID = '0x7519197dd8e31b375b4550017e64dc640743fcdd';
 
 export const FARMS_RECORD = {
   [Network.DEVNET]: {
     [COIN_TYPE[Network.DEVNET].IPX]: {
       farmType: COIN_TYPE[Network.DEVNET].IPX,
+      farmObjectId: COIN_FARM[Network.DEVNET].IPX,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_ETH_IPX,
       lpCoin: COINS[Network.DEVNET].IPX,
       coin0: COINS[Network.DEVNET].ETH,
@@ -24,6 +19,7 @@ export const FARMS_RECORD = {
     },
     [COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH]: {
       farmType: COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH,
+      farmObjectId: COIN_FARM[Network.DEVNET].SUI_ETH,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_SUI_ETH,
       lpCoin: COINS[Network.DEVNET].V_LP_SUI_ETH,
       coin0: COINS[Network.DEVNET].SUI,
@@ -35,6 +31,7 @@ export const FARMS_RECORD = {
     },
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX]: {
       farmType: COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX,
+      farmObjectId: COIN_FARM[Network.DEVNET].ETH_IPX,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_ETH_IPX,
       lpCoin: COINS[Network.DEVNET].V_LP_ETH_IPX,
       coin0: COINS[Network.DEVNET].ETH,
@@ -46,6 +43,7 @@ export const FARMS_RECORD = {
     },
     [COIN_TYPE[Network.DEVNET].V_LP_BTC_ETH]: {
       farmType: COIN_TYPE[Network.DEVNET].V_LP_BTC_ETH,
+      farmObjectId: COIN_FARM[Network.DEVNET].BTC_ETH,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_BTC_ETH,
       lpCoin: COINS[Network.DEVNET].V_LP_BTC_ETH,
       coin0: COINS[Network.DEVNET].BTC,
@@ -57,6 +55,7 @@ export const FARMS_RECORD = {
     },
     [COIN_TYPE[Network.DEVNET].V_LP_BNB_ETH]: {
       farmType: COIN_TYPE[Network.DEVNET].V_LP_BNB_ETH,
+      farmObjectId: COIN_FARM[Network.DEVNET].BNB_ETH,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_BNB_ETH,
       lpCoin: COINS[Network.DEVNET].V_LP_BNB_ETH,
       coin0: COINS[Network.DEVNET].BNB,
@@ -68,6 +67,7 @@ export const FARMS_RECORD = {
     },
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT]: {
       farmType: COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT,
+      farmObjectId: COIN_FARM[Network.DEVNET].ETH_USDT,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_ETH_USDT,
       lpCoin: COINS[Network.DEVNET].V_LP_ETH_USDT,
       coin0: COINS[Network.DEVNET].ETH,
@@ -79,6 +79,7 @@ export const FARMS_RECORD = {
     },
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC]: {
       farmType: COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC,
+      farmObjectId: COIN_FARM[Network.DEVNET].ETH_USDC,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_ETH_USDC,
       lpCoin: COINS[Network.DEVNET].V_LP_ETH_USDC,
       coin0: COINS[Network.DEVNET].ETH,
@@ -90,6 +91,7 @@ export const FARMS_RECORD = {
     },
     [COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH]: {
       farmType: COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
+      farmObjectId: COIN_FARM[Network.DEVNET].DAI_ETH,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_DAI_ETH,
       lpCoin: COINS[Network.DEVNET].V_LP_DAI_ETH,
       coin0: COINS[Network.DEVNET].DAI,
@@ -112,6 +114,104 @@ export const FARMS_RECORD = {
       stable: true,
     },
   },
+  [Network.TESTNET]: {
+    [COIN_TYPE[Network.TESTNET].IPX]: {
+      farmType: COIN_TYPE[Network.TESTNET].IPX,
+      farmObjectId: COIN_FARM[Network.TESTNET].IPX,
+      poolObjectId: COIN_POOL[Network.TESTNET].V_LP_ETH_IPX,
+      lpCoin: COINS[Network.TESTNET].IPX,
+      coin0: COINS[Network.TESTNET].ETH,
+      coin1: COINS[Network.TESTNET].IPX,
+      isSingleCoin: true,
+      id: 0,
+      isLive: true,
+      stable: false,
+    },
+    [COIN_TYPE[Network.TESTNET].V_LP_SUI_ETH]: {
+      farmType: COIN_TYPE[Network.TESTNET].V_LP_SUI_ETH,
+      farmObjectId: COIN_FARM[Network.TESTNET].SUI_ETH,
+      poolObjectId: COIN_POOL[Network.TESTNET].V_LP_SUI_ETH,
+      lpCoin: COINS[Network.TESTNET].V_LP_SUI_ETH,
+      coin0: COINS[Network.TESTNET].SUI,
+      coin1: COINS[Network.TESTNET].ETH,
+      isSingleCoin: false,
+      id: 1,
+      isLive: true,
+      stable: false,
+    },
+    [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: {
+      farmType: COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX,
+      farmObjectId: COIN_FARM[Network.TESTNET].ETH_IPX,
+      poolObjectId: COIN_POOL[Network.TESTNET].V_LP_ETH_IPX,
+      lpCoin: COINS[Network.TESTNET].V_LP_ETH_IPX,
+      coin0: COINS[Network.TESTNET].ETH,
+      coin1: COINS[Network.TESTNET].IPX,
+      isSingleCoin: false,
+      id: 2,
+      isLive: true,
+      stable: false,
+    },
+    [COIN_TYPE[Network.TESTNET].V_LP_BTC_ETH]: {
+      farmType: COIN_TYPE[Network.TESTNET].V_LP_BTC_ETH,
+      farmObjectId: COIN_FARM[Network.TESTNET].BTC_ETH,
+      poolObjectId: COIN_POOL[Network.TESTNET].V_LP_BTC_ETH,
+      lpCoin: COINS[Network.TESTNET].V_LP_BTC_ETH,
+      coin0: COINS[Network.TESTNET].BTC,
+      coin1: COINS[Network.TESTNET].ETH,
+      isSingleCoin: false,
+      id: 3,
+      isLive: true,
+      stable: false,
+    },
+    [COIN_TYPE[Network.TESTNET].V_LP_BNB_ETH]: {
+      farmType: COIN_TYPE[Network.TESTNET].V_LP_BNB_ETH,
+      farmObjectId: COIN_FARM[Network.TESTNET].BNB_ETH,
+      poolObjectId: COIN_POOL[Network.TESTNET].V_LP_BNB_ETH,
+      lpCoin: COINS[Network.TESTNET].V_LP_BNB_ETH,
+      coin0: COINS[Network.TESTNET].BNB,
+      coin1: COINS[Network.TESTNET].ETH,
+      isSingleCoin: false,
+      id: 4,
+      isLive: true,
+      stable: false,
+    },
+    [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT]: {
+      farmType: COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT,
+      farmObjectId: COIN_FARM[Network.TESTNET].ETH_USDT,
+      poolObjectId: COIN_POOL[Network.TESTNET].V_LP_ETH_USDT,
+      lpCoin: COINS[Network.TESTNET].V_LP_ETH_USDT,
+      coin0: COINS[Network.TESTNET].ETH,
+      coin1: COINS[Network.TESTNET].USDT,
+      isSingleCoin: false,
+      id: 5,
+      isLive: true,
+      stable: false,
+    },
+    [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: {
+      farmType: COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC,
+      farmObjectId: COIN_FARM[Network.TESTNET].ETH_USDC,
+      poolObjectId: COIN_POOL[Network.TESTNET].V_LP_ETH_USDC,
+      lpCoin: COINS[Network.TESTNET].V_LP_ETH_USDC,
+      coin0: COINS[Network.TESTNET].ETH,
+      coin1: COINS[Network.TESTNET].USDC,
+      isSingleCoin: false,
+      id: 6,
+      isLive: true,
+      stable: false,
+    },
+    [COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH]: {
+      farmType: COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH,
+      farmObjectId: COIN_FARM[Network.TESTNET].DAI_ETH,
+      poolObjectId: COIN_POOL[Network.TESTNET].V_LP_DAI_ETH,
+      lpCoin: COINS[Network.TESTNET].V_LP_DAI_ETH,
+      coin0: COINS[Network.TESTNET].DAI,
+      coin1: COINS[Network.TESTNET].ETH,
+      isSingleCoin: false,
+      id: 7,
+      isLive: true,
+      stable: false,
+    },
+  },
 };
 
 export interface FarmMetadataType {
@@ -124,4 +224,5 @@ export interface FarmMetadataType {
   isLive: boolean;
   stable: boolean;
   poolObjectId: string;
+  farmObjectId: string;
 }

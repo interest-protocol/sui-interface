@@ -1,7 +1,11 @@
 import { CoinStruct, PaginatedCoins } from '@mysten/sui.js/src/types/coin';
+import { WalletAccount } from '@wallet-standard/base';
 import BigNumber from 'bignumber.js';
 import { ReactNode } from 'react';
 import { KeyedMutator } from 'swr';
+
+import { Network } from '@/constants';
+import { LocalTokenMetadataRecord } from '@/interface';
 
 export interface Web3ManagerSuiObject {
   type: string;
@@ -20,6 +24,7 @@ export interface Web3ManagerState {
   error: boolean;
   mutate: KeyedMutator<PaginatedCoins | undefined>;
   isFetchingCoinBalances: boolean;
+  walletAccount: null | WalletAccount;
 }
 
 export interface Web3ManagerProps {
@@ -27,3 +32,9 @@ export interface Web3ManagerProps {
 }
 
 export type CoinsMap = Web3ManagerState['coinsMap'];
+
+export interface ParseCoinsArg {
+  data: PaginatedCoins | undefined | never[];
+  localTokens: LocalTokenMetadataRecord;
+  network: Network;
+}

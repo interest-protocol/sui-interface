@@ -46,6 +46,7 @@ export interface RemoveLiquidityButtonProps {
   objectIds: ReadonlyArray<string>;
   token0: TokenData;
   token1: TokenData;
+  resetLpAmount: () => void;
 }
 
 export interface TokenAmountProps {
@@ -59,5 +60,5 @@ export interface UseGetRemoveLiquidityAmountsArgs {
   token0Type: string;
   token1Type: string;
   account: string | null;
-  objectIds: ReadonlyArray<string>;
+  objectIds: Array<string>;
 }

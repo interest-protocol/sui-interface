@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import { FarmMetadataType } from '@/constants';
+import { FarmMetadataType, Network } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
-import { Pool } from '@/utils/pools/pools.types';
+import { Farm, Pool } from '@/interface';
 
 export interface CalculateAPRArgs {
   ipxUSDPrice: number;
@@ -14,6 +14,7 @@ export interface CalculateAPRArgs {
 export interface CalculateIPXUSDPriceArgs {
   pool: Pool;
   prices: CoinPriceRecord;
+  network: Network;
 }
 
 export interface CalculateTVLArgs {
@@ -22,10 +23,4 @@ export interface CalculateTVLArgs {
   ipxUSDPrice: number;
   pool: Pool;
   farm: Farm;
-}
-
-export interface Farm {
-  allocationPoints: BigNumber;
-  totalStakedAmount: BigNumber;
-  accountBalance: BigNumber;
 }

@@ -1,15 +1,16 @@
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
-import { FAUCET_TOKENS, Network } from '@/constants';
+import { FAUCET_TOKENS } from '@/constants';
 import { ModalProvider } from '@/context/modal';
+import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import Faucet from '@/views/dapp/faucet';
-
-const tokens = FAUCET_TOKENS[Network.DEVNET];
+import { IFaucetForm } from '@/views/dapp/faucet/faucet.types';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
@@ -22,12 +23,17 @@ const Layout = dynamic(() => import('@/components/layout'), {
 });
 
 const FaucetPage: NextPageWithProps = ({ pageTitle }) => {
-  const form = useForm({
-    defaultValues: {
-      type: tokens?.[0]?.type ?? '',
-      amount: 0,
-    },
-  });
+  const { network } = useNetwork();
+
+  const tokens = FAUCET_TOKENS[network];
+
+  const form = useForm<IFaucetForm>();
+
+  useEffect(() => {
+    form.setValue('type', tokens?.[0]?.type ?? '');
+    form.setValue('amount', 0);
+  }, [network]);
+
   return (
     <ModalProvider>
       <Web3Manager>

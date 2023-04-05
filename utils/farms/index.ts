@@ -1,29 +1,14 @@
-import { bcsForVersion, MoveCallTransaction } from '@mysten/sui.js';
-import { LocalTxnDataSerializer } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 
-import {
-  COIN_TYPE,
-  COINS_PACKAGE_ID,
-  EPOCHS_PER_YEAR,
-  IPX_ACCOUNT_STORAGE,
-  IPX_STORAGE,
-  Network,
-} from '@/constants';
-import { AddressZero, FixedPointMath } from '@/sdk';
-import {
-  getDevInspectData,
-  getDevInspectType,
-  provider,
-  ZERO_BIG_NUMBER,
-} from '@/utils';
+import { COIN_TYPE, EPOCHS_PER_YEAR } from '@/constants';
+import { FixedPointMath } from '@/sdk';
+import { ZERO_BIG_NUMBER } from '@/utils';
 
 import { calculateLPCoinPrice } from '../pools';
 import {
   CalculateAPRArgs,
   CalculateIPXUSDPriceArgs,
   CalculateTVLArgs,
-  Farm,
 } from './farms.types';
 
 export const calculateAPR = ({
@@ -46,6 +31,7 @@ export const calculateAPR = ({
 export const calculateIPXUSDPrice = ({
   pool,
   prices,
+  network,
 }: CalculateIPXUSDPriceArgs) => {
   // V-ETH-IPX is hardcoded on index 2
 
@@ -53,7 +39,7 @@ export const calculateIPXUSDPrice = ({
   const ipxBalance = pool.balanceY;
 
   const ipxInEth = ethBalance.div(ipxBalance).multipliedBy(1e9);
-  const ethType = COIN_TYPE[Network.DEVNET].ETH;
+  const ethType = COIN_TYPE[network].ETH;
 
   // TODO take into account eth decimals upon deployment
   return ipxInEth.multipliedBy(prices[ethType]?.price ?? 0).toNumber();
@@ -90,40 +76,11 @@ export const calculateTVL = ({
   }
 };
 
-export const getFarms = async (
-  account: string | null,
-  typeArgs: ReadonlyArray<string>,
-  numOfFarms: number
-): Promise<ReadonlyArray<Farm>> => {
-  const safeAccount = account || AddressZero;
-  const tx = await new LocalTxnDataSerializer(
-    provider
-  ).serializeToBytesWithoutGasInfo(safeAccount, {
-    kind: 'moveCall',
-    data: {
-      function: 'get_farms',
-      gasBudget: 5000,
-      module: 'interface',
-      packageObjectId: COINS_PACKAGE_ID,
-      arguments: [
-        IPX_STORAGE,
-        IPX_ACCOUNT_STORAGE,
-        safeAccount,
-        numOfFarms.toString(),
-      ],
-      typeArguments: typeArgs,
-    } as MoveCallTransaction,
-  });
-  const data = await provider.devInspectTransaction(safeAccount, tx);
-
-  const farmsArray = bcsForVersion(await provider.getRpcApiVersion()).de(
-    getDevInspectType(data),
-    Uint8Array.from(getDevInspectData(data))
-  );
-
-  return farmsArray.map((elem: ReadonlyArray<BigInt>) => ({
+export const parseSuiRawDataToFarms = (
+  x: ReadonlyArray<ReadonlyArray<BigInt>>
+) =>
+  x.map((elem: ReadonlyArray<BigInt>) => ({
     allocationPoints: BigNumber(elem[0].toString()),
     totalStakedAmount: BigNumber(elem[1].toString()),
     accountBalance: BigNumber(elem[2].toString()),
   }));
-};

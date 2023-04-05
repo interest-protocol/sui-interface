@@ -1,11 +1,11 @@
-import { MoveCallTransaction } from '@mysten/sui.js/src/signers/txn-data-serializers/txn-data-serializer';
+import { TransactionBlock } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import useSWR from 'swr';
 
-import { DEX_PACKAGE_ID, DEX_STORAGE_VOLATILE } from '@/constants';
+import { OBJECT_RECORD } from '@/constants';
+import { useNetwork, useProvider } from '@/hooks';
 import { AddressZero } from '@/sdk';
 import { makeSWRKey } from '@/utils';
-import { provider } from '@/utils';
 
 import { UseGetRemoveLiquidityAmountsArgs } from './remove-liquidity-card.types';
 import { getAmountsFromDevInspect } from './remove-liquidity-card.utils';
@@ -17,31 +17,40 @@ export const useGetRemoveLiquidityAmounts = ({
   account,
   objectIds,
 }: UseGetRemoveLiquidityAmountsArgs) => {
+  const { provider } = useProvider();
+  const { network } = useNetwork();
+
+  const objects = OBJECT_RECORD[network];
+
   const { isLoading, data, error } = useSWR(
     makeSWRKey(
       [account, token1Type, token0Type, account],
-      provider.devInspectTransaction.name
+      provider.devInspectTransactionBlock.name
     ),
     () => {
-      if (!account || !objectIds || !+lpAmount) return;
-      return provider.devInspectTransaction(account || AddressZero, {
-        kind: 'moveCall',
-        data: {
-          function: 'remove_v_liquidity',
-          gasBudget: 9000,
-          module: 'interface',
-          packageObjectId: DEX_PACKAGE_ID,
-          typeArguments: [token0Type, token1Type],
-          arguments: [
-            DEX_STORAGE_VOLATILE,
-            objectIds || [],
+      if (!account || !objectIds.length || !+lpAmount) return;
+
+      const txb = new TransactionBlock();
+
+      txb.moveCall({
+        target: `${objects.PACKAGE_ID}::interface::remove_v_liquidity`,
+        typeArguments: [token0Type, token1Type],
+        arguments: [
+          txb.object(objects.DEX_STORAGE_VOLATILE),
+          txb.makeMoveVec({ objects: objectIds.map((x) => txb.pure(x)) }),
+          txb.pure(
             new BigNumber(lpAmount)
               .decimalPlaces(0, BigNumber.ROUND_DOWN)
-              .toString(),
-            '0',
-            '0',
-          ],
-        } as MoveCallTransaction,
+              .toString()
+          ),
+          txb.pure('0'),
+          txb.pure('0'),
+        ],
+      });
+
+      return provider.devInspectTransactionBlock({
+        transactionBlock: txb,
+        sender: account ?? AddressZero,
       });
     },
     {
@@ -60,6 +69,11 @@ export const useGetRemoveLiquidityAmounts = ({
       isLoading &&
       !!+lpAmount,
     error,
-    data: getAmountsFromDevInspect(data, token0Type, token1Type),
+    data: getAmountsFromDevInspect(
+      objects.PACKAGE_ID,
+      data,
+      token0Type,
+      token1Type
+    ),
   };
 };

@@ -3,6 +3,7 @@
     "dex": "dex",
     "soon": "em breve",
     "pool": "pool",
+    "notFoundToken": "Meta dados do token não encontrados",
     "searchTokenInputDescription": "Procurar por nome, símbolo ou tipo...",
     "swap": "{isLoading, plural, =1 {trocando...} other {trocar}}",
     "balance": "saldo",
@@ -53,6 +54,7 @@
     "unstake": "{isLoading, plural, =1 {unstaking...} other {unstake}}",
     "farm": "farm",
     "select": "selecione",
+    "wallet": "carteira",
     "check": "{isLoading, plural, =1 {verificando...} other {verificar}}",
     "seoDescription": "Use as suas crypto para pedir emprestado Dinero, uma moeda estável, de graça.",
     "network": "{count, plural, =1 {rede} other {redes}}",
@@ -64,7 +66,7 @@
     "chooseNetwork": "Escolha a Rede",
     "recommendedToken": "Tokens Recomendados",
     "recommended": "Recomendados",
-    "addedByUser": "Adicionados",
+    "favorites": "Favoritos",
     "moreDetails": "ver detalhes",
     "copyObjectNumber": "copiar o id do objecto",
     "followUs": "SIGA-NOS",
@@ -77,7 +79,8 @@
     "fetchingContract": "Erro ao obter os contractos",
     "fetchingBalances": "Erro ao obter os saldos",
     "accountNotFound": "Nenhuma conta encontrada",
-    "tokenNotFound": "nenhum token encontrado"
+    "tokenNotFound": "nenhum token encontrado",
+    "chainNotFound": "Chain não encontrado"
   },
   "wallet": {
     "wrongNetwork": {

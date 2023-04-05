@@ -1,20 +1,23 @@
-import { UnserializedSignableTransaction } from '@mysten/sui.js/src/signers/txn-data-serializers/txn-data-serializer';
-import { DevInspectResults } from '@mysten/sui.js/src/types';
+import { TransactionBlock } from '@mysten/sui.js';
 import { DynamicFieldInfo } from '@mysten/sui.js/src/types/dynamic_fields';
 import BigNumber from 'bignumber.js';
-import { has, isEmpty, pathOr, propOr } from 'ramda';
+import { isEmpty, last, pathOr } from 'ramda';
+
+import { DEX_BASE_TOKEN_ARRAY, DexFunctions, OBJECT_RECORD } from '@/constants';
+import { FixedPointMath } from '@/sdk';
+import {
+  addCoinTypeToTokenType,
+  createVectorParameter,
+  getCoinsFromPoolType,
+} from '@/utils';
 
 import {
-  DEX_BASE_TOKEN_ARRAY,
-  DEX_PACKAGE_ID,
-  DEX_STORAGE_STABLE,
-  DEX_STORAGE_VOLATILE,
-} from '@/constants';
-import { FixedPointMath } from '@/sdk';
-import { addCoinTypeToTokenType } from '@/utils';
-import { getCoinIds } from '@/utils';
-
-import { GetSwapPayload, PoolsMap, SwapPathObject } from './swap.types';
+  FindMarketArgs,
+  FindSwapAmountOutput,
+  GetSwapPayload,
+  PoolsMap,
+  SwapPathObject,
+} from './swap.types';
 
 export const parsePools = (data: undefined | DynamicFieldInfo[]) => {
   if (!data) return {};
@@ -49,11 +52,12 @@ export const parsePools = (data: undefined | DynamicFieldInfo[]) => {
 };
 
 // TODO Need to add two hop swap logic
-export const findMarket = (
-  data: PoolsMap,
-  tokenInType: string,
-  tokenOutType: string
-): ReadonlyArray<SwapPathObject> => {
+export const findMarket = ({
+  data,
+  network,
+  tokenOutType,
+  tokenInType,
+}: FindMarketArgs): ReadonlyArray<SwapPathObject> => {
   if (isEmpty(data)) return [];
 
   const pool = pathOr(
@@ -63,17 +67,24 @@ export const findMarket = (
   );
 
   // No Hop Swap X -> Y
-  if (pool)
+  if (pool) {
+    const poolType = (pool as DynamicFieldInfo).objectType;
+    const [coinXType, coinYType] = getCoinsFromPoolType(poolType);
+
     return [
       {
         baseTokens: [],
         tokenInType,
         tokenOutType,
+        functionName:
+          tokenInType === coinXType ? DexFunctions.SwapX : DexFunctions.SwapY,
+        typeArgs: [coinXType, coinYType],
       },
     ];
+  }
 
   // One Hop Swap
-  return DEX_BASE_TOKEN_ARRAY.reduce(
+  return DEX_BASE_TOKEN_ARRAY[network].reduce(
     (acc, element): ReadonlyArray<SwapPathObject> => {
       const firstPool = pathOr(
         null,
@@ -93,6 +104,8 @@ export const findMarket = (
             baseTokens: [element],
             tokenOutType,
             tokenInType,
+            functionName: DexFunctions.OneHopSwap,
+            typeArgs: [tokenInType, element, tokenOutType],
           },
         ];
 
@@ -119,11 +132,17 @@ export const getSwapPayload = ({
   tokenOutType,
   coinsMap,
   volatilesPools,
-}: GetSwapPayload): UnserializedSignableTransaction | null => {
+  network,
+}: GetSwapPayload): TransactionBlock | null => {
   if (isEmpty(volatilesPools)) return null;
-  if (!tokenIn.value) return null;
+  if (!tokenIn || !tokenIn.value) return null;
 
-  const path = findMarket(volatilesPools, tokenIn.type, tokenOutType);
+  const path = findMarket({
+    data: volatilesPools,
+    network,
+    tokenOutType,
+    tokenInType: tokenIn.type,
+  });
 
   if (!path.length) return null;
 
@@ -131,90 +150,68 @@ export const getSwapPayload = ({
 
   const amount = FixedPointMath.toBigNumber(tokenIn.value, tokenIn.decimals);
 
+  const safeAmount = amount.decimalPlaces(0, BigNumber.ROUND_DOWN);
+
+  const txb = new TransactionBlock();
+  const objects = OBJECT_RECORD[network];
+
+  const firstCoinVector = createVectorParameter({
+    txb,
+    coinsMap,
+    amount: safeAmount.toString(),
+    type: tokenIn.type,
+  });
+
   // no hop swap
   if (!firstSwapObject.baseTokens.length) {
-    return {
-      kind: 'moveCall',
-      data: {
-        function: 'swap',
-        gasBudget: 9000,
-        module: 'interface',
-        packageObjectId: DEX_PACKAGE_ID,
-        typeArguments: [
-          firstSwapObject.tokenInType,
-          firstSwapObject.tokenOutType,
-        ],
-        arguments: [
-          DEX_STORAGE_VOLATILE,
-          DEX_STORAGE_STABLE,
-          getCoinIds(coinsMap, firstSwapObject.tokenInType),
-          [],
-          amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
-          '0',
-          '0',
-        ],
-      },
-    };
+    txb.moveCall({
+      target: `${objects.PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
+      typeArguments: firstSwapObject.typeArgs,
+      arguments: [
+        txb.object(objects.DEX_STORAGE_VOLATILE),
+        txb.object(objects.DEX_STORAGE_STABLE),
+        firstCoinVector,
+        txb.pure(safeAmount.toString()),
+        txb.pure('0'),
+      ],
+    });
+    return txb;
   }
 
   // One Hop Swap
   if (firstSwapObject.baseTokens.length === 1) {
-    return {
-      kind: 'moveCall',
-      data: {
-        function: 'one_hop_swap',
-        gasBudget: 9000,
-        module: 'interface',
-        packageObjectId: DEX_PACKAGE_ID,
-        typeArguments: [
-          firstSwapObject.tokenInType,
-          firstSwapObject.tokenOutType,
-          firstSwapObject.baseTokens[0],
-        ],
-        arguments: [
-          DEX_STORAGE_VOLATILE,
-          DEX_STORAGE_STABLE,
-          getCoinIds(coinsMap, firstSwapObject.tokenInType),
-          [],
-          amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
-          '0',
-          '0',
-        ],
-      },
-    };
+    txb.moveCall({
+      target: `${objects.PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
+      typeArguments: firstSwapObject.typeArgs,
+      arguments: [
+        txb.object(objects.DEX_STORAGE_VOLATILE),
+        txb.object(objects.DEX_STORAGE_STABLE),
+        firstCoinVector,
+        txb.pure(amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()),
+        txb.pure('0'),
+      ],
+    });
+    return txb;
   }
 
   return null;
 };
 
-export const findSwapAmountOutput = (
-  data: DevInspectResults | undefined,
-  tokenOutType: string
-) => {
+export const findSwapAmountOutput = ({
+  data,
+  packageId,
+}: FindSwapAmountOutput) => {
   if (!data) return 0;
-  const event = data.effects.events?.find((event) => {
-    if (!has('coinBalanceChange', event)) return false;
+  if (!data.events.length) return 0;
 
-    const coinBalanceChange = event.coinBalanceChange;
+  // no hop swap
 
-    const changeType = propOr(null, 'changeType', coinBalanceChange);
+  const lastEvent = last(data.events);
 
-    if (changeType !== 'Receive') return false;
+  if (lastEvent?.packageId !== packageId) return 0;
 
-    const packageId = propOr(null, 'packageId', coinBalanceChange);
-
-    if (packageId !== DEX_PACKAGE_ID) return false;
-
-    const coinType = propOr(null, 'coinType', coinBalanceChange);
-
-    if (!coinType || coinType !== tokenOutType) return false;
-
-    const amount = propOr(null, 'amount', coinBalanceChange);
-
-    return !!amount;
-  });
-
-  if (!event) return 0;
-
-  return pathOr(0, ['coinBalanceChange', 'amount'], event);
+  return (
+    pathOr(null, ['parsedJson', 'coin_x_out'], lastEvent) ??
+    pathOr(0, ['parsedJson', 'coin_y_out'], lastEvent)
+  );
 };

@@ -1,17 +1,15 @@
 import { useTheme } from '@emotion/react';
-import { FC, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FC } from 'react';
 
 import { TOKENS_SVG_MAP } from '@/constants';
+import { Theme } from '@/design-system';
 import { Box, Typography } from '@/elements';
-import { useLocalStorage, useWeb3 } from '@/hooks';
+import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { useModal } from '@/hooks/use-modal';
-import { CoinData } from '@/interface';
 import { ArrowSVG } from '@/svg';
 
-import SearchToken from './search-token';
+import CurrencyModal from './currency-modal';
 import { SelectCurrencyProps } from './select-currency.types';
-import TokensModal from './tokens-modal';
 
 const SelectCurrency: FC<SelectCurrencyProps> = ({
   type,
@@ -22,39 +20,25 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
   onSelectCurrency,
   searchTokenModalState,
 }) => {
+  const { dark } = useTheme() as Theme;
   const { setModal, handleClose } = useModal();
-  const [loading, setIsLoading] = useState(false);
-  const { dark } = useTheme() as { dark: boolean };
+  const { coinsMap, coins } = useWeb3();
   const SVG = TOKENS_SVG_MAP[type] ?? TOKENS_SVG_MAP.default;
-  const { coinsMap, coins, mutate } = useWeb3();
-  const { control, register } = useForm({
-    defaultValues: {
-      search: '',
-    },
-  });
-  const [localTokens, setLocalTokens] = useLocalStorage<
-    Record<string, CoinData>
-  >('sui-interest-tokens', {});
+  const { network } = useNetwork();
+  const { provider } = useProvider();
 
-  const addLocalToken = async (data: CoinData) => {
-    setLocalTokens({ ...localTokens, [data.type]: data });
-    await mutate();
-  };
   const openModal = () =>
     setModal(
-      <TokensModal
-        coinsMap={coinsMap}
+      <CurrencyModal
         coins={coins}
-        control={control}
+        coinsMap={coinsMap}
         fromRight={fromRight}
-        isSearching={loading}
         toggleModal={handleClose}
         currentToken={currentToken}
         onSelectCurrency={onSelectCurrency}
-        setIsSearching={setIsLoading}
         searchTokenModalState={searchTokenModalState}
-        Input={<SearchToken isSearching={loading} register={register} />}
-        addLocalToken={addLocalToken}
+        network={network}
+        provider={provider}
       />
     );
 
@@ -94,9 +78,7 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
           display={['none', 'block']}
           nActive={{ color: 'accentActive' }}
         >
-          {symbol.length > 4
-            ? symbol.toUpperCase().slice(0, 4)
-            : symbol.toUpperCase()}
+          {symbol}
         </Typography>
       </Box>
       <Box as="span" display="inline-block" width="0.5rem">

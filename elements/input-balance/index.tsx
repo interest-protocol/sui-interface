@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { ChangeEvent, FC } from 'react';
 
 import { Box, Input, Typography } from '@/elements';
-import { parseInputEventToNumberString } from '@/utils';
+import { formatMoney, parseInputEventToNumberString } from '@/utils';
 
 import { InputBalanceProps } from './input-balance.types';
 import MaxButton from './max-button';
@@ -98,7 +98,7 @@ const InputBalance: FC<InputBalanceProps> = ({
         <Typography fontSize="S" variant="normal" textTransform="capitalize">
           {t('common.balance')}:{' '}
           <Typography fontSize="S" variant="normal" fontWeight="bold" as="span">
-            {balance}
+            {formatMoney(+balance)}
           </Typography>
         </Typography>
       </Box>

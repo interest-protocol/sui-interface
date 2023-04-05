@@ -4,15 +4,16 @@ import { isNil, propOr } from 'ramda';
 import { FC, useEffect } from 'react';
 
 import { Container, LoadingPage } from '@/components';
-import { COIN_TYPE_TO_COIN, Network, TOKENS_SVG_MAP } from '@/constants';
+import { COIN_TYPE_TO_COIN, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
 import {
   useGetCoinMetadata,
   useLocale,
   useLocalStorage,
+  useNetwork,
   useWeb3,
 } from '@/hooks';
-import { CoinData } from '@/interface';
+import { CoinData, LocalTokenMetadataRecord } from '@/interface';
 import { FixedPointMath } from '@/sdk';
 import { TimesSVG } from '@/svg';
 import { getCoinTypeFromSupply, getSafeTotalBalance } from '@/utils';
@@ -42,6 +43,14 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
     error: web3Error,
   } = useWeb3();
 
+  const { network } = useNetwork();
+
+  const [localTokens, setLocalTokens] =
+    useLocalStorage<LocalTokenMetadataRecord>(
+      'sui-interest-tokens-metadata',
+      {}
+    );
+
   const {
     error,
     data: volatilePool,
@@ -51,31 +60,33 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
 
   const { currentLocale } = useLocale();
 
-  const [localTokens, setLocalTokens] = useLocalStorage<
-    Record<string, CoinData>
-  >('sui-interest-tokens', {});
-
   const unsafeToken0 =
     (propOr(
       null,
       volatilePool.token0Type,
-      COIN_TYPE_TO_COIN[Network.DEVNET]
+      COIN_TYPE_TO_COIN[network]
     ) as CoinData) ?? propOr(null, volatilePool.token0Type, localTokens);
 
   const unsafeToken1 =
     (propOr(
       null,
       volatilePool.token1Type,
-      COIN_TYPE_TO_COIN[Network.DEVNET]
+      COIN_TYPE_TO_COIN[network]
     ) as CoinData) ?? propOr(null, volatilePool.token1Type, localTokens);
 
-  const { data: coin0Metadata } = useGetCoinMetadata(volatilePool.token0Type, {
-    isPaused: () => !isNil(unsafeToken0),
-  });
+  const { data: coin0Metadata, error: coin0MetadataError } = useGetCoinMetadata(
+    volatilePool.token0Type,
+    {
+      isPaused: () => !isNil(unsafeToken0),
+    }
+  );
 
-  const { data: coin1Metadata } = useGetCoinMetadata(volatilePool.token1Type, {
-    isPaused: () => !isNil(unsafeToken1),
-  });
+  const { data: coin1Metadata, error: coin1MetadataError } = useGetCoinMetadata(
+    volatilePool.token1Type,
+    {
+      isPaused: () => !isNil(unsafeToken1),
+    }
+  );
 
   const token0 = makeToken(
     volatilePool.token0Type,
@@ -92,12 +103,14 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
   useEffect(() => {
     const localToken0 = localTokens[token0.type];
 
-    if (localToken0) setLocalTokens({ ...localTokens, [token0.type]: token0 });
+    if (!localToken0 && !coin0MetadataError)
+      setLocalTokens({ ...localTokens, [token0.type]: token0 });
 
     const localToken1 = localTokens[token1.type];
 
-    if (localToken1) setLocalTokens({ ...localTokens, [token1.type]: token1 });
-  }, [token0, token1]);
+    if (!localToken1 && !coin1MetadataError)
+      setLocalTokens({ ...localTokens, [token1.type]: token1 });
+  }, [token0.type, token1.type, coin0MetadataError, coin1MetadataError]);
 
   if (isLoading) return <LoadingPage />;
 
