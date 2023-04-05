@@ -62,7 +62,7 @@ export const useGetFarms = (
           txb2.object(objects.IPX_STORAGE),
           txb2.object(objects.IPX_ACCOUNT_STORAGE),
           txb2.pure(account || AddressZero),
-          txb2.pure(3),
+          txb2.pure(4),
         ],
         typeArguments: farmIds2,
       });

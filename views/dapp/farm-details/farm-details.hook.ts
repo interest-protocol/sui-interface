@@ -86,7 +86,7 @@ export const useGetFarm = (id: string, account: string) => {
         arguments: [
           txb.object(objects.IPX_STORAGE),
           txb.object(objects.IPX_ACCOUNT_STORAGE),
-          txb.pure(account),
+          txb.pure(account || AddressZero),
           txb.pure(1),
         ],
         typeArguments: [id, id, id, id, id],

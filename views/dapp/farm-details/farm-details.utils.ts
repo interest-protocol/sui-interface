@@ -47,6 +47,7 @@ const DEFAULT_FARM_DATA = {
   accountBalance: ZERO_BIG_NUMBER,
   poolObjectId: '',
   farmObjectId: AddressZero,
+  loading: true,
 };
 
 export const parseFarmData: ParseFarmData = ({
@@ -59,7 +60,8 @@ export const parseFarmData: ParseFarmData = ({
   pendingRewards,
   network,
 }) => {
-  if (!pools || !farms || !pools.length) return DEFAULT_FARM_DATA;
+  if (!pools || !farms || !pools.length || !farms.length)
+    return DEFAULT_FARM_DATA;
 
   const parsedPools = parseSuiObjectDataToPools(pools);
 
@@ -115,6 +117,7 @@ export const parseFarmData: ParseFarmData = ({
     lpCoinPrice,
     totalAllocation: ipxStorage.totalAllocation,
     accountBalance: farm.accountBalance,
+    loading: false,
   };
 };
 

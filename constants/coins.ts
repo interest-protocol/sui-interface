@@ -67,7 +67,7 @@ export const COIN_TYPE = {
     }>`,
     S_LP_USDC_USDT: `${
       OBJECT_RECORD[Network.DEVNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.USDC}, ${
+    }::dex_stable::SLPCoin<${DEV_NET_BASE_COINS.USDC}, ${
       DEV_NET_BASE_COINS.USDT
     }>`,
   },
@@ -110,7 +110,7 @@ export const COIN_TYPE = {
     }>`,
     S_LP_USDC_USDT: `${
       OBJECT_RECORD[Network.TESTNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${TESTNET_NET_BASE_COINS.USDC}, ${
+    }::dex_stable::SLPCoin<${TESTNET_NET_BASE_COINS.USDC}, ${
       TESTNET_NET_BASE_COINS.USDT
     }>`,
   },

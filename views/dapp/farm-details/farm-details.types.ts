@@ -53,6 +53,7 @@ export interface FarmDetailsData extends FarmMetadataType {
   lpCoinPrice: number;
   totalAllocation: string;
   accountBalance: BigNumber;
+  loading: boolean;
 }
 
 export type ParseFarmData = (args: ParseFarmDataArgs) => FarmDetailsData;

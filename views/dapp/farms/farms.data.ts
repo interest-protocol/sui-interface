@@ -147,6 +147,16 @@ export const FARMS_TOKENS_SVG_MAP = {
       highZIndex: false,
     },
   ],
+  [COIN_TYPE[Network.DEVNET].S_LP_USDC_USDT]: [
+    {
+      SVG: USDCoinSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: USDTSVG,
+      highZIndex: false,
+    },
+  ],
   [COIN_TYPE[Network.TESTNET].IPX]: [
     {
       SVG: InterestTokenSVG,
@@ -268,6 +278,16 @@ export const FARMS_TOKENS_SVG_MAP = {
     },
     {
       SVG: InterestTokenSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.TESTNET].S_LP_USDC_USDT]: [
+    {
+      SVG: USDCoinSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: USDTSVG,
       highZIndex: false,
     },
   ],

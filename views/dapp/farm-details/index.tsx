@@ -117,7 +117,7 @@ const FarmDetails: FC<FarmDetailsProps> = ({
       <GoBack route={RoutesEnum.Farms} />
       <Details farm={parsedData} loading={loading} />
       <FarmOptions
-        loading={loading}
+        loading={loading || parsedData.loading}
         farm={parsedData}
         mutateFarms={mutateFarms}
         modalState={modalState}
