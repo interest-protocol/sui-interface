@@ -35,9 +35,6 @@ const MaxButton: FC<MaxButtonProps> = ({
   const handleMax = (value: number) => {
     if (disabled || !setValue) return;
 
-    console.log(value);
-    console.log(max);
-
     setValue?.(name, +(max ?? '0') * value);
 
     customFunction && customFunction(name);
