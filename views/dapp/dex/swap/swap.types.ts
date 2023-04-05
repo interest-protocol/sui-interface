@@ -44,6 +44,7 @@ export interface SwapButtonProps {
   getValues: UseFormGetValues<ISwapForm>;
   coinsMap: Web3ManagerState['coinsMap'];
   mutate: KeyedMutator<PaginatedCoins | undefined>;
+  poolsMap: PoolsMap;
 }
 
 export interface SwapManagerWrapperProps {
@@ -51,7 +52,7 @@ export interface SwapManagerWrapperProps {
   tokenInType: string;
   tokenOutType: string;
   account: string | null;
-  volatilePoolsMap: PoolsMap;
+  poolsMap: PoolsMap;
   control: Control<ISwapForm>;
   register: UseFormRegister<ISwapForm>;
   setValue: UseFormSetValue<ISwapForm>;
@@ -67,7 +68,7 @@ export interface SwapManagerProps {
   hasNoMarket: boolean;
   account: string | null;
   tokenIn: SwapFormTokenData;
-  volatilePoolsMap: PoolsMap;
+  poolsMap: PoolsMap;
   control: Control<ISwapForm>;
   isFetchingSwapAmount: boolean;
   register: UseFormRegister<ISwapForm>;
@@ -86,7 +87,7 @@ export interface GetSwapPayload {
   tokenIn: SwapFormTokenData;
   tokenOutType: string;
   coinsMap: Web3ManagerState['coinsMap'];
-  volatilesPools: PoolsMap;
+  poolsMap: PoolsMap;
   network: Network;
 }
 

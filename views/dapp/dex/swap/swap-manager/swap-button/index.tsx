@@ -22,7 +22,6 @@ import {
 } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
-import { useGetVolatilePools } from '../../swap.hooks';
 import { SwapButtonProps } from '../../swap.types';
 import { findMarket, getAmountMinusSlippage } from '../../swap.utils';
 
@@ -36,10 +35,11 @@ const SwapButton: FC<SwapButtonProps> = ({
   setValue,
   tokenInType,
   tokenOutType,
+  poolsMap,
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
-  const { data } = useGetVolatilePools();
+
   const [loading, setLoading] = useState(false);
   const { signAndExecuteTransactionBlock } = useWalletKit();
   const { network } = useNetwork();
@@ -49,7 +49,7 @@ const SwapButton: FC<SwapButtonProps> = ({
   const isDisabled =
     disabled ||
     !+tokenInValue ||
-    !findMarket({ data, tokenInType, tokenOutType, network }).length;
+    !findMarket({ data: poolsMap, tokenInType, tokenOutType, network }).length;
 
   const handleSwap = async () => {
     try {
@@ -68,7 +68,7 @@ const SwapButton: FC<SwapButtonProps> = ({
       if (!+tokenIn.value) throw new Error(t('dexSwap.error.cannotSell0'));
 
       const path = findMarket({
-        data,
+        data: poolsMap,
         network,
         tokenOutType: tokenOut.type,
         tokenInType: tokenIn.type,

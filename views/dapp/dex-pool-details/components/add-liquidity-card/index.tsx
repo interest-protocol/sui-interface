@@ -74,6 +74,7 @@ const AddLiquidityCard: FC<AddLiquidityCardProps> = ({
         setValue={formAddLiquidity.setValue}
         fetchingInitialData={fetchingInitialData}
         getValues={formAddLiquidity.getValues}
+        stable={pool.stable}
       />
       {tokens.length == 2 && !isEmpty(pool) && (
         <AddLiquidityManager

@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { LoadingPage } from '@/components';
 import { DEX_TOKENS_DATA } from '@/constants';
 import { ModalProvider } from '@/context/modal';
-import { useLocalStorage, useNetwork } from '@/hooks';
+import { useLocalStorage, useNetwork, useProvider } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import { TOKEN_SYMBOL } from '@/sdk';
 import Loading from '@/views/dapp/components/loading';
@@ -52,6 +52,17 @@ const DexPage: NextPageWithProps = ({ pageTitle }) => {
     'sui-interest-swap-settings',
     { slippage: '1' }
   );
+
+  const { provider } = useProvider();
+
+  useEffect(() => {
+    provider
+      .getDynamicFields({
+        parentId:
+          '0xcee2eb837a7588141aa179ac568ddb9b2c89353354a98a83724bd5f8e5ae6049',
+      })
+      .then(console.log);
+  }, []);
 
   const formSwap = useForm<ISwapForm>();
 

@@ -26,7 +26,7 @@ export interface Pool {
   lpCoinSupply: string;
   lpCoin: string;
   poolType: string;
-
+  stable: boolean;
   token0Type: string;
   token1Type: string;
 }

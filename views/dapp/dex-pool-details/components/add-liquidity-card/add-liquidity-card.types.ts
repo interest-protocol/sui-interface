@@ -40,6 +40,7 @@ export interface AddLiquidityCardContentProps {
   setValue: UseFormSetValue<IAddLiquidityForm>;
   getValues: UseFormGetValues<IAddLiquidityForm>;
   fetchingInitialData: AddLiquidityCardProps['fetchingInitialData'];
+  stable: boolean;
 }
 
 export interface BalanceErrorProps {
@@ -57,6 +58,7 @@ export interface AddLiquidityCardButtonProps {
   getValues: UseFormGetValues<IAddLiquidityForm>;
   refetch: () => Promise<void>;
   tokens: IToken[];
+  stable: boolean;
 }
 
 export const INPUT_NAMES = ['token0Amount', 'token1Amount'] as Array<

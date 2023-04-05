@@ -25,7 +25,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   setDisabled,
   tokenOutType,
   onSelectCurrency,
-  volatilePoolsMap,
+  poolsMap,
   setIsFetchingSwapAmount,
   setIsZeroSwapAmount,
   isFetchingSwapAmount,
@@ -43,7 +43,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
     tokenIn,
     coinsMap,
     tokenOutType,
-    volatilesPools: volatilePoolsMap,
+    poolsMap,
     network,
   });
 

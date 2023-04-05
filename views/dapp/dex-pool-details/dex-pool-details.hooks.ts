@@ -2,7 +2,8 @@ import { SuiObjectResponse } from '@mysten/sui.js';
 import { pathOr } from 'ramda';
 import useSWR from 'swr';
 
-import { useProvider } from '@/hooks';
+import { COIN_POOL_ID_TO_STABLE } from '@/constants';
+import { useNetwork, useProvider } from '@/hooks';
 import { makeSWRKey } from '@/utils';
 
 import { Pool } from './dex-pool-details.types';
@@ -15,9 +16,13 @@ const DEFAULT_POOL: Pool = {
   poolType: '',
   token0Type: '',
   token1Type: '',
+  stable: false,
 };
 
-const processVolatilePool = (data: undefined | SuiObjectResponse): Pool => {
+const processPool = (
+  data: undefined | SuiObjectResponse,
+  stable: boolean
+): Pool => {
   if (!data) return DEFAULT_POOL;
 
   const poolType: string = pathOr('', ['data', 'type'], data);
@@ -45,13 +50,16 @@ const processVolatilePool = (data: undefined | SuiObjectResponse): Pool => {
     poolType,
     token0Type,
     token1Type,
+    stable,
   };
 };
 
-export const useGetVolatilePool = (objectId: string) => {
+export const useGetPool = (objectId: string) => {
   const { provider } = useProvider();
+  const { network } = useNetwork();
+
   const { data, isLoading, mutate, error } = useSWR(
-    makeSWRKey([objectId], provider.getObject.name),
+    makeSWRKey([objectId, network], provider.getObject.name),
     () =>
       provider.getObject({
         id: objectId,
@@ -65,7 +73,10 @@ export const useGetVolatilePool = (objectId: string) => {
     }
   );
 
-  const processedData = processVolatilePool(data);
+  const processedData = processPool(
+    data,
+    pathOr(false, [network, objectId], COIN_POOL_ID_TO_STABLE)
+  );
 
   return {
     error,

@@ -26,6 +26,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
   tokens,
   refetch,
   getValues,
+  stable,
 }) => {
   const t = useTranslations();
   const { coinsMap, account } = useWeb3();
@@ -96,7 +97,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
           vector1,
           txb.pure(safeAmount0.toString()),
           txb.pure(safeAmount1.toString()),
-          txb.pure(true),
+          txb.pure(stable),
           txb.pure('0'),
         ],
       });

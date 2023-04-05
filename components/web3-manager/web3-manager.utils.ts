@@ -3,7 +3,6 @@ import { pathOr } from 'ramda';
 import { COIN_DECIMALS, COIN_TYPE_TO_SYMBOL } from '@/constants';
 import { parseBigNumberish, safeSymbol } from '@/utils';
 
-import { COIN_TYPE_TO_STABLE } from './../../constants/coins';
 import { ParseCoinsArg, Web3ManagerSuiObject } from './web3-manager.types';
 
 export const parseCoins = ({ data, localTokens, network }: ParseCoinsArg) => {
@@ -64,18 +63,12 @@ export const parseCoins = ({ data, localTokens, network }: ParseCoinsArg) => {
           pathOr(null, [network, type], COIN_DECIMALS) ??
           pathOr(-1, [type, 'decimals'], localTokens);
 
-        const stable =
-          pathOr(null, [network, type], COIN_TYPE_TO_STABLE) ??
-          pathOr(null, [type, 'stable'], localTokens) ??
-          false;
-
         const symbolArray = symbol.trim().split(' ');
 
         const updatedMap = {
           ...map,
           [type]: {
             type,
-            stable,
             symbol: symbolArray[symbolArray.length - 1],
             decimals,
             totalBalance: currentCoinBalance,
@@ -87,7 +80,6 @@ export const parseCoins = ({ data, localTokens, network }: ParseCoinsArg) => {
           ...list,
           {
             type,
-            stable,
             symbol: symbolArray[symbolArray.length - 1],
             decimals,
             totalBalance: currentCoinBalance,

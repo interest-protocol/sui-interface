@@ -19,11 +19,14 @@ import {
   SwapPathObject,
 } from './swap.types';
 
-export const parsePools = (data: undefined | DynamicFieldInfo[]) => {
+export const parsePools = (
+  data: undefined | DynamicFieldInfo[],
+  isStable: boolean
+) => {
   if (!data) return {};
 
   return data.reduce((acc, elem) => {
-    const type = elem.objectType.split('VPool');
+    const type = elem.objectType.split(isStable ? 'SPool' : 'VPool');
 
     const tokensTypes = type[1].split(',');
     const tokenInType = tokensTypes[0].trim().substring(1);
@@ -131,14 +134,14 @@ export const getSwapPayload = ({
   tokenIn,
   tokenOutType,
   coinsMap,
-  volatilesPools,
+  poolsMap,
   network,
 }: GetSwapPayload): TransactionBlock | null => {
-  if (isEmpty(volatilesPools)) return null;
+  if (isEmpty(poolsMap)) return null;
   if (!tokenIn || !tokenIn.value) return null;
 
   const path = findMarket({
-    data: volatilesPools,
+    data: poolsMap,
     network,
     tokenOutType,
     tokenInType: tokenIn.type,

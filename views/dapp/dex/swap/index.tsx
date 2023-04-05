@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
-import { isEmpty, pathOr } from 'ramda';
-import { FC } from 'react';
+import { isEmpty, mergeDeepRight, pathOr } from 'ramda';
+import { FC, useMemo } from 'react';
 import { useCallback } from 'react';
 import { useWatch } from 'react-hook-form';
 
@@ -14,7 +14,7 @@ import SelectCurrency from '../../components/select-currency';
 import { OnSelectCurrency } from '../../components/select-currency/select-currency.types';
 import SettingsModal from './settings';
 import { ISwapSettingsForm } from './settings/settings.types';
-import { useGetVolatilePools } from './swap.hooks';
+import { useGetStablePools, useGetVolatilePools } from './swap.hooks';
 import { SwapProps } from './swap.types';
 
 const SwapManager = dynamic(() => import('./swap-manager'));
@@ -30,6 +30,12 @@ const Swap: FC<SwapProps> = ({
 }) => {
   const { coinsMap, mutate, account } = useWeb3();
   const { data: volatilePoolsMap } = useGetVolatilePools();
+  const { data: stablePoolsMap } = useGetStablePools();
+
+  const poolsMap = useMemo(
+    () => mergeDeepRight(volatilePoolsMap, stablePoolsMap),
+    [volatilePoolsMap, stablePoolsMap]
+  );
 
   const setSettings = useCallback(
     ({ slippage: newSlippage }: ISwapSettingsForm) => {
@@ -94,7 +100,7 @@ const Swap: FC<SwapProps> = ({
           />
         </Box>
       </Box>
-      {isEmpty(volatilePoolsMap) ? (
+      {isEmpty(poolsMap) ? (
         <Box
           my="XXL"
           width="100%"
@@ -171,7 +177,7 @@ const Swap: FC<SwapProps> = ({
             setValue={formSwap.setValue}
             register={formSwap.register}
             getValues={formSwap.getValues}
-            volatilePoolsMap={volatilePoolsMap}
+            poolsMap={poolsMap}
             searchTokenModalState={searchTokenModalState}
             onSelectCurrency={onSelectCurrency('tokenOut')}
             swapButtonProps={{
@@ -183,6 +189,7 @@ const Swap: FC<SwapProps> = ({
               tokenInType,
               tokenOutType,
               slippage: localSettings.slippage,
+              poolsMap,
             }}
           />
         </Box>

@@ -65,6 +65,11 @@ export const COIN_TYPE = {
     }::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.ETH}, ${
       DEV_NET_BASE_COINS.IPX
     }>`,
+    S_LP_USDC_USDT: `${
+      OBJECT_RECORD[Network.DEVNET].PACKAGE_ID
+    }::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.USDC}, ${
+      DEV_NET_BASE_COINS.USDT
+    }>`,
   },
   [Network.TESTNET]: {
     ...TESTNET_NET_BASE_COINS,
@@ -103,6 +108,11 @@ export const COIN_TYPE = {
     }::dex_volatile::VLPCoin<${TESTNET_NET_BASE_COINS.ETH}, ${
       TESTNET_NET_BASE_COINS.IPX
     }>`,
+    S_LP_USDC_USDT: `${
+      OBJECT_RECORD[Network.TESTNET].PACKAGE_ID
+    }::dex_volatile::VLPCoin<${TESTNET_NET_BASE_COINS.USDC}, ${
+      TESTNET_NET_BASE_COINS.USDT
+    }>`,
   },
 };
 
@@ -111,9 +121,9 @@ export const COIN_TYPE_TO_STABLE = {
     [COIN_TYPE[Network.DEVNET].BNB]: false,
     [COIN_TYPE[Network.DEVNET].ETH]: false,
     [COIN_TYPE[Network.DEVNET].BTC]: false,
-    [COIN_TYPE[Network.DEVNET].USDT]: false,
-    [COIN_TYPE[Network.DEVNET].USDC]: false,
-    [COIN_TYPE[Network.DEVNET].DAI]: false,
+    [COIN_TYPE[Network.DEVNET].USDT]: true,
+    [COIN_TYPE[Network.DEVNET].USDC]: true,
+    [COIN_TYPE[Network.DEVNET].DAI]: true,
     [COIN_TYPE[Network.DEVNET].SUI]: false,
     [COIN_TYPE[Network.DEVNET].IPX]: false,
     [COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH]: false,
@@ -123,6 +133,23 @@ export const COIN_TYPE_TO_STABLE = {
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC]: false,
     [COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH]: false,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX]: false,
+  },
+  [Network.TESTNET]: {
+    [COIN_TYPE[Network.TESTNET].BNB]: false,
+    [COIN_TYPE[Network.TESTNET].ETH]: false,
+    [COIN_TYPE[Network.TESTNET].BTC]: false,
+    [COIN_TYPE[Network.TESTNET].USDT]: true,
+    [COIN_TYPE[Network.TESTNET].USDC]: true,
+    [COIN_TYPE[Network.TESTNET].DAI]: true,
+    [COIN_TYPE[Network.TESTNET].SUI]: false,
+    [COIN_TYPE[Network.TESTNET].IPX]: false,
+    [COIN_TYPE[Network.TESTNET].V_LP_SUI_ETH]: false,
+    [COIN_TYPE[Network.TESTNET].V_LP_BTC_ETH]: false,
+    [COIN_TYPE[Network.TESTNET].V_LP_BNB_ETH]: false,
+    [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT]: false,
+    [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: false,
+    [COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH]: false,
+    [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: false,
   },
 };
 
@@ -180,6 +207,7 @@ export const COIN_DECIMALS = {
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC]: 0,
     [COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH]: 0,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX]: 0,
+    [COIN_TYPE[Network.DEVNET].S_LP_USDC_USDT]: 0,
   },
   [Network.TESTNET]: {
     [COIN_TYPE[Network.TESTNET].BTC]: 0,
@@ -197,6 +225,7 @@ export const COIN_DECIMALS = {
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: 0,
     [COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH]: 0,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: 0,
+    [COIN_TYPE[Network.TESTNET].S_LP_USDC_USDT]: 0,
   },
 };
 
@@ -217,6 +246,7 @@ export const COIN_SYMBOL = {
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC]: TOKEN_SYMBOL.V_LP_ETH_USDC,
     [COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH]: TOKEN_SYMBOL.V_LP_DAI_ETH,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX]: TOKEN_SYMBOL.V_LP_ETH_IPX,
+    [COIN_TYPE[Network.DEVNET].S_LP_USDC_USDT]: TOKEN_SYMBOL.S_LP_USDC_USDT,
   },
   [Network.TESTNET]: {
     [COIN_TYPE[Network.TESTNET].BTC]: TOKEN_SYMBOL.BTC,
@@ -234,6 +264,7 @@ export const COIN_SYMBOL = {
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: TOKEN_SYMBOL.V_LP_ETH_USDC,
     [COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH]: TOKEN_SYMBOL.V_LP_DAI_ETH,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: TOKEN_SYMBOL.V_LP_ETH_IPX,
+    [COIN_TYPE[Network.TESTNET].S_LP_USDC_USDT]: TOKEN_SYMBOL.S_LP_USDC_USDT,
   },
 };
 
@@ -253,6 +284,8 @@ export const COIN_POOL = {
       '0xed0ea4d632263d91042527abaa257042cc9c9cddebc3a7ff332016265601c19b',
     V_LP_ETH_IPX:
       '0x12cfb77a1f89703b7fa280510313b20f6e7cd782ded4d98cc1b60a4c452186db',
+    S_LP_USDC_USDT:
+      '0x0e9f5b8fc6022d2840694755317a81584c94b3490f028d651f322966e2f29826',
   },
   [Network.TESTNET]: {
     V_LP_SUI_ETH:
@@ -269,6 +302,8 @@ export const COIN_POOL = {
       '0xbe4530afa973297749c317ca982459669e5ff70874562b54ec776877f819d8f5',
     V_LP_ETH_IPX:
       '0x58fe704c74abf7126fd63ca8839a9831d2f359947632d9a3a19cf5e2586e3010',
+    S_LP_USDC_USDT:
+      '0x7749a1903fecd7c2566edc3475c98a7621832eef464a95ba783bdf7de203c5e6',
   },
 };
 
@@ -289,6 +324,8 @@ export const COIN_FARM = {
     SUI_ETH:
       '0x62eadb3291f2ece02f6069d52a0cb1a774402d55e3a5625eac979a28d9a7e2c3',
     IPX: '0xeb05c1bc80853eefafa05c17cab1d611acdf4b027f0c02ce2d3ad2f3f55461fe',
+    S_LP_USDC_USDT:
+      '0x5fcc56117879137d736a2d9eb6837b8b9d79b26072be7e918cb7db22e12dc233',
   },
   [Network.TESTNET]: {
     ETH_IPX:
@@ -306,6 +343,8 @@ export const COIN_FARM = {
     SUI_ETH:
       '0x7dd3dceae8565ce00632460ecf146504b7a957c460b01b489daefe556a9c44a9',
     IPX: '0xf24d5681cbb120bcd51d1d7dfef0d645b977c6e91a44891652aab66884d8f6cf',
+    S_LP_USDC_USDT:
+      '0xd27ce4448cabb437c176e4661baefc39166c9c97a28f32d0c738e7e91e95e32b',
   },
 };
 
@@ -392,6 +431,12 @@ export const COINS = {
         COIN_DECIMALS[Network.DEVNET][COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX],
       symbol: TOKEN_SYMBOL.V_LP_ETH_IPX,
       type: COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX,
+    },
+    S_LP_USDC_USDT: {
+      decimals:
+        COIN_DECIMALS[Network.DEVNET][COIN_TYPE[Network.DEVNET].S_LP_USDC_USDT],
+      symbol: TOKEN_SYMBOL.S_LP_USDC_USDT,
+      type: COIN_TYPE[Network.DEVNET].S_LP_USDC_USDT,
     },
   },
   [Network.TESTNET]: {
@@ -482,6 +527,14 @@ export const COINS = {
         COIN_DECIMALS[Network.TESTNET][COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX],
       symbol: TOKEN_SYMBOL.V_LP_ETH_IPX,
       type: COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX,
+    },
+    S_LP_USDC_USDT: {
+      decimals:
+        COIN_DECIMALS[Network.TESTNET][
+          COIN_TYPE[Network.TESTNET].S_LP_USDC_USDT
+        ],
+      symbol: TOKEN_SYMBOL.S_LP_USDC_USDT,
+      type: COIN_TYPE[Network.TESTNET].S_LP_USDC_USDT,
     },
   },
 };

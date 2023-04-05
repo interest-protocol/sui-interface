@@ -10,7 +10,6 @@ import { LocalTokenMetadataRecord } from '@/interface';
 export interface Web3ManagerSuiObject {
   type: string;
   symbol: string;
-  stable: boolean;
   totalBalance: BigNumber;
   objects: ReadonlyArray<CoinStruct>;
   decimals: number;

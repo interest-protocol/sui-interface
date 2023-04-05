@@ -27,7 +27,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
   const { network } = useNetwork();
 
   const markets = findMarket({
-    data: props.volatilePoolsMap,
+    data: props.poolsMap,
     tokenInType: props.tokenInType,
     tokenOutType: props.tokenOutType,
     network,
@@ -89,7 +89,11 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
         />
       )}
       {readyToSwap && <SwapPath markets={markets} />}
-      <SwapButton {...swapButtonProps} disabled={disabled} />
+      <SwapButton
+        {...swapButtonProps}
+        poolsMap={props.poolsMap}
+        disabled={disabled}
+      />
     </>
   );
 };

@@ -58,6 +58,13 @@ export const RECOMMENDED_POOLS = {
       lpCoin: networkDevNetCoins.V_LP_ETH_IPX,
       stable: false,
     },
+    {
+      token0: networkDevNetCoins.USDC,
+      token1: networkDevNetCoins.USDT,
+      poolObjectId: networkDevNetCoinPool.S_LP_USDC_USDT,
+      lpCoin: networkDevNetCoins.S_LP_USDC_USDT,
+      stable: true,
+    },
   ],
   [Network.TESTNET]: [
     {
@@ -109,5 +116,35 @@ export const RECOMMENDED_POOLS = {
       lpCoin: networkTestNetCoins.V_LP_ETH_IPX,
       stable: false,
     },
+    {
+      token0: networkTestNetCoins.USDC,
+      token1: networkTestNetCoins.USDT,
+      poolObjectId: networkTestNetCoinPool.S_LP_USDC_USDT,
+      lpCoin: networkTestNetCoins.S_LP_USDC_USDT,
+      stable: true,
+    },
   ],
+};
+
+export const COIN_POOL_ID_TO_STABLE = {
+  [Network.DEVNET]: {
+    [COIN_POOL[Network.DEVNET].V_LP_SUI_ETH]: false,
+    [COIN_POOL[Network.DEVNET].V_LP_BTC_ETH]: false,
+    [COIN_POOL[Network.DEVNET].V_LP_BNB_ETH]: false,
+    [COIN_POOL[Network.DEVNET].V_LP_ETH_USDT]: false,
+    [COIN_POOL[Network.DEVNET].V_LP_ETH_USDC]: false,
+    [COIN_POOL[Network.DEVNET].V_LP_DAI_ETH]: false,
+    [COIN_POOL[Network.DEVNET].V_LP_ETH_IPX]: false,
+    [COIN_POOL[Network.DEVNET].S_LP_USDC_USDT]: true,
+  },
+  [Network.TESTNET]: {
+    [COIN_POOL[Network.TESTNET].V_LP_SUI_ETH]: false,
+    [COIN_POOL[Network.TESTNET].V_LP_BTC_ETH]: false,
+    [COIN_POOL[Network.TESTNET].V_LP_BNB_ETH]: false,
+    [COIN_POOL[Network.TESTNET].V_LP_ETH_USDT]: false,
+    [COIN_POOL[Network.TESTNET].V_LP_ETH_USDC]: false,
+    [COIN_POOL[Network.TESTNET].V_LP_DAI_ETH]: false,
+    [COIN_POOL[Network.TESTNET].V_LP_ETH_IPX]: false,
+    [COIN_POOL[Network.TESTNET].S_LP_USDC_USDT]: true,
+  },
 };

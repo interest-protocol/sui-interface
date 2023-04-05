@@ -26,6 +26,7 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
   getLpAmount,
   resetLpAmount,
   lpAmountControl,
+  isStable,
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
@@ -84,6 +85,7 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
           </Button>
           <RemoveLiquidityButton
             getLpAmount={getLpAmount}
+            stable={isStable}
             token0Amount={amount0}
             token1Amount={amount1}
             refetch={refetch}

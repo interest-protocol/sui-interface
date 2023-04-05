@@ -47,6 +47,7 @@ export interface RemoveLiquidityButtonProps {
   token0: TokenData;
   token1: TokenData;
   resetLpAmount: () => void;
+  stable: boolean;
 }
 
 export interface TokenAmountProps {

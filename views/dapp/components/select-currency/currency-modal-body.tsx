@@ -137,7 +137,6 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
             type: debouncedSearch,
             objects: [],
             totalBalance: BigNumber(0),
-            stable: false,
           });
         })
         .catch(() => askedToken && setAskedToken(null))
