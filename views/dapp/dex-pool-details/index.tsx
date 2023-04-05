@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { isNil, propOr } from 'ramda';
 import { FC, useEffect } from 'react';
 
-import { Container, LoadingPage } from '@/components';
+import { Container } from '@/components';
 import { COIN_TYPE_TO_COIN, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
 import {
@@ -15,11 +15,12 @@ import {
 } from '@/hooks';
 import { CoinData, LocalTokenMetadataRecord } from '@/interface';
 import { FixedPointMath } from '@/sdk';
-import { TimesSVG } from '@/svg';
+import { LogoSVG, TimesSVG } from '@/svg';
 import { getCoinTypeFromSupply, getSafeTotalBalance } from '@/utils';
 import { makeToken } from '@/views/dapp/dex-pool-details/dex-pool-details.utils';
 
 import GoBack from '../components/go-back';
+import Loading from '../components/loading';
 import {
   AddLiquidityCard,
   LiquidityDetailsCard,
@@ -112,7 +113,34 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
       setLocalTokens({ ...localTokens, [token1.type]: token1 });
   }, [token0.type, token1.type, coin0MetadataError, coin1MetadataError]);
 
-  if (isLoading) return <LoadingPage customWidth="100vw" customHeight="100%" />;
+  if (isLoading)
+    return (
+      <Box
+        width="100vw"
+        height="100%"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Box
+          mr="L"
+          color="accent"
+          width="7.5rem"
+          height="7.5rem"
+          cursor="pointer"
+        >
+          <LogoSVG
+            maxHeight="7.5rem"
+            maxWidth="7.5rem"
+            width="100%"
+            aria-label="Logo"
+            fill="currentColor"
+          />
+        </Box>
+        <Loading />
+      </Box>
+    );
 
   if (error)
     return (

@@ -1,15 +1,11 @@
-import { FC } from 'react';
-
 import { Box } from '@/elements';
 import { LogoSVG } from '@/svg';
 import Loading from '@/views/dapp/components/loading';
 
-import { LoadingPageProps } from './loading-page.types';
-
-const LoadingPage: FC<LoadingPageProps> = ({ customHeight, customWidth }) => (
+const LoadingPage = () => (
   <Box
-    width={customWidth || '100vw'}
-    height={customHeight || '100vh'}
+    width="100vw"
+    height="100vh"
     display="flex"
     flexDirection="column"
     justifyContent="center"
