@@ -112,7 +112,7 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
       setLocalTokens({ ...localTokens, [token1.type]: token1 });
   }, [token0.type, token1.type, coin0MetadataError, coin1MetadataError]);
 
-  if (isLoading) return <LoadingPage />;
+  if (isLoading) return <LoadingPage customWidth="100vw" customHeight="100%" />;
 
   if (error)
     return (

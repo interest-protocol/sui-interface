@@ -30,7 +30,7 @@ const FindPool: FC<FindPoolProps> = ({
         display="flex"
         alignItems="center"
         flexWrap={['wrap', 'wrap', 'wrap', 'nowrap']}
-        justifyContent={['center', 'center', 'center', 'space-between']}
+        justifyContent="space-between"
       >
         <SelectCurrency
           currentToken={typeA}
