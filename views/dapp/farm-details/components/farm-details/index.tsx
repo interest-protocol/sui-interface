@@ -117,7 +117,10 @@ const Details: FC<DetailsProps> = ({ farm, loading }) => {
           </Typography>
           {farm.allocationPoints.isZero()
             ? '0%'
-            : `${farm.allocationPoints.decimalPlaces(3).toNumber() * 100}%`}
+            : `${farm.allocationPoints
+                .multipliedBy(100)
+                .decimalPlaces(3)
+                .toNumber()}%`}
         </Box>
       </Box>
     </Box>
