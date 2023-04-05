@@ -3,7 +3,7 @@ import { CoinData } from '@/interface';
 import { COIN_FARM, COIN_POOL, COIN_TYPE, COINS } from './coins';
 import { Network } from './network';
 
-export const FARMS_RECORD = {
+export const FARMS_RECORD: Record<Network, Record<string, FarmMetadataType>> = {
   [Network.DEVNET]: {
     [COIN_TYPE[Network.DEVNET].IPX]: {
       farmType: COIN_TYPE[Network.DEVNET].IPX,
@@ -105,6 +105,7 @@ export const FARMS_RECORD = {
     [COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH]: {
       farmType: COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
       poolObjectId: COIN_POOL[Network.DEVNET].V_LP_DAI_ETH,
+      farmObjectId: COIN_FARM[Network.DEVNET].DAI_ETH,
       lpCoin: COINS[Network.DEVNET].V_LP_DAI_ETH,
       coin0: COINS[Network.DEVNET].DAI,
       coin1: COINS[Network.DEVNET].ETH,
