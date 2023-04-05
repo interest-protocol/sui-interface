@@ -8,7 +8,7 @@ import { COIN_DECIMALS, OBJECT_RECORD } from '@/constants';
 import InputBalance from '@/elements/input-balance';
 import { useNetwork, useProvider } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
-import { formatMoney, makeSWRKey, ZERO_BIG_NUMBER } from '@/utils';
+import { makeSWRKey, ZERO_BIG_NUMBER } from '@/utils';
 
 import SwapSelectCurrency from '../../../components/select-currency';
 import { SwapManagerProps } from '../swap.types';
