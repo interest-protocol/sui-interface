@@ -37,7 +37,7 @@ const Details: FC<DetailsProps> = ({ farm, loading }) => {
         )}
         <Typography variant="normal" textTransform="capitalize" display="flex">
           {loading ? (
-            <Skeleton />
+            <Skeleton width="8rem" />
           ) : farm.id === 0 ? (
             `${TOKEN_SYMBOL.IPX} ${capitalize(t('common.pool'))} `
           ) : (
