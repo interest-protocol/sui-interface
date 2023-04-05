@@ -117,12 +117,10 @@ const SwapManagerField: FC<SwapManagerProps> = ({
     tokenOutValue,
     isFetchingSwapAmount,
   ]);
-  const balance = formatMoney(
-    FixedPointMath.toNumber(
-      pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
-      pathOr(0, [tokenOutType, 'decimals'], coinsMap)
-    )
-  );
+  const balance = FixedPointMath.toNumber(
+    pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
+    pathOr(0, [tokenOutType, 'decimals'], coinsMap)
+  ).toString();
   return (
     <InputBalance
       isLarge
