@@ -199,7 +199,9 @@ const DEXPoolDetailsView: FC<DEXPoolDetailsViewProps> = ({
         <Typography variant="normal" ml="L" textTransform="capitalize">
           {`${token0.symbol}-${token1.symbol} ${t('dexPoolPair.title', {
             currentLocale,
-            type: t('common.volatile', { count: 1 }),
+            type: t(`common.${pool.stable ? 'stable' : 'volatile'}`, {
+              count: 1,
+            }),
           })}`}
         </Typography>
       </Box>

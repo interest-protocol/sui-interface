@@ -18,6 +18,7 @@ import { DetailsProps } from './farm-details.types';
 const Details: FC<DetailsProps> = ({ farm, loading }) => {
   const t = useTranslations();
   const { network } = useNetwork();
+
   return (
     <Box>
       <Box display="flex" alignItems="center" px="L">
@@ -34,7 +35,7 @@ const Details: FC<DetailsProps> = ({ farm, loading }) => {
             </Box>
           )
         )}
-        <Typography variant="normal" textTransform="capitalize">
+        <Typography variant="normal" textTransform="capitalize" display="flex">
           {loading ? (
             <Skeleton />
           ) : farm.id === 0 ? (
