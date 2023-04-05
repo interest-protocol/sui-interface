@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 import { Container } from '@/components';
 import { COIN_POOL, COINS, RoutesEnum } from '@/constants';
@@ -73,6 +73,11 @@ const FarmDetails: FC<FarmDetailsProps> = ({
     COINS[network].ETH.type,
   ]);
 
+  const loading = useMemo(
+    () => farmsLoading || isFetchingCoinBalances || poolsLoading,
+    [farmsLoading, isFetchingCoinBalances, poolsLoading]
+  );
+
   if (
     farmsError ||
     coinsPrices.error ||
@@ -110,9 +115,9 @@ const FarmDetails: FC<FarmDetailsProps> = ({
   return (
     <Container dapp width="100%" mt="XL">
       <GoBack route={RoutesEnum.Farms} />
-      <Details farm={parsedData} />
+      <Details farm={parsedData} loading={loading} />
       <FarmOptions
-        loading={farmsLoading || isFetchingCoinBalances || poolsLoading}
+        loading={loading}
         farm={parsedData}
         mutateFarms={mutateFarms}
         modalState={modalState}

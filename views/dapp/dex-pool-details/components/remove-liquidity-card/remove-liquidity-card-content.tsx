@@ -8,8 +8,10 @@ import { useDebounce } from 'use-debounce';
 import { Box, Button } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/sdk';
+import { TimesSVG } from '@/svg';
 import { capitalize } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
+import SwapMessage from '@/views/dapp/dex/swap/swap-manager/swap-button/swap-message';
 
 import LinearLoader from './linear-loader';
 import RemoveLiquidityButton from './remove-liquidity-button';
@@ -48,11 +50,16 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
   const amount0 = new BigNumber(propOr(0, token0.type || '', data));
   const amount1 = new BigNumber(propOr(0, token1.type || '', data));
 
-  if (error) return <>error</>;
-
   return (
     <>
       <LinearLoader loading={isLoading} />
+      {(!isLoading && !!error) ?? (
+        <SwapMessage
+          color="error"
+          Icon={TimesSVG}
+          message={capitalize(t('error.generic'))}
+        />
+      )}
       <Box my="L" rowGap="1rem" display="grid" gridTemplateColumns="1fr">
         <TokenAmount
           Icon={tokens[0].Icon}
