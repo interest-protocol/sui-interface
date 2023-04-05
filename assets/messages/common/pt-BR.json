@@ -78,6 +78,7 @@
     "wrongParams": "Parâmetros errados",
     "fetchingContract": "Erro ao obter os contractos",
     "fetchingBalances": "Erro ao obter os saldos",
+    "fetchingCoins": "Erro ao obter dados das moedas",
     "accountNotFound": "Nenhuma conta encontrada",
     "tokenNotFound": "nenhum token encontrado",
     "chainNotFound": "Chain não encontrado"

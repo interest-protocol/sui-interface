@@ -38,7 +38,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
     try {
       const objects = OBJECT_RECORD[network];
       if (tokens.length !== 2 || isEmpty(coinsMap))
-        throw new Error('Error fetching coins data');
+        throw new Error(t('error.fetchingCoins'));
 
       const [token0, token1] = tokens;
       const token0Amount = getValues('token0Amount');

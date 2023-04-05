@@ -19,8 +19,8 @@
     "minute": "{count, plural, =1 {minute} other {minutes}}",
     "liquidity": "liquidity",
     "enter": "enter",
-    "volatile": "{count, plural, =1 {volatile} other {volatile}}",
-    "stable": "{count, plural, =1 {stable} other {stable}}",
+    "volatile": "volatile",
+    "stable": "stable",
     "type": "type",
     "all": "all",
     "on": "on",
@@ -78,6 +78,7 @@
     "wrongParams": "Wrong params",
     "fetchingContract": "Error fetching contract",
     "fetchingBalances": "Error fetching balances",
+    "fetchingCoins": "Error fetching coins data",
     "accountNotFound": "No account found",
     "tokenNotFound": "token not found",
     "chainNotFound": "Missing chain"
