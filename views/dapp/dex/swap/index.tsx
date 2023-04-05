@@ -119,16 +119,14 @@ const Swap: FC<SwapProps> = ({
               name="tokenIn.value"
               register={formSwap.register}
               setValue={formSwap.setValue}
-              balance={formatMoney(
-                FixedPointMath.toNumber(
-                  pathOr(
-                    ZERO_BIG_NUMBER,
-                    [tokenInType, 'totalBalance'],
-                    coinsMap
-                  ),
-                  pathOr(0, [tokenInType, 'decimals'], coinsMap)
-                )
-              )}
+              balance={FixedPointMath.toNumber(
+                pathOr(
+                  ZERO_BIG_NUMBER,
+                  [tokenInType, 'totalBalance'],
+                  coinsMap
+                ),
+                pathOr(0, [tokenInType, 'decimals'], coinsMap)
+              ).toString()}
               Suffix={
                 <SelectCurrency
                   currentToken={tokenInType}
