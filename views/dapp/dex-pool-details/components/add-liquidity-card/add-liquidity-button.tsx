@@ -97,7 +97,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
           vector1,
           txb.pure(safeAmount0.toString()),
           txb.pure(safeAmount1.toString()),
-          txb.pure(stable),
+          txb.pure(!stable),
           txb.pure('0'),
         ],
       });

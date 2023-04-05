@@ -55,7 +55,9 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
         }_liquidity`,
         typeArguments: [token0.type, token1.type],
         arguments: [
-          txb.object(objects.DEX_STORAGE_VOLATILE),
+          txb.object(
+            stable ? objects.DEX_STORAGE_STABLE : objects.DEX_STORAGE_VOLATILE
+          ),
           txb.makeMoveVec({ objects: objectIds.map((x) => txb.object(x)) }),
           txb.pure(
             new BigNumber(lpAmount)
