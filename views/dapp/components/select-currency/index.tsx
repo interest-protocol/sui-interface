@@ -75,7 +75,7 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
           mr="M"
           as="span"
           variant="normal"
-          display={['none', 'block']}
+          display="block"
           nActive={{ color: 'accentActive' }}
         >
           {symbol}

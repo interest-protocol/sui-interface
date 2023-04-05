@@ -31,7 +31,7 @@ const FaucetForm: FC<FaucetProps> = ({ form }) => {
         width="100%"
         display="grid"
         gridGap="1rem"
-        height={['auto', 'auto', 'auto', '22rem']}
+        minHeight={['auto', 'auto', 'auto', '22rem']}
         gridTemplateColumns={['1fr', '1fr', '1fr', '1fr 1fr']}
       >
         <Box

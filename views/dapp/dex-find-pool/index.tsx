@@ -50,7 +50,7 @@ const DEXFindPool: FC = () => {
     };
 
   return (
-    <Container py="XL" dapp>
+    <Container py="XL" dapp width={['100%', '100%', '100%', 'unset']}>
       <GoBack routeBack />
       <Typography variant="normal" width="100%">
         {t('dexPoolFind.title')}
