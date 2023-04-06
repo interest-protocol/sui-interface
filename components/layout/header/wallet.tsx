@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { ConnectButton } from '@mysten/wallet-kit';
 import { pathOr } from 'ramda';
 import { FC, useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 import { COIN_TYPE, Network } from '@/constants';
 import { Box, Typography } from '@/elements';
@@ -34,11 +35,16 @@ const Wallet: FC = () => {
   const { coinsMap, connected, isFetchingCoinBalances, account } = useWeb3();
   const { network } = useNetwork();
   const { suiNSProvider } = useProvider();
+  const [loading, setLoading] = useState(false);
   const [suiNs, setSuiNS] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     if (network === Network.DEVNET && account && suiNSProvider) {
-      suiNSProvider.getName(account).then(setSuiNS);
+      setLoading(true);
+      suiNSProvider
+        .getName(account)
+        .then(setSuiNS)
+        .finally(() => setLoading(false));
     }
   }, [network, suiNSProvider, account]);
 
@@ -105,7 +111,9 @@ const Wallet: FC = () => {
         bg="bottomBackground"
         borderRadius="2.5rem"
       >
-        <ConnectWallet connectedText={suiNs} />
+        <ConnectWallet
+          connectedText={loading ? suiNs : <Skeleton width="6rem" />}
+        />
       </Box>
     </Box>
   );
