@@ -48,6 +48,10 @@ const Wallet: FC = () => {
     }
   }, [network, suiNSProvider, account]);
 
+  useEffect(() => {
+    console.log('>> loading :: ', loading);
+  }, [loading]);
+
   return (
     <Box
       bg="textSoft"
@@ -112,7 +116,7 @@ const Wallet: FC = () => {
         borderRadius="2.5rem"
       >
         <ConnectWallet
-          connectedText={loading ? suiNs : <Skeleton width="6rem" />}
+          connectedText={!loading ? suiNs : <Skeleton width="6rem" />}
         />
       </Box>
     </Box>
