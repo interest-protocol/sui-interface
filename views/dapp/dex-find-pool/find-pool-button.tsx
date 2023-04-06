@@ -73,7 +73,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
 
       const data = getReturnValuesFromInspectResults(response);
 
-      if (!data || data[0]) return;
+      if (!data || !data.length) return;
 
       await push({
         pathname: Routes[RoutesEnum.DEXPoolDetails],
