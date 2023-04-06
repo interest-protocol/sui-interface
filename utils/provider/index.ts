@@ -1,5 +1,6 @@
 import { Connection, devnetConnection, JsonRpcProvider } from '@mysten/sui.js';
 import { DevInspectResults } from '@mysten/sui.js/src/types';
+import { SuinsClient } from '@suins/toolkit';
 import { head, propOr } from 'ramda';
 
 export const devNetProvider = new JsonRpcProvider(
@@ -13,6 +14,8 @@ export const devNetProvider = new JsonRpcProvider(
       })
     : devnetConnection
 );
+
+export const suiNSDevProvider = new SuinsClient(devNetProvider);
 
 export const testNetProvider = new JsonRpcProvider(
   new Connection({

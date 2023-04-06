@@ -1339,6 +1339,13 @@
   resolved "https://registry.yarnpkg.com/@suchipi/femver/-/femver-1.0.0.tgz#4909dcc069695e07bd23a64c4bfe411d11d9692f"
   integrity sha512-bprE8+K5V+DPX7q2e2K57ImqNBdfGHDIWaGI5xHxZoxbKOuQZn4wzPiUxOAHnsUr3w3xHrWXwN7gnG/iIuEMIg==
 
+"@suins/toolkit@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@suins/toolkit/-/toolkit-1.2.1.tgz#a96091f215baf3b74851b8893b61c32387d09a17"
+  integrity sha512-wTvgBJZfOpfpnM2EXnA4VTpyYA7FCtl6J5vDsTnKTqL1XJfTfcHd1INMP/xs3/gt5sKAxK7LRsMDVSqg13q4RA==
+  dependencies:
+    "@mysten/sui.js" "^0.30.0"
+
 "@swc/helpers@0.4.11":
   version "0.4.11"
   resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.4.11.tgz#db23a376761b3d31c26502122f349a21b592c8de"
