@@ -48,10 +48,6 @@ const Wallet: FC = () => {
     }
   }, [network, suiNSProvider, account]);
 
-  useEffect(() => {
-    console.log('>> loading :: ', loading);
-  }, [loading]);
-
   return (
     <Box
       bg="textSoft"

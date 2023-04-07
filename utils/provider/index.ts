@@ -1,5 +1,5 @@
 import { Connection, devnetConnection, JsonRpcProvider } from '@mysten/sui.js';
-import { DevInspectResults } from '@mysten/sui.js/src/types';
+import { DevInspectResults } from '@mysten/sui.js';
 import { SuinsClient } from '@suins/toolkit';
 import { head, propOr } from 'ramda';
 
@@ -15,7 +15,8 @@ export const devNetProvider = new JsonRpcProvider(
     : devnetConnection
 );
 
-export const suiNSDevProvider = new SuinsClient(devNetProvider);
+// TODO type version issue
+export const suiNSDevProvider = new SuinsClient(devNetProvider as any);
 
 export const testNetProvider = new JsonRpcProvider(
   new Connection({
