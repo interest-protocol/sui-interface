@@ -1,6 +1,5 @@
 import { DevInspectResults } from '@mysten/sui.js/src/types';
 import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
-import { DynamicFieldInfo } from '@mysten/sui.js/src/types/dynamic_fields';
 import { Dispatch, SetStateAction } from 'react';
 import {
   Control,
