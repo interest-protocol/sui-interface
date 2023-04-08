@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
-import { isEmpty, mergeDeepRight, pathOr } from 'ramda';
-import { FC, useMemo } from 'react';
+import { isEmpty, pathOr } from 'ramda';
+import { FC } from 'react';
 import { useCallback } from 'react';
 import { useWatch } from 'react-hook-form';
 
@@ -14,7 +14,7 @@ import SelectCurrency from '../../components/select-currency';
 import { OnSelectCurrency } from '../../components/select-currency/select-currency.types';
 import SettingsModal from './settings';
 import { ISwapSettingsForm } from './settings/settings.types';
-import { useGetStablePools, useGetVolatilePools } from './swap.hooks';
+import { useGetDexMarkets } from './swap.hooks';
 import { SwapProps } from './swap.types';
 
 const SwapManager = dynamic(() => import('./swap-manager'));
@@ -29,13 +29,7 @@ const Swap: FC<SwapProps> = ({
   searchTokenModalState,
 }) => {
   const { coinsMap, mutate, account } = useWeb3();
-  const { data: volatilePoolsMap } = useGetVolatilePools();
-  const { data: stablePoolsMap } = useGetStablePools();
-
-  const poolsMap = useMemo(
-    () => mergeDeepRight(volatilePoolsMap, stablePoolsMap),
-    [volatilePoolsMap, stablePoolsMap]
-  );
+  const { data: poolsMap } = useGetDexMarkets();
 
   const setSettings = useCallback(
     ({ slippage: newSlippage }: ISwapSettingsForm) => {
@@ -177,7 +171,7 @@ const Swap: FC<SwapProps> = ({
             setValue={formSwap.setValue}
             register={formSwap.register}
             getValues={formSwap.getValues}
-            poolsMap={poolsMap}
+            poolsMap={poolsMap || {}}
             searchTokenModalState={searchTokenModalState}
             onSelectCurrency={onSelectCurrency('tokenOut')}
             swapButtonProps={{
@@ -189,7 +183,7 @@ const Swap: FC<SwapProps> = ({
               tokenInType,
               tokenOutType,
               slippage: localSettings.slippage,
-              poolsMap,
+              poolsMap: poolsMap || {},
             }}
           />
         </Box>

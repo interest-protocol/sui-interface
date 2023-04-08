@@ -1,5 +1,4 @@
 import { TransactionBlock } from '@mysten/sui.js';
-import { DynamicFieldInfo } from '@mysten/sui.js/src/types/dynamic_fields';
 import BigNumber from 'bignumber.js';
 import { isEmpty, last, pathOr } from 'ramda';
 
@@ -15,44 +14,8 @@ import {
   FindMarketArgs,
   FindSwapAmountOutput,
   GetSwapPayload,
-  PoolsMap,
   SwapPathObject,
 } from './swap.types';
-
-export const parsePools = (
-  data: undefined | DynamicFieldInfo[],
-  isStable: boolean
-) => {
-  if (!data) return {};
-
-  return data.reduce((acc, elem) => {
-    const type = elem.objectType.split(isStable ? 'SPool' : 'VPool');
-
-    const tokensTypes = type[1].split(',');
-    const tokenInType = tokensTypes[0].trim().substring(1);
-    const tokenOutType = tokensTypes[1]
-      .trim()
-      .substring(0, tokensTypes[1].length - 2);
-
-    const parsedTokenIn = addCoinTypeToTokenType(tokenInType);
-    const parsedTokenOut = addCoinTypeToTokenType(tokenOutType);
-
-    if (!acc[parsedTokenIn]) acc[parsedTokenIn] = {};
-    if (!acc[parsedTokenOut]) acc[parsedTokenOut] = {};
-
-    return {
-      ...acc,
-      [parsedTokenIn]: {
-        ...acc[parsedTokenIn],
-        [parsedTokenOut]: elem,
-      },
-      [parsedTokenOut]: {
-        ...acc[parsedTokenOut],
-        [parsedTokenIn]: elem,
-      },
-    };
-  }, {} as PoolsMap);
-};
 
 // TODO Need to add two hop swap logic
 export const findMarket = ({
@@ -63,15 +26,14 @@ export const findMarket = ({
 }: FindMarketArgs): ReadonlyArray<SwapPathObject> => {
   if (isEmpty(data)) return [];
 
-  const pool = pathOr(
+  const poolType = pathOr(
     null,
     [addCoinTypeToTokenType(tokenInType), addCoinTypeToTokenType(tokenOutType)],
     data
   );
 
   // No Hop Swap X -> Y
-  if (pool) {
-    const poolType = (pool as DynamicFieldInfo).objectType;
+  if (poolType) {
     const [coinXType, coinYType] = getCoinsFromPoolType(poolType);
 
     return [

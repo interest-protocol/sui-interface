@@ -65,3 +65,5 @@ export interface Pool {
   balanceY: BigNumber;
   lpCoinSupply: BigNumber;
 }
+
+export type DexMarket = Record<string, Record<string, string>>;
