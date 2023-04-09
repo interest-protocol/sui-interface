@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { isEmpty, pathOr } from 'ramda';
+import { pathOr } from 'ramda';
 import { FC } from 'react';
 import { useCallback } from 'react';
 import { useWatch } from 'react-hook-form';
