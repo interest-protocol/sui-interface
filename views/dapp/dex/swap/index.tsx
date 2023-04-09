@@ -29,7 +29,7 @@ const Swap: FC<SwapProps> = ({
   searchTokenModalState,
 }) => {
   const { coinsMap, mutate, account } = useWeb3();
-  const { data: poolsMap } = useGetDexMarkets();
+  const { data: poolsMap, isLoading } = useGetDexMarkets();
 
   const setSettings = useCallback(
     ({ slippage: newSlippage }: ISwapSettingsForm) => {
@@ -94,7 +94,7 @@ const Swap: FC<SwapProps> = ({
           />
         </Box>
       </Box>
-      {isEmpty(poolsMap) ? (
+      {isLoading ? (
         <Box
           my="XXL"
           width="100%"
