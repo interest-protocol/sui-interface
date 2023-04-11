@@ -31,8 +31,6 @@ const Swap: FC<SwapProps> = ({
   const { coinsMap, mutate, account } = useWeb3();
   const { data: poolsMap, isLoading } = useGetDexMarkets();
 
-  console.log(poolsMap);
-
   const setSettings = useCallback(
     ({ slippage: newSlippage }: ISwapSettingsForm) => {
       const slippage =
