@@ -27,8 +27,8 @@ export * from './social-media';
 export const MAX_NUMBER_INPUT_VALUE = 9000000000000000;
 
 export const GAS_COST = {
-  [Network.TESTNET]: 3_000_000,
-  [Network.DEVNET]: 3000,
+  [Network.TESTNET]: 3_00_000_000,
+  [Network.DEVNET]: 3_00_000_000,
 };
 
 export enum StakeState {

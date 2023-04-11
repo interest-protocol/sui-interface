@@ -81,6 +81,8 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
           options: { showBalanceChanges: true, showEffects: true },
         });
 
+        console.log(tx);
+
         throwTXIfNotSuccessful(tx);
 
         await showTXSuccessToast(tx, network);
@@ -101,6 +103,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
         await incrementCreatedCoins(account || AddressZero);
       }
     } catch (error) {
+      console.log('ERROR', error);
       throw new Error(t('faucet.errorCreateToken'));
     } finally {
       setLoading(false);
