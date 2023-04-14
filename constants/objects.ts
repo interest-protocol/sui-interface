@@ -38,5 +38,3 @@ export const OBJECT_RECORD = {
       '0x66f4dcd66de760037ac39f5fcfd216d915e35af4aaa19ece65f5b7154acd5d88',
   },
 };
-
-const x = {};
