@@ -42,7 +42,12 @@ export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 export const getReturnValuesFromInspectResults = (
   x: DevInspectResults
 ): [number[], string] | null => {
-  const results = propOr([], 'results', x) as DevInspectResults['results'];
+  const results = propOr<DevInspectResults>(
+    [],
+    'results',
+    x
+  ) as unknown as DevInspectResults['results'];
+
   const firstElem = head(results!);
 
   if (!firstElem) return null;
