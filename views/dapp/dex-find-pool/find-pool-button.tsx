@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
-import { OBJECT_RECORD, Routes, RoutesEnum } from '@/constants';
+import { Routes, RoutesEnum } from '@/constants';
 import { Box, Button } from '@/elements';
 import { useModal, useNetwork, useSDK, useWeb3 } from '@/hooks';
 import {
@@ -39,8 +39,6 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
   const { network } = useNetwork();
   const sdk = useSDK();
 
-  const objects = OBJECT_RECORD[network];
-
   const enterPool = async () => {
     setLoading(true);
 
@@ -52,14 +50,6 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
           pathname: Routes[RoutesEnum.DEXPoolDetails],
           query: { objectId: pairId },
         });
-
-      const transactionBlock = new TransactionBlock();
-
-      transactionBlock.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::get_v_pool_id`,
-        arguments: [transactionBlock.object(objects.DEX_STORAGE_VOLATILE)],
-        typeArguments: [tokenAType, tokenBType],
-      });
 
       const objectId = await sdk.findPoolId({
         tokenAType,
