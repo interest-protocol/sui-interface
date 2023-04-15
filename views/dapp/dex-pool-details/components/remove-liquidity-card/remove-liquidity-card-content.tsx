@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { FixedPointMath } from 'lib';
 import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';
 import { FC } from 'react';
@@ -7,7 +8,6 @@ import { useDebounce } from 'use-debounce';
 
 import { Box, Button } from '@/elements';
 import { useWeb3 } from '@/hooks';
-import { FixedPointMath } from '@/sdk';
 import { TimesSVG } from '@/svg';
 import { capitalize } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';

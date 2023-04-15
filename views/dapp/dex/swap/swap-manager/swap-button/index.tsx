@@ -1,6 +1,7 @@
 import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
+import { FixedPointMath } from 'lib';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC, useState } from 'react';
@@ -9,7 +10,6 @@ import { useWatch } from 'react-hook-form';
 import { incrementTX } from '@/api/analytics';
 import { Box, Button, Typography } from '@/elements';
 import { useNetwork, useSDK, useWeb3 } from '@/hooks';
-import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,

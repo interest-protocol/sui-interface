@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { AddressZero, TOKEN_SYMBOL } from 'lib';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
-import { AddressZero, TOKEN_SYMBOL } from '@/sdk';
 import {
   calculateAPR,
   calculateIPXUSDPrice,

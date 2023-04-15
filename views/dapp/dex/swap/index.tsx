@@ -1,3 +1,4 @@
+import { FixedPointMath } from 'lib';
 import dynamic from 'next/dynamic';
 import { pathOr } from 'ramda';
 import { FC } from 'react';
@@ -6,7 +7,6 @@ import { useWatch } from 'react-hook-form';
 
 import { Box, InputBalance } from '@/elements';
 import { useWeb3 } from '@/hooks';
-import { FixedPointMath } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import { ZERO_BIG_NUMBER } from '@/utils';
 

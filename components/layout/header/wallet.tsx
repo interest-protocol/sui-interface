@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { ConnectButton } from '@mysten/wallet-kit';
+import { FixedPointMath } from 'lib';
 import { pathOr } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
@@ -7,7 +8,6 @@ import Skeleton from 'react-loading-skeleton';
 import { COIN_TYPE, Network } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
-import { FixedPointMath } from '@/sdk';
 import { LoadingSVG, SuiSVG } from '@/svg';
 import { ZERO_BIG_NUMBER } from '@/utils';
 

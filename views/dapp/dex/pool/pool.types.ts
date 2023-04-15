@@ -1,6 +1,5 @@
 import { BigNumber } from 'bignumber.js';
-
-import { TOKEN_SYMBOL } from '@/sdk';
+import { TOKEN_SYMBOL } from 'lib';
 export interface PoolRowProps {
   type0: string;
   type1: string;

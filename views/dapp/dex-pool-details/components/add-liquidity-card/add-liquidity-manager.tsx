@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
+import { FixedPointMath } from 'lib';
 import { useTranslations } from 'next-intl';
 import { FC, useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
 
-import { FixedPointMath } from '@/sdk';
 import { getOptimalCoin0Value, getOptimalCoin1Value } from '@/utils';
 
 import { AddLiquidityManagerProps } from './add-liquidity-card.types';

@@ -1,12 +1,12 @@
 import { TransactionBlock } from '@mysten/sui.js';
 import { bcsForVersion } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
+import { AddressZero } from 'lib';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { FarmMetadataType, OBJECT_RECORD } from '@/constants';
 import { useNetwork, useProvider } from '@/hooks';
 import { Farm } from '@/interface';
-import { AddressZero } from '@/sdk';
 import {
   getReturnValuesFromInspectResults,
   makeSWRKey,

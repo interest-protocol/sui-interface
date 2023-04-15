@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
+import { TOKEN_SYMBOL } from 'lib';
 import { NextPage } from 'next';
-
-import { TOKEN_SYMBOL } from '@/sdk';
 
 /**
  * code from package use-intl in 'use-intl/dist/utils/MessageKeys';

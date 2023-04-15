@@ -1,6 +1,7 @@
 import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
+import { AddressZero, FixedPointMath } from 'lib';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
@@ -9,7 +10,6 @@ import { FC, useState } from 'react';
 import { OBJECT_RECORD, Routes, RoutesEnum } from '@/constants';
 import { Box, Button } from '@/elements';
 import { useModal, useNetwork, useSDK, useWeb3 } from '@/hooks';
-import { AddressZero, FixedPointMath } from '@/sdk';
 import {
   capitalize,
   createObjectsParameter,

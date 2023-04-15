@@ -1,10 +1,10 @@
+import { FixedPointMath } from 'lib';
 import { useTranslations } from 'next-intl';
 import { isEmpty } from 'ramda';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { Box, InputBalance, Typography } from '@/elements';
-import { FixedPointMath } from '@/sdk';
 
 import { AddLiquidityCardProps, INPUT_NAMES } from './add-liquidity-card.types';
 import AddLiquidityCardContent from './add-liquidity-card-content';

@@ -4,6 +4,7 @@ import {
   TransactionBlock,
 } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
+import { AddressZero } from 'lib';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC, useState } from 'react';
@@ -15,7 +16,6 @@ import { COIN_TYPE, GAS_COST, Network } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
 import { useLocalStorage, useNetwork, useWeb3 } from '@/hooks';
 import { LocalTokenMetadataRecord } from '@/interface';
-import { AddressZero } from '@/sdk';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,

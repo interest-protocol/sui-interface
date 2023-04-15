@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { FixedPointMath } from 'lib';
 import { useTranslations } from 'next-intl';
 import { isNil, propOr } from 'ramda';
 import { FC, useEffect } from 'react';
@@ -14,7 +15,6 @@ import {
   useWeb3,
 } from '@/hooks';
 import { CoinData, LocalTokenMetadataRecord } from '@/interface';
-import { FixedPointMath } from '@/sdk';
 import { LogoSVG, TimesSVG } from '@/svg';
 import { getCoinTypeFromSupply, getSafeTotalBalance } from '@/utils';
 import { makeToken } from '@/views/dapp/dex-pool-details/dex-pool-details.utils';

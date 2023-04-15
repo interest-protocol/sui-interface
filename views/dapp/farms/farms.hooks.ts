@@ -3,6 +3,7 @@ import {
   SuiObjectResponse,
   TransactionBlock,
 } from '@mysten/sui.js';
+import { AddressZero } from 'lib';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { OBJECT_RECORD } from '@/constants';
@@ -13,7 +14,6 @@ import {
   useProvider,
 } from '@/hooks';
 import { Farm, Pool } from '@/interface';
-import { AddressZero } from '@/sdk';
 import {
   getReturnValuesFromInspectResults,
   makeSWRKey,

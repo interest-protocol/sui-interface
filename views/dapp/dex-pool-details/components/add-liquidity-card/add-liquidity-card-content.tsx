@@ -1,9 +1,9 @@
+import { FixedPointMath } from 'lib';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { Box, Button } from '@/elements';
-import { FixedPointMath } from '@/sdk';
 import { capitalize } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
