@@ -1,9 +1,9 @@
+import { FixedPointMath } from 'lib';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { TOKENS_SVG_MAP } from '@/constants';
 import { Box, Typography } from '@/elements';
-import { FixedPointMath } from '@/sdk';
 import { StarSVG } from '@/svg';
 import { formatMoney } from '@/utils';
 

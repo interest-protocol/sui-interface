@@ -1,20 +1,18 @@
-import { toHEX } from '@mysten/bcs';
 import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
+import { AddressZero, FixedPointMath } from 'lib';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
-import { OBJECT_RECORD, Routes, RoutesEnum } from '@/constants';
+import { Routes, RoutesEnum } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
-import { AddressZero, FixedPointMath } from '@/sdk';
+import { useModal, useNetwork, useSDK, useWeb3 } from '@/hooks';
 import {
   capitalize,
-  createVectorParameter,
-  getReturnValuesFromInspectResults,
+  createObjectsParameter,
   showToast,
   showTXSuccessToast,
   throwTXIfNotSuccessful,
@@ -39,9 +37,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
   const { signAndExecuteTransactionBlock } = useWalletKit();
   const { coinsMap, account } = useWeb3();
   const { network } = useNetwork();
-  const { provider } = useProvider();
-
-  const objects = OBJECT_RECORD[network];
+  const sdk = useSDK();
 
   const enterPool = async () => {
     setLoading(true);
@@ -55,29 +51,17 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
           query: { objectId: pairId },
         });
 
-      const transactionBlock = new TransactionBlock();
-
-      transactionBlock.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::get_v_pool_id`,
-        arguments: [transactionBlock.object(objects.DEX_STORAGE_VOLATILE)],
-        typeArguments: [tokenAType, tokenBType],
+      const objectId = await sdk.findPoolId({
+        tokenAType,
+        tokenBType,
+        account: account ?? AddressZero,
       });
 
-      const response = await provider.devInspectTransactionBlock({
-        transactionBlock,
-        sender: account ?? AddressZero,
-      });
-
-      if (response.effects.status.status === 'failure')
-        return setCreatingPair(true);
-
-      const data = getReturnValuesFromInspectResults(response);
-
-      if (!data || !data.length) return;
+      if (!objectId) return setCreatingPair(true);
 
       await push({
         pathname: Routes[RoutesEnum.DEXPoolDetails],
-        query: { objectId: `0x${toHEX(Uint8Array.from(data[0]))}` },
+        query: { objectId },
       });
     } catch {
       throw new Error(t('dexPoolFind.errors.connecting'));
@@ -110,30 +94,28 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
 
       const txb = new TransactionBlock();
 
-      txb.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::create_pool`,
-        arguments: [
-          txb.object(objects.DEX_STORAGE_VOLATILE),
-          createVectorParameter({
-            txb,
-            type: tokenA.type,
-            coinsMap,
-            amount: amountA.toString(),
-          }),
-          createVectorParameter({
-            txb,
-            type: tokenB.type,
-            coinsMap,
-            amount: amountB.toString(),
-          }),
-          txb.pure(amountA.toString()),
-          txb.pure(amountB.toString()),
-        ],
-        typeArguments: [tokenA.type, tokenB.type],
+      const transactionBlock = await sdk.createPool({
+        txb,
+        coinAList: createObjectsParameter({
+          txb,
+          type: tokenA.type,
+          coinsMap,
+          amount: amountA.toString(),
+        }),
+        coinBList: createObjectsParameter({
+          txb,
+          type: tokenB.type,
+          coinsMap,
+          amount: amountB.toString(),
+        }),
+        coinAAmount: amountA.toString(),
+        coinBAmount: amountB.toString(),
+        coinAType: tokenA.type,
+        coinBType: tokenB.type,
       });
 
       const tx = await signAndExecuteTransactionBlock({
-        transactionBlock: txb,
+        transactionBlock,
         requestType: 'WaitForEffectsCert',
         options: { showEffects: true, showEvents: true },
       });

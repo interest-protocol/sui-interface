@@ -1,7 +1,7 @@
+import { TOKEN_SYMBOL } from 'lib';
 import { FC } from 'react';
 
 import { SVGProps } from '@/components/svg/svg.types';
-import { TOKEN_SYMBOL } from '@/sdk';
 import {
   BinanceSVG,
   BitcoinSVG,

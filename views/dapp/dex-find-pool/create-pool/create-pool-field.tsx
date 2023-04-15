@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
+import { FixedPointMath } from 'lib';
 import { FC } from 'react';
 
 import { TOKENS_SVG_MAP } from '@/constants';
 import { Box, InputBalance, Typography } from '@/elements';
 import { useWeb3 } from '@/hooks';
-import { FixedPointMath } from '@/sdk';
 
 import { CreatePoolFieldProps } from '../dex-find-pool.types';
 

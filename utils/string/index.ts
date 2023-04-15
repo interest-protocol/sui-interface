@@ -1,6 +1,5 @@
+import { MAX_NUMBER_INPUT_VALUE } from 'lib';
 import { ChangeEvent } from 'react';
-
-import { MAX_NUMBER_INPUT_VALUE } from '@/sdk';
 
 const isExponential = (number: number) => number.toString().includes('e');
 

@@ -1,5 +1,6 @@
 import { useTheme } from '@emotion/react';
 import BigNumber from 'bignumber.js';
+import { FixedPointMath, TOKEN_SYMBOL } from 'lib';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
@@ -11,7 +12,6 @@ import { Routes, RoutesEnum } from '@/constants';
 import { Theme } from '@/design-system';
 import { Box, Button, Table, Typography } from '@/elements';
 import { useNetwork } from '@/hooks';
-import { FixedPointMath, TOKEN_SYMBOL } from '@/sdk';
 import { capitalize, formatDollars, formatMoney } from '@/utils';
 
 import {

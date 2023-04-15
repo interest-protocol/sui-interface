@@ -1,9 +1,9 @@
 import { TransactionBlock } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
+import { FixedPointMath } from 'lib';
 import { isEmpty, last, pathOr } from 'ramda';
 
 import { DEX_BASE_TOKEN_ARRAY, DexFunctions, OBJECT_RECORD } from '@/constants';
-import { FixedPointMath } from '@/sdk';
 import {
   addCoinTypeToTokenType,
   createVectorParameter,

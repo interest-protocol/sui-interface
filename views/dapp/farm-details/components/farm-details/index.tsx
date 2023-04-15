@@ -1,3 +1,4 @@
+import { TOKEN_SYMBOL } from 'lib';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import Skeleton from 'react-loading-skeleton';
@@ -6,7 +7,6 @@ import { v4 } from 'uuid';
 import Box from '@/elements/box';
 import Typography from '@/elements/typography';
 import { useNetwork } from '@/hooks';
-import { TOKEN_SYMBOL } from '@/sdk';
 import { capitalize, formatDollars } from '@/utils';
 import {
   getFarmsSVGByToken,

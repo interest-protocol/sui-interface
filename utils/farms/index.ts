@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { FixedPointMath } from 'lib';
 
 import { COIN_TYPE, EPOCHS_PER_YEAR } from '@/constants';
-import { FixedPointMath } from '@/sdk';
 import { ZERO_BIG_NUMBER } from '@/utils';
 
 import { calculateLPCoinPrice } from '../pools';

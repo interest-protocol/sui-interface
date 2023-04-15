@@ -1,6 +1,5 @@
 import { SUI_TYPE_ARG } from '@mysten/sui.js';
-
-import { TOKEN_SYMBOL } from '@/sdk';
+import { TOKEN_SYMBOL } from 'lib';
 
 import { Network } from './network';
 import { OBJECT_RECORD } from './objects';

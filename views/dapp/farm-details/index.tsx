@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { AddressZero } from 'lib';
 import { useTranslations } from 'next-intl';
 import { FC, useMemo } from 'react';
 
@@ -11,7 +12,6 @@ import {
   useNetwork,
   useWeb3,
 } from '@/hooks';
-import { AddressZero } from '@/sdk';
 
 import { GoBack } from '../components';
 import ErrorView from '../components/error';

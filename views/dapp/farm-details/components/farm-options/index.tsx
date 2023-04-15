@@ -1,3 +1,4 @@
+import { TOKEN_SYMBOL } from 'lib';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
@@ -7,12 +8,11 @@ import { Typography } from '@/elements';
 import Box from '@/elements/box';
 import Button from '@/elements/button';
 import { useNetwork } from '@/hooks';
-import { TOKEN_SYMBOL } from '@/sdk';
-import { FixedPointMath } from '@/sdk/entities/fixed-point-math';
 import { capitalize, formatDollars, formatMoney } from '@/utils';
 import Loading from '@/views/dapp/components/loading';
 import { makeFarmSymbol } from '@/views/dapp/farms/farms.utils';
 
+import { FixedPointMath } from '../../../../../lib/entities/fixed-point-math';
 import HarvestButton from '../buttons/harvest-button';
 import EarnCard from '../farm-card';
 import FarmStakeModal from '../farm-modals';

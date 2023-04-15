@@ -1,3 +1,4 @@
+import { FixedPointMath } from 'lib';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -5,7 +6,6 @@ import { v4 } from 'uuid';
 import { StakeState } from '@/constants';
 import { Box, Button, Modal, Typography } from '@/elements';
 import { useLocale } from '@/hooks';
-import { FixedPointMath } from '@/sdk';
 import { TimesSVG } from '@/svg';
 import { capitalize, formatMoney } from '@/utils';
 import { getFarmsSVGByToken } from '@/views/dapp/farms/farms.utils';

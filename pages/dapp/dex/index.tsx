@@ -1,3 +1,4 @@
+import { TOKEN_SYMBOL } from 'lib';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { find, mergeDeepRight, propEq } from 'ramda';
@@ -9,7 +10,6 @@ import { DEX_TOKENS_DATA } from '@/constants';
 import { ModalProvider } from '@/context/modal';
 import { useLocalStorage, useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
-import { TOKEN_SYMBOL } from '@/sdk';
 import Loading from '@/views/dapp/components/loading';
 import { TokenModalMetadata } from '@/views/dapp/components/select-currency/select-currency.types';
 import { ISwapForm, LocalSwapSettings } from '@/views/dapp/dex/swap/swap.types';

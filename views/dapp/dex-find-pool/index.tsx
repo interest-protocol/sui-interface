@@ -1,3 +1,4 @@
+import { AddressZero } from 'lib';
 import { useTranslations } from 'next-intl';
 import { FC, useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
@@ -6,7 +7,6 @@ import { Container } from '@/components';
 import { DEX_TOKENS_DATA } from '@/constants';
 import { Typography } from '@/elements';
 import { useNetwork, useWeb3 } from '@/hooks';
-import { AddressZero } from '@/sdk';
 
 import { GoBack } from '../components';
 import { OnSelectCurrency } from '../components/select-currency/select-currency.types';

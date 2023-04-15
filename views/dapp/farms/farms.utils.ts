@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
+import { TOKEN_SYMBOL } from 'lib';
 import { always, cond, equals, ifElse, isEmpty, not, o, prop, T } from 'ramda';
 
 import { COIN_TYPE_TO_SYMBOL, FARMS_RECORD, Network } from '@/constants';
-import { TOKEN_SYMBOL } from '@/sdk';
 import {
   calculateAPR,
   calculateIPXUSDPrice,

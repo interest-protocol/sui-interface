@@ -1,10 +1,10 @@
 import { TransactionBlock } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
+import { AddressZero } from 'lib';
 import useSWR from 'swr';
 
 import { OBJECT_RECORD } from '@/constants';
 import { useNetwork, useProvider } from '@/hooks';
-import { AddressZero } from '@/sdk';
 import { makeSWRKey } from '@/utils';
 
 import { UseGetRemoveLiquidityAmountsArgs } from './remove-liquidity-card.types';

@@ -92,3 +92,19 @@ export const createVectorParameter = ({
       : [],
   });
 };
+
+export const createObjectsParameter = ({
+  txb,
+  type,
+  coinsMap,
+  amount,
+}: CreateVectorParameterArgs) => {
+  if (type === SUI_TYPE_ARG) {
+    const [coin] = txb.splitCoins(txb.gas, [txb.pure(amount.toString())]);
+    return [coin];
+  }
+
+  return coinsMap[type]
+    ? coinsMap[type].objects.map((x) => txb.object(x.coinObjectId))
+    : [];
+};

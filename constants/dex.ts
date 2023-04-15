@@ -1,4 +1,4 @@
-import { TOKEN_SYMBOL } from '@/sdk';
+import { TOKEN_SYMBOL } from 'lib';
 
 import { COIN_TYPE } from './coins';
 import { Network } from './network';

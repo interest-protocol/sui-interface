@@ -10,4 +10,5 @@ export * from './use-modal';
 export * from './use-network';
 export * from './use-previous';
 export * from './use-provider';
+export * from './use-sdk';
 export * from './use-web3';

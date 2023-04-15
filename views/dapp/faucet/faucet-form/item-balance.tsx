@@ -1,3 +1,4 @@
+import { FixedPointMath } from 'lib';
 import { useTranslations } from 'next-intl';
 import { FC, useRef, useState } from 'react';
 import { animated, useSpring } from 'react-spring';
@@ -7,7 +8,6 @@ import { v4 } from 'uuid';
 import { CopyToClipboard } from '@/components';
 import space from '@/design-system/common/space';
 import { Box, RefBox, Typography } from '@/elements';
-import { FixedPointMath } from '@/sdk';
 import { ArrowSVG } from '@/svg';
 import { capitalize } from '@/utils';
 

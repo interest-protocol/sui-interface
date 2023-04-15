@@ -1,4 +1,5 @@
 import { BigNumber } from 'bignumber.js';
+import { FixedPointMath } from 'lib';
 import { pathOr, prop } from 'ramda';
 import { FC, useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
@@ -7,7 +8,6 @@ import useSWR from 'swr';
 import { COIN_DECIMALS, OBJECT_RECORD } from '@/constants';
 import InputBalance from '@/elements/input-balance';
 import { useNetwork, useProvider } from '@/hooks';
-import { FixedPointMath } from '@/sdk';
 import { makeSWRKey, ZERO_BIG_NUMBER } from '@/utils';
 
 import SwapSelectCurrency from '../../../components/select-currency';

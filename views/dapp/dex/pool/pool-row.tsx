@@ -1,9 +1,9 @@
+import { FixedPointMath } from 'lib';
 import Link from 'next/link';
 import { FC } from 'react';
 
 import { Routes, RoutesEnum, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
-import { FixedPointMath } from '@/sdk';
 import { UnknownCoinSVG } from '@/svg';
 import { formatMoney } from '@/utils';
 
