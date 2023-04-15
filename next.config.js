@@ -6,11 +6,6 @@ module.exports = {
         destination: '/dapp/dex',
         permanent: true,
       },
-      {
-        source: '/',
-        destination: '/dapp/dex',
-        permanent: true,
-      },
     ];
   },
   experimental: {

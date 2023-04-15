@@ -13,9 +13,10 @@
   "version": "0.1.0",
   "private": false,
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@hookform/resolvers": "^2.8.8",
+    "@interest-protocol/ui-kit": "0.0.0-alpha.16",
     "@mysten/sui.js": "^0.32.0",
     "@mysten/wallet-kit": "^0.4.2",
     "@stylin.js/react": "^1.0.1",
