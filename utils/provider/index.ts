@@ -1,7 +1,10 @@
+import { SDK } from '@interest-protocol/sui-sdk';
 import { Connection, devnetConnection, JsonRpcProvider } from '@mysten/sui.js';
 import { DevInspectResults } from '@mysten/sui.js';
 import { SuinsClient } from '@suins/toolkit';
 import { head, propOr } from 'ramda';
+
+import { Network } from '@/constants';
 
 export const devNetProvider = new JsonRpcProvider(
   process.env.NEXT_PUBLIC_SUI_DEVNET_RPC_URL
@@ -29,6 +32,10 @@ export const testNetProvider = new JsonRpcProvider(
     faucet: 'https://faucet.testnet.sui.io/gas',
   })
 );
+
+export const devNetIPXSdk = new SDK(devNetProvider, Network.DEVNET);
+
+export const testNetIPXSdk = new SDK(testNetProvider, Network.TESTNET);
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
