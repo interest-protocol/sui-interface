@@ -1,4 +1,4 @@
-import { MakeMoveVecTransaction, SUI_TYPE_ARG } from '@mysten/sui.js';
+import { SUI_TYPE_ARG } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { propOr } from 'ramda';
 
