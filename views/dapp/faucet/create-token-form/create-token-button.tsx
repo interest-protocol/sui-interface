@@ -59,14 +59,14 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
 
         const transactionBlock = new TransactionBlock();
 
-        const [upgradeCap] = transactionBlock.publish(
-          compiledModulesAndDeps.modules.map((m: any) =>
+        const [upgradeCap] = transactionBlock.publish({
+          modules: compiledModulesAndDeps.modules.map((m: any) =>
             Array.from(fromB64(m))
           ),
-          compiledModulesAndDeps.dependencies.map((addr: string) =>
-            normalizeSuiObjectId(addr)
-          )
-        );
+          dependencies: compiledModulesAndDeps.dependencies.map(
+            (addr: string) => normalizeSuiObjectId(addr)
+          ),
+        });
 
         transactionBlock.transferObjects(
           [upgradeCap],
