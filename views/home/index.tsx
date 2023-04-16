@@ -1,9 +1,7 @@
 import { FC } from 'react';
 
-import Layout from './components/layout';
+import { Layout } from './components';
 
-const Home: FC = () => {
-  return <Layout></Layout>;
-};
+const Home: FC = () => <Layout></Layout>;
 
 export default Home;
