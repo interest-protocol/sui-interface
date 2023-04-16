@@ -8,6 +8,7 @@ export { default as BitcoinSVG } from './bitcoin';
 export { default as BRFlagSVG } from './br-flag';
 export { default as CogsSVG } from './cogs';
 export { default as CopySVG } from './copy';
+export * from './cubes';
 export { default as DAISVG } from './dai';
 export { default as DexSVG } from './dex';
 export { default as DiscordSVG } from './discord';

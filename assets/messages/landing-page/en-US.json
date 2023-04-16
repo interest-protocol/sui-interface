@@ -2,6 +2,12 @@
   "landingPage": {
     "metadata": {
       "title": "Home"
+    },
+    "hero": {
+      "title": {
+        "first": "{isMobile, plural, =1 {Swap, lend} other {Swap, lend, trade} }",
+        "second": "{isMobile, plural, =1 {trade and farm} other {and farm.} }"
+      }
     }
   }
 }
