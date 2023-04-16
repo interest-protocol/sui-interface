@@ -13,7 +13,7 @@ const SEO: FC<{ pageTitle: string }> = ({ pageTitle }) => {
 
   return (
     <Head>
-      <meta name="theme-color" content={colors.foreground} />
+      <meta name="theme-color" content={colors?.foreground ?? '#282828'} />
       <meta charSet="utf-8" />
       <meta name="title" content="Interest Protocol" />
       <meta name="description" content={t('common.seoDescription')} />

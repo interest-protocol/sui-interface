@@ -1,6 +1,14 @@
 import { css } from '@emotion/react';
 
-const GlobalStyles = css`
+export const LandingGlobalStyles = css`
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Mono', monospace;
+  }
+`;
+
+export const DappGlobalStyles = css`
   * {
     margin: 0;
     padding: 0;
@@ -77,5 +85,3 @@ const GlobalStyles = css`
     }
   }
 `;
-
-export default GlobalStyles;

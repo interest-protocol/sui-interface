@@ -2,7 +2,6 @@
 import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-tooltip/dist/react-tooltip.css';
 
-import { Global } from '@emotion/react';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
@@ -18,7 +17,6 @@ import {
   ThemeManager,
 } from '@/components';
 import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
-import { GlobalStyles } from '@/design-system';
 import { useLocalStorage } from '@/hooks';
 import { NextPageDefaultProps } from '@/interface';
 
@@ -70,7 +68,6 @@ const MyApp = ({ Component, pageProps }: Props): ReactNode => {
       >
         <NetworkProvider>
           <WalletKitProvider>
-            <Global styles={GlobalStyles} />
             <ThemeManager>
               <StrictMode>
                 <Component {...pageProps} />

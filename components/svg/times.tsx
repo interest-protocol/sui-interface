@@ -5,25 +5,23 @@ import { SVGProps } from './svg.types';
 const Times: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => (
   <svg
     style={{ maxWidth: maxWidth, maxHeight: maxHeight }}
-    viewBox="0 0 35 35"
+    viewBox="0 0 24 24"
     fill="none"
     {...props}
   >
-    <line
-      x1="9.25"
-      y1="26.1445"
-      x2="25.5135"
-      y2="9.881"
+    <path
+      d="M18.75 5.25L5.25 18.75"
       stroke="currentColor"
-      strokeLinecap="round"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+      strokeLinejoin="round"
     />
-    <line
-      x1="25.5116"
-      y1="25.7207"
-      x2="9.24819"
-      y2="9.45725"
+    <path
+      d="M18.75 18.75L5.25 5.25"
       stroke="currentColor"
-      strokeLinecap="round"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+      strokeLinejoin="round"
     />
   </svg>
 );
