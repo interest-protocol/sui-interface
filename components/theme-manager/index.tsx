@@ -1,8 +1,7 @@
-import { ThemeProvider } from '@emotion/react';
+import { Global, ThemeProvider } from '@emotion/react';
 import { ThemeProviderProps } from '@emotion/react/types/theming';
 import {
   darkTheme,
-  lightTheme,
   ThemeProvider as InterestThemeProvider,
 } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
@@ -10,17 +9,18 @@ import { FC, PropsWithChildren } from 'react';
 import { SkeletonTheme } from 'react-loading-skeleton';
 
 import { DAppDarkTheme, DAppLightTheme } from '@/design-system/dapp-theme';
+import {
+  DappGlobalStyles,
+  LandingGlobalStyles,
+} from '@/design-system/global-styles';
 import { useLocalStorage } from '@/hooks';
 
-interface ThemeProps {
-  dark: boolean;
-  setDark: (value: boolean) => void;
-}
+import { ThemeProps } from './theme-manager.types';
 
 const Theme: FC<PropsWithChildren<ThemeProps>> = ({
-  children,
-  setDark,
   dark,
+  setDark,
+  children,
 }) => {
   const { asPath } = useRouter();
 
@@ -28,9 +28,8 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
 
   if (isHome)
     return (
-      <InterestThemeProvider
-        theme={{ setDark, ...(dark ? darkTheme : lightTheme) }}
-      >
+      <InterestThemeProvider theme={{ setDark, ...darkTheme }}>
+        <Global styles={LandingGlobalStyles} />
         {children}
       </InterestThemeProvider>
     );
@@ -39,6 +38,7 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
     <ThemeProvider
       theme={{ setDark, ...(dark ? DAppDarkTheme : DAppLightTheme) }}
     >
+      <Global styles={DappGlobalStyles} />
       {children}
     </ThemeProvider>
   );

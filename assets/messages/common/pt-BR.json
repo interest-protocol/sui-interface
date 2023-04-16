@@ -1,5 +1,13 @@
 {
   "common": {
+    "v2": {
+      "languages": {
+        "title": "Idioma",
+        "en-US": "Inglês",
+        "pt-PT": "Português",
+        "pt-BR": "Português"
+      }
+    },
     "dex": "dex",
     "soon": "em breve",
     "pool": "pool",

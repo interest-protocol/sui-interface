@@ -1,17 +1,7 @@
-import { useTheme } from '@interest-protocol/ui-kit';
-import { Box, Button } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-const Home: FC = () => {
-  const theme = useTheme();
+import { Layout } from './components';
 
-  console.log('>> context :: ', theme);
-
-  return (
-    <Box variant="container">
-      <Button variant="filled">Home</Button>
-    </Box>
-  );
-};
+const Home: FC = () => <Layout></Layout>;
 
 export default Home;

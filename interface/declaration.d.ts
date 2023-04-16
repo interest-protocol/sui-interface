@@ -10,6 +10,8 @@ type DexSwapMessages = typeof import('../assets/messages/dex/swap/en-US.json');
 type FarmsMessages = typeof import('../assets/messages/farms/en-US.json');
 type FarmDetailsMessages =
   typeof import('../assets/messages/farms/details/en-US.json');
+type LandingPageMessages =
+  typeof import('../assets/messages/landing-page/en-US.json');
 
 declare interface IntlMessages
   extends CommonMessages,
@@ -19,4 +21,5 @@ declare interface IntlMessages
     DexSwapMessages,
     FarmsMessages,
     FarmDetailsMessages,
+    LandingPageMessages,
     DexPoolMessages {}
