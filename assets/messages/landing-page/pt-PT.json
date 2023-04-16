@@ -2,6 +2,12 @@
   "landingPage": {
     "metadata": {
       "title": "Pagina Inicial"
+    },
+    "hero": {
+      "title": {
+        "first": "{isMobile, plural, =1 {Troque, empreste} other {Troque, empreste, transacione} }",
+        "second": "{isMobile, plural, =1 {transacione e invista} other {e invista.} }"
+      }
     }
   }
 }
