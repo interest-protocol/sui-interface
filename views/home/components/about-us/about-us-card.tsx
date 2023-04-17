@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
@@ -50,8 +50,25 @@ const AboutUsCard: FC<AboutUsCardProps> = ({ name, link, Illustration }) => {
             <ArrowLinkSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
           </Button>
         </Link>
-        <Box m="4xl" p="4xl" minHeight={['21rem', '21rem', '28rem']}>
-          <Illustration />
+        <Box
+          m="4xl"
+          p="4xl"
+          height={['21rem', '21rem', '28rem']}
+          display="flex"
+        >
+          <Motion
+            color="primary"
+            cursor="pointer"
+            minHeight="100%"
+            minWidth="100%"
+            whileHover={{
+              translateY: -7,
+              filter: 'hue-rotate(360deg) brightness(1.5) opacity(0.95)',
+            }}
+            transition={{ duration: 0.8 }}
+          >
+            <Illustration />
+          </Motion>
         </Box>
       </Box>
     </Box>
