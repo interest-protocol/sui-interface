@@ -8,6 +8,26 @@
         "first": "{isMobile, plural, =1 {Swap, lend} other {Swap, lend, trade} }",
         "second": "{isMobile, plural, =1 {trade and farm} other {and farm.} }"
       }
+    },
+    "aboutUs": {
+      "title": {
+        "first": "The ultimate",
+        "second": "Protocol"
+      },
+      "services": {
+        "earn": {
+          "name": "Earn",
+          "description": "Earn passive income with crypto. Interest protocol makes it easy to make your crypto work for you."
+        },
+        "trade": {
+          "name": "Trade",
+          "description": "Trade your favorite pair on your favorite chains through the Swap interface."
+        },
+        "lend": {
+          "name": "Lend",
+          "description": "Put your assets in auto pilot. Get the funds you need, keep the Tokens you love. "
+        }
+      }
     }
   }
 }
