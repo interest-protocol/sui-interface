@@ -348,3 +348,17 @@ export const CubeNumber: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
     />
   </svg>
 );
+
+export const CubeShadow: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
+  <svg
+    style={{ maxWidth, maxHeight }}
+    viewBox="0 0 96 55"
+    fill="none"
+    {...props}
+  >
+    <path
+      d="M48.2499 5.12935e-05L0.855469 27.3608L48.1997 54.6926L95.5941 27.3318L48.2499 5.12935e-05Z"
+      fill="#1B1B1F"
+    />
+  </svg>
+);
