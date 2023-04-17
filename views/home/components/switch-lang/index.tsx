@@ -5,6 +5,7 @@ import { v4 } from 'uuid';
 
 import { FLAG_ICON_MAP } from '@/constants/locale';
 import { useLocale } from '@/hooks';
+import { capitalize } from '@/utils';
 
 import LangItem from './lang-item';
 
@@ -60,7 +61,7 @@ const SwitchLang: FC<{ isOpen: boolean }> = ({ isOpen }) => {
         variant="medium"
         fontFamily="Roboto"
       >
-        {t('common.v2.languages.title')}
+        {capitalize(t('common.v2.languages.title'))}
       </Typography>
       {locales.map((locale) => (
         <Motion
