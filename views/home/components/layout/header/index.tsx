@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 import { LogoSVG } from '@/svg';
 
-import MotionExample from './motion-example';
+import SwitchLangButton from './switch-lang-button';
 
 const Header: FC = () => {
   const { colors } = useTheme() as Theme;
@@ -28,7 +28,7 @@ const Header: FC = () => {
           flexDirection="column"
           gridColumn={['2/5', '2/9', '2/13']}
         >
-          <MotionExample />
+          <SwitchLangButton />
         </Box>
       </Box>
     </Box>
