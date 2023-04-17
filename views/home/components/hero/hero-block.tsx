@@ -9,9 +9,17 @@ const CubeWrapper: FC<CubeWrapperProps> = ({ Icon, ...props }) => (
   <Motion
     position="absolute"
     width="44%"
+    nAfter={{
+      content: '""',
+      display: 'block',
+      paddingTop: '100%',
+    }}
     height="43%"
-    whileHover={{ scale: 1.1 }}
-    transition={{ duration: 0.4 }}
+    whileHover={{
+      translateY: -7,
+      filter: 'hue-rotate(360deg) brightness(1.5) opacity(0.95)',
+    }}
+    transition={{ duration: 0.8 }}
     {...props}
   >
     <Icon maxWidth="100%" maxHeight="100%" width="100%" />
@@ -21,8 +29,8 @@ const CubeWrapper: FC<CubeWrapperProps> = ({ Icon, ...props }) => (
 const HeroBlock: FC = () => (
   <Motion
     mx="auto"
-    width="17rem"
-    height="23rem"
+    width="272px"
+    height="368px"
     position="relative"
     initial={{ scale: 0 }}
     animate={{ scale: 1 }}
