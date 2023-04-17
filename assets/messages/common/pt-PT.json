@@ -79,7 +79,8 @@
     "copyObjectNumber": "copiar o id do objecto",
     "followUs": "SIGA-NOS",
     "coin": "moeda",
-    "bannerHeader": "Este é um produto alfa implantado num Devnet. Pode estar em baixo por causa de actualizações de versões ou problemas inesperados."
+    "bannerHeader": "Este é um produto alfa implantado num Devnet. Pode estar em baixo por causa de actualizações de versões ou problemas inesperados.",
+    "getEarlyNotifications": "Receba notificações antecipadas sobre novos recursos."
   },
   "error": {
     "generic": "algo deu errado",

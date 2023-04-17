@@ -49,7 +49,12 @@
     "@typescript-eslint/no-unused-vars": ["error"],
     "@emotion/jsx-import": "error",
     "@emotion/pkg-renaming": "error",
-    "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
+    "prettier/prettier": [
+      "error",
+      {},
+      { "usePrettierrc": true },
+      { "endOfLine": "auto" }
+    ],
     "linebreak-style": ["error", "unix"],
     "semi": ["error", "always"],
     "@typescript-eslint/no-non-null-assertion": "off",

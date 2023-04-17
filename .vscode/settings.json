@@ -52,5 +52,6 @@
     "XXXL",
     "Zasset",
     "ZUSD"
-  ]
+  ],
+  "dotenv.enableAutocloaking": false
 }

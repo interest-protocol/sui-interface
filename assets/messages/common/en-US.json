@@ -79,7 +79,10 @@
     "copyObjectNumber": "copy objectId",
     "followUs": "FOLLOW US",
     "coin": "coin",
-    "bannerHeader": "This is an alpha product deployed on a Devnet. It might be down because of version updates or unexpected issues."
+    "bannerHeader": "This is an alpha product deployed on a Devnet. It might be down because of version updates or unexpected issues.",
+    "getEarly": "Get early",
+    "notifications": "Notifications",
+    "onNewFeatures": "On new features"
   },
   "error": {
     "generic": "something went wrong",
