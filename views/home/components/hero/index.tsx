@@ -13,14 +13,14 @@ const Hero: FC = () => (
       justifyItems="unset"
       minHeight="calc(100vh - 10.75rem)"
     >
-      <Box gridColumn={['1/5', '2/8']}>
+      <Box gridColumn={['1/5', '1/5', '2/8']}>
         <HeroTitle />
-        <Box display={['block', 'block', 'none']}>
+        <Box display={['block', 'block', 'block', 'none']}>
           <HeroBlock />
         </Box>
         <HeroCallToAction />
       </Box>
-      <Box display={['none', 'none', 'block']} gridColumn="8/11">
+      <Box display={['none', 'none', 'none', 'block']} gridColumn="8/11">
         <HeroBlock />
       </Box>
     </Box>

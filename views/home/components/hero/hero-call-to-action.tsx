@@ -9,13 +9,13 @@ const HeroCallToAction: FC = () => {
     <Box
       display="flex"
       flexDirection="column"
-      alignItems={['center', 'center', 'flex-start']}
+      alignItems={['center', 'center', 'center', 'flex-start']}
     >
       <Typography
         py="l"
         color="outline"
         variant="medium"
-        textAlign={['center', 'center', 'left']}
+        textAlign={['center', 'center', 'center', 'left']}
       >
         {t('landingPage.hero.description')}
       </Typography>
