@@ -82,8 +82,7 @@ const StarWrapper: FC<HeroStarWrapperProps> = ({ Icon, size, ...props }) => {
 
   return (
     <Motion
-      width="44%"
-      height="43%"
+      width={`calc(${size} / 2)`}
       position="absolute"
       filter="drop-shadow(0 0 .0625rem #fff)"
       animate={{
@@ -100,20 +99,16 @@ const StarWrapper: FC<HeroStarWrapperProps> = ({ Icon, size, ...props }) => {
       }}
       {...props}
     >
-      <Icon
-        maxWidth={size || '100%'}
-        maxHeight={size || '100%'}
-        width={size || '100%'}
-      />
+      <Icon width="100%" maxWidth="100%" maxHeight="100%" />
     </Motion>
   );
 };
 
 const HeroBlock: FC = () => (
-  <Box width="272px" height="368px" position="relative">
-    <StarWrapper Icon={HeroStar} right="68%" top="10%" size="20%" />
+  <Box width="272px" height="368px" position="relative" mx="auto">
+    <StarWrapper Icon={HeroStar} left="-12%" top="9%" size="20%" />
     <StarWrapper Icon={HeroStar} left="0%" top="13%" size="15%" />
-    <StarWrapper Icon={HeroStar} left="106%" top="0%" size="30%" />
+    <StarWrapper Icon={HeroStar} right="-17%" top="0%" size="30%" />
     <CubeWrapper Icon={Cube} top="8.6%" left="29%" />
     <CubeWrapper Icon={CubeBNB} top="47.8%" withTopShadow />
     <CubeWrapper Icon={CubeNumber} top="47.8%" right="0%" />

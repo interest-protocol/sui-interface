@@ -6,14 +6,14 @@ import HeroCallToAction from './hero-call-to-action';
 import HeroTitle from './hero-title';
 
 const Hero: FC = () => (
-  <Box bg="background" height="calc(100vh - 6.75rem)">
+  <Box bg="background" minHeight="calc(100vh - 6.75rem)">
     <Box
       variant="container"
       alignItems="center"
       justifyItems="unset"
-      height="calc(100% - 4rem)"
+      minHeight="calc(100vh - 10.75rem)"
     >
-      <Box gridColumn={['2/8']}>
+      <Box gridColumn={['1/5', '2/8']}>
         <HeroTitle />
         <Box display={['block', 'block', 'none']}>
           <HeroBlock />
