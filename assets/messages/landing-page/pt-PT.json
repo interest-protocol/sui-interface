@@ -7,12 +7,14 @@
       "title": {
         "first": "{isMobile, plural, =1 {Troque, empreste} other {Troque, empreste, transacione} }",
         "second": "{isMobile, plural, =1 {transacione e invista} other {e invista.} }"
-      }
+      },
+      "description": "Protocolo DeFi da próxima geração",
+      "button": "Transacione agora no SUI"
     },
     "aboutUs": {
       "title": {
-        "first": "O Protocolo",
-        "second": "Supremo"
+        "first": "O Supremo",
+        "second": "Protocolo"
       },
       "services": {
         "earn": {

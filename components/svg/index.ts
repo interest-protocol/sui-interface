@@ -20,6 +20,7 @@ export { default as EtherSVG } from './ether';
 export { default as FaucetSVG } from './faucet';
 export { default as GitBookSVG } from './git-book';
 export { default as GithubSVG } from './github';
+export { default as HeroStarSVG } from './hero-star';
 export { default as InfoSVG } from './info';
 export { default as InfoLightSVG } from './info-light';
 export { default as InstagramSVG } from './instagram';
