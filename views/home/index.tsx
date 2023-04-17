@@ -1,7 +1,11 @@
 import { FC } from 'react';
 
-import { Layout } from './components';
+import { Hero, Layout } from './components';
 
-const Home: FC = () => <Layout></Layout>;
+const Home: FC = () => (
+  <Layout>
+    <Hero />
+  </Layout>
+);
 
 export default Home;
