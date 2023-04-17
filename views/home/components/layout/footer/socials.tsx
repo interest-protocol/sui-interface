@@ -39,7 +39,7 @@ const Socials: FC = () => {
   return (
     <Box
       mx="auto"
-      gap="2.5rem"
+      gap={['1.5rem', '1.5rem', '2.5rem']}
       width="100%"
       pt="6.25rem"
       pb="1.875rem"
