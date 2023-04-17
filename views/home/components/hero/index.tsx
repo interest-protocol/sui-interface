@@ -6,7 +6,7 @@ import HeroCallToAction from './hero-call-to-action';
 import HeroTitle from './hero-title';
 
 const Hero: FC = () => (
-  <Box bg="background" height="100vh" py="4xl">
+  <Box bg="background" height="100vh" pt="4xl">
     <Box variant="container">
       <Box gridColumn={['1/9']}>
         <HeroTitle />

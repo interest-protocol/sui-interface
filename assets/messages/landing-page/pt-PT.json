@@ -8,6 +8,26 @@
         "first": "{isMobile, plural, =1 {Troque, empreste} other {Troque, empreste, transacione} }",
         "second": "{isMobile, plural, =1 {transacione e invista} other {e invista.} }"
       }
+    },
+    "aboutUs": {
+      "title": {
+        "first": "O Protocolo",
+        "second": "Supremo"
+      },
+      "services": {
+        "earn": {
+          "name": "Invista",
+          "description": "Invista em passivos com cripto. Interest protocol facilita fazer a tua cripto trabalhar para ti."
+        },
+        "trade": {
+          "name": "Transacione",
+          "description": "Comercialize o teu par favorito na tua rede favorita pela Swap interface."
+        },
+        "lend": {
+          "name": "Empreste",
+          "description": "Ponha os teus ativos no piloto automático. Adquira fundos e mantenha os tokens que mais gostas."
+        }
+      }
     }
   }
 }
