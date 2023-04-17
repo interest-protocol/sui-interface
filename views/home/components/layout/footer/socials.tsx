@@ -1,22 +1,22 @@
-import { Box, Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
+import { Box, Motion } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import {
+  DiscordSVG,
   GithubSVG,
+  InstagramSVG,
   MediumSVG,
+  TelegramSVG,
   TwitterSVG,
   YoutubeSVG,
-  DiscordSVG,
-  TelegramSVG,
-  InstagramSVG,
 } from '@/svg';
 
 import { SocialWrapperProps } from './social.types';
 
 const SocialWrapper: FC<SocialWrapperProps> = ({ Icon, ...props }) => {
-  const { colors } = useTheme() as Theme;
   return (
     <Motion
+      color="primary"
       cursor="pointer"
       whileHover={{
         translateY: -7,
@@ -25,12 +25,7 @@ const SocialWrapper: FC<SocialWrapperProps> = ({ Icon, ...props }) => {
       transition={{ duration: 0.8 }}
       {...props}
     >
-      <Icon
-        width="1.375rem"
-        maxWidth="1.375rem"
-        maxHeight="1.375rem"
-        fill={colors.primary}
-      />
+      <Icon width="1.375rem" maxWidth="1.375rem" maxHeight="1.375rem" />
     </Motion>
   );
 };

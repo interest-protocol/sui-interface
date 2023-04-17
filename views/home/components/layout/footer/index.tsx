@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import NotificationSection from './notification-section';
 import Socials from './socials';
 

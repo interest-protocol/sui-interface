@@ -6,9 +6,8 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
-import { FC } from 'react';
-
 import { useTranslations } from 'next-intl';
+import { FC } from 'react';
 
 const NotificationSection: FC = () => {
   const t = useTranslations();
