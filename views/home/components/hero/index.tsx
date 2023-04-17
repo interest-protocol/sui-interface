@@ -15,7 +15,7 @@ const Hero: FC = () => (
         </Box>
         <HeroCallToAction />
       </Box>
-      <Box display={['none', 'none', 'block']} gridColumn="9/13">
+      <Box display={['none', 'none', 'block']} gridColumn="9/11">
         <HeroBlock />
       </Box>
     </Box>

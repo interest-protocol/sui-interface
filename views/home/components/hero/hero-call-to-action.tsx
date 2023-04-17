@@ -8,8 +8,7 @@ const HeroCallToAction: FC = () => (
     alignItems={['center', 'center', 'flex-start']}
   >
     <Typography
-      my="4xl"
-      py="4xl"
+      py="l"
       color="outline"
       variant="medium"
       textAlign={['center', 'center', 'left']}

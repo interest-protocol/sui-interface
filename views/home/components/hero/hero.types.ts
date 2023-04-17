@@ -9,3 +9,7 @@ export interface CubeWrapperProps {
   bottom?: string;
   Icon: FC<SVGProps>;
 }
+
+export interface HeroStarWrapperProps extends CubeWrapperProps {
+  size?: string;
+}

@@ -121,7 +121,7 @@ export const CubeIPX: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
       <path
         d="M47.4683 0L0 27.292V82.0584L47.434 109.362V109.35L94.8622 82.0527V27.2835L47.4683 0ZM47.4683 0L0.0314204 27.3006M47.4683 0L94.8536 27.2721"
         stroke="#1B1B1F"
-        strokeWidth="4"
+        strokeWidth="1.5"
         strokeMiterlimit="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
