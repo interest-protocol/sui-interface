@@ -31,6 +31,26 @@
         }
       }
     },
+    "Advantages": {
+      "title": {
+        "first": "Take full advantages",
+        "second": "Of everything"
+      },
+      "content": {
+        "first": {
+          "name": "Rewards",
+          "description": "Get Rewards while you trade."
+        },
+        "second": {
+          "name": "Strategies",
+          "description": "Maximize profits with automated strategies."
+        },
+        "third": {
+          "name": "Tokens",
+          "description": "Swap tokens with low fees."
+        }
+      }
+    },
     "footer": {
       "getEarlyNotifications": {
         "title": {

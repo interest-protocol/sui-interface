@@ -1,12 +1,13 @@
 import { FC } from 'react';
 
-import { AboutUs, Hero, Layout, UsedBy } from './components';
+import { AboutUs, Advantages, Hero, Layout, UsedBy } from './components';
 
 const Home: FC = () => (
   <Layout>
     <Hero />
     <AboutUs />
     <UsedBy />
+    <Advantages />
   </Layout>
 );
 
