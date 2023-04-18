@@ -19,10 +19,10 @@ const AboutUsCard: FC<AboutUsCardProps> = ({ name, link, Illustration }) => {
       columnGap="2xl"
       alignItems="end"
       borderRadius="m"
-      gridColumn="1/13"
       border="1px solid"
       borderColor="textAccent"
-      gridTemplateColumns={['1fr', '1fr 1fr']}
+      gridColumn={['1/5', '1/5', '1, 9', '2/12']}
+      gridTemplateColumns={['1fr', '1fr', '1fr', '1fr 1fr']}
     >
       <Box
         p="xl"
@@ -50,7 +50,7 @@ const AboutUsCard: FC<AboutUsCardProps> = ({ name, link, Illustration }) => {
             <ArrowLinkSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
           </Button>
         </Link>
-        <Box m="4xl" p="4xl" minHeight={['21rem', '21rem', '28rem']}>
+        <Box m="4xl" p="4xl" minHeight="21rem">
           <Illustration />
         </Box>
       </Box>
