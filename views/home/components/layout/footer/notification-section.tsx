@@ -39,9 +39,7 @@ const NotificationSection: FC = () => {
             WebkitTextFillColor="transparent"
             backgroundClip="text"
           >
-            {t('landingPage.layout.footer.getEarlyNotifications.title.first', {
-              isMobile: Number(false),
-            })}
+            {t('landingPage.footer.getEarlyNotifications.title.first')}
           </Typography>
           <Typography
             as="span"
@@ -54,9 +52,7 @@ const NotificationSection: FC = () => {
             WebkitTextFillColor="transparent"
             backgroundClip="text"
           >
-            {t('landingPage.layout.footer.getEarlyNotifications.title.first', {
-              isMobile: Number(false),
-            })}
+            {t('landingPage.footer.getEarlyNotifications.title.first')}
           </Typography>
 
           <Typography
@@ -70,9 +66,7 @@ const NotificationSection: FC = () => {
             WebkitTextFillColor="transparent"
             backgroundClip="text"
           >
-            {t('landingPage.layout.footer.getEarlyNotifications.title.second', {
-              isMobile: Number(false),
-            })}
+            {t('landingPage.footer.getEarlyNotifications.title.second')}
           </Typography>
           <Typography
             as="span"
@@ -85,9 +79,7 @@ const NotificationSection: FC = () => {
             WebkitTextFillColor="transparent"
             backgroundClip="text"
           >
-            {t('landingPage.layout.footer.getEarlyNotifications.title.second', {
-              isMobile: Number(false),
-            })}
+            {t('landingPage.footer.getEarlyNotifications.title.second')}
           </Typography>
           <Typography
             as="span"
@@ -101,9 +93,7 @@ const NotificationSection: FC = () => {
             WebkitTextFillColor="transparent"
             backgroundClip="text"
           >
-            {t('landingPage.layout.footer.getEarlyNotifications.title.third', {
-              isMobile: Number(false),
-            })}
+            {t('landingPage.footer.getEarlyNotifications.title.third')}
           </Typography>
           <Typography
             as="span"
@@ -117,9 +107,7 @@ const NotificationSection: FC = () => {
             WebkitTextFillColor="transparent"
             backgroundClip="text"
           >
-            {t('landingPage.layout.footer.getEarlyNotifications.title.third', {
-              isMobile: Number(false),
-            })}
+            {t('landingPage.footer.getEarlyNotifications.title.third')}
           </Typography>
         </Typography>
         <TextField
@@ -127,14 +115,14 @@ const NotificationSection: FC = () => {
           fontSize="1rem"
           minHeight="1rem"
           placeholder={t(
-            'landingPage.layout.footer.getEarlyNotifications.placheholder',
+            'landingPage.footer.getEarlyNotifications.placheholder',
             {
               isMobile: Number(false),
             }
           )}
         />
         <Button variant={'filled'} justifyContent="center">
-          {t('landingPage.layout.footer.getEarlyNotifications.button', {
+          {t('landingPage.footer.getEarlyNotifications.button', {
             isMobile: Number(false),
           })}
         </Button>

@@ -29,17 +29,15 @@
         }
       }
     },
-    "layout": {
-      "footer": {
-        "getEarlyNotifications": {
-          "title": {
-            "first": "Receba notificações",
-            "second": "antecipadas sobre",
-            "third": " novos recursos"
-          },
-          "placheholder": "seu-email@gmail.com",
-          "button": "Enviar"
-        }
+    "footer": {
+      "getEarlyNotifications": {
+        "title": {
+          "first": "Receba notificações",
+          "second": "antecipadas sobre",
+          "third": " novos recursos"
+        },
+        "placheholder": "seu-email@gmail.com",
+        "button": "Enviar"
       }
     }
   }
