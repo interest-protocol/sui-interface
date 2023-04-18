@@ -4,6 +4,7 @@ import { FC } from 'react';
 
 const HeroTitle: FC = () => {
   const t = useTranslations();
+
   return (
     <>
       <Typography
