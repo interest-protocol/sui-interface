@@ -121,7 +121,7 @@ const NotificationSection: FC = () => {
             }
           )}
         />
-        <Button variant={'filled'} justifyContent="center">
+        <Button variant="filled" justifyContent="center">
           {t('landingPage.footer.getEarlyNotifications.button', {
             isMobile: Number(false),
           })}
