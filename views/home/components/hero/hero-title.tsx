@@ -4,6 +4,7 @@ import { FC } from 'react';
 
 const HeroTitle: FC = () => {
   const t = useTranslations();
+
   return (
     <>
       <Typography
@@ -12,7 +13,7 @@ const HeroTitle: FC = () => {
         gridColumn="1/8"
         fontWeight="400"
         variant="displayLarge"
-        display={['none', 'none', 'block']}
+        display={['none', 'none', 'none', 'block']}
       >
         <Typography
           as="span"
@@ -46,7 +47,7 @@ const HeroTitle: FC = () => {
         fontWeight="400"
         textAlign="center"
         variant="displaySmall"
-        display={['block', 'block', 'none']}
+        display={['block', 'block', 'block', 'none']}
       >
         <Typography
           as="span"

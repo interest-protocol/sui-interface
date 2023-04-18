@@ -47,6 +47,7 @@ const SwitchLang: FC<{ isOpen: boolean }> = ({ isOpen }) => {
     <Motion
       zIndex={1}
       top="3rem"
+      initial="closed"
       borderRadius="m"
       position="absolute"
       variants={wrapperVariants}

@@ -67,8 +67,8 @@ const Footer: FC = () => {
                 width="1.1rem"
                 height="1.1rem"
                 fill="currentColor"
-                maxHeight={'2.5rem'}
-                maxWidth={'auto'}
+                maxHeight="2.5rem"
+                maxWidth="auto"
                 style={{ marginBottom: '8px' }}
               />
               Dex
@@ -105,8 +105,8 @@ const Footer: FC = () => {
                 height="1.1rem"
                 stroke="currentColor"
                 fill="transparent"
-                maxHeight={'2.5rem'}
-                maxWidth={'auto'}
+                maxHeight="2.5rem"
+                maxWidth="auto"
                 style={{ marginBottom: '8px' }}
               />
               Farms
@@ -139,8 +139,8 @@ const Footer: FC = () => {
               <FaucetSVG
                 width="1.1rem"
                 height="1.1rem"
-                maxHeight={'2.5rem'}
-                maxWidth={'auto'}
+                maxHeight="2.5rem"
+                maxWidth="auto"
                 style={{ marginBottom: '8px' }}
               />
               Faucet
