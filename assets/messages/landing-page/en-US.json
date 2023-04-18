@@ -28,6 +28,19 @@
           "description": "Put your assets in auto pilot. Get the funds you need, keep the Tokens you love. "
         }
       }
+    },
+    "layout": {
+      "footer": {
+        "getEarlyNotifications": {
+          "title": {
+            "first": "Get early",
+            "second": "Notifications",
+            "third": "On new features"
+          },
+          "placheholder": "your-email@gmail.com",
+          "button": "Send"
+        }
+      }
     }
   }
 }

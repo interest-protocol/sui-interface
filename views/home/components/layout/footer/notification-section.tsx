@@ -30,7 +30,22 @@ const NotificationSection: FC = () => {
         >
           <Typography
             as="span"
-            display="block"
+            display={['block', 'block', 'none']}
+            textAlign="center"
+            variant="displaySmall"
+            letterSpacing="-0.15rem"
+            background={`linear-gradient(90deg, ${colors.primary} 27.62%, ${colors.primary}33 82.41%)`}
+            WebkitBackgroundClip="text"
+            WebkitTextFillColor="transparent"
+            backgroundClip="text"
+          >
+            {t('landingPage.layout.footer.getEarlyNotifications.title.first', {
+              isMobile: Number(false),
+            })}
+          </Typography>
+          <Typography
+            as="span"
+            display={['none', 'none', 'block']}
             textAlign="center"
             variant="displayLarge"
             letterSpacing="-0.15rem"
@@ -39,11 +54,29 @@ const NotificationSection: FC = () => {
             WebkitTextFillColor="transparent"
             backgroundClip="text"
           >
-            {t('common.getEarly', { isMobile: Number(false) })}
+            {t('landingPage.layout.footer.getEarlyNotifications.title.first', {
+              isMobile: Number(false),
+            })}
+          </Typography>
+
+          <Typography
+            as="span"
+            display={['block', 'block', 'none']}
+            textAlign="center"
+            variant="displaySmall"
+            letterSpacing="-0.15rem"
+            background={`linear-gradient(270deg, ${colors.primary} 18.13%, ${colors.primary}33 102.01%)`}
+            WebkitBackgroundClip="text"
+            WebkitTextFillColor="transparent"
+            backgroundClip="text"
+          >
+            {t('landingPage.layout.footer.getEarlyNotifications.title.second', {
+              isMobile: Number(false),
+            })}
           </Typography>
           <Typography
             as="span"
-            display="block"
+            display={['none', 'none', 'block']}
             textAlign="center"
             variant="displayLarge"
             letterSpacing="-0.15rem"
@@ -52,11 +85,13 @@ const NotificationSection: FC = () => {
             WebkitTextFillColor="transparent"
             backgroundClip="text"
           >
-            {t('common.notifications', { isMobile: Number(false) })}
+            {t('landingPage.layout.footer.getEarlyNotifications.title.second', {
+              isMobile: Number(false),
+            })}
           </Typography>
           <Typography
             as="span"
-            display="block"
+            display={['block', 'block', 'none']}
             textAlign="center"
             variant="displaySmall"
             justifyContent="center"
@@ -66,17 +101,42 @@ const NotificationSection: FC = () => {
             WebkitTextFillColor="transparent"
             backgroundClip="text"
           >
-            {t('common.onNewFeatures', { isMobile: Number(false) })}
+            {t('landingPage.layout.footer.getEarlyNotifications.title.third', {
+              isMobile: Number(false),
+            })}
+          </Typography>
+          <Typography
+            as="span"
+            display={['none', 'none', 'block']}
+            textAlign="center"
+            variant="displayLarge"
+            justifyContent="center"
+            letterSpacing="-0.15rem"
+            background={`linear-gradient(90deg, ${colors.primary} 13.04%, ${colors.primary}33 96.06%)`}
+            WebkitBackgroundClip="text"
+            WebkitTextFillColor="transparent"
+            backgroundClip="text"
+          >
+            {t('landingPage.layout.footer.getEarlyNotifications.title.third', {
+              isMobile: Number(false),
+            })}
           </Typography>
         </Typography>
         <TextField
           my="0rem"
           fontSize="1rem"
           minHeight="1rem"
-          placeholder="Your@gmail.com"
+          placeholder={t(
+            'landingPage.layout.footer.getEarlyNotifications.placheholder',
+            {
+              isMobile: Number(false),
+            }
+          )}
         />
         <Button variant={'filled'} justifyContent="center">
-          Send
+          {t('landingPage.layout.footer.getEarlyNotifications.button', {
+            isMobile: Number(false),
+          })}
         </Button>
       </Box>
     </Box>
