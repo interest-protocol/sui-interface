@@ -6,6 +6,7 @@ const Youtube: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => (
   <svg
     style={{ maxWidth: maxWidth, maxHeight: maxHeight }}
     viewBox="0 0 310 310"
+    fill="none"
     {...props}
   >
     <g id="XMLID_822_">

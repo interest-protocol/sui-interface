@@ -30,6 +30,17 @@
           "description": "Ponha os teus ativos no piloto automático. Adquira fundos e mantenha os tokens que mais gostas."
         }
       }
+    },
+    "footer": {
+      "getEarlyNotifications": {
+        "title": {
+          "first": "Receba notificações",
+          "second": "antecipadas sobre",
+          "third": "novos recursos"
+        },
+        "placheholder": "teu-email@gmail.com",
+        "button": "Enviar"
+      }
     }
   }
 }
