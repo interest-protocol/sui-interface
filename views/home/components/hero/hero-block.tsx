@@ -2,9 +2,15 @@ import { Box, Motion } from '@interest-protocol/ui-kit';
 import { AnimatePresence, easeInOut } from 'framer-motion';
 import { FC } from 'react';
 
-import HeroStar from '@/components/svg/hero-star';
-import { Cube, CubeBNB, CubeIPX, CubeNumber, CubeShadow, CubeSUI } from '@/svg';
-
+import {
+  HeroCube,
+  HeroCubeBNB,
+  HeroCubeIPX,
+  HeroCubeNumber,
+  HeroCubeShadow,
+  HeroCubeSUI,
+  StarSVG,
+} from '../svg';
 import { CubeWrapperProps, HeroStarWrapperProps } from './hero.types';
 import {
   cubeVariant,
@@ -38,7 +44,7 @@ const CubeWrapper: FC<CubeWrapperProps> = ({
         transition={{ duration: 0.5 }}
         bottom={specialShadow ? '-3rem' : '0'}
       >
-        <CubeShadow maxHeight="100%" maxWidth="100%" width="85%" />
+        <HeroCubeShadow maxHeight="100%" maxWidth="100%" width="85%" />
       </Motion>
     )}
 
@@ -67,7 +73,7 @@ const CubeWrapper: FC<CubeWrapperProps> = ({
               variants={shadowTopVariant}
               transition={{ duration: 0.8 }}
             >
-              <CubeShadow maxHeight="100%" maxWidth="100%" width="85%" />
+              <HeroCubeShadow maxHeight="100%" maxWidth="100%" width="85%" />
             </Motion>
           </Motion>
         )}
@@ -106,16 +112,16 @@ const StarWrapper: FC<HeroStarWrapperProps> = ({ Icon, size, ...props }) => {
 
 const HeroBlock: FC = () => (
   <Box width="272px" height="368px" position="relative" mx="auto">
-    <StarWrapper Icon={HeroStar} left="-12%" top="9%" size="20%" />
-    <StarWrapper Icon={HeroStar} left="0%" top="13%" size="15%" />
-    <StarWrapper Icon={HeroStar} right="-17%" top="0%" size="30%" />
-    <CubeWrapper Icon={Cube} top="8.6%" left="29%" />
-    <CubeWrapper Icon={CubeBNB} top="47.8%" withTopShadow />
-    <CubeWrapper Icon={CubeNumber} top="47.8%" right="0%" />
-    <CubeWrapper Icon={Cube} right="0%" withBottomShadow specialShadow />
-    <CubeWrapper Icon={Cube} top="60%" left="29%" withTopShadow />
-    <CubeWrapper Icon={CubeIPX} top="21%" withBottomShadow />
-    <CubeWrapper Icon={CubeSUI} top="33%" left="29%" withBottomShadow />
+    <StarWrapper Icon={StarSVG} left="-12%" top="9%" size="20%" />
+    <StarWrapper Icon={StarSVG} left="0%" top="13%" size="15%" />
+    <StarWrapper Icon={StarSVG} right="-17%" top="0%" size="30%" />
+    <CubeWrapper Icon={HeroCube} top="8.6%" left="29%" />
+    <CubeWrapper Icon={HeroCubeBNB} top="47.8%" withTopShadow />
+    <CubeWrapper Icon={HeroCubeNumber} top="47.8%" right="0%" />
+    <CubeWrapper Icon={HeroCube} right="0%" withBottomShadow specialShadow />
+    <CubeWrapper Icon={HeroCube} top="60%" left="29%" withTopShadow />
+    <CubeWrapper Icon={HeroCubeIPX} top="21%" withBottomShadow />
+    <CubeWrapper Icon={HeroCubeSUI} top="33%" left="29%" withBottomShadow />
   </Box>
 );
 

@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import { SVGProps } from './svg.types';
+import { SVGProps } from '@/components/svg/svg.types';
 
-const HeroStar: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => (
+const Star: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => (
   <svg
     style={{ maxHeight, maxWidth }}
     viewBox="0 0 31 30"
@@ -15,5 +15,4 @@ const HeroStar: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => (
     />
   </svg>
 );
-
-export default HeroStar;
+export default Star;

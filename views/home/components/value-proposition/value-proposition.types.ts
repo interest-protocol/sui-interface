@@ -2,19 +2,15 @@ import { FC } from 'react';
 
 import { SVGProps } from '@/components/svg/svg.types';
 
-export interface AboutUsCardProps {
-  name: 'earn' | 'trade' | 'lend';
-  link: string;
-  Illustration: FC;
-}
-
-export interface IconWrapperProps {
+export interface ValuePropositionIconWrapperProps {
   size: string;
   top?: string;
   left?: string;
   right?: string;
+  chock?: boolean;
   bottom?: string;
-  shining?: boolean;
+  shadow?: boolean;
   floating?: boolean;
   Icon: FC<SVGProps>;
+  to?: [number, number];
 }
