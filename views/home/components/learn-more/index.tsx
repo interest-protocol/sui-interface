@@ -48,7 +48,7 @@ const LearnMore: FC = () => (
         gridColumn="1/-1"
       >
         <Box display={['block', 'block', 'block', 'none']}>
-          <LearnMoreCard name={'ourTeam'} Icon={Link} link="" />
+          <LearnMoreCard name={'mediaKit'} Icon={Link} link="" />
         </Box>
         <Box display={['none', 'none', 'none', 'block']}>
           <LearnMoreCard type="big" name={'mediaKit'} Icon={Link} link="" />
