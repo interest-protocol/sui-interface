@@ -89,7 +89,10 @@
           "third": "novos recursos"
         },
         "placeholder": "teu-email@gmail.com",
-        "button": "Enviar"
+        "button": "{isLoading, plural, =1 {Enviando...} other {Enviar}}",
+        "errors": {
+          "1008": "Email já adicionado"
+        }
       }
     }
   }
