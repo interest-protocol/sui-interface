@@ -45,11 +45,21 @@ const UsedByCard: FC<UsedByCardProps> = ({
         <Typography variant="displayLarge" letterSpacing="-0.15rem" mt="4xl">
           {value}
         </Typography>
-        <Typography variant="title3" fontWeight="400">
+        <Typography
+          variant="title3"
+          fontWeight="400"
+          wordBreak="break-all"
+          hyphens="auto"
+        >
           {title}
         </Typography>
       </Box>
-      <Typography variant="medium" color="textSoft" mt="l">
+      <Typography
+        mt="l"
+        variant="medium"
+        color="textSoft"
+        wordBreak="break-all"
+      >
         {description}
       </Typography>
     </Box>

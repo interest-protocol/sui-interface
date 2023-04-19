@@ -115,7 +115,7 @@ const NotificationSection: FC = () => {
           fontSize="1rem"
           minHeight="1rem"
           placeholder={t(
-            'landingPage.footer.getEarlyNotifications.placheholder',
+            'landingPage.footer.getEarlyNotifications.placeholder',
             {
               isMobile: Number(false),
             }

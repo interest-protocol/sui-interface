@@ -31,7 +31,37 @@
         }
       }
     },
-    "Advantages": {
+    "usedBy": {
+      "title": "Used by...",
+      "metrics": {
+        "users": {
+          "title": "Users",
+          "description": "Unique addresses"
+        },
+        "trades": {
+          "title": "Trades",
+          "description": "Pools deployed"
+        },
+        "staked": {
+          "title": "Staked",
+          "description": "Total TXs"
+        }
+      }
+    },
+    "valueProposition": {
+      "title": {
+        "first": "Fully decentralized",
+        "second": "Completely secure"
+      },
+      "description": "Interest aims to establish a cross-chain asset exchange network, providing all necessary underlying support for their DeFi ecosystem. Let every digital asset holder experience a truly safe, free and transparent service.",
+      "values": {
+        "supported": "Constant review and testing of our platform",
+        "secure": "Your funds are as secure as possible",
+        "decentralized": "Fully decentralized and non-custodial",
+        "experience": "Built by experienced blockchain developers"
+      }
+    },
+    "advantages": {
       "title": {
         "first": "Take full advantages",
         "second": "Of everything"
@@ -58,7 +88,7 @@
           "second": "Notifications",
           "third": "On new features"
         },
-        "placheholder": "your-email@gmail.com",
+        "placeholder": "your-email@gmail.com",
         "button": "Send"
       }
     }

@@ -31,6 +31,36 @@
         }
       }
     },
+    "usedBy": {
+      "title": "Usado por...",
+      "metrics": {
+        "users": {
+          "title": "Usuários",
+          "description": "Endereços únicos"
+        },
+        "trades": {
+          "title": "Mercado",
+          "description": "Pools implementadas"
+        },
+        "staked": {
+          "title": "Transações",
+          "description": "Total TXs"
+        }
+      }
+    },
+    "valueProposition": {
+      "title": {
+        "first": "Totalmente Descentralizado",
+        "second": "Completamente Seguro"
+      },
+      "description": "A Interest visa estabelecer uma rede de troca de bens em cadeia, fornecendo todo o apoio subjacente necessário ao seu ecossistema DeFi. Deixar que cada detentor de bens digitais experimente um serviço verdadeiramente seguro, livre e transparente.",
+      "values": {
+        "supported": "Revisão e testes constantes da nossa plataforma",
+        "secure": "Os seus fundos são tão seguros quanto possível",
+        "decentralized": "Totalmente descentralizado e não-custodial",
+        "experience": "Construído por experientes programadores de cadeias de bloqueios"
+      }
+    },
     "footer": {
       "getEarlyNotifications": {
         "title": {
@@ -38,7 +68,7 @@
           "second": "antecipadas sobre",
           "third": " novos recursos"
         },
-        "placheholder": "seu-email@gmail.com",
+        "placeholder": "seu-email@gmail.com",
         "button": "Enviar"
       }
     }
