@@ -1,4 +1,5 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
@@ -6,7 +7,7 @@ import ResponsiveImage from '@/elements/responsive-image';
 
 import { LearnMoreProps } from './learn-more.types';
 
-const LearnMoreCard: FC<LearnMoreProps> = ({ name, type }) => {
+const LearnMoreCard: FC<LearnMoreProps> = ({ name, type, Icon, link }) => {
   const t = useTranslations();
 
   if (type === 'big')
@@ -25,13 +26,17 @@ const LearnMoreCard: FC<LearnMoreProps> = ({ name, type }) => {
             justifyContent="space-between"
             gridColumn="span 7"
           >
-            <Button
-              width="fit-content"
-              mb="4xl"
-              variant="icon"
-              border="1px solid"
-              borderColor="outline"
-            ></Button>
+            <Link href={link}>
+              <Button
+                width="fit-content"
+                mb="4xl"
+                variant="icon"
+                border="1px solid"
+                borderColor="outline"
+              >
+                <Icon maxWidth="100%" maxHeight="100%" />
+              </Button>
+            </Link>
             <Typography variant="displayLarge" color="text" mb="xl">
               {t(`landingPage.learnMore.subTitles.${name}`)}
             </Typography>
@@ -45,12 +50,16 @@ const LearnMoreCard: FC<LearnMoreProps> = ({ name, type }) => {
 
   return (
     <Box p="4xl" position="relative">
-      <Button
-        mb="4xl"
-        variant="icon"
-        border="1px solid"
-        borderColor="outline"
-      ></Button>
+      <Link href={link}>
+        <Button
+          mb="4xl"
+          variant="icon"
+          border="1px solid"
+          borderColor="outline"
+        >
+          <Icon maxWidth="100%" maxHeight="100%" />
+        </Button>
+      </Link>
       <Typography variant="displayLarge" color="text" mb="xl">
         {t(`landingPage.learnMore.subTitles.${name}`)}
       </Typography>

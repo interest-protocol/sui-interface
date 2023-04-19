@@ -1,6 +1,8 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
+import Link from '@/components/svg/link';
+
 import LearnMoreCard from './learn-card';
 import LearnMoreTitle from './learn-more-title';
 
@@ -19,7 +21,7 @@ const LearnMore: FC = () => (
         borderColor="textAccent"
         gridColumn={['1/-1', '1/-1', '1/-1', '1/7']}
       >
-        <LearnMoreCard name={'documentation'} />
+        <LearnMoreCard name={'documentation'} Icon={Link} link="" />
       </Box>
       <Box
         mt="4xl"
@@ -32,7 +34,7 @@ const LearnMore: FC = () => (
         borderColor="textAccent"
         gridColumn={['1/-1', '1/-1', '1/-1', '7/13']}
       >
-        <LearnMoreCard name={'mediaKit'} />
+        <LearnMoreCard name={'ourTeam'} Icon={Link} link="" />
       </Box>
       <Box
         mb="4xl"
@@ -46,10 +48,10 @@ const LearnMore: FC = () => (
         gridColumn="1/-1"
       >
         <Box display={['block', 'block', 'block', 'none']}>
-          <LearnMoreCard name={'ourTeam'} />
+          <LearnMoreCard name={'ourTeam'} Icon={Link} link="" />
         </Box>
         <Box display={['none', 'none', 'none', 'block']}>
-          <LearnMoreCard type="big" name={'ourTeam'} />
+          <LearnMoreCard type="big" name={'mediaKit'} Icon={Link} link="" />
         </Box>
       </Box>
     </Box>
