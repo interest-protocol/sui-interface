@@ -45,7 +45,12 @@ const LearnMore: FC = () => (
         borderColor="textAccent"
         gridColumn="1/-1"
       >
-        <LearnMoreCard name={'ourTeam'} />
+        <Box display={['block', 'block', 'block', 'none']}>
+          <LearnMoreCard name={'ourTeam'} />
+        </Box>
+        <Box display={['none', 'none', 'none', 'block']}>
+          <LearnMoreCard type="big" name={'ourTeam'} />
+        </Box>
       </Box>
     </Box>
   </Box>
