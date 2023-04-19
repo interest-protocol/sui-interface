@@ -7,6 +7,16 @@ const Document = (): ReactNode => (
       <link href="https://fonts.googleapis.com" />
       <link href="https://fonts.gstatic.com" crossOrigin="" />
       <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+      />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+      />
+      <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
         rel="stylesheet"
       />
