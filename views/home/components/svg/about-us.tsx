@@ -305,3 +305,945 @@ export const AboutUsEarnETH: FC<SVGProps> = ({
     </defs>
   </svg>
 );
+
+export const AboutUsLendSUI: FC<SVGProps> = ({
+  maxWidth,
+  maxHeight,
+  ...props
+}) => (
+  <svg
+    style={{ maxWidth, maxHeight }}
+    viewBox="0 0 60 73"
+    fill="none"
+    {...props}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M15.5533 70.1293C3.73031 65.6222 1 58.5622 1 49.0697C1 32.4536 10.6365 13.12 26.4369 4.23212C37.6504 -2.07603 43.9596 2.02014 51.1956 6.59005C51.4597 6.74588 50.9314 6.41338 51.1956 6.59005C55.5231 9.48303 58.1784 15.2372 58.1784 23.2577C58.1784 39.8737 46.7805 59.9648 32.7415 68.096C27.6388 71.0511 22.883 72.0215 18.8977 71.2612C18.8977 71.2612 16.6879 70.562 15.5533 70.1293Z"
+      fill="#F2F0F4"
+    />
+    <mask
+      id="mask0_217_1608"
+      style={{ maskType: 'luminance' }}
+      maskUnits="userSpaceOnUse"
+      x="1"
+      y="1"
+      width="58"
+      height="71"
+    >
+      <path
+        d="M15.5533 70.1293C3.73031 65.6222 1 58.5622 1 49.0697C1 32.4536 10.6365 13.12 26.4369 4.23212C37.6504 -2.07603 43.9596 2.02014 51.1956 6.59005C51.4597 6.74588 50.9314 6.41338 51.1956 6.59005C55.5231 9.48303 58.1784 15.2372 58.1784 23.2577C58.1784 39.8737 46.7805 59.9648 32.7415 68.096C27.6388 71.0511 22.883 72.0215 18.8977 71.2612C18.8977 71.2612 16.6879 70.562 15.5533 70.1293Z"
+        fill="white"
+      />
+    </mask>
+    <g mask="url(#mask0_217_1608)">
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18.8348 71.8539C4.09084 67.4441 0.843262 59.9851 0.843262 49.6338C0.843262 33.0174 10.6298 12.4364 26.4302 3.54851C37.6437 -2.75964 47.2177 2.66151 51.8312 7.65219C45.1594 3.18229 38.0187 5.46325 32.7254 8.52852C18.6863 16.6589 7.19155 36.7502 7.28845 53.3664C7.32596 59.7594 8.84504 63.4434 10.758 66.1555C13.5836 70.1593 17.3219 71.4981 18.8348 71.8539Z"
+        fill="#E6EEFF"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18.8348 71.8539C4.09084 67.4441 0.843262 59.9851 0.843262 49.6338C0.843262 33.0174 10.6298 12.4364 26.4302 3.54851C37.6437 -2.75964 47.2177 2.66151 51.8312 7.65219C45.1594 3.18229 38.0187 5.46325 32.7254 8.52852C18.6863 16.6589 7.19155 36.7502 7.28845 53.3664C7.32596 59.7594 8.84504 63.4434 10.758 66.1555C13.5836 70.1593 17.3219 71.4981 18.8348 71.8539Z"
+        stroke="#1B1B1F"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18.8348 71.8539C4.09084 67.4441 0.843262 59.9851 0.843262 49.6338C0.843262 33.0174 10.6298 12.4364 26.4302 3.54851C37.6437 -2.75964 47.2177 2.66151 51.8312 7.65219C45.1594 3.18229 38.0187 5.46325 32.7254 8.52852C18.6863 16.6589 7.19155 36.7502 7.28845 53.3664C7.32596 59.7594 8.84504 63.4434 10.758 66.1555C13.5836 70.1593 17.3219 71.4981 18.8348 71.8539Z"
+        stroke="#B6C4FF"
+        strokeOpacity="0.04"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18.8347 71.8537C4.09075 67.4438 -0.0273438 59.9848 -0.0273438 49.6335C-0.0273438 33.0171 5.97558 26.5215 5.97558 26.5215L13.3022 30.7732C13.3022 30.7732 8.76838 37.7661 8.34641 52.8049C8.14793 59.8296 8.84495 63.4431 10.7579 66.1552C13.5835 70.159 17.3218 71.4978 18.8347 71.8537Z"
+        fill="#1B1B1F"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18.8347 71.8537C4.09075 67.4438 -0.0273438 59.9848 -0.0273438 49.6335C-0.0273438 33.0171 5.97558 26.5215 5.97558 26.5215L13.3022 30.7732C13.3022 30.7732 8.76838 37.7661 8.34641 52.8049C8.14793 59.8296 8.84495 63.4431 10.7579 66.1552C13.5835 70.159 17.3218 71.4978 18.8347 71.8537Z"
+        fill="#B6C4FF"
+        fillOpacity="0.04"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18.8347 71.8537C4.09075 67.4438 -0.0273438 59.9848 -0.0273438 49.6335C-0.0273438 33.0171 5.97558 26.5215 5.97558 26.5215L13.3022 30.7732C13.3022 30.7732 8.76838 37.7661 8.34641 52.8049C8.14793 59.8296 8.84495 63.4431 10.7579 66.1552C13.5835 70.159 17.3218 71.4978 18.8347 71.8537Z"
+        stroke="#1B1B1F"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18.8347 71.8537C4.09075 67.4438 -0.0273438 59.9848 -0.0273438 49.6335C-0.0273438 33.0171 5.97558 26.5215 5.97558 26.5215L13.3022 30.7732C13.3022 30.7732 8.76838 37.7661 8.34641 52.8049C8.14793 59.8296 8.84495 63.4431 10.7579 66.1552C13.5835 70.159 17.3218 71.4978 18.8347 71.8537Z"
+        stroke="#B6C4FF"
+        strokeOpacity="0.04"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M22.5205 26.5059L4.56641 16.0996V21.7934L22.5205 32.1997V26.5059Z"
+        fill="#1B1B1F"
+      />
+      <path
+        d="M22.5205 26.5059L4.56641 16.0996V21.7934L22.5205 32.1997V26.5059Z"
+        fill="#B6C4FF"
+        fillOpacity="0.04"
+      />
+      <path
+        d="M22.5205 26.5059L4.56641 16.0996V21.7934L22.5205 32.1997V26.5059Z"
+        stroke="#1B1B1F"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M22.5205 26.5059L4.56641 16.0996V21.7934L22.5205 32.1997V26.5059Z"
+        stroke="#B6C4FF"
+        strokeOpacity="0.04"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M27.1841 23.6181L9.22998 13.2168V15.3432L27.1841 25.7445V23.6181Z"
+        fill="#1B1B1F"
+      />
+      <path
+        d="M27.1841 23.6181L9.22998 13.2168V15.3432L27.1841 25.7445V23.6181Z"
+        fill="#B6C4FF"
+        fillOpacity="0.04"
+      />
+      <path
+        d="M27.1841 23.6181L9.22998 13.2168V15.3432L27.1841 25.7445V23.6181Z"
+        stroke="#1B1B1F"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M27.1841 23.6181L9.22998 13.2168V15.3432L27.1841 25.7445V23.6181Z"
+        stroke="#B6C4FF"
+        strokeOpacity="0.04"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M30.2153 19.7197L12.2612 9.31836V11.4447L30.2153 21.8461V19.7197Z"
+        fill="#1B1B1F"
+      />
+      <path
+        d="M30.2153 19.7197L12.2612 9.31836V11.4447L30.2153 21.8461V19.7197Z"
+        fill="#B6C4FF"
+        fillOpacity="0.04"
+      />
+      <path
+        d="M30.2153 19.7197L12.2612 9.31836V11.4447L30.2153 21.8461V19.7197Z"
+        stroke="#1B1B1F"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M30.2153 19.7197L12.2612 9.31836V11.4447L30.2153 21.8461V19.7197Z"
+        stroke="#B6C4FF"
+        strokeOpacity="0.04"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M32.7422 68.1644C46.7907 60.0158 58.1793 39.9414 58.1793 23.3268C58.1793 6.71221 46.7907 -0.150863 32.7422 7.99769C18.6937 16.1462 7.30518 36.2207 7.30518 52.8353C7.30518 69.4499 18.6937 76.3129 32.7422 68.1644Z"
+        fill="url(#paint0_linear_217_1608)"
+      />
+      <path
+        d="M32.7422 68.1644C46.7907 60.0158 58.1793 39.9414 58.1793 23.3268C58.1793 6.71221 46.7907 -0.150863 32.7422 7.99769C18.6937 16.1462 7.30518 36.2207 7.30518 52.8353C7.30518 69.4499 18.6937 76.3129 32.7422 68.1644Z"
+        stroke="#1B1B1F"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M32.7422 68.1644C46.7907 60.0158 58.1793 39.9414 58.1793 23.3268C58.1793 6.71221 46.7907 -0.150863 32.7422 7.99769C18.6937 16.1462 7.30518 36.2207 7.30518 52.8353C7.30518 69.4499 18.6937 76.3129 32.7422 68.1644Z"
+        stroke="#B6C4FF"
+        strokeOpacity="0.04"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M33.3072 50.2935C30.8151 51.741 28.5824 51.5394 27.3364 49.7534C26.0903 47.9674 26.0903 44.9712 27.3364 41.7377L28.7635 38.0359C29.2538 40.5174 30.9832 41.7936 33.3272 41.3358L33.3878 41.3219C35.5269 40.754 37.1305 41.876 37.4949 44.1945L37.7527 45.8354C36.5335 47.7456 34.9791 49.3223 33.3072 50.2935ZM39.6348 41.7894C40.5103 38.9567 40.3906 36.3966 39.278 34.8012L34.0269 27.2763C33.707 26.8185 32.9075 27.2829 32.5875 28.1124L30.6663 33.0981L30.9556 35.7807C31.1619 37.6894 32.3581 38.7036 34.0277 38.3916C36.8098 37.6687 38.942 38.9852 39.6348 41.7894Z"
+        fill="#1B1B1F"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M33.3072 50.2935C30.8151 51.741 28.5824 51.5394 27.3364 49.7534C26.0903 47.9674 26.0903 44.9712 27.3364 41.7377L28.7635 38.0359C29.2538 40.5174 30.9832 41.7936 33.3272 41.3358L33.3878 41.3219C35.5269 40.754 37.1305 41.876 37.4949 44.1945L37.7527 45.8354C36.5335 47.7456 34.9791 49.3223 33.3072 50.2935ZM39.6348 41.7894C40.5103 38.9567 40.3906 36.3966 39.278 34.8012L34.0269 27.2763C33.707 26.8185 32.9075 27.2829 32.5875 28.1124L30.6663 33.0981L30.9556 35.7807C31.1619 37.6894 32.3581 38.7036 34.0277 38.3916C36.8098 37.6687 38.942 38.9852 39.6348 41.7894Z"
+        stroke="#1B1B1F"
+        strokeMiterlimit="2"
+        strokeLinejoin="round"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M33.3072 50.2935C30.8151 51.741 28.5824 51.5394 27.3364 49.7534C26.0903 47.9674 26.0903 44.9712 27.3364 41.7377L28.7635 38.0359C29.2538 40.5174 30.9832 41.7936 33.3272 41.3358L33.3878 41.3219C35.5269 40.754 37.1305 41.876 37.4949 44.1945L37.7527 45.8354C36.5335 47.7456 34.9791 49.3223 33.3072 50.2935ZM39.6348 41.7894C40.5103 38.9567 40.3906 36.3966 39.278 34.8012L34.0269 27.2763C33.707 26.8185 32.9075 27.2829 32.5875 28.1124L30.6663 33.0981L30.9556 35.7807C31.1619 37.6894 32.3581 38.7036 34.0277 38.3916C36.8098 37.6687 38.942 38.9852 39.6348 41.7894Z"
+        stroke="#B6C4FF"
+        strokeOpacity="0.04"
+        strokeMiterlimit="2"
+        strokeLinejoin="round"
+      />
+    </g>
+    <path
+      d="M51.1956 6.59005C43.9596 2.02014 37.6504 -2.07603 26.4369 4.23212C10.6365 13.12 1 32.4536 1 49.0697C1 58.5623 3.73032 65.6223 15.5533 70.1293C16.6879 70.562 18.8977 71.2612 18.8977 71.2612C22.883 72.0215 27.6388 71.0511 32.7415 68.096C46.7805 59.9649 58.1784 39.8737 58.1784 23.2577C58.1784 15.2372 55.5231 9.48303 51.1956 6.59005ZM51.1956 6.59005C50.9314 6.41338 51.4597 6.74588 51.1956 6.59005Z"
+      stroke="#1B1B1F"
+      strokeWidth="2"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M51.1956 6.59005C43.9596 2.02014 37.6504 -2.07603 26.4369 4.23212C10.6365 13.12 1 32.4536 1 49.0697C1 58.5623 3.73032 65.6223 15.5533 70.1293C16.6879 70.562 18.8977 71.2612 18.8977 71.2612C22.883 72.0215 27.6388 71.0511 32.7415 68.096C46.7805 59.9649 58.1784 39.8737 58.1784 23.2577C58.1784 15.2372 55.5231 9.48303 51.1956 6.59005ZM51.1956 6.59005C50.9314 6.41338 51.4597 6.74588 51.1956 6.59005Z"
+      stroke="#B6C4FF"
+      strokeOpacity="0.04"
+      strokeWidth="2"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <defs>
+      <linearGradient
+        id="paint0_linear_217_1608"
+        x1="54.601"
+        y1="46.0488"
+        x2="10.0169"
+        y2="33.4025"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#99BBFF" />
+        <stop offset="1" stopColor="white" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+export const AboutUsLendBase: FC<SVGProps> = ({
+  maxWidth,
+  maxHeight,
+  ...props
+}) => {
+  return (
+    <svg
+      style={{ maxWidth, maxHeight }}
+      viewBox="0 0 165 176"
+      fill="none"
+      {...props}
+    >
+      <mask
+        id="mask0_217_1564"
+        style={{ maskType: 'luminance' }}
+        maskUnits="userSpaceOnUse"
+        x="1"
+        y="23"
+        width="104"
+        height="131"
+      >
+        <path
+          d="M17.9721 63.4176L17.9324 83.0402L1 93.4809V133.579L35.2608 153.396L104.84 113.18V33.171L87.5112 23.1348L17.9721 63.4176Z"
+          fill="white"
+        />
+      </mask>
+      <g mask="url(#mask0_217_1564)">
+        <path
+          d="M104.934 33.2072L35.1963 73.6562L35.1963 153.604L104.934 113.155V33.2072Z"
+          fill="#99BBFF"
+        />
+        <path
+          d="M104.934 33.2072L35.1963 73.6562L35.1963 153.604L104.934 113.155V33.2072Z"
+          stroke="#1B1B1F"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M104.934 33.2072L35.1963 73.6562L35.1963 153.604L104.934 113.155V33.2072Z"
+          stroke="#B6C4FF"
+          strokeOpacity="0.04"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M87.6056 23.1655L18.0669 63.4375L35.3544 73.4493L104.893 33.1772L87.6056 23.1655Z"
+          fill="#E6EEFF"
+        />
+        <path
+          d="M87.6056 23.1655L18.0669 63.4375L35.3544 73.4493L104.893 33.1772L87.6056 23.1655Z"
+          stroke="#1B1B1F"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M87.6056 23.1655L18.0669 63.4375L35.3544 73.4493L104.893 33.1772L87.6056 23.1655Z"
+          stroke="#B6C4FF"
+          strokeOpacity="0.04"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M35.3582 73.5015L18.067 63.469L18.0269 83.086L1.09375 93.4952L1.09375 133.574L35.3582 153.455L35.3582 73.5015Z"
+          fill="#6699FF"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M35.3582 73.5015L18.067 63.469L18.0269 83.086L1.09375 93.4952L1.09375 133.574L35.3582 153.455L35.3582 73.5015Z"
+          stroke="#1B1B1F"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M35.3582 73.5015L18.067 63.469L18.0269 83.086L1.09375 93.4952L1.09375 133.574L35.3582 153.455L35.3582 73.5015Z"
+          stroke="#B6C4FF"
+          strokeOpacity="0.04"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M18.0377 83.0625L1.09326 93.511L18.2893 103.602C18.2049 96.7561 18.1221 89.9085 18.0377 83.0625Z"
+          fill="#E6EEFF"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M18.0377 83.0625L1.09326 93.511L18.2893 103.602C18.2049 96.7561 18.1221 89.9085 18.0377 83.0625Z"
+          stroke="#1B1B1F"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M18.0377 83.0625L1.09326 93.511L18.2893 103.602C18.2049 96.7561 18.1221 89.9085 18.0377 83.0625Z"
+          stroke="#B6C4FF"
+          strokeOpacity="0.04"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <path
+        d="M87.5112 23.1348L104.84 33.171V113.18L35.2608 153.396L1 133.579V93.4809L17.9324 83.0402L17.9721 63.4176L87.5112 23.1348ZM87.5112 23.1348L17.9718 63.4067M87.5112 23.1348L104.798 33.1475"
+        stroke="#1B1B1F"
+        strokeWidth="2"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M87.5112 23.1348L104.84 33.171V113.18L35.2608 153.396L1 133.579V93.4809L17.9324 83.0402L17.9721 63.4176L87.5112 23.1348ZM87.5112 23.1348L17.9718 63.4067M87.5112 23.1348L104.798 33.1475"
+        stroke="#B6C4FF"
+        strokeOpacity="0.04"
+        strokeWidth="2"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M138.865 53.6038L121.479 43.5352L51.8247 83.8094V163.798L69.3091 174.001L138.869 133.716V53.6147L138.876 53.6106L138.869 53.6065V53.601L138.865 53.6038Z"
+        fill="#1B1B1F"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M138.865 53.6038L121.479 43.5352L51.8247 83.8094V163.798L69.3091 174.001L138.869 133.716V53.6147L138.876 53.6106L138.869 53.6065V53.601L138.865 53.6038Z"
+        fill="#B6C4FF"
+        fillOpacity="0.04"
+      />
+      <mask
+        id="mask1_217_1564"
+        style={{ maskType: 'luminance' }}
+        maskUnits="userSpaceOnUse"
+        x="51"
+        y="43"
+        width="88"
+        height="131"
+      >
+        <path
+          d="M138.865 53.6038L121.479 43.5352L51.8247 83.8094V163.798L69.3091 174.001L138.869 133.716V53.6147L138.876 53.6106L138.869 53.6065V53.601L138.865 53.6038Z"
+          fill="white"
+        />
+      </mask>
+      <g mask="url(#mask1_217_1564)">
+        <path
+          d="M138.906 53.6204L69.3462 93.9668V174.019L138.906 133.673V53.6204Z"
+          fill="#99BBFF"
+        />
+        <path
+          d="M138.906 53.6204L69.3462 93.9668V174.019L138.906 133.673V53.6204Z"
+          stroke="#1B1B1F"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M138.906 53.6204L69.3462 93.9668V174.019L138.906 133.673V53.6204Z"
+          stroke="#B6C4FF"
+          strokeOpacity="0.04"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M51.9295 83.8554L121.518 43.5547L138.915 53.63L69.3269 93.9307L51.9295 83.8554Z"
+          fill="#E6EEFF"
+        />
+        <path
+          d="M51.9295 83.8554L121.518 43.5547L138.915 53.63L69.3269 93.9307L51.9295 83.8554Z"
+          stroke="#1B1B1F"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M51.9295 83.8554L121.518 43.5547L138.915 53.63L69.3269 93.9307L51.9295 83.8554Z"
+          stroke="#B6C4FF"
+          strokeOpacity="0.04"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M114.447 59.1766C128.483 51.0481 135.094 41.6981 129.214 38.2927C123.334 34.8873 107.189 38.7161 93.1535 46.8446C79.1179 54.9731 72.5066 64.3231 78.3867 67.7285C84.2669 71.1339 100.412 67.305 114.447 59.1766Z"
+          fill="#1B1B1F"
+        />
+        <path
+          d="M114.447 59.1766C128.483 51.0481 135.094 41.6981 129.214 38.2927C123.334 34.8873 107.189 38.7161 93.1535 46.8446C79.1179 54.9731 72.5066 64.3231 78.3867 67.7285C84.2669 71.1339 100.412 67.305 114.447 59.1766Z"
+          fill="#B6C4FF"
+          fillOpacity="0.04"
+        />
+        <path
+          d="M114.447 59.1766C128.483 51.0481 135.094 41.6981 129.214 38.2927C123.334 34.8873 107.189 38.7161 93.1535 46.8446C79.1179 54.9731 72.5066 64.3231 78.3867 67.7285C84.2669 71.1339 100.412 67.305 114.447 59.1766Z"
+          stroke="#1B1B1F"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M114.447 59.1766C128.483 51.0481 135.094 41.6981 129.214 38.2927C123.334 34.8873 107.189 38.7161 93.1535 46.8446C79.1179 54.9731 72.5066 64.3231 78.3867 67.7285C84.2669 71.1339 100.412 67.305 114.447 59.1766Z"
+          stroke="#B6C4FF"
+          strokeOpacity="0.04"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M69.3318 93.9657L51.8628 83.8281L51.8628 163.797L69.3318 173.935V93.9657Z"
+          fill="#6699FF"
+        />
+        <path
+          d="M69.3318 93.9657L51.8628 83.8281L51.8628 163.797L69.3318 173.935V93.9657Z"
+          stroke="#1B1B1F"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M69.3318 93.9657L51.8628 83.8281L51.8628 163.797L69.3318 173.935V93.9657Z"
+          stroke="#B6C4FF"
+          strokeOpacity="0.04"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M138.865 53.6038L121.479 43.5352L51.8247 83.8094V163.798L69.3091 174.001L138.869 133.716V53.6147L138.876 53.6106L138.869 53.6065V53.601L138.865 53.6038Z"
+        stroke="#1B1B1F"
+        strokeWidth="2"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M138.865 53.6038L121.479 43.5352L51.8247 83.8094V163.798L69.3091 174.001L138.869 133.716V53.6147L138.876 53.6106L138.869 53.6065V53.601L138.865 53.6038Z"
+        stroke="#B6C4FF"
+        strokeOpacity="0.04"
+        strokeWidth="2"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M119.956 114.004L93.9873 129.027V159.173L119.937 174.202V174.196L145.883 159.17V129.022L119.956 114.004Z"
+        fill="#F2F0F4"
+      />
+      <mask
+        id="mask2_217_1564"
+        style={{ maskType: 'luminance' }}
+        maskUnits="userSpaceOnUse"
+        x="93"
+        y="114"
+        width="53"
+        height="61"
+      >
+        <path
+          d="M119.956 114.004L93.9873 129.027V159.173L119.937 174.202V174.196L145.883 159.17V129.022L119.956 114.004Z"
+          fill="white"
+        />
+      </mask>
+      <g mask="url(#mask2_217_1564)">
+        <path
+          d="M119.955 114.004L94.0049 129.033L119.928 144.046L145.878 129.017L119.955 114.004Z"
+          fill="#E6EEFF"
+        />
+        <path
+          d="M119.955 114.004L94.0049 129.033L119.928 144.046L145.878 129.017L119.955 114.004Z"
+          stroke="#1B1B1F"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M119.955 114.004L94.0049 129.033L119.928 144.046L145.878 129.017L119.955 114.004Z"
+          stroke="#B6C4FF"
+          strokeOpacity="0.04"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M119.937 144.079L93.9868 129.027V159.151L119.937 174.203V144.079Z"
+          fill="#1B1B1F"
+        />
+        <path
+          d="M119.937 144.079L93.9868 129.027V159.151L119.937 174.203V144.079Z"
+          fill="#B6C4FF"
+          fillOpacity="0.04"
+        />
+        <path
+          d="M119.937 144.079L93.9868 129.027V159.151L119.937 174.203V144.079Z"
+          stroke="#1B1B1F"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M119.937 144.079L93.9868 129.027V159.151L119.937 174.203V144.079Z"
+          stroke="#B6C4FF"
+          strokeOpacity="0.04"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M145.882 129.024L119.932 144.076V174.2L145.882 159.148V129.024Z"
+          fill="#99BBFF"
+        />
+        <path
+          d="M145.882 129.024L119.932 144.076V174.2L145.882 159.148V129.024Z"
+          stroke="#1B1B1F"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M145.882 129.024L119.932 144.076V174.2L145.882 159.148V129.024Z"
+          stroke="#B6C4FF"
+          strokeOpacity="0.04"
+          strokeMiterlimit="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <path
+        d="M119.956 114.004L93.9873 129.027V159.173L119.937 174.202V174.196L145.883 159.17V129.022L119.956 114.004ZM119.956 114.004L94.0045 129.032M119.956 114.004L145.879 129.016"
+        stroke="#1B1B1F"
+        strokeWidth="2"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M119.956 114.004L93.9873 129.027V159.173L119.937 174.202V174.196L145.883 159.17V129.022L119.956 114.004ZM119.956 114.004L94.0045 129.032M119.956 114.004L145.879 129.016"
+        stroke="#B6C4FF"
+        strokeOpacity="0.04"
+        strokeWidth="2"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M100.663 84.8989L92.1006 89.8652V119.989L100.663 115.023V84.8989Z"
+        fill="#1B1B1F"
+      />
+      <path
+        d="M100.663 84.8989L92.1006 89.8652V119.989L100.663 115.023V84.8989Z"
+        fill="#B6C4FF"
+        fillOpacity="0.04"
+      />
+      <path
+        d="M100.663 84.8989L92.1006 89.8652V119.989L100.663 115.023V84.8989Z"
+        stroke="#1B1B1F"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M100.663 84.8989L92.1006 89.8652V119.989L100.663 115.023V84.8989Z"
+        stroke="#B6C4FF"
+        strokeOpacity="0.04"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M118.814 74.4712L110.251 79.4375V109.561L118.814 104.595V74.4712Z"
+        fill="#1B1B1F"
+      />
+      <path
+        d="M118.814 74.4712L110.251 79.4375V109.561L118.814 104.595V74.4712Z"
+        fill="#B6C4FF"
+        fillOpacity="0.04"
+      />
+      <path
+        d="M118.814 74.4712L110.251 79.4375V109.561L118.814 104.595V74.4712Z"
+        stroke="#1B1B1F"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M118.814 74.4712L110.251 79.4375V109.561L118.814 104.595V74.4712Z"
+        stroke="#B6C4FF"
+        strokeOpacity="0.04"
+        strokeMiterlimit="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const AboutUsTradeCube: FC<SVGProps> = ({
+  maxWidth,
+  maxHeight,
+  ...props
+}) => (
+  <svg
+    style={{ maxWidth, maxHeight }}
+    viewBox="0 0 102 116"
+    fill="none"
+    {...props}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M51.1185 1.53699L1.65964 29.8525V86.6726L51.0828 115V114.988L100.5 86.6667V29.8436L51.1185 1.53699Z"
+      fill="#E6EEFF"
+    />
+    <path
+      d="M51.1187 1.53608L1.6938 29.8624L51.0664 58.1588L100.491 29.8324L51.1187 1.53608Z"
+      fill="#E6EEFF"
+    />
+    <path
+      d="M51.1187 1.53608L1.6938 29.8624L51.0664 58.1588L100.491 29.8324L51.1187 1.53608Z"
+      stroke="#1B1B1F"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M51.1187 1.53608L1.6938 29.8624L51.0664 58.1588L100.491 29.8324L51.1187 1.53608Z"
+      stroke="#B6C4FF"
+      strokeOpacity="0.04"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M51.0839 58.0736L1.65903 29.8517L1.65903 86.7773L51.0839 114.999L51.0839 58.0736Z"
+      fill="#6699FF"
+    />
+    <path
+      d="M51.0839 58.0736L1.65903 29.8517L1.65903 86.7773L51.0839 114.999L51.0839 58.0736Z"
+      stroke="#1B1B1F"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M51.0839 58.0736L1.65903 29.8517L1.65903 86.7773L51.0839 114.999L51.0839 58.0736Z"
+      stroke="#B6C4FF"
+      strokeOpacity="0.04"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M100.498 29.8446L51.0732 58.0665L51.0732 114.992L100.498 86.7703V29.8446Z"
+      fill="#99BBFF"
+    />
+    <path
+      d="M100.498 29.8446L51.0732 58.0665L51.0732 114.992L100.498 86.7703V29.8446Z"
+      stroke="#1B1B1F"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M100.498 29.8446L51.0732 58.0665L51.0732 114.992L100.498 86.7703V29.8446Z"
+      stroke="#B6C4FF"
+      strokeOpacity="0.04"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M51.1185 1.53699L1.65964 29.8525V86.6726L51.0828 115V114.988L100.5 86.6667V29.8436L51.1185 1.53699ZM51.1185 1.53699L1.69238 29.8614M51.1185 1.53699L100.491 29.8318"
+      stroke="#1B1B1F"
+      strokeWidth="2"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M51.1185 1.53699L1.65964 29.8525V86.6726L51.0828 115V114.988L100.5 86.6667V29.8436L51.1185 1.53699ZM51.1185 1.53699L1.69238 29.8614M51.1185 1.53699L100.491 29.8318"
+      stroke="#B6C4FF"
+      strokeOpacity="0.04"
+      strokeWidth="2"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const AboutUsTradePyramid: FC<SVGProps> = ({
+  maxWidth,
+  maxHeight,
+  ...props
+}) => (
+  <svg
+    style={{ maxWidth, maxHeight }}
+    viewBox="0 0 118 109"
+    fill="none"
+    {...props}
+  >
+    <path
+      d="M83.5395 55.4262L16.7065 62.5481L50.4362 108.279L117.269 101.157L83.5395 55.4262Z"
+      fill="#1B1B1F"
+    />
+    <path
+      d="M83.5395 55.4262L16.7065 62.5481L50.4362 108.279L117.269 101.157L83.5395 55.4262Z"
+      fill="#B6C4FF"
+      fillOpacity="0.04"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M1.21896 78.4473L52.1512 1.56665L100.015 78.4171L50.5915 106.742L1.21896 78.4473Z"
+      fill="#E6EEFF"
+    />
+    <path
+      d="M50.6446 50.1214L1.21976 78.4478L50.5923 106.744L100.017 78.4177L50.6446 50.1214Z"
+      fill="#99BBFF"
+    />
+    <path
+      d="M50.6446 50.1214L1.21976 78.4478L50.5923 106.744L100.017 78.4177L50.6446 50.1214Z"
+      stroke="#1B1B1F"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M50.6446 50.1214L1.21976 78.4478L50.5923 106.744L100.017 78.4177L50.6446 50.1214Z"
+      stroke="#B6C4FF"
+      strokeOpacity="0.04"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M50.7284 50.1471L1.46303 78.4783L52.1512 1.56665L50.7284 50.1471Z"
+      fill="#6699FF"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M50.7284 50.1471L1.46303 78.4783L52.1512 1.56665L50.7284 50.1471Z"
+      stroke="#1B1B1F"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M50.7284 50.1471L1.46303 78.4783L52.1512 1.56665L50.7284 50.1471Z"
+      stroke="#B6C4FF"
+      strokeOpacity="0.04"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M100.232 78.5078L50.7284 50.1471L52.2673 2.09583L100.232 78.5078Z"
+      fill="#E6EEFF"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M100.232 78.5078L50.7284 50.1471L52.2673 2.09583L100.232 78.5078Z"
+      stroke="#1B1B1F"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M100.232 78.5078L50.7284 50.1471L52.2673 2.09583L100.232 78.5078Z"
+      stroke="#B6C4FF"
+      strokeOpacity="0.04"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M1.21896 78.4473L52.1512 1.56665L100.015 78.4171L50.5915 106.742L1.21896 78.4473Z"
+      stroke="#1B1B1F"
+      strokeWidth="2"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M1.21896 78.4473L52.1512 1.56665L100.015 78.4171L50.5915 106.742L1.21896 78.4473Z"
+      stroke="#B6C4FF"
+      strokeOpacity="0.04"
+      strokeWidth="2"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+export const AboutUsTradeBall: FC<SVGProps> = ({
+  maxWidth,
+  maxHeight,
+  ...props
+}) => (
+  <svg
+    style={{ maxWidth, maxHeight }}
+    viewBox="0 0 90 89"
+    fill="none"
+    {...props}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M65.7229 13.0099C83.9557 18.8559 93.8159 38.6935 87.7305 57.2828C81.6451 75.8724 45.3266 96.0354 34.4843 85.944C20.5103 72.9334 15.578 54.6894 21.6635 36.0999C27.7488 17.5106 47.4946 7.16543 65.7229 13.0099Z"
+      fill="#1B1B1F"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M65.7229 13.0099C83.9557 18.8559 93.8159 38.6935 87.7305 57.2828C81.6451 75.8724 45.3266 96.0354 34.4843 85.944C20.5103 72.9334 15.578 54.6894 21.6635 36.0999C27.7488 17.5106 47.4946 7.16543 65.7229 13.0099Z"
+      fill="#B6C4FF"
+      fillOpacity="0.04"
+    />
+    <path
+      d="M42.6292 82.6555C65.3442 82.6555 83.7584 64.3763 83.7584 41.8278C83.7584 19.2792 65.3442 1 42.6292 1C19.9142 1 1.5 19.2792 1.5 41.8278C1.5 64.3763 19.9142 82.6555 42.6292 82.6555Z"
+      fill="url(#paint0_linear_563_45250)"
+    />
+    <path
+      d="M42.6292 82.6555C65.3442 82.6555 83.7584 64.3763 83.7584 41.8278C83.7584 19.2792 65.3442 1 42.6292 1C19.9142 1 1.5 19.2792 1.5 41.8278C1.5 64.3763 19.9142 82.6555 42.6292 82.6555Z"
+      stroke="#1B1B1F"
+      strokeWidth="2"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M42.6292 82.6555C65.3442 82.6555 83.7584 64.3763 83.7584 41.8278C83.7584 19.2792 65.3442 1 42.6292 1C19.9142 1 1.5 19.2792 1.5 41.8278C1.5 64.3763 19.9142 82.6555 42.6292 82.6555Z"
+      stroke="#B6C4FF"
+      strokeOpacity="0.04"
+      strokeWidth="2"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M15.3295 11.3015C15.3295 11.3015 71.3696 12.0408 68.5508 73.5191"
+      stroke="#1B1B1F"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M15.3295 11.3015C15.3295 11.3015 71.3696 12.0408 68.5508 73.5191"
+      stroke="#B6C4FF"
+      strokeOpacity="0.04"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <defs>
+      <linearGradient
+        id="paint0_linear_563_45250"
+        x1="20.8116"
+        y1="9.54189"
+        x2="88.7714"
+        y2="97.1909"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#E6EEFF" />
+        <stop offset="1" stopColor="#99BBFF" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
