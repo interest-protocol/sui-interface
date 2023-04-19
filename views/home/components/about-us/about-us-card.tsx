@@ -50,7 +50,7 @@ const AboutUsCard: FC<AboutUsCardProps> = ({ name, link, Illustration }) => {
             <ArrowLinkSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
           </Button>
         </Link>
-        <Box m="4xl" p="4xl" minHeight="21rem">
+        <Box m="4xl" p="4xl" minHeight="21rem" position="relative">
           <Illustration />
         </Box>
       </Box>

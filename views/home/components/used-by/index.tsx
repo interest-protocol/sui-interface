@@ -25,6 +25,8 @@ const UsedBy: FC = () => {
     (async () => {
       const result = await getMetrics();
 
+      console.log('>> result :: ', result);
+
       setData(result ?? DEFAULT_DATA);
     })();
   }, []);
