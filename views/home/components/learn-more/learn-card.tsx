@@ -1,5 +1,4 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
@@ -18,8 +17,8 @@ const LearnMoreCard: FC<LearnMoreProps> = ({ name }) => {
         border="1px solid"
         borderColor="outline"
       ></Button>
-      <Typography variant="displaySmall" color="text" mb="xl">
-        {t(`landingPage.aboutUs.services.earn.name`)}
+      <Typography variant="displayLarge" color="text" mb="xl">
+        {t(`landingPage.learnMore.subTitles.${name}`)}
       </Typography>
       <ResponsiveImage alt={name} path={`home/${name}`} />
     </Box>

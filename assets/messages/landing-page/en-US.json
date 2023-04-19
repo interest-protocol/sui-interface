@@ -61,6 +61,17 @@
         "experience": "Built by experienced blockchain developers"
       }
     },
+    "learnMore": {
+      "title": {
+        "first": "Learn more",
+        "second": "About us"
+      },
+      "subTitles": {
+        "documentation": "Documentation",
+        "ourTeam": "Our Team",
+        "mediaKit": "Media Kit"
+      }
+    },
     "footer": {
       "getEarlyNotifications": {
         "title": {

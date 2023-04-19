@@ -1,3 +1,3 @@
 export interface LearnMoreProps {
-  name: 'documentation' | 'our-team' | 'media-kit';
+  name: 'documentation' | 'ourTeam' | 'mediaKit';
 }

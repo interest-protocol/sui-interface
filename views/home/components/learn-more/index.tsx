@@ -1,12 +1,7 @@
-import { Box, Button, Typography } from '@interest-protocol/ui-kit';
-import { useTranslations } from 'next-intl';
+import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
-import { v4 } from 'uuid';
-
-import ResponsiveImage from '@/elements/responsive-image';
 
 import LearnMoreCard from './learn-card';
-import { LEARN_TYPES } from './learn-more.data';
 import LearnMoreTitle from './learn-more-title';
 
 const LearnMore: FC = () => (
@@ -37,7 +32,7 @@ const LearnMore: FC = () => (
         borderColor="textAccent"
         gridColumn={['1/-1', '1/-1', '1/-1', '7/13']}
       >
-        <LearnMoreCard name={'media-kit'} />
+        <LearnMoreCard name={'mediaKit'} />
       </Box>
       <Box
         mb="4xl"
@@ -50,7 +45,7 @@ const LearnMore: FC = () => (
         borderColor="textAccent"
         gridColumn="1/-1"
       >
-        <LearnMoreCard name={'our-team'} />
+        <LearnMoreCard name={'ourTeam'} />
       </Box>
     </Box>
   </Box>

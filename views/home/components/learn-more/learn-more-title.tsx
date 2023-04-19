@@ -18,7 +18,7 @@ const LearnMoreTitle: FC = () => {
           WebkitTextFillColor="transparent"
           backgroundClip="text"
         >
-          {t('landingPage.aboutUs.title.first')}
+          {t('landingPage.learnMore.title.first')}
         </Typography>
         <Typography
           as="span"
@@ -30,7 +30,7 @@ const LearnMoreTitle: FC = () => {
           WebkitTextFillColor="transparent"
           backgroundClip="text"
         >
-          {t('landingPage.aboutUs.title.second')}
+          {t('landingPage.learnMore.title.second')}
         </Typography>
       </Typography>
     </Box>
