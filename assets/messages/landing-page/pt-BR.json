@@ -81,6 +81,17 @@
     "partners": {
       "title": "Parceiros"
     },
+    "team": {
+      "title": {
+        "first": "A",
+        "second": "Equipe"
+      },
+      "roleCFO": "Co-Fundador & CFO",
+      "roleCEO": "Co-Fundador & CEO",
+      "developer": "Desenvolvedor",
+      "marketingManager": "Gestor de Marketing",
+      "designer": "Designer"
+    },
     "footer": {
       "getEarlyNotifications": {
         "title": {

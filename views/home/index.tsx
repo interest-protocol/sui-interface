@@ -6,6 +6,7 @@ import {
   Hero,
   Layout,
   Partners,
+  Team,
   UsedBy,
   ValueProposition,
 } from './components';
@@ -18,6 +19,7 @@ const Home: FC = () => (
     <ValueProposition />
     <Advantages />
     <Partners />
+    <Team />
   </Layout>
 );
 
