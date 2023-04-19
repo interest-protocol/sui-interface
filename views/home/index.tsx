@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import { AboutUs, Hero, Layout, UsedBy, ValueProposition } from './components';
+import LearnMore from './components/learn-more';
 
 const Home: FC = () => (
   <Layout>
@@ -8,6 +9,7 @@ const Home: FC = () => (
     <AboutUs />
     <UsedBy />
     <ValueProposition />
+    <LearnMore />
   </Layout>
 );
 
