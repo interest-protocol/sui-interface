@@ -13,6 +13,10 @@ export const partnersSlick = {
 
 export const PARTNER_LIST = [
   {
+    name: 'OKX',
+    link: 'https://www.okx.com/',
+  },
+  {
     name: 'MOVEBIT',
     link: 'https://movebit.xyz/',
   },
