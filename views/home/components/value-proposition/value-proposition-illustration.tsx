@@ -4,48 +4,86 @@ import { FC } from 'react';
 
 import {
   ValuePropositionBall,
+  ValuePropositionBallShadow,
   ValuePropositionCubeClose,
   ValuePropositionCubeOpen,
 } from '../svg';
 import { ValuePropositionIconWrapperProps } from './value-proposition.types';
 
 const ValuePropositionIconWrapper: FC<ValuePropositionIconWrapperProps> = ({
+  to,
   size,
   Icon,
+  chock,
+  shadow,
   floating,
-  to,
   ...props
 }) => (
-  <Motion
-    width={size}
-    height={size}
-    position="absolute"
-    {...(to && {
-      variants: {
-        hover: {
-          translateX: to[0],
-          translateY: to[1],
-          transition: {
-            duration: 0.7,
+  <Motion width={size} height={size} position="absolute" {...props}>
+    {shadow && (
+      <Motion
+        left="30%"
+        bottom="0"
+        position="absolute"
+        animate={{
+          scale: 0.8,
+        }}
+        transition={{
+          delay: 0.5,
+          duration: 0.7,
+          ease: easeInOut,
+          repeat: Infinity,
+          repeatType: 'reverse',
+        }}
+      >
+        <ValuePropositionBallShadow
+          width="100%"
+          maxWidth="100%"
+          maxHeight="100%"
+        />
+      </Motion>
+    )}
+    <Motion
+      position="relative"
+      {...(to && {
+        variants: {
+          hover: {
+            translateX: to[0],
+            translateY: to[1],
+            transition: {
+              duration: 0.7,
+            },
           },
         },
-      },
-    })}
-    {...props}
-    {...(floating && {
-      animate: {
-        translateY: -7,
-      },
-      transition: {
-        delay: 0.5,
-        duration: 0.7,
-        ease: easeInOut,
-        repeat: Infinity,
-        repeatType: 'reverse',
-      },
-    })}
-  >
-    <Icon maxWidth="100%" maxHeight="100%" width="100%" />
+      })}
+      {...(floating && {
+        animate: {
+          translateY: -7,
+        },
+        transition: {
+          delay: 0.5,
+          duration: 0.7,
+          ease: easeInOut,
+          repeat: Infinity,
+          repeatType: 'reverse',
+        },
+      })}
+      {...(chock && {
+        animate: {
+          translateY: [0, 0, 0, 0, 0, 0.8, 0],
+          scaleY: [1, 1, 1, 1, 0.98, 1, 1],
+        },
+        transition: {
+          delay: 1.3,
+          duration: 0.7,
+          ease: easeInOut,
+          repeat: Infinity,
+          repeatType: 'reverse',
+        },
+      })}
+    >
+      <Icon maxWidth="100%" maxHeight="100%" width="100%" />
+    </Motion>
   </Motion>
 );
 
@@ -80,6 +118,7 @@ const ValuePropositionIllustration: FC = () => (
       Icon={ValuePropositionCubeClose}
     />
     <ValuePropositionIconWrapper
+      chock
       top="39%"
       left="40%"
       size="20%"
@@ -121,6 +160,7 @@ const ValuePropositionIllustration: FC = () => (
       Icon={ValuePropositionCubeClose}
     />
     <ValuePropositionIconWrapper
+      shadow
       floating
       top="34%"
       size="13%"

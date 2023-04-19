@@ -2,6 +2,38 @@ import { FC } from 'react';
 
 import { SVGProps } from '@/components/svg/svg.types';
 
+export const ValuePropositionBallShadow: FC<SVGProps> = ({
+  maxWidth,
+  maxHeight,
+  ...props
+}) => (
+  <svg
+    style={{ maxWidth, maxHeight }}
+    viewBox="0 0 39 21"
+    fill="none"
+    {...props}
+  >
+    <path
+      d="M19.717 19.666C30.053 19.666 38.433 15.488 38.433 10.333C38.433 5.178 30.053 1 19.717 1C9.38 1 1 5.178 1 10.333C1 15.488 9.38 19.666 19.717 19.666Z"
+      stroke="#1B1B1F"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M19.717 19.666C30.053 19.666 38.433 15.488 38.433 10.333C38.433 5.178 30.053 1 19.717 1C9.38 1 1 5.178 1 10.333C1 15.488 9.38 19.666 19.717 19.666Z"
+      stroke="#B6C4FF"
+      strokeOpacity="0.04"
+      strokeMiterlimit="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M19.717 19.666C30.053 19.666 38.433 15.488 38.433 10.333C38.433 5.178 30.053 1 19.717 1C9.38 1 1 5.178 1 10.333C1 15.488 9.38 19.666 19.717 19.666Z"
+      fill="#1B1B1F"
+    />
+  </svg>
+);
 export const ValuePropositionBall: FC<SVGProps> = ({
   maxWidth,
   maxHeight,
@@ -14,30 +46,6 @@ export const ValuePropositionBall: FC<SVGProps> = ({
     {...props}
   >
     <g clipPath="url(#clip0_224_2)">
-      <path
-        d="M30.9836 52.399C41.3196 52.399 49.6996 48.221 49.6996 43.066C49.6996 37.911 41.3196 33.733 30.9836 33.733C20.6466 33.733 12.2666 37.911 12.2666 43.066C12.2666 48.221 20.6466 52.399 30.9836 52.399Z"
-        fill="#1B1B1F"
-      />
-      <path
-        d="M30.9836 52.399C41.3196 52.399 49.6996 48.221 49.6996 43.066C49.6996 37.911 41.3196 33.733 30.9836 33.733C20.6466 33.733 12.2666 37.911 12.2666 43.066C12.2666 48.221 20.6466 52.399 30.9836 52.399Z"
-        fill="#B6C4FF"
-        fillOpacity="0.04"
-      />
-      <path
-        d="M30.9836 52.399C41.3196 52.399 49.6996 48.221 49.6996 43.066C49.6996 37.911 41.3196 33.733 30.9836 33.733C20.6466 33.733 12.2666 37.911 12.2666 43.066C12.2666 48.221 20.6466 52.399 30.9836 52.399Z"
-        stroke="#1B1B1F"
-        strokeMiterlimit="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M30.9836 52.399C41.3196 52.399 49.6996 48.221 49.6996 43.066C49.6996 37.911 41.3196 33.733 30.9836 33.733C20.6466 33.733 12.2666 37.911 12.2666 43.066C12.2666 48.221 20.6466 52.399 30.9836 52.399Z"
-        stroke="#B6C4FF"
-        strokeOpacity="0.04"
-        strokeMiterlimit="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
       <path
         d="M25.0039 47.916C37.8209 47.916 48.2099 37.436 48.2099 24.508C48.2099 11.581 37.8209 1.10089 25.0039 1.10089C12.1869 1.10089 1.79688 11.581 1.79688 24.508C1.79688 37.436 12.1869 47.916 25.0039 47.916Z"
         fill="url(#paint0_linear_224_2)"

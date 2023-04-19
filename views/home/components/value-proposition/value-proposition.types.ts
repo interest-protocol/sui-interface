@@ -7,7 +7,9 @@ export interface ValuePropositionIconWrapperProps {
   top?: string;
   left?: string;
   right?: string;
+  chock?: boolean;
   bottom?: string;
+  shadow?: boolean;
   floating?: boolean;
   Icon: FC<SVGProps>;
   to?: [number, number];
