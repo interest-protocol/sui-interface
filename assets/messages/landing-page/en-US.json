@@ -61,6 +61,23 @@
         "experience": "Built by experienced blockchain developers"
       }
     },
+    "advantages": {
+      "title": {
+        "first": "Take full advantages",
+        "second": "Of everything"
+      },
+      "content": {
+        "rewards": {
+          "description": "Get Rewards while you trade."
+        },
+        "profits": {
+          "description": "Maximize profits with automated strategies."
+        },
+        "fees": {
+          "description": "Swap tokens with low fees."
+        }
+      }
+    },
     "footer": {
       "getEarlyNotifications": {
         "title": {

@@ -1,6 +1,13 @@
 import { FC } from 'react';
 
-import { AboutUs, Hero, Layout, UsedBy, ValueProposition } from './components';
+import {
+  AboutUs,
+  Advantages,
+  Hero,
+  Layout,
+  UsedBy,
+  ValueProposition,
+} from './components';
 
 const Home: FC = () => (
   <Layout>
@@ -8,6 +15,7 @@ const Home: FC = () => (
     <AboutUs />
     <UsedBy />
     <ValueProposition />
+    <Advantages />
   </Layout>
 );
 
