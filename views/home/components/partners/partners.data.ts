@@ -13,35 +13,47 @@ export const partnersSlick = {
 
 export const PARTNER_LIST = [
   {
-    name: 'SUIPIENS',
-    link: 'https://sui.com',
+    name: 'MOVEBIT',
+    link: 'https://movebit.xyz/',
   },
   {
-    name: 'SUIWHAKE',
-    link: 'https://sui.com',
-  },
-  {
-    name: 'SUIS',
-    link: 'https://sui.com',
-  },
-  {
-    name: 'MISES BROWSER',
-    link: 'https://sui.com',
+    name: 'GOBIT',
+    link: 'https://gotbit.io/',
   },
   {
     name: 'MARTIAN WALLET',
-    link: 'https://sui.com',
+    link: 'https://martianwallet.xyz',
   },
   {
     name: 'REDSTONE',
-    link: 'https://sui.com',
+    link: 'https://redstone.finance',
   },
   {
     name: 'ETHOS WALLET',
-    link: 'https://sui.com',
+    link: 'https://ethoswallet.xyz',
   },
   {
     name: 'SUINS',
-    link: 'https://sui.com',
+    link: 'https://suins.io/',
+  },
+  {
+    name: 'SUIPIENS',
+    link: 'https://suipiens.com/',
+  },
+  {
+    name: 'SUIWHALE',
+    link: 'https://link3.to/suiwhale',
+  },
+  {
+    name: 'SUIS',
+    link: 'https://suistart.com/',
+  },
+  {
+    name: 'MISES BROWSER',
+    link: 'https://www.mises.site/',
+  },
+  {
+    name: 'SUI ECOSYSTEM',
+    link: 'https://suiecosystem.top/',
   },
 ];
