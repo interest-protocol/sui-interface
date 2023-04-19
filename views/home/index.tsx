@@ -1,7 +1,15 @@
 import { FC } from 'react';
 
-import { AboutUs, Hero, Layout, UsedBy, ValueProposition } from './components';
-import LearnMore from './components/learn-more';
+import {
+  AboutUs,
+  Advantages,
+  Hero,
+  Layout,
+  LearnMore,
+  Partners,
+  UsedBy,
+  ValueProposition,
+} from './components';
 
 const Home: FC = () => (
   <Layout>
@@ -9,7 +17,9 @@ const Home: FC = () => (
     <AboutUs />
     <UsedBy />
     <ValueProposition />
+    <Advantages />
     <LearnMore />
+    <Partners />
   </Layout>
 );
 

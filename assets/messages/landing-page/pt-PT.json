@@ -61,6 +61,23 @@
         "experience": "Construído por experientes programadores de cadeias de bloqueios"
       }
     },
+    "advantages": {
+      "title": {
+        "first": "Tire o máximo",
+        "second": "Proveito de tudo"
+      },
+      "content": {
+        "rewards": {
+          "description": "Receba Recompensas enquanto transaciona."
+        },
+        "profits": {
+          "description": "Maximize os lucros com estratégias automatizadas."
+        },
+        "fees": {
+          "description": "Troque tokens com taxas baixas."
+        }
+      }
+    },
     "learnMore": {
       "title": {
         "first": "Aprenda mais",
@@ -72,6 +89,9 @@
         "mediaKit": "Kit de mídia"
       }
     },
+    "partners": {
+      "title": "Parceiros"
+    },
     "footer": {
       "getEarlyNotifications": {
         "title": {
@@ -80,7 +100,10 @@
           "third": "novos recursos"
         },
         "placeholder": "teu-email@gmail.com",
-        "button": "Enviar"
+        "button": "{isLoading, plural, =1 {Enviando...} other {Enviar}}",
+        "errors": {
+          "1008": "Email já adicionado"
+        }
       }
     }
   }

@@ -61,6 +61,23 @@
         "experience": "Built by experienced blockchain developers"
       }
     },
+    "advantages": {
+      "title": {
+        "first": "Take full advantages",
+        "second": "Of everything"
+      },
+      "content": {
+        "rewards": {
+          "description": "Get Rewards while you trade."
+        },
+        "profits": {
+          "description": "Maximize profits with automated strategies."
+        },
+        "fees": {
+          "description": "Swap tokens with low fees."
+        }
+      }
+    },
     "learnMore": {
       "title": {
         "first": "Learn more",
@@ -72,6 +89,9 @@
         "mediaKit": "Media Kit"
       }
     },
+    "partners": {
+      "title": "Partners"
+    },
     "footer": {
       "getEarlyNotifications": {
         "title": {
@@ -80,7 +100,10 @@
           "third": "On new features"
         },
         "placeholder": "your-email@gmail.com",
-        "button": "Send"
+        "button": "{isLoading, plural, =1 {Sending...} other {Send}}",
+        "errors": {
+          "1008": "contact already added"
+        }
       }
     }
   }
