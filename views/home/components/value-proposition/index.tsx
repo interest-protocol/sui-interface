@@ -7,6 +7,7 @@ import {
   DesktopValuePropositionDescription,
   MobileValuePropositionDescription,
 } from './value-proposition-description';
+import ValuePropositionIllustration from './value-proposition-illustration';
 import ValuePropositionTitle from './value-proposition-title';
 
 const ValueProposition: FC = () => {
@@ -53,7 +54,7 @@ const ValueProposition: FC = () => {
             ]}
           >
             <MobileValuePropositionDescription />
-            <Box bg="#B6C4FF0A" height="23rem" borderRadius="m" p="4xl"></Box>
+            <ValuePropositionIllustration />
           </Box>
           <ValuePropositionTitle />
           <DesktopValuePropositionDescription />
