@@ -78,6 +78,9 @@
         }
       }
     },
+    "partners": {
+      "title": "Parceiros"
+    },
     "footer": {
       "getEarlyNotifications": {
         "title": {
