@@ -61,6 +61,17 @@
         "experience": "Construído por experientes programadores de cadeias de bloqueios"
       }
     },
+    "learnMore": {
+      "title": {
+        "first": "Saiba mais",
+        "second": "Sobre nós"
+      },
+      "subTitles": {
+        "documentation": "Documentação",
+        "ourTeam": "Nossa equipe",
+        "mediaKit": "Kit de mídia"
+      }
+    },
     "footer": {
       "getEarlyNotifications": {
         "title": {
