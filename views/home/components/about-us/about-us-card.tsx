@@ -21,7 +21,7 @@ const AboutUsCard: FC<AboutUsCardProps> = ({ name, link, Illustration }) => {
       borderRadius="m"
       border="1px solid"
       borderColor="textAccent"
-      gridColumn={['1/5', '1/5', '1, 9', '2/12']}
+      gridColumn={['1/-1', '1/-1', '1/-1', '2/12']}
       gridTemplateColumns={['1fr', '1fr', '1fr', '1fr 1fr']}
     >
       <Box
