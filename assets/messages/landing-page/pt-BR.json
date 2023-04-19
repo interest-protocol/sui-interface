@@ -61,6 +61,23 @@
         "experience": "Construído por experientes programadores de cadeias de bloqueios"
       }
     },
+    "advantages": {
+      "title": {
+        "first": "Tire o máximo",
+        "second": "Proveito de tudo"
+      },
+      "content": {
+        "rewards": {
+          "description": "Receba Recompensas enquanto transaciona."
+        },
+        "profits": {
+          "description": "Maximize os lucros com estratégias automatizadas."
+        },
+        "fees": {
+          "description": "Troque tokens com taxas baixas."
+        }
+      }
+    },
     "footer": {
       "getEarlyNotifications": {
         "title": {

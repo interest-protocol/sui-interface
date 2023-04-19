@@ -67,16 +67,13 @@
         "second": "Of everything"
       },
       "content": {
-        "first": {
-          "name": "Rewards",
+        "rewards": {
           "description": "Get Rewards while you trade."
         },
-        "second": {
-          "name": "Strategies",
+        "profits": {
           "description": "Maximize profits with automated strategies."
         },
-        "third": {
-          "name": "Tokens",
+        "fees": {
           "description": "Swap tokens with low fees."
         }
       }
