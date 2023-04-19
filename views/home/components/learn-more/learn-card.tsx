@@ -26,17 +26,19 @@ const LearnMoreCard: FC<LearnMoreProps> = ({ name, type, Icon, link }) => {
             justifyContent="space-between"
             gridColumn="span 7"
           >
-            <Link href={link}>
-              <Button
-                width="fit-content"
-                mb="4xl"
-                variant="icon"
-                border="1px solid"
-                borderColor="outline"
-              >
-                <Icon maxWidth="100%" maxHeight="100%" />
-              </Button>
-            </Link>
+            <Box width="fit-content">
+              <Link href={link}>
+                <Button
+                  width="fit-content"
+                  mb="4xl"
+                  variant="icon"
+                  border="1px solid"
+                  borderColor="outline"
+                >
+                  <Icon maxWidth="100%" maxHeight="100%" />
+                </Button>
+              </Link>
+            </Box>
             <Typography variant="displayLarge" color="text" mb="xl">
               {t(`landingPage.learnMore.subTitles.${name}`)}
             </Typography>
@@ -50,16 +52,19 @@ const LearnMoreCard: FC<LearnMoreProps> = ({ name, type, Icon, link }) => {
 
   return (
     <Box p="4xl" position="relative">
-      <Link href={link}>
-        <Button
-          mb="4xl"
-          variant="icon"
-          border="1px solid"
-          borderColor="outline"
-        >
-          <Icon maxWidth="100%" maxHeight="100%" />
-        </Button>
-      </Link>
+      <Box width="fit-content">
+        <Link href={link}>
+          <Button
+            width="fit-content"
+            mb="4xl"
+            variant="icon"
+            border="1px solid"
+            borderColor="outline"
+          >
+            <Icon maxWidth="100%" maxHeight="100%" />
+          </Button>
+        </Link>
+      </Box>
       <Typography variant="displayLarge" color="text" mb="xl">
         {t(`landingPage.learnMore.subTitles.${name}`)}
       </Typography>
