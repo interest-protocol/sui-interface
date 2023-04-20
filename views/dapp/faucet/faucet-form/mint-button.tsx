@@ -1,9 +1,13 @@
 import { useTheme } from '@emotion/react';
-import { SUI_TYPE_ARG, TransactionBlock } from '@mysten/sui.js';
+import {
+  isValidSuiAddress,
+  SUI_TYPE_ARG,
+  TransactionBlock,
+} from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { pathOr, prop } from 'ramda';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { FC } from 'react';
 
 import { incrementTX } from '@/api/analytics';
@@ -48,7 +52,7 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
   const { network } = useNetwork();
   const { provider } = useProvider();
 
-  const handleOnMint = useCallback(async () => {
+  const handleOnMint = async () => {
     try {
       const objects = OBJECT_RECORD[network];
       setLoading(true);
@@ -57,7 +61,8 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
       if (!type) throw new Error(t('error.tokenNotFound'));
 
       if (type === SUI_TYPE_ARG) {
-        if (!account) throw new Error(t('error.accountNotFound'));
+        if (!account || !isValidSuiAddress(account))
+          throw new Error(t('error.accountNotFound'));
         await provider.requestSuiFromFaucet(account);
         return;
       }
@@ -87,7 +92,7 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
       setLoading(false);
       await mutate();
     }
-  }, []);
+  };
 
   const onMint = () =>
     showToast(handleOnMint(), {

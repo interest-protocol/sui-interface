@@ -39,14 +39,14 @@ const Wallet: FC = () => {
   const [suiNs, setSuiNS] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    if (network === Network.DEVNET && account && suiNSProvider) {
+    if (account) {
       setLoading(true);
       suiNSProvider
         .getName(account)
         .then(setSuiNS)
         .finally(() => setLoading(false));
     }
-  }, [network, suiNSProvider, account]);
+  }, [network, account]);
 
   return (
     <Box

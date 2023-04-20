@@ -1029,22 +1029,6 @@
     superstruct "^1.0.3"
     tweetnacl "^1.0.3"
 
-"@mysten/sui.js@^0.30.0":
-  version "0.30.0"
-  resolved "https://registry.yarnpkg.com/@mysten/sui.js/-/sui.js-0.30.0.tgz#4f952418f97b172444412f771a5dab842f45e0e8"
-  integrity sha512-7Mb5fGeg/NfoKvZvCQLL+XsuynFZKx328UykPpqcgY7buAbJiTl8dNNncZGH6nC/+fZRf2J9X0EffiKTES78ig==
-  dependencies:
-    "@mysten/bcs" "0.7.0"
-    "@noble/hashes" "^1.2.0"
-    "@noble/secp256k1" "^1.7.1"
-    "@scure/bip32" "^1.1.5"
-    "@scure/bip39" "^1.1.1"
-    "@suchipi/femver" "^1.0.0"
-    jayson "^4.0.0"
-    rpc-websockets "^7.5.1"
-    superstruct "^1.0.3"
-    tweetnacl "^1.0.3"
-
 "@mysten/wallet-adapter-base@0.7.3":
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/@mysten/wallet-adapter-base/-/wallet-adapter-base-0.7.3.tgz#bace22b828991b946eca6176d1f7857e549d9175"
@@ -1439,12 +1423,12 @@
   resolved "https://registry.yarnpkg.com/@suchipi/femver/-/femver-1.0.0.tgz#4909dcc069695e07bd23a64c4bfe411d11d9692f"
   integrity sha512-bprE8+K5V+DPX7q2e2K57ImqNBdfGHDIWaGI5xHxZoxbKOuQZn4wzPiUxOAHnsUr3w3xHrWXwN7gnG/iIuEMIg==
 
-"@suins/toolkit@^1.2.1":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@suins/toolkit/-/toolkit-1.3.0.tgz#6c1d038f554e4f7de94d66cab3135cb96bd01c71"
-  integrity sha512-Ylak/1tgSWaNJkMwGSNfE4FVFWX436m1q8FoCcrjXxRt7gsG9IcDgky3rV3Vg/gJbEcZa6YM6ql9JG6nDJ6VMA==
+"@suins/toolkit@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@suins/toolkit/-/toolkit-1.3.1.tgz#61f6dde16ca79739196bc0d562231470b22cbfc5"
+  integrity sha512-Bj4zzvprItWwcHXcioHtRjt2mhuMwIibRTs374tM0bSBBMt0CnSkrPpvDY0bAarMAQUC5qwCwg3WZwufc4WI0Q==
   dependencies:
-    "@mysten/sui.js" "^0.30.0"
+    "@mysten/sui.js" "^0.32.1"
 
 "@swc/helpers@0.4.11":
   version "0.4.11"

@@ -18,8 +18,7 @@ export const devNetProvider = new JsonRpcProvider(
     : devnetConnection
 );
 
-// TODO type version issue
-export const suiNSDevProvider = new SuinsClient(devNetProvider as any);
+export const suiNSDevNetProvider = new SuinsClient(devNetProvider);
 
 export const testNetProvider = new JsonRpcProvider(
   new Connection({
@@ -32,6 +31,8 @@ export const testNetProvider = new JsonRpcProvider(
     faucet: 'https://faucet.testnet.sui.io/gas',
   })
 );
+
+export const suiNSTestNetProvider = new SuinsClient(testNetProvider);
 
 export const devNetIPXSdk = new SDK(devNetProvider, Network.DEVNET);
 
