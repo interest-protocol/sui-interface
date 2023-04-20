@@ -25,7 +25,6 @@ const SocialWrapper: FC<SocialWrapperProps> = ({ Icon, link }) => (
 const Socials: FC = () => (
   <Box
     mx="auto"
-    gap={['1.5rem', '1.5rem', '2.5rem']}
     width="100%"
     pt="6.25rem"
     pb="1.875rem"
@@ -33,6 +32,7 @@ const Socials: FC = () => (
     position="relative"
     justifyContent="center"
     background="background"
+    gap={['1.5rem', '1.5rem', '2.5rem']}
   >
     {SOCIAL_MEDIAS.map(({ Logo, link }) => (
       <SocialWrapper Icon={Logo} link={link} key={v4()} />
