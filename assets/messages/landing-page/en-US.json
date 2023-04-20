@@ -78,6 +78,20 @@
         }
       }
     },
+    "learnMore": {
+      "title": {
+        "first": "Learn more",
+        "second": "About us"
+      },
+      "subTitles": {
+        "documentation": "Documentation",
+        "ourTeam": "Our Team",
+        "mediaKit": "Media Kit"
+      }
+    },
+    "partners": {
+      "title": "Partners"
+    },
     "footer": {
       "getEarlyNotifications": {
         "title": {
@@ -86,7 +100,10 @@
           "third": "On new features"
         },
         "placeholder": "your-email@gmail.com",
-        "button": "Send"
+        "button": "{isLoading, plural, =1 {Sending...} other {Send}}",
+        "errors": {
+          "1008": "contact already added"
+        }
       }
     }
   }

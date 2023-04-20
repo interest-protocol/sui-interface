@@ -4,6 +4,7 @@ import {
   darkTheme,
   ThemeProvider as InterestThemeProvider,
 } from '@interest-protocol/ui-kit';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FC, PropsWithChildren } from 'react';
 import { SkeletonTheme } from 'react-loading-skeleton';
@@ -15,8 +16,17 @@ import {
 } from '@/design-system/global-styles';
 import { useLocalStorage } from '@/hooks';
 
+import LoadingPage from '../loading-page';
+import NetworkProvider from '../network-provider';
 import { ThemeProps } from './theme-manager.types';
 
+const WalletKitProvider = dynamic(
+  () => import('@mysten/wallet-kit').then((mod) => mod.WalletKitProvider),
+  {
+    ssr: false,
+    loading: LoadingPage,
+  }
+);
 const Theme: FC<PropsWithChildren<ThemeProps>> = ({
   dark,
   setDark,
@@ -35,12 +45,16 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
     );
 
   return (
-    <ThemeProvider
-      theme={{ setDark, ...(dark ? DAppDarkTheme : DAppLightTheme) }}
-    >
-      <Global styles={DappGlobalStyles} />
-      {children}
-    </ThemeProvider>
+    <NetworkProvider>
+      <WalletKitProvider>
+        <ThemeProvider
+          theme={{ setDark, ...(dark ? DAppDarkTheme : DAppLightTheme) }}
+        >
+          <Global styles={DappGlobalStyles} />
+          {children}
+        </ThemeProvider>
+      </WalletKitProvider>
+    </NetworkProvider>
   );
 };
 

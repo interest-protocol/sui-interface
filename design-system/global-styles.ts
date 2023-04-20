@@ -6,6 +6,20 @@ export const LandingGlobalStyles = css`
     padding: 0;
     font-family: 'Roboto Mono', monospace;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body,
+  html {
+    overflow-x: hidden;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
 export const DappGlobalStyles = css`

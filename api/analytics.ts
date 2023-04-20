@@ -25,3 +25,16 @@ export const incrementCreatedCoins = (address: string) =>
   )
     .then()
     .catch(console.error);
+
+export const getMetrics = () =>
+  fetch(
+    `${process.env.NEXT_PUBLIC_IPX_ANALYTICS_SERVER_URL}api/v1/analytics/getProtocolData`,
+    {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  )
+    .then(async (response) => await response.json())
+    .catch(console.error);

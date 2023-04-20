@@ -78,6 +78,21 @@
         }
       }
     },
+    "learnMore": {
+      "title": {
+        "first": "Saiba mais",
+        "second": "Sobre nós"
+      },
+      "subTitles": {
+        "documentation": "Documentação",
+        "ourTeam": "Nossa equipe",
+        "mediaKit": "Kit de mídia"
+      }
+    },
+
+    "partners": {
+      "title": "Parceiros"
+    },
     "footer": {
       "getEarlyNotifications": {
         "title": {
@@ -86,7 +101,10 @@
           "third": " novos recursos"
         },
         "placeholder": "seu-email@gmail.com",
-        "button": "Enviar"
+        "button": "{isLoading, plural, =1 {Enviando...} other {Enviar}}",
+        "errors": {
+          "1008": "Email já adicionado"
+        }
       }
     }
   }

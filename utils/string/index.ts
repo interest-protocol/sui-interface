@@ -1,6 +1,8 @@
 import { MAX_NUMBER_INPUT_VALUE } from 'lib';
 import { ChangeEvent } from 'react';
 
+import { FormattedNumber } from '@/interface';
+
 const isExponential = (number: number) => number.toString().includes('e');
 
 const removeZero = (array: ReadonlyArray<string>): string => {
@@ -25,13 +27,13 @@ const treatNumberDecimals = (number: number, maxDecimals: number) => {
 
   const newNumber = Number(
     integralDigits > 12
-      ? `${integralPart.slice(0, -12)}.${integralPart.slice(-12, -10)}`
+      ? `${integralPart.slice(0, -12)}.${integralPart.slice(-12, -11)}`
       : integralDigits > 9
-      ? `${integralPart.slice(0, -9)}.${integralPart.slice(-9, -7)}`
+      ? `${integralPart.slice(0, -9)}.${integralPart.slice(-9, -8)}`
       : integralDigits > 6
-      ? `${integralPart.slice(0, -6)}.${integralPart.slice(-6, -4)}`
+      ? `${integralPart.slice(0, -6)}.${integralPart.slice(-6, -5)}`
       : integralDigits > 3
-      ? `${integralPart.slice(0, -3)}.${integralPart.slice(-3, -1)}`
+      ? `${integralPart.slice(0, -3)}.${integralPart.slice(-3, -2)}`
       : `${integralPart}.${
           +integralPart >= 10 ? decimalPart?.slice(0, 2) ?? 0 : decimalPart ?? 0
         }`
@@ -97,26 +99,13 @@ const treatMoneyDecimals = (money: number, maxDecimals: number) => {
 export const formatNumber = (
   number: number,
   maxFractionDigits = 20
-): string => {
-  const { integralDigits, newNumber, decimalDigits } = treatNumberDecimals(
+): FormattedNumber => {
+  const { integralDigits, newNumber } = treatNumberDecimals(
     number,
     maxFractionDigits
   );
-
-  const maximumFractionDigits =
-    decimalDigits < maxFractionDigits ? decimalDigits : maxFractionDigits;
-
-  const minimumFractionDigits =
-    decimalDigits > maximumFractionDigits
-      ? maximumFractionDigits
-      : decimalDigits;
-
-  return `${new Intl.NumberFormat('en-US', {
-    currency: 'USD',
-    style: 'currency',
-    maximumFractionDigits,
-    minimumFractionDigits,
-  }).format(newNumber)}${
+  const value = newNumber ?? 0;
+  const unit =
     integralDigits > 12
       ? 'T'
       : integralDigits > 9
@@ -125,8 +114,15 @@ export const formatNumber = (
       ? 'M'
       : integralDigits > 3
       ? 'K'
-      : ''
-  }`.slice(1);
+      : '';
+
+  const toString = () => `${value} ${unit}`;
+
+  return {
+    value,
+    unit,
+    toString,
+  };
 };
 
 export const formatMoney = (money: number, maxFractionDigits = 20): string => {
