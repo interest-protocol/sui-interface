@@ -106,5 +106,21 @@
         }
       }
     }
+  },
+  "team": {
+    "metadata": {
+      "title": "Equipa"
+    },
+    "title": {
+      "first": "A",
+      "second": "Equipe"
+    },
+    "roles": {
+      "CFO": "Co-Fundador & CFO",
+      "CEO": "Co-Fundador & CEO",
+      "developer": "Desenvolvedor",
+      "marketingManager": "Gestor de Marketing",
+      "designer": "Designer"
+    }
   }
 }

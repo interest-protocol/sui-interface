@@ -27,6 +27,7 @@ const WalletKitProvider = dynamic(
     loading: LoadingPage,
   }
 );
+
 const Theme: FC<PropsWithChildren<ThemeProps>> = ({
   dark,
   setDark,
@@ -34,9 +35,9 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
 }) => {
   const { asPath } = useRouter();
 
-  const isHome = asPath === '/';
+  const isRedesign = asPath === '/' || asPath === '/team';
 
-  if (isHome)
+  if (isRedesign)
     return (
       <InterestThemeProvider theme={{ setDark, ...darkTheme }}>
         <Global styles={LandingGlobalStyles} />
