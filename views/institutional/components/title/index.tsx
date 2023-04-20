@@ -13,6 +13,7 @@ const Title: FC<TitleProps> = (props) => (
     as="h1"
     mb="4xl"
     variant="displayLarge"
+    background="linear-gradient(30deg, rgba(153, 187, 255, 0.2) 0%, #99BBFF 3%, #99BBFF 3%, rgba(153, 187, 255, 0.2) 94.16%)"
     animate={{
       background: [
         'linear-gradient(30deg, rgba(153, 187, 255, 0.2) 0%, #99BBFF 3%, #99BBFF 3%, rgba(153, 187, 255, 0.2) 94.16%)',
