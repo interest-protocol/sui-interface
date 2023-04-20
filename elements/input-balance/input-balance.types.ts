@@ -3,7 +3,7 @@ import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 export interface InputBalanceProps {
   max?: boolean;
-  balance: string;
+  balance: string | number;
   disabled?: boolean;
   Prefix?: ReactNode;
   Suffix?: ReactNode;
@@ -16,7 +16,7 @@ export interface InputBalanceProps {
 
 export interface MaxButtonProps {
   name: any;
-  max?: string;
+  max?: string | number;
   disabled?: boolean;
   setValue: UseFormSetValue<any>;
   customFunction?: (name: string) => void;
