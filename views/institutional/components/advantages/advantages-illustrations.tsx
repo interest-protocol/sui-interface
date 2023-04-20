@@ -5,10 +5,13 @@ import { FC } from 'react';
 import {
   AdvantagesBottomShadow,
   AdvantagesCube,
+  AdvantagesInterestCoin,
   AdvantagesIsolatedCube,
   AdvantagesMainCube,
   AdvantagesSideShadow,
   AdvantagesStep,
+  AdvantagesSUICoin,
+  AdvantagesSUICoinShadow,
   AdvantagesTiltedCoin,
   AdvantagesTopShadow,
   StarSVG,
@@ -130,6 +133,34 @@ export const BlockIllustration: FC = () => (
       position="absolute"
     >
       <AdvantagesMainCube maxWidth="100%" maxHeight="100%" width="100%" />
+    </Motion>
+  </>
+);
+
+export const SwapCoinsIllustration: FC = () => (
+  <>
+    <Motion
+      top="50%"
+      left="50%"
+      transform="translate(-50%, -50%)"
+      width="50%"
+      height="50%"
+      position="absolute"
+      bg="white"
+    >
+      <Motion position="absolute" left="0%">
+        <AdvantagesInterestCoin maxWidth="100%" maxHeight="100%" width="100%" />
+      </Motion>
+      <Motion position="absolute" left="50%">
+        <AdvantagesSUICoin maxWidth="100%" maxHeight="100%" width="100%" />
+      </Motion>
+      {/* <Motion position="absolute" left="50%" transform="rotate(0deg)">
+        <AdvantagesSUICoinShadow
+          maxWidth="100%"
+          maxHeight="100%"
+          width="100%"
+        />
+      </Motion> */}
     </Motion>
   </>
 );
