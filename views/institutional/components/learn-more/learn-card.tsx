@@ -11,7 +11,7 @@ import { LearnMoreProps } from './learn-more.types';
 const cardVariants: Variants = {
   hover: {
     backgroundSize: ['100%', '300%', '100%'],
-    backgroundPosition: ['0% 0%', '100% 100%', '100% 0%', '100% 0%'],
+    backgroundPosition: ['0% 0%', '100% 100%', '0% 100%', '100% 0%'],
     transition: {
       duration: 30,
       repeat: Infinity,
