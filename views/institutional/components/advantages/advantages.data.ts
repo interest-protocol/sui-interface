@@ -1,22 +1,22 @@
 import { AdvantagesCardProps } from './advantages.types';
 import {
-  BlocksIllustration,
-  CoinsIllustration,
+  BlockIllustration,
   StepsIllustration,
+  SwapCoinsIllustration,
 } from './advantages-illustrations';
 
 export const ADVANTAGE_LIST: ReadonlyArray<AdvantagesCardProps> = [
   {
     name: 'profits',
-    Illustration: BlocksIllustration,
-  },
-  {
-    name: 'rewards',
     Illustration: StepsIllustration,
   },
   {
+    name: 'rewards',
+    Illustration: BlockIllustration,
+  },
+  {
     name: 'fees',
-    Illustration: CoinsIllustration,
+    Illustration: SwapCoinsIllustration,
   },
 ];
 
