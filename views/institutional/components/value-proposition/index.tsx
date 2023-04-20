@@ -28,10 +28,10 @@ const ValueProposition: FC = () => {
         ]}
       >
         <Box
-          p="l"
           display="grid"
           columnGap="4xl"
           gridColumn="1/-1"
+          p={['0', '0', '0', 'l']}
           gridTemplateAreas={[
             "'b' 'a'",
             "'b' 'a'",
