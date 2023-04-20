@@ -6,7 +6,13 @@ const AdvantagesTitle: FC = () => {
   const t = useTranslations();
 
   return (
-    <Typography as="h1" variant="displayLarge" textAlign="center" mb="4xl">
+    <Typography
+      as="h1"
+      mb="4xl"
+      textAlign="center"
+      gridColumn="1/-1"
+      variant="displayLarge"
+    >
       <Typography
         as="span"
         display="block"
@@ -17,7 +23,7 @@ const AdvantagesTitle: FC = () => {
         WebkitTextFillColor="transparent"
         backgroundClip="text"
       >
-        {t('landingPage.Advantages.title.first')}
+        {t('landingPage.advantages.title.first')}
       </Typography>
       <Typography
         as="span"
@@ -29,7 +35,7 @@ const AdvantagesTitle: FC = () => {
         WebkitTextFillColor="transparent"
         backgroundClip="text"
       >
-        {t('landingPage.Advantages.title.second')}
+        {t('landingPage.advantages.title.second')}
       </Typography>
     </Typography>
   );

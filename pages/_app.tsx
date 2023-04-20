@@ -4,18 +4,12 @@ import 'react-tooltip/dist/react-tooltip.css';
 
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { AppProps } from 'next/app';
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import NextProgress from 'next-progress';
 import { ReactNode, StrictMode, useEffect } from 'react';
 import { Tooltip } from 'react-tooltip';
 
-import {
-  LoadingPage,
-  NetworkProvider,
-  NextIntlProvider,
-  ThemeManager,
-} from '@/components';
+import { NextIntlProvider, ThemeManager } from '@/components';
 import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 import { useLocalStorage } from '@/hooks';
 import { NextPageDefaultProps } from '@/interface';
@@ -23,14 +17,6 @@ import { NextPageDefaultProps } from '@/interface';
 type Props = Omit<AppProps<NextPageDefaultProps>, 'pageProps'> & {
   pageProps: NextPageDefaultProps;
 };
-
-const WalletKitProvider = dynamic(
-  () => import('@mysten/wallet-kit').then((mod) => mod.WalletKitProvider),
-  {
-    ssr: false,
-    loading: LoadingPage,
-  }
-);
 
 const MyApp = ({ Component, pageProps }: Props): ReactNode => {
   const [version, setVersion] = useLocalStorage('sui-interest-version', '');
@@ -66,17 +52,13 @@ const MyApp = ({ Component, pageProps }: Props): ReactNode => {
         now={new Date(pageProps.now)}
         timeZone="UTC"
       >
-        <NetworkProvider>
-          <WalletKitProvider>
-            <ThemeManager>
-              <StrictMode>
-                <Component {...pageProps} />
-                <Tooltip id="interest-tooltip" />
-                <VercelAnalytics />
-              </StrictMode>
-            </ThemeManager>
-          </WalletKitProvider>
-        </NetworkProvider>
+        <ThemeManager>
+          <StrictMode>
+            <Component {...pageProps} />
+            <Tooltip id="interest-tooltip" />
+            <VercelAnalytics />
+          </StrictMode>
+        </ThemeManager>
       </NextIntlProvider>
     </>
   );

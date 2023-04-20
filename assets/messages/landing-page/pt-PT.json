@@ -31,6 +31,67 @@
         }
       }
     },
+    "usedBy": {
+      "title": "Usado por...",
+      "metrics": {
+        "users": {
+          "title": "Utilizadores",
+          "description": "Endereços únicos"
+        },
+        "trades": {
+          "title": "Mercado",
+          "description": "Pools implementadas"
+        },
+        "staked": {
+          "title": "Transações",
+          "description": "Total TXs"
+        }
+      }
+    },
+    "valueProposition": {
+      "title": {
+        "first": "Totalmente Descentralizado",
+        "second": "Completamente Seguro"
+      },
+      "description": "A Interest visa estabelecer uma rede de troca de bens em cadeia, fornecendo todo o apoio subjacente necessário ao seu ecossistema DeFi. Deixar que cada detentor de bens digitais experimente um serviço verdadeiramente seguro, livre e transparente.",
+      "values": {
+        "supported": "Revisão e testes constantes da nossa plataforma",
+        "secure": "Os seus fundos são tão seguros quanto possível",
+        "decentralized": "Totalmente descentralizado e não-custodial",
+        "experience": "Construído por experientes programadores de cadeias de bloqueios"
+      }
+    },
+    "advantages": {
+      "title": {
+        "first": "Tire o máximo",
+        "second": "Proveito de tudo"
+      },
+      "content": {
+        "rewards": {
+          "description": "Receba Recompensas enquanto transaciona."
+        },
+        "profits": {
+          "description": "Maximize os lucros com estratégias automatizadas."
+        },
+        "fees": {
+          "description": "Troque tokens com taxas baixas."
+        }
+      }
+    },
+    "learnMore": {
+      "title": {
+        "first": "Aprenda mais",
+        "second": "Sobre nós"
+      },
+      "subTitles": {
+        "documentation": "Documentação",
+        "ourTeam": "Nossa equipa",
+        "mediaKit": "Kit de mídia"
+      }
+    },
+    "partners": {
+      "title": "Parceiros"
+    },
     "footer": {
       "getEarlyNotifications": {
         "title": {
@@ -38,8 +99,11 @@
           "second": "antecipadas sobre",
           "third": "novos recursos"
         },
-        "placheholder": "teu-email@gmail.com",
-        "button": "Enviar"
+        "placeholder": "teu-email@gmail.com",
+        "button": "{isLoading, plural, =1 {Enviando...} other {Enviar}}",
+        "errors": {
+          "1008": "Email já adicionado"
+        }
       }
     }
   }

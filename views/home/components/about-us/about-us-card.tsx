@@ -1,4 +1,5 @@
-import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
+import { Variants } from 'framer-motion';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
@@ -7,11 +8,25 @@ import { ArrowLinkSVG } from '@/svg';
 
 import { AboutUsCardProps } from './about-us.types';
 
+const cardVariants: Variants = {
+  offscreen: {
+    y: '105%',
+  },
+  onscreen: {
+    y: '0%',
+    transition: {
+      bounce: 0.2,
+      duration: 0.5,
+      type: 'spring',
+    },
+  },
+};
+
 const AboutUsCard: FC<AboutUsCardProps> = ({ name, link, Illustration }) => {
   const t = useTranslations();
 
   return (
-    <Box
+    <Motion
       p="2xs"
       my="4xl"
       width="100%"
@@ -19,9 +34,13 @@ const AboutUsCard: FC<AboutUsCardProps> = ({ name, link, Illustration }) => {
       columnGap="2xl"
       alignItems="end"
       borderRadius="m"
+      overflow="hidden"
       border="1px solid"
+      initial="offscreen"
+      whileInView="onscreen"
       borderColor="textAccent"
-      gridColumn={['1/5', '1/5', '1, 9', '2/12']}
+      viewport={{ once: true, amount: 0.8 }}
+      gridColumn={['1/-1', '1/-1', '1/-1', '2/12']}
       gridTemplateColumns={['1fr', '1fr', '1fr', '1fr 1fr']}
     >
       <Box
@@ -37,11 +56,17 @@ const AboutUsCard: FC<AboutUsCardProps> = ({ name, link, Illustration }) => {
           {t(`landingPage.aboutUs.services.${name}.description`)}
         </Typography>
       </Box>
-      <Box bg="#B6C4FF0A" height="100%" position="relative">
+      <Motion
+        bg="#B6C4FF0A"
+        height="100%"
+        position="relative"
+        variants={cardVariants}
+      >
         <Link href={link}>
           <Button
             m="xl"
             right="0"
+            zIndex="1"
             variant="icon"
             border="1px solid"
             position="absolute"
@@ -50,11 +75,11 @@ const AboutUsCard: FC<AboutUsCardProps> = ({ name, link, Illustration }) => {
             <ArrowLinkSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
           </Button>
         </Link>
-        <Box m="4xl" p="4xl" minHeight="21rem">
+        <Box m="4xl" p="4xl" height={['15rem', '21rem']} position="relative">
           <Illustration />
         </Box>
-      </Box>
-    </Box>
+      </Motion>
+    </Motion>
   );
 };
 

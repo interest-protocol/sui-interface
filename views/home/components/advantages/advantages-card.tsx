@@ -4,29 +4,37 @@ import { FC } from 'react';
 
 import { AdvantagesCardProps } from './advantages.types';
 
-const AdvantagesCard: FC<AdvantagesCardProps> = ({
-  position,
-  Illustration,
-}) => {
+const AdvantagesCard: FC<AdvantagesCardProps> = ({ name, Illustration }) => {
   const t = useTranslations();
 
   return (
     <Box
       p="2xs"
-      my="4xl"
-      width="15.625rem"
+      mx="auto"
       display="grid"
       columnGap="2xl"
       borderRadius="m"
+      width="15.625rem"
       border="1px solid"
       borderColor="textAccent"
     >
-      <Box p="xl" pb={['4xl', '4xl', 'xl']} mb={['xl', 'xl', 'unset']}>
-        <Typography variant="title6" color="text" mb="xl" textAlign="center">
-          {t(`landingPage.Advantages.content.${position}.description`)}
+      <Box
+        p="xl"
+        height="6.5rem"
+        pb={['4xl', '4xl', 'xl']}
+        mb={['xl', 'xl', 'unset']}
+      >
+        <Typography variant="large" color="text" mb="xl" textAlign="center">
+          {t(`landingPage.advantages.content.${name}.description`)}
         </Typography>
       </Box>
-      <Box bg="#B6C4FF0A" height="100%" position="relative">
+      <Box
+        bg="#B6C4FF0A"
+        borderRadius="m"
+        width="15.625rem"
+        height="15.625rem"
+        position="relative"
+      >
         <Box m="4xl" p="4xl">
           <Illustration />
         </Box>

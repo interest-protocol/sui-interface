@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import { SVGProps } from './svg.types';
+import { SVGProps } from '../../../../components/svg/svg.types';
 
-export const Cube: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
+export const HeroCube: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   <svg
     style={{ maxWidth, maxHeight }}
     viewBox="0 0 97 112"
@@ -66,7 +66,11 @@ export const Cube: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   </svg>
 );
 
-export const CubeIPX: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
+export const HeroCubeIPX: FC<SVGProps> = ({
+  maxWidth,
+  maxHeight,
+  ...props
+}) => (
   <svg
     style={{ maxWidth, maxHeight }}
     viewBox="0 0 95 110"
@@ -136,7 +140,11 @@ export const CubeIPX: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   </svg>
 );
 
-export const CubeSUI: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
+export const HeroCubeSUI: FC<SVGProps> = ({
+  maxWidth,
+  maxHeight,
+  ...props
+}) => (
   <svg
     style={{ maxWidth, maxHeight }}
     viewBox="0 0 97 112"
@@ -227,7 +235,11 @@ export const CubeSUI: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   </svg>
 );
 
-export const CubeBNB: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
+export const HeroCubeBNB: FC<SVGProps> = ({
+  maxWidth,
+  maxHeight,
+  ...props
+}) => (
   <svg
     style={{ maxWidth, maxHeight }}
     viewBox="0 0 97 112"
@@ -297,7 +309,11 @@ export const CubeBNB: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   </svg>
 );
 
-export const CubeNumber: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
+export const HeroCubeNumber: FC<SVGProps> = ({
+  maxWidth,
+  maxHeight,
+  ...props
+}) => (
   <svg
     style={{ maxWidth, maxHeight }}
     viewBox="0 0 116 135"
@@ -349,7 +365,11 @@ export const CubeNumber: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   </svg>
 );
 
-export const CubeShadow: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
+export const HeroCubeShadow: FC<SVGProps> = ({
+  maxWidth,
+  maxHeight,
+  ...props
+}) => (
   <svg
     style={{ maxWidth, maxHeight }}
     viewBox="0 0 96 55"
