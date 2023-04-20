@@ -48,8 +48,8 @@ const TeamCard: FC<TeamCardProps> = ({ image, social, name, role }) => {
         as="p"
         width="100%"
         variant="small"
-        color="#ACAAAF"
         fontSize="1rem"
+        color="textSoft"
       >
         {t(role as TTranslatedMessage)}
       </Typography>
@@ -61,9 +61,9 @@ const TeamCard: FC<TeamCardProps> = ({ image, social, name, role }) => {
               <Box
                 mx="M"
                 as="span"
+                color="text"
                 width="1.6rem"
                 display="inline-block"
-                color="#F2F0F4"
                 nHover={{
                   color: 'primary',
                 }}
