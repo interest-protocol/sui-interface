@@ -57,15 +57,20 @@ const LearnMoreCard: FC<LearnMoreProps> = ({ name, big, link, external }) => {
         >
           <LinkSVG maxWidth="100%" maxHeight="100%" />
         </Button>
-        <Typography variant="displayLarge" color="text" mb="xl">
+        <Typography
+          mb="xl"
+          color="text"
+          wordBreak="break-all"
+          variant="displayLarge"
+        >
           {t(`landingPage.learnMore.subTitles.${name}`)}
         </Typography>
       </Box>
       <Motion
         borderRadius="m"
         variants={cardVariants}
-        height={['17rem', '17rem', '17rem', big ? '18rem' : '17rem']}
         width={['auto', 'auto', 'auto', big ? '49%' : 'auto']}
+        height={['10rem', '17rem', '18rem', big ? '18rem' : '14rem']}
         backgroundImage={`url('images/home/${name}.png')`}
         backgroundPosition="0% 50%"
         backgroundRepeat="no-repeat"
