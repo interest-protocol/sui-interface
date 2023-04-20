@@ -1,20 +1,14 @@
 import { Box, Motion } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
+import { v4 } from 'uuid';
 
-import {
-  DiscordSVG,
-  GithubSVG,
-  InstagramSVG,
-  MediumSVG,
-  TelegramSVG,
-  TwitterSVG,
-  YoutubeSVG,
-} from '@/svg';
+import { SOCIAL_MEDIAS } from '@/constants';
 
 import { SocialWrapperProps } from './social.types';
 
-const SocialWrapper: FC<SocialWrapperProps> = ({ Icon, ...props }) => (
+const SocialWrapper: FC<SocialWrapperProps> = ({ Icon, link }) => (
   <Motion
+    as="a"
     color="primary"
     cursor="pointer"
     whileHover={{
@@ -22,7 +16,7 @@ const SocialWrapper: FC<SocialWrapperProps> = ({ Icon, ...props }) => (
       filter: 'hue-rotate(360deg) brightness(1.5) opacity(0.95)',
     }}
     transition={{ duration: 0.8 }}
-    {...props}
+    {...{ href: link, target: '_blank', rel: 'noreferrer' }}
   >
     <Icon width="1.375rem" maxWidth="1.375rem" maxHeight="1.375rem" />
   </Motion>
@@ -40,13 +34,9 @@ const Socials: FC = () => (
     justifyContent="center"
     background="background"
   >
-    <SocialWrapper Icon={MediumSVG} />
-    <SocialWrapper Icon={InstagramSVG} />
-    <SocialWrapper Icon={YoutubeSVG} />
-    <SocialWrapper Icon={TwitterSVG} />
-    <SocialWrapper Icon={TelegramSVG} />
-    <SocialWrapper Icon={GithubSVG} />
-    <SocialWrapper Icon={DiscordSVG} />
+    {SOCIAL_MEDIAS.map(({ Logo, link }) => (
+      <SocialWrapper Icon={Logo} link={link} key={v4()} />
+    ))}
   </Box>
 );
 
