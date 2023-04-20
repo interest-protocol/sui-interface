@@ -4,5 +4,6 @@ export { default as Hero } from './hero';
 export { default as Layout } from './layout';
 export { default as LearnMore } from './learn-more';
 export { default as Partners } from './partners';
+export { default as Team } from './team';
 export { default as UsedBy } from './used-by';
 export { default as ValueProposition } from './value-proposition';

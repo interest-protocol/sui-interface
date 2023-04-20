@@ -9,17 +9,17 @@ import {
 
 export const SOCIAL_SVG = {
   github: GithubSVG,
-  linkedin: LinkedInSVG,
   twitter: TwitterSVG,
   discord: DiscordSVG,
-  dribbble: DribbleSVG,
   behance: BehanceSVG,
+  dribbble: DribbleSVG,
+  linkedin: LinkedInSVG,
 };
 
 export const TEAM_MEMBERS = [
   {
     name: 'José Cerqueira',
-    role: 'landingPage.roleCEO',
+    role: 'team.roles.CEO',
     image: 'jose-cerqueira',
     social: {
       github: 'https://github.com/josemvcerqueira',
@@ -29,7 +29,7 @@ export const TEAM_MEMBERS = [
   },
   {
     name: 'José P. Nelumba',
-    role: 'landingPage.team.roleCFO',
+    role: 'team.roles.CFO',
     image: 'jose-nelumba',
     social: {
       linkedin:
@@ -39,7 +39,7 @@ export const TEAM_MEMBERS = [
   },
   {
     name: 'Marco Pitra',
-    role: 'landingPage.team.developer',
+    role: 'team.roles.developer',
     image: 'marco-pitra',
     social: {
       github: 'https://github.com/git-marcopitra',
@@ -49,7 +49,7 @@ export const TEAM_MEMBERS = [
   },
   {
     name: 'António Kipanda',
-    role: 'landingPage.team.developer',
+    role: 'team.roles.developer',
     image: 'antonio-cardoso',
     social: {
       github: 'https://github.com/KipandaJr',
@@ -59,7 +59,7 @@ export const TEAM_MEMBERS = [
   },
   {
     name: 'Nilam Jaiswal',
-    role: 'landingPage.team.marketingManager',
+    role: 'team.roles.marketing',
     image: 'nilam-jaiswal',
     social: {
       discord: 'http://discordapp.com/users/851547717163024437',
@@ -69,7 +69,7 @@ export const TEAM_MEMBERS = [
   },
   {
     name: 'Leonardo Hernandez',
-    role: 'landingPage.team.designer',
+    role: 'team.roles.designer',
     image: 'leonardo-hernandez',
     social: {
       linkedin:

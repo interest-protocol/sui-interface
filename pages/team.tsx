@@ -3,7 +3,7 @@ import { mergeDeepRight } from 'ramda';
 
 import { SEO } from '@/components';
 import { NextPageWithProps } from '@/interface';
-import TeamPage from '@/views/team';
+import TeamPage from '@/views/institutional/team';
 
 const HomePage: NextPageWithProps = ({ pageTitle }) => (
   <>
@@ -13,12 +13,12 @@ const HomePage: NextPageWithProps = ({ pageTitle }) => (
 );
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, dexMessages] = await Promise.all([
+  const [commonMessages, teamMessages] = await Promise.all([
     import(`../assets/messages/common/${locale}.json`),
-    import(`../assets/messages/team/${locale}.json`),
+    import(`../assets/messages/landing-page/${locale}.json`),
   ]);
 
-  const messages = mergeDeepRight(commonMessages.default, dexMessages.default);
+  const messages = mergeDeepRight(commonMessages.default, teamMessages.default);
   return {
     props: {
       messages,

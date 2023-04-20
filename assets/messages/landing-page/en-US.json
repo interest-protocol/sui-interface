@@ -92,17 +92,6 @@
     "partners": {
       "title": "Partners"
     },
-    "team": {
-      "title": {
-        "first": "The",
-        "second": "Team"
-      },
-      "roleCFO": "Co-Founder & CFO",
-      "roleCEO": "Co-Founder & CEO",
-      "developer": "Developer",
-      "marketingManager": "Marketing Manager",
-      "designer": "Designer"
-    },
     "footer": {
       "getEarlyNotifications": {
         "title": {
@@ -116,6 +105,22 @@
           "1008": "contact already added"
         }
       }
+    }
+  },
+  "team": {
+    "metadata": {
+      "title": "Team"
+    },
+    "title": {
+      "first": "The",
+      "second": "Team"
+    },
+    "roles": {
+      "CFO": "Co-Founder & CFO",
+      "CEO": "Co-Founder & CEO",
+      "developer": "Developer",
+      "marketing": "Marketing Manager",
+      "designer": "Designer"
     }
   }
 }

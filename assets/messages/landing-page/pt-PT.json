@@ -92,17 +92,6 @@
     "partners": {
       "title": "Parceiros"
     },
-    "team": {
-      "title": {
-        "first": "A",
-        "second": "Equipa"
-      },
-      "roleCFO": "Co-Fundador & CFO",
-      "roleCEO": "Co-Fundador & CEO",
-      "developer": "Desenvolvedor",
-      "marketingManager": "Gestor de Marketing",
-      "designer": "Designer"
-    },
     "footer": {
       "getEarlyNotifications": {
         "title": {
@@ -116,6 +105,22 @@
           "1008": "Email já adicionado"
         }
       }
+    }
+  },
+  "team": {
+    "metadata": {
+      "title": "Equipa"
+    },
+    "title": {
+      "first": "A",
+      "second": "Equipe"
+    },
+    "roles": {
+      "CFO": "Co-Fundador & CFO",
+      "CEO": "Co-Fundador & CEO",
+      "developer": "Desenvolvedor",
+      "marketingManager": "Gestor de Marketing",
+      "designer": "Designer"
     }
   }
 }

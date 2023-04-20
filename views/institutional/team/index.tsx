@@ -1,7 +1,6 @@
 import { FC } from 'react';
 
-import { Layout } from '../home/components';
-import { Team } from './components';
+import { Layout, Team } from '../components';
 
 const TeamPage: FC = () => (
   <Layout>

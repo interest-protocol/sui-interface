@@ -9,7 +9,7 @@ import {
   Partners,
   UsedBy,
   ValueProposition,
-} from './components';
+} from '../components';
 
 const Home: FC = () => (
   <Layout>
