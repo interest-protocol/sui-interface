@@ -3,8 +3,9 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { AdvantagesCardProps } from './advantages.types';
+import { StepsIllustration } from './advantages-illustrations';
 
-const AdvantagesCard: FC<AdvantagesCardProps> = ({ name, Illustration }) => {
+const AdvantagesCard: FC<AdvantagesCardProps> = ({ name }) => {
   const t = useTranslations();
 
   return (
@@ -34,7 +35,7 @@ const AdvantagesCard: FC<AdvantagesCardProps> = ({ name, Illustration }) => {
         height="15.625rem"
         position="relative"
       >
-        <Illustration />
+        <StepsIllustration />
       </Box>
     </Box>
   );
