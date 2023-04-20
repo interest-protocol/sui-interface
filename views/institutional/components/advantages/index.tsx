@@ -3,8 +3,8 @@ import { FC } from 'react';
 import Slider from 'react-slick';
 import { v4 } from 'uuid';
 
+import { ADVANTAGE_LIST, slickSettings } from './advantages.data';
 import AdvantagesCard from './advantages-card';
-import { ADVANTAGE_LIST, slickSettings } from './advantages-data';
 import AdvantagesTitle from './advantages-title';
 
 const Advantages: FC = () => (
