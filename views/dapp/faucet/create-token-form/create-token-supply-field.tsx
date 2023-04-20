@@ -15,7 +15,7 @@ const CreateTokenSupplyField: FC<CreateTokenSupplyFieldProps> = ({
     </Typography>
     <InputBalance
       isLarge
-      balance="∞"
+      balance={Infinity}
       name="amount"
       register={register}
       setValue={setValue}

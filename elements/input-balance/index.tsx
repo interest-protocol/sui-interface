@@ -98,7 +98,7 @@ const InputBalance: FC<InputBalanceProps> = ({
         <Typography fontSize="S" variant="normal" textTransform="capitalize">
           {t('common.balance')}:{' '}
           <Typography fontSize="S" variant="normal" fontWeight="bold" as="span">
-            {formatMoney(+balance)}
+            {Infinity === balance ? '∞' : formatMoney(+balance)}
           </Typography>
         </Typography>
       </Box>
