@@ -90,6 +90,7 @@ export const AboutUsEarnIPX: FC<SVGProps> = ({
     </defs>
   </svg>
 );
+
 export const AboutUsEarnETH: FC<SVGProps> = ({
   maxWidth,
   maxHeight,

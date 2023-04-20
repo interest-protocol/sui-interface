@@ -4,6 +4,7 @@ import { SVGProps } from '@/components/svg/svg.types';
 
 export interface AdvantagesCardProps {
   name: 'rewards' | 'profits' | 'fees';
+  Illustration: FC;
 }
 export interface IconWrapperProps {
   size: string;
@@ -12,8 +13,7 @@ export interface IconWrapperProps {
   right?: string;
   bottom?: string;
   shining?: boolean;
-  goDownStairs?: boolean;
-  hittingTheFloor?: boolean;
-  floating?: boolean;
   Icon: FC<SVGProps>;
+  floating?: boolean;
+  hittingTheFloor?: boolean;
 }
