@@ -26,7 +26,12 @@ const TeamCard: FC<TeamCardProps> = ({ image, social, name, role }) => {
       borderColor="textAccent"
       gridColumn={['span 4', 'span 4', 'span 4', 'span 4']}
     >
-      <Box height="18rem" overflow="hidden" borderRadius="m" bg="#fff1">
+      <Box
+        height={['18rem', '12rem', '14rem', '18rem']}
+        overflow="hidden"
+        borderRadius="m"
+        bg="#fff1"
+      >
         <ResponsiveImage alt={image} path={`team/${image}`} />
       </Box>
       <Typography
@@ -48,7 +53,7 @@ const TeamCard: FC<TeamCardProps> = ({ image, social, name, role }) => {
       >
         {t(role as TTranslatedMessage)}
       </Typography>
-      <Box display="flex" gap="xl" alignItems="center">
+      <Box display="flex" gap="l" alignItems="center">
         {toPairs(social).map(([network, link]) => {
           const Icon = SOCIAL_SVG[network];
           return (
