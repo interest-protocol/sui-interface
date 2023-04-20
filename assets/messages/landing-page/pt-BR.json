@@ -19,11 +19,11 @@
       "services": {
         "earn": {
           "name": "Invista",
-          "description": "Invista em passivos com cripto. Interest protocol facilita fazer a tua cripto trabalhar para ti."
+          "description": "Ponha os seus bens digitais a trabalhar e ganhe retornos estáveis. A Interest Protocol permite-lhe sentar-se e ver o seu investimento crescer."
         },
         "trade": {
           "name": "Transacione",
-          "description": "Comercialize o teu par favorito na tua rede favorita pela Swap interface."
+          "description": "Leve o seu jogo de negociação para o próximo nível, na nossa interface de troca, pode facilmente trocar os seus pares de cripto favoritos todos num só lugar."
         },
         "lend": {
           "name": "Empreste",
@@ -53,7 +53,7 @@
         "first": "Totalmente Descentralizado",
         "second": "Completamente Seguro"
       },
-      "description": "A Interest visa estabelecer uma rede de troca de bens em cadeia, fornecendo todo o apoio subjacente necessário ao seu ecossistema DeFi. Deixar que cada detentor de bens digitais experimente um serviço verdadeiramente seguro, livre e transparente.",
+      "description": "A Interest visa estabelecer uma rede de intercâmbio, fornecendo todo o apoio subjacente necessário para um ecossistema DeFi robusto. O nosso objectivo é capacitar cada detentor de activos digitais a experimentar um serviço verdadeiramente seguro, livre e transparente.",
       "values": {
         "supported": "Revisão e testes constantes da nossa plataforma",
         "secure": "Os seus fundos são tão seguros quanto possível",
@@ -106,6 +106,22 @@
           "1008": "Email já adicionado"
         }
       }
+    }
+  },
+  "team": {
+    "metadata": {
+      "title": "Equipa"
+    },
+    "title": {
+      "first": "A",
+      "second": "Equipe"
+    },
+    "roles": {
+      "CFO": "Co-Fundador & CFO",
+      "CEO": "Co-Fundador & CEO",
+      "developer": "Desenvolvedor",
+      "marketingManager": "Gestor de Marketing",
+      "designer": "Designer"
     }
   }
 }
