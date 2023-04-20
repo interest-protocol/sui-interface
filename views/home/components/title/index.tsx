@@ -1,5 +1,5 @@
 import { Typography, TypographyProps } from '@interest-protocol/ui-kit';
-import { CustomDomComponent, motion } from 'framer-motion';
+import { CustomDomComponent, easeInOut, motion } from 'framer-motion';
 import { FC } from 'react';
 
 import { TitleProps } from './title.types';
@@ -34,8 +34,9 @@ const Title: FC<TitleProps> = (props) => (
     }}
     {...props}
     transition={{
-      repeat: Infinity,
       duration: 6,
+      ease: easeInOut,
+      repeat: Infinity,
     }}
   />
 );
