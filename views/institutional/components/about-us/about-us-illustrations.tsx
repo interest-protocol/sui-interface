@@ -42,7 +42,7 @@ export const IconWrapper: FC<IconWrapperProps> = ({
         repeat: Infinity,
         repeatType: 'reverse',
         delay: Math.random() * 1 + 0.2,
-        duration: Math.random() * 1 + 0.5,
+        duration: Math.random() * (shining ? 2 : 1) + (shining ? 1 : 0.5),
       },
     })}
   >
