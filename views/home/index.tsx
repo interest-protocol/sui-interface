@@ -5,6 +5,7 @@ import {
   Advantages,
   Hero,
   Layout,
+  LearnMore,
   Partners,
   UsedBy,
   ValueProposition,
@@ -17,6 +18,7 @@ const Home: FC = () => (
     <UsedBy />
     <ValueProposition />
     <Advantages />
+    <LearnMore />
     <Partners />
   </Layout>
 );
