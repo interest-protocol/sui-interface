@@ -8,7 +8,7 @@ const AboutUsTitle: FC = () => {
   const t = useTranslations();
 
   return (
-    <Title as="h2" textAlign="center" mb="4xl">
+    <Title as="h2" textAlign="center" mb="4xl" gridColumn="1/-1">
       <Typography
         as="span"
         display="block"

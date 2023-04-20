@@ -28,6 +28,10 @@ const Partners: FC = () => {
                 border="1px solid"
                 textDecoration="none"
                 borderColor="textAccent"
+                transition="backgroundColor 300ms ease-in-out"
+                nHover={{
+                  backgroundColor: '#ffffff08',
+                }}
               >
                 {name}
               </Typography>

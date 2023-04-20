@@ -10,7 +10,6 @@ const AdvantagesCard: FC<AdvantagesCardProps> = ({ name, Illustration }) => {
   return (
     <Box
       p="2xs"
-      mx="auto"
       display="grid"
       columnGap="2xl"
       borderRadius="m"

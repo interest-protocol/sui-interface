@@ -1,12 +1,12 @@
 import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
 import { Variants } from 'framer-motion';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
-import { FC, PropsWithChildren } from 'react';
+import { FC } from 'react';
 
 import { LinkSVG } from '@/svg';
 
-import { LearnMoreProps, LinkWrapperProps } from './learn-more.types';
+import { LearnMoreProps } from './learn-more.types';
 
 const cardVariants: Variants = {
   hover: {
@@ -19,48 +19,44 @@ const cardVariants: Variants = {
   },
 };
 
-const LinkWrapper: FC<PropsWithChildren<LinkWrapperProps>> = ({
-  href,
-  external,
-  children,
-}) => {
-  if (external)
-    return (
-      <a href={href} target="_blank" rel="noreferrer">
-        {children}
-      </a>
-    );
-
-  return <Link href={href}>{children}</Link>;
+const wrapperVariant = {
+  hover: {
+    backgroundColor: '#ffffff08',
+  },
 };
 
 const LearnMoreCard: FC<LearnMoreProps> = ({ name, big, link, external }) => {
   const t = useTranslations();
+  const { push } = useRouter();
 
   return (
     <Motion
       p="2xl"
       display="flex"
       borderRadius="m"
+      cursor="pointer"
       whileHover="hover"
       border="1px solid"
       position="relative"
       borderColor="textAccent"
+      variants={wrapperVariant}
       justifyContent="space-between"
       gridColumn={big ? '1/-1' : ['1/-1', '1/-1', '1/-1', 'span 6']}
       flexDirection={['column', 'column', 'column', big ? 'row' : 'column']}
+      {...(external
+        ? { as: 'a', href: link, target: '_blank', rel: 'noreferrer' }
+        : { onClick: () => push(link) })}
     >
       <Box display="flex" flexDirection="column" justifyContent="space-between">
-        <LinkWrapper href={link} external={external}>
-          <Button
-            mb="4xl"
-            variant="icon"
-            border="1px solid"
-            borderColor="outline"
-          >
-            <LinkSVG maxWidth="100%" maxHeight="100%" />
-          </Button>
-        </LinkWrapper>
+        <Button
+          mb="4xl"
+          variant="icon"
+          border="1px solid"
+          width="fit-content"
+          borderColor="outline"
+        >
+          <LinkSVG maxWidth="100%" maxHeight="100%" />
+        </Button>
         <Typography variant="displayLarge" color="text" mb="xl">
           {t(`landingPage.learnMore.subTitles.${name}`)}
         </Typography>

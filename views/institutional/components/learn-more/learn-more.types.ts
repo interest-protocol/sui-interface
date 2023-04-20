@@ -4,8 +4,3 @@ export interface LearnMoreProps {
   external?: boolean;
   name: 'documentation' | 'ourTeam' | 'mediaKit';
 }
-
-export interface LinkWrapperProps {
-  href: string;
-  external?: boolean;
-}

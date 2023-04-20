@@ -9,9 +9,7 @@ import AboutUsTitle from './about-us-title';
 const AboutUs: FC = () => (
   <Box bg="background" py="4xl">
     <Box variant="container">
-      <Box gridColumn="1/-1">
-        <AboutUsTitle />
-      </Box>
+      <AboutUsTitle />
       {SERVICES_LIST.map((service) => (
         <AboutUsCard {...service} key={v4()} />
       ))}

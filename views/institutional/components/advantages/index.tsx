@@ -8,16 +8,16 @@ import { ADVANTAGE_LIST, slickSettings } from './advantages-data';
 import AdvantagesTitle from './advantages-title';
 
 const Advantages: FC = () => (
-  <Box bg="background">
-    <Box variant="container" py="4xl">
+  <Box bg="background" py="4xl">
+    <Box variant="container">
       <AdvantagesTitle />
-      <Box gap="s" gridColumn="1/-1" maxWidth="50rem">
-        <Slider {...slickSettings}>
-          {ADVANTAGE_LIST.map((advantage) => (
-            <AdvantagesCard key={v4()} {...advantage} />
-          ))}
-        </Slider>
-      </Box>
+    </Box>
+    <Box gap="s" width={['100%', '100%', '50rem']} mx="auto">
+      <Slider {...slickSettings}>
+        {ADVANTAGE_LIST.map((advantage) => (
+          <AdvantagesCard key={v4()} {...advantage} />
+        ))}
+      </Slider>
     </Box>
   </Box>
 );
