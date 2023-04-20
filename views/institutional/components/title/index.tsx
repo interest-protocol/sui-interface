@@ -35,6 +35,7 @@ const Title: FC<TitleProps> = (props) => (
       ease: easeInOut,
       repeat: Infinity,
     }}
+    fontWeight="400"
   />
 );
 
