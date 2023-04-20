@@ -35,9 +35,7 @@ const AdvantagesCard: FC<AdvantagesCardProps> = ({ name, Illustration }) => {
         height="15.625rem"
         position="relative"
       >
-        <Box m="4xl" p="4xl">
-          <Illustration />
-        </Box>
+        <Illustration />
       </Box>
     </Box>
   );

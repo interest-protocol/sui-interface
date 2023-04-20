@@ -78,6 +78,17 @@
         }
       }
     },
+    "learnMore": {
+      "title": {
+        "first": "Learn more",
+        "second": "About us"
+      },
+      "subTitles": {
+        "documentation": "Documentation",
+        "ourTeam": "Our Team",
+        "mediaKit": "Media Kit"
+      }
+    },
     "partners": {
       "title": "Partners"
     },

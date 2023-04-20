@@ -1,12 +1,14 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+
+import Title from '../title';
 
 const ValuePropositionTitle: FC = () => {
   const t = useTranslations();
 
   return (
-    <Box
+    <Title
       as="h2"
       gridArea="b"
       display="flex"
@@ -23,20 +25,6 @@ const ValuePropositionTitle: FC = () => {
         variant="displayLarge"
         width={['unset', 'unset', 'unset', '30rem']}
         textAlign={['center', 'center', 'center', 'left']}
-        bg={[
-          'linear-gradient(90deg, #99BBFF 27.59%, rgba(153, 187, 255, 0.2) 72.37%)',
-          'linear-gradient(90deg, #99BBFF 27.59%, rgba(153, 187, 255, 0.2) 72.37%)',
-          'linear-gradient(90deg, #99BBFF 27.59%, rgba(153, 187, 255, 0.2) 72.37%)',
-          'linear-gradient(270deg, #99BBFF 1.56%, rgba(153, 187, 255, 0.2) 100%)',
-        ]}
-        WebkitBackgroundClip={['text', 'text', 'text', 'text']}
-        WebkitTextFillColor={[
-          'transparent',
-          'transparent',
-          'transparent',
-          'transparent',
-        ]}
-        backgroundClip={['text', 'text', 'text', 'text']}
       >
         {t('landingPage.valueProposition.title.first')}
       </Typography>
@@ -46,24 +34,10 @@ const ValuePropositionTitle: FC = () => {
         variant="displayLarge"
         width={['unset', 'unset', 'unset', '30rem']}
         textAlign={['center', 'center', 'center', 'left']}
-        bg={[
-          'linear-gradient(270deg, #99BBFF 16.84%, rgba(153, 187, 255, 0.2) 83.81%)',
-          'linear-gradient(270deg, #99BBFF 16.84%, rgba(153, 187, 255, 0.2) 83.81%)',
-          'linear-gradient(270deg, #99BBFF 16.84%, rgba(153, 187, 255, 0.2) 83.81%)',
-          'linear-gradient(90deg, #99BBFF 2.92%, rgba(153, 187, 255, 0.2) 102.1%)',
-        ]}
-        WebkitBackgroundClip={['text', 'text', 'text', 'text']}
-        WebkitTextFillColor={[
-          'transparent',
-          'transparent',
-          'transparent',
-          'transparent',
-        ]}
-        backgroundClip={['text', 'text', 'text', 'text']}
       >
         {t('landingPage.valueProposition.title.second')}
       </Typography>
-    </Box>
+    </Title>
   );
 };
 

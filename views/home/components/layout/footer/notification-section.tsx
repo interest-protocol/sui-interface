@@ -13,6 +13,8 @@ import toast from 'react-hot-toast';
 
 import { capitalize } from '@/utils';
 
+import Title from '../../title';
+
 const NotificationSection: FC = () => {
   const t = useTranslations();
   const { colors } = useTheme() as Theme;
@@ -65,29 +67,10 @@ const NotificationSection: FC = () => {
         width={['unset', 'unset', '34.75rem']}
         margin={['1.25rem', '1.25rem', '0 auto']}
       >
-        <Typography
-          as="h1"
-          my="2xl"
-          gridColumn="1/8"
-          fontWeight="400"
-          variant="displayLarge"
-        >
+        <Title as="h2" my="2xl" gridColumn="1/8" fontWeight="400">
           <Typography
             as="span"
-            display={['block', 'block', 'none']}
-            textAlign="center"
-            variant="displaySmall"
-            letterSpacing="-0.15rem"
-            background={`linear-gradient(90deg, ${colors.primary} 27.62%, ${colors.primary}33 82.41%)`}
-            WebkitBackgroundClip="text"
-            WebkitTextFillColor="transparent"
-            backgroundClip="text"
-          >
-            {t('landingPage.footer.getEarlyNotifications.title.first')}
-          </Typography>
-          <Typography
-            as="span"
-            display={['none', 'none', 'block']}
+            display="block"
             textAlign="center"
             variant="displayLarge"
             letterSpacing="-0.15rem"
@@ -98,23 +81,9 @@ const NotificationSection: FC = () => {
           >
             {t('landingPage.footer.getEarlyNotifications.title.first')}
           </Typography>
-
           <Typography
             as="span"
-            display={['block', 'block', 'none']}
-            textAlign="center"
-            variant="displaySmall"
-            letterSpacing="-0.15rem"
-            background={`linear-gradient(270deg, ${colors.primary} 18.13%, ${colors.primary}33 102.01%)`}
-            WebkitBackgroundClip="text"
-            WebkitTextFillColor="transparent"
-            backgroundClip="text"
-          >
-            {t('landingPage.footer.getEarlyNotifications.title.second')}
-          </Typography>
-          <Typography
-            as="span"
-            display={['none', 'none', 'block']}
+            display="block"
             textAlign="center"
             variant="displayLarge"
             letterSpacing="-0.15rem"
@@ -127,21 +96,7 @@ const NotificationSection: FC = () => {
           </Typography>
           <Typography
             as="span"
-            display={['block', 'block', 'none']}
-            textAlign="center"
-            variant="displaySmall"
-            justifyContent="center"
-            letterSpacing="-0.15rem"
-            background={`linear-gradient(90deg, ${colors.primary} 13.04%, ${colors.primary}33 96.06%)`}
-            WebkitBackgroundClip="text"
-            WebkitTextFillColor="transparent"
-            backgroundClip="text"
-          >
-            {t('landingPage.footer.getEarlyNotifications.title.third')}
-          </Typography>
-          <Typography
-            as="span"
-            display={['none', 'none', 'block']}
+            display="block"
             textAlign="center"
             variant="displayLarge"
             justifyContent="center"
@@ -153,7 +108,7 @@ const NotificationSection: FC = () => {
           >
             {t('landingPage.footer.getEarlyNotifications.title.third')}
           </Typography>
-        </Typography>
+        </Title>
         <TextField
           my="0rem"
           fontSize="1rem"

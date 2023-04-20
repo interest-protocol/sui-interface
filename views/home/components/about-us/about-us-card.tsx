@@ -66,6 +66,7 @@ const AboutUsCard: FC<AboutUsCardProps> = ({ name, link, Illustration }) => {
           <Button
             m="xl"
             right="0"
+            zIndex="1"
             variant="icon"
             border="1px solid"
             position="absolute"

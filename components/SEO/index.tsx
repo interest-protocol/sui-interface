@@ -10,7 +10,9 @@ import { capitalize } from '@/utils';
 const SEO: FC<{ pageTitle: string }> = ({ pageTitle }) => {
   const t = useTranslations();
   const { colors } = useTheme() as Theme;
-
+  const title = `${
+    pageTitle ? `${capitalize(t(pageTitle as TTranslatedMessage))} | ` : ''
+  }Interest Protocol`;
   return (
     <Head>
       <meta name="theme-color" content={colors?.foreground ?? '#282828'} />
@@ -57,10 +59,7 @@ const SEO: FC<{ pageTitle: string }> = ({ pageTitle }) => {
       <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
       <meta name="msapplication-TileColor" content="#da532c" />
       <link rel="apple-touch-icon" href="/logo192.png" />
-      <title>
-        {pageTitle && `${capitalize(t(pageTitle as TTranslatedMessage))} | `}
-        Interest Protocol
-      </title>
+      <title>{title}</title>
     </Head>
   );
 };

@@ -27,6 +27,7 @@ export { default as InfoLightSVG } from './info-light';
 export { default as InstagramSVG } from './instagram';
 export { default as InterestTokenSVG } from './interest-token';
 export { default as LineLoaderSVG } from './line-loader';
+export { default as LinkSVG } from './link';
 export { default as LinkedInSVG } from './linkedIn';
 export { default as LoadingSVG } from './loading';
 export { default as LogoSVG } from './logo';
