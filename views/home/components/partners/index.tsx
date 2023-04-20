@@ -4,6 +4,7 @@ import { FC } from 'react';
 import Slider from 'react-slick';
 import { v4 } from 'uuid';
 
+import Title from '../title';
 import { PARTNER_LIST, partnersSlick } from './partners.data';
 
 const Partners: FC = () => {
@@ -11,17 +12,9 @@ const Partners: FC = () => {
 
   return (
     <Box bg="background" py="4xl">
-      <Typography
-        my="4xl"
-        textAlign="center"
-        variant="displayLarge"
-        bg="linear-gradient(90deg, #99BBFF 20.36%, rgba(153, 187, 255, 0) 92.45%)"
-        WebkitBackgroundClip="text"
-        WebkitTextFillColor="transparent"
-        backgroundClip="text"
-      >
+      <Title as="h2" my="4xl" textAlign="center">
         {t('landingPage.partners.title')}
-      </Typography>
+      </Title>
       <Box py="4xl" mb={['0', 'm', '2xl', '4xl']}>
         <Slider {...partnersSlick}>
           {PARTNER_LIST.map(({ link, name }) => (
