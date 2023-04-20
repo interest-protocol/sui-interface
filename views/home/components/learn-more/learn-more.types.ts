@@ -1,10 +1,11 @@
-import { FC } from 'react';
-
-import { SVGProps } from '@/components/svg/svg.types';
-
 export interface LearnMoreProps {
-  name: 'documentation' | 'ourTeam' | 'mediaKit';
-  type?: 'big';
-  Icon: FC<SVGProps>;
   link: string;
+  big?: boolean;
+  external?: boolean;
+  name: 'documentation' | 'ourTeam' | 'mediaKit';
+}
+
+export interface LinkWrapperProps {
+  href: string;
+  external?: boolean;
 }

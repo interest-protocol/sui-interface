@@ -1,75 +1,81 @@
-import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
+import { Variants } from 'framer-motion';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
-import ResponsiveImage from '@/elements/responsive-image';
+import { LinkSVG } from '@/svg';
 
-import { LearnMoreProps } from './learn-more.types';
+import { LearnMoreProps, LinkWrapperProps } from './learn-more.types';
 
-const LearnMoreCard: FC<LearnMoreProps> = ({ name, type, Icon, link }) => {
-  const t = useTranslations();
+const cardVariants: Variants = {
+  hover: {
+    backgroundSize: ['100%', '300%', '100%'],
+    backgroundPosition: ['0% 0%', '100% 100%', '100% 0%', '100% 0%'],
+    transition: {
+      duration: 30,
+      repeat: Infinity,
+    },
+  },
+};
 
-  if (type === 'big')
+const LinkWrapper: FC<PropsWithChildren<LinkWrapperProps>> = ({
+  href,
+  external,
+  children,
+}) => {
+  if (external)
     return (
-      <>
-        <Box
-          p="4xl"
-          position="relative"
-          display="grid"
-          gridTemplateColumns="repeat(14, 1fr)"
-          gap="2xl"
-        >
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="space-between"
-            gridColumn="span 7"
-          >
-            <Box width="fit-content">
-              <Link href={link}>
-                <Button
-                  width="fit-content"
-                  mb="4xl"
-                  variant="icon"
-                  border="1px solid"
-                  borderColor="outline"
-                >
-                  <Icon maxWidth="100%" maxHeight="100%" />
-                </Button>
-              </Link>
-            </Box>
-            <Typography variant="displayLarge" color="text" mb="xl">
-              {t(`landingPage.learnMore.subTitles.${name}`)}
-            </Typography>
-          </Box>
-          <Box gridColumn="span 7">
-            <ResponsiveImage alt={name} path={`home/${name}`} />
-          </Box>
-        </Box>
-      </>
+      <a href={href} target="_blank" rel="noreferrer">
+        {children}
+      </a>
     );
 
+  return <Link href={href}>{children}</Link>;
+};
+
+const LearnMoreCard: FC<LearnMoreProps> = ({ name, big, link, external }) => {
+  const t = useTranslations();
+
   return (
-    <Box p="4xl" position="relative">
-      <Box width="fit-content">
-        <Link href={link}>
+    <Motion
+      p="2xl"
+      display="flex"
+      borderRadius="m"
+      whileHover="hover"
+      border="1px solid"
+      position="relative"
+      borderColor="textAccent"
+      justifyContent="space-between"
+      gridColumn={big ? '1/-1' : ['1/-1', '1/-1', '1/-1', 'span 6']}
+      flexDirection={['column', 'column', 'column', big ? 'row' : 'column']}
+    >
+      <Box display="flex" flexDirection="column" justifyContent="space-between">
+        <LinkWrapper href={link} external={external}>
           <Button
-            width="fit-content"
             mb="4xl"
             variant="icon"
             border="1px solid"
             borderColor="outline"
           >
-            <Icon maxWidth="100%" maxHeight="100%" />
+            <LinkSVG maxWidth="100%" maxHeight="100%" />
           </Button>
-        </Link>
+        </LinkWrapper>
+        <Typography variant="displayLarge" color="text" mb="xl">
+          {t(`landingPage.learnMore.subTitles.${name}`)}
+        </Typography>
       </Box>
-      <Typography variant="displayLarge" color="text" mb="xl">
-        {t(`landingPage.learnMore.subTitles.${name}`)}
-      </Typography>
-      <ResponsiveImage alt={name} path={`home/${name}`} />
-    </Box>
+      <Motion
+        borderRadius="m"
+        variants={cardVariants}
+        height={['17rem', '17rem', '17rem', big ? '18rem' : '17rem']}
+        width={['auto', 'auto', 'auto', big ? '49%' : 'auto']}
+        backgroundImage={`url('images/home/${name}.png')`}
+        backgroundPosition="0% 50%"
+        backgroundRepeat="no-repeat"
+        backgroundSize="100%"
+      />
+    </Motion>
   );
 };
 
