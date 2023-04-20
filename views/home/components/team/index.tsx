@@ -42,9 +42,9 @@ const Team: FC = () => {
       </Typography>
       <Box
         display="grid"
-        columnGap="2xl"
         px="50.6px"
-        gridColumn={['1/-1', '1/-1', '1/-1', '2/12']}
+        gap="xs"
+        gridColumn={['1/-1', '1/-1', '1/-1', 'span 3']}
         gridTemplateColumns={['1fr', '1fr', '1fr', '1fr 1fr 1fr']}
       >
         {TEAM_MEMBERS.map(({ name, role, social, image }) => (
@@ -54,8 +54,6 @@ const Team: FC = () => {
             overflow="hidden"
             border="1px solid"
             borderColor="textAccent"
-            my="xs"
-            width="373.33px"
             display="flex"
             flexDirection="column"
             justifyContent="center"
@@ -76,7 +74,7 @@ const Team: FC = () => {
               />
               <ImageElement
                 alt={name}
-                width="336px"
+                width="100%"
                 height="288px"
                 borderRadius="4px"
                 loading="lazy"
