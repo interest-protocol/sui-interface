@@ -25,11 +25,6 @@ export const slickSettings = {
   dots: false,
   arrows: false,
   slidesToShow: 3,
-  // autoplay: false,
-  // infinite: false,
-  // slidesToShow: 3,
-  // centerMode: false,
-  // slidesToScroll: 0,
   responsive: [
     {
       breakpoint: 828,
