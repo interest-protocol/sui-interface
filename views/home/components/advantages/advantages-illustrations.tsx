@@ -1,6 +1,13 @@
-import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-export const StepsIllustration: FC = () => <Box></Box>;
-export const BlocksIllustration: FC = () => <Box></Box>;
-export const CoinsIllustration: FC = () => <Box></Box>;
+import ResponsiveImage from '@/elements/responsive-image';
+
+export const StepsIllustration: FC = () => (
+  <ResponsiveImage alt="profits" path="home/profits" />
+);
+export const BlocksIllustration: FC = () => (
+  <ResponsiveImage alt="rewards" path="home/rewards" />
+);
+export const CoinsIllustration: FC = () => (
+  <ResponsiveImage alt="tokens" path="home/tokens" />
+);
