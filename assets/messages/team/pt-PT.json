@@ -1,0 +1,18 @@
+{
+  "landingPage": {
+    "metadata": {
+      "title": "Pagina Inicial"
+    },
+    "team": {
+      "title": {
+        "first": "A",
+        "second": "Equipa"
+      },
+      "roleCFO": "Co-Fundador & CFO",
+      "roleCEO": "Co-Fundador & CEO",
+      "developer": "Desenvolvedor",
+      "marketingManager": "Gestor de Marketing",
+      "designer": "Designer"
+    }
+  }
+}

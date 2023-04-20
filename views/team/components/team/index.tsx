@@ -58,12 +58,11 @@ const Team: FC = () => {
             flexDirection="column"
             justifyContent="center"
             alignItems="center"
-            pt="24px"
             px="18px"
             gap="16px"
             height="468px"
           >
-            <Box as="picture" borderRadius="4px">
+            <Box as="picture" borderRadius="4px" width="100%" height="288px">
               <source
                 type="image/webp"
                 srcSet={`/images/web/team/${image}.webp 800w, /images/web/team/${image}.webp`}
@@ -75,7 +74,7 @@ const Team: FC = () => {
               <ImageElement
                 alt={name}
                 width="100%"
-                height="288px"
+                height="100%"
                 borderRadius="4px"
                 loading="lazy"
                 decoding="async"

@@ -1,0 +1,18 @@
+{
+  "team": {
+    "metadata": {
+      "title": "Equipa"
+    },
+    "team": {
+      "title": {
+        "first": "A",
+        "second": "Equipe"
+      },
+      "roleCFO": "Co-Fundador & CFO",
+      "roleCEO": "Co-Fundador & CEO",
+      "developer": "Desenvolvedor",
+      "marketingManager": "Gestor de Marketing",
+      "designer": "Designer"
+    }
+  }
+}
