@@ -88,46 +88,74 @@ export const BlockIllustration: FC = () => (
       top="20%"
       left="25%"
       width="50%"
-      opacity="0"
       height="50%"
       position="absolute"
+      animate={{
+        translateY: -7,
+      }}
+      transition={{
+        delay: 0.5,
+        duration: 0.8,
+        ease: easeInOut,
+        repeat: Infinity,
+        repeatType: 'reverse',
+      }}
     >
       <AdvantagesCube maxWidth="100%" maxHeight="100%" width="100%" />
     </Motion>
-    <Motion top="35%" left="45.1%" width="50%" height="50%" position="absolute">
-      <Motion position="absolute" left="50%">
-        <AdvantagesTopShadow
-          maxWidth="100%"
-          maxHeight="100%"
-          width="100%"
-          stroke="white"
-        />
-      </Motion>
-      <Motion position="absolute" left="50%">
-        <AdvantagesSideShadow
-          maxWidth="100%"
-          maxHeight="100%"
-          width="100%"
-          stroke="white"
-        />
-      </Motion>
-      <Motion position="absolute" left="50%">
-        <AdvantagesBottomShadow
-          maxWidth="100%"
-          maxHeight="100%"
-          width="100%"
-          stroke="white"
-        />
-      </Motion>
-      <AdvantagesIsolatedCube maxWidth="100%" maxHeight="100%" width="100%" />
+    <Motion
+      animate={{
+        translateY: -7,
+      }}
+      transition={{
+        ease: easeInOut,
+        repeat: Infinity,
+        repeatType: 'reverse',
+        delay: Math.random() * 1 + 0.2,
+        duration: Math.random() * 1 + 1,
+      }}
+      top="35%"
+      left="45.1%"
+      width="50%"
+      height="50%"
+      position="absolute"
+    >
+      <IconWrapper
+        top="14%"
+        left="26%"
+        size="35%"
+        Icon={AdvantagesSideShadow}
+      />
+      <IconWrapper
+        left="19%"
+        size="30%"
+        top="41.5%"
+        Icon={AdvantagesBottomShadow}
+      />
+      <IconWrapper
+        top="4.3%"
+        left="38%"
+        size="30%"
+        Icon={AdvantagesTopShadow}
+      />
+      <AdvantagesIsolatedCube width="100%" maxWidth="100%" maxHeight="100%" />
     </Motion>
     <Motion
-      opacity="0"
       top="34.2%"
       left="41.6%"
       width="28.3%"
       height="28.3%"
       position="absolute"
+      animate={{
+        translateY: -7,
+      }}
+      transition={{
+        delay: 0.5,
+        duration: 0.8,
+        ease: easeInOut,
+        repeat: Infinity,
+        repeatType: 'reverse',
+      }}
     >
       <AdvantagesMainCube maxWidth="100%" maxHeight="100%" width="100%" />
     </Motion>
