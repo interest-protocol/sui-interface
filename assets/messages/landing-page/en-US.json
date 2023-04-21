@@ -39,7 +39,7 @@
           "description": "Unique addresses"
         },
         "markets": {
-          "title": "Mercados",
+          "title": "Markets",
           "description": "Pools deployed"
         },
         "transactions": {
