@@ -5,8 +5,8 @@
     },
     "hero": {
       "title": {
-        "first": "{isMobile, plural, =1 {Troque, empreste} other {Troque, empreste, transacione} }",
-        "second": "{isMobile, plural, =1 {transacione e invista} other {e invista.} }"
+        "first": "{isMobile, plural, =1 {Troque, empreste} other {Troque, empreste} }",
+        "second": "{isMobile, plural, =1 {e invista} other {e invista.} }"
       },
       "description": "O protocolo DeFi da próxima geração",
       "button": "Transacione agora no SUI"

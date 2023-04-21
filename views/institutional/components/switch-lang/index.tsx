@@ -67,6 +67,7 @@ const SwitchLang: FC<{ isOpen: boolean }> = ({ isOpen }) => {
       {locales.map((locale) => (
         <Motion
           py="l"
+          cursor="pointer"
           gap="l"
           px="xl"
           key={v4()}
