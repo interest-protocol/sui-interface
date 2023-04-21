@@ -13,6 +13,8 @@ type FarmDetailsMessages =
   typeof import('../assets/messages/farms/details/en-US.json');
 type LandingPageMessages =
   typeof import('../assets/messages/landing-page/en-US.json');
+type LandingPageMessages =
+  typeof import('../assets/messages/lending/en-US.json');
 
 declare interface IntlMessages
   extends CommonMessages,

@@ -2,6 +2,7 @@ import { Global, ThemeProvider } from '@emotion/react';
 import { ThemeProviderProps } from '@emotion/react/types/theming';
 import {
   darkTheme,
+  lightTheme,
   ThemeProvider as InterestThemeProvider,
 } from '@interest-protocol/ui-kit';
 import dynamic from 'next/dynamic';
@@ -28,6 +29,10 @@ const WalletKitProvider = dynamic(
   }
 );
 
+// TODO: REMOVE THESE CONSTANTS
+const INSTITUTIONAL_PAGES = ['/', '/team'];
+const DAPP_REDESIGN_PAGES = ['/v2/lending'];
+
 const Theme: FC<PropsWithChildren<ThemeProps>> = ({
   dark,
   setDark,
@@ -35,14 +40,29 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
 }) => {
   const { asPath } = useRouter();
 
-  const isRedesign = asPath === '/' || asPath === '/team';
+  const isInstitutional = INSTITUTIONAL_PAGES.includes(asPath);
+  const isRedesign = DAPP_REDESIGN_PAGES.some((path) => asPath.includes(path));
 
-  if (isRedesign)
+  if (isInstitutional)
     return (
       <InterestThemeProvider theme={{ setDark, ...darkTheme }}>
         <Global styles={LandingGlobalStyles} />
         {children}
       </InterestThemeProvider>
+    );
+
+  if (isRedesign)
+    return (
+      <NetworkProvider>
+        <WalletKitProvider>
+          <InterestThemeProvider
+            theme={{ setDark, ...(dark ? darkTheme : lightTheme) }}
+          >
+            <Global styles={LandingGlobalStyles} />
+            {children}
+          </InterestThemeProvider>
+        </WalletKitProvider>
+      </NetworkProvider>
     );
 
   return (
