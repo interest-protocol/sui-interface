@@ -43,7 +43,7 @@
           "description": "Pools deployed"
         },
         "staked": {
-          "title": "Staked",
+          "title": "Transactions",
           "description": "Total TXs"
         }
       }

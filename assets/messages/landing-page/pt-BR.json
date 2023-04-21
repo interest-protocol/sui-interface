@@ -19,7 +19,7 @@
       "services": {
         "earn": {
           "name": "Invista",
-          "description": "Ponha os seus bens digitais a trabalhar e ganhe retornos estáveis. A Interest Protocol permite-lhe sentar-se e ver o seu investimento crescer."
+          "description": "Ponha os seus ativos digitais a trabalhar para si. A Interest Protocol permite-lhe sentar-se e ver o seu investimento crescer; ganhe retornos estáveis!"
         },
         "trade": {
           "name": "Transacione",
@@ -27,7 +27,7 @@
         },
         "lend": {
           "name": "Empreste",
-          "description": "Ponha os teus ativos no piloto automático. Adquira fundos e mantenha os tokens que mais gostas."
+          "description": "Ponha os seus ativos em piloto automático. Adquira fundos e mantenha os tokens que mais gostas."
         }
       }
     },
@@ -53,12 +53,12 @@
         "first": "Totalmente Descentralizado",
         "second": "Completamente Seguro"
       },
-      "description": "A Interest visa estabelecer uma rede de intercâmbio, fornecendo todo o apoio subjacente necessário para um ecossistema DeFi robusto. O nosso objectivo é capacitar cada detentor de activos digitais a experimentar um serviço verdadeiramente seguro, livre e transparente.",
+      "description": "A Interest visa estabelecer uma rede de intercâmbio, fornecendo todo o apoio subjacente necessário para um ecossistema DeFi robusto. O nosso objectivo é capacitar cada detentor de ativos digitais e oferecer um serviço verdadeiramente seguro, livre e transparente.",
       "values": {
         "supported": "Revisão e testes constantes da nossa plataforma",
-        "secure": "Os seus fundos são tão seguros quanto possível",
+        "secure": "Os seus ativos não poderiam estar mais seguros",
         "decentralized": "Totalmente descentralizado e não-custodial",
-        "experience": "Construído por experientes programadores de cadeias de bloqueios"
+        "experience": "Construído por especialistas em tecnologia Blockchain"
       }
     },
     "advantages": {
