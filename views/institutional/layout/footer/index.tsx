@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import NotificationSection from './notification-section';
+import { Notification } from '../../components';
 import Socials from './socials';
 
 const Footer: FC = () => (
   <>
-    <NotificationSection />
+    <Notification />
     <Socials />
   </>
 );

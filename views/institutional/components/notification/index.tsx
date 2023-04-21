@@ -13,7 +13,7 @@ import toast from 'react-hot-toast';
 
 import { capitalize } from '@/utils';
 
-import Title from '../../title';
+import Title from '../title';
 
 const NotificationSection: FC = () => {
   const t = useTranslations();

@@ -4,7 +4,7 @@ import { FC, useState } from 'react';
 
 import { DotsSVG, TimesSVG } from '@/svg';
 
-import SwitchLang from '../../switch-lang';
+import SwitchLang from '../../components/switch-lang';
 
 const closeVariants = {
   open: {
