@@ -21,7 +21,7 @@ export const PARTNER_LIST = [
     link: 'https://movebit.xyz/',
   },
   {
-    name: 'GOBIT',
+    name: 'GOTBIT',
     link: 'https://gotbit.io/',
   },
   {
