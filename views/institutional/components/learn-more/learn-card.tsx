@@ -55,7 +55,7 @@ const LearnMoreCard: FC<LearnMoreProps> = ({ name, big, link, external }) => {
           width="fit-content"
           borderColor="outline"
         >
-          <LinkSVG maxWidth="100%" maxHeight="100%" />
+          <LinkSVG maxWidth="100%" maxHeight="100%" width="100%" />
         </Button>
         <Typography
           mb="xl"
