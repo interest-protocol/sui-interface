@@ -5,8 +5,8 @@
     },
     "hero": {
       "title": {
-        "first": "{isMobile, plural, =1 {Swap, lend} other {Swap, lend, trade} }",
-        "second": "{isMobile, plural, =1 {trade and farm} other {and farm.} }"
+        "first": "{isMobile, plural, =1 {Swap, lend} other {Swap, lend, borrow} }",
+        "second": "{isMobile, plural, =1 {borrow and farm} other {and farm.} }"
       },
       "description": "The next generation DeFi protocol",
       "button": "Trade now on SUI"
