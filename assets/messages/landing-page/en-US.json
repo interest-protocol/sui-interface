@@ -38,11 +38,11 @@
           "title": "Users",
           "description": "Unique addresses"
         },
-        "trades": {
-          "title": "Trades",
+        "markets": {
+          "title": "Mercados",
           "description": "Pools deployed"
         },
-        "staked": {
+        "transactions": {
           "title": "Transactions",
           "description": "Total TXs"
         }

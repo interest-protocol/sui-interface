@@ -38,11 +38,11 @@
           "title": "Usuários",
           "description": "Endereços únicos"
         },
-        "trades": {
-          "title": "Mercado",
+        "markets": {
+          "title": "Mercados",
           "description": "Pools implementadas"
         },
-        "staked": {
+        "transactions": {
           "title": "Transações",
           "description": "Total TXs"
         }

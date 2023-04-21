@@ -46,15 +46,15 @@ const UsedBy: FC = () => {
           color="#E9D5FF"
           Icon={TradesSVG}
           value={formatNumber(totalPools)}
-          title={t('landingPage.usedBy.metrics.trades.title')}
-          description={t('landingPage.usedBy.metrics.trades.description')}
+          title={t('landingPage.usedBy.metrics.markets.title')}
+          description={t('landingPage.usedBy.metrics.markets.description')}
         />
         <UsedByCard
           color="#FED7AA"
           Icon={ChartSVG}
           value={formatNumber(totalTXs)}
-          title={t('landingPage.usedBy.metrics.staked.title')}
-          description={t('landingPage.usedBy.metrics.staked.description')}
+          title={t('landingPage.usedBy.metrics.transactions.title')}
+          description={t('landingPage.usedBy.metrics.transactions.description')}
         />
       </Box>
     </Box>
