@@ -8,7 +8,7 @@ import { LocalTokenMetadataRecord } from '@/interface';
 import { makeSWRKey, noop } from '@/utils';
 
 import { Web3ManagerProps, Web3ManagerState } from './web3-manager.types';
-import { parseCoins } from './web3-manager.utils';
+import { getAllCoins, parseCoins } from './web3-manager.utils';
 
 const CONTEXT_DEFAULT_STATE = {
   account: null,
@@ -34,7 +34,7 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
     makeSWRKey([currentAccount, network], provider.getAllCoins.name),
     async () => {
       if (!currentAccount?.address) return;
-      return await provider.getAllCoins({ owner: currentAccount.address });
+      return getAllCoins({ provider, account: currentAccount.address });
     },
     {
       revalidateOnFocus: false,

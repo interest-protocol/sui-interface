@@ -1,3 +1,4 @@
+import { JsonRpcProvider } from '@mysten/sui.js';
 import { CoinStruct, PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { WalletAccount } from '@wallet-standard/base';
 import BigNumber from 'bignumber.js';
@@ -21,7 +22,7 @@ export interface Web3ManagerState {
   coinsMap: Record<string, Web3ManagerSuiObject>;
   connected: boolean;
   error: boolean;
-  mutate: KeyedMutator<PaginatedCoins | undefined>;
+  mutate: KeyedMutator<PaginatedCoins['data'] | undefined>;
   isFetchingCoinBalances: boolean;
   walletAccount: null | WalletAccount;
 }
@@ -32,8 +33,13 @@ export interface Web3ManagerProps {
 
 export type CoinsMap = Web3ManagerState['coinsMap'];
 
-export interface ParseCoinsArg {
-  data: PaginatedCoins | undefined | never[];
+export interface ParseCoinsArgs {
+  data: PaginatedCoins['data'] | undefined | never[];
   localTokens: LocalTokenMetadataRecord;
   network: Network;
+}
+
+export interface GetAllCoinsArgs {
+  provider: JsonRpcProvider;
+  account: string;
 }

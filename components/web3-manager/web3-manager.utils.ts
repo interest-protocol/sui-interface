@@ -1,24 +1,23 @@
+import { CoinStruct } from '@mysten/sui.js/src/types/coin';
 import { pathOr } from 'ramda';
 
 import { COIN_DECIMALS, COIN_TYPE_TO_SYMBOL } from '@/constants';
 import { parseBigNumberish, safeSymbol } from '@/utils';
 
-import { ParseCoinsArg, Web3ManagerSuiObject } from './web3-manager.types';
+import {
+  GetAllCoinsArgs,
+  ParseCoinsArgs,
+  Web3ManagerSuiObject,
+} from './web3-manager.types';
 
-export const parseCoins = ({ data, localTokens, network }: ParseCoinsArg) => {
-  if (!data)
+export const parseCoins = ({ data, localTokens, network }: ParseCoinsArgs) => {
+  if (!data || !data.length)
     return [[], {}] as [
       ReadonlyArray<Web3ManagerSuiObject>,
       Record<string, Web3ManagerSuiObject>
     ];
 
-  if (!('data' in data))
-    return [[], {}] as [
-      ReadonlyArray<Web3ManagerSuiObject>,
-      Record<string, Web3ManagerSuiObject>
-    ];
-
-  return data.data.reduce(
+  return (data as CoinStruct[]).reduce(
     (acc, object) => {
       const type = object.coinType;
       const list = acc[0];
@@ -100,4 +99,22 @@ export const parseCoins = ({ data, localTokens, network }: ParseCoinsArg) => {
       Record<string, Web3ManagerSuiObject>
     ]
   );
+};
+
+export const getAllCoins = async ({ provider, account }: GetAllCoinsArgs) => {
+  const payload = await provider.getAllCoins({ owner: account });
+
+  let cursor = payload.nextCursor;
+  let hasNextPage = payload.hasNextPage;
+  const data = [...payload.data];
+
+  while (hasNextPage) {
+    const nextPayload = await provider.getAllCoins({ owner: account, cursor });
+
+    cursor = nextPayload.nextCursor;
+    hasNextPage = nextPayload.hasNextPage;
+    data.push(...nextPayload.data);
+  }
+
+  return data;
 };
