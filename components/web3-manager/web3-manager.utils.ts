@@ -1,4 +1,4 @@
-import { CoinStruct } from '@mysten/sui.js/src/types/coin';
+import { CoinStruct, PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { pathOr } from 'ramda';
 
 import { COIN_DECIMALS, COIN_TYPE_TO_SYMBOL } from '@/constants';
@@ -6,6 +6,7 @@ import { parseBigNumberish, safeSymbol } from '@/utils';
 
 import {
   GetAllCoinsArgs,
+  GetAllCoinsInternalArgs,
   ParseCoinsArgs,
   Web3ManagerSuiObject,
 } from './web3-manager.types';
@@ -101,20 +102,34 @@ export const parseCoins = ({ data, localTokens, network }: ParseCoinsArgs) => {
   );
 };
 
+const getAllCoinsInternal = async ({
+  data,
+  account,
+  cursor,
+  hasNextPage,
+  provider,
+}: GetAllCoinsInternalArgs): Promise<PaginatedCoins['data']> => {
+  if (!hasNextPage) return data;
+
+  const payload = await provider.getAllCoins({ owner: account, cursor });
+
+  return await getAllCoinsInternal({
+    provider,
+    account,
+    cursor: payload.nextCursor,
+    hasNextPage: payload.hasNextPage,
+    data: data.concat(payload.data),
+  });
+};
+
 export const getAllCoins = async ({ provider, account }: GetAllCoinsArgs) => {
   const payload = await provider.getAllCoins({ owner: account });
 
-  let cursor = payload.nextCursor;
-  let hasNextPage = payload.hasNextPage;
-  const data = [...payload.data];
-
-  while (hasNextPage) {
-    const nextPayload = await provider.getAllCoins({ owner: account, cursor });
-
-    cursor = nextPayload.nextCursor;
-    hasNextPage = nextPayload.hasNextPage;
-    data.push(...nextPayload.data);
-  }
-
-  return data;
+  return getAllCoinsInternal({
+    provider,
+    account,
+    cursor: payload.nextCursor,
+    data: payload.data,
+    hasNextPage: payload.hasNextPage,
+  });
 };

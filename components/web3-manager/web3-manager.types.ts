@@ -43,3 +43,9 @@ export interface GetAllCoinsArgs {
   provider: JsonRpcProvider;
   account: string;
 }
+
+export interface GetAllCoinsInternalArgs extends GetAllCoinsArgs {
+  data: PaginatedCoins['data'];
+  cursor: null | string;
+  hasNextPage: boolean;
+}
