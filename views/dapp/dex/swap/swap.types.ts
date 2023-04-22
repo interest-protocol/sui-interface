@@ -42,7 +42,7 @@ export interface SwapButtonProps {
   setValue: UseFormSetValue<ISwapForm>;
   getValues: UseFormGetValues<ISwapForm>;
   coinsMap: Web3ManagerState['coinsMap'];
-  mutate: KeyedMutator<PaginatedCoins | undefined>;
+  mutate: KeyedMutator<PaginatedCoins['data'] | undefined>;
   poolsMap: PoolsMap;
 }
 
