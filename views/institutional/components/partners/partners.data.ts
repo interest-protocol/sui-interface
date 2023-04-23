@@ -61,11 +61,11 @@ export const PARTNER_LIST = [
     link: 'https://suiecosystem.top/',
   },
   {
-    name: 'FOXWALLET',
+    name: 'FOX WALLET',
     link: 'https://foxwallet.com/',
   },
   {
     name: 'CUBIC GAME',
-    link: 'https://www.cubicgames.xyz/developer',
+    link: 'https://www.cubicgames.xyz/',
   },
 ];
