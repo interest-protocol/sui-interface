@@ -65,7 +65,7 @@ export const PARTNER_LIST = [
     link: 'https://foxwallet.com/',
   },
   {
-    name: 'CUBIC GAME',
+    name: 'CUBIC GAMES',
     link: 'https://www.cubicgames.xyz/',
   },
 ];
