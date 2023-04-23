@@ -10,7 +10,8 @@ import ErrorBoundary from '@/views/dapp/components/error-boundary';
 
 import { SEO } from '..';
 import Footer from './footer';
-import Header from './header';
+//import Header from './header';
+import HeaderV2 from './header-v2';
 import { LayoutProps } from './layout.types';
 
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({
@@ -21,7 +22,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
 
   return (
     <ErrorBoundary>
-      <Box color="text" height="100vh" display="flex" flexDirection="column">
+      <Box height="100vh" display="flex" flexDirection="column">
         <SEO pageTitle={pageTitle} />
         <Toaster
           position="bottom-right"
@@ -35,7 +36,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
             duration: TOAST_DURATION,
           }}
         />
-        <Header />
+        <HeaderV2 />
         <Box
           flex="1"
           as="main"
