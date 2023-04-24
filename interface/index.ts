@@ -66,3 +66,9 @@ export interface Pool {
 }
 
 export type DexMarket = Record<string, Record<string, string>>;
+
+export interface FormattedNumber {
+  value: number;
+  unit: string;
+  toString: () => string;
+}

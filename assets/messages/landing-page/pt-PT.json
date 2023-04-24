@@ -7,27 +7,90 @@
       "title": {
         "first": "{isMobile, plural, =1 {Troque, empreste} other {Troque, empreste, transacione} }",
         "second": "{isMobile, plural, =1 {transacione e invista} other {e invista.} }"
-      }
+      },
+      "description": "Protocolo DeFi da próxima geração",
+      "button": "Transacione agora no SUI"
     },
     "aboutUs": {
       "title": {
-        "first": "O Protocolo",
-        "second": "Supremo"
+        "first": "O Supremo",
+        "second": "Protocolo"
       },
       "services": {
         "earn": {
           "name": "Invista",
-          "description": "Invista em passivos com cripto. Interest protocol facilita fazer a tua cripto trabalhar para ti."
+          "description": "Ponha os seus ativos digitais a trabalhar para si. A Interest Protocol permite-lhe sentar-se e ver o seu investimento crescer; ganhe retornos estáveis!"
         },
         "trade": {
           "name": "Transacione",
-          "description": "Comercialize o teu par favorito na tua rede favorita pela Swap interface."
+          "description": "Leve o seu jogo comercial para o próximo nível. Na nossa interface de troca, pode facilmente trocar os seus pares de cripto favoritos, tudo num só lugar."
         },
         "lend": {
           "name": "Empreste",
-          "description": "Ponha os teus ativos no piloto automático. Adquira fundos e mantenha os tokens que mais gostas."
+          "description": "Ponha os seus ativos em piloto automático. Adquira fundos e mantenha os tokens que mais gostas."
         }
       }
+    },
+    "usedBy": {
+      "title": "Usado por...",
+      "metrics": {
+        "users": {
+          "title": "Utilizadores",
+          "description": "Endereços únicos"
+        },
+        "markets": {
+          "title": "Mercados",
+          "description": "Pools implementadas"
+        },
+        "transactions": {
+          "title": "Transações",
+          "description": "Total TXs"
+        }
+      }
+    },
+    "valueProposition": {
+      "title": {
+        "first": "Totalmente Descentralizado",
+        "second": "Completamente Seguro"
+      },
+      "description": "A Interest visa estabelecer uma rede de intercâmbio, fornecendo todo o apoio subjacente necessário para um ecossistema DeFi robusto. O nosso objectivo é capacitar cada detentor de ativos digitais e oferecer um serviço verdadeiramente seguro, livre e transparente.",
+      "values": {
+        "supported": "Revisão e testes constantes da nossa plataforma",
+        "secure": "Os seus ativos não poderiam estar mais seguros",
+        "decentralized": "Totalmente descentralizado e não-custodial",
+        "experience": "Construído por especialistas em tecnologia Blockchain"
+      }
+    },
+    "advantages": {
+      "title": {
+        "first": "Tire o máximo",
+        "second": "Proveito de tudo"
+      },
+      "content": {
+        "rewards": {
+          "description": "Receba Recompensas enquanto transaciona."
+        },
+        "profits": {
+          "description": "Maximize os lucros com estratégias automatizadas."
+        },
+        "fees": {
+          "description": "Troque tokens com taxas baixas."
+        }
+      }
+    },
+    "learnMore": {
+      "title": {
+        "first": "Aprenda mais",
+        "second": "Sobre nós"
+      },
+      "subTitles": {
+        "documentation": "Documentação",
+        "ourTeam": "Nossa equipa",
+        "mediaKit": "Kit de mídia"
+      }
+    },
+    "partners": {
+      "title": "Parceiros"
     },
     "footer": {
       "getEarlyNotifications": {
@@ -36,9 +99,28 @@
           "second": "antecipadas sobre",
           "third": "novos recursos"
         },
-        "placheholder": "teu-email@gmail.com",
-        "button": "Enviar"
+        "placeholder": "teu-email@gmail.com",
+        "button": "{isLoading, plural, =1 {Enviando...} other {Enviar}}",
+        "errors": {
+          "1008": "Email já adicionado"
+        }
       }
+    }
+  },
+  "team": {
+    "metadata": {
+      "title": "Equipa"
+    },
+    "title": {
+      "first": "A",
+      "second": "Equipe"
+    },
+    "roles": {
+      "CFO": "Co-Fundador & CFO",
+      "CEO": "Co-Fundador & CEO",
+      "developer": "Desenvolvedor",
+      "marketing": "Gestor de Marketing",
+      "designer": "Designer"
     }
   }
 }

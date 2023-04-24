@@ -2,8 +2,10 @@ import { Global, ThemeProvider } from '@emotion/react';
 import { ThemeProviderProps } from '@emotion/react/types/theming';
 import {
   darkTheme,
+  lightTheme,
   ThemeProvider as InterestThemeProvider,
 } from '@interest-protocol/ui-kit';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FC, PropsWithChildren } from 'react';
 import { SkeletonTheme } from 'react-loading-skeleton';
@@ -15,7 +17,21 @@ import {
 } from '@/design-system/global-styles';
 import { useLocalStorage } from '@/hooks';
 
+import LoadingPage from '../loading-page';
+import NetworkProvider from '../network-provider';
 import { ThemeProps } from './theme-manager.types';
+
+const WalletKitProvider = dynamic(
+  () => import('@mysten/wallet-kit').then((mod) => mod.WalletKitProvider),
+  {
+    ssr: false,
+    loading: LoadingPage,
+  }
+);
+
+// TODO: REMOVE THESE CONSTANTS
+const INSTITUTIONAL_PAGES = ['/', '/team'];
+const DAPP_REDESIGN_PAGES = ['/v2/lending'];
 
 const Theme: FC<PropsWithChildren<ThemeProps>> = ({
   dark,
@@ -24,9 +40,10 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
 }) => {
   const { asPath } = useRouter();
 
-  const isHome = asPath === '/';
+  const isInstitutional = INSTITUTIONAL_PAGES.includes(asPath);
+  const isRedesign = DAPP_REDESIGN_PAGES.some((path) => asPath.includes(path));
 
-  if (isHome)
+  if (isInstitutional)
     return (
       <InterestThemeProvider theme={{ setDark, ...darkTheme }}>
         <Global styles={LandingGlobalStyles} />
@@ -34,13 +51,31 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
       </InterestThemeProvider>
     );
 
+  if (isRedesign)
+    return (
+      <NetworkProvider>
+        <WalletKitProvider>
+          <InterestThemeProvider
+            theme={{ setDark, ...(dark ? darkTheme : lightTheme) }}
+          >
+            <Global styles={LandingGlobalStyles} />
+            {children}
+          </InterestThemeProvider>
+        </WalletKitProvider>
+      </NetworkProvider>
+    );
+
   return (
-    <ThemeProvider
-      theme={{ setDark, ...(dark ? DAppDarkTheme : DAppLightTheme) }}
-    >
-      <Global styles={DappGlobalStyles} />
-      {children}
-    </ThemeProvider>
+    <NetworkProvider>
+      <WalletKitProvider>
+        <ThemeProvider
+          theme={{ setDark, ...(dark ? DAppDarkTheme : DAppLightTheme) }}
+        >
+          <Global styles={DappGlobalStyles} />
+          {children}
+        </ThemeProvider>
+      </WalletKitProvider>
+    </NetworkProvider>
   );
 };
 
