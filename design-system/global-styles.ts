@@ -27,8 +27,7 @@ export const DappGlobalStyles = css`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-      Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Roboto Mono', monospace;
   }
 
   html {

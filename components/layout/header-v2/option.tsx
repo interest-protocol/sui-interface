@@ -2,8 +2,9 @@ import { Box, Button, Motion } from '@interest-protocol/ui-kit';
 import { AnimatePresence } from 'framer-motion';
 import { FC, useState } from 'react';
 
-import { DotsSVG, TimesSVG } from '@/svg';
-import SwitchLang from '@/views/institutional/components/switch-lang';
+import { DotsSVG, ListMenuSVG, TimesSVG } from '@/svg';
+
+import Settings from './settings';
 
 const closeVariants = {
   open: {
@@ -46,8 +47,10 @@ const OptionButton: FC = () => {
       <Button
         color="text"
         variant="icon"
-        bg={isOpen ? '#FFFFFF1A' : 'none'}
+        bg="#FFFFFF1A"
+        ml="0.3rem"
         onClick={!isOpen ? handleOpen : handleClose}
+        mr={!isOpen ? '1rem' : 'unset'}
       >
         <AnimatePresence initial={false}>
           {isOpen ? (
@@ -60,18 +63,36 @@ const OptionButton: FC = () => {
               />
             </Motion>
           ) : (
-            <Motion initial={closeVariants.closed} animate={closeVariants.open}>
-              <DotsSVG
-                width="100%"
-                height="100%"
-                maxWidth="1.75rem"
-                maxHeight="1.75rem"
-              />
-            </Motion>
+            <>
+              <Motion
+                initial={closeVariants.closed}
+                animate={closeVariants.open}
+                display={['none', 'none', 'none', 'flex']}
+              >
+                <DotsSVG
+                  width="100%"
+                  height="100%"
+                  maxWidth="1.75rem"
+                  maxHeight="1.75rem"
+                />
+              </Motion>
+              <Motion
+                initial={closeVariants.closed}
+                animate={closeVariants.open}
+                display={['flex', 'flex', 'flex', 'none']}
+              >
+                <ListMenuSVG
+                  width="100%"
+                  height="100%"
+                  maxWidth="1.75rem"
+                  maxHeight="1.75rem"
+                />
+              </Motion>
+            </>
           )}
         </AnimatePresence>
       </Button>
-      <SwitchLang isOpen={isOpen} />
+      <Settings isOpen={isOpen} />
     </>
   );
 };

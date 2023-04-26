@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 
 export interface ConnectWalletProps {
   connectText?: ReactNode;
@@ -8,4 +8,10 @@ export interface ConnectWalletProps {
 export interface MenuItemProps {
   label: string;
   url: string;
+}
+
+export interface SubOptionProps {
+  isOpen: boolean;
+  openLanguageOptions: boolean;
+  setOpenLanguageOptions: Dispatch<SetStateAction<boolean>>;
 }

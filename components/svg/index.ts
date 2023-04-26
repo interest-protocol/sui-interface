@@ -1,6 +1,10 @@
 export { default as AnchorSVG } from './anchor';
 export { default as ArrowSVG } from './arrow';
+export { default as ArrowBottomSVG } from './arrow-bottom';
+export { default as ArrowLeftSVG } from './arrow-left';
+export { default as ArrowLeftFullSVG } from './arrow-left-full';
 export { default as ArrowLinkSVG } from './arrow-link';
+export { default as ArrowRightSVG } from './arrow-right';
 export { default as ArrowSpecialSVG } from './arrow-special';
 export { default as BarsSVG } from './bars';
 export { default as BehanceSVG } from './behance';
@@ -29,6 +33,7 @@ export { default as InterestTokenSVG } from './interest-token';
 export { default as LineLoaderSVG } from './line-loader';
 export { default as LinkSVG } from './link';
 export { default as LinkedInSVG } from './linkedIn';
+export { default as ListMenuSVG } from './list-menu';
 export { default as LoadingSVG } from './loading';
 export { default as LogoSVG } from './logo';
 export { default as MediumSVG } from './medium';

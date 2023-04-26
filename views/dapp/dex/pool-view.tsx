@@ -1,12 +1,7 @@
 import { FC } from 'react';
 
 import DEXViewWrapper from './dex-wrapper';
-import Pool from './pool';
 
-const DEXPoolView: FC = () => (
-  <DEXViewWrapper>
-    <Pool />
-  </DEXViewWrapper>
-);
+const DEXPoolView: FC = () => <DEXViewWrapper />;
 
 export default DEXPoolView;

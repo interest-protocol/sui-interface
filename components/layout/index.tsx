@@ -1,10 +1,9 @@
-import { useTheme } from '@emotion/react';
+import { Theme, useTheme } from '@interest-protocol/ui-kit';
 import { FC, PropsWithChildren } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Tooltip } from 'react-tooltip';
 
 import { TOAST_DURATION } from '@/constants';
-import { Theme } from '@/design-system';
 import { Box } from '@/elements';
 import ErrorBoundary from '@/views/dapp/components/error-boundary';
 

@@ -1,5 +1,4 @@
-import { useTheme } from '@emotion/react';
-import { Box } from '@interest-protocol/ui-kit';
+import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FC, useCallback, useState } from 'react';
@@ -14,7 +13,7 @@ import Wallet from './wallet';
 
 const Header: FC = () => {
   const t = useTranslations();
-  const { setDark, dark } = useTheme() as any;
+  const { setDark, dark, colors } = useTheme() as Theme;
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -28,26 +27,25 @@ const Header: FC = () => {
   return (
     <Box>
       <Box
-        pt="2.5rem"
-        px="4rem"
-        pb="1.25rem"
-        bg={dark ? '#1B1B1F' : '#F2F0F4'}
+        pt={['0.5rem', '0.5rem', '0.5rem', '2.5rem']}
+        pl="1rem"
+        pb={['0.5rem', '0.5rem', '0.5rem', '1.25rem']}
+        bg="background"
         alignItems="center"
         justifyContent="space-between"
         display={['flex', 'flex', 'flex', 'grid']}
         gridTemplateColumns="repeat(2, 1fr)"
       >
-        <Box display="flex" alignItems="center">
+        <Box display="flex">
           <Link href={Routes[RoutesEnum.Home]}>
             <Box
               mr="L"
               color="foreground"
               width="3rem"
               height="3rem"
-              maxWidth="3.125rem"
-              maxHeight="3.125rem"
               cursor="pointer"
-              nHover={{ color: 'accent' }}
+              display="flex"
+              nHover={{ color: colors.primary }}
               nActive={{ color: 'accentActive' }}
             >
               <LogoSVG
@@ -59,24 +57,22 @@ const Header: FC = () => {
               />
             </Box>
           </Link>
-          <Box display="flex">
+          <Box display={['none', 'none', 'none', 'flex']}>
             <MenuItem label="DEX" url={Routes[RoutesEnum.DEX]} />
             <MenuItem label="FARMS" url={Routes[RoutesEnum.Farms]} />
             <MenuItem label="FAUCET" url={Routes[RoutesEnum.Faucet]} />
           </Box>
         </Box>
-        <Box>
+        <Box
+          color="text"
+          display="flex"
+          position="relative"
+          alignItems={['flex-start', 'flex-start', 'flex-start', 'flex-end']}
+          justifyContent="flex-end"
+          height="48px"
+        >
           <Wallet />
-          <Box
-            color="text"
-            display="flex"
-            position="relative"
-            alignItems="flex-end"
-            flexDirection="column"
-            gridColumn={['2/5', '2/9', '2/13']}
-          >
-            <OptionButton />
-          </Box>
+          <OptionButton />
         </Box>
       </Box>
     </Box>

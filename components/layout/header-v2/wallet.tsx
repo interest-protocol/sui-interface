@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import { Button } from '@interest-protocol/ui-kit';
+import { formatAddress } from '@mysten/sui.js';
 import { ConnectButton } from '@mysten/wallet-kit';
 import { FixedPointMath } from 'lib';
 import { pathOr } from 'ramda';
@@ -6,30 +7,10 @@ import { FC, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { COIN_TYPE, Network } from '@/constants';
-import { Box, Typography } from '@/elements';
+import { Box } from '@/elements';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
-import { LoadingSVG, SuiSVG } from '@/svg';
+import { LoadingSVG, LogoSVG, SuiSVG } from '@/svg';
 import { ZERO_BIG_NUMBER } from '@/utils';
-
-import { ConnectWalletProps } from './header.types';
-
-const StyledConnectButton = styled(ConnectButton)`
-  width: 100%;
-  white-space: nowrap !important;
-  color: #fff !important;
-  padding-left: 0.7rem !important;
-  padding-right: 0.7rem !important;
-  background: #4282a8 !important;
-  transition: background-color 1s;
-  border-radius: 2.5rem !important;
-  &:hover {
-    background: #6fbcf0 !important;
-  }
-`;
-
-export const ConnectWallet: FC<ConnectWalletProps> = (props) => (
-  <StyledConnectButton {...props} />
-);
 
 const Wallet: FC = () => {
   const { coinsMap, connected, isFetchingCoinBalances, account } = useWeb3();
@@ -53,18 +34,34 @@ const Wallet: FC = () => {
       bg="textSoft"
       display="flex"
       alignItems="center"
-      borderRadius="2.5rem"
+      borderRadius="4px"
       justifyContent="space-between"
+      height="100%"
     >
       {connected && (
-        <Typography
-          pl="L"
-          pr="M"
-          as="span"
-          variant="normal"
-          whiteSpace="nowrap"
-          display={['none', 'flex']}
+        <Button
+          variant="outline"
+          fontWeight="400"
+          height="100%"
+          py="unset !important"
         >
+          <Box
+            as="span"
+            color="text"
+            width="1.2rem"
+            height="1.2rem"
+            overflow="hidden"
+            borderRadius="50%"
+            display="inline-block"
+          >
+            <LogoSVG
+              height="100%"
+              width="100%"
+              maxHeight="1.2rem"
+              maxWidth="1.2rem"
+              fill="currentColor"
+            />
+          </Box>
           {isFetchingCoinBalances ? (
             <Box as="span" display="inline-block">
               <LoadingSVG
@@ -83,36 +80,70 @@ const Wallet: FC = () => {
               )
             )
           )}
-          <Box
-            ml="S"
-            as="span"
-            color="text"
-            width="1.2rem"
-            height="1.2rem"
-            overflow="hidden"
-            borderRadius="50%"
-            display="inline-block"
-          >
-            <SuiSVG
-              height="100%"
-              width="100%"
-              maxHeight="1.2rem"
-              maxWidth="1.2rem"
-              fill="currentColor"
-            />
-          </Box>
-        </Typography>
+        </Button>
       )}
       <Box
-        fontSize="M"
         width="auto"
         border="none"
-        display="inline-flex"
+        display={[
+          connected ? 'none' : 'inline-flex',
+          connected ? 'none' : 'inline-flex',
+          connected ? 'none' : 'inline-flex',
+          'inline-flex',
+        ]}
         bg="bottomBackground"
         borderRadius="2.5rem"
+        height="100%"
       >
-        <ConnectWallet
-          connectedText={!loading ? suiNs : <Skeleton width="6rem" />}
+        <ConnectButton
+          connectText={
+            !loading ? (
+              <Button
+                variant="filled"
+                fontWeight="400"
+                height="100%"
+                py="unset !important"
+              >
+                Connect Wallet
+              </Button>
+            ) : (
+              <Skeleton width="6rem" />
+            )
+          }
+          connectedText={
+            !loading ? (
+              <Button
+                variant="outline"
+                fontWeight="400"
+                height="100%"
+                py="unset !important"
+                ml="0.3rem"
+              >
+                <Box
+                  as="span"
+                  color="text"
+                  width="1.2rem"
+                  height="1.2rem"
+                  overflow="hidden"
+                  borderRadius="50%"
+                  display="inline-block"
+                >
+                  <SuiSVG
+                    height="100%"
+                    width="100%"
+                    maxHeight="1.2rem"
+                    maxWidth="1.2rem"
+                    fill="currentColor"
+                    hasBackground
+                  />
+                </Box>
+                {formatAddress(account || '')}
+              </Button>
+            ) : (
+              <Skeleton width="6rem" />
+            )
+          }
+          style={{ padding: '0', background: 'transparent' }}
         />
       </Box>
     </Box>

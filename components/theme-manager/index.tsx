@@ -1,7 +1,8 @@
-import { Global, ThemeProvider } from '@emotion/react';
+import { Global } from '@emotion/react';
 import { ThemeProviderProps } from '@emotion/react/types/theming';
 import {
   darkTheme,
+  lightTheme,
   ThemeProvider as InterestThemeProvider,
 } from '@interest-protocol/ui-kit';
 import dynamic from 'next/dynamic';
@@ -48,12 +49,12 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
   return (
     <NetworkProvider>
       <WalletKitProvider>
-        <ThemeProvider
-          theme={{ setDark, ...(dark ? DAppDarkTheme : DAppLightTheme) }}
+        <InterestThemeProvider
+          theme={{ setDark, ...(dark ? darkTheme : lightTheme) }}
         >
           <Global styles={DappGlobalStyles} />
           {children}
-        </ThemeProvider>
+        </InterestThemeProvider>
       </WalletKitProvider>
     </NetworkProvider>
   );
