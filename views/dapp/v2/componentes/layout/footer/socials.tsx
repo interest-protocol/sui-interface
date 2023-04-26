@@ -2,7 +2,7 @@ import { Box, Motion } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { SOCIAL_MEDIAS } from '@/constants';
+import { SOCIAL_MEDIAS_ALTERNATIVE } from '@/constants';
 
 import { SocialWrapperProps } from './social.types';
 
@@ -29,12 +29,13 @@ const Socials: FC = () => (
     pt="6.25rem"
     pb="1.875rem"
     display="flex"
+    alignItems="center"
     position="relative"
     justifyContent="center"
     background="background"
     gap={['1.5rem', '1.5rem', '2.5rem']}
   >
-    {SOCIAL_MEDIAS.map(({ Logo, link }) => (
+    {SOCIAL_MEDIAS_ALTERNATIVE.map(({ Logo, link }) => (
       <SocialWrapper Icon={Logo} link={link} key={v4()} />
     ))}
   </Box>
