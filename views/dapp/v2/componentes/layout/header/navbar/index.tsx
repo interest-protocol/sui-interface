@@ -11,7 +11,7 @@ const NavItem: FC<{ path: string; name: string }> = ({ path, name }) => (
 );
 
 const Navbar: FC = () => (
-  <Box as="nav" display="flex">
+  <Box as="nav" display={['none', 'none', 'flex']}>
     <NavItem name="Swap" path="/dapp/v2/dex" />
     <NavItem name="Pool" path="/dapp/v2/pool" />
     <NavItem name="Lend" path="/dapp/v2/lending" />
