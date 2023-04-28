@@ -6,7 +6,13 @@
         "en-US": "Inglês",
         "pt-PT": "Português",
         "pt-BR": "Português"
-      }
+      },
+      "menu": {
+        "markMode": "Modo escuro",
+        "languages": "Idiomas"
+      },
+      "on": "Ativo",
+      "off": "Inativo"
     },
     "dex": "dex",
     "soon": "em breve",

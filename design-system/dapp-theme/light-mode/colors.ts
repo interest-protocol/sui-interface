@@ -25,8 +25,6 @@ const colors = {
   successActive: primitiveColors.GREEN_200,
   error: primitiveColors.RED_100,
   errorActive: primitiveColors.RED_200,
-  specialBackground: primitiveColors.NEUTRAL_500,
-  logo: primitiveColors.PRIMARY_100,
 };
 
 export default colors;

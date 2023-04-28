@@ -33,7 +33,9 @@ const Layout: FC<PropsWithChildren<IEmptyObj>> = ({ children }) => {
         }}
       />
       <Header />
-      {children}
+      <Box as="main" flex="1">
+        {children}
+      </Box>
       <Footer />
     </Box>
   );

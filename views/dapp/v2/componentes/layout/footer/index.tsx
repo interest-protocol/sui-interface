@@ -1,6 +1,7 @@
-import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-const Footer: FC = () => <Box></Box>;
+import Socials from './socials';
+
+const Footer: FC = () => <Socials />;
 
 export default Footer;

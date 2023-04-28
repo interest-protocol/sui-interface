@@ -1,13 +1,14 @@
-import { Motion, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
-import { useTranslations } from 'next-intl';
+import { Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { FLAG_ICON_MAP } from '@/constants/locale';
-import { useLocale } from '@/hooks';
-import { capitalize } from '@/utils';
+import { MenuDropdownProps } from './menu.types';
+import MenuItem from './menu-item';
 
-import LangItem from './lang-item';
+const MENU_ITEMS: ReadonlyArray<'languages' | 'darkMode'> = [
+  'darkMode',
+  'languages',
+];
 
 const itemVariants = {
   open: {
@@ -17,6 +18,7 @@ const itemVariants = {
   },
   closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
 };
+
 const wrapperVariants = {
   open: {
     clipPath: 'inset(0% 0% 0% 0% round 10px)',
@@ -38,13 +40,12 @@ const wrapperVariants = {
   },
 };
 
-const SwitchLang: FC<{ isOpen: boolean }> = ({ isOpen }) => {
-  const t = useTranslations();
-  const { colors } = useTheme() as Theme;
-  const { currentLocale, locales, changeLocale } = useLocale();
+const MenuDropdown: FC<MenuDropdownProps> = ({ isOpen }) => {
+  const { dark } = useTheme() as Theme;
 
   return (
     <Motion
+      right="0"
       zIndex={1}
       top="3rem"
       initial="closed"
@@ -52,40 +53,34 @@ const SwitchLang: FC<{ isOpen: boolean }> = ({ isOpen }) => {
       position="absolute"
       variants={wrapperVariants}
       animate={isOpen ? 'open' : 'closed'}
+      bg={
+        dark
+          ? 'linear-gradient(0deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)), #1B1B1F'
+          : 'linear-gradient(0deg, rgba(0, 85, 255, 0.08), rgba(0, 85, 255, 0.08)), #F2F0F4'
+      }
       pointerEvents={isOpen ? 'auto' : 'none'}
-      backgroundImage={`linear-gradient(#FFFFFF1A,#FFFFFF1A), linear-gradient(${colors.background},${colors.background})`}
     >
-      <Typography
-        m="xl"
-        as="h3"
-        fontWeight="400"
-        variant="medium"
-        fontFamily="Roboto"
-      >
-        {capitalize(t('common.v2.languages.title'))}
-      </Typography>
-      {locales.map((locale) => (
+      {MENU_ITEMS.map((name) => (
         <Motion
           py="l"
-          cursor="pointer"
           gap="l"
           px="xl"
           key={v4()}
+          color="text"
           display="grid"
+          cursor="pointer"
           alignItems="center"
           fontFamily="Roboto"
           variants={itemVariants}
           initial={itemVariants.closed}
-          nHover={{ bg: '#FFFFFF1A' }}
+          nHover={{ bg: dark ? '#FFFFFF1A' : '#86868614' }}
           gridTemplateColumns="1fr 8rem 1fr"
-          onClick={() => changeLocale(locale)}
-          bg={currentLocale === locale ? '#FFFFFF1A' : 'none'}
         >
-          <LangItem locale={locale} Icon={FLAG_ICON_MAP[locale]} />
+          <MenuItem name={name} />
         </Motion>
       ))}
     </Motion>
   );
 };
 
-export default SwitchLang;
+export default MenuDropdown;
