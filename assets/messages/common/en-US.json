@@ -6,7 +6,13 @@
         "en-US": "English",
         "pt-PT": "Portuguese",
         "pt-BR": "Portuguese"
-      }
+      },
+      "menu": {
+        "darkMode": "dark mode",
+        "languages": "languages"
+      },
+      "on": "On",
+      "off": "Off"
     },
     "dex": "dex",
     "soon": "soon",

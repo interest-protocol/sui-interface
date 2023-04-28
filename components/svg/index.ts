@@ -8,6 +8,7 @@ export { default as BinanceSVG } from './binance';
 export { default as BinanceTestSVG } from './binance-test';
 export { default as BitcoinSVG } from './bitcoin';
 export { default as BRFlagSVG } from './br-flag';
+export { default as CaretRightSVG } from './caret-right';
 export { default as ChartSVG } from './chart';
 export { default as CogsSVG } from './cogs';
 export { default as CopySVG } from './copy';
