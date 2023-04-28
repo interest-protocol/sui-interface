@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { TOKEN_SYMBOL } from 'lib';
 import { NextPage } from 'next';
+import { Dispatch, SetStateAction } from 'react';
 
 /**
  * code from package use-intl in 'use-intl/dist/utils/MessageKeys';
@@ -72,3 +73,7 @@ export interface FormattedNumber {
   unit: string;
   toString: () => string;
 }
+
+export type AppTheme<T> = T & {
+  setDark: Dispatch<SetStateAction<boolean>>;
+};
