@@ -27,7 +27,7 @@ const LendBalanceInfo: FC = () => (
           <Typography variant="small" color="foreground">
             Net APY
           </Typography>
-          <Box width="1rem">
+          <Box width="1rem" color="textHighlighter">
             <InfoLight maxHeight="1rem" maxWidth="1rem" />
           </Box>
         </Box>
