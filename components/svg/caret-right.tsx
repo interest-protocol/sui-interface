@@ -9,7 +9,7 @@ const CaretRight: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
     fill="none"
     {...props}
   >
-    <path d="M0 10.0001L5 5.00006L0 6.10352e-05V10.0001Z" fill="#001133" />
+    <path d="M0 10.0001L5 5.00006L0 6.10352e-05V10.0001Z" fill="currentColor" />
   </svg>
 );
 

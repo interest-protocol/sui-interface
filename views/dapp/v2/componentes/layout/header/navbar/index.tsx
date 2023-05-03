@@ -1,20 +1,19 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
-import Link from 'next/link';
+import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-const NavItem: FC<{ path: string; name: string }> = ({ path, name }) => (
-  <Link href={path}>
-    <Typography variant="small" px="2.75rem" color="text">
-      {name}
-    </Typography>
-  </Link>
-);
+import NavItem from './nav-item';
+import { NavbarProps } from './navbar.types';
 
-const Navbar: FC = () => (
-  <Box as="nav" display={['none', 'none', 'flex']}>
-    <NavItem name="Swap" path="/dapp/v2/dex" />
-    <NavItem name="Pool" path="/dapp/v2/pool" />
-    <NavItem name="Lend" path="/dapp/v2/lending" />
+const Navbar: FC<NavbarProps> = ({ isMobile }) => (
+  <Box
+    as="nav"
+    flexDirection={isMobile ? 'column' : 'row'}
+    display={[isMobile ? 'flex' : 'none', isMobile ? 'flex' : 'none', 'flex']}
+  >
+    <NavItem item="home" path="/dapp/v2" />
+    <NavItem item="swap" path="/dapp/v2/swap" />
+    <NavItem item="pool" path="/dapp/v2/pool" />
+    <NavItem item="lend" path="/dapp/v2/lending" />
   </Box>
 );
 

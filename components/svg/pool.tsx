@@ -2,22 +2,22 @@ import { FC } from 'react';
 
 import { SVGProps } from './svg.types';
 
-const ArrowLink: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
+const Pool: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => (
   <svg
     style={{ maxWidth, maxHeight }}
-    viewBox="0 0 15 15"
+    viewBox="0 0 21 21"
     fill="none"
     {...props}
   >
     <path
-      d="M2 13L13.25 1.75"
+      d="M10.6109 1.2498L10.6109 6.797L7.14396 10.9574L1.59674 10.9574"
       stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="square"
       strokeLinejoin="bevel"
     />
     <path
-      d="M4.25 1H14V10.75"
+      d="M11.0141 19.2785L11.0141 13.7313L14.481 9.57096L20.0283 9.57096"
       stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="square"
@@ -26,4 +26,4 @@ const ArrowLink: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   </svg>
 );
 
-export default ArrowLink;
+export default Pool;
