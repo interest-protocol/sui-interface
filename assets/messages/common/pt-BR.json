@@ -12,7 +12,17 @@
         "languages": "Idiomas"
       },
       "on": "Ativo",
-      "off": "Inativo"
+      "off": "Inativo",
+      "lend": {
+        "title": "Emprestar",
+        "firstSection": {
+          "netAPY": "APY líquido",
+          "supplyBalance": "Saldo de suprimento",
+          "walletBalance": "Saldo da carteira",
+          "borrowLimit": "Limite de empréstimo",
+          "borrowLimitUsed": "Limite de empréstimo utilizado"
+        }
+      }
     },
     "dex": "dex",
     "soon": "em breve",
