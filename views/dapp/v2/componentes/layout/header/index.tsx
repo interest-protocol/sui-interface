@@ -13,7 +13,6 @@ const Header: FC = () => (
       display="flex"
       gridColumn="1/-1"
       alignItems="center"
-      position="relative"
       justifyContent="space-between"
     >
       <Box display="flex" alignItems="center">
