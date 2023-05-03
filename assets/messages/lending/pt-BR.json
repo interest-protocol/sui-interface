@@ -1,7 +1,7 @@
 {
-  "dapp": {
+  "lending": {
     "metadata": {
-      "title": "DApp"
+      "title": "Empréstimo"
     }
   }
 }
