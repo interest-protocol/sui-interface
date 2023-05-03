@@ -3,12 +3,12 @@ import { mergeDeepRight } from 'ramda';
 
 import { SEO } from '@/components';
 import { NextPageWithProps } from '@/interface';
-import LendingProtocol from '@/views/dapp/v2/lending-protocol';
+import Home from '@/views/dapp/v2/home';
 
-const LendingProtocolPage: NextPageWithProps = ({ pageTitle }) => (
+const DAppPage: NextPageWithProps = ({ pageTitle }) => (
   <>
     <SEO pageTitle={pageTitle} />
-    <LendingProtocol />
+    <Home />
   </>
 );
 
@@ -31,4 +31,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default LendingProtocolPage;
+export default DAppPage;
