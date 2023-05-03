@@ -13,7 +13,7 @@ const LendBalanceInfo: FC = () => {
         gridColumn="1 / -1"
         width="100%"
         display="flex"
-        columnGap={['9.375rem', '9.375rem', '11.25rem', '6.25rem']}
+        columnGap={['4.375rem', '9.375rem', '11.25rem', '6.25rem']}
         rowGap={['2.25rem', '2.25rem', '2.25rem', '']}
         flexWrap="wrap"
         alignItems={['center', 'center', 'center', 'flex-end']}
