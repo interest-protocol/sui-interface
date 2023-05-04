@@ -33,15 +33,17 @@ const Header: FC = () => {
   return (
     <Box>
       <Box bg={dark ? 'bottomBackground' : 'accentActive'} p="L">
-        <Typography
-          fontSize="S"
-          fontWeight="600"
-          variant="normal"
-          textAlign="center"
-          color={dark ? 'text' : 'textSoft'}
-        >
-          {t('common.bannerHeader')}
-        </Typography>
+        <Link href={Routes[RoutesEnum.LiquidityCampaign]}>
+          <Typography
+            fontSize="S"
+            fontWeight="600"
+            variant="normal"
+            textAlign="center"
+            color={dark ? 'text' : 'textSoft'}
+          >
+            {t('common.bannerHeader')}
+          </Typography>
+        </Link>
       </Box>
       <Box
         py="M"

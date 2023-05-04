@@ -4,12 +4,15 @@ import { Toaster } from 'react-hot-toast';
 
 import { TOAST_DURATION } from '@/constants';
 import Box from '@/elements/box';
-import { IEmptyObj } from '@/interface';
 
 import Footer from './footer';
 import Header from './header';
+import { LayoutProps } from './layout.types';
 
-const Layout: FC<PropsWithChildren<IEmptyObj>> = ({ children }) => {
+const Layout: FC<PropsWithChildren<LayoutProps>> = ({
+  children,
+  noContent,
+}) => {
   const { colors, radii } = useTheme() as Theme;
   return (
     <Box minHeight="100vh" display="flex" flexDirection="column">
@@ -27,9 +30,9 @@ const Layout: FC<PropsWithChildren<IEmptyObj>> = ({ children }) => {
           duration: TOAST_DURATION,
         }}
       />
-      <Header />
+      <Header noContent={noContent} />
       {children}
-      <Footer />
+      {!noContent && <Footer />}
     </Box>
   );
 };

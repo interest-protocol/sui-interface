@@ -35,7 +35,8 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
 }) => {
   const { asPath } = useRouter();
 
-  const isRedesign = asPath === '/' || asPath === '/team';
+  const isRedesign =
+    asPath === '/' || asPath === '/team' || asPath.startsWith('/campaign');
 
   if (isRedesign)
     return (
