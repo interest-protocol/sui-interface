@@ -13,6 +13,8 @@ type FarmDetailsMessages =
   typeof import('../assets/messages/farms/details/en-US.json');
 type LandingPageMessages =
   typeof import('../assets/messages/landing-page/en-US.json');
+type LiquidityCampaignMessages =
+  typeof import('../assets/messages/liquidity-campaign/en-US.json');
 
 declare interface IntlMessages
   extends CommonMessages,
@@ -24,4 +26,5 @@ declare interface IntlMessages
     TeamMessages,
     FarmDetailsMessages,
     LandingPageMessages,
+    LiquidityCampaignMessages,
     DexPoolMessages {}
