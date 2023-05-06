@@ -2,6 +2,11 @@
   "liquidity": {
     "metadata": {
       "title": "Liquidity Program"
+    },
+    "firstThingFirst": {
+      "title": "primeiro o mais importante",
+      "description": "Se seus ativos estão em outras cadeias, você precisa transferi-los para a Sui Blockchain. Aqui está como fazer isso.",
+      "button": "para a aceder ao portal"
     }
   }
 }
