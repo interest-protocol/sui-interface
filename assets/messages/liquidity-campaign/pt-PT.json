@@ -2,6 +2,12 @@
   "liquidity": {
     "metadata": {
       "title": "Liquidity Program"
+    },
+    "hero": {
+      "title": "Programa de Liquidez da Interest Protocol",
+      "title2": "Pegue a sua parte dos 25M de Tokens IPX",
+      "paragraph": "Estamos entusiasmados por apresentar o Programa de Recompensas de Liquidez do Protocolo de Interesses, o primeiro do seu género no ecossistema Sui. Este programa foi criado para incentivar indivíduos que contribuem para o crescimento e estabilidade da nossa plataforma, permitindo-lhes ganhar rendimentos extra nas suas criptomoedas.",
+      "button": "Saiba como"
     }
   }
 }
