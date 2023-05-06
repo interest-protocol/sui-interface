@@ -2,6 +2,26 @@
   "liquidity": {
     "metadata": {
       "title": "Liquidity Program"
+    },
+    "benefitsLiquidityProvider":{
+      "title": "PROVEDOR DE LIQUIDEZ",
+      "subtitle": "Benefícios para",
+      "simplicity": {
+        "title": "SIMPLES E FÁCIL",
+        "description": "Fácil de participar, tanto para especialistas como para principiantes"
+      },
+      "security": {
+        "title": "SEGURANÇA",
+        "description": "Activos armazenados de forma segura. Auditado por"
+      },
+      "support": {
+        "title": "APOIO RÁPIDO",
+        "description": "Estamos disponíveis 24 horas por dia, 7 dias por semana, para responder às suas questões"
+      },
+      "reward": {
+        "title": "RECOMPENSA MÁXIMA",
+        "description": "Entre os melhores prémios da indústria"
+      }
     }
   }
 }

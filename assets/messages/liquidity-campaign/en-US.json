@@ -2,6 +2,26 @@
   "liquidity": {
     "metadata": {
       "title": "Liquidity Program"
+    },
+    "benefitsLiquidityProvider":{
+      "title": "LIQUIDITY PROVIDER",
+      "subtitle": "Benefits for",
+      "simplicity": {
+        "title": "SIMPLE & EASY",
+        "description": "Easy to participate for both experts and novices"
+      },
+      "security": {
+        "title": "SECURITY",
+        "description": "Assets stored securely. Audited by"
+      },
+      "support": {
+        "title": "QUICK SUPPORT",
+        "description": "We're here 24/7 to respond to your queries"
+      },
+      "reward": {
+        "title": "TOP REWARD",
+        "description": "Among the best rewards in the industry"
+      }
     }
   }
 }
