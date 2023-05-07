@@ -2,6 +2,14 @@
   "liquidity": {
     "metadata": {
       "title": "Liquidity Program"
+    },
+    "rewardDistribution": {
+      "title": "Distribuição de recompensas",
+      "distributionList": {
+        "option1":"O prémio total está limitado a 1000 tokens IPX por cada 25 dólares de prémio criado. Por exemplo: Se $25 forem depositados no Programa de Liquidez durante 30 dias durante o período do evento, o utilizador é elegível para receber 1.000 tokens IPX.",
+        "option2":"O airdrop será entregue no endereço que foi depositado aquando da adição da liquidez.",
+        "option3":"Além disso, como fornecedor de liquidez, ganhará 0,3% de todas as comissões de negociação geradas pelo pool, proporcionalmente à sua quota do pool."
+      }
     }
   }
 }
