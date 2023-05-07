@@ -2,6 +2,19 @@
   "liquidity": {
     "metadata": {
       "title": "Liquidity Program"
+    },
+    "newsletter": {
+      "title": "Esteja actualizado",
+      "description": "Se tiver alguma dúvida ou preocupação, não hesite em contactar-nos. Estamos ansiosos por o ver aderir ao nosso Programa de Recompensas de Liquidez!",
+      "placeholder": "seu-email@gmail.com",
+      "button": "{isLoading, plural, =1 {Enviando...} other {Enviar}}",
+      "errors": {
+        "1008": "Email já adicionado"
+      }
+    },
+    "footer": {
+      "title": "Siga-nos",
+      "description": "Fique atento às nossas últimas actualizações e anúncios. Siga-nos nas redes sociais."
     }
   }
 }
