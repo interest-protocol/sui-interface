@@ -4,6 +4,7 @@ export * from './use-get-coin-metadata';
 export * from './use-get-coins-prices';
 export * from './use-get-ipx-storage';
 export * from './use-get-multi-objects';
+export * from './use-horizontal-scroll';
 export * from './use-local-storage';
 export * from './use-locale';
 export * from './use-modal';
