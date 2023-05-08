@@ -44,6 +44,7 @@ export interface SwapButtonProps {
   coinsMap: Web3ManagerState['coinsMap'];
   mutate: KeyedMutator<PaginatedCoins['data'] | undefined>;
   poolsMap: PoolsMap;
+  deadline: string;
 }
 
 export interface SwapManagerWrapperProps {

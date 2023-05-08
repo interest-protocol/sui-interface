@@ -4,6 +4,7 @@ import { pathOr, prop } from 'ramda';
 import { FC, useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
 import useSWR from 'swr';
+import { useNow } from 'use-intl';
 
 import { COIN_DECIMALS, OBJECT_RECORD } from '@/constants';
 import InputBalance from '@/elements/input-balance';
@@ -39,12 +40,15 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   const { provider } = useProvider();
   const { network } = useNetwork();
 
+  const now = useNow();
+
   const devInspectTransactionPayload = getSwapPayload({
     tokenIn,
     coinsMap,
     tokenOutType,
     poolsMap,
     network,
+    deadline: (now.getTime() + 30 * 60 * 1000).toString(), // We pass 30 minutes deadline
   });
 
   const { error } = useSWR(
@@ -77,22 +81,26 @@ const SwapManagerField: FC<SwapManagerProps> = ({
         setError(true);
       },
       onSuccess: (data) => {
-        const amount = findSwapAmountOutput({
-          data,
-          packageId: OBJECT_RECORD[network].PACKAGE_ID,
-        });
-        setError(false);
+        if (data?.effects.status.status === 'failure') {
+          setError(true);
+        } else {
+          const amount = findSwapAmountOutput({
+            data,
+            packageId: OBJECT_RECORD[network].DEX_PACKAGE_ID,
+          });
+          setError(false);
 
-        setIsZeroSwapAmount(!amount);
-        setValue(
-          'tokenOut.value',
-          FixedPointMath.toNumber(
-            new BigNumber(amount),
-            COIN_DECIMALS[network][tokenOutType],
-            COIN_DECIMALS[network][tokenOutType]
-          ).toString()
-        );
-        setIsFetchingSwapAmount(false);
+          setIsZeroSwapAmount(!amount);
+          setValue(
+            'tokenOut.value',
+            FixedPointMath.toNumber(
+              new BigNumber(amount),
+              COIN_DECIMALS[network][tokenOutType],
+              COIN_DECIMALS[network][tokenOutType]
+            ).toString()
+          );
+          setIsFetchingSwapAmount(false);
+        }
       },
       revalidateOnFocus: true,
       revalidateOnMount: true,

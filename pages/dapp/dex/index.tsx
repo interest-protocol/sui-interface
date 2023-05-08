@@ -50,7 +50,7 @@ const DexPage: NextPageWithProps = ({ pageTitle }) => {
 
   const [localSettings, setLocalSettings] = useLocalStorage<LocalSwapSettings>(
     'sui-interest-swap-settings',
-    { slippage: '1', deadline: '5' }
+    { slippage: '1', deadline: '30' }
   );
 
   const formSwap = useForm<ISwapForm>();

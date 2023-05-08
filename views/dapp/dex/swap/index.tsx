@@ -180,6 +180,7 @@ const Swap: FC<SwapProps> = ({
               tokenOutType,
               slippage: localSettings.slippage,
               poolsMap: poolsMap || {},
+              deadline: localSettings.deadline,
             }}
           />
         </Box>

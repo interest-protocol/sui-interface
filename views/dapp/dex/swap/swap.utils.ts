@@ -127,7 +127,6 @@ export const getSwapPayload = ({
     amount: safeAmount.toString(),
     type: tokenIn.type,
   });
-
   // no hop swap
   if (!firstSwapObject.baseTokens.length) {
     txb.moveCall({

@@ -68,10 +68,12 @@ export const processSafeAmount = (
   return amount.gt(object.totalBalance) ? object.totalBalance : amount;
 };
 
-export const getCoinsFromPoolType = (poolType: string): [string, string] => [
-  poolType.split('<')[1].split(',')[0].trim(),
-  poolType.split('<')[1].split(',')[1].split('>')[0].trim(),
-];
+export const getCoinsFromPoolType = (poolType: string): [string, string] => {
+  const type = poolType.split('Pool');
+  const poolArgs = type[1];
+  const tokens = poolArgs.split(',');
+  return [tokens[1].trim(), tokens[2].split('>')[0].trim()];
+};
 
 export const createVectorParameter = ({
   txb,
