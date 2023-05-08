@@ -1,4 +1,4 @@
-import { TransactionBlock } from '@mysten/sui.js';
+import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { FixedPointMath } from 'lib';
 import { isEmpty, last, pathOr } from 'ramda';
@@ -98,6 +98,7 @@ export const getSwapPayload = ({
   coinsMap,
   poolsMap,
   network,
+  deadline,
 }: GetSwapPayload): TransactionBlock | null => {
   if (isEmpty(poolsMap)) return null;
   if (!tokenIn || !tokenIn.value) return null;
@@ -130,14 +131,15 @@ export const getSwapPayload = ({
   // no hop swap
   if (!firstSwapObject.baseTokens.length) {
     txb.moveCall({
-      target: `${objects.PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
+      target: `${objects.DEX_PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
       typeArguments: firstSwapObject.typeArgs,
       arguments: [
-        txb.object(objects.DEX_STORAGE_VOLATILE),
-        txb.object(objects.DEX_STORAGE_STABLE),
+        txb.object(objects.DEX_CORE_STORAGE),
+        txb.object(SUI_CLOCK_OBJECT_ID),
         firstCoinVector,
         txb.pure(safeAmount.toString()),
         txb.pure('0'),
+        txb.pure(deadline),
       ],
     });
     return txb;
@@ -146,14 +148,15 @@ export const getSwapPayload = ({
   // One Hop Swap
   if (firstSwapObject.baseTokens.length === 1) {
     txb.moveCall({
-      target: `${objects.PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
+      target: `${objects.DEX_CORE_STORAGE}::interface::${firstSwapObject.functionName}`,
       typeArguments: firstSwapObject.typeArgs,
       arguments: [
-        txb.object(objects.DEX_STORAGE_VOLATILE),
-        txb.object(objects.DEX_STORAGE_STABLE),
+        txb.object(objects.DEX_CORE_STORAGE),
+        txb.object(SUI_CLOCK_OBJECT_ID),
         firstCoinVector,
         txb.pure(amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()),
         txb.pure('0'),
+        txb.pure(deadline),
       ],
     });
     return txb;

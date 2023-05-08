@@ -88,10 +88,12 @@ export interface GetSwapPayload {
   coinsMap: Web3ManagerState['coinsMap'];
   poolsMap: PoolsMap;
   network: Network;
+  deadline: string;
 }
 
 export interface LocalSwapSettings {
   slippage: string; // 20 equals 20%
+  deadline: string; // 5 equals 5 minutes
 }
 
 export interface SwapPathProps {

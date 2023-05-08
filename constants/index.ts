@@ -1,7 +1,6 @@
 import {
   BinanceSVG,
   BitcoinSVG,
-  DAISVG,
   EtherSVG,
   InterestTokenSVG,
   SuiSVG,
@@ -36,15 +35,11 @@ export enum StakeState {
   Unstake,
 }
 
-export const SUI_EXPLORER = {
-  [Network.DEVNET]: 'https://explorer.sui.io',
-};
-
+export const SUI_EXPLORER_URL = 'https://explorer.sui.io';
 export const TOKENS_SVG_MAP = {
   default: UnknownCoinSVG,
   [COIN_TYPE[Network.DEVNET].BNB]: BinanceSVG,
   [COIN_TYPE[Network.DEVNET].BTC]: BitcoinSVG,
-  [COIN_TYPE[Network.DEVNET].DAI]: DAISVG,
   [COIN_TYPE[Network.DEVNET].ETH]: EtherSVG,
   [COIN_TYPE[Network.DEVNET].SUI]: SuiSVG,
   [COIN_TYPE[Network.DEVNET].USDC]: USDCoinSVG,
@@ -52,7 +47,6 @@ export const TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.DEVNET].IPX]: InterestTokenSVG,
   [COIN_TYPE[Network.TESTNET].BNB]: BinanceSVG,
   [COIN_TYPE[Network.TESTNET].BTC]: BitcoinSVG,
-  [COIN_TYPE[Network.TESTNET].DAI]: DAISVG,
   [COIN_TYPE[Network.TESTNET].ETH]: EtherSVG,
   [COIN_TYPE[Network.TESTNET].SUI]: SuiSVG,
   [COIN_TYPE[Network.TESTNET].USDC]: USDCoinSVG,

@@ -4,113 +4,119 @@ import { TOKEN_SYMBOL } from 'lib';
 import { Network } from './network';
 import { OBJECT_RECORD } from './objects';
 
+export const VOLATILE = {
+  [Network.DEVNET]: `${
+    OBJECT_RECORD[Network.DEVNET].DEX_PACKAGE_ID
+  }::curve::VOLATILE`,
+  [Network.TESTNET]: `${
+    OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
+  }::curve::VOLATILE`,
+};
+
+export const STABLE = {
+  [Network.DEVNET]: `${
+    OBJECT_RECORD[Network.DEVNET].DEX_PACKAGE_ID
+  }::curve::STABLE`,
+  [Network.TESTNET]: `${
+    OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
+  }::curve::STABLE`,
+};
+
 const DEV_NET_BASE_COINS = {
   SUI: SUI_TYPE_ARG,
-  BNB: `${OBJECT_RECORD[Network.DEVNET].PACKAGE_ID}::coins::BNB`,
-  ETH: `${OBJECT_RECORD[Network.DEVNET].PACKAGE_ID}::coins::ETH`,
-  BTC: `${OBJECT_RECORD[Network.DEVNET].PACKAGE_ID}::coins::BTC`,
-  USDT: `${OBJECT_RECORD[Network.DEVNET].PACKAGE_ID}::coins::USDT`,
-  USDC: `${OBJECT_RECORD[Network.DEVNET].PACKAGE_ID}::coins::USDC`,
-  DAI: `${OBJECT_RECORD[Network.DEVNET].PACKAGE_ID}::coins::DAI`,
-  IPX: `${OBJECT_RECORD[Network.DEVNET].PACKAGE_ID}::ipx::IPX`,
+  BNB: `${OBJECT_RECORD[Network.DEVNET].FAUCET_PACKAGE_ID}::ibnb::IBNB`,
+  ETH: `${OBJECT_RECORD[Network.DEVNET].FAUCET_PACKAGE_ID}::ieth::IETH`,
+  BTC: `${OBJECT_RECORD[Network.DEVNET].FAUCET_PACKAGE_ID}::ibtc::IBTC`,
+  USDT: `${OBJECT_RECORD[Network.DEVNET].FAUCET_PACKAGE_ID}::iusdt::IUSDT`,
+  USDC: `${OBJECT_RECORD[Network.DEVNET].FAUCET_PACKAGE_ID}::iusdc::IUSDC`,
+  IPX: `${OBJECT_RECORD[Network.DEVNET].IPX_PACKAGE_ID}::ipx::IPX`,
 };
 
 const TESTNET_NET_BASE_COINS = {
   SUI: SUI_TYPE_ARG,
-  BNB: `${OBJECT_RECORD[Network.TESTNET].PACKAGE_ID}::coins::BNB`,
-  ETH: `${OBJECT_RECORD[Network.TESTNET].PACKAGE_ID}::coins::ETH`,
-  BTC: `${OBJECT_RECORD[Network.TESTNET].PACKAGE_ID}::coins::BTC`,
-  USDT: `${OBJECT_RECORD[Network.TESTNET].PACKAGE_ID}::coins::USDT`,
-  USDC: `${OBJECT_RECORD[Network.TESTNET].PACKAGE_ID}::coins::USDC`,
-  DAI: `${OBJECT_RECORD[Network.TESTNET].PACKAGE_ID}::coins::DAI`,
-  IPX: `${OBJECT_RECORD[Network.TESTNET].PACKAGE_ID}::ipx::IPX`,
+  BNB: `${OBJECT_RECORD[Network.TESTNET].FAUCET_PACKAGE_ID}::ibnb::IBNB`,
+  ETH: `${OBJECT_RECORD[Network.TESTNET].FAUCET_PACKAGE_ID}::ieth::IETH`,
+  BTC: `${OBJECT_RECORD[Network.TESTNET].FAUCET_PACKAGE_ID}::ibtc::IBTC`,
+  USDT: `${OBJECT_RECORD[Network.TESTNET].FAUCET_PACKAGE_ID}::iusdt::IUSDT`,
+  USDC: `${OBJECT_RECORD[Network.TESTNET].FAUCET_PACKAGE_ID}::iusdc::IUSDC`,
+  IPX: `${OBJECT_RECORD[Network.TESTNET].IPX_PACKAGE_ID}::ipx::IPX`,
 };
 
 export const COIN_TYPE = {
   [Network.DEVNET]: {
     ...DEV_NET_BASE_COINS,
     V_LP_SUI_ETH: `${
-      OBJECT_RECORD[Network.DEVNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.SUI}, ${
+      OBJECT_RECORD[Network.DEVNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${VOLATILE[Network.DEVNET]}, ${DEV_NET_BASE_COINS.SUI}, ${
       DEV_NET_BASE_COINS.ETH
     }>`,
     V_LP_BTC_ETH: `${
-      OBJECT_RECORD[Network.DEVNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.BTC}, ${
+      OBJECT_RECORD[Network.DEVNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${VOLATILE[Network.DEVNET]}, ${DEV_NET_BASE_COINS.BTC}, ${
       DEV_NET_BASE_COINS.ETH
     }>`,
     V_LP_BNB_ETH: `${
-      OBJECT_RECORD[Network.DEVNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.BNB}, ${
+      OBJECT_RECORD[Network.DEVNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${VOLATILE[Network.DEVNET]}, ${DEV_NET_BASE_COINS.BNB}, ${
       DEV_NET_BASE_COINS.ETH
     }>`,
     V_LP_ETH_USDT: `${
-      OBJECT_RECORD[Network.DEVNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.ETH}, ${
+      OBJECT_RECORD[Network.DEVNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${VOLATILE[Network.DEVNET]}, ${DEV_NET_BASE_COINS.ETH}, ${
       DEV_NET_BASE_COINS.USDT
     }>`,
     V_LP_ETH_USDC: `${
-      OBJECT_RECORD[Network.DEVNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.ETH}, ${
+      OBJECT_RECORD[Network.DEVNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${VOLATILE[Network.DEVNET]}, ${DEV_NET_BASE_COINS.ETH}, ${
       DEV_NET_BASE_COINS.USDC
     }>`,
-    V_LP_DAI_ETH: `${
-      OBJECT_RECORD[Network.DEVNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.DAI}, ${
-      DEV_NET_BASE_COINS.ETH
-    }>`,
     V_LP_ETH_IPX: `${
-      OBJECT_RECORD[Network.DEVNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${DEV_NET_BASE_COINS.ETH}, ${
+      OBJECT_RECORD[Network.DEVNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${VOLATILE[Network.DEVNET]}, ${DEV_NET_BASE_COINS.ETH}, ${
       DEV_NET_BASE_COINS.IPX
     }>`,
     S_LP_USDC_USDT: `${
-      OBJECT_RECORD[Network.DEVNET].PACKAGE_ID
-    }::dex_stable::SLPCoin<${DEV_NET_BASE_COINS.USDC}, ${
-      DEV_NET_BASE_COINS.USDT
+      OBJECT_RECORD[Network.DEVNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${STABLE[Network.DEVNET]}, ${DEV_NET_BASE_COINS.USDC}, ${
+      DEV_NET_BASE_COINS.USDC
     }>`,
   },
   [Network.TESTNET]: {
     ...TESTNET_NET_BASE_COINS,
     V_LP_SUI_ETH: `${
-      OBJECT_RECORD[Network.TESTNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${TESTNET_NET_BASE_COINS.SUI}, ${
-      TESTNET_NET_BASE_COINS.ETH
+      OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.SUI}, ${
+      DEV_NET_BASE_COINS.ETH
     }>`,
     V_LP_BTC_ETH: `${
-      OBJECT_RECORD[Network.TESTNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${TESTNET_NET_BASE_COINS.BTC}, ${
-      TESTNET_NET_BASE_COINS.ETH
+      OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.BTC}, ${
+      DEV_NET_BASE_COINS.ETH
     }>`,
     V_LP_BNB_ETH: `${
-      OBJECT_RECORD[Network.TESTNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${TESTNET_NET_BASE_COINS.BNB}, ${
-      TESTNET_NET_BASE_COINS.ETH
+      OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.BNB}, ${
+      DEV_NET_BASE_COINS.ETH
     }>`,
     V_LP_ETH_USDT: `${
-      OBJECT_RECORD[Network.TESTNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${TESTNET_NET_BASE_COINS.ETH}, ${
-      TESTNET_NET_BASE_COINS.USDT
+      OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.ETH}, ${
+      DEV_NET_BASE_COINS.USDT
     }>`,
     V_LP_ETH_USDC: `${
-      OBJECT_RECORD[Network.TESTNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${TESTNET_NET_BASE_COINS.ETH}, ${
-      TESTNET_NET_BASE_COINS.USDC
-    }>`,
-    V_LP_DAI_ETH: `${
-      OBJECT_RECORD[Network.TESTNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${TESTNET_NET_BASE_COINS.DAI}, ${
-      TESTNET_NET_BASE_COINS.ETH
+      OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.ETH}, ${
+      DEV_NET_BASE_COINS.USDC
     }>`,
     V_LP_ETH_IPX: `${
-      OBJECT_RECORD[Network.TESTNET].PACKAGE_ID
-    }::dex_volatile::VLPCoin<${TESTNET_NET_BASE_COINS.ETH}, ${
-      TESTNET_NET_BASE_COINS.IPX
+      OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.ETH}, ${
+      DEV_NET_BASE_COINS.IPX
     }>`,
     S_LP_USDC_USDT: `${
-      OBJECT_RECORD[Network.TESTNET].PACKAGE_ID
-    }::dex_stable::SLPCoin<${TESTNET_NET_BASE_COINS.USDC}, ${
-      TESTNET_NET_BASE_COINS.USDT
+      OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
+    }::core::LPCoin<${STABLE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.USDC}, ${
+      DEV_NET_BASE_COINS.USDC
     }>`,
   },
 };
@@ -122,7 +128,6 @@ export const COIN_TYPE_TO_STABLE = {
     [COIN_TYPE[Network.DEVNET].BTC]: false,
     [COIN_TYPE[Network.DEVNET].USDT]: true,
     [COIN_TYPE[Network.DEVNET].USDC]: true,
-    [COIN_TYPE[Network.DEVNET].DAI]: true,
     [COIN_TYPE[Network.DEVNET].SUI]: false,
     [COIN_TYPE[Network.DEVNET].IPX]: false,
     [COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH]: false,
@@ -130,7 +135,6 @@ export const COIN_TYPE_TO_STABLE = {
     [COIN_TYPE[Network.DEVNET].V_LP_BNB_ETH]: false,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT]: false,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC]: false,
-    [COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH]: false,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX]: false,
   },
   [Network.TESTNET]: {
@@ -139,7 +143,6 @@ export const COIN_TYPE_TO_STABLE = {
     [COIN_TYPE[Network.TESTNET].BTC]: false,
     [COIN_TYPE[Network.TESTNET].USDT]: true,
     [COIN_TYPE[Network.TESTNET].USDC]: true,
-    [COIN_TYPE[Network.TESTNET].DAI]: true,
     [COIN_TYPE[Network.TESTNET].SUI]: false,
     [COIN_TYPE[Network.TESTNET].IPX]: false,
     [COIN_TYPE[Network.TESTNET].V_LP_SUI_ETH]: false,
@@ -147,7 +150,6 @@ export const COIN_TYPE_TO_STABLE = {
     [COIN_TYPE[Network.TESTNET].V_LP_BNB_ETH]: false,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT]: false,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: false,
-    [COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH]: false,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: false,
   },
 };
@@ -159,7 +161,6 @@ export const COIN_TYPE_TO_SYMBOL = {
     [COIN_TYPE[Network.DEVNET].BTC]: TOKEN_SYMBOL.BTC,
     [COIN_TYPE[Network.DEVNET].USDT]: TOKEN_SYMBOL.USDT,
     [COIN_TYPE[Network.DEVNET].USDC]: TOKEN_SYMBOL.USDC,
-    [COIN_TYPE[Network.DEVNET].DAI]: TOKEN_SYMBOL.DAI,
     [COIN_TYPE[Network.DEVNET].SUI]: TOKEN_SYMBOL.SUI,
     [COIN_TYPE[Network.DEVNET].IPX]: TOKEN_SYMBOL.IPX,
     [COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH]: TOKEN_SYMBOL.V_LP_SUI_ETH,
@@ -167,7 +168,6 @@ export const COIN_TYPE_TO_SYMBOL = {
     [COIN_TYPE[Network.DEVNET].V_LP_BNB_ETH]: TOKEN_SYMBOL.V_LP_BNB_ETH,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT]: TOKEN_SYMBOL.V_LP_ETH_USDT,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC]: TOKEN_SYMBOL.V_LP_ETH_USDC,
-    [COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH]: TOKEN_SYMBOL.V_LP_DAI_ETH,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX]: TOKEN_SYMBOL.V_LP_ETH_IPX,
   },
   [Network.TESTNET]: {
@@ -176,7 +176,6 @@ export const COIN_TYPE_TO_SYMBOL = {
     [COIN_TYPE[Network.TESTNET].BTC]: TOKEN_SYMBOL.BTC,
     [COIN_TYPE[Network.TESTNET].USDT]: TOKEN_SYMBOL.USDT,
     [COIN_TYPE[Network.TESTNET].USDC]: TOKEN_SYMBOL.USDC,
-    [COIN_TYPE[Network.TESTNET].DAI]: TOKEN_SYMBOL.DAI,
     [COIN_TYPE[Network.TESTNET].SUI]: TOKEN_SYMBOL.SUI,
     [COIN_TYPE[Network.TESTNET].IPX]: TOKEN_SYMBOL.IPX,
     [COIN_TYPE[Network.TESTNET].V_LP_SUI_ETH]: TOKEN_SYMBOL.V_LP_SUI_ETH,
@@ -184,19 +183,17 @@ export const COIN_TYPE_TO_SYMBOL = {
     [COIN_TYPE[Network.TESTNET].V_LP_BNB_ETH]: TOKEN_SYMBOL.V_LP_BNB_ETH,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT]: TOKEN_SYMBOL.V_LP_ETH_USDT,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: TOKEN_SYMBOL.V_LP_ETH_USDC,
-    [COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH]: TOKEN_SYMBOL.V_LP_DAI_ETH,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: TOKEN_SYMBOL.V_LP_ETH_IPX,
   },
 };
 
 export const COIN_DECIMALS = {
   [Network.DEVNET]: {
-    [COIN_TYPE[Network.DEVNET].BTC]: 0,
-    [COIN_TYPE[Network.DEVNET].ETH]: 0,
-    [COIN_TYPE[Network.DEVNET].BNB]: 0,
-    [COIN_TYPE[Network.DEVNET].USDT]: 0,
-    [COIN_TYPE[Network.DEVNET].USDC]: 0,
-    [COIN_TYPE[Network.DEVNET].DAI]: 0,
+    [COIN_TYPE[Network.DEVNET].BTC]: 9,
+    [COIN_TYPE[Network.DEVNET].ETH]: 9,
+    [COIN_TYPE[Network.DEVNET].BNB]: 9,
+    [COIN_TYPE[Network.DEVNET].USDT]: 9,
+    [COIN_TYPE[Network.DEVNET].USDC]: 9,
     [COIN_TYPE[Network.DEVNET].SUI]: 9,
     [COIN_TYPE[Network.DEVNET].IPX]: 9,
     [COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH]: 0,
@@ -204,17 +201,15 @@ export const COIN_DECIMALS = {
     [COIN_TYPE[Network.DEVNET].V_LP_BNB_ETH]: 0,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT]: 0,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC]: 0,
-    [COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH]: 0,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX]: 0,
     [COIN_TYPE[Network.DEVNET].S_LP_USDC_USDT]: 0,
   },
   [Network.TESTNET]: {
-    [COIN_TYPE[Network.TESTNET].BTC]: 0,
-    [COIN_TYPE[Network.TESTNET].ETH]: 0,
-    [COIN_TYPE[Network.TESTNET].BNB]: 0,
-    [COIN_TYPE[Network.TESTNET].USDT]: 0,
-    [COIN_TYPE[Network.TESTNET].USDC]: 0,
-    [COIN_TYPE[Network.TESTNET].DAI]: 0,
+    [COIN_TYPE[Network.TESTNET].BTC]: 9,
+    [COIN_TYPE[Network.TESTNET].ETH]: 9,
+    [COIN_TYPE[Network.TESTNET].BNB]: 9,
+    [COIN_TYPE[Network.TESTNET].USDT]: 9,
+    [COIN_TYPE[Network.TESTNET].USDC]: 9,
     [COIN_TYPE[Network.TESTNET].SUI]: 9,
     [COIN_TYPE[Network.TESTNET].IPX]: 9,
     [COIN_TYPE[Network.TESTNET].V_LP_SUI_ETH]: 0,
@@ -222,7 +217,6 @@ export const COIN_DECIMALS = {
     [COIN_TYPE[Network.TESTNET].V_LP_BNB_ETH]: 0,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT]: 0,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: 0,
-    [COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH]: 0,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: 0,
     [COIN_TYPE[Network.TESTNET].S_LP_USDC_USDT]: 0,
   },
@@ -235,7 +229,6 @@ export const COIN_SYMBOL = {
     [COIN_TYPE[Network.DEVNET].BNB]: TOKEN_SYMBOL.BNB,
     [COIN_TYPE[Network.DEVNET].USDT]: TOKEN_SYMBOL.USDT,
     [COIN_TYPE[Network.DEVNET].USDC]: TOKEN_SYMBOL.USDC,
-    [COIN_TYPE[Network.DEVNET].DAI]: TOKEN_SYMBOL.DAI,
     [COIN_TYPE[Network.DEVNET].SUI]: TOKEN_SYMBOL.SUI,
     [COIN_TYPE[Network.DEVNET].IPX]: TOKEN_SYMBOL.IPX,
     [COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH]: TOKEN_SYMBOL.V_LP_SUI_ETH,
@@ -243,7 +236,6 @@ export const COIN_SYMBOL = {
     [COIN_TYPE[Network.DEVNET].V_LP_BNB_ETH]: TOKEN_SYMBOL.V_LP_BNB_ETH,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT]: TOKEN_SYMBOL.V_LP_ETH_USDT,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC]: TOKEN_SYMBOL.V_LP_ETH_USDC,
-    [COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH]: TOKEN_SYMBOL.V_LP_DAI_ETH,
     [COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX]: TOKEN_SYMBOL.V_LP_ETH_IPX,
     [COIN_TYPE[Network.DEVNET].S_LP_USDC_USDT]: TOKEN_SYMBOL.S_LP_USDC_USDT,
   },
@@ -253,7 +245,6 @@ export const COIN_SYMBOL = {
     [COIN_TYPE[Network.TESTNET].BNB]: TOKEN_SYMBOL.BNB,
     [COIN_TYPE[Network.TESTNET].USDT]: TOKEN_SYMBOL.USDT,
     [COIN_TYPE[Network.TESTNET].USDC]: TOKEN_SYMBOL.USDC,
-    [COIN_TYPE[Network.TESTNET].DAI]: TOKEN_SYMBOL.DAI,
     [COIN_TYPE[Network.TESTNET].SUI]: TOKEN_SYMBOL.SUI,
     [COIN_TYPE[Network.TESTNET].IPX]: TOKEN_SYMBOL.IPX,
     [COIN_TYPE[Network.TESTNET].V_LP_SUI_ETH]: TOKEN_SYMBOL.V_LP_SUI_ETH,
@@ -261,7 +252,6 @@ export const COIN_SYMBOL = {
     [COIN_TYPE[Network.TESTNET].V_LP_BNB_ETH]: TOKEN_SYMBOL.V_LP_BNB_ETH,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT]: TOKEN_SYMBOL.V_LP_ETH_USDT,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: TOKEN_SYMBOL.V_LP_ETH_USDC,
-    [COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH]: TOKEN_SYMBOL.V_LP_DAI_ETH,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: TOKEN_SYMBOL.V_LP_ETH_IPX,
     [COIN_TYPE[Network.TESTNET].S_LP_USDC_USDT]: TOKEN_SYMBOL.S_LP_USDC_USDT,
   },
@@ -279,8 +269,6 @@ export const COIN_POOL = {
       '0x81013c277415ccbad602a6632f4f7e5971d4d406798dddfe63943b9e2f6da7c2',
     V_LP_ETH_USDC:
       '0x00103a5971e0f204ceedc6acc0072124c64979c886c02308c951d6074088d504',
-    V_LP_DAI_ETH:
-      '0x006e67f2a73bfb92873ee34b12eca56e85b9d0f563f007ca044b845070536747',
     V_LP_ETH_IPX:
       '0xcb98ca44a26bb1840076aa9c09f714152273673417933bb099538bd1eed34af6',
     S_LP_USDC_USDT:
@@ -297,8 +285,6 @@ export const COIN_POOL = {
       '0x27989fd07935cad9ff835729e9695d5fb42a0809983bf912962125a6f6e3a788',
     V_LP_ETH_USDC:
       '0xb4042410d89c52823cf8decfd6a30b7aa50fa0fd13bcf28b39c192136676f2ed',
-    V_LP_DAI_ETH:
-      '0xbe4530afa973297749c317ca982459669e5ff70874562b54ec776877f819d8f5',
     V_LP_ETH_IPX:
       '0x58fe704c74abf7126fd63ca8839a9831d2f359947632d9a3a19cf5e2586e3010',
     S_LP_USDC_USDT:
@@ -369,11 +355,6 @@ export const COINS = {
       symbol: TOKEN_SYMBOL.SUI,
       type: COIN_TYPE[Network.DEVNET].SUI,
     },
-    DAI: {
-      decimals: COIN_DECIMALS[Network.DEVNET][COIN_TYPE[Network.DEVNET].DAI],
-      symbol: TOKEN_SYMBOL.DAI,
-      type: COIN_TYPE[Network.DEVNET].DAI,
-    },
     USDC: {
       decimals: COIN_DECIMALS[Network.DEVNET][COIN_TYPE[Network.DEVNET].USDC],
       symbol: TOKEN_SYMBOL.USDC,
@@ -419,12 +400,6 @@ export const COINS = {
       symbol: TOKEN_SYMBOL.V_LP_ETH_USDC,
       type: COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC,
     },
-    V_LP_DAI_ETH: {
-      decimals:
-        COIN_DECIMALS[Network.DEVNET][COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC],
-      symbol: TOKEN_SYMBOL.V_LP_DAI_ETH,
-      type: COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH,
-    },
     V_LP_ETH_IPX: {
       decimals:
         COIN_DECIMALS[Network.DEVNET][COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX],
@@ -458,11 +433,6 @@ export const COINS = {
       decimals: COIN_DECIMALS[Network.TESTNET][COIN_TYPE[Network.TESTNET].SUI],
       symbol: TOKEN_SYMBOL.SUI,
       type: COIN_TYPE[Network.TESTNET].SUI,
-    },
-    DAI: {
-      decimals: COIN_DECIMALS[Network.TESTNET][COIN_TYPE[Network.TESTNET].DAI],
-      symbol: TOKEN_SYMBOL.DAI,
-      type: COIN_TYPE[Network.TESTNET].DAI,
     },
     USDC: {
       decimals: COIN_DECIMALS[Network.TESTNET][COIN_TYPE[Network.TESTNET].USDC],
@@ -513,14 +483,6 @@ export const COINS = {
       symbol: TOKEN_SYMBOL.V_LP_ETH_USDC,
       type: COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC,
     },
-    V_LP_DAI_ETH: {
-      decimals:
-        COIN_DECIMALS[Network.TESTNET][
-          COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC
-        ],
-      symbol: TOKEN_SYMBOL.V_LP_DAI_ETH,
-      type: COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH,
-    },
     V_LP_ETH_IPX: {
       decimals:
         COIN_DECIMALS[Network.TESTNET][COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX],
@@ -544,7 +506,6 @@ export const COIN_TYPE_TO_COIN = {
     [COIN_TYPE[Network.DEVNET].BTC]: COINS[Network.DEVNET].BTC,
     [COIN_TYPE[Network.DEVNET].BNB]: COINS[Network.DEVNET].BNB,
     [COIN_TYPE[Network.DEVNET].SUI]: COINS[Network.DEVNET].SUI,
-    [COIN_TYPE[Network.DEVNET].DAI]: COINS[Network.DEVNET].DAI,
     [COIN_TYPE[Network.DEVNET].USDC]: COINS[Network.DEVNET].USDC,
     [COIN_TYPE[Network.DEVNET].USDT]: COINS[Network.DEVNET].USDT,
     [COIN_TYPE[Network.DEVNET].IPX]: COINS[Network.DEVNET].IPX,
@@ -554,7 +515,6 @@ export const COIN_TYPE_TO_COIN = {
     [COIN_TYPE[Network.TESTNET].BTC]: COINS[Network.TESTNET].BTC,
     [COIN_TYPE[Network.TESTNET].BNB]: COINS[Network.TESTNET].BNB,
     [COIN_TYPE[Network.TESTNET].SUI]: COINS[Network.TESTNET].SUI,
-    [COIN_TYPE[Network.TESTNET].DAI]: COINS[Network.TESTNET].DAI,
     [COIN_TYPE[Network.TESTNET].USDC]: COINS[Network.TESTNET].USDC,
     [COIN_TYPE[Network.TESTNET].USDT]: COINS[Network.TESTNET].USDT,
     [COIN_TYPE[Network.TESTNET].IPX]: COINS[Network.TESTNET].IPX,

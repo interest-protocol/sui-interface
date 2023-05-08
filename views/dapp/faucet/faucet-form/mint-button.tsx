@@ -26,20 +26,62 @@ import { MintButtonProps } from './faucet-form.types';
 
 const COIN_MINT_AMOUNT = {
   [Network.DEVNET]: {
-    [COIN_TYPE[Network.DEVNET].BNB]: '10',
-    [COIN_TYPE[Network.DEVNET].ETH]: '10',
-    [COIN_TYPE[Network.DEVNET].BTC]: '5',
-    [COIN_TYPE[Network.DEVNET].USDT]: '2000',
-    [COIN_TYPE[Network.DEVNET].USDC]: '2000',
-    [COIN_TYPE[Network.DEVNET].DAI]: '2000',
+    [COIN_TYPE[Network.DEVNET].BNB]: '10000000000',
+    [COIN_TYPE[Network.DEVNET].ETH]: '5000000000',
+    [COIN_TYPE[Network.DEVNET].BTC]: '5000000000',
+    [COIN_TYPE[Network.DEVNET].USDT]: '1000000000000',
+    [COIN_TYPE[Network.DEVNET].USDC]: '1000000000000',
   } as Record<string, string>,
   [Network.TESTNET]: {
-    [COIN_TYPE[Network.TESTNET].BNB]: '10',
-    [COIN_TYPE[Network.TESTNET].ETH]: '10',
-    [COIN_TYPE[Network.TESTNET].BTC]: '5',
-    [COIN_TYPE[Network.TESTNET].USDT]: '2000',
-    [COIN_TYPE[Network.TESTNET].USDC]: '2000',
-    [COIN_TYPE[Network.TESTNET].DAI]: '2000',
+    [COIN_TYPE[Network.TESTNET].BNB]: '10000000000',
+    [COIN_TYPE[Network.TESTNET].ETH]: '5000000000',
+    [COIN_TYPE[Network.TESTNET].BTC]: '5000000000',
+    [COIN_TYPE[Network.TESTNET].USDT]: '1000000000000',
+    [COIN_TYPE[Network.TESTNET].USDC]: '1000000000000',
+  } as Record<string, string>,
+};
+
+const COIN_TYPE_TO_STORAGE = {
+  [Network.DEVNET]: {
+    [COIN_TYPE[Network.DEVNET].BNB]:
+      OBJECT_RECORD[Network.DEVNET].FAUCET_BNB_STORAGE,
+    [COIN_TYPE[Network.DEVNET].ETH]:
+      OBJECT_RECORD[Network.DEVNET].FAUCET_ETH_STORAGE,
+    [COIN_TYPE[Network.DEVNET].BTC]:
+      OBJECT_RECORD[Network.DEVNET].FAUCET_BTC_STORAGE,
+    [COIN_TYPE[Network.DEVNET].USDT]:
+      OBJECT_RECORD[Network.DEVNET].FAUCET_USDT_STORAGE,
+    [COIN_TYPE[Network.DEVNET].USDC]:
+      OBJECT_RECORD[Network.DEVNET].FAUCET_USDC_STORAGE,
+  } as Record<string, string>,
+  [Network.TESTNET]: {
+    [COIN_TYPE[Network.TESTNET].BNB]:
+      OBJECT_RECORD[Network.TESTNET].FAUCET_BNB_STORAGE,
+    [COIN_TYPE[Network.TESTNET].ETH]:
+      OBJECT_RECORD[Network.TESTNET].FAUCET_ETH_STORAGE,
+    [COIN_TYPE[Network.TESTNET].BTC]:
+      OBJECT_RECORD[Network.TESTNET].FAUCET_BTC_STORAGE,
+    [COIN_TYPE[Network.TESTNET].USDT]:
+      OBJECT_RECORD[Network.TESTNET].FAUCET_USDT_STORAGE,
+    [COIN_TYPE[Network.TESTNET].USDC]:
+      OBJECT_RECORD[Network.TESTNET].FAUCET_USDC_STORAGE,
+  } as Record<string, string>,
+};
+
+const COIN_TYPE_TO_CORE_NAME = {
+  [Network.DEVNET]: {
+    [COIN_TYPE[Network.DEVNET].BNB]: 'ibnb',
+    [COIN_TYPE[Network.DEVNET].ETH]: 'ieth',
+    [COIN_TYPE[Network.DEVNET].BTC]: 'ibtc',
+    [COIN_TYPE[Network.DEVNET].USDT]: 'iusdt',
+    [COIN_TYPE[Network.DEVNET].USDC]: 'iusdc',
+  } as Record<string, string>,
+  [Network.TESTNET]: {
+    [COIN_TYPE[Network.TESTNET].BNB]: 'ibnb',
+    [COIN_TYPE[Network.TESTNET].ETH]: 'ieth',
+    [COIN_TYPE[Network.TESTNET].BTC]: 'ibtc',
+    [COIN_TYPE[Network.TESTNET].USDT]: 'iusdt',
+    [COIN_TYPE[Network.TESTNET].USDC]: 'iusdc',
   } as Record<string, string>,
 };
 
@@ -47,7 +89,7 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
   const t = useTranslations();
   const { dark } = useTheme() as { dark: boolean };
   const [loading, setLoading] = useState(false);
-  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { signTransactionBlock } = useWalletKit();
   const { account, mutate } = useWeb3();
   const { network } = useNetwork();
   const { provider } = useProvider();
@@ -70,18 +112,27 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
       const transactionBlock = new TransactionBlock();
 
       transactionBlock.moveCall({
-        target: `${objects.PACKAGE_ID}::faucet::mint`,
-        typeArguments: [type],
+        target: `${objects.FAUCET_PACKAGE_ID}::${COIN_TYPE_TO_CORE_NAME[network][type]}::get`,
         arguments: [
-          transactionBlock.object(objects.FAUCET_OBJECT_ID),
+          transactionBlock.object(COIN_TYPE_TO_STORAGE[network][type]),
           transactionBlock.pure(pathOr('1', [network, type], COIN_MINT_AMOUNT)),
         ],
       });
 
-      const tx = await signAndExecuteTransactionBlock({
+      const { transactionBlockBytes, signature } = await signTransactionBlock({
         transactionBlock,
-        chain: network,
-        options: { showEffects: true },
+      });
+
+      const tx = await provider.executeTransactionBlock({
+        transactionBlock: transactionBlockBytes,
+        signature,
+        options: {
+          showEffects: true,
+          showEvents: false,
+          showInput: false,
+          showBalanceChanges: false,
+          showObjectChanges: false,
+        },
       });
 
       throwTXIfNotSuccessful(tx);
