@@ -2,6 +2,8 @@ import { Box, Button, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import { ArrowLinkSVG } from '@/svg';
+
 import { PoolProviderProps } from './liquidity-program.types';
 
 const PoolProviderCard: FC<PoolProviderProps> = ({ name, Illustration }) => {
@@ -26,6 +28,17 @@ const PoolProviderCard: FC<PoolProviderProps> = ({ name, Illustration }) => {
         mb="2xl"
       >
         <Illustration />
+        <Button
+          m="l"
+          right="0"
+          zIndex="1"
+          variant="icon"
+          border="1px solid"
+          position="absolute"
+          borderColor="outline"
+        >
+          <ArrowLinkSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+        </Button>
       </Box>
       <Box
         p="xl"
