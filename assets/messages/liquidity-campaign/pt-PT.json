@@ -2,6 +2,37 @@
   "liquidity": {
     "metadata": {
       "title": "Liquidity Program"
+    },
+    "liquidity-program": {
+      "title": "PROGRAMA DE LIQUIDEZ",
+      "description": {
+        "paragraph1": "A Interest Protocol suporta quatro pools principais - SUI/USDC, SUI/ETH, SUI/BTC e USDC/USDT. Como fornecedor de liquidez, pode escolher qualquer uma dessas pools para fornecer liquidez.",
+        "paragraph2": "Alocamos 25 milhões de tokens para serem obtidos por fornecedores de liquidez, e a cada pool serão atribuídos o seguinte número de tokens:"
+      },
+      "poolProviders": {
+        "suiEth": {
+          "title": "SUI∙ETH",
+          "available": "35% - 8.750.000 tokens aIPX disponíveis para obtenção."
+        },
+        "suiUSDC": {
+          "title": "SUI∙USDC",
+          "available": "20% - 5.000.000 tokens aIPX disponíveis para obtenção."
+        },
+        "suiBTC": {
+          "title": "SUI∙BTC",
+          "available": "35% - 8.750.000 tokens aIPX disponíveis para obtenção."
+        },
+        "udscUSDT": {
+          "title": "USDC∙USDT",
+          "available": "10% - 2.500.000 tokens aIPX disponíveis para obtenção."
+        }
+      },
+      "addLiquidity": "Adicionar liquidez",
+      "informations": {
+        "first": "Assim que investir em qualquer um dos pools de liquidez, começará a obter tokens aIPX.",
+        "second": "O airdrop será enviado para o endereço no qual depositou enquanto adicionava a liquidez.",
+        "warning": "Além disso, como fornecedor de liquidez, ganhará 0,3% de todas as taxas de negociação geradas pela pool, proporcionalmente à sua participação na pool."
+      }
     }
   }
 }
