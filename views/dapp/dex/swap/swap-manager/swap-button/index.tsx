@@ -129,7 +129,6 @@ const SwapButton: FC<SwapButtonProps> = ({
           requestType: 'WaitForEffectsCert',
         });
 
-        console.log(tx);
         throwTXIfNotSuccessful(tx);
 
         return await showTXSuccessToast(tx, network);
