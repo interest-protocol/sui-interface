@@ -130,14 +130,18 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
       setLoading(true);
       provider
         .getCoinMetadata({ coinType: debouncedSearch })
-        .then(({ symbol, decimals }) => {
-          setAskedToken({
-            symbol,
-            decimals,
-            type: debouncedSearch,
-            objects: [],
-            totalBalance: BigNumber(0),
-          });
+        .then((metadata) => {
+          if (metadata) {
+            setAskedToken({
+              symbol: metadata.symbol,
+              decimals: metadata.decimals,
+              type: debouncedSearch,
+              objects: [],
+              totalBalance: BigNumber(0),
+            });
+          } else {
+            askedToken && setAskedToken(null);
+          }
         })
         .catch(() => askedToken && setAskedToken(null))
         .finally(() => setLoading(false));
