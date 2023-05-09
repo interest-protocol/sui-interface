@@ -11,12 +11,11 @@ const RewardDistributionList: FC = () => {
       color="textSoft"
       justifyContent="space-around"
       rowGap={['1.5rem', '1.5rem', '1.5rem', '5rem']}
-      mt={['unset', 'unset', 'unset', '5rem']}
+      my={['unset', 'unset', 'unset', '5rem']}
     >
       <Typography
         variant="medium"
         as="span"
-        display={['unset', 'unset', 'unset', 'list-item']}
         width={['100%', '100%', '100%', '47.5%']}
       >
         {t('liquidity.rewardDistribution.distributionList.option1')}
@@ -24,18 +23,9 @@ const RewardDistributionList: FC = () => {
       <Typography
         variant="medium"
         as="span"
-        display={['unset', 'unset', 'unset', 'list-item']}
         width={['100%', '100%', '100%', '47.5%']}
       >
         {t('liquidity.rewardDistribution.distributionList.option2')}
-      </Typography>
-      <Typography
-        variant="medium"
-        as="span"
-        display={['unset', 'unset', 'unset', 'list-item']}
-        width={['100%', '100%', '100%', '47.5%']}
-      >
-        {t('liquidity.rewardDistribution.distributionList.option3')}
       </Typography>
     </Box>
   );
