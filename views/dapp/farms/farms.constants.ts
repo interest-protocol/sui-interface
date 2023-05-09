@@ -1,10 +1,4 @@
-import {
-  COIN_POOL,
-  COIN_TYPE,
-  COINS,
-  FARMS_RECORD,
-  Network,
-} from '@/constants';
+import { COIN_POOL, COIN_TYPE, COINS, Network } from '@/constants';
 
 export const COIN_PRICES = {
   [Network.DEVNET]: [
