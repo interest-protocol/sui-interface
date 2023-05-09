@@ -4,9 +4,10 @@
       "title": "Liquidity Program"
     },
     "firstThingFirst": {
-      "title": "First Thing First",
+      "title": "How to bridge assets to the Sui blockchain",
+      "subtitle": "First things First",
       "description": "If your assets are on other chains you need to bridge them to the Sui Blockchain. Here is how you do it.",
-      "button": "To portal bridge"
+      "button": "bridge assets"
     }
   }
 }

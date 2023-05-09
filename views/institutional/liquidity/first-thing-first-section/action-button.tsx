@@ -7,7 +7,19 @@ import { ArrowRightSVG } from '@/svg';
 const ActionButton: FC = () => {
   const t = useTranslations();
   return (
-    <Button variant="outline" color="text">
+    <Button
+      variant="outline"
+      width={[
+        '-webkit-fill-available',
+        '-webkit-fill-available',
+        '-webkit-fill-available',
+        'unset',
+      ]}
+      display="flex"
+      justifyContent="center"
+      color="text"
+      textTransform="capitalize"
+    >
       <ArrowRightSVG
         width="1.25rem"
         maxWidth="1.25rem"
