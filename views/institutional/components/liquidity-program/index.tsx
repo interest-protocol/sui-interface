@@ -19,7 +19,7 @@ const LiquidityProgram: FC = () => {
         <LiquidityProgramTitle />
         <Box
           width="100%"
-          ref={scrollRef}
+          // ref={scrollRef}
           overflow="hidden"
           marginBottom="3.75rem"
           scrollbarColor="background"
