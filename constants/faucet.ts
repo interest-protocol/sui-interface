@@ -5,7 +5,6 @@ import { SVGProps } from '@/components/svg/svg.types';
 import {
   BinanceSVG,
   BitcoinSVG,
-  DAISVG,
   EtherSVG,
   SuiSVG,
   USDCoinSVG,

@@ -1,5 +1,10 @@
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { Control, UseFormRegisterReturn, UseFormReturn } from 'react-hook-form';
+import {
+  Control,
+  UseFormGetValues,
+  UseFormRegisterReturn,
+  UseFormReturn,
+} from 'react-hook-form';
 import { UseFormRegister } from 'react-hook-form';
 import { UseFormSetValue } from 'react-hook-form';
 
@@ -49,6 +54,7 @@ export interface ModalSettingsBody {
   onRequestClose: () => void;
   register: UseFormRegister<ISwapSettingsForm>;
   setValue: UseFormSetValue<ISwapSettingsForm>;
+  getValues: UseFormGetValues<ISwapSettingsForm>;
   control: Control<ISwapSettingsForm>;
   autoButtonState: {
     isAuto: boolean;

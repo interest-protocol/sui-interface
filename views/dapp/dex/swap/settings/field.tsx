@@ -5,14 +5,14 @@ import { Box, Input, Typography } from '@/elements';
 import { FieldProps } from './settings.types';
 
 const Field: FC<FieldProps> = ({
-  label,
-  prefix,
-  setRegister,
-  suffix,
-  placeholder,
   max,
   type,
+  label,
+  suffix,
+  prefix,
   hasBorder,
+  placeholder,
+  setRegister,
 }) => (
   <Box mt="L">
     <Typography variant="normal" fontSize="0.9rem">
@@ -20,16 +20,19 @@ const Field: FC<FieldProps> = ({
     </Typography>
     <Input
       min="0"
-      type={type}
-      placeholder={placeholder}
-      {...setRegister()}
       max={max}
+      type={type}
+      Prefix={prefix}
+      Suffix={suffix}
       textAlign="right"
+      {...setRegister()}
+      placeholder={placeholder}
       color={hasBorder ? 'text' : 'disabled'}
       fontWeight={hasBorder ? 'bold' : 'unset'}
       shieldProps={{
         p: 'S',
         my: 'M',
+        height: '3.6rem',
         bg: 'background',
         overflow: 'visible',
         border: hasBorder ? '2px solid' : '1px',
@@ -40,8 +43,6 @@ const Field: FC<FieldProps> = ({
           borderColor: hasBorder ? 'accent' : 'accentActive',
         },
       }}
-      Prefix={prefix}
-      Suffix={suffix}
     />
   </Box>
 );
