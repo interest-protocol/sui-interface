@@ -130,21 +130,6 @@ const Header: FC = () => {
               FAUCET
             </Typography>
           </Link>
-          <a target="_blank" href={Routes[RoutesEnum.Bridge]} rel="noreferrer">
-            <Typography
-              px="XL"
-              cursor="pointer"
-              variant="normal"
-              color={
-                pathname.includes(Routes[RoutesEnum.Bridge])
-                  ? 'accent'
-                  : 'inherit'
-              }
-              nHover={{ color: 'accentActive' }}
-            >
-              BRIDGE
-            </Typography>
-          </a>
         </Box>
         <Box display="flex" justifyContent="flex-end" alignItems="center">
           <Box>
