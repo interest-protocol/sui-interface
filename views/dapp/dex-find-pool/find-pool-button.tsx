@@ -1,4 +1,5 @@
-import { TransactionBlock } from '@mysten/sui.js';
+import { toHEX } from '@mysten/bcs';
+import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { AddressZero, FixedPointMath } from 'lib';
@@ -7,12 +8,13 @@ import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
-import { Routes, RoutesEnum } from '@/constants';
+import { OBJECT_RECORD, Routes, RoutesEnum, VOLATILE } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useModal, useNetwork, useSDK, useWeb3 } from '@/hooks';
+import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import {
   capitalize,
-  createObjectsParameter,
+  createVectorParameter,
+  getReturnValuesFromInspectResults,
   showToast,
   showTXSuccessToast,
   throwTXIfNotSuccessful,
@@ -34,10 +36,12 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
   const { push } = useRouter();
   const [loading, setLoading] = useState(false);
   const { setModal, handleClose } = useModal();
-  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { signTransactionBlock } = useWalletKit();
   const { coinsMap, account } = useWeb3();
   const { network } = useNetwork();
-  const sdk = useSDK();
+  const { provider } = useProvider();
+
+  const objects = OBJECT_RECORD[network];
 
   const enterPool = async () => {
     setLoading(true);
@@ -51,17 +55,29 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
           query: { objectId: pairId },
         });
 
-      const objectId = await sdk.findPoolId({
-        tokenAType,
-        tokenBType,
-        account: account ?? AddressZero,
+      const txb = new TransactionBlock();
+
+      txb.moveCall({
+        target: `${objects.DEX_PACKAGE_ID}::interface::get_pool_id`,
+        typeArguments: [VOLATILE[network], tokenAType, tokenBType],
+        arguments: [txb.object(objects.DEX_CORE_STORAGE)],
       });
 
-      if (!objectId) return setCreatingPair(true);
+      const response = await provider.devInspectTransactionBlock({
+        transactionBlock: txb,
+        sender: account || AddressZero,
+      });
+
+      if (response.effects.status.status === 'failure')
+        return setCreatingPair(true);
+
+      const data = getReturnValuesFromInspectResults(response);
+
+      if (!data || !data.length) return setCreatingPair(true);
 
       await push({
         pathname: Routes[RoutesEnum.DEXPoolDetails],
-        query: { objectId },
+        query: { objectId: `0x${toHEX(Uint8Array.from(data[0]))}` },
       });
     } catch {
       throw new Error(t('dexPoolFind.errors.connecting'));
@@ -94,30 +110,38 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
 
       const txb = new TransactionBlock();
 
-      const transactionBlock = await sdk.createPool({
-        txb,
-        coinAList: createObjectsParameter({
-          txb,
-          type: tokenA.type,
-          coinsMap,
-          amount: amountA.toString(),
-        }),
-        coinBList: createObjectsParameter({
-          txb,
-          type: tokenB.type,
-          coinsMap,
-          amount: amountB.toString(),
-        }),
-        coinAAmount: amountA.toString(),
-        coinBAmount: amountB.toString(),
-        coinAType: tokenA.type,
-        coinBType: tokenB.type,
+      txb.moveCall({
+        target: `${objects.DEX_PACKAGE_ID}::interface::create_v_pool`,
+        typeArguments: [tokenA.type, tokenB.type],
+        arguments: [
+          txb.object(objects.DEX_CORE_STORAGE),
+          txb.object(SUI_CLOCK_OBJECT_ID),
+          createVectorParameter({
+            txb,
+            type: tokenA.type,
+            coinsMap,
+            amount: amountA.toString(),
+          }),
+          createVectorParameter({
+            txb,
+            type: tokenB.type,
+            coinsMap,
+            amount: amountB.toString(),
+          }),
+          txb.pure(amountA.toString()),
+          txb.pure(amountB.toString()),
+        ],
       });
 
-      const tx = await signAndExecuteTransactionBlock({
-        transactionBlock,
-        requestType: 'WaitForEffectsCert',
+      const { signature, transactionBlockBytes } = await signTransactionBlock({
+        transactionBlock: txb,
+      });
+
+      const tx = await provider.executeTransactionBlock({
+        transactionBlock: transactionBlockBytes,
+        signature,
         options: { showEffects: true, showEvents: true },
+        requestType: 'WaitForEffectsCert',
       });
 
       throwTXIfNotSuccessful(tx);

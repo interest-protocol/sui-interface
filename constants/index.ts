@@ -54,6 +54,6 @@ export const TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.TESTNET].IPX]: InterestTokenSVG,
 };
 
-export const EPOCHS_PER_YEAR = 4380;
+export const MILLISECONDS_PER_YEAR = 31540000000;
 
 export const TOAST_DURATION = 10000;

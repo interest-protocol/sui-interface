@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { FixedPointMath } from 'lib';
 
-import { COIN_TYPE, EPOCHS_PER_YEAR } from '@/constants';
+import { COIN_TYPE, MILLISECONDS_PER_YEAR } from '@/constants';
 import { ZERO_BIG_NUMBER } from '@/utils';
 
 import { calculateLPCoinPrice } from '../pools';
@@ -20,10 +20,12 @@ export const calculateAPR = ({
   if (allocationPoints.isZero()) return ZERO_BIG_NUMBER;
 
   // IPX has 9 decimals
-  const profitInUSD = allocationPoints
-    .multipliedBy(BigNumber(ipxStorage.ipxPerEpoch).div(BigNumber(10).pow(9)))
-    .multipliedBy(EPOCHS_PER_YEAR)
-    .multipliedBy(ipxUSDPrice);
+  const profitInUSD = allocationPoints.multipliedBy(
+    BigNumber(ipxStorage.ipxPerMS)
+      .multipliedBy(MILLISECONDS_PER_YEAR)
+      .multipliedBy(ipxUSDPrice)
+      .div(BigNumber(10).pow(9))
+  );
 
   return profitInUSD.div(tvl || 1);
 };
@@ -38,7 +40,8 @@ export const calculateIPXUSDPrice = ({
   const ethBalance = pool.balanceX;
   const ipxBalance = pool.balanceY;
 
-  const ipxInEth = ethBalance.div(ipxBalance).multipliedBy(1e9);
+  const ipxInEth = ethBalance.div(ipxBalance);
+
   const ethType = COIN_TYPE[network].ETH;
 
   // TODO take into account eth decimals upon deployment

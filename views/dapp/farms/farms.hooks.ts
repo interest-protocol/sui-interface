@@ -1,14 +1,10 @@
-import {
-  bcsForVersion,
-  SuiObjectResponse,
-  TransactionBlock,
-} from '@mysten/sui.js';
+import { bcs, SuiObjectResponse, TransactionBlock } from '@mysten/sui.js';
 import { AddressZero } from 'lib';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { OBJECT_RECORD } from '@/constants';
 import {
-  parseIPXStorage,
+  parseIPXAndMasterChefStorage,
   useGetMultiGetObjects,
   useNetwork,
   useProvider,
@@ -21,11 +17,7 @@ import {
   parseSuiRawDataToFarms,
 } from '@/utils';
 
-import {
-  FARM_IDS_RECORD_FIRST_CALL,
-  FARM_IDS_RECORD_SECOND_CALL,
-  POOL_IDS_RECORD,
-} from './farms.constants';
+import { FARM_IDS_RECORD_FIRST_CALL, POOL_IDS_RECORD } from './farms.constants';
 
 export const useGetFarms = (
   account: string | null,
@@ -35,61 +27,47 @@ export const useGetFarms = (
   const { network } = useNetwork();
 
   const objects = OBJECT_RECORD[network];
-  const farmIds1 = FARM_IDS_RECORD_FIRST_CALL[network];
-  const farmIds2 = FARM_IDS_RECORD_SECOND_CALL[network];
+  const farmIds = FARM_IDS_RECORD_FIRST_CALL[network];
 
   const { data, ...otherProps } = useSWR(
     makeSWRKey([account, network], 'useGetFarm'),
     async () => {
-      const txb = new TransactionBlock();
+      const txbArray = farmIds.map(({ number, data }) => {
+        const txb = new TransactionBlock();
+        txb.moveCall({
+          target: `${objects.DEX_PACKAGE_ID}::interface::get_farms`,
+          arguments: [
+            txb.object(objects.DEX_MASTER_CHEF_STORAGE),
+            txb.object(objects.DEX_MASTER_CHEF_ACCOUNT_STORAGE),
+            txb.pure(account || AddressZero),
+            txb.pure(number.toString()),
+          ],
+          typeArguments: data,
+        });
 
-      txb.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::get_farms`,
-        arguments: [
-          txb.object(objects.IPX_STORAGE),
-          txb.object(objects.IPX_ACCOUNT_STORAGE),
-          txb.pure(account || AddressZero),
-          txb.pure(5),
-        ],
-        typeArguments: farmIds1,
+        return txb;
       });
 
-      const txb2 = new TransactionBlock();
-
-      txb2.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::get_farms`,
-        arguments: [
-          txb2.object(objects.IPX_STORAGE),
-          txb2.object(objects.IPX_ACCOUNT_STORAGE),
-          txb2.pure(account || AddressZero),
-          txb2.pure(4),
-        ],
-        typeArguments: farmIds2,
-      });
-
-      const [result1, result2] = await Promise.all([
+      const promiseArray = txbArray.map((block) =>
         provider.devInspectTransactionBlock({
-          transactionBlock: txb,
+          transactionBlock: block,
           sender: account || AddressZero,
-        }),
-        provider.devInspectTransactionBlock({
-          transactionBlock: txb2,
-          sender: account || AddressZero,
-        }),
-      ]);
-
-      const returnValues1 = getReturnValuesFromInspectResults(result1);
-      const returnValues2 = getReturnValuesFromInspectResults(result2);
-
-      if (!returnValues1 || !returnValues2) return [];
-
-      const bcs = bcsForVersion(await provider.getRpcApiVersion());
-
-      return parseSuiRawDataToFarms(
-        bcs
-          .de(returnValues1[1], Uint8Array.from(returnValues1[0]))
-          .concat(bcs.de(returnValues2[1], Uint8Array.from(returnValues2[0])))
+        })
       );
+
+      const results = await Promise.all(promiseArray);
+
+      const returnValueArray = results.map((x) =>
+        getReturnValuesFromInspectResults(x)
+      );
+
+      if (!returnValueArray.length) return [];
+
+      const deArray = returnValueArray
+        .filter((x) => !!x)
+        .map((x) => bcs.de(x![1], Uint8Array.from(x![0])));
+
+      return parseSuiRawDataToFarms(deArray.flat());
     },
     {
       revalidateOnMount: true,
@@ -111,18 +89,18 @@ export const useGetIPXStorageAndPools = () => {
   const objects = OBJECT_RECORD[network];
   const poolIds = POOL_IDS_RECORD[network];
   const { data, ...otherProps } = useGetMultiGetObjects(
-    poolIds.concat(objects.IPX_STORAGE)
+    poolIds.concat(objects.IPX_STORAGE).concat(objects.DEX_MASTER_CHEF_STORAGE)
   );
 
   const poolsRawData = (
     (data as SuiObjectResponse[]) || ([] as SuiObjectResponse[])
-  ).slice(0, poolIds.length);
+  ).slice(0, data.length - 2);
 
   return {
     ...otherProps,
     pools: poolsRawData.length
       ? parseSuiObjectDataToPools(poolsRawData)
       : ([] as ReadonlyArray<Pool>),
-    ipxStorage: parseIPXStorage((data as SuiObjectResponse[])[data.length - 1]),
+    ipxStorage: parseIPXAndMasterChefStorage(data.slice(poolIds.length)),
   };
 };

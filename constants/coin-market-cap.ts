@@ -8,7 +8,7 @@ export const COIN_MARKET_CAP_ID_RECORD = {
     [COIN_TYPE[Network.DEVNET].BTC]: 1,
     [COIN_TYPE[Network.DEVNET].USDT]: 825,
     [COIN_TYPE[Network.DEVNET].USDC]: 3408,
-    [COIN_TYPE[Network.DEVNET].SUI]: -1,
+    [COIN_TYPE[Network.DEVNET].SUI]: 20947,
     [COIN_TYPE[Network.DEVNET].IPX]: -1,
   },
   [Network.TESTNET]: {
@@ -17,7 +17,7 @@ export const COIN_MARKET_CAP_ID_RECORD = {
     [COIN_TYPE[Network.TESTNET].BTC]: 1,
     [COIN_TYPE[Network.TESTNET].USDT]: 825,
     [COIN_TYPE[Network.TESTNET].USDC]: 3408,
-    [COIN_TYPE[Network.TESTNET].SUI]: -1,
+    [COIN_TYPE[Network.TESTNET].SUI]: 20947,
     [COIN_TYPE[Network.TESTNET].IPX]: -1,
   },
 };

@@ -1,5 +1,5 @@
-import { TransactionBlock } from '@mysten/sui.js';
-import { bcsForVersion } from '@mysten/sui.js';
+import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
+import { bcs } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { AddressZero } from 'lib';
 import useSWR, { SWRConfiguration } from 'swr';
@@ -30,11 +30,12 @@ export const useGetPendingRewards = (
         const txb = new TransactionBlock();
 
         txb.moveCall({
-          target: `${objects.PACKAGE_ID}::ipx::get_pending_rewards`,
+          target: `${objects.DEX_PACKAGE_ID}::master_chef::get_pending_rewards`,
           typeArguments: [farmMetadata.lpCoin.type],
           arguments: [
-            txb.object(objects.IPX_STORAGE),
-            txb.object(objects.IPX_ACCOUNT_STORAGE),
+            txb.object(objects.DEX_MASTER_CHEF_STORAGE),
+            txb.object(objects.DEX_MASTER_CHEF_ACCOUNT_STORAGE),
+            txb.object(SUI_CLOCK_OBJECT_ID),
             txb.pure(account),
           ],
         });
@@ -48,10 +49,7 @@ export const useGetPendingRewards = (
 
         if (!result) return 0;
 
-        return bcsForVersion(await provider.getRpcApiVersion()).de(
-          result[1],
-          Uint8Array.from(result[0])
-        );
+        return bcs.de(result[1], Uint8Array.from(result[0]));
       }
     },
     {
@@ -82,14 +80,14 @@ export const useGetFarm = (id: string, account: string) => {
       const txb = new TransactionBlock();
 
       txb.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::get_farms`,
+        target: `${objects.DEX_PACKAGE_ID}::interface::get_farms`,
         arguments: [
-          txb.object(objects.IPX_STORAGE),
-          txb.object(objects.IPX_ACCOUNT_STORAGE),
+          txb.object(objects.DEX_MASTER_CHEF_STORAGE),
+          txb.object(objects.DEX_MASTER_CHEF_ACCOUNT_STORAGE),
           txb.pure(account || AddressZero),
           txb.pure(1),
         ],
-        typeArguments: [id, id, id, id, id],
+        typeArguments: [id, id, id],
       });
 
       const result = await provider.devInspectTransactionBlock({
@@ -100,8 +98,6 @@ export const useGetFarm = (id: string, account: string) => {
       const returnValues = getReturnValuesFromInspectResults(result);
 
       if (!returnValues) return [];
-
-      const bcs = bcsForVersion(await provider.getRpcApiVersion());
 
       return parseSuiRawDataToFarms(
         bcs.de(returnValues[1], Uint8Array.from(returnValues[0]))

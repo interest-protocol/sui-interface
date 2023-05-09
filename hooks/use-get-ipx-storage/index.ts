@@ -9,33 +9,40 @@ import { useNetwork } from '../use-network';
 import { useProvider } from '../use-provider';
 
 const DEFAULT_IPX_STORAGE = {
-  ipxPerEpoch: '0',
-  startEpoch: '0',
   ipxSupply: '0',
+  ipxPerMS: '0',
+  startTimestamp: '0',
   totalAllocation: '0',
 };
 
 export type IPXStorage = typeof DEFAULT_IPX_STORAGE;
 
-export const parseIPXStorage = (data: SuiObjectResponse | undefined) => {
-  if (!data) return DEFAULT_IPX_STORAGE;
+export const parseIPXAndMasterChefStorage = (
+  data: SuiObjectResponse[] | undefined
+) => {
+  if (!data || !data.length) return DEFAULT_IPX_STORAGE;
+  const [ipxStorage, masterChefStorage] = data;
 
   return {
-    ipxPerEpoch: pathOr(
+    ipxPerMS: pathOr(
       '0',
-      ['data', 'content', 'fields', 'ipx_per_epoch'],
-      data
+      ['data', 'content', 'fields', 'ipx_per_ms'],
+      masterChefStorage
     ),
-    startEpoch: pathOr('0', ['data', 'content', 'fields', 'start_epoch'], data),
+    startTimestamp: pathOr(
+      '0',
+      ['data', 'content', 'fields', 'start_timestamp'],
+      masterChefStorage
+    ),
     ipxSupply: pathOr(
       '0',
       ['data', 'content', 'fields', 'supply', 'fields', 'value'],
-      data
+      ipxStorage
     ),
     totalAllocation: pathOr(
       '0',
       ['data', 'content', 'fields', 'total_allocation_points'],
-      data
+      masterChefStorage
     ),
   };
 };
@@ -48,8 +55,8 @@ export const useGetIPXStorage = () => {
   const { data, ...rest } = useSWR(
     makeSWRKey([objects.IPX_STORAGE], 'useGetIPXStorage'),
     async () =>
-      provider.getObject({
-        id: objects.IPX_STORAGE,
+      provider.multiGetObjects({
+        ids: [objects.IPX_STORAGE, objects.DEX_MASTER_CHEF_STORAGE],
         options: { showContent: true },
       }),
     {
@@ -62,6 +69,6 @@ export const useGetIPXStorage = () => {
 
   return {
     ...rest,
-    data: parseIPXStorage(data),
+    data: parseIPXAndMasterChefStorage(data),
   };
 };

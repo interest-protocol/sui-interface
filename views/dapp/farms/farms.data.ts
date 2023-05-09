@@ -5,7 +5,6 @@ import { COIN_TYPE, Network } from '@/constants';
 import {
   BinanceSVG,
   BitcoinSVG,
-  DAISVG,
   EtherSVG,
   InterestTokenSVG,
   SuiSVG,
@@ -38,12 +37,6 @@ export const FARMS_TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.DEVNET].BTC]: [
     {
       SVG: BitcoinSVG,
-      highZIndex: false,
-    },
-  ],
-  [COIN_TYPE[Network.DEVNET].DAI]: [
-    {
-      SVG: DAISVG,
       highZIndex: false,
     },
   ],
@@ -90,16 +83,6 @@ export const FARMS_TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.DEVNET].V_LP_BTC_ETH]: [
     {
       SVG: BitcoinSVG,
-      highZIndex: true,
-    },
-    {
-      SVG: EtherSVG,
-      highZIndex: false,
-    },
-  ],
-  [COIN_TYPE[Network.DEVNET].V_LP_DAI_ETH]: [
-    {
-      SVG: DAISVG,
       highZIndex: true,
     },
     {
@@ -175,12 +158,6 @@ export const FARMS_TOKENS_SVG_MAP = {
       highZIndex: false,
     },
   ],
-  [COIN_TYPE[Network.TESTNET].DAI]: [
-    {
-      SVG: DAISVG,
-      highZIndex: false,
-    },
-  ],
   [COIN_TYPE[Network.TESTNET].ETH]: [
     {
       SVG: EtherSVG,
@@ -224,16 +201,6 @@ export const FARMS_TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.TESTNET].V_LP_BTC_ETH]: [
     {
       SVG: BitcoinSVG,
-      highZIndex: true,
-    },
-    {
-      SVG: EtherSVG,
-      highZIndex: false,
-    },
-  ],
-  [COIN_TYPE[Network.TESTNET].V_LP_DAI_ETH]: [
-    {
-      SVG: DAISVG,
       highZIndex: true,
     },
     {
