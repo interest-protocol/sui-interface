@@ -77,9 +77,13 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
       }
 
       setFetchingData(true);
-      const { symbol, decimals } = await provider.getCoinMetadata({
+      const metadata = await provider.getCoinMetadata({
         coinType: args.type,
       });
+
+      if (!metadata) throw new Error();
+
+      const { symbol, decimals } = metadata;
 
       const tokenMetaData = {
         symbol: symbol,
@@ -96,11 +100,7 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
     } catch (error) {
       const decimals = args.decimals === -1 ? 0 : args.decimals;
 
-      if (
-        !storedToken &&
-        coinsMap[args.type] &&
-        (error as Error).message.startsWith('Error fetching CoinMetadata')
-      )
+      if (!storedToken && coinsMap[args.type])
         setLocalTokensMetadata({
           ...localTokensMetadata,
           [args.type]: {
