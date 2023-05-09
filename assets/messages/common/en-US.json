@@ -27,6 +27,7 @@
     "minute": "{count, plural, =1 {minute} other {minutes}}",
     "liquidity": "liquidity",
     "enter": "enter",
+    "bridge": "Bridge",
     "volatile": "{count, plural, =1 {volatile} other {volatile}}",
     "stable": "{count, plural, =1 {stable} other {stable}}",
     "type": "type",
