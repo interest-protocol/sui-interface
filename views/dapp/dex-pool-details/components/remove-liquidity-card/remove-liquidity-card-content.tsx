@@ -46,6 +46,7 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
     token0Type: token0.type,
     token1Type: token1.type,
     account: account,
+    stable: isStable,
   });
 
   const amount0 = new BigNumber(propOr(0, token0.type || '', data));

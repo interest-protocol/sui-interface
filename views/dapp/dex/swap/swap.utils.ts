@@ -147,7 +147,7 @@ export const getSwapPayload = ({
   // One Hop Swap
   if (firstSwapObject.baseTokens.length === 1) {
     txb.moveCall({
-      target: `${objects.DEX_CORE_STORAGE}::interface::${firstSwapObject.functionName}`,
+      target: `${objects.DEX_PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
       typeArguments: firstSwapObject.typeArgs,
       arguments: [
         txb.object(objects.DEX_CORE_STORAGE),

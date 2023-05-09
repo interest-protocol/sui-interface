@@ -149,7 +149,7 @@ const SwapButton: FC<SwapButtonProps> = ({
           }),
           txb.pure(amount.toString()),
           txb.pure(minAmountOut.toString()),
-          txb.pure(nowTime + (+deadline + 60 + 1000)),
+          txb.pure(nowTime + +deadline * 60 * 1000),
         ],
       });
 

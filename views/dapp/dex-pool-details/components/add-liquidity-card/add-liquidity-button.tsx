@@ -1,4 +1,4 @@
-import { TransactionBlock } from '@mysten/sui.js';
+import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { FixedPointMath } from 'lib';
@@ -7,9 +7,9 @@ import { isEmpty, prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import { OBJECT_RECORD } from '@/constants';
+import { OBJECT_RECORD, STABLE, VOLATILE } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useNetwork, useWeb3 } from '@/hooks';
+import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,
@@ -30,9 +30,10 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
 }) => {
   const t = useTranslations();
   const { coinsMap, account } = useWeb3();
-  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { signTransactionBlock } = useWalletKit();
   const [loading, setLoading] = useState(false);
   const { network } = useNetwork();
+  const { provider } = useProvider();
 
   const handleAddLiquidity = async () => {
     try {
@@ -88,24 +89,32 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
       });
 
       txb.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::add_liquidity`,
-        typeArguments: [token0.type, token1.type],
+        target: `${objects.DEX_PACKAGE_ID}::interface::add_liquidity`,
+        typeArguments: [
+          stable ? STABLE[network] : VOLATILE[network],
+          token0.type,
+          token1.type,
+        ],
         arguments: [
-          txb.object(objects.DEX_STORAGE_VOLATILE),
-          txb.object(objects.DEX_STORAGE_STABLE),
+          txb.object(objects.DEX_CORE_STORAGE),
+          txb.object(SUI_CLOCK_OBJECT_ID),
           vector0,
           vector1,
           txb.pure(safeAmount0.toString()),
           txb.pure(safeAmount1.toString()),
-          txb.pure(!stable),
           txb.pure('0'),
         ],
       });
 
-      const tx = await signAndExecuteTransactionBlock({
+      const { signature, transactionBlockBytes } = await signTransactionBlock({
         transactionBlock: txb,
         chain: network,
-        options: { showEffects: true },
+      });
+
+      const tx = await provider.executeTransactionBlock({
+        signature,
+        transactionBlock: transactionBlockBytes,
+        options: { showEffects: true, showEvents: false },
         requestType: 'WaitForEffectsCert',
       });
 

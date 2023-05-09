@@ -1,4 +1,4 @@
-import { TransactionBlock } from '@mysten/sui.js';
+import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
@@ -6,9 +6,9 @@ import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import { OBJECT_RECORD } from '@/constants';
+import { OBJECT_RECORD, STABLE, VOLATILE } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useNetwork, useWeb3 } from '@/hooks';
+import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import { showToast, showTXSuccessToast, throwTXIfNotSuccessful } from '@/utils';
 import { capitalize } from '@/utils';
@@ -29,8 +29,9 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
-  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { signTransactionBlock } = useWalletKit();
   const { network } = useNetwork();
+  const { provider } = useProvider();
 
   const [loading, setLoading] = useState(false);
 
@@ -50,14 +51,15 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
       const txb = new TransactionBlock();
 
       txb.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::remove_${
-          stable ? 's' : 'v'
-        }_liquidity`,
-        typeArguments: [token0.type, token1.type],
+        target: `${objects.DEX_PACKAGE_ID}::interface::remove_liquidity`,
+        typeArguments: [
+          stable ? STABLE[network] : VOLATILE[network],
+          token0.type,
+          token1.type,
+        ],
         arguments: [
-          txb.object(
-            stable ? objects.DEX_STORAGE_STABLE : objects.DEX_STORAGE_VOLATILE
-          ),
+          txb.object(objects.DEX_CORE_STORAGE),
+          txb.object(SUI_CLOCK_OBJECT_ID),
           txb.makeMoveVec({ objects: objectIds.map((x) => txb.object(x)) }),
           txb.pure(
             new BigNumber(lpAmount)
@@ -73,9 +75,14 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
         ],
       });
 
-      const tx = await signAndExecuteTransactionBlock({
+      const { transactionBlockBytes, signature } = await signTransactionBlock({
         transactionBlock: txb,
-        options: { showEffects: true },
+      });
+
+      const tx = await provider.executeTransactionBlock({
+        transactionBlock: transactionBlockBytes,
+        signature,
+        options: { showEffects: true, showEvents: false },
         requestType: 'WaitForEffectsCert',
       });
 

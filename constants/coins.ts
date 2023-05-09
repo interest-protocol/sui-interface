@@ -7,19 +7,19 @@ import { OBJECT_RECORD } from './objects';
 export const VOLATILE = {
   [Network.DEVNET]: `${
     OBJECT_RECORD[Network.DEVNET].DEX_PACKAGE_ID
-  }::curve::VOLATILE`,
+  }::curve::Volatile`,
   [Network.TESTNET]: `${
     OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
-  }::curve::VOLATILE`,
+  }::curve::Volatile`,
 };
 
 export const STABLE = {
   [Network.DEVNET]: `${
     OBJECT_RECORD[Network.DEVNET].DEX_PACKAGE_ID
-  }::curve::STABLE`,
+  }::curve::Stable`,
   [Network.TESTNET]: `${
     OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
-  }::curve::STABLE`,
+  }::curve::Stable`,
 };
 
 const DEV_NET_BASE_COINS = {
@@ -260,19 +260,19 @@ export const COIN_SYMBOL = {
 export const COIN_POOL = {
   [Network.DEVNET]: {
     V_LP_SUI_ETH:
-      '0x16ee56488c2fb12abf15cc700ab531f6d5e526b8e552452b436ed51157fe1414',
+      '0x6d4d98a7ed723194a2d83f3cf933de84eb013efe7457e07bf2eed8583f61b5e6',
     V_LP_BTC_ETH:
-      '0x5c34900506f31a48e8bb3aacf0d61cb0aa132b65d1048ff8c558d9597017dee4',
+      '0x6024a66bc7dd21a547f82ebe743aeaa56565331d4e5d9b2aef39a604fbe18bcd',
     V_LP_BNB_ETH:
-      '0xc6c655c20999de423a10e6aae55d43f61b5b534cdbf3a2e06df310a4f5157d14',
+      '0x19ab8a7282b8ff94fcac52ee627e040b61126317e8722dac792eea59d3c01a21',
     V_LP_ETH_USDT:
-      '0x6441fd4db63594979efbe823d7eb705306afbb8a5a5ba084248ae7dd4afe93da',
+      '0xae59f453e9043cd79f73a44ad047df33bae371563e2f062d55c9d3070e62f631',
     V_LP_ETH_USDC:
-      '0x9ee6bbea4827578555b86e17b5d994e0e4509fe79449556a427b78829426b600',
+      '0x393190ac2f650f1ca25d2ce7202aaa2fe4bc6403c3b6fb3bf14ad123e8bef75f',
     V_LP_ETH_IPX:
-      '0x57e80f0fc176e7ec25eaae9be8f4e2773f29cf79219ba9467518311ef2a1d80d',
+      '0xde700f941c6690c0ab59e5cbb03a92959d3a7286247ba58d9d3d661df60d098c',
     S_LP_USDC_USDT:
-      '0x73e254dfab6a3c070b1b01c1759aade31893c596f085f1fc3e437a7a709ca7b6',
+      '0x476b66b018f1a91a7ec8022eab10a821e935adbf0ecde579bda95685648474a5',
   },
   [Network.TESTNET]: {
     V_LP_SUI_ETH:
@@ -295,20 +295,20 @@ export const COIN_POOL = {
 export const COIN_FARM = {
   [Network.DEVNET]: {
     ETH_IPX:
-      '0x6205a42c8bcb1cc85025b3d115468e458ff5c90941d869951774df27b94bac44',
+      '0xc353562d925bd92012ed7a36d129eac1b960fb35245c25853ed2aa1bada30896',
     ETH_USDC:
-      '0x0130bcc5eb01a1e401c152b139e45633a54fbddfd2879554381f8bf4844afd67',
+      '0x71c62d671e6dfaab27f23561890e602ef049bb2bedc08c0543204fba457cd9dc',
     BTC_ETH:
-      '0x350244b54a42fa8ff121f39a3825d30d5a03f481181e42fd040f372564905666',
+      '0x1835d45b63ad83e92d0eb263554534dfb391928b9fd74f1efd7522534da4fbf7',
     ETH_USDT:
-      '0xe7c112b30873e1e903c0e30e1816eef80615323407895aeef16f330f39f8272f',
+      '0xcf33c2d61a67badc3e6083cc56ba1146b8274e88b4580170bb03d56049d1ad57',
     BNB_ETH:
-      '0x2ff6297ed417505bf5e2a7699338ea213d684a04faa09bda327930ef4d927196',
+      '0xee440b34d0ff9a12e33304d5ed0b1a1905cfc64b28e736aeb15224abb2cd2578',
     SUI_ETH:
-      '0x6a0514c6593655421a6ade2043fc9ea858e204dfcb704f322ddac4506c4d12af',
-    IPX: '0x9ba95d096b08f07da3454dba74da997d7406389a226b22705de3150e7ecbd751',
+      '0x7ef3348dc7788cd5ced507c0311abb3290886061a53cc3e351a076b04bf71d57',
+    IPX: '0xf3cec53b57c9db122de441b7c5f9b1ce08e0cfaac0b755a9e6b4c0624cd198ee',
     S_LP_USDC_USDT:
-      '0x3d6887ef38efffafd6c032ec367bc6b0241b7516b4d1c77eba2c430c57b5d51b',
+      '0xad757d38e448759a5a0ade149e4e0e9590d0d1c38c24318c3e58014218dc383a',
   },
   [Network.TESTNET]: {
     ETH_IPX:

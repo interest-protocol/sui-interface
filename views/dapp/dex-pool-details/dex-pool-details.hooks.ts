@@ -4,7 +4,7 @@ import useSWR from 'swr';
 
 import { COIN_POOL_ID_TO_STABLE } from '@/constants';
 import { useNetwork, useProvider } from '@/hooks';
-import { makeSWRKey } from '@/utils';
+import { getCoinsFromPoolType, makeSWRKey } from '@/utils';
 
 import { Pool } from './dex-pool-details.types';
 
@@ -28,12 +28,8 @@ const processPool = (
   const poolType: string = pathOr('', ['data', 'type'], data);
 
   if (!poolType) return DEFAULT_POOL;
+  const [token0Type, token1Type] = getCoinsFromPoolType(poolType);
 
-  const x = poolType.split('<')[1];
-  const tokens = x.split(',');
-  const token0Type = tokens[0];
-  const y = tokens[1];
-  const token1Type = y.substring(1, y.length - 1);
   return {
     token0Balance: pathOr('', ['data', 'content', 'fields', 'balance_x'], data),
     token1Balance: pathOr('', ['data', 'content', 'fields', 'balance_y'], data),
