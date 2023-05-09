@@ -6,8 +6,8 @@
     "rewardDistribution": {
       "title": "Distribuição de recompensas",
       "distributionList": {  
-        "option1":"Rewards will be assigned to the wallet addresses you used to provide liquidity and make swaps.",
-        "option2":"Zealy reward winners will be requested to provide their wallets at the end of the campaign"
+        "option1":"As recompensas serão atribuídas aos endereços das carteiras que utilizou para fornecer liquidez e fazer swaps.",
+        "option2":"Os vencedores do prémio Zealy terão de fornecer as suas carteiras no final da campanha"
       },  
       "simplicity": {
         "title": "SIMPLES E FÁCIL",
