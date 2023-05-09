@@ -19,11 +19,11 @@ const LiquidityProgram: FC = () => {
         <LiquidityProgramTitle />
         <Box
           width="100%"
-          gridColumn={['1/23', '1/23', '1/16', '1/23']}
-          overflow="hidden"
           ref={scrollRef}
-          scrollbarColor="background"
+          overflow="hidden"
           marginBottom="3.75rem"
+          scrollbarColor="background"
+          gridColumn={['1/23', '1/23', '1/16', '1/23']}
         >
           <Box display="flex" gap="s">
             {POOL_PROVIDERS_LIST.map((poolProvider) => (
