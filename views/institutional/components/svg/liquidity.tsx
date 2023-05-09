@@ -121,6 +121,7 @@ export const heroIllustration: FC<SVGProps> = ({
   maxHeight,
   ...props
 }) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const id = useId();
 
   return (
