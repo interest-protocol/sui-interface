@@ -1,4 +1,4 @@
-import { TransactionBlock } from '@mysten/sui.js';
+import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';
@@ -7,7 +7,7 @@ import { FC, useState } from 'react';
 import { incrementTX } from '@/api/analytics';
 import { OBJECT_RECORD } from '@/constants';
 import Button from '@/elements/button';
-import { useNetwork, useWeb3 } from '@/hooks';
+import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { capitalize, showToast, showTXSuccessToast } from '@/utils';
 
 import { HarvestButtonProps } from './buttons.types';
@@ -18,9 +18,9 @@ const HarvestButton: FC<HarvestButtonProps> = ({
 }) => {
   const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
-  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { signTransactionBlock } = useWalletKit();
   const { mutate, account } = useWeb3();
-
+  const { provider } = useProvider();
   const { network } = useNetwork();
 
   const harvest = async () => {
@@ -31,17 +31,25 @@ const HarvestButton: FC<HarvestButtonProps> = ({
       const transactionBlock = new TransactionBlock();
 
       transactionBlock.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::get_rewards`,
+        target: `${objects.DEX_PACKAGE_ID}::interface::get_rewards`,
         typeArguments: [farm.lpCoin.type],
         arguments: [
+          transactionBlock.object(objects.DEX_MASTER_CHEF_STORAGE),
+          transactionBlock.object(objects.DEX_MASTER_CHEF_ACCOUNT_STORAGE),
           transactionBlock.object(objects.IPX_STORAGE),
-          transactionBlock.object(objects.IPX_ACCOUNT_STORAGE),
+          transactionBlock.object(SUI_CLOCK_OBJECT_ID),
         ],
       });
 
-      const tx = await signAndExecuteTransactionBlock({
+      const { signature, transactionBlockBytes } = await signTransactionBlock({
         transactionBlock,
+      });
+
+      const tx = await provider.executeTransactionBlock({
+        signature,
+        transactionBlock: transactionBlockBytes,
         requestType: 'WaitForEffectsCert',
+        options: { showEffects: true, showEvents: false },
       });
 
       if (tx?.effects?.status.status === 'success') {
