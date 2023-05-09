@@ -118,6 +118,8 @@ const Header: FC = () => {
               px="XL"
               cursor="pointer"
               variant="normal"
+              borderRight="1px solid"
+              borderColor="bottomBackground"
               color={
                 pathname.includes(Routes[RoutesEnum.Faucet])
                   ? 'accent'
@@ -128,6 +130,21 @@ const Header: FC = () => {
               FAUCET
             </Typography>
           </Link>
+          <a target="_blank" href={Routes[RoutesEnum.Bridge]} rel="noreferrer">
+            <Typography
+              px="XL"
+              cursor="pointer"
+              variant="normal"
+              color={
+                pathname.includes(Routes[RoutesEnum.Bridge])
+                  ? 'accent'
+                  : 'inherit'
+              }
+              nHover={{ color: 'accentActive' }}
+            >
+              BRIDGE
+            </Typography>
+          </a>
         </Box>
         <Box display="flex" justifyContent="flex-end" alignItems="center">
           <Box>

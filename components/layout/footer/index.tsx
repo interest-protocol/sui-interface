@@ -6,7 +6,7 @@ import { v4 } from 'uuid';
 import { Container, SocialMediaCard } from '@/components';
 import { Routes, RoutesEnum, SOCIAL_MEDIAS } from '@/constants';
 import { Box, Button } from '@/elements';
-import { DexSVG, EarnSVG, FaucetSVG, GitBookSVG } from '@/svg';
+import { BridgeSVG, DexSVG, EarnSVG, FaucetSVG, GitBookSVG } from '@/svg';
 
 const Footer: FC = () => {
   const { pathname } = useRouter();
@@ -146,6 +146,40 @@ const Footer: FC = () => {
               Faucet
             </Button>
           </Link>
+          <a target="_blank" href={Routes[RoutesEnum.Bridge]} rel="noreferrer">
+            <Button
+              ml="S"
+              px="0.8rem"
+              fontSize="M"
+              display="flex"
+              flexDirection="column"
+              variant="primary"
+              alignItems="center"
+              justifyContent="space-between"
+              borderRadius="M"
+              bg={
+                pathname.includes(Routes[RoutesEnum.Bridge])
+                  ? 'accentActive'
+                  : 'transparent'
+              }
+              nHover={{ bg: 'accent', color: 'text' }}
+              nActive={{ bg: 'accentActive', color: 'text' }}
+              color={
+                pathname.includes(Routes[RoutesEnum.Bridge])
+                  ? 'textSoft'
+                  : 'text'
+              }
+            >
+              <BridgeSVG
+                width="1.1rem"
+                height="1.1rem"
+                maxHeight="2.5rem"
+                maxWidth="auto"
+                style={{ marginBottom: '8px' }}
+              />
+              Bridge
+            </Button>
+          </a>
         </Box>
       </Container>
     </Box>

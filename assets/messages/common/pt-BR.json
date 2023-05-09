@@ -28,6 +28,7 @@
     "volatile": "{count, plural, =1 {volátil} other {voláteis}}",
     "stable": "{count, plural, =1 {estável} other {estáveis}}",
     "enter": "aceder",
+    "bridge": "Bridge",
     "type": "tipo",
     "add": "{isLoading, plural, =1 {adicionando...} other {adicione}}",
     "reset": "reiniciar",
