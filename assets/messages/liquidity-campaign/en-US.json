@@ -2,6 +2,25 @@
   "liquidity": {
     "metadata": {
       "title": "Liquidity Program"
+    },
+    "share": {
+      "title": "Get a share",
+      "card1": {
+        "title": "5M IPX Tokens",
+        "subtitle": "for Swapping on our DApp",
+        "description": "Whenever you trade tokens, you also qualify to get a share of a 5 Million tokens pool, the more Swaps you do the higher your chances to get a better reward."
+      },
+      "card2": {
+        "title": "3M IPX Tokens",
+        "subtitle": "for participating on our",
+        "description": "If you complete any Zealy activity you accumulate XP, thereafter you are qualified to grab a share of 3M IPX Tokens. the more XP you get higher your chances to get a better  reward."
+      },
+      "buttonCard": "Check Formula",
+      "sentence": {
+        "first": "Please note that you can enter the campaign between",
+        "date": "May 10th, 2023, and June 27th, 2023.",
+        "second": "The rewards will be distributed after one week after the campaign ends."
+      }
     }
   }
 }
