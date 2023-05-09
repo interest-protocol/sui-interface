@@ -53,12 +53,18 @@
         "first": "Totalmente Descentralizado",
         "second": "Completamente Seguro"
       },
-      "description": "A Interest visa estabelecer uma rede de intercâmbio, fornecendo todo o apoio subjacente necessário para um ecossistema DeFi robusto. O nosso objectivo é capacitar cada detentor de ativos digitais e oferecer um serviço verdadeiramente seguro, livre e transparente.",
-      "values": {
-        "supported": "Revisão e testes constantes da nossa plataforma",
-        "secure": "Os seus ativos não poderiam estar mais seguros",
-        "decentralized": "Totalmente descentralizado e não-custodial",
-        "experience": "Construído por especialistas em tecnologia Blockchain"
+      "description": "A Interest visa estabelecer uma rede de intercâmbio, fornecendo todo o apoio subjacente necessário para um ecossistema DeFi robusto. O nosso objectivo é capacitar cada detentor de ativos digitais e oferecer um serviço verdadeiramente seguro, livre e transparente."
+    },
+    "security": {
+      "openSource": {
+        "title": "Somos open-source",
+        "description": "Dando prioridade à transparência e à confiança através da nossa plataforma de código aberto, incentivamos a colaboração e a inovação, ao mesmo tempo que proporcionamos uma segurança reforçada.",
+        "link": "Visite o nosso Github"
+      },
+      "audited": {
+        "title": "Somos auditados",
+        "description": "A Interest Protocol é auditada pela <link>MOVEBIT</link>, uma empresa de segurança de blockchain de terceiros focada na segurança do ecossistema Move, que nos ajudou a manter o nosso protocolo seguro.",
+        "link": "Ler a auditoria"
       }
     },
     "advantages": {
