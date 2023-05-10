@@ -5,8 +5,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
+import { Network } from '@/constants';
+import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
-import { parseEnvToBoolean } from '@/utils';
 import Farms from '@/views/dapp/farms';
 import {
   FarmSortByFilter,
@@ -26,6 +27,7 @@ const Layout = dynamic(() => import('@/components/layout'), {
 });
 
 const FarmsPage: NextPageWithProps = ({ pageTitle, messages, now }) => {
+  const { network } = useNetwork();
   const [isDesktop, setDesktop] = useState(false);
 
   const form = useForm({
@@ -38,7 +40,7 @@ const FarmsPage: NextPageWithProps = ({ pageTitle, messages, now }) => {
     },
   });
 
-  if (!parseEnvToBoolean(process.env.NEXT_PUBLIC_FARMS))
+  if (network !== Network.MAINNET)
     return (
       <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
     );

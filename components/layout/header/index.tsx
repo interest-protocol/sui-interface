@@ -5,11 +5,11 @@ import { useTranslations } from 'next-intl';
 import { FC, useCallback, useState } from 'react';
 
 import { SwitchLang } from '@/components';
-import { Routes, RoutesEnum } from '@/constants';
+import { Network, Routes, RoutesEnum } from '@/constants';
 import { Box, Typography } from '@/elements';
+import { useNetwork } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
 import { LogoSVG, MoonSVG, SunSVG } from '@/svg';
-import { parseEnvToBoolean } from '@/utils';
 
 import MobileMenu from './mobile-menu';
 import SelectNetwork from './select-network';
@@ -17,8 +17,9 @@ import Wallet from './wallet';
 
 const Header: FC = () => {
   const t = useTranslations();
-  const { setDark, dark } = useTheme() as any;
+  const { network } = useNetwork();
   const { pathname } = useRouter();
+  const { setDark, dark } = useTheme() as any;
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -97,7 +98,7 @@ const Header: FC = () => {
               DEX
             </Typography>
           </Link>
-          {parseEnvToBoolean(process.env.NEXT_PUBLIC_FARMS) && (
+          {network !== Network.MAINNET && (
             <Link href={Routes[RoutesEnum.Farms]}>
               <Typography
                 px="XL"
@@ -116,14 +117,12 @@ const Header: FC = () => {
               </Typography>
             </Link>
           )}
-          {parseEnvToBoolean(process.env.NEXT_PUBLIC_FAUCET) && (
+          {network !== Network.MAINNET && (
             <Link href={Routes[RoutesEnum.Faucet]}>
               <Typography
                 px="XL"
                 cursor="pointer"
                 variant="normal"
-                borderRight="1px solid"
-                borderColor="bottomBackground"
                 color={
                   pathname.includes(Routes[RoutesEnum.Faucet])
                     ? 'accent'
@@ -135,21 +134,27 @@ const Header: FC = () => {
               </Typography>
             </Link>
           )}
-          <a target="_blank" href={Routes[RoutesEnum.Bridge]} rel="noreferrer">
-            <Typography
-              px="XL"
-              cursor="pointer"
-              variant="normal"
-              color={
-                pathname.includes(Routes[RoutesEnum.Faucet])
-                  ? 'accent'
-                  : 'inherit'
-              }
-              nHover={{ color: 'accentActive' }}
+          {network === Network.MAINNET && (
+            <a
+              target="_blank"
+              href={Routes[RoutesEnum.Bridge]}
+              rel="noreferrer"
             >
-              BRIDGE
-            </Typography>
-          </a>
+              <Typography
+                px="XL"
+                cursor="pointer"
+                variant="normal"
+                color={
+                  pathname.includes(Routes[RoutesEnum.Faucet])
+                    ? 'accent'
+                    : 'inherit'
+                }
+                nHover={{ color: 'accentActive' }}
+              >
+                BRIDGE
+              </Typography>
+            </a>
+          )}
         </Box>
         <Box display="flex" justifyContent="flex-end" alignItems="center">
           <Box>

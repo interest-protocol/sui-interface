@@ -7,14 +7,13 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
-import { FARMS_RECORD, StakeState } from '@/constants';
+import { FARMS_RECORD, Network, StakeState } from '@/constants';
 import { ModalProvider } from '@/context/modal';
 import { Box, Typography } from '@/elements';
 import { withTypeGuard } from '@/HOC';
 import { useNetwork } from '@/hooks';
 import { NextPageDefaultProps } from '@/interface';
 import { TimesSVG } from '@/svg';
-import { parseEnvToBoolean } from '@/utils';
 import FarmDetails from '@/views/dapp/farm-details';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
@@ -51,7 +50,7 @@ const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
 
   const t = useTranslations();
 
-  if (!parseEnvToBoolean(process.env.NEXT_PUBLIC_FARMS))
+  if (network !== Network.MAINNET)
     return (
       <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
     );

@@ -38,6 +38,7 @@ export { default as PlusSVG } from './plus';
 export { default as PTFlagSVG } from './pt-flag';
 export { default as ShieldCheckSVG } from './shield-check';
 export { default as StarSVG } from './star';
+export { default as StarLightSVG } from './star-light';
 export { default as SuiSVG } from './sui';
 export { default as SunSVG } from './sun';
 export { default as SwapArrowSVG } from './swap-arrow';

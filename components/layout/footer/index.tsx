@@ -4,13 +4,15 @@ import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { Container, SocialMediaCard } from '@/components';
-import { Routes, RoutesEnum, SOCIAL_MEDIAS } from '@/constants';
+import { Network, Routes, RoutesEnum, SOCIAL_MEDIAS } from '@/constants';
 import { Box, Button } from '@/elements';
+import { useNetwork } from '@/hooks';
 import { BridgeSVG, DexSVG, EarnSVG, FaucetSVG, GitBookSVG } from '@/svg';
-import { parseEnvToBoolean } from '@/utils';
 
 const Footer: FC = () => {
+  const { network } = useNetwork();
   const { pathname } = useRouter();
+
   return (
     <Box
       zIndex={3}
@@ -75,7 +77,7 @@ const Footer: FC = () => {
               Dex
             </Button>
           </Link>
-          {parseEnvToBoolean(process.env.NEXT_PUBLIC_FARMS) && (
+          {network !== Network.MAINNET && (
             <Link href={Routes[RoutesEnum.Farms]}>
               <Button
                 ml="S"
@@ -115,7 +117,7 @@ const Footer: FC = () => {
               </Button>
             </Link>
           )}
-          {parseEnvToBoolean(process.env.NEXT_PUBLIC_FAUCET) && (
+          {network !== Network.MAINNET && (
             <Link href={Routes[RoutesEnum.Faucet]}>
               <Button
                 ml="S"
@@ -151,40 +153,46 @@ const Footer: FC = () => {
               </Button>
             </Link>
           )}
-          <a target="_blank" href={Routes[RoutesEnum.Bridge]} rel="noreferrer">
-            <Button
-              ml="S"
-              px="0.8rem"
-              fontSize="M"
-              display="flex"
-              borderRadius="M"
-              variant="primary"
-              alignItems="center"
-              flexDirection="column"
-              justifyContent="space-between"
-              bg={
-                pathname.includes(Routes[RoutesEnum.Bridge])
-                  ? 'accentActive'
-                  : 'transparent'
-              }
-              nHover={{ bg: 'accent', color: 'text' }}
-              nActive={{ bg: 'accentActive', color: 'text' }}
-              color={
-                pathname.includes(Routes[RoutesEnum.Bridge])
-                  ? 'textSoft'
-                  : 'text'
-              }
+          {network === Network.MAINNET && (
+            <a
+              target="_blank"
+              href={Routes[RoutesEnum.Bridge]}
+              rel="noreferrer"
             >
-              <BridgeSVG
-                width="1.1rem"
-                height="1.1rem"
-                maxHeight="2.5rem"
-                maxWidth="auto"
-                style={{ marginBottom: '8px' }}
-              />
-              Bridge
-            </Button>
-          </a>
+              <Button
+                ml="S"
+                px="0.8rem"
+                fontSize="M"
+                display="flex"
+                borderRadius="M"
+                variant="primary"
+                alignItems="center"
+                flexDirection="column"
+                justifyContent="space-between"
+                bg={
+                  pathname.includes(Routes[RoutesEnum.Bridge])
+                    ? 'accentActive'
+                    : 'transparent'
+                }
+                nHover={{ bg: 'accent', color: 'text' }}
+                nActive={{ bg: 'accentActive', color: 'text' }}
+                color={
+                  pathname.includes(Routes[RoutesEnum.Bridge])
+                    ? 'textSoft'
+                    : 'text'
+                }
+              >
+                <BridgeSVG
+                  width="1.1rem"
+                  height="1.1rem"
+                  maxHeight="2.5rem"
+                  maxWidth="auto"
+                  style={{ marginBottom: '8px' }}
+                />
+                Bridge
+              </Button>
+            </a>
+          )}
         </Box>
       </Container>
     </Box>

@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { Network } from '@/constants';
 import { Box, Dropdown, Typography } from '@/elements';
 import { useNetwork } from '@/hooks';
-import { ArrowSVG, SuiSVG } from '@/svg';
+import { ArrowSVG, StarLightSVG, SuiSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
 const SelectNetwork: FC = () => {
@@ -65,31 +65,66 @@ const SelectNetwork: FC = () => {
             </Box>
           ),
           displayOption: (
-            <Box pl="L" display="flex" alignItems="center">
-              <Box
-                as="span"
-                display="inline-block"
-                width="1.5rem"
-                height="1.5rem"
-                color="text"
-              >
-                <SuiSVG
-                  width="100%"
-                  height="100%"
-                  fill="currentColor"
-                  maxHeight="1.5rem"
-                  maxWidth="1.5rem"
-                />
+            <Box display="flex" justifyContent="space-between" width="100%">
+              <Box pl="L" display="flex" alignItems="center">
+                <Box
+                  as="span"
+                  display="inline-block"
+                  width="1.5rem"
+                  height="1.5rem"
+                  color="text"
+                >
+                  <SuiSVG
+                    width="100%"
+                    height="100%"
+                    fill="currentColor"
+                    maxHeight="1.5rem"
+                    maxWidth="1.5rem"
+                  />
+                </Box>
+                <Typography
+                  variant="normal"
+                  mx="M"
+                  whiteSpace="nowrap"
+                  color="text"
+                  display="flex"
+                >
+                  SUI
+                </Typography>
               </Box>
-              <Typography
-                variant="normal"
-                mx="M"
-                whiteSpace="nowrap"
-                color="text"
-                display="flex"
-              >
-                SUI
-              </Typography>
+              <Box width="2.5rem" height="2rem" position="relative">
+                <Box position="absolute" top="0" left="0.5rem" width="0.7rem">
+                  <StarLightSVG
+                    height="100%"
+                    maxWidth="0.7rem"
+                    maxHeight="0.7rem"
+                  />
+                </Box>
+                <Box
+                  position="absolute"
+                  left="0"
+                  bottom="0.3rem"
+                  width="0.7rem"
+                >
+                  <StarLightSVG
+                    height="100%"
+                    maxWidth="0.7rem"
+                    maxHeight="0.7rem"
+                  />
+                </Box>
+                <Box
+                  position="absolute"
+                  bottom="0"
+                  left="0.6rem"
+                  width="0.7rem"
+                >
+                  <StarLightSVG
+                    height="100%"
+                    maxWidth="0.7rem"
+                    maxHeight="0.7rem"
+                  />
+                </Box>
+              </Box>
             </Box>
           ),
         },
