@@ -7,6 +7,7 @@ import {
   Layout,
   LearnMore,
   Partners,
+  Security,
   UsedBy,
   ValueProposition,
 } from '../components';
@@ -17,6 +18,7 @@ const Home: FC = () => (
     <AboutUs />
     <UsedBy />
     <ValueProposition />
+    <Security />
     <Advantages />
     <LearnMore />
     <Partners />

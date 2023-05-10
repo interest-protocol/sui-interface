@@ -23,7 +23,7 @@
         },
         "trade": {
           "name": "Transacione",
-          "description": "Leve o seu jogo comercial para o próximo nível. Na nossa interface de troca, pode facilmente trocar os seus pares de cripto favoritos, tudo num só lugar."
+          "description": "Eleve o seu jogo comercial. Na nossa interface, pode facilmente trocar os seus pares de cripto favoritos, tudo num só lugar."
         },
         "lend": {
           "name": "Empreste",
@@ -53,12 +53,18 @@
         "first": "Totalmente Descentralizado",
         "second": "Completamente Seguro"
       },
-      "description": "A Interest visa estabelecer uma rede de intercâmbio, fornecendo todo o apoio subjacente necessário para um ecossistema DeFi robusto. O nosso objectivo é capacitar cada detentor de ativos digitais e oferecer um serviço verdadeiramente seguro, livre e transparente.",
-      "values": {
-        "supported": "Revisão e testes constantes da nossa plataforma",
-        "secure": "Os seus ativos não poderiam estar mais seguros",
-        "decentralized": "Totalmente descentralizado e não-custodial",
-        "experience": "Construído por especialistas em tecnologia Blockchain"
+      "description": "A Interest visa estabelecer uma rede de intercâmbio, fornecendo todo o apoio subjacente necessário para um ecossistema DeFi robusto. O nosso objectivo é capacitar cada detentor de ativos digitais e oferecer um serviço verdadeiramente seguro, livre e transparente."
+    },
+    "security": {
+      "openSource": {
+        "title": "Somos open-source",
+        "description": "Nós damos prioridade à transparência e à confiança através da nossa plataforma de código aberto. Incentivamos a colaboração, a inovação e ao mesmo tempo, proporcionamos uma segurança reforçada.",
+        "link": "Visite o nosso Github"
+      },
+      "audited": {
+        "title": "Somos auditados",
+        "description": "A Interest Protocol é auditada pela <link>MOVEBIT</link>, uma empresa de segurança de blockchain de terceiros focada na segurança do ecossistema Move. Esta empresa ajudou nos a manter o nosso protocolo seguro.",
+        "link": "Ler a auditoria"
       }
     },
     "advantages": {

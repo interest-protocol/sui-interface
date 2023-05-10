@@ -53,12 +53,18 @@
         "first": "Fully decentralized",
         "second": "Completely secure"
       },
-      "description": "Interest aims to establish an exchange network, providing all the necessary underlying support for a robust DeFi ecosystem. Our goal is to empower every digital asset holder to experience a truly secure, free, and transparent service.",
-      "values": {
-        "supported": "Constant review and testing of our platform",
-        "secure": "Your funds are as secure as possible",
-        "decentralized": "Fully decentralized and non-custodial",
-        "experience": "Built by experienced blockchain developers"
+      "description": "Interest aims to establish an exchange network, providing all the necessary underlying support for a robust DeFi ecosystem. Our goal is to empower every digital asset holder to experience a truly secure, free, and transparent service."
+    },
+    "security": {
+      "openSource": {
+        "title": "We are open-source",
+        "description": "Prioritizing transparency and trust through our open-source platform; we encourage collaboration and innovation while providing enhanced security.",
+        "link": "Visit our Github"
+      },
+      "audited": {
+        "title": "We are audited",
+        "description": "Interest Protocol is Audited by <link>MOVEBIT</link>, a third-party blockchain security company focused on Move ecosystem security which helped us keep our protocol secured.",
+        "link": "Read the Audit"
       }
     },
     "advantages": {
