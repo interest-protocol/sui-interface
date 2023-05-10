@@ -18,8 +18,8 @@ const ShareCard: FC<ShareProps> = ({
 
   return (
     <Box
-      as="span"
       p="2xs"
+      as="span"
       display="grid"
       columnGap="2xl"
       borderRadius="m"
@@ -27,11 +27,14 @@ const ShareCard: FC<ShareProps> = ({
       borderColor="textAccent"
     >
       <Box
+        mb="2.5rem"
+        display="flex"
         bg="#B6C4FF0A"
         borderRadius="m"
         height="22.688rem"
+        alignItems="center"
         position="relative"
-        mb="2.5rem"
+        justifyContent="center"
       >
         <Illustration />
       </Box>
