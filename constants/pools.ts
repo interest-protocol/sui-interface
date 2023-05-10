@@ -110,7 +110,15 @@ export const RECOMMENDED_POOLS = {
       stable: true,
     },
   ],
-  [Network.MAINNET]: [],
+  [Network.MAINNET]: [
+    {
+      token0: networkTestNetCoins.USDC,
+      token1: networkTestNetCoins.USDT,
+      poolObjectId: networkTestNetCoinPool.S_LP_USDC_USDT,
+      lpCoin: networkTestNetCoins.S_LP_USDC_USDT,
+      stable: true,
+    },
+  ],
 };
 
 export const COIN_POOL_ID_TO_STABLE = {
