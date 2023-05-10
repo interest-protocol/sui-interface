@@ -6,6 +6,7 @@ import { useNetwork } from '../use-network';
 const SDK_RECORD = {
   [Network.DEVNET]: devNetIPXSdk,
   [Network.TESTNET]: testNetIPXSdk,
+  [Network.MAINNET]: testNetIPXSdk,
 };
 
 export const useSDK = () => {
