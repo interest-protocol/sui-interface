@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { FixedPointMath } from 'lib';
+import { pathOr } from 'ramda';
 
 import { COIN_TYPE, MILLISECONDS_PER_YEAR } from '@/constants';
 import { ZERO_BIG_NUMBER } from '@/utils';
@@ -42,7 +43,7 @@ export const calculateIPXUSDPrice = ({
 
   const ipxInEth = ethBalance.div(ipxBalance);
 
-  const ethType = COIN_TYPE[network].ETH;
+  const ethType = pathOr('', [network, 'ETH'], COIN_TYPE);
 
   // TODO take into account eth decimals upon deployment
   return ipxInEth.multipliedBy(prices[ethType]?.price ?? 0).toNumber();
