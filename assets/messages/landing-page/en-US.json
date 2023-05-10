@@ -63,7 +63,7 @@
       },
       "audited": {
         "title": "We are audited",
-        "description": "Interest Protocol is Audited by <link>MOVEBIT</link>, a third party blockchain security company focused on Move ecosystem security which helped us keep our protocol secured.",
+        "description": "Interest Protocol is Audited by <link>MOVEBIT</link>, a third-party blockchain security company focused on Move ecosystem security which helped us keep our protocol secured.",
         "link": "Read the Audit"
       }
     },
