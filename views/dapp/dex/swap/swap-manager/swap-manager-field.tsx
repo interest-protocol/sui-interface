@@ -4,7 +4,6 @@ import { pathOr, prop } from 'ramda';
 import { FC, useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
 import useSWR from 'swr';
-import { useNow } from 'use-intl';
 
 import { COIN_DECIMALS, OBJECT_RECORD } from '@/constants';
 import InputBalance from '@/elements/input-balance';
@@ -40,15 +39,13 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   const { provider } = useProvider();
   const { network } = useNetwork();
 
-  const now = useNow();
-
   const devInspectTransactionPayload = getSwapPayload({
     tokenIn,
     coinsMap,
     tokenOutType,
     poolsMap,
     network,
-    deadline: (now.getTime() + 30 * 60 * 1000).toString(), // We pass 30 minutes deadline
+    deadline: (new Date().getTime() + 30 * 60 * 1000).toString(), // We pass 30 minutes deadline
   });
 
   const { error } = useSWR(

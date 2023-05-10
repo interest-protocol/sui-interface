@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
-import { useNow } from 'use-intl';
 
 import { incrementTX } from '@/api/analytics';
 import { OBJECT_RECORD } from '@/constants';
@@ -44,7 +43,6 @@ const SwapButton: FC<SwapButtonProps> = ({
   const [loading, setLoading] = useState(false);
   const { signTransactionBlock } = useWalletKit();
   const { network } = useNetwork();
-  const now = useNow({ updateInterval: 1000 * 60 * 2 });
   const { provider } = useProvider();
 
   const tokenInValue = useWatch({ control, name: 'tokenIn.value' });
@@ -94,7 +92,7 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       const txb = new TransactionBlock();
 
-      const nowTime = now.getTime();
+      const nowTime = new Date().getTime();
 
       // no hop swap
       if (!firstSwapObject.baseTokens.length) {
