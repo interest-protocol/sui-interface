@@ -115,4 +115,12 @@ export const FAUCET_TOKENS = {
     name: string;
     decimals: number;
   }>,
+  // There is no faucet on the mainnet
+  [Network.MAINNET]: [] as ReadonlyArray<{
+    symbol: TOKEN_SYMBOL.SUI;
+    type: string;
+    Icon: FC<SVGProps>;
+    name: string;
+    decimals: number;
+  }>,
 };

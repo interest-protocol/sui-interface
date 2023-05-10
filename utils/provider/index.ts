@@ -31,8 +31,23 @@ export const testNetProvider = new JsonRpcProvider(
   })
 );
 
+export const mainNetProvider = new JsonRpcProvider(
+  new Connection({
+    fullnode: process.env.NEXT_PUBLIC_SUI_MAINNET_RPC_URL
+      ? process.env.NEXT_PUBLIC_SUI_MAINNET_RPC_URL
+      : 'https://fullnode.mainnet.sui.io:443',
+    websocket:
+      process.env.NEXT_PUBLIC_SUI_MAINNET_WS_URL ||
+      'wss://fullnode.mainnet.sui.io:443',
+  })
+);
+
 export const suiNSTestNetProvider = new SuinsClient(new JsonRpcProvider(), {
   networkType: 'testnet',
+});
+
+export const suiNSMainNetProvider = new SuinsClient(new JsonRpcProvider(), {
+  networkType: 'testnet', // fix once mainnet is deployed
 });
 
 export const devNetIPXSdk = {};

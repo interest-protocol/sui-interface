@@ -110,6 +110,7 @@ export const RECOMMENDED_POOLS = {
       stable: true,
     },
   ],
+  [Network.MAINNET]: [],
 };
 
 export const COIN_POOL_ID_TO_STABLE = {
@@ -131,4 +132,5 @@ export const COIN_POOL_ID_TO_STABLE = {
     [COIN_POOL[Network.TESTNET].V_LP_ETH_IPX]: false,
     [COIN_POOL[Network.TESTNET].S_LP_USDC_USDT]: true,
   },
+  [Network.MAINNET]: {},
 };

@@ -6,6 +6,10 @@ import { Network } from './network';
 export const DEX_BASE_TOKEN_ARRAY = {
   [Network.DEVNET]: [COIN_TYPE[Network.DEVNET].ETH],
   [Network.TESTNET]: [COIN_TYPE[Network.TESTNET].ETH],
+  [Network.MAINNET]: [
+    COIN_TYPE[Network.MAINNET].SUI,
+    COIN_TYPE[Network.MAINNET].WORMHOLE_USDC,
+  ],
 };
 
 export const DEX_TOKENS_DATA = {
@@ -15,6 +19,12 @@ export const DEX_TOKENS_DATA = {
       decimals: 9,
       type: COIN_TYPE[Network.DEVNET].SUI,
       name: 'Sui',
+    },
+    {
+      symbol: TOKEN_SYMBOL.ETH,
+      decimals: 9,
+      type: COIN_TYPE[Network.DEVNET].ETH,
+      name: 'Ether',
     },
     {
       symbol: TOKEN_SYMBOL.BTC,
@@ -27,12 +37,6 @@ export const DEX_TOKENS_DATA = {
       decimals: 9,
       type: COIN_TYPE[Network.DEVNET].BNB,
       name: 'BNB Coin',
-    },
-    {
-      symbol: TOKEN_SYMBOL.ETH,
-      decimals: 9,
-      type: COIN_TYPE[Network.DEVNET].ETH,
-      name: 'Ether',
     },
     {
       symbol: TOKEN_SYMBOL.USDT,
@@ -61,6 +65,12 @@ export const DEX_TOKENS_DATA = {
       name: 'Sui',
     },
     {
+      symbol: TOKEN_SYMBOL.ETH,
+      decimals: 9,
+      type: COIN_TYPE[Network.TESTNET].ETH,
+      name: 'Ether',
+    },
+    {
       symbol: TOKEN_SYMBOL.BTC,
       decimals: 9,
       type: COIN_TYPE[Network.TESTNET].BTC,
@@ -71,12 +81,6 @@ export const DEX_TOKENS_DATA = {
       decimals: 9,
       type: COIN_TYPE[Network.TESTNET].BNB,
       name: 'BNB Coin',
-    },
-    {
-      symbol: TOKEN_SYMBOL.ETH,
-      decimals: 9,
-      type: COIN_TYPE[Network.TESTNET].ETH,
-      name: 'Ether',
     },
     {
       symbol: TOKEN_SYMBOL.USDT,
@@ -97,6 +101,32 @@ export const DEX_TOKENS_DATA = {
       name: 'Interest Protocol Coin',
     },
   ],
+  [Network.MAINNET]: [
+    {
+      symbol: TOKEN_SYMBOL.SUI,
+      decimals: 9,
+      type: COIN_TYPE[Network.MAINNET].SUI,
+      name: 'Sui',
+    },
+    {
+      symbol: TOKEN_SYMBOL.WORMHOLE_ETH,
+      decimals: 8,
+      type: COIN_TYPE[Network.MAINNET].WORMHOLE_ETH,
+      name: 'Wormhole WETH',
+    },
+    {
+      symbol: TOKEN_SYMBOL.WORMHOLE_USDT,
+      decimals: 6,
+      type: COIN_TYPE[Network.MAINNET].WORMHOLE_USDT,
+      name: 'Wormhole USDT',
+    },
+    {
+      symbol: TOKEN_SYMBOL.WORMHOLE_USDC,
+      decimals: 6,
+      type: COIN_TYPE[Network.MAINNET].WORMHOLE_USDC,
+      name: 'Wormhole USDC',
+    },
+  ],
 };
 
 export const BASE_TOKENS_TYPES = {
@@ -109,6 +139,10 @@ export const BASE_TOKENS_TYPES = {
     COIN_TYPE[Network.TESTNET].ETH,
     COIN_TYPE[Network.TESTNET].USDC,
     COIN_TYPE[Network.TESTNET].SUI,
+  ],
+  [Network.MAINNET]: [
+    COIN_TYPE[Network.MAINNET].SUI,
+    COIN_TYPE[Network.MAINNET].WORMHOLE_USDC,
   ],
 };
 
@@ -124,6 +158,10 @@ export const RECOMMENDED_TOKENS_TYPES = {
     COIN_TYPE[Network.TESTNET].IPX,
     COIN_TYPE[Network.TESTNET].USDT,
     COIN_TYPE[Network.TESTNET].BNB,
+  ],
+  [Network.MAINNET]: [
+    COIN_TYPE[Network.MAINNET].WORMHOLE_ETH,
+    COIN_TYPE[Network.MAINNET].WORMHOLE_USDT,
   ],
 };
 

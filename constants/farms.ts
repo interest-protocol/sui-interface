@@ -200,6 +200,8 @@ export const FARMS_RECORD: Record<Network, Record<string, FarmMetadataType>> = {
       stable: true,
     },
   },
+  // TODO deploy mainnet Farms
+  [Network.MAINNET]: {},
 };
 
 export interface FarmMetadataType {

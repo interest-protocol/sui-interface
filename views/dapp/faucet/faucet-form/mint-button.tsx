@@ -24,6 +24,7 @@ import {
 
 import { MintButtonProps } from './faucet-form.types';
 
+// @desc The faucet is never rendered on the Mainnet so the values are {}
 const COIN_MINT_AMOUNT = {
   [Network.DEVNET]: {
     [COIN_TYPE[Network.DEVNET].BNB]: '10000000000',
@@ -39,6 +40,7 @@ const COIN_MINT_AMOUNT = {
     [COIN_TYPE[Network.TESTNET].USDT]: '1000000000000',
     [COIN_TYPE[Network.TESTNET].USDC]: '1000000000000',
   } as Record<string, string>,
+  [Network.MAINNET]: {} as Record<string, string>,
 };
 
 const COIN_TYPE_TO_STORAGE = {
@@ -66,6 +68,7 @@ const COIN_TYPE_TO_STORAGE = {
     [COIN_TYPE[Network.TESTNET].USDC]:
       OBJECT_RECORD[Network.TESTNET].FAUCET_USDC_STORAGE,
   } as Record<string, string>,
+  [Network.MAINNET]: {} as Record<string, string>,
 };
 
 const COIN_TYPE_TO_CORE_NAME = {
@@ -83,6 +86,7 @@ const COIN_TYPE_TO_CORE_NAME = {
     [COIN_TYPE[Network.TESTNET].USDT]: 'iusdt',
     [COIN_TYPE[Network.TESTNET].USDC]: 'iusdc',
   } as Record<string, string>,
+  [Network.MAINNET]: {} as Record<string, string>,
 };
 
 const MintButton: FC<MintButtonProps> = ({ getValues }) => {

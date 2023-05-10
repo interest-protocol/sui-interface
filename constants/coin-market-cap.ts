@@ -20,4 +20,10 @@ export const COIN_MARKET_CAP_ID_RECORD = {
     [COIN_TYPE[Network.TESTNET].SUI]: 20947,
     [COIN_TYPE[Network.TESTNET].IPX]: -1,
   },
+  [Network.MAINNET]: {
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_ETH]: 1027,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_USDT]: 825,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_USDC]: 3408,
+    [COIN_TYPE[Network.MAINNET].SUI]: 20947,
+  },
 };

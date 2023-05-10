@@ -29,5 +29,5 @@ export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.DEXFindPool]: '/dapp/dex/pool/find',
   [RoutesEnum.DEXPoolDetails]: '/dapp/dex/pool/details',
   [RoutesEnum.Faucet]: '/dapp/faucet',
-  [RoutesEnum.Bridge]: 'https://wormhole.interestprotocol.com/',
+  [RoutesEnum.Bridge]: 'https://www.portalbridge.com/sui/',
 };

@@ -17,6 +17,12 @@ export const COIN_PRICES = {
     COINS[Network.TESTNET].USDC.type,
     COINS[Network.TESTNET].SUI.type,
   ],
+  [Network.MAINNET]: [
+    COINS[Network.MAINNET].WORMHOLE_ETH.type,
+    COINS[Network.MAINNET].WORMHOLE_USDC.type,
+    COINS[Network.MAINNET].WORMHOLE_USDT.type,
+    COINS[Network.MAINNET].SUI.type,
+  ],
 };
 
 // The order has to remain the same
@@ -40,6 +46,7 @@ export const POOL_IDS_RECORD = {
     COIN_POOL[Network.TESTNET].V_LP_ETH_USDT,
     COIN_POOL[Network.TESTNET].S_LP_USDC_USDT,
   ],
+  [Network.MAINNET]: [],
 };
 
 export const FARM_IDS_RECORD_FIRST_CALL = {
@@ -95,6 +102,7 @@ export const FARM_IDS_RECORD_FIRST_CALL = {
       ],
     },
   ],
+  [Network.MAINNET]: [],
 };
 
 export const COIN_TYPE_ARRAY_UI = {
@@ -118,4 +126,5 @@ export const COIN_TYPE_ARRAY_UI = {
     COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT,
     COIN_TYPE[Network.TESTNET].S_LP_USDC_USDT,
   ],
+  [Network.MAINNET]: [],
 };

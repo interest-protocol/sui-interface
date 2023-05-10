@@ -88,9 +88,11 @@ export const useGetIPXStorageAndPools = () => {
   const { network } = useNetwork();
   const objects = OBJECT_RECORD[network];
   const poolIds = POOL_IDS_RECORD[network];
-  const { data, ...otherProps } = useGetMultiGetObjects(
-    poolIds.concat(objects.IPX_STORAGE).concat(objects.DEX_MASTER_CHEF_STORAGE)
-  );
+  const { data, ...otherProps } = useGetMultiGetObjects([
+    ...poolIds,
+    objects.IPX_STORAGE,
+    objects.DEX_MASTER_CHEF_STORAGE,
+  ]);
 
   const poolsRawData = (
     (data as SuiObjectResponse[]) || ([] as SuiObjectResponse[])

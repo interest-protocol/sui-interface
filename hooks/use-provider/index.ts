@@ -1,25 +1,38 @@
 import { Network } from '@/constants';
 import {
   devNetProvider,
+  mainNetProvider,
   suiNSDevNetProvider,
+  suiNSMainNetProvider,
   suiNSTestNetProvider,
   testNetProvider,
 } from '@/utils/provider';
 
 import { useNetwork } from '../use-network';
 
-const devNetProviders = {
+const devNetProviderMap = {
   provider: devNetProvider,
   suiNSProvider: suiNSDevNetProvider,
 };
 
-const testNetProviders = {
+const testNetProviderMap = {
   provider: testNetProvider,
   suiNSProvider: suiNSTestNetProvider,
+};
+
+const mainNetProviderMap = {
+  provider: mainNetProvider,
+  suiNSProvider: suiNSMainNetProvider,
+};
+
+const PROVIDER_MAP = {
+  [Network.DEVNET]: devNetProviderMap,
+  [Network.TESTNET]: testNetProviderMap,
+  [Network.MAINNET]: mainNetProviderMap,
 };
 
 export const useProvider = () => {
   const { network } = useNetwork();
 
-  return network === Network.DEVNET ? devNetProviders : testNetProviders;
+  return PROVIDER_MAP[network];
 };

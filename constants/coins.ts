@@ -11,6 +11,9 @@ export const VOLATILE = {
   [Network.TESTNET]: `${
     OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
   }::curve::Volatile`,
+  [Network.MAINNET]: `${
+    OBJECT_RECORD[Network.MAINNET].DEX_PACKAGE_ID
+  }::curve::Volatile`,
 };
 
 export const STABLE = {
@@ -19,6 +22,9 @@ export const STABLE = {
   }::curve::Stable`,
   [Network.TESTNET]: `${
     OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
+  }::curve::Stable`,
+  [Network.MAINNET]: `${
+    OBJECT_RECORD[Network.MAINNET].DEX_PACKAGE_ID
   }::curve::Stable`,
 };
 
@@ -119,6 +125,15 @@ export const COIN_TYPE = {
       TESTNET_NET_BASE_COINS.USDC
     }, ${TESTNET_NET_BASE_COINS.USDT}>`,
   },
+  [Network.MAINNET]: {
+    SUI: SUI_TYPE_ARG,
+    WORMHOLE_USDC:
+      '0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN',
+    WORMHOLE_ETH:
+      '0xaf8cd5edc19c4512f4259f0bee101a40d41ebed738ade5874359610ef8eeced5::coin::COIN',
+    WORMHOLE_USDT:
+      '0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN',
+  },
 };
 
 export const COIN_TYPE_TO_STABLE = {
@@ -152,6 +167,12 @@ export const COIN_TYPE_TO_STABLE = {
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: false,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: false,
   },
+  [Network.MAINNET]: {
+    [COIN_TYPE[Network.MAINNET].SUI]: false,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_ETH]: false,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_USDC]: true,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_USDT]: true,
+  },
 };
 
 export const COIN_TYPE_TO_SYMBOL = {
@@ -184,6 +205,12 @@ export const COIN_TYPE_TO_SYMBOL = {
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT]: TOKEN_SYMBOL.V_LP_ETH_USDT,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: TOKEN_SYMBOL.V_LP_ETH_USDC,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: TOKEN_SYMBOL.V_LP_ETH_IPX,
+  },
+  [Network.MAINNET]: {
+    [COIN_TYPE[Network.MAINNET].SUI]: TOKEN_SYMBOL.SUI,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_ETH]: TOKEN_SYMBOL.WORMHOLE_ETH,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_USDC]: TOKEN_SYMBOL.WORMHOLE_USDC,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_USDT]: TOKEN_SYMBOL.WORMHOLE_USDT,
   },
 };
 
@@ -220,40 +247,11 @@ export const COIN_DECIMALS = {
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: 0,
     [COIN_TYPE[Network.TESTNET].S_LP_USDC_USDT]: 0,
   },
-};
-
-export const COIN_SYMBOL = {
-  [Network.DEVNET]: {
-    [COIN_TYPE[Network.DEVNET].BTC]: TOKEN_SYMBOL.BTC,
-    [COIN_TYPE[Network.DEVNET].ETH]: TOKEN_SYMBOL.ETH,
-    [COIN_TYPE[Network.DEVNET].BNB]: TOKEN_SYMBOL.BNB,
-    [COIN_TYPE[Network.DEVNET].USDT]: TOKEN_SYMBOL.USDT,
-    [COIN_TYPE[Network.DEVNET].USDC]: TOKEN_SYMBOL.USDC,
-    [COIN_TYPE[Network.DEVNET].SUI]: TOKEN_SYMBOL.SUI,
-    [COIN_TYPE[Network.DEVNET].IPX]: TOKEN_SYMBOL.IPX,
-    [COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH]: TOKEN_SYMBOL.V_LP_SUI_ETH,
-    [COIN_TYPE[Network.DEVNET].V_LP_BTC_ETH]: TOKEN_SYMBOL.V_LP_BTC_ETH,
-    [COIN_TYPE[Network.DEVNET].V_LP_BNB_ETH]: TOKEN_SYMBOL.V_LP_BNB_ETH,
-    [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDT]: TOKEN_SYMBOL.V_LP_ETH_USDT,
-    [COIN_TYPE[Network.DEVNET].V_LP_ETH_USDC]: TOKEN_SYMBOL.V_LP_ETH_USDC,
-    [COIN_TYPE[Network.DEVNET].V_LP_ETH_IPX]: TOKEN_SYMBOL.V_LP_ETH_IPX,
-    [COIN_TYPE[Network.DEVNET].S_LP_USDC_USDT]: TOKEN_SYMBOL.S_LP_USDC_USDT,
-  },
-  [Network.TESTNET]: {
-    [COIN_TYPE[Network.TESTNET].BTC]: TOKEN_SYMBOL.BTC,
-    [COIN_TYPE[Network.TESTNET].ETH]: TOKEN_SYMBOL.ETH,
-    [COIN_TYPE[Network.TESTNET].BNB]: TOKEN_SYMBOL.BNB,
-    [COIN_TYPE[Network.TESTNET].USDT]: TOKEN_SYMBOL.USDT,
-    [COIN_TYPE[Network.TESTNET].USDC]: TOKEN_SYMBOL.USDC,
-    [COIN_TYPE[Network.TESTNET].SUI]: TOKEN_SYMBOL.SUI,
-    [COIN_TYPE[Network.TESTNET].IPX]: TOKEN_SYMBOL.IPX,
-    [COIN_TYPE[Network.TESTNET].V_LP_SUI_ETH]: TOKEN_SYMBOL.V_LP_SUI_ETH,
-    [COIN_TYPE[Network.TESTNET].V_LP_BTC_ETH]: TOKEN_SYMBOL.V_LP_BTC_ETH,
-    [COIN_TYPE[Network.TESTNET].V_LP_BNB_ETH]: TOKEN_SYMBOL.V_LP_BNB_ETH,
-    [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT]: TOKEN_SYMBOL.V_LP_ETH_USDT,
-    [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: TOKEN_SYMBOL.V_LP_ETH_USDC,
-    [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: TOKEN_SYMBOL.V_LP_ETH_IPX,
-    [COIN_TYPE[Network.TESTNET].S_LP_USDC_USDT]: TOKEN_SYMBOL.S_LP_USDC_USDT,
+  [Network.MAINNET]: {
+    [COIN_TYPE[Network.MAINNET].SUI]: 9,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_ETH]: 8,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_USDC]: 6,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_USDT]: 6,
   },
 };
 
@@ -290,6 +288,7 @@ export const COIN_POOL = {
     S_LP_USDC_USDT:
       '0xb65c0ec308595966ad7d9df5ba9f2fc919af76d75fcd043b07dcdf0e0084ab9b',
   },
+  [Network.MAINNET]: {},
 };
 
 export const COIN_FARM = {
@@ -327,6 +326,7 @@ export const COIN_FARM = {
     S_LP_USDC_USDT:
       '0x4119b550b6f340ee77d8b940d4c5eb488afaee0e49cf27df872bd0619e06087b',
   },
+  [Network.MAINNET]: {},
 };
 
 export const COINS = {
@@ -494,6 +494,35 @@ export const COINS = {
       type: COIN_TYPE[Network.TESTNET].S_LP_USDC_USDT,
     },
   },
+  [Network.MAINNET]: {
+    SUI: {
+      decimals: COIN_DECIMALS[Network.MAINNET][COIN_TYPE[Network.MAINNET].SUI],
+      symbol: TOKEN_SYMBOL.SUI,
+      type: COIN_TYPE[Network.MAINNET].SUI,
+    },
+    WORMHOLE_ETH: {
+      decimals:
+        COIN_DECIMALS[Network.MAINNET][COIN_TYPE[Network.MAINNET].WORMHOLE_ETH],
+      symbol: TOKEN_SYMBOL.WORMHOLE_ETH,
+      type: COIN_TYPE[Network.MAINNET].WORMHOLE_ETH,
+    },
+    WORMHOLE_USDC: {
+      decimals:
+        COIN_DECIMALS[Network.MAINNET][
+          COIN_TYPE[Network.MAINNET].WORMHOLE_USDC
+        ],
+      symbol: TOKEN_SYMBOL.WORMHOLE_USDC,
+      type: COIN_TYPE[Network.MAINNET].WORMHOLE_USDC,
+    },
+    WORMHOLE_USDT: {
+      decimals:
+        COIN_DECIMALS[Network.MAINNET][
+          COIN_TYPE[Network.MAINNET].WORMHOLE_USDT
+        ],
+      symbol: TOKEN_SYMBOL.WORMHOLE_USDT,
+      type: COIN_TYPE[Network.MAINNET].WORMHOLE_USDT,
+    },
+  },
 };
 
 export const COIN_TYPE_TO_COIN = {
@@ -514,5 +543,14 @@ export const COIN_TYPE_TO_COIN = {
     [COIN_TYPE[Network.TESTNET].USDC]: COINS[Network.TESTNET].USDC,
     [COIN_TYPE[Network.TESTNET].USDT]: COINS[Network.TESTNET].USDT,
     [COIN_TYPE[Network.TESTNET].IPX]: COINS[Network.TESTNET].IPX,
+  },
+  [Network.MAINNET]: {
+    [COIN_TYPE[Network.MAINNET].SUI]: COINS[Network.MAINNET].SUI,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_ETH]:
+      COINS[Network.MAINNET].WORMHOLE_ETH,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_USDT]:
+      COINS[Network.MAINNET].WORMHOLE_USDT,
+    [COIN_TYPE[Network.MAINNET].WORMHOLE_USDC]:
+      COINS[Network.MAINNET].WORMHOLE_USDC,
   },
 };
