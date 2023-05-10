@@ -12,6 +12,7 @@ import { ToastMsgs, ToastOpts } from './toast.types';
 const NETWORK_RECORD = {
   [Network.DEVNET]: 'devnet',
   [Network.TESTNET]: 'testnet',
+  [Network.MAINNET]: 'mainnet',
 };
 
 export const showTXSuccessToast = async (
