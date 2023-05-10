@@ -53,4 +53,7 @@ export { default as USDTSVG } from './usdt';
 export { default as UserSVG } from './user';
 export { default as UserPlusSVG } from './user-plus';
 export { default as WarningSVG } from './warning';
+export { default as WormholeETHSVG } from './wormhole-eth';
+export { default as WormholeUSDCSVG } from './wormhole-usdc';
+export { default as WormholeUSDTSVG } from './wormhole-usdt';
 export { default as YoutubeSVG } from './youtube';
