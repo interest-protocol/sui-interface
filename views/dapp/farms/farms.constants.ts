@@ -75,7 +75,7 @@ export const FARM_IDS_RECORD_FIRST_CALL = {
       data: [
         COIN_TYPE[Network.TESTNET].IPX,
         COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX,
-        COIN_TYPE[Network.DEVNET].V_LP_SUI_ETH,
+        COIN_TYPE[Network.TESTNET].V_LP_SUI_ETH,
       ],
     },
     {

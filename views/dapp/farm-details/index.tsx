@@ -47,7 +47,6 @@ const FarmDetails: FC<FarmDetailsProps> = ({
     mutate: mutatePendingRewards,
     data: pendingRewards,
   } = useGetPendingRewards(account, farmMetadata, { refreshInterval: 0 });
-  console.log(pendingRewardsError);
 
   const {
     error: farmsError,

@@ -85,39 +85,39 @@ export const COIN_TYPE = {
     ...TESTNET_NET_BASE_COINS,
     V_LP_SUI_ETH: `${
       OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
-    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.SUI}, ${
-      DEV_NET_BASE_COINS.ETH
-    }>`,
+    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${
+      TESTNET_NET_BASE_COINS.SUI
+    }, ${TESTNET_NET_BASE_COINS.ETH}>`,
     V_LP_BTC_ETH: `${
       OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
-    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.BTC}, ${
-      DEV_NET_BASE_COINS.ETH
-    }>`,
+    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${
+      TESTNET_NET_BASE_COINS.BTC
+    }, ${TESTNET_NET_BASE_COINS.ETH}>`,
     V_LP_BNB_ETH: `${
       OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
-    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.BNB}, ${
-      DEV_NET_BASE_COINS.ETH
-    }>`,
+    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${
+      TESTNET_NET_BASE_COINS.BNB
+    }, ${TESTNET_NET_BASE_COINS.ETH}>`,
     V_LP_ETH_USDT: `${
       OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
-    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.ETH}, ${
-      DEV_NET_BASE_COINS.USDT
-    }>`,
+    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${
+      TESTNET_NET_BASE_COINS.ETH
+    }, ${TESTNET_NET_BASE_COINS.USDT}>`,
     V_LP_ETH_USDC: `${
       OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
-    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.ETH}, ${
-      DEV_NET_BASE_COINS.USDC
-    }>`,
+    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${
+      TESTNET_NET_BASE_COINS.ETH
+    }, ${TESTNET_NET_BASE_COINS.USDC}>`,
     V_LP_ETH_IPX: `${
       OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
-    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.ETH}, ${
-      DEV_NET_BASE_COINS.IPX
-    }>`,
+    }::core::LPCoin<${VOLATILE[Network.TESTNET]}, ${
+      TESTNET_NET_BASE_COINS.IPX
+    }, ${TESTNET_NET_BASE_COINS.ETH}>`,
     S_LP_USDC_USDT: `${
       OBJECT_RECORD[Network.TESTNET].DEX_PACKAGE_ID
-    }::core::LPCoin<${STABLE[Network.TESTNET]}, ${DEV_NET_BASE_COINS.USDC}, ${
-      DEV_NET_BASE_COINS.USDT
-    }>`,
+    }::core::LPCoin<${STABLE[Network.TESTNET]}, ${
+      TESTNET_NET_BASE_COINS.USDC
+    }, ${TESTNET_NET_BASE_COINS.USDT}>`,
   },
 };
 
@@ -276,19 +276,19 @@ export const COIN_POOL = {
   },
   [Network.TESTNET]: {
     V_LP_SUI_ETH:
-      '0x7de1065e4a2017837aad11a32e4bc1765504cc2b7ba19a5e5939d5892c9d3242',
+      '0x6d4ed8b403436010d5dc9f3ad41641d9597b80a1db43315cb35dd97198e9f1ea',
     V_LP_BTC_ETH:
-      '0xe13cf939f077bc7a3c010fc29fe360c4b1eea93dace4a4fcf9c3db0bf53aa9ea',
+      '0x5c9448416f4b9e3ac364df8762bec197759cff475a1aad7d958ca09f8d200ccf',
     V_LP_BNB_ETH:
-      '0xe5376c546a03d2ff9f703f50da58446b166cba4b1b17608eda7912f7bc43a7d9',
+      '0xc56ff6d797dc782c6a9d05a50c107182a05caacc6274fc9e38f2d998d84c0281',
     V_LP_ETH_USDT:
-      '0x27989fd07935cad9ff835729e9695d5fb42a0809983bf912962125a6f6e3a788',
+      '0xc9b63e7ee0169d801c7af337be86c06e73140c08ac8591b9d8322447e21a41f3',
     V_LP_ETH_USDC:
-      '0xb4042410d89c52823cf8decfd6a30b7aa50fa0fd13bcf28b39c192136676f2ed',
+      '0x2a02ad747af597ac80e2979f2f126b2665277102ea301024e6687df898e2e320',
     V_LP_ETH_IPX:
-      '0x58fe704c74abf7126fd63ca8839a9831d2f359947632d9a3a19cf5e2586e3010',
+      '0xa13ecd207a147b2a70d59e322b9a862474d8ed17f7f9d3e0fbc2364f4c5036ff',
     S_LP_USDC_USDT:
-      '0x7749a1903fecd7c2566edc3475c98a7621832eef464a95ba783bdf7de203c5e6',
+      '0xb65c0ec308595966ad7d9df5ba9f2fc919af76d75fcd043b07dcdf0e0084ab9b',
   },
 };
 
@@ -312,20 +312,20 @@ export const COIN_FARM = {
   },
   [Network.TESTNET]: {
     ETH_IPX:
-      '0x109a9fd9942e2a24f6b0c606437a141677209bd44be882a7815e94bb687c1485',
+      '0x9c2ec47cc13e4e8e8f5bb49284fd2a60217a0c83c88f8512781032ffecbe75a7',
     ETH_USDC:
-      '0x9cfca79f7b75c61b1e3ba305c5f59aae9f6bd1915eb50f8fd1f3cdad5eb784ff',
+      '0xebb59945ff9ad2a63e454ea7b3afbb45b609b4104d6fc9d3bf97313f391fd833',
     BTC_ETH:
-      '0x122ee4d07a031fc897b0a4f729e5bc2c12078c6be67fac649aa060164b7a8167',
+      '0xfec157cda49c766e8987d61c28846da601ccd8f74f18b7e64f25962233991d1b',
     ETH_USDT:
-      '0x219e8649b65a939ac58a0a3008db0af757f01283d1231e0a52ea19077fb483c1',
+      '0xef26a0a016e935edb41937c28612277ef105fbdb21f84a16d483b1470e580702',
     BNB_ETH:
-      '0x8148761f130500c8d36d6500701f203fa0f7f0acaf5a2492f07c2733b725363e',
+      '0x6d4f1ec2aab9ef1140b65d3bc6511f1360b6da9f608aad48f02e4dceefb52c0e',
     SUI_ETH:
-      '0x7dd3dceae8565ce00632460ecf146504b7a957c460b01b489daefe556a9c44a9',
-    IPX: '0xf24d5681cbb120bcd51d1d7dfef0d645b977c6e91a44891652aab66884d8f6cf',
+      '0xe8df2dcd438d9cd064598fb5ef4e3f327ccc59534d2cca3e1a07b8961a42211f',
+    IPX: '0xf7d854ec3aefe6d1f1f53340bed30116a9648e6ec7fa6011cfbf60fe05c9a16e',
     S_LP_USDC_USDT:
-      '0xd27ce4448cabb437c176e4661baefc39166c9c97a28f32d0c738e7e91e95e32b',
+      '0x4119b550b6f340ee77d8b940d4c5eb488afaee0e49cf27df872bd0619e06087b',
   },
 };
 
