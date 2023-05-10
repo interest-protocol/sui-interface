@@ -1,12 +1,12 @@
-import { EarnIllustration } from '../../components/about-us/about-us-illustrations';
 import { ShareProps } from './share.types';
+import { DApp, Zealy } from './share-illustration';
 
 export const SHARE_LIST: ReadonlyArray<ShareProps> = [
   {
     title: 'liquidity.share.card1.title',
     subtitle: 'liquidity.share.card1.subtitle',
     description: 'liquidity.share.card1.description',
-    Illustration: EarnIllustration,
+    Illustration: DApp,
     color: '#A5F3FC',
   },
   {
@@ -17,7 +17,7 @@ export const SHARE_LIST: ReadonlyArray<ShareProps> = [
       caption: 'Zealy',
       url: 'https://zealy.io/c/interestprotocol/questboard',
     },
-    Illustration: EarnIllustration,
+    Illustration: Zealy,
     color: '#D9F99D',
   },
 ];
