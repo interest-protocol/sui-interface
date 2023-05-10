@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { LoadingPage } from '@/components';
 import { DEX_TOKENS_DATA } from '@/constants';
 import { ModalProvider } from '@/context/modal';
-import { useLocalStorage, useNetwork, useProvider } from '@/hooks';
+import { useLocalStorage, useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import Loading from '@/views/dapp/components/loading';
 import { TokenModalMetadata } from '@/views/dapp/components/select-currency/select-currency.types';
