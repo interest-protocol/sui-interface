@@ -3,6 +3,7 @@ import { createContext, FC, useMemo } from 'react';
 import useSWR from 'swr';
 import { useReadLocalStorage } from 'usehooks-ts';
 
+import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 import { useNetwork, useProvider } from '@/hooks';
 import { LocalTokenMetadataRecord } from '@/interface';
 import { makeSWRKey, noop } from '@/utils';
@@ -45,7 +46,7 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   );
 
   const tokensMetadataRecord = useReadLocalStorage<LocalTokenMetadataRecord>(
-    'sui-interest-tokens-metadata'
+    `${LOCAL_STORAGE_VERSION}-sui-interest-tokens-metadata`
   );
 
   const [coins, coinsMap] = useMemo(
