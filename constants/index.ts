@@ -7,6 +7,9 @@ import {
   UnknownCoinSVG,
   USDCoinSVG,
   USDTSVG,
+  WormholeETHSVG,
+  WormholeUSDCSVG,
+  WormholeUSDTSVG,
 } from '@/svg';
 
 import { COIN_TYPE } from './coins';
@@ -53,6 +56,9 @@ export const TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.TESTNET].USDC]: USDCoinSVG,
   [COIN_TYPE[Network.TESTNET].USDT]: USDTSVG,
   [COIN_TYPE[Network.TESTNET].IPX]: InterestTokenSVG,
+  [COIN_TYPE[Network.MAINNET].WORMHOLE_ETH]: WormholeETHSVG,
+  [COIN_TYPE[Network.MAINNET].WORMHOLE_USDC]: WormholeUSDCSVG,
+  [COIN_TYPE[Network.MAINNET].WORMHOLE_USDT]: WormholeUSDTSVG,
 };
 
 export const MILLISECONDS_PER_YEAR = 31540000000;
