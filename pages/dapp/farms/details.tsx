@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
+import NotFoundPage from 'pages/404';
 import { mergeDeepRight, pathOr } from 'ramda';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -13,6 +14,7 @@ import { withTypeGuard } from '@/HOC';
 import { useNetwork } from '@/hooks';
 import { NextPageDefaultProps } from '@/interface';
 import { TimesSVG } from '@/svg';
+import { parseEnvToBoolean } from '@/utils';
 import FarmDetails from '@/views/dapp/farm-details';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
@@ -30,7 +32,9 @@ interface FarmDetailsPageProps extends NextPageDefaultProps {
 }
 
 const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
+  now,
   type,
+  messages,
   pageTitle,
 }) => {
   const { network } = useNetwork();
@@ -46,6 +50,11 @@ const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
   });
 
   const t = useTranslations();
+
+  if (!parseEnvToBoolean(process.env.NEXT_PUBLIC_FARMS))
+    return (
+      <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
+    );
 
   if (!farmMetadata)
     return (

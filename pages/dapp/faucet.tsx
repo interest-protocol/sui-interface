@@ -1,5 +1,6 @@
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
+import NotFoundPage from 'pages/404';
 import { mergeDeepRight } from 'ramda';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -9,6 +10,7 @@ import { FAUCET_TOKENS } from '@/constants';
 import { ModalProvider } from '@/context/modal';
 import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
+import { parseEnvToBoolean } from '@/utils';
 import Faucet from '@/views/dapp/faucet';
 import { IFaucetForm } from '@/views/dapp/faucet/faucet.types';
 
@@ -22,7 +24,7 @@ const Layout = dynamic(() => import('@/components/layout'), {
   loading: LoadingPage,
 });
 
-const FaucetPage: NextPageWithProps = ({ pageTitle }) => {
+const FaucetPage: NextPageWithProps = ({ pageTitle, messages, now }) => {
   const { network } = useNetwork();
 
   const tokens = FAUCET_TOKENS[network];
@@ -33,6 +35,11 @@ const FaucetPage: NextPageWithProps = ({ pageTitle }) => {
     form.setValue('type', tokens?.[0]?.type ?? '');
     form.setValue('amount', 0);
   }, [network]);
+
+  if (!parseEnvToBoolean(process.env.NEXT_PUBLIC_FAUCET))
+    return (
+      <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
+    );
 
   return (
     <ModalProvider>

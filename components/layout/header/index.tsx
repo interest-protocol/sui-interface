@@ -9,6 +9,7 @@ import { Routes, RoutesEnum } from '@/constants';
 import { Box, Typography } from '@/elements';
 import useEventListener from '@/hooks/use-event-listener';
 import { LogoSVG, MoonSVG, SunSVG } from '@/svg';
+import { parseEnvToBoolean } from '@/utils';
 
 import MobileMenu from './mobile-menu';
 import SelectNetwork from './select-network';
@@ -96,30 +97,49 @@ const Header: FC = () => {
               DEX
             </Typography>
           </Link>
-          <Link href={Routes[RoutesEnum.Farms]}>
+          {parseEnvToBoolean(process.env.NEXT_PUBLIC_FARMS) && (
+            <Link href={Routes[RoutesEnum.Farms]}>
+              <Typography
+                px="XL"
+                cursor="pointer"
+                variant="normal"
+                borderRight="1px solid"
+                borderColor="bottomBackground"
+                color={
+                  pathname.includes(Routes[RoutesEnum.Farms])
+                    ? 'accent'
+                    : 'inherit'
+                }
+                nHover={{ color: 'accentActive' }}
+              >
+                FARMS
+              </Typography>
+            </Link>
+          )}
+          {parseEnvToBoolean(process.env.NEXT_PUBLIC_FAUCET) && (
+            <Link href={Routes[RoutesEnum.Faucet]}>
+              <Typography
+                px="XL"
+                cursor="pointer"
+                variant="normal"
+                borderRight="1px solid"
+                borderColor="bottomBackground"
+                color={
+                  pathname.includes(Routes[RoutesEnum.Faucet])
+                    ? 'accent'
+                    : 'inherit'
+                }
+                nHover={{ color: 'accentActive' }}
+              >
+                FAUCET
+              </Typography>
+            </Link>
+          )}
+          <a target="_blank" href={Routes[RoutesEnum.Bridge]} rel="noreferrer">
             <Typography
               px="XL"
               cursor="pointer"
               variant="normal"
-              borderRight="1px solid"
-              borderColor="bottomBackground"
-              color={
-                pathname.includes(Routes[RoutesEnum.Farms])
-                  ? 'accent'
-                  : 'inherit'
-              }
-              nHover={{ color: 'accentActive' }}
-            >
-              FARMS
-            </Typography>
-          </Link>
-          <Link href={Routes[RoutesEnum.Faucet]}>
-            <Typography
-              px="XL"
-              cursor="pointer"
-              variant="normal"
-              borderRight="1px solid"
-              borderColor="bottomBackground"
               color={
                 pathname.includes(Routes[RoutesEnum.Faucet])
                   ? 'accent'
@@ -127,9 +147,9 @@ const Header: FC = () => {
               }
               nHover={{ color: 'accentActive' }}
             >
-              FAUCET
+              BRIDGE
             </Typography>
-          </Link>
+          </a>
         </Box>
         <Box display="flex" justifyContent="flex-end" alignItems="center">
           <Box>

@@ -8,3 +8,6 @@ export const makeSWRKey = (
     .map(ifElse(isNil, always(''), toString))
     .concat([methodName])
     .join('|');
+
+export const parseEnvToBoolean = (value: string | undefined): boolean =>
+  !(!value || !JSON.parse(value));

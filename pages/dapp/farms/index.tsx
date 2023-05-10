@@ -6,11 +6,14 @@ import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
 import { NextPageWithProps } from '@/interface';
+import { parseEnvToBoolean } from '@/utils';
 import Farms from '@/views/dapp/farms';
 import {
   FarmSortByFilter,
   FarmTypeFilter,
 } from '@/views/dapp/farms/farms.types';
+
+import NotFoundPage from '../../404';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
@@ -22,7 +25,7 @@ const Layout = dynamic(() => import('@/components/layout'), {
   loading: LoadingPage,
 });
 
-const FarmsPage: NextPageWithProps = ({ pageTitle }) => {
+const FarmsPage: NextPageWithProps = ({ pageTitle, messages, now }) => {
   const [isDesktop, setDesktop] = useState(false);
 
   const form = useForm({
@@ -34,6 +37,11 @@ const FarmsPage: NextPageWithProps = ({ pageTitle }) => {
       onlyStaked: false,
     },
   });
+
+  if (!parseEnvToBoolean(process.env.NEXT_PUBLIC_FARMS))
+    return (
+      <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
+    );
 
   return (
     <Web3Manager>
