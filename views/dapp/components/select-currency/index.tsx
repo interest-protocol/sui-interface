@@ -47,22 +47,18 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
       px="M"
       py="S"
       display="flex"
-      borderRadius="2.5rem"
       cursor="pointer"
-      alignItems="center"
       bg="accentActive"
+      alignItems="center"
+      borderRadius="2.5rem"
       nHover={{ bg: 'accent' }}
       justifyContent="space-between"
       transition="background-color 1s"
+      color={dark ? 'text' : 'textInverted'}
       onClick={disabled ? undefined : openModal}
       filter={disabled ? 'grayscale(1)' : 'unset'}
     >
-      <Box
-        my="M"
-        display="flex"
-        alignItems="center"
-        color={dark ? 'text' : 'textInverted'}
-      >
+      <Box my="M" display="flex" alignItems="center">
         <Box as="span" minWidth="1.3rem" display="flex" mr="M">
           <SVG
             width="100%"
