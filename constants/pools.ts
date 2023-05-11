@@ -3,9 +3,11 @@ import { Network } from './network';
 
 const networkDevNetCoins = COINS[Network.DEVNET];
 const networkTestNetCoins = COINS[Network.TESTNET];
+const networkMainNetCoins = COINS[Network.MAINNET];
 
 const networkDevNetCoinPool = COIN_POOL[Network.DEVNET];
 const networkTestNetCoinPool = COIN_POOL[Network.TESTNET];
+const networkMainNetCoinPool = COIN_POOL[Network.MAINNET];
 
 export const RECOMMENDED_POOLS = {
   [Network.DEVNET]: [
@@ -112,11 +114,32 @@ export const RECOMMENDED_POOLS = {
   ],
   [Network.MAINNET]: [
     {
-      token0: networkTestNetCoins.USDC,
-      token1: networkTestNetCoins.USDT,
-      poolObjectId: networkTestNetCoinPool.S_LP_USDC_USDT,
-      lpCoin: networkTestNetCoins.S_LP_USDC_USDT,
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.WORMHOLE_ETH,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_WORMHOLE_ETH,
+      lpCoin: networkMainNetCoins.V_LP_SUI_WORMHOLE_ETH,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.WORMHOLE_USDC,
+      token1: networkMainNetCoins.WORMHOLE_USDT,
+      poolObjectId: networkMainNetCoinPool.S_LP_WORMHOLE_USDC_WORMHOLE_USDT,
+      lpCoin: networkMainNetCoins.S_LP_WORMHOLE_USDC_WORMHOLE_USDT,
       stable: true,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.WORMHOLE_USDC,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_WORMHOLE_USDC,
+      lpCoin: networkMainNetCoins.V_LP_SUI_WORMHOLE_USDC,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.WORMHOLE_USDT,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_WORMHOLE_USDT,
+      lpCoin: networkMainNetCoins.V_LP_SUI_WORMHOLE_USDT,
+      stable: false,
     },
   ],
 };
@@ -140,5 +163,10 @@ export const COIN_POOL_ID_TO_STABLE = {
     [COIN_POOL[Network.TESTNET].V_LP_ETH_IPX]: false,
     [COIN_POOL[Network.TESTNET].S_LP_USDC_USDT]: true,
   },
-  [Network.MAINNET]: {},
+  [Network.MAINNET]: {
+    [COIN_POOL[Network.MAINNET].S_LP_WORMHOLE_USDC_WORMHOLE_USDT]: true,
+    [COIN_POOL[Network.MAINNET].V_LP_SUI_WORMHOLE_ETH]: false,
+    [COIN_POOL[Network.MAINNET].V_LP_SUI_WORMHOLE_USDT]: false,
+    [COIN_POOL[Network.MAINNET].V_LP_SUI_WORMHOLE_USDC]: false,
+  },
 };

@@ -50,7 +50,7 @@ const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
 
   const t = useTranslations();
 
-  if (network !== Network.MAINNET)
+  if (network === Network.MAINNET)
     return (
       <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
     );

@@ -35,7 +35,7 @@ const FaucetPage: NextPageWithProps = ({ pageTitle, messages, now }) => {
     form.setValue('amount', 0);
   }, [network]);
 
-  if (network !== Network.MAINNET)
+  if (network === Network.MAINNET)
     return (
       <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
     );
