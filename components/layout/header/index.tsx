@@ -1,7 +1,6 @@
 import { useTheme } from '@emotion/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useTranslations } from 'next-intl';
 import { FC, useCallback, useState } from 'react';
 
 import { SwitchLang } from '@/components';
@@ -16,7 +15,6 @@ import SelectNetwork from './select-network';
 import Wallet from './wallet';
 
 const Header: FC = () => {
-  const t = useTranslations();
   const { network } = useNetwork();
   const { pathname } = useRouter();
   const { setDark, dark } = useTheme() as any;
@@ -34,17 +32,6 @@ const Header: FC = () => {
 
   return (
     <Box>
-      <Box bg={dark ? 'bottomBackground' : 'accentActive'} p="L">
-        <Typography
-          fontSize="S"
-          fontWeight="600"
-          variant="normal"
-          textAlign="center"
-          color={dark ? 'text' : 'textSoft'}
-        >
-          {t('common.bannerHeader')}
-        </Typography>
-      </Box>
       <Box
         py="M"
         as="header"
