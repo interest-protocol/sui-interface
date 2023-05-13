@@ -1,8 +1,9 @@
+import { COIN_TYPE } from '@interest-protocol/sui-sdk';
 import BigNumber from 'bignumber.js';
 import { FixedPointMath } from 'lib';
 import { pathOr } from 'ramda';
 
-import { COIN_TYPE, MILLISECONDS_PER_YEAR } from '@/constants';
+import { MILLISECONDS_PER_YEAR } from '@/constants';
 import { ZERO_BIG_NUMBER } from '@/utils';
 
 import { calculateLPCoinPrice } from '../pools';
