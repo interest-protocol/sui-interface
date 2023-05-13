@@ -5,12 +5,10 @@ import ActionButton from './action-button';
 import FirstThingFirstHeader from './first-thing-first-header-section';
 
 const FirstThingFirst: FC = () => (
-  <Box bg="background">
-    <Box variant="container">
-      <Box gridColumn="1/-1" width="100%" py="5rem">
-        <FirstThingFirstHeader />
-        <ActionButton />
-      </Box>
+  <Box variant="container">
+    <Box gridColumn="1/-1" width="100%" py="5rem">
+      <FirstThingFirstHeader />
+      <ActionButton />
     </Box>
   </Box>
 );

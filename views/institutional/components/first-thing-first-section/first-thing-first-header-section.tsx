@@ -6,11 +6,11 @@ const FirstThingFirstHeader: FC = () => {
   const t = useTranslations();
 
   return (
-    <Box maxWidth="44rem" mb="5rem">
+    <Box maxWidth="44rem" mb="5rem" textAlign="left">
       <Typography
-        variant="extraSmall"
         mb="0.5rem"
         color="textSoft"
+        variant="extraSmall"
         textTransform="capitalize"
       >
         {t('liquidity.firstThingFirst.subtitle')}
