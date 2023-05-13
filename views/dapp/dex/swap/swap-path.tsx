@@ -8,10 +8,10 @@ import { SwapPathProps } from './swap.types';
 
 const SwapPath: FC<SwapPathProps> = ({ markets }) => {
   const TokenInIcon =
-    TOKENS_SVG_MAP[markets[0].tokenInType] ?? TOKENS_SVG_MAP.default;
+    TOKENS_SVG_MAP[markets[0].coinInType] ?? TOKENS_SVG_MAP.default;
 
   const NextTokenIcon =
-    TOKENS_SVG_MAP[markets[0].tokenOutType] ?? TOKENS_SVG_MAP.default;
+    TOKENS_SVG_MAP[markets[0].coinOutType] ?? TOKENS_SVG_MAP.default;
 
   const BaseTokenIcon =
     TOKENS_SVG_MAP[markets[0].baseTokens[0]] ?? TOKENS_SVG_MAP.default;

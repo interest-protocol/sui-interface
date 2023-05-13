@@ -1,4 +1,6 @@
-import { COIN_POOL, COIN_TYPE, COINS, Network } from '@/constants';
+import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
+
+import { COIN_POOL, COINS } from '@/constants';
 
 export const COIN_PRICES = {
   [Network.DEVNET]: [

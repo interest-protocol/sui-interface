@@ -1,10 +1,11 @@
 import { useTheme } from '@emotion/react';
+import { Network } from '@interest-protocol/sui-sdk';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useCallback, useState } from 'react';
 
 import { SwitchLang } from '@/components';
-import { Network, Routes, RoutesEnum } from '@/constants';
+import { Routes, RoutesEnum } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { useNetwork } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';

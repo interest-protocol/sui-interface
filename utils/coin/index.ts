@@ -53,7 +53,12 @@ export const getSafeTotalBalance = propOr(new BigNumber(0), 'totalBalance') as (
 export const getCoinTypeFromSupply = (x: string) => {
   if (!x) return '';
   const r = x.split('Supply')[1];
-  return r.substring(1, r.length - 1);
+  return r
+    .substring(1, r.length - 1)
+    .replace(
+      /\b0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI\b/g,
+      SUI_TYPE_ARG
+    );
 };
 
 export const processSafeAmount = (

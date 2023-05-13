@@ -1,3 +1,4 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import type { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
@@ -5,7 +6,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
-import { Network } from '@/constants';
 import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import Farms from '@/views/dapp/farms';

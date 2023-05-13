@@ -1,10 +1,7 @@
-import { SuiObjectResponse } from '@mysten/sui.js';
-import { pathOr } from 'ramda';
 import useSWR from 'swr';
 
-import { COIN_POOL_ID_TO_STABLE } from '@/constants';
-import { useNetwork, useProvider } from '@/hooks';
-import { getCoinsFromPoolType, makeSWRKey } from '@/utils';
+import { useNetwork, useProvider, useSDK } from '@/hooks';
+import { makeSWRKey } from '@/utils';
 
 import { Pool } from './dex-pool-details.types';
 
@@ -19,48 +16,14 @@ const DEFAULT_POOL: Pool = {
   stable: false,
 };
 
-const processPool = (
-  data: undefined | SuiObjectResponse,
-  stable: boolean
-): Pool => {
-  if (!data) return DEFAULT_POOL;
-
-  const poolType: string = pathOr('', ['data', 'type'], data);
-
-  if (!poolType) return DEFAULT_POOL;
-  const [token0Type, token1Type] = getCoinsFromPoolType(poolType);
-
-  return {
-    token0Balance: pathOr('', ['data', 'content', 'fields', 'balance_x'], data),
-    token1Balance: pathOr('', ['data', 'content', 'fields', 'balance_y'], data),
-    lpCoinSupply: pathOr(
-      '',
-      ['data', 'content', 'fields', 'lp_coin_supply', 'fields', 'value'],
-      data
-    ),
-    lpCoin: pathOr(
-      '',
-      ['data', 'content', 'fields', 'lp_coin_supply', 'type'],
-      data
-    ),
-    poolType,
-    token0Type,
-    token1Type,
-    stable,
-  };
-};
-
 export const useGetPool = (objectId: string) => {
   const { provider } = useProvider();
   const { network } = useNetwork();
+  const sdk = useSDK();
 
   const { data, isLoading, mutate, error } = useSWR(
     makeSWRKey([objectId, network], provider.getObject.name),
-    () =>
-      provider.getObject({
-        id: objectId,
-        options: { showContent: true, showType: true },
-      }),
+    () => sdk.getPool(objectId),
     {
       revalidateOnMount: true,
       revalidateOnFocus: false,
@@ -69,15 +32,10 @@ export const useGetPool = (objectId: string) => {
     }
   );
 
-  const processedData = processPool(
-    data,
-    pathOr(false, [network, objectId], COIN_POOL_ID_TO_STABLE)
-  );
-
   return {
     error,
     isLoading,
-    data: processedData,
+    data: data ? data : DEFAULT_POOL,
     mutate,
   };
 };

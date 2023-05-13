@@ -1,7 +1,8 @@
+import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
+
 import { CoinData } from '@/interface';
 
-import { COIN_FARM, COIN_POOL, COIN_TYPE, COINS } from './coins';
-import { Network } from './network';
+import { COIN_FARM, COIN_POOL, COINS } from './coins';
 
 export const FARMS_RECORD: Record<Network, Record<string, FarmMetadataType>> = {
   [Network.DEVNET]: {

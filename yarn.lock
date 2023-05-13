@@ -695,13 +695,13 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@interest-protocol/sui-sdk@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.npmjs.org/@interest-protocol/sui-sdk/-/sui-sdk-0.8.0.tgz"
-  integrity sha512-OMvo/e9muwEXUJpooYs4ST9k2RPVredbYE9riidQwZ5EqBhZ1jNSvg+ASsfG72/VBafaTBDjeJPjVAHlQaYNjA==
+"@interest-protocol/sui-sdk@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@interest-protocol/sui-sdk/-/sui-sdk-2.3.0.tgz#f22ec5b110689d296af4229d0bc2e573113b8bfd"
+  integrity sha512-gM9d41CCfXk2dt97NuRD3z00EVclxiVZzPjT449PAH38qrL82KPYHGO2V1cGxKyc40BTUT2f9dw1d7w8iT8dvA==
   dependencies:
-    "@mysten/bcs" "^0.7.0"
-    "@mysten/sui.js" "^0.32.1"
+    "@mysten/bcs" "^0.7.1"
+    "@mysten/sui.js" "^0.33.0"
     ramda "^0.28.0"
     tiny-invariant "^1.3.1"
 
@@ -983,7 +983,7 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
-"@mysten/bcs@0.7.1", "@mysten/bcs@^0.7.0":
+"@mysten/bcs@0.7.1", "@mysten/bcs@^0.7.1":
   version "0.7.1"
   resolved "https://registry.npmjs.org/@mysten/bcs/-/bcs-0.7.1.tgz"
   integrity sha512-wFPb8bkhwrbiStfZMV5rFM7J+umpke59/dNjDp+UYJKykNlW23LCk2ePyEUvGdb62HGJM1jyOJ8g4egE3OmdKA==
@@ -994,22 +994,6 @@
   version "0.33.0"
   resolved "https://registry.yarnpkg.com/@mysten/sui.js/-/sui.js-0.33.0.tgz#3ed0831d733fffb65430c3949fd00eaa7510e462"
   integrity sha512-vPswzowPoxYmexN+jKrSQ5uKWv8AoX30c11t8VAODCCXeCziq7Y27TEcYFsQmWJBIMU/hYw75kGj9oorJyXyKw==
-  dependencies:
-    "@mysten/bcs" "0.7.1"
-    "@noble/curves" "^1.0.0"
-    "@noble/hashes" "^1.3.0"
-    "@scure/bip32" "^1.3.0"
-    "@scure/bip39" "^1.2.0"
-    "@suchipi/femver" "^1.0.0"
-    jayson "^4.0.0"
-    rpc-websockets "^7.5.1"
-    superstruct "^1.0.3"
-    tweetnacl "^1.0.3"
-
-"@mysten/sui.js@^0.32.1":
-  version "0.32.2"
-  resolved "https://registry.npmjs.org/@mysten/sui.js/-/sui.js-0.32.2.tgz"
-  integrity sha512-/Hm4xkGolJhqj8FvQr7QSHDTlxIvL52mtbOao9f75YjrBh7y1Uh9kbJSY7xiTF1NY9sv6p5hUVlYRJuM0Hvn9A==
   dependencies:
     "@mysten/bcs" "0.7.1"
     "@noble/curves" "^1.0.0"

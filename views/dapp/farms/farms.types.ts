@@ -1,3 +1,4 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import BigNumber from 'bignumber.js';
 import { Dispatch, SetStateAction } from 'react';
 import {
@@ -7,7 +8,7 @@ import {
   UseFormSetValue,
 } from 'react-hook-form';
 
-import { FarmMetadataType, Network } from '@/constants';
+import { FarmMetadataType } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
 import { Farm, Pool } from '@/interface';
 

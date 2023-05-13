@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
+import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
 import { ConnectButton } from '@mysten/wallet-kit';
 import { FixedPointMath } from 'lib';
 import { pathOr } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
-import { COIN_TYPE, Network } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { LoadingSVG, SuiSVG } from '@/svg';

@@ -1,3 +1,4 @@
+import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
 import { TOKEN_SYMBOL } from 'lib';
 import { FC } from 'react';
 
@@ -10,9 +11,6 @@ import {
   USDCoinSVG,
   USDTSVG,
 } from '@/svg';
-
-import { COIN_TYPE } from './coins';
-import { Network } from './network';
 
 export const FAUCET_TOKENS = {
   [Network.DEVNET]: [

@@ -1,3 +1,5 @@
+import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
+
 import {
   BinanceSVG,
   BitcoinSVG,
@@ -12,16 +14,11 @@ import {
   WormholeUSDTSVG,
 } from '@/svg';
 
-import { COIN_TYPE } from './coins';
-import { Network } from './network';
-
 export * from './coin-market-cap';
 export * from './coins';
 export * from './dex';
 export * from './farms';
 export * from './faucet';
-export * from './network';
-export * from './objects';
 export * from './pools';
 export * from './routes';
 export * from './social-media';

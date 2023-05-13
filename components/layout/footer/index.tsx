@@ -1,10 +1,11 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { Container, SocialMediaCard } from '@/components';
-import { Network, Routes, RoutesEnum, SOCIAL_MEDIAS } from '@/constants';
+import { Routes, RoutesEnum, SOCIAL_MEDIAS } from '@/constants';
 import { Box, Button } from '@/elements';
 import { useNetwork } from '@/hooks';
 import { BridgeSVG, DexSVG, EarnSVG, FaucetSVG, GitBookSVG } from '@/svg';

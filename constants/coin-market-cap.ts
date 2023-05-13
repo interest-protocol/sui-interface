@@ -1,5 +1,4 @@
-import { COIN_TYPE } from './coins';
-import { Network } from './network';
+import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
 
 export const COIN_MARKET_CAP_ID_RECORD = {
   [Network.DEVNET]: {

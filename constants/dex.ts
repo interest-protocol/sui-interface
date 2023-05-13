@@ -1,16 +1,5 @@
+import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
 import { TOKEN_SYMBOL } from 'lib';
-
-import { COIN_TYPE } from './coins';
-import { Network } from './network';
-
-export const DEX_BASE_TOKEN_ARRAY = {
-  [Network.DEVNET]: [COIN_TYPE[Network.DEVNET].ETH],
-  [Network.TESTNET]: [COIN_TYPE[Network.TESTNET].ETH],
-  [Network.MAINNET]: [
-    COIN_TYPE[Network.MAINNET].SUI,
-    COIN_TYPE[Network.MAINNET].WORMHOLE_USDC,
-  ],
-};
 
 export const DEX_TOKENS_DATA = {
   [Network.DEVNET]: [
@@ -164,10 +153,3 @@ export const RECOMMENDED_TOKENS_TYPES = {
     COIN_TYPE[Network.MAINNET].WORMHOLE_USDT,
   ],
 };
-
-export enum DexFunctions {
-  SwapX = 'swap_x',
-  SwapY = 'swap_y',
-  OneHopSwap = 'one_hop_swap',
-  TwoHopSwap = 'two_hop_swap',
-}

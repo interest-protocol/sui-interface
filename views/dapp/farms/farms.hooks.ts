@@ -1,8 +1,8 @@
+import { OBJECT_RECORD } from '@interest-protocol/sui-sdk';
 import { bcs, SuiObjectResponse, TransactionBlock } from '@mysten/sui.js';
 import { AddressZero } from 'lib';
 import useSWR, { SWRConfiguration } from 'swr';
 
-import { OBJECT_RECORD } from '@/constants';
 import {
   parseIPXAndMasterChefStorage,
   useGetMultiGetObjects,

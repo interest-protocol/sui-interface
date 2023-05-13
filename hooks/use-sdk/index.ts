@@ -1,16 +1,17 @@
-import { Network } from '@/constants';
-import { devNetIPXSdk, testNetIPXSdk } from '@/utils';
+import { Network } from '@interest-protocol/sui-sdk';
+
+import { devNetIPXSdk, mainNetIPXSdk, testNetIPXSdk } from '@/utils';
 
 import { useNetwork } from '../use-network';
 
 const SDK_RECORD = {
   [Network.DEVNET]: devNetIPXSdk,
   [Network.TESTNET]: testNetIPXSdk,
-  [Network.MAINNET]: testNetIPXSdk,
+  [Network.MAINNET]: mainNetIPXSdk,
 };
 
 export const useSDK = () => {
   const { network } = useNetwork();
 
-  return SDK_RECORD[network] || testNetIPXSdk;
+  return SDK_RECORD[network] || mainNetIPXSdk;
 };

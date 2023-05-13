@@ -1,5 +1,4 @@
-import { toHEX } from '@mysten/bcs';
-import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
+import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { AddressZero, FixedPointMath } from 'lib';
@@ -8,13 +7,12 @@ import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
-import { OBJECT_RECORD, Routes, RoutesEnum, VOLATILE } from '@/constants';
+import { Routes, RoutesEnum } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
+import { useModal, useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
 import {
   capitalize,
-  createVectorParameter,
-  getReturnValuesFromInspectResults,
+  createObjectsParameter,
   showToast,
   showTXSuccessToast,
   throwTXIfNotSuccessful,
@@ -40,8 +38,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
   const { coinsMap, account } = useWeb3();
   const { network } = useNetwork();
   const { provider } = useProvider();
-
-  const objects = OBJECT_RECORD[network];
+  const sdk = useSDK();
 
   const enterPool = async () => {
     setLoading(true);
@@ -55,29 +52,17 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
           query: { objectId: pairId },
         });
 
-      const txb = new TransactionBlock();
-
-      txb.moveCall({
-        target: `${objects.DEX_PACKAGE_ID}::interface::get_pool_id`,
-        typeArguments: [VOLATILE[network], tokenAType, tokenBType],
-        arguments: [txb.object(objects.DEX_CORE_STORAGE)],
+      const id = await sdk.findPoolId({
+        tokenAType,
+        tokenBType,
+        account: account ?? AddressZero,
       });
 
-      const response = await provider.devInspectTransactionBlock({
-        transactionBlock: txb,
-        sender: account || AddressZero,
-      });
-
-      if (response.effects.status.status === 'failure')
-        return setCreatingPair(true);
-
-      const data = getReturnValuesFromInspectResults(response);
-
-      if (!data || !data.length) return setCreatingPair(true);
+      if (!id) return setCreatingPair(true);
 
       await push({
         pathname: Routes[RoutesEnum.DEXPoolDetails],
-        query: { objectId: `0x${toHEX(Uint8Array.from(data[0]))}` },
+        query: { objectId: id },
       });
     } catch {
       throw new Error(t('dexPoolFind.errors.connecting'));
@@ -110,31 +95,30 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
 
       const txb = new TransactionBlock();
 
-      txb.moveCall({
-        target: `${objects.DEX_PACKAGE_ID}::interface::create_v_pool`,
-        typeArguments: [tokenA.type, tokenB.type],
-        arguments: [
-          txb.object(objects.DEX_CORE_STORAGE),
-          txb.object(SUI_CLOCK_OBJECT_ID),
-          createVectorParameter({
-            txb,
-            type: tokenA.type,
-            coinsMap,
-            amount: amountA.toString(),
-          }),
-          createVectorParameter({
-            txb,
-            type: tokenB.type,
-            coinsMap,
-            amount: amountB.toString(),
-          }),
-          txb.pure(amountA.toString()),
-          txb.pure(amountB.toString()),
-        ],
+      const coinAList = createObjectsParameter({
+        txb,
+        type: tokenA.type,
+        coinsMap,
+        amount: amountA.toString(),
+      });
+
+      const coinBList = createObjectsParameter({
+        txb,
+        type: tokenB.type,
+        coinsMap,
+        amount: amountB.toString(),
       });
 
       const { signature, transactionBlockBytes } = await signTransactionBlock({
-        transactionBlock: txb,
+        transactionBlock: sdk.createVolatilePool({
+          txb,
+          coinAList,
+          coinBList,
+          coinAAmount: amountA.toString(),
+          coinBAmount: amountB.toString(),
+          coinAType: tokenA.type,
+          coinBType: tokenB.type,
+        }),
       });
 
       const tx = await provider.executeTransactionBlock({

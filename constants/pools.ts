@@ -1,5 +1,6 @@
+import { Network } from '@interest-protocol/sui-sdk';
+
 import { COIN_POOL, COINS } from './coins';
-import { Network } from './network';
 
 const networkDevNetCoins = COINS[Network.DEVNET];
 const networkTestNetCoins = COINS[Network.TESTNET];

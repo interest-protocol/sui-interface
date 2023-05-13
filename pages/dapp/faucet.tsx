@@ -1,3 +1,4 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import NotFoundPage from 'pages/404';
@@ -6,7 +7,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
-import { FAUCET_TOKENS, Network } from '@/constants';
+import { FAUCET_TOKENS } from '@/constants';
 import { ModalProvider } from '@/context/modal';
 import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';

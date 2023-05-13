@@ -1,4 +1,4 @@
-import { DevInspectResults } from '@mysten/sui.js/src/types';
+import { DexFunctions } from '@interest-protocol/sui-sdk';
 import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { Dispatch, SetStateAction } from 'react';
 import {
@@ -11,7 +11,6 @@ import {
 import { KeyedMutator } from 'swr';
 
 import { Web3ManagerState } from '@/components/web3-manager/web3-manager.types';
-import { DexFunctions, Network } from '@/constants';
 import { CoinData, DexMarket } from '@/interface';
 
 import { TokenModalMetadata } from '../../components/select-currency/select-currency.types';
@@ -27,8 +26,8 @@ export type PoolsMap = DexMarket;
 
 export interface SwapPathObject {
   baseTokens: ReadonlyArray<string>;
-  tokenInType: string;
-  tokenOutType: string;
+  coinInType: string;
+  coinOutType: string;
   functionName: DexFunctions;
   typeArgs: Array<string>;
 }
@@ -83,13 +82,12 @@ export interface SwapManagerProps {
   setIsFetchingSwapAmount: Dispatch<SetStateAction<boolean>>;
 }
 
-export interface GetSwapPayload {
+export interface GetSwapCoinOutAmountPayloadArgs {
   tokenIn: SwapFormTokenData;
   tokenOutType: string;
   coinsMap: Web3ManagerState['coinsMap'];
   poolsMap: PoolsMap;
-  network: Network;
-  deadline: string;
+  account: string | null;
 }
 
 export interface LocalSwapSettings {
@@ -115,16 +113,4 @@ export interface SwapProps {
     setIsOpen: Dispatch<SetStateAction<boolean>>;
   };
   searchTokenModalState: TokenModalMetadata | null;
-}
-
-export interface FindMarketArgs {
-  data: PoolsMap;
-  tokenInType: string;
-  tokenOutType: string;
-  network: Network;
-}
-
-export interface FindSwapAmountOutput {
-  packageId: string;
-  data: DevInspectResults | undefined;
 }

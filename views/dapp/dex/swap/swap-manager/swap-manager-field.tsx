@@ -5,14 +5,14 @@ import { FC, useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
 import useSWR from 'swr';
 
-import { COIN_DECIMALS, OBJECT_RECORD } from '@/constants';
+import { COIN_DECIMALS } from '@/constants';
 import InputBalance from '@/elements/input-balance';
-import { useNetwork, useProvider } from '@/hooks';
+import { useNetwork, useProvider, useSDK } from '@/hooks';
 import { makeSWRKey, ZERO_BIG_NUMBER } from '@/utils';
 
 import SwapSelectCurrency from '../../../components/select-currency';
 import { SwapManagerProps } from '../swap.types';
-import { findSwapAmountOutput, getSwapPayload } from '../swap.utils';
+import { getSwapCoinOutAmountPayload } from '../swap.utils';
 
 const SwapManagerField: FC<SwapManagerProps> = ({
   control,
@@ -38,60 +38,49 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 
   const { provider } = useProvider();
   const { network } = useNetwork();
+  const sdk = useSDK();
 
-  const devInspectTransactionPayload = getSwapPayload({
+  const payload = getSwapCoinOutAmountPayload({
     tokenIn,
     coinsMap,
     tokenOutType,
     poolsMap,
-    network,
-    deadline: (new Date().getTime() + 30 * 60 * 1000).toString(), // We pass 30 minutes deadline
+    account,
   });
 
   const { error } = useSWR(
     makeSWRKey(
-      [
-        account,
-        devInspectTransactionPayload,
-        prop('value', tokenIn),
-        prop('type', tokenIn),
-      ],
+      [account, payload, prop('value', tokenIn), prop('type', tokenIn)],
       provider.devInspectTransactionBlock.name
     ),
     async () => {
-      if (
-        !devInspectTransactionPayload ||
-        !account ||
-        !tokenIn ||
-        !+tokenIn.value
-      )
-        return;
+      if (!payload || !account || !tokenIn || !+tokenIn.value) return;
       setIsFetchingSwapAmount(true);
 
-      return provider.devInspectTransactionBlock({
-        transactionBlock: devInspectTransactionPayload!,
-        sender: account!,
-      });
+      return sdk.getSwapCoinOutAmount(payload);
     },
     {
       onError: () => {
         setError(true);
       },
-      onSuccess: (data) => {
-        if (data?.effects.status.status === 'failure') {
+      onSuccess: (response) => {
+        if (!response) {
+          setError(false);
+          setValue('tokenOut.value', '0');
+          setIsZeroSwapAmount(true);
+          return;
+        }
+        if (response.data.effects.status.status === 'failure') {
           setError(true);
         } else {
-          const amount = findSwapAmountOutput({
-            data,
-            packageId: OBJECT_RECORD[network].DEX_PACKAGE_ID,
-          });
           setError(false);
+          const amountOut = response.parsedData;
 
-          setIsZeroSwapAmount(!amount);
+          setIsZeroSwapAmount(!amountOut);
           setValue(
             'tokenOut.value',
             FixedPointMath.toNumber(
-              new BigNumber(amount),
+              new BigNumber(amountOut),
               COIN_DECIMALS[network][tokenOutType],
               COIN_DECIMALS[network][tokenOutType]
             ).toString()

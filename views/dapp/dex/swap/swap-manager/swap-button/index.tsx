@@ -1,4 +1,5 @@
-import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
+import { findMarket } from '@interest-protocol/sui-sdk';
+import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { FixedPointMath } from 'lib';
@@ -8,13 +9,13 @@ import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { incrementTX } from '@/api/analytics';
-import { OBJECT_RECORD } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
+import { useSDK } from '@/hooks';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,
-  createVectorParameter,
+  createObjectsParameter,
   showToast,
   showTXSuccessToast,
   throwTXIfNotSuccessful,
@@ -22,7 +23,7 @@ import {
 import { WalletGuardButton } from '@/views/dapp/components';
 
 import { SwapButtonProps } from '../../swap.types';
-import { findMarket, getAmountMinusSlippage } from '../../swap.utils';
+import { getAmountMinusSlippage } from '../../swap.utils';
 
 const SwapButton: FC<SwapButtonProps> = ({
   mutate,
@@ -44,13 +45,18 @@ const SwapButton: FC<SwapButtonProps> = ({
   const { signTransactionBlock } = useWalletKit();
   const { network } = useNetwork();
   const { provider } = useProvider();
-
+  const sdk = useSDK();
   const tokenInValue = useWatch({ control, name: 'tokenIn.value' });
 
   const isDisabled =
     disabled ||
     !+tokenInValue ||
-    !findMarket({ data: poolsMap, tokenInType, tokenOutType, network }).length;
+    !findMarket({
+      data: poolsMap,
+      coinInType: tokenInType,
+      coinOutType: tokenOutType,
+      network,
+    }).length;
 
   const handleSwap = async () => {
     try {
@@ -79,80 +85,27 @@ const SwapButton: FC<SwapButtonProps> = ({
 
       const minAmountOut = getAmountMinusSlippage(amountOut, slippage);
 
-      const path = findMarket({
-        data: poolsMap,
-        network,
-        tokenInType,
-        tokenOutType,
+      const txb = new TransactionBlock();
+      const coinInList = createObjectsParameter({
+        coinsMap,
+        txb,
+        type: tokenInType,
+        amount: amount.toString(),
       });
 
-      const firstSwapObject = path[0];
-
-      const objects = OBJECT_RECORD[network];
-
-      const txb = new TransactionBlock();
-
-      const nowTime = new Date().getTime();
-
-      // no hop swap
-      if (!firstSwapObject.baseTokens.length) {
-        txb.moveCall({
-          target: `${objects.DEX_PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
-          typeArguments: firstSwapObject.typeArgs,
-          arguments: [
-            txb.object(objects.DEX_CORE_STORAGE),
-            txb.object(SUI_CLOCK_OBJECT_ID),
-            createVectorParameter({
-              coinsMap,
-              txb,
-              type: tokenInType,
-              amount: amount.toString(),
-            }),
-            txb.pure(amount.toString()),
-            txb.pure(minAmountOut.toString()),
-            txb.pure((nowTime + +deadline * 60 * 1000).toString()),
-          ],
-        });
-
-        const { signature, transactionBlockBytes } = await signTransactionBlock(
-          {
-            transactionBlock: txb,
-          }
-        );
-
-        const tx = await provider.executeTransactionBlock({
-          transactionBlock: transactionBlockBytes,
-          signature,
-          options: { showEffects: true },
-          requestType: 'WaitForEffectsCert',
-        });
-
-        throwTXIfNotSuccessful(tx);
-
-        return await showTXSuccessToast(tx, network);
-      }
-
-      // One Hop Swap
-      txb.moveCall({
-        target: `${objects.DEX_PACKAGE_ID}::interface::${firstSwapObject.functionName}`,
-        typeArguments: firstSwapObject.typeArgs,
-        arguments: [
-          txb.object(objects.DEX_CORE_STORAGE),
-          txb.object(SUI_CLOCK_OBJECT_ID),
-          createVectorParameter({
-            coinsMap,
-            txb,
-            type: tokenInType,
-            amount: amount.toString(),
-          }),
-          txb.pure(amount.toString()),
-          txb.pure(minAmountOut.toString()),
-          txb.pure(nowTime + +deadline * 60 * 1000),
-        ],
+      const swapTxB = await sdk.swap({
+        txb,
+        coinInList,
+        coinInAmount: amount.toString(),
+        coinInType: tokenInType,
+        coinOutType: tokenOutType,
+        coinOutMinimumAmount: minAmountOut.toString(),
+        deadline: deadline,
+        dexMarkets: poolsMap,
       });
 
       const { signature, transactionBlockBytes } = await signTransactionBlock({
-        transactionBlock: txb,
+        transactionBlock: swapTxB,
       });
 
       const tx = await provider.executeTransactionBlock({

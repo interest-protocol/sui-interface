@@ -1,10 +1,11 @@
+import { OBJECT_RECORD } from '@interest-protocol/sui-sdk';
 import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import { bcs } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { AddressZero } from 'lib';
 import useSWR, { SWRConfiguration } from 'swr';
 
-import { FarmMetadataType, OBJECT_RECORD } from '@/constants';
+import { FarmMetadataType } from '@/constants';
 import { useNetwork, useProvider } from '@/hooks';
 import { Farm } from '@/interface';
 import {

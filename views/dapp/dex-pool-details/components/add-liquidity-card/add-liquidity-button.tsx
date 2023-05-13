@@ -1,4 +1,4 @@
-import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
+import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { FixedPointMath } from 'lib';
@@ -7,13 +7,12 @@ import { isEmpty, prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import { OBJECT_RECORD, STABLE, VOLATILE } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useNetwork, useProvider, useWeb3 } from '@/hooks';
+import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,
-  createVectorParameter,
+  createObjectsParameter,
   processSafeAmount,
   showToast,
   showTXSuccessToast,
@@ -34,10 +33,9 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
   const [loading, setLoading] = useState(false);
   const { network } = useNetwork();
   const { provider } = useProvider();
-
+  const sdk = useSDK();
   const handleAddLiquidity = async () => {
     try {
-      const objects = OBJECT_RECORD[network];
       if (tokens.length !== 2 || isEmpty(coinsMap))
         throw new Error(t('error.fetchingCoins'));
 
@@ -74,40 +72,31 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
 
       const txb = new TransactionBlock();
 
-      const vector0 = createVectorParameter({
+      const vector0 = createObjectsParameter({
         txb,
         type: token0.type,
         coinsMap,
         amount: safeAmount0.toString(),
       });
 
-      const vector1 = createVectorParameter({
+      const vector1 = createObjectsParameter({
         txb,
         type: token1.type,
         coinsMap,
         amount: safeAmount1.toString(),
       });
 
-      txb.moveCall({
-        target: `${objects.DEX_PACKAGE_ID}::interface::add_liquidity`,
-        typeArguments: [
-          stable ? STABLE[network] : VOLATILE[network],
-          token0.type,
-          token1.type,
-        ],
-        arguments: [
-          txb.object(objects.DEX_CORE_STORAGE),
-          txb.object(SUI_CLOCK_OBJECT_ID),
-          vector0,
-          vector1,
-          txb.pure(safeAmount0.toString()),
-          txb.pure(safeAmount1.toString()),
-          txb.pure('0'),
-        ],
-      });
-
       const { signature, transactionBlockBytes } = await signTransactionBlock({
-        transactionBlock: txb,
+        transactionBlock: sdk.addLiquidity({
+          txb,
+          stable,
+          coinAType: token0.type,
+          coinBType: token1.type,
+          coinAList: vector0,
+          coinBList: vector1,
+          coinAAmount: safeAmount0.toString(),
+          coinBAmount: safeAmount1.toString(),
+        }),
         chain: network,
       });
 

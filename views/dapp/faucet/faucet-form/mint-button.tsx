@@ -1,4 +1,5 @@
 import { useTheme } from '@emotion/react';
+import { COIN_TYPE, Network, OBJECT_RECORD } from '@interest-protocol/sui-sdk';
 import {
   isValidSuiAddress,
   SUI_TYPE_ARG,
@@ -11,7 +12,6 @@ import { useState } from 'react';
 import { FC } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import { COIN_TYPE, Network, OBJECT_RECORD } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';

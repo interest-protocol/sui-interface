@@ -1,3 +1,4 @@
+import { findMarket } from '@interest-protocol/sui-sdk';
 import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
@@ -6,7 +7,6 @@ import { useNetwork } from '@/hooks';
 import { LoadingSVG, TimesSVG } from '@/svg';
 
 import { SwapManagerWrapperProps } from '../swap.types';
-import { findMarket } from '../swap.utils';
 import SwapPath from '../swap-path';
 import SwapButton from './swap-button';
 import SwapMessage from './swap-button/swap-message';
@@ -28,8 +28,8 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
 
   const markets = findMarket({
     data: props.poolsMap,
-    tokenInType: props.tokenInType,
-    tokenOutType: props.tokenOutType,
+    coinInType: props.tokenInType,
+    coinOutType: props.tokenOutType,
     network,
   });
   const hasNoMarket = !markets.length;

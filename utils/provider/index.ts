@@ -1,3 +1,4 @@
+import { Network, SDK } from '@interest-protocol/sui-sdk';
 import { Connection, devnetConnection, JsonRpcProvider } from '@mysten/sui.js';
 import { DevInspectResults } from '@mysten/sui.js';
 import { SuinsClient } from '@suins/toolkit';
@@ -50,9 +51,12 @@ export const suiNSMainNetProvider = new SuinsClient(new JsonRpcProvider(), {
   networkType: 'testnet', // fix once mainnet is deployed
 });
 
-export const devNetIPXSdk = {};
+export const devNetIPXSdk = new SDK(devNetProvider, Network.DEVNET);
 
-export const testNetIPXSdk = {};
+export const testNetIPXSdk = new SDK(testNetProvider, Network.TESTNET);
+
+export const mainNetIPXSdk = new SDK(mainNetProvider, Network.MAINNET);
+
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export const getReturnValuesFromInspectResults = (

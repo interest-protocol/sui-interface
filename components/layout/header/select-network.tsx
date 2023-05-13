@@ -1,7 +1,7 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { Network } from '@/constants';
 import { Box, Dropdown, Typography } from '@/elements';
 import { useNetwork } from '@/hooks';
 import { ArrowSVG, StarLightSVG, SuiSVG } from '@/svg';

@@ -1,8 +1,8 @@
+import { OBJECT_RECORD } from '@interest-protocol/sui-sdk';
 import { SuiObjectResponse } from '@mysten/sui.js';
 import { pathOr } from 'ramda';
 import useSWR from 'swr';
 
-import { OBJECT_RECORD } from '@/constants';
 import { makeSWRKey } from '@/utils';
 
 import { useNetwork } from '../use-network';

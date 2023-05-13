@@ -1,7 +1,7 @@
+import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
 import { UseFormSetValue } from 'react-hook-form';
 
 import { ISwitchOption } from '@/components/switch/switch.types';
-import { COIN_TYPE, Network } from '@/constants';
 import {
   BinanceSVG,
   BitcoinSVG,
