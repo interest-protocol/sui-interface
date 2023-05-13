@@ -1,3 +1,4 @@
+import { OBJECT_RECORD } from '@interest-protocol/sui-sdk';
 import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
@@ -5,7 +6,6 @@ import { propOr } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import { OBJECT_RECORD } from '@/constants';
 import Button from '@/elements/button';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { capitalize, showToast, showTXSuccessToast } from '@/utils';
