@@ -6,6 +6,8 @@ type DexPoolFindMessages =
 type DexPoolDetailsMessages =
   typeof import('../assets/messages/dex/pool/details/en-US.json');
 type DexPoolMessages = typeof import('../assets/messages/dex/pool/en-US.json');
+type LiquidityCapaignMessages =
+  typeof import('../assets/messages/liquidity-campaign/en-US.json');
 type DexSwapMessages = typeof import('../assets/messages/dex/swap/en-US.json');
 type TeamMessages = typeof import('../assets/messages/team/en-US.json');
 type FarmsMessages = typeof import('../assets/messages/farms/en-US.json');
@@ -13,7 +15,7 @@ type FarmDetailsMessages =
   typeof import('../assets/messages/farms/details/en-US.json');
 type LandingPageMessages =
   typeof import('../assets/messages/landing-page/en-US.json');
-type LiquidityCapmpaignPageMessages =
+type LiquidityCampaignMessages =
   typeof import('../assets/messages/liquidity-campaign/en-US.json');
 
 declare interface IntlMessages
@@ -26,5 +28,5 @@ declare interface IntlMessages
     TeamMessages,
     FarmDetailsMessages,
     LandingPageMessages,
-    LiquidityCapmpaignPageMessages,
+    LiquidityCampaignMessages,
     DexPoolMessages {}

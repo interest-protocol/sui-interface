@@ -3,6 +3,18 @@
     "metadata": {
       "title": "Liquidity Program"
     },
+    "hero": {
+      "title": "Programa de Liquidez da Interest Protocol",
+      "title2": "Agarre uma parte de 28M Tokens",
+      "paragraph": "Estamos entusiasmados em apresentar o Programa de Recompensas de Liquidez da Interest Protocol, o primeiro do seu tipo no ecossistema Sui. Este programa foi criado para incentivar os indivíduos que contribuem para o crescimento e estabilidade da nossa plataforma, permitindo-lhes ganhar rendimentos extras em suas criptomoedas. Os participantes têm a oportunidade de obter uma parte dos 28M de tokens IPX que são distribuídos em 3 tipos diferentes de atividades em que pode participar: fornecer liquidez, trocar ativos e completar atividades sociais Zealy.",
+      "button": "Aprender como"
+    },
+    "firstThingFirst": {
+      "title": "Como transferir activos para a Blockchain Sui",
+      "subtitle": "primeiro o mais importante",
+      "description": "Se seus ativos estão em outras cadeias, você precisa transferi-los para a Sui Blockchain. Aqui está como fazer isso.",
+      "button": "activos de ponte"
+    },
     "liquidity-program": {
       "title": "PROGRAMA DE LIQUIDEZ",
       "description": {
