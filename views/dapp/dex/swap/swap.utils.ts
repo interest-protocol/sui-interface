@@ -1,4 +1,4 @@
-import { GetCoinOutAmountArgs } from '@interest-protocol/sui-sdk/src/sdk/sdk.types';
+import { GetCoinOutAmountArgs } from '@interest-protocol/sui-sdk/dist/sdk/sdk.types';
 import { TransactionBlock } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { FixedPointMath } from 'lib';
