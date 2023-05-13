@@ -1,3 +1,4 @@
+import { OBJECT_RECORD } from '@interest-protocol/sui-sdk';
 import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
@@ -7,7 +8,6 @@ import { propOr } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import { OBJECT_RECORD } from '@/constants';
 import { Box, Button } from '@/elements';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
