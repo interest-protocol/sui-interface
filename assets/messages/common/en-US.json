@@ -6,6 +6,26 @@
         "en-US": "English",
         "pt-PT": "Portuguese",
         "pt-BR": "Portuguese"
+      },
+      "banner": {
+        "liquidity": {
+          "title": "28M IPX tokens",
+          "label": "For grabs",
+          "description": "Quest for AirDrop",
+          "buttons": { "main": "Go to AirDrop", "secondary": "Learn More" }
+        },
+        "zealy": {
+          "title": "28M IPX tokens",
+          "label": "For grabs",
+          "description": "Quest for AirDrop",
+          "buttons": { "main": "Go to Zealy", "secondary": "Learn More" }
+        },
+        "swap": {
+          "title": "28M IPX tokens",
+          "label": "For grabs",
+          "description": "Swap for AirDrop",
+          "buttons": { "main": "Swap Now", "secondary": "Learn More" }
+        }
       }
     },
     "dex": "dex",

@@ -6,6 +6,26 @@
         "en-US": "Inglês",
         "pt-PT": "Português",
         "pt-BR": "Português"
+      },
+      "banner": {
+        "liquidity": {
+          "title": "28M de IPX tokens",
+          "label": "Para não perder",
+          "description": "Em busca de AirDrop",
+          "buttons": { "main": "Ir para AirDrop", "secondary": "Saiba mais" }
+        },
+        "zealy": {
+          "title": "28M IPX tokens",
+          "label": "Para não perder",
+          "description": "Em busca de AirDrop",
+          "buttons": { "main": "Ir para Zealy", "secondary": "Saiba mais" }
+        },
+        "swap": {
+          "title": "28M IPX tokens",
+          "label": "Para não perder",
+          "description": "Em busca AirDrop",
+          "buttons": { "main": "Troque agora", "secondary": "Saiba mais" }
+        }
       }
     },
     "dex": "dex",

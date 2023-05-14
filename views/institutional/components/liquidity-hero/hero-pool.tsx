@@ -1,7 +1,7 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { heroIllustration } from '../svg/liquidity';
+import { HeroIllustration } from '../svg/liquidity';
 import { PoolWrapperProps } from './hero.types';
 
 const PoolWrapper: FC<PoolWrapperProps> = ({ Icon, ...props }) => (
@@ -17,7 +17,7 @@ const HeroPool: FC = () => (
     position="relative"
     mx="auto"
   >
-    <PoolWrapper Icon={heroIllustration} top="8.6%" left="0" />
+    <PoolWrapper Icon={HeroIllustration} top="8.6%" left="0" />
   </Box>
 );
 
