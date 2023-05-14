@@ -22,8 +22,8 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
   <Motion width={size} height={size} position="absolute" {...props}>
     {shadow && (
       <Motion
-        left="10%"
-        bottom="-100%"
+        left="18%"
+        bottom={['-80%', '-80%', '-80%', '-130%']}
         position="absolute"
         animate={{
           scale: 0.8,
@@ -35,6 +35,7 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
           repeat: Infinity,
           repeatType: 'reverse',
         }}
+        width={['70%', '70%', '70%', '75%']}
       >
         <ValuePropositionBallShadow
           width="100%"
