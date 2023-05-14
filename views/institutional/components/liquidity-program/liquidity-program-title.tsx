@@ -6,9 +6,8 @@ const LiquidityProgramTitle: FC = () => {
   const t = useTranslations();
 
   return (
-    <>
+    <Box gridColumn="1/-1">
       <Typography
-        gridColumn={['1/19', '1/19', '1/19', '1/-1']}
         color="primary"
         variant="displaySmall"
         letterSpacing="-0.15rem"
@@ -17,12 +16,7 @@ const LiquidityProgramTitle: FC = () => {
         {t('liquidity.liquidity-program.title')}
       </Typography>
 
-      <Box
-        gridColumn={['1/22', '1/22', '1/8', '1/-1']}
-        width="100%"
-        opacity=".7"
-        mb="2xl"
-      >
+      <Box width="100%" opacity=".7" mb="2xl">
         <Typography
           variant="small"
           width={['100%', '100%', '100%', '520px']}
@@ -34,7 +28,7 @@ const LiquidityProgramTitle: FC = () => {
           {t('liquidity.liquidity-program.description.paragraph2')}
         </Typography>
       </Box>
-    </>
+    </Box>
   );
 };
 

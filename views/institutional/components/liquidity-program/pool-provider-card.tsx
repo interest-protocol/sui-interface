@@ -11,21 +11,24 @@ const PoolProviderCard: FC<PoolProviderProps> = ({ name, Illustration }) => {
 
   return (
     <Box
-      as="span"
+      mx="s"
       p="2xs"
+      as="span"
       display="grid"
       columnGap="2xl"
       borderRadius="m"
+      overflow="hidden"
       border="1px solid"
       borderColor="textAccent"
     >
       <Box
+        mb="2xl"
+        width="100%"
         bg="#B6C4FF0A"
         borderRadius="m"
-        width="350px"
-        height="250px"
+        height="15.7rem"
         position="relative"
-        mb="2xl"
+        maxWidth={['100%', '100%', '100%', '22rem']}
       >
         <Illustration />
         <Button
@@ -43,15 +46,11 @@ const PoolProviderCard: FC<PoolProviderProps> = ({ name, Illustration }) => {
       <Box
         p="xl"
         height="6.5rem"
+        textAlign="left"
         pb={['4xl', '4xl', 'xl']}
         mb={['xl', 'xl', 'unset']}
       >
-        <Typography
-          variant="displaySmall"
-          color="text"
-          mb="xl"
-          textAlign="left"
-        >
+        <Typography mb="xl" color="text" variant="displaySmall">
           {t(`liquidity.liquidity-program.poolProviders.${name}.title`)}
         </Typography>
         <Typography variant="medium" opacity=".7">
