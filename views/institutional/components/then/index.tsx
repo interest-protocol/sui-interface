@@ -13,8 +13,13 @@ const ThenSection: FC = () => {
       <Title textAlign="left" gridColumn="1/-1">
         {t('liquidity.then.title')}
       </Title>
-      <Typography textAlign="left" variant="medium" gridColumn="1/-1">
-        To participate in the Liquidity Rewards Program, follow these steps:
+      <Typography
+        textAlign="left"
+        variant="medium"
+        gridColumn="1/-1"
+        color="textSoft"
+      >
+        {t('liquidity.then.description')}
       </Typography>
       <ThenCards />
     </Box>
