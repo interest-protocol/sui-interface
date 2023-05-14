@@ -1,8 +1,9 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import { SuiTransactionBlockResponse } from '@mysten/sui.js';
 import { propOr } from 'ramda';
 import toast from 'react-hot-toast';
 
-import { Network, SUI_EXPLORER } from '@/constants';
+import { SUI_EXPLORER_URL } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { SuiSVG } from '@/svg';
 import { tryCatch } from '@/utils/promise';
@@ -12,6 +13,7 @@ import { ToastMsgs, ToastOpts } from './toast.types';
 const NETWORK_RECORD = {
   [Network.DEVNET]: 'devnet',
   [Network.TESTNET]: 'testnet',
+  [Network.MAINNET]: 'mainnet',
 };
 
 export const showTXSuccessToast = async (
@@ -22,9 +24,7 @@ export const showTXSuccessToast = async (
     <a
       target="__black"
       rel="noreferrer nofollow"
-      href={`${SUI_EXPLORER[Network.DEVNET]}/transaction/${tx.digest}?network=${
-        NETWORK_RECORD[network]
-      }`}
+      href={`${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`}
     >
       <Box display="flex" alignItems="center">
         <Box width="1.5rem" height="1.5rem" mr="M">

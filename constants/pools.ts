@@ -1,11 +1,14 @@
+import { Network } from '@interest-protocol/sui-sdk';
+
 import { COIN_POOL, COINS } from './coins';
-import { Network } from './network';
 
 const networkDevNetCoins = COINS[Network.DEVNET];
 const networkTestNetCoins = COINS[Network.TESTNET];
+const networkMainNetCoins = COINS[Network.MAINNET];
 
 const networkDevNetCoinPool = COIN_POOL[Network.DEVNET];
 const networkTestNetCoinPool = COIN_POOL[Network.TESTNET];
+const networkMainNetCoinPool = COIN_POOL[Network.MAINNET];
 
 export const RECOMMENDED_POOLS = {
   [Network.DEVNET]: [
@@ -21,13 +24,6 @@ export const RECOMMENDED_POOLS = {
       token1: networkDevNetCoins.ETH,
       poolObjectId: networkDevNetCoinPool.V_LP_BTC_ETH,
       lpCoin: networkDevNetCoins.V_LP_BTC_ETH,
-      stable: false,
-    },
-    {
-      token0: networkDevNetCoins.DAI,
-      token1: networkDevNetCoins.ETH,
-      poolObjectId: networkDevNetCoinPool.V_LP_DAI_ETH,
-      lpCoin: networkDevNetCoins.V_LP_DAI_ETH,
       stable: false,
     },
     {
@@ -82,13 +78,6 @@ export const RECOMMENDED_POOLS = {
       stable: false,
     },
     {
-      token0: networkTestNetCoins.DAI,
-      token1: networkTestNetCoins.ETH,
-      poolObjectId: networkTestNetCoinPool.V_LP_DAI_ETH,
-      lpCoin: networkTestNetCoins.V_LP_DAI_ETH,
-      stable: false,
-    },
-    {
       token0: networkTestNetCoins.ETH,
       token1: networkTestNetCoins.USDT,
       poolObjectId: networkTestNetCoinPool.V_LP_ETH_USDT,
@@ -124,6 +113,71 @@ export const RECOMMENDED_POOLS = {
       stable: true,
     },
   ],
+  [Network.MAINNET]: [
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.WORMHOLE_ETH,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_WORMHOLE_ETH,
+      lpCoin: networkMainNetCoins.V_LP_SUI_WORMHOLE_ETH,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.WORMHOLE_USDC,
+      token1: networkMainNetCoins.WORMHOLE_USDT,
+      poolObjectId: networkMainNetCoinPool.S_LP_WORMHOLE_USDC_WORMHOLE_USDT,
+      lpCoin: networkMainNetCoins.S_LP_WORMHOLE_USDC_WORMHOLE_USDT,
+      stable: true,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.WORMHOLE_USDC,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_WORMHOLE_USDC,
+      lpCoin: networkMainNetCoins.V_LP_SUI_WORMHOLE_USDC,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.WORMHOLE_USDT,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_WORMHOLE_USDT,
+      lpCoin: networkMainNetCoins.V_LP_SUI_WORMHOLE_USDT,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.WORMHOLE_WBNB,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_WORMHOLE_WBNB,
+      lpCoin: networkMainNetCoins.V_LP_SUI_WORMHOLE_WBNB,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.WORMHOLE_WMATIC,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_WORMHOLE_WMATIC,
+      lpCoin: networkMainNetCoins.V_LP_SUI_WORMHOLE_WMATIC,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.WORMHOLE_WAVAX,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_WORMHOLE_WAVAX,
+      lpCoin: networkMainNetCoins.V_LP_SUI_WORMHOLE_WAVAX,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.WORMHOLE_WFTM,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_WORMHOLE_WFTW,
+      lpCoin: networkMainNetCoins.V_LP_SUI_WORMHOLE_WFTM,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.WORMHOLE_CELO,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_WORMHOLE_CELO,
+      lpCoin: networkMainNetCoins.V_LP_SUI_WORMHOLE_CELO,
+      stable: false,
+    },
+  ],
 };
 
 export const COIN_POOL_ID_TO_STABLE = {
@@ -133,7 +187,6 @@ export const COIN_POOL_ID_TO_STABLE = {
     [COIN_POOL[Network.DEVNET].V_LP_BNB_ETH]: false,
     [COIN_POOL[Network.DEVNET].V_LP_ETH_USDT]: false,
     [COIN_POOL[Network.DEVNET].V_LP_ETH_USDC]: false,
-    [COIN_POOL[Network.DEVNET].V_LP_DAI_ETH]: false,
     [COIN_POOL[Network.DEVNET].V_LP_ETH_IPX]: false,
     [COIN_POOL[Network.DEVNET].S_LP_USDC_USDT]: true,
   },
@@ -143,8 +196,13 @@ export const COIN_POOL_ID_TO_STABLE = {
     [COIN_POOL[Network.TESTNET].V_LP_BNB_ETH]: false,
     [COIN_POOL[Network.TESTNET].V_LP_ETH_USDT]: false,
     [COIN_POOL[Network.TESTNET].V_LP_ETH_USDC]: false,
-    [COIN_POOL[Network.TESTNET].V_LP_DAI_ETH]: false,
     [COIN_POOL[Network.TESTNET].V_LP_ETH_IPX]: false,
     [COIN_POOL[Network.TESTNET].S_LP_USDC_USDT]: true,
+  },
+  [Network.MAINNET]: {
+    [COIN_POOL[Network.MAINNET].S_LP_WORMHOLE_USDC_WORMHOLE_USDT]: true,
+    [COIN_POOL[Network.MAINNET].V_LP_SUI_WORMHOLE_ETH]: false,
+    [COIN_POOL[Network.MAINNET].V_LP_SUI_WORMHOLE_USDT]: false,
+    [COIN_POOL[Network.MAINNET].V_LP_SUI_WORMHOLE_USDC]: false,
   },
 };

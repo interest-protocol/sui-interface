@@ -68,4 +68,8 @@ export const PARTNER_LIST = [
     name: 'CUBIC GAMES',
     link: 'https://www.cubicgames.xyz/',
   },
+  {
+    name: 'PYTH NETWORK',
+    link: 'https://pyth.network/',
+  },
 ];

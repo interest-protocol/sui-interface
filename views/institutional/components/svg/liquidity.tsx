@@ -116,7 +116,7 @@ export const EthereumCoin: FC<SVGProps> = ({
   </svg>
 );
 
-export const heroIllustration: FC<SVGProps> = ({
+export const HeroIllustration: FC<SVGProps> = ({
   maxWidth,
   maxHeight,
   ...props

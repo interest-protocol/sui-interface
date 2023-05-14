@@ -1,3 +1,4 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import { SuiObjectResponse } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { Dispatch, SetStateAction } from 'react';
@@ -7,7 +8,7 @@ import {
   CoinsMap,
   Web3ManagerSuiObject,
 } from '@/components/web3-manager/web3-manager.types';
-import { FarmMetadataType, Network, StakeState } from '@/constants';
+import { FarmMetadataType, StakeState } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
 import { Farm } from '@/interface';
 

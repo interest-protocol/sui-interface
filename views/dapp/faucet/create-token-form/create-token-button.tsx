@@ -1,3 +1,4 @@
+import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
 import {
   fromB64,
   normalizeSuiObjectId,
@@ -12,7 +13,7 @@ import { useWatch } from 'react-hook-form';
 
 import { incrementCreatedCoins } from '@/api/analytics';
 import { getTokenByteCode } from '@/api/token';
-import { COIN_TYPE, GAS_COST, Network } from '@/constants';
+import { GAS_COST } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
 import { useLocalStorage, useNetwork, useWeb3 } from '@/hooks';
 import { LocalTokenMetadataRecord } from '@/interface';

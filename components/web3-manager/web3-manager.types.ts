@@ -1,3 +1,4 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import { JsonRpcProvider } from '@mysten/sui.js';
 import { CoinStruct, PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { WalletAccount } from '@wallet-standard/base';
@@ -5,7 +6,6 @@ import BigNumber from 'bignumber.js';
 import { ReactNode } from 'react';
 import { KeyedMutator } from 'swr';
 
-import { Network } from '@/constants';
 import { LocalTokenMetadataRecord } from '@/interface';
 
 export interface Web3ManagerSuiObject {

@@ -1,6 +1,6 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import { createContext, FC, useState } from 'react';
 
-import { Network } from '@/constants';
 import { useLocalStorage } from '@/hooks';
 import { noop } from '@/utils';
 

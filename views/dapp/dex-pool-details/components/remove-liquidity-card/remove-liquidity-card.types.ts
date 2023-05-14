@@ -62,4 +62,5 @@ export interface UseGetRemoveLiquidityAmountsArgs {
   token1Type: string;
   account: string | null;
   objectIds: Array<string>;
+  stable: boolean;
 }

@@ -32,14 +32,10 @@ const Swap: FC<SwapProps> = ({
   const { data: poolsMap, isLoading } = useGetDexMarkets();
 
   const setSettings = useCallback(
-    ({ slippage: newSlippage }: ISwapSettingsForm) => {
-      const slippage =
-        !!newSlippage && newSlippage !== localSettings.slippage
-          ? newSlippage
-          : localSettings.slippage;
-
+    ({ slippage, deadline }: ISwapSettingsForm) => {
       setLocalSettings({
         slippage,
+        deadline,
       });
     },
     []
@@ -184,6 +180,7 @@ const Swap: FC<SwapProps> = ({
               tokenOutType,
               slippage: localSettings.slippage,
               poolsMap: poolsMap || {},
+              deadline: localSettings.deadline,
             }}
           />
         </Box>
