@@ -6,12 +6,10 @@ import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import NextProgress from 'next-progress';
-import { ReactNode, StrictMode, useEffect } from 'react';
+import { ReactNode, StrictMode } from 'react';
 import { Tooltip } from 'react-tooltip';
 
 import { NextIntlProvider, ThemeManager } from '@/components';
-import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
-import { useLocalStorage } from '@/hooks';
 import { NextPageDefaultProps } from '@/interface';
 
 type Props = Omit<AppProps<NextPageDefaultProps>, 'pageProps'> & {
@@ -19,15 +17,6 @@ type Props = Omit<AppProps<NextPageDefaultProps>, 'pageProps'> & {
 };
 
 const MyApp = ({ Component, pageProps }: Props): ReactNode => {
-  const [version, setVersion] = useLocalStorage('sui-interest-version', '');
-
-  useEffect(() => {
-    if (version !== LOCAL_STORAGE_VERSION) {
-      window.localStorage.clear();
-      setVersion(LOCAL_STORAGE_VERSION);
-    }
-  }, [version]);
-
   return (
     <>
       <Head>

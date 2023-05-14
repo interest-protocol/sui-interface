@@ -2,38 +2,38 @@ import { FC } from 'react';
 
 import { SVGProps } from './svg.types';
 
-const UserPlus: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => (
+const UserPlus: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   <svg
-    style={{ maxWidth: maxWidth, maxHeight: maxHeight }}
-    viewBox="0 0 56 56"
+    style={{ maxWidth, maxHeight }}
+    viewBox="0 0 36 36"
     fill="none"
     {...props}
   >
     <path
-      d="M43.75 29.75H54.25"
-      stroke={props.stroke || '#99BBFF'}
+      d="M28.125 19.125H34.875"
+      stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="square"
       strokeLinejoin="bevel"
     />
     <path
-      d="M49 24.5V35"
-      stroke={props.stroke || '#99BBFF'}
+      d="M31.5 15.75V22.5"
+      stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="square"
       strokeLinejoin="bevel"
     />
     <path
-      d="M23.625 35C30.8737 35 36.75 29.1237 36.75 21.875C36.75 14.6263 30.8737 8.75 23.625 8.75C16.3763 8.75 10.5 14.6263 10.5 21.875C10.5 29.1237 16.3763 35 23.625 35Z"
-      stroke={props.stroke || '#99BBFF'}
+      d="M15.1875 22.5C19.8474 22.5 23.625 18.7224 23.625 14.0625C23.625 9.4026 19.8474 5.625 15.1875 5.625C10.5276 5.625 6.75 9.4026 6.75 14.0625C6.75 18.7224 10.5276 22.5 15.1875 22.5Z"
+      stroke="currentColor"
       strokeWidth="2"
       strokeMiterlimit="10"
       strokeLinecap="square"
       strokeLinejoin="bevel"
     />
     <path
-      d="M4.85626 43.75C7.15588 41.0092 10.0279 38.8053 13.2704 37.2932C16.5129 35.7811 20.0473 34.9976 23.625 34.9976C27.2028 34.9976 30.7371 35.7811 33.9796 37.2932C37.2221 38.8053 40.0941 41.0092 42.3938 43.75"
-      stroke={props.stroke || '#99BBFF'}
+      d="M3.12189 28.125C4.60022 26.3631 6.4465 24.9463 8.53097 23.9742C10.6154 23.0021 12.8875 22.4984 15.1875 22.4984C17.4875 22.4984 19.7596 23.0021 21.844 23.9742C23.9285 24.9463 25.7748 26.3631 27.2531 28.125"
+      stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="square"
       strokeLinejoin="bevel"

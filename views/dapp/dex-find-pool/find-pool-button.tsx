@@ -9,7 +9,7 @@ import { FC, useState } from 'react';
 
 import { Routes, RoutesEnum } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useModal, useNetwork, useSDK, useWeb3 } from '@/hooks';
+import { useModal, useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
 import {
   capitalize,
   createObjectsParameter,
@@ -34,9 +34,10 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
   const { push } = useRouter();
   const [loading, setLoading] = useState(false);
   const { setModal, handleClose } = useModal();
-  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { signTransactionBlock } = useWalletKit();
   const { coinsMap, account } = useWeb3();
   const { network } = useNetwork();
+  const { provider } = useProvider();
   const sdk = useSDK();
 
   const enterPool = async () => {
@@ -51,17 +52,17 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
           query: { objectId: pairId },
         });
 
-      const objectId = await sdk.findPoolId({
+      const id = await sdk.findPoolId({
         tokenAType,
         tokenBType,
         account: account ?? AddressZero,
       });
 
-      if (!objectId) return setCreatingPair(true);
+      if (!id) return setCreatingPair(true);
 
       await push({
         pathname: Routes[RoutesEnum.DEXPoolDetails],
-        query: { objectId },
+        query: { objectId: id },
       });
     } catch {
       throw new Error(t('dexPoolFind.errors.connecting'));
@@ -94,30 +95,37 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
 
       const txb = new TransactionBlock();
 
-      const transactionBlock = await sdk.createPool({
+      const coinAList = createObjectsParameter({
         txb,
-        coinAList: createObjectsParameter({
-          txb,
-          type: tokenA.type,
-          coinsMap,
-          amount: amountA.toString(),
-        }),
-        coinBList: createObjectsParameter({
-          txb,
-          type: tokenB.type,
-          coinsMap,
-          amount: amountB.toString(),
-        }),
-        coinAAmount: amountA.toString(),
-        coinBAmount: amountB.toString(),
-        coinAType: tokenA.type,
-        coinBType: tokenB.type,
+        type: tokenA.type,
+        coinsMap,
+        amount: amountA.toString(),
       });
 
-      const tx = await signAndExecuteTransactionBlock({
-        transactionBlock,
-        requestType: 'WaitForEffectsCert',
+      const coinBList = createObjectsParameter({
+        txb,
+        type: tokenB.type,
+        coinsMap,
+        amount: amountB.toString(),
+      });
+
+      const { signature, transactionBlockBytes } = await signTransactionBlock({
+        transactionBlock: sdk.createVolatilePool({
+          txb,
+          coinAList,
+          coinBList,
+          coinAAmount: amountA.toString(),
+          coinBAmount: amountB.toString(),
+          coinAType: tokenA.type,
+          coinBType: tokenB.type,
+        }),
+      });
+
+      const tx = await provider.executeTransactionBlock({
+        transactionBlock: transactionBlockBytes,
+        signature,
         options: { showEffects: true, showEvents: true },
+        requestType: 'WaitForEffectsCert',
       });
 
       throwTXIfNotSuccessful(tx);

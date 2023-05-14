@@ -53,7 +53,12 @@ export const getSafeTotalBalance = propOr(new BigNumber(0), 'totalBalance') as (
 export const getCoinTypeFromSupply = (x: string) => {
   if (!x) return '';
   const r = x.split('Supply')[1];
-  return r.substring(1, r.length - 1);
+  return r
+    .substring(1, r.length - 1)
+    .replace(
+      /\b0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI\b/g,
+      SUI_TYPE_ARG
+    );
 };
 
 export const processSafeAmount = (
@@ -68,10 +73,12 @@ export const processSafeAmount = (
   return amount.gt(object.totalBalance) ? object.totalBalance : amount;
 };
 
-export const getCoinsFromPoolType = (poolType: string): [string, string] => [
-  poolType.split('<')[1].split(',')[0].trim(),
-  poolType.split('<')[1].split(',')[1].split('>')[0].trim(),
-];
+export const getCoinsFromPoolType = (poolType: string): [string, string] => {
+  const type = poolType.split('Pool');
+  const poolArgs = type[1];
+  const tokens = poolArgs.split(',');
+  return [tokens[1].trim(), tokens[2].split('>')[0].trim()];
+};
 
 export const createVectorParameter = ({
   txb,

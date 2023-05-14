@@ -1,3 +1,4 @@
+import { findMarket } from '@interest-protocol/sui-sdk';
 import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
@@ -9,7 +10,8 @@ import { useWatch } from 'react-hook-form';
 
 import { incrementTX } from '@/api/analytics';
 import { Box, Button, Typography } from '@/elements';
-import { useNetwork, useSDK, useWeb3 } from '@/hooks';
+import { useSDK } from '@/hooks';
+import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,
@@ -21,7 +23,7 @@ import {
 import { WalletGuardButton } from '@/views/dapp/components';
 
 import { SwapButtonProps } from '../../swap.types';
-import { findMarket, getAmountMinusSlippage } from '../../swap.utils';
+import { getAmountMinusSlippage } from '../../swap.utils';
 
 const SwapButton: FC<SwapButtonProps> = ({
   mutate,
@@ -34,21 +36,27 @@ const SwapButton: FC<SwapButtonProps> = ({
   tokenInType,
   tokenOutType,
   poolsMap,
+  deadline,
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
 
   const [loading, setLoading] = useState(false);
-  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { signTransactionBlock } = useWalletKit();
   const { network } = useNetwork();
+  const { provider } = useProvider();
   const sdk = useSDK();
-
   const tokenInValue = useWatch({ control, name: 'tokenIn.value' });
 
   const isDisabled =
     disabled ||
     !+tokenInValue ||
-    !findMarket({ data: poolsMap, tokenInType, tokenOutType, network }).length;
+    !findMarket({
+      data: poolsMap,
+      coinInType: tokenInType,
+      coinOutType: tokenOutType,
+      network,
+    }).length;
 
   const handleSwap = async () => {
     try {
@@ -78,32 +86,39 @@ const SwapButton: FC<SwapButtonProps> = ({
       const minAmountOut = getAmountMinusSlippage(amountOut, slippage);
 
       const txb = new TransactionBlock();
-
-      const transactionBlock = await sdk.swap({
+      const coinInList = createObjectsParameter({
+        coinsMap,
         txb,
-        coinInList: createObjectsParameter({
-          txb,
-          type: tokenIn.type,
-          coinsMap,
-          amount: amount.toString(),
-        }),
+        type: tokenInType,
+        amount: amount.toString(),
+      });
+
+      const swapTxB = await sdk.swap({
+        txb,
+        coinInList,
         coinInAmount: amount.toString(),
+        coinInType: tokenInType,
+        coinOutType: tokenOutType,
         coinOutMinimumAmount: minAmountOut.toString(),
-        coinInType: tokenIn.type,
-        coinOutType: tokenOut.type,
+        deadline: deadline,
         dexMarkets: poolsMap,
       });
 
-      const tx = await signAndExecuteTransactionBlock({
-        transactionBlock,
-        chain: network,
+      const { signature, transactionBlockBytes } = await signTransactionBlock({
+        transactionBlock: swapTxB,
+      });
+
+      const tx = await provider.executeTransactionBlock({
+        transactionBlock: transactionBlockBytes,
+        signature,
+        options: { showEffects: true },
         requestType: 'WaitForEffectsCert',
-        options: { showEffects: true, showInput: true },
       });
 
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
+
       incrementTX(account ?? '');
       return;
     } catch {
