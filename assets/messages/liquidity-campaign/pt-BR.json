@@ -35,7 +35,7 @@
       },
       "card2": {
         "title": "3M IPX Tokens",
-        "subtitle": "para participar no nosso",
+        "subtitle": "para participar no nosso <link>Zealy</link>",
         "description": "Se completar qualquer actividade do Zealy, acumula XP e, a partir daí, fica habilitado a receber uma parte dos Tokens IPX 3M. Quanto mais XP obtiver, maiores são as suas hipóteses de obter uma recompensa melhor."
       },
       "buttonCard": "Verificar fórmula",
@@ -43,6 +43,29 @@
         "first": "A campanha pode ser participada entre ",
         "date": "10 de Maio de 2023 e 27 de Junho de 2023.",
         "second": "Os prémios serão distribuídos uma semana após o fim da campanha."
+      }
+    },
+    "rewardDistribution": {
+      "title": "Distribuição de recompensas",
+      "distributionList": {
+        "option1": "As recompensas serão atribuídas aos endereços das carteiras que utilizou para fornecer liquidez e fazer swaps.",
+        "option2": "Os vencedores do prémio Zealy terão de fornecer as suas carteiras no final da campanha"
+      },
+      "simplicity": {
+        "title": "SIMPLES E FÁCIL",
+        "description": "Fácil de participar, tanto para especialistas como para principiantes"
+      },
+      "security": {
+        "title": "SEGURANÇA",
+        "description": "Activos armazenados de forma segura. Auditado por <link>MoveBit</link>"
+      },
+      "support": {
+        "title": "APOIO RÁPIDO",
+        "description": "Estamos disponíveis 24 horas por dia, 7 dias por semana, para responder às suas questões"
+      },
+      "reward": {
+        "title": "RECOMPENSA MÁXIMA",
+        "description": "Entre os melhores prémios da indústria"
       }
     }
   }

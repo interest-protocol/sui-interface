@@ -44,6 +44,29 @@
         "date": "May 10th, 2023, and June 27th, 2023.",
         "second": "The rewards will be distributed after one week after the campaign ends."
       }
+    },
+    "rewardDistribution": {
+      "title": "Reward Distribution",
+      "distributionList": {
+        "option1": "Rewards will be assigned to the wallet addresses you used to provide liquidity and make swaps.",
+        "option2": "Zealy reward winners will be requested to provide their wallets at the end of the campaign"
+      },
+      "simplicity": {
+        "title": "SIMPLE & EASY",
+        "description": "Easy to participate for both experts and novices"
+      },
+      "security": {
+        "title": "SECURITY",
+        "description": "Assets stored securely. Audited by <link>MoveBit</link>"
+      },
+      "support": {
+        "title": "QUICK SUPPORT",
+        "description": "We're here 24/7 to respond to your queries"
+      },
+      "reward": {
+        "title": "TOP REWARD",
+        "description": "Among the best rewards in the industry"
+      }
     }
   }
 }
