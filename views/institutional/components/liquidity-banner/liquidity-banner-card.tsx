@@ -34,11 +34,10 @@ const LiquidityBannerCard: FC<LiquidityBannerCardProps> = ({
       >
         <Box
           mr="xl"
-          height="100%"
           width="12rem"
           bg="background"
           borderRadius="m"
-          minHeight={['12rem', '12rem', 'unset']}
+          height={['12rem', '12rem', '10rem']}
         >
           <Box p="10%" width="80%" height="80%" position="relative">
             <Illustration />
