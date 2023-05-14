@@ -4,9 +4,10 @@ import { FC } from 'react';
 
 import {
   AdvantagesTiltedCoin,
-  ValuePropositionBallShadow,
-  ValuePropositionCubeClose,
-  ValuePropositionCubeOpen,
+  RewardDistributionCoinShadow,
+  RewardDistributionCube,
+  RewardDistributionCubeWithbigShadow,
+  RewardDistributionCubeWithFrontShadow,
 } from '../svg';
 import { RewardDistributionIconWrapperProps } from './reward-distribution.types';
 
@@ -22,11 +23,11 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
   <Motion width={size} height={size} position="absolute" {...props}>
     {shadow && (
       <Motion
-        left="18%"
-        bottom={['-80%', '-80%', '-80%', '-130%']}
+        left="50%"
+        bottom={['-80%', '-80%', '-80%', '-120%']}
         position="absolute"
         animate={{
-          scale: 0.8,
+          scale: 0.9,
         }}
         transition={{
           delay: 0.5,
@@ -35,9 +36,9 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
           repeat: Infinity,
           repeatType: 'reverse',
         }}
-        width={['70%', '70%', '70%', '75%']}
+        width={['70%', '70%', '70%', '100%']}
       >
-        <ValuePropositionBallShadow
+        <RewardDistributionCoinShadow
           width="100%"
           maxWidth="100%"
           maxHeight="100%"
@@ -59,7 +60,7 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
       })}
       {...(floating && {
         animate: {
-          translateY: -7,
+          translateY: -23,
         },
         transition: {
           delay: 0.5,
@@ -92,76 +93,76 @@ const RewardDistributionIllustration: FC = () => (
   <Motion
     height="23rem"
     borderRadius="m"
-    whileHover="hover"
+    // whileHover="hover"
     position="relative"
   >
     <RewardDistributionIconWrapper
-      top="15%"
-      left="40%"
+      top="13%"
+      left="42%"
       size="20%"
       to={[-100, 0]}
-      Icon={ValuePropositionCubeClose}
+      Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
-      top="27%"
-      left="28%"
+      top="26%"
+      left="29%"
       size="20%"
       to={[-50, 50]}
-      Icon={ValuePropositionCubeClose}
+      Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
-      top="27%"
-      left="52%"
+      top="25%"
+      left="54%"
       size="20%"
       to={[-50, -50]}
-      Icon={ValuePropositionCubeClose}
+      Icon={RewardDistributionCubeWithbigShadow}
     />
     <RewardDistributionIconWrapper
       chock
-      top="39%"
-      left="40%"
+      top="38%"
+      left="41%"
       size="20%"
-      Icon={ValuePropositionCubeClose}
+      Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
       size="20%"
       top="39%"
       left="16%"
       to={[0, 100]}
-      Icon={ValuePropositionCubeOpen}
+      Icon={RewardDistributionCube}
     />
     <RewardDistributionIconWrapper
       size="20%"
-      top="39%"
-      left="64%"
+      top="37%"
+      left="66%"
       to={[0, -100]}
-      Icon={ValuePropositionCubeOpen}
+      Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
-      top="49%"
+      top="51%"
       left="28%"
       size="20%"
       to={[50, 60]}
-      Icon={ValuePropositionCubeClose}
+      Icon={RewardDistributionCube}
     />
     <RewardDistributionIconWrapper
       size="20%"
-      top="49%"
-      left="52%"
+      top="50%"
+      left="53%"
       to={[50, -50]}
-      Icon={ValuePropositionCubeOpen}
+      Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
       top="63%"
       left="40%"
       size="20%"
       to={[100, 0]}
-      Icon={ValuePropositionCubeClose}
+      Icon={RewardDistributionCube}
     />
     <RewardDistributionIconWrapper
       shadow
       floating
-      top="19%"
+      top="15%"
       size="17%"
       left="40.5%"
       Icon={AdvantagesTiltedCoin}
