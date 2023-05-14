@@ -58,7 +58,7 @@
     "test": "jest",
     "build": "next build",
     "start": "next start",
-    "format": "prettier --write **/*.{js,ts,tsx}",
+    "format": "prettier --write **/*.{js,ts,tsx}"
   },
   "eslintConfig": {
     "extends": [

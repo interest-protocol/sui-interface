@@ -9,7 +9,11 @@ const ThenSection: FC = () => {
   const t = useTranslations();
 
   return (
-    <Box variant="container" justifyItems="unset" mt="4xl">
+    <Box
+      variant="container"
+      justifyItems="unset"
+      py={['3.5rem', '3.5rem', '3.5rem', '5rem']}
+    >
       <Title textAlign="left" gridColumn="1/-1">
         {t('liquidity.then.title')}
       </Title>
