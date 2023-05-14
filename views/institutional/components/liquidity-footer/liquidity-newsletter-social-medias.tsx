@@ -8,10 +8,11 @@ const FooterSocialMidia: FC = () => {
   const { colors } = useTheme() as Theme;
   return (
     <Box display="grid" gap="0.5rem" gridTemplateColumns="repeat(4, 1fr)">
-      {SOCIAL_MEDIAS.filter((item) =>
-        ['Medium', 'Discord', 'Telegram', 'Twitter'].includes(item.title)
-      ).map((socialMedia) => {
-        const Icon = socialMedia.Logo;
+      {['Telegram', 'Discord', 'Twitter', 'Medium'].map((socialMediaTitle) => {
+        const { Logo, link, title } = SOCIAL_MEDIAS.find(
+          ({ title }) => socialMediaTitle === title
+        )!;
+
         return (
           <Box
             bg="#1F1F23"
@@ -23,14 +24,14 @@ const FooterSocialMidia: FC = () => {
             color="textSoft"
             as="a"
             {...{
-              href: socialMedia.link,
+              href: link,
               target: '_blank',
               rel: 'noreferrer',
             }}
             key={v4()}
           >
             <Box width={['1.375rem', '1.375rem', '1.375rem', '2rem']}>
-              <Icon
+              <Logo
                 width="100%"
                 maxWidth="2rem"
                 maxHeight="2rem"
@@ -38,8 +39,12 @@ const FooterSocialMidia: FC = () => {
                 fill="none"
               />
             </Box>
-            <Typography variant="extraSmall" mt="0.35rem">
-              {socialMedia.title}
+            <Typography
+              mt="0.35rem"
+              variant="extraSmall"
+              textDecoration="underline"
+            >
+              {title}
             </Typography>
           </Box>
         );

@@ -2,9 +2,9 @@ import { Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import Title from '../../components/title';
+import Title from '../title';
 
-const NewsletterHeader: FC = () => {
+const FooterHeader: FC = () => {
   const t = useTranslations();
   const { colors } = useTheme() as Theme;
 
@@ -12,14 +12,13 @@ const NewsletterHeader: FC = () => {
     <>
       <Title
         as="h2"
-        mb={['0.5rem', '0.5rem', '0.5rem', '2xl']}
-        gridColumn="1/8"
         fontWeight="400"
+        textAlign="left"
+        mb={['0.5rem', '0.5rem', '0.5rem', '2xl']}
       >
         <Typography
           as="span"
           display="block"
-          textAlign="center"
           variant="displayLarge"
           letterSpacing="-0.15rem"
           background={`linear-gradient(90deg, ${colors.primary} 27.62%, ${colors.primary}33 82.41%)`}
@@ -27,14 +26,21 @@ const NewsletterHeader: FC = () => {
           WebkitTextFillColor="transparent"
           backgroundClip="text"
         >
-          {t('liquidity.newsletter.title')}
+          {t('liquidity.footer.title')}
         </Typography>
       </Title>
-      <Typography variant="medium" as="span" color="textSoft" mb="3.563rem">
-        {t('liquidity.newsletter.description')}
+      <Typography
+        variant="medium"
+        as="span"
+        color="textSoft"
+        textAlign="left"
+        mb="5rem"
+        width={['16.625rem', '16.625rem', '16.625rem', 'unset']}
+      >
+        {t('liquidity.footer.description')}
       </Typography>
     </>
   );
 };
 
-export default NewsletterHeader;
+export default FooterHeader;

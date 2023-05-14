@@ -1,8 +1,6 @@
 declare module 'toformat';
 type CommonMessages = typeof import('../assets/messages/common/en-US.json');
 type FaucetMessages = typeof import('../assets/messages/faucet/en-US.json');
-type LiquidityCampaignMessages =
-  typeof import('../assets/messages/liquidity-campaign/en-US.json');
 type DexPoolFindMessages =
   typeof import('../assets/messages/dex/pool/find/en-US.json');
 type DexPoolDetailsMessages =
@@ -15,6 +13,8 @@ type FarmDetailsMessages =
   typeof import('../assets/messages/farms/details/en-US.json');
 type LandingPageMessages =
   typeof import('../assets/messages/landing-page/en-US.json');
+type LiquidityCampaignMessages =
+  typeof import('../assets/messages/liquidity-campaign/en-US.json');
 
 declare interface IntlMessages
   extends CommonMessages,

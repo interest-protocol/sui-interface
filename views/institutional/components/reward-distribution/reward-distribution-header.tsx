@@ -1,18 +1,20 @@
-import { Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
+import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import Title from '../../components/title';
+import Title from '../title';
+import RewardDistributionIllustration from './reward-distribution-illustration';
 
-const FooterHeader: FC = () => {
+const RewardDistributionHeader: FC = () => {
   const t = useTranslations();
   const { colors } = useTheme() as Theme;
+
   return (
     <>
       <Title
         as="h2"
-        mb={['0.5rem', '0.5rem', '0.5rem', '2xl']}
         fontWeight="400"
+        mb={['0.5rem', '0.5rem', '0.5rem', '2xl']}
       >
         <Typography
           as="span"
@@ -23,22 +25,16 @@ const FooterHeader: FC = () => {
           WebkitBackgroundClip="text"
           WebkitTextFillColor="transparent"
           backgroundClip="text"
+          textAlign="center"
         >
-          {t('liquidity.footer.title')}
+          {t('liquidity.rewardDistribution.title')}
         </Typography>
       </Title>
-      <Typography
-        variant="medium"
-        as="span"
-        color="textSoft"
-        textAlign="left"
-        mb="5rem"
-        width={['16.625rem', '16.625rem', '16.625rem', 'unset']}
-      >
-        {t('liquidity.footer.description')}
-      </Typography>
+      <Box width={['100%', '100%', '100%', '60%']} mx="auto">
+        <RewardDistributionIllustration />
+      </Box>
     </>
   );
 };
 
-export default FooterHeader;
+export default RewardDistributionHeader;
