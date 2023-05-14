@@ -2,10 +2,10 @@ import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { BENEFITS_LIQUIDITY_PROVIDER_LIST } from './benefits-liquidity-provider.data';
-import BenefitsLiquidityCard from './benefits-liquidity-provider-card';
+import { REWARD_DISTRIBUTION_BENEFITS_LIST } from './reward-distribution-benefits.data';
+import BenefitsLiquidityCard from './reward-distribution-benefits-card';
 
-const BenefitsLiquidityProviderBody: FC = () => (
+const RewardDistributionBenefits: FC = () => (
   <Box
     display="grid"
     gap="0.5rem"
@@ -16,10 +16,10 @@ const BenefitsLiquidityProviderBody: FC = () => (
       'repeat(4, 1fr)',
     ]}
   >
-    {BENEFITS_LIQUIDITY_PROVIDER_LIST.map((benefit) => (
+    {REWARD_DISTRIBUTION_BENEFITS_LIST.map((benefit) => (
       <BenefitsLiquidityCard {...benefit} key={v4()} />
     ))}
   </Box>
 );
 
-export default BenefitsLiquidityProviderBody;
+export default RewardDistributionBenefits;

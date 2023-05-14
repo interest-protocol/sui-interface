@@ -2,13 +2,13 @@ import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { BenefitsCardProps } from './benefits-liquidity-provider.types';
+import { BenefitsCardProps } from './reward-distribution.types';
 
 const BenefitsLiquidityCard: FC<BenefitsCardProps> = ({
   title,
   description,
   Icon,
-  hasLink,
+  link,
   colorBase,
 }) => {
   const t = useTranslations();
@@ -39,22 +39,22 @@ const BenefitsLiquidityCard: FC<BenefitsCardProps> = ({
           as="span"
           display="block"
           variant="medium"
-          fontSize={['0.875rem', '0.875rem', '0.875rem', '1rem']}
           color="textSoft"
+          fontSize={['0.875rem', '0.875rem', '0.875rem', '1rem']}
         >
-          {t(description as any)}{' '}
-          {hasLink && (
-            <Typography
-              as="span"
-              variant="medium"
-              color="primary"
-              textDecoration="underline"
-            >
-              <a href={hasLink.url} target="_blank" rel="noreferrer">
-                {hasLink.caption}
-              </a>
-            </Typography>
-          )}
+          {link
+            ? t.rich(description, {
+                link: (chunks) => (
+                  <Box
+                    as="a"
+                    textDecoration="underline"
+                    {...{ href: link.url, target: '_blank', rel: 'noreferrer' }}
+                  >
+                    {chunks}
+                  </Box>
+                ),
+              })
+            : t(description)}
         </Typography>
       </Box>
     </Box>

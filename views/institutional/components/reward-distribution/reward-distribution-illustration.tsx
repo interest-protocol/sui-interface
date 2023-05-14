@@ -7,7 +7,7 @@ import {
   ValuePropositionBallShadow,
   ValuePropositionCubeClose,
   ValuePropositionCubeOpen,
-} from '../../components/svg';
+} from '../svg';
 import { RewardDistributionIconWrapperProps } from './reward-distribution.types';
 
 const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({

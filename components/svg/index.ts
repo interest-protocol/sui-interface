@@ -1,6 +1,7 @@
 export { default as AnchorSVG } from './anchor';
 export { default as ArrowSVG } from './arrow';
 export { default as ArrowLinkSVG } from './arrow-link';
+export { default as ArrowRightSVG } from './arrow-right';
 export { default as ArrowSpecialSVG } from './arrow-special';
 export { default as BarsSVG } from './bars';
 export { default as BehanceSVG } from './behance';
@@ -34,6 +35,8 @@ export { default as LogoSVG } from './logo';
 export { default as MediumSVG } from './medium';
 export { default as MessageSVG } from './message';
 export { default as MoonSVG } from './moon';
+export { default as PauseSVG } from './pause';
+export { default as PlaySVG } from './play';
 export { default as PlusSVG } from './plus';
 export { default as PTFlagSVG } from './pt-flag';
 export { default as SecuritySVG } from './security';
