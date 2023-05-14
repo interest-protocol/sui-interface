@@ -7,6 +7,7 @@ import LiquidityBanner from '../components/liquidity-banner';
 import LiquidityFooter from '../components/liquidity-footer';
 import LiquidityHero from '../components/liquidity-hero';
 import LiquidityNewsletter from '../components/liquidity-newsletter';
+import LiquidityProgram from '../components/liquidity-program';
 import RewardDistribution from '../components/reward-distribution';
 import ShareSection from '../components/share-section';
 import ThenSection from '../components/then';
@@ -18,6 +19,7 @@ const Liquidity: FC = () => (
       <LiquidityHero />
       <FirstThingFirst />
       <ThenSection />
+      <LiquidityProgram />
       <ShareSection />
       <RewardDistribution />
       <LiquidityNewsletter />
