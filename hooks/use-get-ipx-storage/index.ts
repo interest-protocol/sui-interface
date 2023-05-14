@@ -1,8 +1,8 @@
-import { OBJECT_RECORD } from '@interest-protocol/sui-sdk';
 import { SuiObjectResponse } from '@mysten/sui.js';
 import { pathOr } from 'ramda';
 import useSWR from 'swr';
 
+import { OBJECT_RECORD } from '@/constants/farms.constants';
 import { makeSWRKey } from '@/utils';
 
 import { useNetwork } from '../use-network';
@@ -53,10 +53,10 @@ export const useGetIPXStorage = () => {
   const objects = OBJECT_RECORD[network];
 
   const { data, ...rest } = useSWR(
-    makeSWRKey([objects.IPX_STORAGE], 'useGetIPXStorage'),
+    makeSWRKey([objects.AIPX_STORAGE], 'useGetIPXStorage'),
     async () =>
       provider.multiGetObjects({
-        ids: [objects.IPX_STORAGE, objects.DEX_MASTER_CHEF_STORAGE],
+        ids: [objects.AIPX_STORAGE, objects.AMASTER_CHEF_STORAGE],
         options: { showContent: true },
       }),
     {

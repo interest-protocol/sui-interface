@@ -16,10 +16,6 @@ export const devNetProvider = new JsonRpcProvider(
     : devnetConnection
 );
 
-export const suiNSDevNetProvider = new SuinsClient(new JsonRpcProvider(), {
-  networkType: 'devnet',
-});
-
 export const testNetProvider = new JsonRpcProvider(
   new Connection({
     fullnode: process.env.NEXT_PUBLIC_SUI_TESTNET_RPC_URL
@@ -43,13 +39,27 @@ export const mainNetProvider = new JsonRpcProvider(
   })
 );
 
-export const suiNSTestNetProvider = new SuinsClient(new JsonRpcProvider(), {
-  networkType: 'testnet',
-});
+// TODO SUINS IS NOT LIVE YET. THIS WILL BE UPDATED.
+export const suiNSDevNetProvider = new SuinsClient(
+  new JsonRpcProvider() as any,
+  {
+    networkType: 'devnet',
+  }
+);
 
-export const suiNSMainNetProvider = new SuinsClient(new JsonRpcProvider(), {
-  networkType: 'testnet', // fix once mainnet is deployed
-});
+export const suiNSTestNetProvider = new SuinsClient(
+  new JsonRpcProvider() as any,
+  {
+    networkType: 'testnet',
+  }
+);
+
+export const suiNSMainNetProvider = new SuinsClient(
+  new JsonRpcProvider() as any,
+  {
+    networkType: 'testnet', // fix once mainnet is deployed
+  }
+);
 
 export const devNetIPXSdk = new SDK(devNetProvider, Network.DEVNET);
 
