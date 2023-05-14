@@ -3,7 +3,9 @@ import { FC } from 'react';
 
 import { Layout } from '../components';
 import FirstThingFirst from '../components/first-thing-first-section';
+import LiquidityFooter from '../components/liquidity-footer';
 import LiquidityHero from '../components/liquidity-hero';
+import LiquidityNewsletter from '../components/liquidity-newsletter';
 import RewardDistribution from '../components/reward-distribution';
 import ShareSection from '../components/share-section';
 import ThenSection from '../components/then';
@@ -16,6 +18,8 @@ const Liquidity: FC = () => (
       <ThenSection />
       <ShareSection />
       <RewardDistribution />
+      <LiquidityNewsletter />
+      <LiquidityFooter />
     </Box>
   </Layout>
 );

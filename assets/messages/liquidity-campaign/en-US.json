@@ -67,6 +67,19 @@
         "title": "TOP REWARD",
         "description": "Among the best rewards in the industry"
       }
+    },
+    "newsletter": {
+      "title": "STAY UPDATED",
+      "description": "If you have any questions or concerns, feel free to reach out to us. We look forward to seeing you join our Liquidity Rewards Program!",
+      "placeholder": "your-email@gmail.com",
+      "button": "{isLoading, plural, =1 {Sending...} other {Send}}",
+      "errors": {
+        "1008": "contact already added"
+      }
+    },
+    "footer": {
+      "title": "Follow us",
+      "description": "Stay tuned for our latest updates and announcements. Follow us on socials."
     }
   }
 }
