@@ -2,14 +2,14 @@ import { Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import Title from '../title';
+
 const HeroTitle: FC = () => {
   const t = useTranslations();
 
   return (
-    <>
+    <Title as="h1" fontWeight="400" my="4xl">
       <Typography
-        as="h1"
-        my="4xl"
         mx="0"
         color="primary"
         gridColumn="1/7"
@@ -27,7 +27,7 @@ const HeroTitle: FC = () => {
           {t('liquidity.hero.title', { isMobile: Number(false) })}
         </Typography>
       </Typography>
-    </>
+    </Title>
   );
 };
 
