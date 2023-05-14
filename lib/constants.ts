@@ -17,6 +17,7 @@ export enum TOKEN_SYMBOL {
   USDT = 'USDT',
   SUI = 'SUI',
   IPX = 'IPX',
+  AIPX = 'aIPX',
   V_LP_SUI_ETH = 'vSUI-ETH',
   V_LP_BTC_ETH = 'vBTC-ETH',
   V_LP_BNB_ETH = 'vBNB-ETH',

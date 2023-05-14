@@ -1,6 +1,6 @@
 import { useTheme } from '@emotion/react';
 import BigNumber from 'bignumber.js';
-import { FixedPointMath, TOKEN_SYMBOL } from 'lib';
+import { FixedPointMath } from 'lib';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';

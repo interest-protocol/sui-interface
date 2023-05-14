@@ -32,10 +32,7 @@ const FarmOptions: FC<FarmOptionsProps> = ({
   const { push } = useRouter();
   const { network } = useNetwork();
 
-  const farmSymbol =
-    farm.id === 0
-      ? TOKEN_SYMBOL.IPX
-      : makeFarmSymbol(network, farm.coin0.type, farm.coin1.type);
+  const farmSymbol = makeFarmSymbol(network, farm.coin0.type, farm.coin1.type);
 
   const handleChangeModal = (target: StakeState) => {
     setModalState({ isOpen: true, state: target });
@@ -165,7 +162,7 @@ const FarmOptions: FC<FarmOptionsProps> = ({
           farm.pendingRewards.multipliedBy(farm.lpCoinPrice).toNumber()
         )}
         amount={`${formatMoney(farm.pendingRewards.toNumber())} ${
-          TOKEN_SYMBOL.IPX
+          TOKEN_SYMBOL.AIPX
         }`}
         button={
           <HarvestButton

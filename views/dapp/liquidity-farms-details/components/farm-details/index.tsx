@@ -1,4 +1,3 @@
-import { TOKEN_SYMBOL } from 'lib';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import Skeleton from 'react-loading-skeleton';

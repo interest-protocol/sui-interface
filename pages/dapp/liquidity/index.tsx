@@ -1,4 +1,4 @@
-import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
+import { Network } from '@interest-protocol/sui-sdk';
 import type { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
