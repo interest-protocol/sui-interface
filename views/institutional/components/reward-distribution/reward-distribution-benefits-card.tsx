@@ -23,7 +23,7 @@ const BenefitsLiquidityCard: FC<BenefitsCardProps> = ({
       <Box mb="6.375rem" width={['2.875rem', '2.875rem', '2.875rem', '3.5rem']}>
         <Icon maxWidth="3.5rem" width="100%" maxHeight="3.5rem" height="100%" />
       </Box>
-      <Box p={['unset', 'unset', 'unset', '0.75rem']}>
+      <Box p={['unset', 'unset', 'unset', '0.75rem']} textAlign="left">
         <Typography
           as="span"
           display="block"
@@ -49,6 +49,7 @@ const BenefitsLiquidityCard: FC<BenefitsCardProps> = ({
                     as="a"
                     textDecoration="underline"
                     {...{ href: link.url, target: '_blank', rel: 'noreferrer' }}
+                    color="primary"
                   >
                     {chunks}
                   </Box>
