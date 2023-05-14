@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 
 import { SOCIAL_MEDIAS } from '@/constants';
 
-const FooterSocialMidia: FC = () => {
+const FooterSocialMedias: FC = () => {
   const { colors } = useTheme() as Theme;
   return (
     <Box display="grid" gap="0.5rem" gridTemplateColumns="repeat(4, 1fr)">
@@ -53,4 +53,4 @@ const FooterSocialMidia: FC = () => {
   );
 };
 
-export default FooterSocialMidia;
+export default FooterSocialMedias;
