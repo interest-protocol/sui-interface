@@ -9,9 +9,14 @@ import {
   UnknownCoinSVG,
   USDCoinSVG,
   USDTSVG,
+  WormholeCELOSVG,
   WormholeETHSVG,
   WormholeUSDCSVG,
   WormholeUSDTSVG,
+  WormholeWAVAXSVG,
+  WormholeWBNBSVG,
+  WormholeWFTMSVG,
+  WormholeWMATICSVG,
 } from '@/svg';
 
 export * from './coin-market-cap';
@@ -56,6 +61,11 @@ export const TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.MAINNET].WORMHOLE_ETH]: WormholeETHSVG,
   [COIN_TYPE[Network.MAINNET].WORMHOLE_USDC]: WormholeUSDCSVG,
   [COIN_TYPE[Network.MAINNET].WORMHOLE_USDT]: WormholeUSDTSVG,
+  [COIN_TYPE[Network.MAINNET].WORMHOLE_CELO]: WormholeCELOSVG,
+  [COIN_TYPE[Network.MAINNET].WORMHOLE_WAVAX]: WormholeWAVAXSVG,
+  [COIN_TYPE[Network.MAINNET].WORMHOLE_WBNB]: WormholeWBNBSVG,
+  [COIN_TYPE[Network.MAINNET].WORMHOLE_WFTM]: WormholeWFTMSVG,
+  [COIN_TYPE[Network.MAINNET].WORMHOLE_WMATIC]: WormholeWMATICSVG,
 };
 
 export const MILLISECONDS_PER_YEAR = 31540000000;

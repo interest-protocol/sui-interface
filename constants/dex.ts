@@ -115,6 +115,36 @@ export const DEX_TOKENS_DATA = {
       type: COIN_TYPE[Network.MAINNET].WORMHOLE_USDC,
       name: 'Wormhole USDC',
     },
+    {
+      symbol: TOKEN_SYMBOL.WORMHOLE_WBNB,
+      decimals: 8,
+      type: COIN_TYPE[Network.MAINNET].WORMHOLE_WBNB,
+      name: 'Wormhole WBNB',
+    },
+    {
+      symbol: TOKEN_SYMBOL.WORMHOLE_WMATIC,
+      decimals: 8,
+      type: COIN_TYPE[Network.MAINNET].WORMHOLE_WMATIC,
+      name: 'Wormhole WMATIC',
+    },
+    {
+      symbol: TOKEN_SYMBOL.WORMHOLE_WAVAX,
+      decimals: 8,
+      type: COIN_TYPE[Network.MAINNET].WORMHOLE_WAVAX,
+      name: 'Wormhole WAVAX',
+    },
+    {
+      symbol: TOKEN_SYMBOL.WORMHOLE_WFTM,
+      decimals: 8,
+      type: COIN_TYPE[Network.MAINNET].WORMHOLE_WFTM,
+      name: 'Wormhole WFTM',
+    },
+    {
+      symbol: TOKEN_SYMBOL.WORMHOLE_CELO,
+      decimals: 8,
+      type: COIN_TYPE[Network.MAINNET].WORMHOLE_CELO,
+      name: 'Wormhole CELO',
+    },
   ],
 };
 
@@ -151,5 +181,10 @@ export const RECOMMENDED_TOKENS_TYPES = {
   [Network.MAINNET]: [
     COIN_TYPE[Network.MAINNET].WORMHOLE_ETH,
     COIN_TYPE[Network.MAINNET].WORMHOLE_USDT,
+    COIN_TYPE[Network.MAINNET].WORMHOLE_WBNB,
+    COIN_TYPE[Network.MAINNET].WORMHOLE_WMATIC,
+    COIN_TYPE[Network.MAINNET].WORMHOLE_WAVAX,
+    COIN_TYPE[Network.MAINNET].WORMHOLE_WFTM,
+    COIN_TYPE[Network.MAINNET].WORMHOLE_CELO,
   ],
 };
