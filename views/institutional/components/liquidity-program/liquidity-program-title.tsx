@@ -6,17 +6,18 @@ const LiquidityProgramTitle: FC = () => {
   const t = useTranslations();
 
   return (
-    <Box gridColumn="1/-1">
+    <Box>
       <Typography
         color="primary"
         variant="displaySmall"
         letterSpacing="-0.15rem"
         width="100%"
+        textAlign="left"
       >
         {t('liquidity.liquidity-program.title')}
       </Typography>
 
-      <Box width="100%" opacity=".7" mb="2xl">
+      <Box width="100%" opacity=".7" mb="2xl" textAlign="left">
         <Typography
           variant="small"
           width={['100%', '100%', '100%', '520px']}
