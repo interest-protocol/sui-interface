@@ -9,7 +9,7 @@ import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.typ
 import {
   BASE_TOKENS_TYPES,
   COIN_DECIMALS,
-  COIN_SYMBOL,
+  COIN_TYPE_TO_SYMBOL,
   RECOMMENDED_TOKENS_TYPES,
 } from '@/constants';
 import { Box, Typography } from '@/elements';
@@ -54,7 +54,7 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
         (type) =>
           coinsMap[type] ?? {
             type,
-            symbol: COIN_SYMBOL[network][type],
+            symbol: COIN_TYPE_TO_SYMBOL[network][type],
             decimals: COIN_DECIMALS[network][type],
             objects: [],
             totalBalance: BigNumber(0),
@@ -130,14 +130,18 @@ const CurrencyModalBody: FC<CurrencyDropdownBodyProps> = ({
       setLoading(true);
       provider
         .getCoinMetadata({ coinType: debouncedSearch })
-        .then(({ symbol, decimals }) => {
-          setAskedToken({
-            symbol,
-            decimals,
-            type: debouncedSearch,
-            objects: [],
-            totalBalance: BigNumber(0),
-          });
+        .then((metadata) => {
+          if (metadata) {
+            setAskedToken({
+              symbol: metadata.symbol,
+              decimals: metadata.decimals,
+              type: debouncedSearch,
+              objects: [],
+              totalBalance: BigNumber(0),
+            });
+          } else {
+            askedToken && setAskedToken(null);
+          }
         })
         .catch(() => askedToken && setAskedToken(null))
         .finally(() => setLoading(false));

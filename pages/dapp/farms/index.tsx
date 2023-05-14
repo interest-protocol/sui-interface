@@ -1,3 +1,4 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import type { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
@@ -5,12 +6,15 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
+import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import Farms from '@/views/dapp/farms';
 import {
   FarmSortByFilter,
   FarmTypeFilter,
 } from '@/views/dapp/farms/farms.types';
+
+import NotFoundPage from '../../404';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
@@ -22,7 +26,8 @@ const Layout = dynamic(() => import('@/components/layout'), {
   loading: LoadingPage,
 });
 
-const FarmsPage: NextPageWithProps = ({ pageTitle }) => {
+const FarmsPage: NextPageWithProps = ({ pageTitle, messages, now }) => {
+  const { network } = useNetwork();
   const [isDesktop, setDesktop] = useState(false);
 
   const form = useForm({
@@ -34,6 +39,11 @@ const FarmsPage: NextPageWithProps = ({ pageTitle }) => {
       onlyStaked: false,
     },
   });
+
+  if (network === Network.MAINNET)
+    return (
+      <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
+    );
 
   return (
     <Web3Manager>

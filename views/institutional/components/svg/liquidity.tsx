@@ -457,7 +457,7 @@ export const USDTCoin: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => (
   </svg>
 );
 
-export const heroIllustration: FC<SVGProps> = ({
+export const HeroIllustration: FC<SVGProps> = ({
   maxWidth,
   maxHeight,
   ...props

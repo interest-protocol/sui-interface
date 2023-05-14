@@ -1,7 +1,6 @@
-import { TOKEN_SYMBOL } from 'lib';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
-import { find, mergeDeepRight, propEq } from 'ramda';
+import { mergeDeepRight } from 'ramda';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -37,20 +36,16 @@ const Layout = dynamic(() => import('@/components/layout'), {
 const DexPage: NextPageWithProps = ({ pageTitle }) => {
   const { network } = useNetwork();
 
-  const SUI =
-    find(propEq('symbol', TOKEN_SYMBOL.SUI), DEX_TOKENS_DATA[network]) ??
-    DEFAULT_UNKNOWN_DATA;
+  const SUI = DEX_TOKENS_DATA[network][0] ?? DEFAULT_UNKNOWN_DATA;
 
-  const ETH =
-    find(propEq('symbol', TOKEN_SYMBOL.ETH), DEX_TOKENS_DATA[network]) ??
-    DEFAULT_UNKNOWN_DATA;
+  const TokenOut = DEX_TOKENS_DATA[network][1] ?? DEFAULT_UNKNOWN_DATA;
 
   const [isOpen, setIsOpen] = useState(false);
   const [searchedToken] = useState<null | TokenModalMetadata>(null);
 
   const [localSettings, setLocalSettings] = useLocalStorage<LocalSwapSettings>(
     'sui-interest-swap-settings',
-    { slippage: '1' }
+    { slippage: '1', deadline: '30' }
   );
 
   const formSwap = useForm<ISwapForm>();
@@ -63,16 +58,17 @@ const DexPage: NextPageWithProps = ({ pageTitle }) => {
       symbol: SUI.symbol,
     });
     formSwap.setValue('tokenOut', {
-      type: ETH.type,
+      type: TokenOut.type,
       value: '0.0',
-      decimals: ETH.decimals,
-      symbol: ETH.symbol,
+      decimals: TokenOut.decimals,
+      symbol: TokenOut.symbol,
     });
   }, [network]);
 
   const formSettingsDropdown = useForm({
     defaultValues: {
       slippage: localSettings.slippage,
+      deadline: localSettings.deadline,
     },
   });
 

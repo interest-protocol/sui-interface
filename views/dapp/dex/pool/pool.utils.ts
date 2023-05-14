@@ -1,5 +1,7 @@
+import { Network } from '@interest-protocol/sui-sdk';
+
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
-import { Network, RECOMMENDED_POOLS } from '@/constants';
+import { RECOMMENDED_POOLS } from '@/constants';
 import { ZERO_BIG_NUMBER } from '@/utils';
 
 import { IPools } from './pool.types';
