@@ -2,6 +2,7 @@ import { useTheme } from '@emotion/react';
 import { Network } from '@interest-protocol/sui-sdk';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 import { FC, useCallback, useState } from 'react';
 
 import { SwitchLang } from '@/components';
@@ -16,6 +17,7 @@ import SelectNetwork from './select-network';
 import Wallet from './wallet';
 
 const Header: FC = () => {
+  const t = useTranslations();
   const { network } = useNetwork();
   const { pathname } = useRouter();
   const { setDark, dark } = useTheme() as any;
@@ -86,6 +88,30 @@ const Header: FC = () => {
               DEX
             </Typography>
           </Link>
+          <Box
+            alignItems="center"
+            justifyContent="center"
+            display={['none', 'none', 'flex']}
+          >
+            <Link href={Routes[RoutesEnum.LiquidityFarms]}>
+              <Typography
+                px="XL"
+                cursor="pointer"
+                variant="normal"
+                borderRight="1px solid"
+                textTransform="uppercase"
+                borderColor="bottomBackground"
+                color={
+                  pathname.includes(Routes[RoutesEnum.LiquidityFarms])
+                    ? 'accent'
+                    : 'inherit'
+                }
+                nHover={{ color: 'accentActive' }}
+              >
+                {t('common.liquidity')}
+              </Typography>
+            </Link>
+          </Box>
           {network !== Network.MAINNET && (
             <Link href={Routes[RoutesEnum.Farms]}>
               <Typography
