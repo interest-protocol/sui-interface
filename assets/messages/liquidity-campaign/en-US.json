@@ -3,6 +3,17 @@
     "metadata": {
       "title": "Liquidity Program"
     },
+    "then": {
+      "title": "Then...",
+      "description": "To participate in the Liquidity Rewards Program, follow these steps:",
+      "step": "step {value, number}...",
+      "steps": {
+        "1": "If you are reading this, you have completed the first step! Congrats you have landed at our Liquidity Program Hub. You are one step closer to start winning!",
+        "2": "Provide Liquidity in to our Liquidity Pools to acquire LP tokens. The more you provide, higher the reward!",
+        "3": "Deposit your LP Tokens to our Farms to start farming aIPX Tokens (Airdrop Interest Protocol Tokens)",
+        "4": "Swap aIPX token for IPX 1:1 after TGE."
+      }
+    },
     "hero": {
       "title": "Interest Protocol Liquidity Program",
       "title2": "Grab a share of 28M Tokens",

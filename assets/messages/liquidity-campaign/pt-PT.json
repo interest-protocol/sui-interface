@@ -3,6 +3,17 @@
     "metadata": {
       "title": "Liquidity Program"
     },
+    "then": {
+      "title": "Em seguida...",
+      "description": "Para participar no Programa de Recompensas de Liquidez, siga estes passos:",
+      "step": "passo {value, number}...",
+      "steps": {
+        "1": "Se está a ler isto, completou o primeiro passo! Parabéns por ter chegado ao nosso Centro do Programa de Liquidez. Está um passo mais perto de começar a ganhar!",
+        "2": "Fornece liquidez aos nossos pools de liquidez para adquirir tokens LP. Quanto mais fornecer, maior será a recompensa!",
+        "3": "Deposite seus Tokens LP em nossas Farms para começar a cultivar Tokens aIPX (Airdrop Interest Protocol Tokens)",
+        "4": "Trocar um token IPX por IPX 1:1 após TGE."
+      }
+    },
     "hero": {
       "title": "Programa de Liquidez da Interest Protocol",
       "title2": "Agarre uma parte de 28M Tokens",
