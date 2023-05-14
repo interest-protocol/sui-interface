@@ -2,16 +2,17 @@ import { Box, Button, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import { TTranslatedMessage } from '@/interface';
 import { ArrowRightSVG } from '@/svg';
 
 import { ShareProps } from './share.types';
 
 const ShareCard: FC<ShareProps> = ({
+  link,
   title,
-  subtitle,
-  hasLink,
-  description,
   color,
+  subtitle,
+  description,
   Illustration,
 }) => {
   const t = useTranslations();
@@ -20,8 +21,7 @@ const ShareCard: FC<ShareProps> = ({
     <Box
       p="2xs"
       as="span"
-      display="grid"
-      columnGap="2xl"
+      textAlign="left"
       borderRadius="m"
       border="1px solid"
       borderColor="textAccent"
@@ -31,39 +31,34 @@ const ShareCard: FC<ShareProps> = ({
         display="flex"
         bg="#B6C4FF0A"
         borderRadius="m"
-        height="22.688rem"
         alignItems="center"
         position="relative"
         justifyContent="center"
+        height={['13.688rem', '13.688rem', '22.688rem']}
       >
         <Illustration />
       </Box>
       <Box p="m" pb={['4xl', '4xl', 'xl']} mb={['xl', 'xl', 'unset']}>
-        <Typography
-          variant="displayLarge"
-          color={color}
-          textAlign="left"
-          pr="xl"
-        >
-          {t(title as any)}
+        <Typography color={color} textAlign="left" variant="displayLarge">
+          {t(title as TTranslatedMessage)}
         </Typography>
-        <Typography variant="medium" color={color} fontSize="1.875rem">
-          {t(subtitle as any) + ' '}
-          {hasLink && (
-            <Typography
-              as="span"
-              variant="medium"
-              fontSize="1.875rem"
-              textDecoration="underline"
-            >
-              <a href={hasLink.url} target="_blank" rel="noreferrer">
-                {hasLink.caption}
-              </a>
-            </Typography>
-          )}
+        <Typography variant="title4" color={color}>
+          {link
+            ? t.rich(subtitle, {
+                link: (chunks) => (
+                  <Box
+                    as="a"
+                    textDecoration="underline"
+                    {...{ href: link.url, target: '_blank', rel: 'noreferrer' }}
+                  >
+                    {chunks}
+                  </Box>
+                ),
+              })
+            : t(subtitle)}
         </Typography>
         <Typography variant="medium" opacity=".7" color="textSoft" my="1rem">
-          {t(description as any)}
+          {t(description)}
         </Typography>
         <Button
           variant="text"

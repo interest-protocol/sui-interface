@@ -10,7 +10,7 @@ import {
   ZealyGreenBoxes,
   ZealyPrimaryBoxesBack,
   ZealyPrimaryBoxesFront,
-} from '../../components/svg';
+} from '../svg';
 import { IconWrapperProps } from './share.types';
 
 export const IconWrapper: FC<IconWrapperProps> = ({

@@ -34,6 +34,8 @@ export { default as LoadingSVG } from './loading';
 export { default as LogoSVG } from './logo';
 export { default as MediumSVG } from './medium';
 export { default as MoonSVG } from './moon';
+export { default as PauseSVG } from './pause';
+export { default as PlaySVG } from './play';
 export { default as PlusSVG } from './plus';
 export { default as PTFlagSVG } from './pt-flag';
 export { default as StarSVG } from './star';

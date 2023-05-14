@@ -1,15 +1,18 @@
 import { FC } from 'react';
 
+import { SVGProps } from '@/components/svg/svg.types';
+import { TTranslatedMessage } from '@/interface';
+
 export interface ShareProps {
-  title: string;
-  subtitle: string;
-  description: string;
-  hasLink?: {
+  color: string;
+  Illustration: FC;
+  title: TTranslatedMessage;
+  subtitle: TTranslatedMessage;
+  description: TTranslatedMessage;
+  link?: {
     caption: string;
     url: string;
   };
-  Illustration: FC;
-  color: string;
 }
 
 export interface IconWrapperProps {
