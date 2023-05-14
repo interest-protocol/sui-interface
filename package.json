@@ -59,6 +59,7 @@
     "build": "next build",
     "start": "next start",
     "format": "prettier --write **/*.{js,ts,tsx}",
+    "lint": "eslint . --fix --ext ts --ext tsx --ext js",
     "prepare": "husky install"
   },
   "eslintConfig": {
