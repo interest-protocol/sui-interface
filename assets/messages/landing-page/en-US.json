@@ -9,7 +9,8 @@
         "second": "{isMobile, plural, =1 {borrow and farm} other {and farm.} }"
       },
       "description": "The next generation DeFi protocol",
-      "button": "Trade now on SUI"
+      "dappCTA": "Trade now on SUI",
+      "campaignCTA": "Quest for Airdrop"
     },
     "aboutUs": {
       "title": {

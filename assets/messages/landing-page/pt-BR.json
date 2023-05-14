@@ -9,7 +9,8 @@
         "second": "{isMobile, plural, =1 {e invista} other {e invista.} }"
       },
       "description": "O protocolo DeFi da próxima geração",
-      "button": "Transacione agora no SUI"
+      "dappCTA": "Transacione agora no SUI",
+      "campaignCTA": "A busca de Airdrop"
     },
     "aboutUs": {
       "title": {
