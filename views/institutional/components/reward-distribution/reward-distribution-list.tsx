@@ -12,6 +12,7 @@ const RewardDistributionList: FC = () => {
       justifyContent="space-around"
       rowGap={['1.5rem', '1.5rem', '1.5rem', '5rem']}
       my={['unset', 'unset', 'unset', '5rem']}
+      textAlign="left"
     >
       <Typography
         variant="medium"
