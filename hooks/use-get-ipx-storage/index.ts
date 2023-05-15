@@ -53,7 +53,7 @@ export const useGetIPXStorage = () => {
   const objects = OBJECT_RECORD[network];
 
   const { data, ...rest } = useSWR(
-    makeSWRKey([objects.IPX_PACKAGE_ID], 'useGetIPXStorage'),
+    makeSWRKey([objects.IPX_STORAGE], 'useGetIPXStorage'),
     async () =>
       provider.multiGetObjects({
         ids: [objects.IPX_STORAGE, objects.DEX_MASTER_CHEF_STORAGE],
