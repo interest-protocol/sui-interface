@@ -36,7 +36,6 @@ const ThenCard: FC<ThenCardProps> = ({
   const [desktop, setDesktop] = useState(false);
 
   const handleSetDesktop = useCallback(() => {
-    console.log('>>>>1');
     const mediaIsDesktop = window.matchMedia('(min-width: 64em)').matches;
     setDesktop(mediaIsDesktop);
   }, []);
