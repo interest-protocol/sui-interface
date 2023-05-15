@@ -10,7 +10,7 @@ const ActionButton: FC<{ tutorial?: boolean }> = ({ tutorial }) => {
 
   if (tutorial)
     return (
-      <a href={Routes[RoutesEnum.Bridge]} target="_blank" rel="noreferrer">
+      <a href="https://youtu.be/czLQNJoQHBA" target="_blank" rel="noreferrer">
         <Button
           variant="text"
           width={[
@@ -38,7 +38,7 @@ const ActionButton: FC<{ tutorial?: boolean }> = ({ tutorial }) => {
     );
 
   return (
-    <a href="https://youtu.be/czLQNJoQHBA" target="_blank" rel="noreferrer">
+    <a href={Routes[RoutesEnum.Bridge]} target="_blank" rel="noreferrer">
       <Button
         variant="outline"
         width={[
