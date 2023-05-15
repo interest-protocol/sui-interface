@@ -1,5 +1,6 @@
 import { always } from 'ramda';
 
+import { Routes, RoutesEnum } from '@/constants';
 import { TTranslatedMessage } from '@/interface';
 
 import { DApp, Zealy } from '../share-section/share-illustration';
@@ -14,11 +15,11 @@ export const LIQUIDITY_BANNER_DATA: ReadonlyArray<LiquidityBannerCardProps> = [
     description: 'common.v2.banner.zealy.description' as TTranslatedMessage,
     buttons: [
       {
-        link: '/dapp/dex',
+        link: 'https://zealy.io/c/interestprotocol/questboard',
         name: 'common.v2.banner.zealy.buttons.main' as TTranslatedMessage,
       },
       {
-        link: 'https://nowhere.com',
+        link: 'https://medium.com/@interestprotocol/interest-protocol-liquidity-program-e704f58e3e04',
         name: 'common.v2.banner.zealy.buttons.secondary' as TTranslatedMessage,
       },
     ],
@@ -34,11 +35,11 @@ export const LIQUIDITY_BANNER_DATA: ReadonlyArray<LiquidityBannerCardProps> = [
     ),
     buttons: [
       {
-        link: 'https://nowhere.com',
+        link: Routes[RoutesEnum.DEX],
         name: 'common.v2.banner.liquidity.buttons.main' as TTranslatedMessage,
       },
       {
-        link: 'https://nowhere.com',
+        link: 'https://medium.com/@interestprotocol/interest-protocol-liquidity-program-e704f58e3e04',
         name: 'common.v2.banner.liquidity.buttons.secondary' as TTranslatedMessage,
       },
     ],
@@ -50,11 +51,11 @@ export const LIQUIDITY_BANNER_DATA: ReadonlyArray<LiquidityBannerCardProps> = [
     description: 'common.v2.banner.swap.description' as TTranslatedMessage,
     buttons: [
       {
-        link: '/dapp/dex',
+        link: Routes[RoutesEnum.LiquidityCampaign],
         name: 'common.v2.banner.swap.buttons.main' as TTranslatedMessage,
       },
       {
-        link: 'https://nowhere.com',
+        link: 'https://medium.com/@interestprotocol/interest-protocol-liquidity-program-e704f58e3e04',
         name: 'common.v2.banner.swap.buttons.secondary' as TTranslatedMessage,
       },
     ],

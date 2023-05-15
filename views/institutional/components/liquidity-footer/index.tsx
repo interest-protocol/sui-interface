@@ -5,7 +5,7 @@ import FooterHeader from './liquidity-newsletter-header';
 import FooterSocialMedias from './liquidity-newsletter-social-medias';
 
 const LiquidityFooter: FC = () => (
-  <Box variant="container" justifyItems="unset">
+  <Box variant="container">
     <Box
       display="flex"
       gridColumn="1/-1"

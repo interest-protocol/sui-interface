@@ -1,9 +1,6 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
-
-import { Routes, RoutesEnum } from '@/constants';
 
 import { ArrowDown } from '../svg/arrow';
 
@@ -11,11 +8,7 @@ const HeroCallToAction: FC = () => {
   const t = useTranslations();
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      // alignItems={['center', 'center', 'center', 'flex-start']}
-    >
+    <Box display="flex" flexDirection="column">
       <Typography py="0" color="white" variant="title5" textAlign="left">
         {t('liquidity.hero.title2')}
       </Typography>
@@ -28,7 +21,11 @@ const HeroCallToAction: FC = () => {
       >
         {t('liquidity.hero.paragraph')}
       </Typography>
-      <Link href={Routes[RoutesEnum.DEX]}>
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href="https://medium.com/@interestprotocol/interest-protocol-liquidity-program-e704f58e3e04"
+      >
         <Button
           my="4xl"
           mx={['auto', 'auto', 'auto', '0']}
@@ -38,7 +35,7 @@ const HeroCallToAction: FC = () => {
         >
           {t('liquidity.hero.button')}
         </Button>
-      </Link>
+      </a>
     </Box>
   );
 };
