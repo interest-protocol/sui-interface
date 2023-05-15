@@ -27,7 +27,7 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
     {shadow && (
       <Motion
         left="50%"
-        bottom={['-60%', '-70%', '-100%', '-120%']}
+        bottom={['-71%', '-93%', '-100%', '-120%']}
         position="absolute"
         animate={{
           scale: 0.9,
@@ -184,7 +184,7 @@ const RewardDistributionIllustration: FC = () => (
     <RewardDistributionIconWrapper
       shadow
       floating
-      top={['20%', '15%', '15%', '9%']}
+      top={['15%', '10%', '10%', '9%']}
       size="20%"
       left="38%"
       Icon={AdvantagesTiltedCoin}
