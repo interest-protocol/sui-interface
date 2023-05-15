@@ -5,6 +5,7 @@ import { v4 } from 'uuid';
 
 import { InfoLightSVG } from '@/svg';
 
+import Title from '../title';
 import { SHARE_LIST } from './share.data';
 import ShareCard from './share-cards';
 
@@ -12,17 +13,18 @@ const ShareSection: FC = () => {
   const t = useTranslations();
 
   return (
-    <Box variant="container">
-      <Typography
-        width="100%"
-        color="primary"
-        gridColumn="1/-1"
-        textAlign="center"
-        variant="displaySmall"
-        letterSpacing="-0.15rem"
-      >
-        {t('liquidity.share.title')}
-      </Typography>
+    <Box variant="container" py={['3.5rem', '3.5rem', '3.5rem', '5rem']}>
+      <Title gridColumn="1/-1">
+        <Typography
+          width="100%"
+          color="primary"
+          textAlign="center"
+          variant="displaySmall"
+          letterSpacing="-0.15rem"
+        >
+          {t('liquidity.share.title')}
+        </Typography>
+      </Title>
       <Box
         mt="2.5rem"
         gap="0.5rem"
