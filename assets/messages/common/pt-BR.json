@@ -9,21 +9,21 @@
       },
       "banner": {
         "liquidity": {
-          "title": "28M de IPX tokens",
+          "title": "20 Milhões de IPX Tokens",
           "label": "Para não perder",
-          "description": "Em busca de AirDrop",
+          "description": "Forneça liquidez para ganhar os IPX tokens",
           "buttons": { "main": "Ir para AirDrop", "secondary": "Saiba mais" }
         },
         "zealy": {
-          "title": "28M IPX tokens",
+          "title": "2 Milhões de IPX Tokens",
           "label": "Para não perder",
-          "description": "Em busca de AirDrop",
+          "description": "Completar missões para obter o Airdrop",
           "buttons": { "main": "Ir para Zealy", "secondary": "Saiba mais" }
         },
         "swap": {
-          "title": "28M IPX tokens",
+          "title": "5 Milhões de IPX Tokens",
           "label": "Para não perder",
-          "description": "Em busca AirDrop",
+          "description": "Troque para receber o Airdrop",
           "buttons": { "main": "Troque agora", "secondary": "Saiba mais" }
         }
       }
@@ -100,7 +100,7 @@
     "copyObjectNumber": "copiar o id do objecto",
     "followUs": "SIGA-NOS",
     "coin": "moeda",
-    "bannerHeader": "Veja a nossa última campanha."
+    "bannerHeader": "Airdrop: 28M de tokens IPX para ganhar!"
   },
   "error": {
     "generic": "algo deu errado",
