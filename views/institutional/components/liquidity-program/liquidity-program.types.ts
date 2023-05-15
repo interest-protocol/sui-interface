@@ -4,6 +4,8 @@ import { SVGProps } from '@/components/svg/svg.types';
 
 export interface PoolProviderProps {
   name: string;
+  points: number;
+  percentage: number;
   Illustration: FC;
 }
 export interface IconWrapperProps {
