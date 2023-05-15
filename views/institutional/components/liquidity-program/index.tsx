@@ -11,7 +11,7 @@ import { POOL_PROVIDERS_LIST } from './pool-provider.data';
 import PoolProviderCard from './pool-provider-card';
 
 const LiquidityProgram: FC = () => (
-  <Box variant="container">
+  <Box variant="container" display="block">
     <LiquidityProgramTitle />
     <Box width="100%" gridColumn="1/-1">
       <Slider {...sliderSettings}>
