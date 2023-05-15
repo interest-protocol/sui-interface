@@ -48,10 +48,10 @@ export const Illustration: FC<{ CoinA: FC<SVGProps>; CoinB: FC<SVGProps> }> = ({
   CoinB,
 }) => (
   <>
-    <IconWrapper shining floating top="64%" size="4%" left="20%" Icon={Star} />
-    <IconWrapper shining floating top="23%" size="6%" left="65%" Icon={Star} />
-    <IconWrapper shining floating top="25%" size="3%" left="72%" Icon={Star} />
-    <IconWrapper floating top="35%" size="47%" left="7.5%" Icon={CoinA} />
-    <IconWrapper floating top="35%" size="47%" left="27.8%" Icon={CoinB} />
+    <IconWrapper shining floating top="75%" size="4%" left="22%" Icon={Star} />
+    <IconWrapper shining floating top="23%" size="6%" left="70%" Icon={Star} />
+    <IconWrapper shining floating top="25%" size="3%" left="77%" Icon={Star} />
+    <IconWrapper floating top="35%" size="47%" left="18%" Icon={CoinA} />
+    <IconWrapper floating top="35%" size="47%" left="37.8%" Icon={CoinB} />
   </>
 );

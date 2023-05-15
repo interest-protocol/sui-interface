@@ -1,45 +1,77 @@
+import {
+  BNB,
+  BTCB,
+  DOGEB,
+  ETH,
+  ETHB,
+  FLOKIB,
+  SUI,
+  USDC,
+  USDCB,
+  USDTB,
+} from '../svg/liquidity-program';
 import { PoolProviderProps } from './liquidity-program.types';
 import { Illustration } from './pool-provider-illustrations';
 
 export const POOL_PROVIDERS_LIST: ReadonlyArray<PoolProviderProps> = [
   {
     name: 'sui-btcb',
-    Illustration: () => <Illustration CoinA={} CoinB={} />,
+    points: 600,
+    percentage: 8,
+    Illustration: () => <Illustration CoinA={SUI} CoinB={BTCB} />,
   },
   {
     name: 'sui-ethb',
-    Illustration: SUIUSDCIllustration,
+    points: 1000,
+    percentage: 14,
+    Illustration: () => <Illustration CoinA={SUI} CoinB={ETHB} />,
   },
   {
     name: 'sui-eth',
-    Illustration: SUIBTCIllustration,
+    points: 1000,
+    percentage: 14,
+    Illustration: () => <Illustration CoinA={SUI} CoinB={ETH} />,
   },
   {
     name: 'sui-bnb',
-    Illustration: USDCUSDTIllustration,
+    points: 800,
+    percentage: 11,
+    Illustration: () => <Illustration CoinA={SUI} CoinB={BNB} />,
   },
   {
     name: 'sui-usdcb',
-    Illustration: SUIEthereumIllustration,
+    points: 900,
+    percentage: 13,
+    Illustration: () => <Illustration CoinA={SUI} CoinB={USDCB} />,
   },
   {
     name: 'sui-usdc',
-    Illustration: SUIEthereumIllustration,
+    points: 900,
+    percentage: 12,
+    Illustration: () => <Illustration CoinA={SUI} CoinB={USDC} />,
   },
   {
     name: 'usdcb-usdtb',
-    Illustration: SUIUSDCIllustration,
+    points: 600,
+    percentage: 8,
+    Illustration: () => <Illustration CoinA={USDCB} CoinB={USDTB} />,
   },
   {
     name: 'usdc-usdcb',
-    Illustration: SUIBTCIllustration,
+    points: 600,
+    percentage: 8,
+    Illustration: () => <Illustration CoinA={USDC} CoinB={USDCB} />,
   },
   {
     name: 'sui-dogeb',
-    Illustration: USDCUSDTIllustration,
+    points: 300,
+    percentage: 4,
+    Illustration: () => <Illustration CoinA={SUI} CoinB={DOGEB} />,
   },
   {
     name: 'sui-flokib',
-    Illustration: SUIEthereumIllustration,
+    points: 500,
+    percentage: 7,
+    Illustration: () => <Illustration CoinA={SUI} CoinB={FLOKIB} />,
   },
 ];
