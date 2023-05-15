@@ -9,6 +9,7 @@ import {
   RewardDistributionCubeWithbigShadow,
   RewardDistributionCubeWithFrontShadow,
 } from '../svg';
+import Star from '../svg/star';
 import { RewardDistributionIconWrapperProps } from './reward-distribution.types';
 
 const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
@@ -17,14 +18,16 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
   Icon,
   chock,
   shadow,
+  shinning,
   floating,
+  floatingStar,
   ...props
 }) => (
   <Motion width={size} height={size} position="absolute" {...props}>
     {shadow && (
       <Motion
         left="50%"
-        bottom={['-60%', '-90%', '-100%', '-120%']}
+        bottom={['-60%', '-70%', '-100%', '-120%']}
         position="absolute"
         animate={{
           scale: 0.9,
@@ -36,7 +39,7 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
           repeat: Infinity,
           repeatType: 'reverse',
         }}
-        width={['90%', '90%', '100%', '100%']}
+        width={['90%', '90%', '100%', '90%']}
       >
         <RewardDistributionCoinShadow
           width="100%"
@@ -68,6 +71,25 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
           ease: easeInOut,
           repeat: Infinity,
           repeatType: 'reverse',
+        },
+      })}
+      {...(floatingStar && {
+        ...(shinning && {
+          filter: 'drop-shadow(0 0 0rem #fff)',
+        }),
+        animate: {
+          translateY: -7,
+          ...(shinning && {
+            filter:
+              'hue-rotate(360deg) brightness(1.5) drop-shadow(0 0 .2rem #fff)',
+          }),
+        },
+        transition: {
+          ease: easeInOut,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          delay: Math.random() * 1 + 0.2,
+          duration: Math.random() * (shinning ? 2 : 1) + (shinning ? 1 : 0.5),
         },
       })}
       {...(chock && {
@@ -162,10 +184,37 @@ const RewardDistributionIllustration: FC = () => (
     <RewardDistributionIconWrapper
       shadow
       floating
-      top={['20%', '15%', '15%', '15%']}
-      size="17%"
-      left="40.5%"
+      top={['20%', '15%', '15%', '9%']}
+      size="20%"
+      left="38%"
       Icon={AdvantagesTiltedCoin}
+    />
+    <RewardDistributionIconWrapper
+      top="9%"
+      floatingStar
+      shinning
+      left="32%"
+      size="5%"
+      to={[100, 0]}
+      Icon={Star}
+    />
+    <RewardDistributionIconWrapper
+      top="17%"
+      floatingStar
+      shinning
+      left="65%"
+      size="3%"
+      to={[100, 0]}
+      Icon={Star}
+    />
+    <RewardDistributionIconWrapper
+      top="9%"
+      floatingStar
+      shinning
+      left="60%"
+      size="1.5%"
+      to={[100, 0]}
+      Icon={Star}
     />
   </Motion>
 );
