@@ -4,11 +4,13 @@ import { FC } from 'react';
 
 import { ArrowRightSVG } from '@/svg';
 
-const ActionButton: FC = () => {
+import { ActionButtonProps } from './first-thing-first-section.types';
+
+const ActionButton: FC<ActionButtonProps> = ({ isText, text, url }) => {
   const t = useTranslations();
   return (
     <Button
-      variant="outline"
+      variant={isText ? 'text' : 'outline'}
       width={[
         '-webkit-fill-available',
         '-webkit-fill-available',
@@ -26,8 +28,14 @@ const ActionButton: FC = () => {
         height="1.25rem"
         maxHeight="1.25rem"
       />
-      <Typography variant="medium" color="primary">
-        {t('liquidity.firstThingFirst.button')}
+      <Typography
+        as="a"
+        variant="medium"
+        color="primary"
+        textDecoration={isText ? 'unset' : 'underline'}
+        {...{ href: url, target: '_blank', rel: 'noreferrer' }}
+      >
+        {t(text)}
       </Typography>
     </Button>
   );

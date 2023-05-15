@@ -10,10 +10,11 @@
       "button": "Learn How"
     },
     "firstThingFirst": {
-      "title": "How to bridge assets to the Sui blockchain",
+      "title": "How to Bridge Assets From other Chains to Sui Network",
       "subtitle": "First things First",
-      "description": "If your assets are on other chains you need to bridge them to the Sui Blockchain. Here is how you do it.",
-      "button": "bridge assets"
+      "description": "If your assets are on other chains you need to bridge them to the Sui Network; this can be done using two options, Celer and Wormhole.",
+      "buttonAssets": "bridge assets",
+      "buttonTutorial": "bridge tutorial"
     },
     "then": {
       "title": "Then...",

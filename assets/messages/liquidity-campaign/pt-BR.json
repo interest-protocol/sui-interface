@@ -10,10 +10,11 @@
       "button": "Saiba como"
     },
     "firstThingFirst": {
-      "title": "Como transferir activos para a Blockchain Sui",
+      "title": "Como transferir activos de outras chains para a rede Sui",
       "subtitle": "primeiro o mais importante",
-      "description": "Se seus ativos estão em outras cadeias, você precisa transferi-los para a Sui Blockchain. Aqui está como fazer isso.",
-      "button": "activos de ponte"
+      "description": "Se os seus activos estão noutras chains, precisa de os ligar à Rede Sui; isto pode ser feito utilizando duas opções, Celer e Wormhole.",
+      "buttonAssets": "activos de pontes",
+      "buttonTutorial": "tutorial de pontes"
     },
     "then": {
       "title": "Em seguida...",
