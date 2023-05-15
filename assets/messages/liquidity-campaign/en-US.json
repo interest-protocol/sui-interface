@@ -36,7 +36,7 @@
           "available": "When adding liquidity to this pool,l make sure you are using BTC bridged from Binance Smart Chain, designated as BTCB<sup>BNB</sup>."
         },
         "sui-ethb": {
-          "title": "SUI∙BTC<sup>BNB</sup>",
+          "title": "SUI∙ETH<sup>BNB</sup>",
           "available": "When adding liquidity to this pool, make sure you are using ETH bridged from Binance Smart Chain, designated as ETH<sup>BNB</sup>."
         },
         "sui-eth": {

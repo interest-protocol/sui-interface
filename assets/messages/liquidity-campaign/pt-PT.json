@@ -36,7 +36,7 @@
           "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como BTCB<sup>BNB</sup>."
         },
         "sui-ethb": {
-          "title": "SUI∙BTC<sup>BNB</sup>",
+          "title": "SUI∙ETH<sup>BNB</sup>",
           "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como ETH<sup>BNB</sup>."
         },
         "sui-eth": {
