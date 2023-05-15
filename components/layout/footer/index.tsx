@@ -88,7 +88,7 @@ const Footer: FC = () => {
             </Button>
           </Link>{' '}
           {network === Network.MAINNET && (
-            <Link href={Routes[RoutesEnum.DEX]}>
+            <Link href={Routes[RoutesEnum.LiquidityFarms]}>
               <Button
                 ml="S"
                 px="0.8rem"
@@ -100,14 +100,14 @@ const Footer: FC = () => {
                 borderRadius="M"
                 justifyContent="space-between"
                 bg={
-                  pathname.includes(Routes[RoutesEnum.DEX])
+                  pathname.includes(Routes[RoutesEnum.LiquidityFarms])
                     ? 'accentActive'
                     : 'transparent'
                 }
                 nHover={{ bg: 'accent', color: 'text' }}
                 nActive={{ bg: 'accentActive', color: 'text' }}
                 color={
-                  pathname.includes(Routes[RoutesEnum.DEX])
+                  pathname.includes(Routes[RoutesEnum.LiquidityFarms])
                     ? 'textSoft'
                     : 'text'
                 }
