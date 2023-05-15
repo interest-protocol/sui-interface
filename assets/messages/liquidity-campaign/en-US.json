@@ -6,14 +6,15 @@
     "hero": {
       "title": "Interest Protocol Liquidity Program",
       "title2": "Grab a share of 28M Tokens",
-      "paragraph": "We are excited to introduce the Interest Protocol Liquidity Rewards Program, the first of its kind in the Sui ecosystem. This program is designed to incentivize individuals who contribute to the growth and stability of our platform, allowing them to earn extra income on their crypto holdings. Participants have the opportunity to grab a share of 28M IPX tokens which are distributed in to 3 different types of activities that you can take part in: Provide Liquidity, Swap Assets and complete Zealy social activities.",
+      "paragraph": "We are excited to introduce the Interest Protocol Liquidity Program, the first of its kind in the Sui ecosystem. This program is designed to incentivize individuals who contribute to the growth and stability of our platform, allowing them to earn extra income on their crypto holdings. Participants have the opportunity to grab a share of 28M IPX tokens which are distributed into 3 different types of activities that you can take part in: Provide Liquidity & Farm, Swap Assets and complete Zealy social activities.",
       "button": "Learn How"
     },
     "firstThingFirst": {
-      "title": "How to bridge assets to the Sui blockchain",
+      "title": "How to Bridge Assets From other Chains to Sui Network",
       "subtitle": "First things First",
-      "description": "If your assets are on other chains you need to bridge them to the Sui Blockchain. Here is how you do it.",
-      "button": "bridge assets"
+      "description": "If your assets are on other chains you need to bridge them to the Sui Network; this can be done using two options, Celer and Wormhole.",
+      "buttonAssets": "bridge assets",
+      "buttonTutorial": "bridge tutorial"
     },
     "then": {
       "title": "Then...",
@@ -28,31 +29,52 @@
     },
     "liquidity-program": {
       "title": "THE LIQUIDITY PROGRAM",
-      "description": {
-        "paragraph1": "Interest Protocol supports four primary pools - SUI/USDC, SUI/ETH, SUI/BTC and USDC/USDT. As a liquidity provider, you can choose any of these pools to provide liquidity.",
-        "paragraph2": "We have allocated 25 Million tokens to be farmed by liquidity providers, and each pool will assigned the following number of tokens:"
-      },
+      "description": "We have allocated 20 million aIPX tokens among 10 supported farms, offering you a variety of options to provide liquidity. The 20 Million tokens are represented as 7200 points distributed in following farms as follows:",
       "poolProviders": {
-        "suiEth": {
-          "title": "SUI∙ETH",
-          "available": "35% - 8,750,000 aIPX tokens available to be farmed."
+        "sui-btcb": {
+          "title": "SUI∙BTC<sub>(BNB)</sub>",
+          "available": "600 points  - 8% - when adding liquidity to this pool,l make sure you are using BTC bridged from Binance Smart Chain, designated as BTCB<sub>(BNB)</sub>."
         },
-        "suiUSDC": {
-          "title": "SUI∙USDC",
-          "available": "20% - 5,000,000 aIPX tokens available to be farmed."
+        "sui-ethb": {
+          "title": "SUI∙BTC<sub>(BNB)</sub>",
+          "available": "1000 points - 14% - when adding liquidity to this pool, make sure you are using ETH bridged from Binance Smart Chain, designated as ETH<sub>(BNB)</sub>."
         },
-        "suiBTC": {
-          "title": "SUI∙BTC",
-          "available": "35% - 8,750,000 aIPX tokens available to be farmed."
+        "sui-eth": {
+          "title": "SUI∙ETH<sub>(ETH)</sub>",
+          "available": "1000 points - 14% - when adding liquidity to this pool, make sure you are using ETH bridged from Ethereum Network, designated as ETH<sub>(ETH)</sub>."
         },
-        "udscUSDT": {
-          "title": "USDC∙USDT",
-          "available": "10% - 2,500,000 aIPX tokens available to be farmed."
+        "sui-bnb": {
+          "title": "SUI∙BNB<sub>(BNB)</sub>",
+          "available": "800 points - 11% - when adding liquidity to this pool, make sure you are using BNB bridged from Binance Smart Chain, designated as ETH<sub>(ETH)</sub>."
+        },
+        "sui-usdcb": {
+          "title": "SUI∙USDC<sub>(BNB)</sub>",
+          "available": "900 points - 13% when adding liquidity to this pool, make sure you are using USDC bridged from Binance Smart Chain, designated as USDC<sub>(BNB)</sub>"
+        },
+        "sui-usdc": {
+          "title": "SUI∙USDC<sub>(ETH)</sub>",
+          "available": "900 points - 12% - when adding liquidity to this pool, make sure you are using USDC bridged from Ethereum Network, designated as USDC<sub>(ETH)</sub>."
+        },
+        "usdcb-usdtb": {
+          "title": "USDC<sub>(BNB)</sub>∙USDT<sub>(BNB)</sub>",
+          "available": "600 points - 8% - when adding liquidity to this pool, make sure you that both USDC and USDT are bridged from Binance Smart Chain, designated as USDC<sub>(BNB)</sub> and USDT<sub>(BNB)</sub> respectively."
+        },
+        "usdc-usdcb": {
+          "title": "USDC<sub>(ETH)</sub>∙USDC<sub>(BNB)</sub>",
+          "available": "600 points - 8% - when adding liquidity to this pool, make sure that one pair of USDC is bridged from Ethereum Network and the other USDC bridged from Binance Smart Chain, designated as USDC<sub>(ETH)</sub> and USDT<sub>(BNB)</sub> respectively."
+        },
+        "sui-dogeb": {
+          "title": "SUI∙DOGE<sub>(BNB)</sub>",
+          "available": "300 points - 4% - when adding liquidity to this pool, make sure that DOGE is bridged from Binance Smart Chain, designated as DOGE<sub>(BNB)</sub>."
+        },
+        "sui-flokib": {
+          "title": "SUI∙FLOKI<sub>(BNB)</sub>",
+          "available": "500 points - 7% - when adding liquidity to this pool, make sure that FLOKI is bridged from Binance Smart Chain, designated as FLOKI<sub>(BNB)</sub>."
         }
       },
       "addLiquidity": "Add liquidity",
       "informations": {
-        "first": "Once you have invested in any of the Liquidity Pools you will start farming aIPX tokens.",
+        "first": "Once you have added liquidity to the pools and deposited the LP tokens in any of the Farms above mentioned you will start farming aIPX tokens.",
         "second": "The airdrop will be given to the address that was deposited while adding the liquidity.",
         "warning": "Additionally, as a liquidity provider, you will earn 0.3% of all trading fees generated by the pool in proportion to your share of the pool."
       }
@@ -72,7 +94,7 @@
       "buttonCard": "Check Formula",
       "sentence": {
         "first": "Please note that you can enter the campaign between",
-        "date": "May 10th, 2023, and June 27th, 2023.",
+        "date": "May 15th, 2023, and July 2th, 2023.",
         "second": "The rewards will be distributed after one week after the campaign ends."
       }
     },

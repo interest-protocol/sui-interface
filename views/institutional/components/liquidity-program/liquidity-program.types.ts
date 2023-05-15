@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { SVGProps } from '@/components/svg/svg.types';
 
 export interface PoolProviderProps {
-  name: 'suiEth' | 'suiUSDC' | 'suiBTC' | 'udscUSDT';
+  name: string;
   Illustration: FC;
 }
 export interface IconWrapperProps {
