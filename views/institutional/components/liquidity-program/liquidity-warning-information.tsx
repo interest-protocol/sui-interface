@@ -17,7 +17,7 @@ const LiquidityWarning: FC = () => {
     >
       <Box display="flex" gap="1rem" alignItems="center" color="#6B21A8">
         <InfoLight width="1.5rem" maxHeight="1.5rem" maxWidth="1.5rem" />
-        <Typography variant="small" width="100%">
+        <Typography variant="small" width="100%" textAlign="left">
           {t('liquidity.liquidity-program.informations.warning')}
         </Typography>
       </Box>
