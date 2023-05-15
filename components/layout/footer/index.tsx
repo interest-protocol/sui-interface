@@ -1,6 +1,7 @@
 import { Network } from '@interest-protocol/sui-sdk';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
@@ -8,9 +9,17 @@ import { Container, SocialMediaCard } from '@/components';
 import { Routes, RoutesEnum, SOCIAL_MEDIAS } from '@/constants';
 import { Box, Button } from '@/elements';
 import { useNetwork } from '@/hooks';
-import { BridgeSVG, DexSVG, EarnSVG, FaucetSVG, GitBookSVG } from '@/svg';
+import {
+  BridgeSVG,
+  DexSVG,
+  EarnSVG,
+  FaucetSVG,
+  GitBookSVG,
+  LiquiditySVG,
+} from '@/svg';
 
 const Footer: FC = () => {
+  const t = useTranslations();
   const { network } = useNetwork();
   const { pathname } = useRouter();
 
@@ -77,7 +86,44 @@ const Footer: FC = () => {
               />
               Dex
             </Button>
-          </Link>
+          </Link>{' '}
+          {network === Network.MAINNET && (
+            <Link href={Routes[RoutesEnum.LiquidityFarms]}>
+              <Button
+                ml="S"
+                px="0.8rem"
+                fontSize="M"
+                display="flex"
+                flexDirection="column"
+                variant="primary"
+                alignItems="center"
+                borderRadius="M"
+                justifyContent="space-between"
+                bg={
+                  pathname.includes(Routes[RoutesEnum.LiquidityFarms])
+                    ? 'accentActive'
+                    : 'transparent'
+                }
+                nHover={{ bg: 'accent', color: 'text' }}
+                nActive={{ bg: 'accentActive', color: 'text' }}
+                color={
+                  pathname.includes(Routes[RoutesEnum.LiquidityFarms])
+                    ? 'textSoft'
+                    : 'text'
+                }
+              >
+                <LiquiditySVG
+                  width="1.1rem"
+                  height="1.1rem"
+                  fill="currentColor"
+                  maxHeight="2.5rem"
+                  maxWidth="auto"
+                  style={{ marginBottom: '8px' }}
+                />
+                {t('common.liquidity')}
+              </Button>
+            </Link>
+          )}
           {network !== Network.MAINNET && (
             <Link href={Routes[RoutesEnum.Farms]}>
               <Button

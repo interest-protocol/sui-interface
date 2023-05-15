@@ -1,4 +1,5 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
@@ -70,27 +71,62 @@ const LiquidityBannerCard: FC<LiquidityBannerCardProps> = ({
         flexDirection={['column', 'row']}
         alignSelf={['center', 'center', 'center', 'end']}
       >
-        <Button
-          bg="black"
-          color="text"
-          width="8rem"
-          variant="filled"
-          py="0.8rem !important"
-          justifyContent="center"
-        >
-          {t(buttons[0].name)}
-        </Button>
-        <Button
-          width="8rem"
-          color="black"
-          borderColor="black"
-          variant="outline"
-          py="0.8rem !important"
-          justifyContent="center"
-        >
-          {t(buttons[1].name)}
-          <PlusSVG maxHeight="1rem" maxWidth="1rem" width="100%" />
-        </Button>
+        {buttons[0].link.startsWith('/') ? (
+          <Link href={buttons[0].link}>
+            <Button
+              bg="black"
+              color="text"
+              width="8rem"
+              variant="filled"
+              py="0.8rem !important"
+              justifyContent="center"
+            >
+              {t(buttons[0].name)}
+            </Button>
+          </Link>
+        ) : (
+          <a href={buttons[0].link} target="_blank" rel="noreferrer">
+            <Button
+              bg="black"
+              color="text"
+              width="8rem"
+              variant="filled"
+              py="0.8rem !important"
+              justifyContent="center"
+            >
+              {t(buttons[0].name)}
+            </Button>
+          </a>
+        )}
+        {buttons[1].link.startsWith('/') ? (
+          <Link href={buttons[1].link}>
+            <Button
+              width="8rem"
+              color="black"
+              borderColor="black"
+              variant="outline"
+              py="0.8rem !important"
+              justifyContent="center"
+            >
+              {t(buttons[1].name)}
+              <PlusSVG maxHeight="1rem" maxWidth="1rem" width="100%" />
+            </Button>
+          </Link>
+        ) : (
+          <a href={buttons[1].link} target="_blank" rel="noreferrer">
+            <Button
+              width="8rem"
+              color="black"
+              borderColor="black"
+              variant="outline"
+              py="0.8rem !important"
+              justifyContent="center"
+            >
+              {t(buttons[1].name)}
+              <PlusSVG maxHeight="1rem" maxWidth="1rem" width="100%" />
+            </Button>
+          </a>
+        )}
       </Box>
     </Box>
   );

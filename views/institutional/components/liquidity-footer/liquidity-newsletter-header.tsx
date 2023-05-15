@@ -12,7 +12,6 @@ const FooterHeader: FC = () => {
       <Title
         as="h2"
         fontWeight="400"
-        textAlign="left"
         mb={['0.5rem', '0.5rem', '0.5rem', '2xl']}
       >
         <Typography
@@ -25,11 +24,10 @@ const FooterHeader: FC = () => {
         </Typography>
       </Title>
       <Typography
-        variant="medium"
         as="span"
-        color="textSoft"
-        textAlign="left"
         mb="5rem"
+        color="textSoft"
+        variant="medium"
         width={['16.625rem', '16.625rem', '16.625rem', 'unset']}
       >
         {t('liquidity.footer.description')}

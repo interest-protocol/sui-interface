@@ -32,43 +32,43 @@
       "description": "Nós alocamos 20 milhões de tokens aIPX entre 10 farms suportados, oferecendo-lhe uma variedade de opções para fornecer liquidez. Os 20 milhões de tokens são representados como 7200 pontos distribuídos nas seguintes fazendas, como segue:",
       "poolProviders": {
         "sui-btcb": {
-          "title": "SUI ∙ BTC<sup>BNB</sup>",
+          "title": "SUI∙BTC<sup>BNB</sup>",
           "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como BTCB<sup>BNB</sup>."
         },
         "sui-ethb": {
-          "title": "SUI ∙ BTC<sup>BNB</sup>",
+          "title": "SUI∙BTC<sup>BNB</sup>",
           "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como ETH<sup>BNB</sup>."
         },
         "sui-eth": {
-          "title": "SUI ∙ ETH<sup>ETH</sup>",
+          "title": "SUI∙ETH<sup>ETH</sup>",
           "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Ethereum Network, designado como ETH<sup>ETH</sup>."
         },
         "sui-bnb": {
-          "title": "SUI ∙ BNB<sup>BNB</sup>",
+          "title": "SUI∙BNB<sup>BNB</sup>",
           "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como ETH<sup>ETH</sup>."
         },
         "sui-usdcb": {
-          "title": "SUI ∙ USDC<sup>BNB</sup>",
+          "title": "SUI∙USDC<sup>BNB</sup>",
           "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas USDC bridged from Binance Smart Chain, designado como USDC<sup>BNB</sup>"
         },
         "sui-usdc": {
-          "title": "SUI ∙ USDC<sup>ETH</sup>",
+          "title": "SUI∙USDC<sup>ETH</sup>",
           "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas USDC bridged from Ethereum Network, designado como USDC<sup>ETH</sup>."
         },
         "usdcb-usdtb": {
-          "title": "USDC<sup>BNB</sup> ∙ USDT<sup>BNB</sup>",
+          "title": "USDC<sup>BNB</sup>∙USDT<sup>BNB</sup>",
           "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas ambos USDC e USDT foram transferidos da Binance Smart Chain, designados como USDC<sup>BNB</sup> e USDT<sup>BNB</sup> respetivamente."
         },
         "usdc-usdcb": {
-          "title": "USDC<sup>ETH</sup> ∙ USDC<sup>BNB</sup>",
+          "title": "USDC<sup>ETH</sup>∙USDC<sup>BNB</sup>",
           "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas one pair of USDC foi transferido da Ethereum Network e o outro USDC transferido da Binance Smart Chain, designados como USDC<sup>ETH</sup> e USDT<sup>BNB</sup> respetivamente."
         },
         "sui-dogeb": {
-          "title": "SUI ∙ DOGE<sup>BNB</sup>",
+          "title": "SUI∙DOGE<sup>BNB</sup>",
           "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas DOGE transferido da Binance Smart Chain, designado como DOGE<sup>BNB</sup>."
         },
         "sui-flokib": {
-          "title": "SUI ∙ FLOKI<sup>BNB</sup>",
+          "title": "SUI∙FLOKI<sup>BNB</sup>",
           "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas FLOKI transferido da Binance Smart Chain, designado como FLOKI<sup>BNB</sup>."
         }
       },

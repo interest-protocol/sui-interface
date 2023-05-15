@@ -1,7 +1,9 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import { Routes, RoutesEnum } from '@/constants';
 import { TTranslatedMessage } from '@/interface';
 import { ArrowLinkSVG } from '@/svg';
 
@@ -9,11 +11,13 @@ import { PoolProviderProps } from './liquidity-program.types';
 
 const PoolProviderCard: FC<PoolProviderProps> = ({
   name,
-  Illustration,
   points,
+  objectId,
   percentage,
+  Illustration,
 }) => {
   const t = useTranslations();
+  const { push } = useRouter();
 
   return (
     <Box
@@ -106,7 +110,18 @@ const PoolProviderCard: FC<PoolProviderProps> = ({
           </Typography>
         </Box>
       </Box>
-      <Button variant="filled" bg="primary" width="max-content" margin="xl">
+      <Button
+        variant="filled"
+        bg="primary"
+        width="max-content"
+        margin="xl"
+        onClick={() =>
+          push({
+            pathname: Routes[RoutesEnum.DEXPoolDetails],
+            query: { objectId },
+          })
+        }
+      >
         {t('liquidity.liquidity-program.addLiquidity')}
       </Button>
     </Box>

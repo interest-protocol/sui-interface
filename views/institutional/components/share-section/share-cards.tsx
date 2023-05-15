@@ -60,23 +60,29 @@ const ShareCard: FC<ShareProps> = ({
         <Typography variant="medium" opacity=".7" color="textSoft" my="1rem">
           {t(description)}
         </Typography>
-        <Button
-          variant="text"
-          width="max-content"
-          fontWeight="400"
-          PrefixIcon={
-            <Box width="1.25rem" height="1.25rem" color="textSoft">
-              <ArrowRightSVG
-                maxHeight="1.25rem"
-                maxWidth="1.25rem"
-                width="100%"
-                height="100%"
-              />
-            </Box>
-          }
+        <a
+          href="https://medium.com/@interestprotocol/interest-protocol-liquidity-program-e704f58e3e04"
+          target="_blank"
+          rel="noreferrer"
         >
-          {t('liquidity.share.buttonCard')}
-        </Button>
+          <Button
+            variant="text"
+            width="max-content"
+            fontWeight="400"
+            PrefixIcon={
+              <Box width="1.25rem" height="1.25rem" color="textSoft">
+                <ArrowRightSVG
+                  maxHeight="1.25rem"
+                  maxWidth="1.25rem"
+                  width="100%"
+                  height="100%"
+                />
+              </Box>
+            }
+          >
+            {t('liquidity.share.buttonCard')}
+          </Button>
+        </a>
       </Box>
     </Box>
   );

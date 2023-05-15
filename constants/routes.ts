@@ -14,6 +14,8 @@ export enum RoutesEnum {
   Bridge = 'bridge',
   Faucet = 'faucet',
   LiquidityCampaign = 'liquidity-campaign',
+  LiquidityFarms = 'liquidity-farms',
+  LiquidityFarmsDetails = 'liquidity-farms-details',
 }
 
 /**
@@ -32,4 +34,6 @@ export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.Faucet]: '/dapp/faucet',
   [RoutesEnum.LiquidityCampaign]: '/campaign/liquidity',
   [RoutesEnum.Bridge]: 'https://www.portalbridge.com/sui/',
+  [RoutesEnum.LiquidityFarms]: '/dapp/liquidity',
+  [RoutesEnum.LiquidityFarmsDetails]: '/dapp/liquidity/details',
 };
