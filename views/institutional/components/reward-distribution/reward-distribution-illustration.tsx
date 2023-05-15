@@ -112,12 +112,7 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
 );
 
 const RewardDistributionIllustration: FC = () => (
-  <Motion
-    height="23rem"
-    borderRadius="m"
-    // whileHover="hover"
-    position="relative"
-  >
+  <Motion height="23rem" borderRadius="m" position="relative">
     <RewardDistributionIconWrapper
       top={['15%', '13%', '13%', '13%']}
       left={['42%', '42%', '42%', '42%']}

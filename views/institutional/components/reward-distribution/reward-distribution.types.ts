@@ -5,11 +5,11 @@ import { TTranslatedMessage } from '@/interface';
 
 export interface RewardDistributionIconWrapperProps {
   size: string;
-  top?: string;
-  left?: string;
-  right?: string;
+  top?: string | Array<string>;
+  left?: string | Array<string>;
+  right?: string | Array<string>;
   chock?: boolean;
-  bottom?: string;
+  bottom?: string | Array<string>;
   shadow?: boolean;
   floating?: boolean;
   shinning?: boolean;
