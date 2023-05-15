@@ -35,7 +35,7 @@ export const LIQUIDITY_BANNER_DATA: ReadonlyArray<LiquidityBannerCardProps> = [
     ),
     buttons: [
       {
-        link: Routes[RoutesEnum.DEX],
+        link: Routes[RoutesEnum.LiquidityCampaign],
         name: 'common.v2.banner.liquidity.buttons.main' as TTranslatedMessage,
       },
       {
@@ -51,7 +51,7 @@ export const LIQUIDITY_BANNER_DATA: ReadonlyArray<LiquidityBannerCardProps> = [
     description: 'common.v2.banner.swap.description' as TTranslatedMessage,
     buttons: [
       {
-        link: Routes[RoutesEnum.LiquidityCampaign],
+        link: Routes[RoutesEnum.DEX],
         name: 'common.v2.banner.swap.buttons.main' as TTranslatedMessage,
       },
       {
