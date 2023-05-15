@@ -3,7 +3,7 @@ import { isEmpty } from 'ramda';
 import { FC, useCallback } from 'react';
 
 import { Container } from '@/components';
-import { COIN_PRICES } from '@/constants/farms.constants';
+import { COIN_PRICES } from '@/constants/liquidity-farms.constants';
 import { Box, InfiniteScroll, Typography } from '@/elements';
 import { useGetCoinsPrices, useNetwork, useWeb3 } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';

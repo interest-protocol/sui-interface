@@ -8,7 +8,6 @@ import { Container } from '@/components';
 import { COINS, RoutesEnum } from '@/constants';
 import {
   useGetCoinsPrices,
-  useGetIPXStorage,
   useGetMultiGetObjects,
   useNetwork,
   useWeb3,
@@ -20,6 +19,7 @@ import { Details, FarmOptions } from './components';
 import { useGetFarm, useGetPendingRewards } from './farm-details.hook';
 import { FarmDetailsProps } from './farm-details.types';
 import { parseError, parseFarmData } from './farm-details.utils';
+import { useGetIPXStorage } from './liquidity-farms-details.hooks';
 
 const FarmDetails: FC<FarmDetailsProps> = ({
   farmMetadata,

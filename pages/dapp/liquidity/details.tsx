@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
 import { StakeState } from '@/constants';
-import { FARMS_RECORD } from '@/constants/farms.constants';
+import { FARMS_RECORD } from '@/constants/liquidity-farms.constants';
 import { ModalProvider } from '@/context/modal';
 import { Box, Typography } from '@/elements';
 import { withTypeGuard } from '@/HOC';

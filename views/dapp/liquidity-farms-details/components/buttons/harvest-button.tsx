@@ -5,7 +5,7 @@ import { propOr } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import { OBJECT_RECORD } from '@/constants/farms.constants';
+import { OBJECT_RECORD } from '@/constants/liquidity-farms.constants';
 import Button from '@/elements/button';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { capitalize, showToast, showTXSuccessToast } from '@/utils';

@@ -5,7 +5,7 @@ import { AddressZero } from 'lib';
 import useSWR, { SWRConfiguration } from 'swr';
 
 import { FarmMetadataType } from '@/constants';
-import { OBJECT_RECORD } from '@/constants/farms.constants';
+import { OBJECT_RECORD } from '@/constants/liquidity-farms.constants';
 import { useNetwork, useProvider } from '@/hooks';
 import { Farm } from '@/interface';
 import {

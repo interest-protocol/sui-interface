@@ -2,11 +2,11 @@ import { bcs, SuiObjectResponse, TransactionBlock } from '@mysten/sui.js';
 import { AddressZero } from 'lib';
 import useSWR, { SWRConfiguration } from 'swr';
 
-import { OBJECT_RECORD } from '@/constants/farms.constants';
+import { OBJECT_RECORD } from '@/constants/liquidity-farms.constants';
 import {
   FARM_IDS_RECORD_FIRST_CALL,
   POOL_IDS_RECORD,
-} from '@/constants/farms.constants';
+} from '@/constants/liquidity-farms.constants';
 import {
   parseIPXAndMasterChefStorage,
   useGetMultiGetObjects,

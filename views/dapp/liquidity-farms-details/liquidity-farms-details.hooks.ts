@@ -1,12 +1,10 @@
-import { OBJECT_RECORD } from '@interest-protocol/sui-sdk';
 import { SuiObjectResponse } from '@mysten/sui.js';
 import { pathOr } from 'ramda';
 import useSWR from 'swr';
 
+import { OBJECT_RECORD } from '@/constants/liquidity-farms.constants';
+import { useNetwork, useProvider } from '@/hooks';
 import { makeSWRKey } from '@/utils';
-
-import { useNetwork } from '../use-network';
-import { useProvider } from '../use-provider';
 
 const DEFAULT_IPX_STORAGE = {
   ipxSupply: '0',
@@ -53,10 +51,10 @@ export const useGetIPXStorage = () => {
   const objects = OBJECT_RECORD[network];
 
   const { data, ...rest } = useSWR(
-    makeSWRKey([objects.IPX_PACKAGE_ID], 'useGetIPXStorage'),
+    makeSWRKey([objects.AIPX_STORAGE], 'useGetIPXStorage'),
     async () =>
       provider.multiGetObjects({
-        ids: [objects.IPX_STORAGE, objects.DEX_MASTER_CHEF_STORAGE],
+        ids: [objects.AIPX_STORAGE, objects.AMASTER_CHEF_STORAGE],
         options: { showContent: true },
       }),
     {

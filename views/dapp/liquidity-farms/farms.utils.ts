@@ -4,7 +4,10 @@ import { TOKEN_SYMBOL } from 'lib';
 import { always, cond, equals, ifElse, isEmpty, not, o, prop, T } from 'ramda';
 
 import { COIN_TYPE_TO_SYMBOL } from '@/constants';
-import { COIN_TYPE_ARRAY_UI, FARMS_RECORD } from '@/constants/farms.constants';
+import {
+  COIN_TYPE_ARRAY_UI,
+  FARMS_RECORD,
+} from '@/constants/liquidity-farms.constants';
 import { calculateAPR, calculateTVL, ZERO_BIG_NUMBER } from '@/utils';
 
 import { FARMS_TOKENS_SVG_MAP } from './farms.data';
@@ -133,7 +136,7 @@ export const parseFarmData = ({
 }: ParseFarmDataArgs): SafeFarmData => {
   // First farm IPX has no pool
   const farm = farms[index];
-  const pool = index > 0 ? pools[index - 1] : pools[index];
+  const pool = pools[index];
   const farmMetadata = FARMS_RECORD[network][type];
 
   const tvl = calculateTVL({
