@@ -12,7 +12,7 @@
     "firstThingFirst": {
       "title": "Como transferir activos de outras chains para a rede Sui",
       "subtitle": "primeiro o mais importante",
-      "description": "Se os seus activos estão noutras chains, precisa de transferi-los para a Sui Blockchain.; isto pode ser feito utilizando duas opções, Celer e Wormhole.",
+      "description": "Antes de começar a ganhar recompensas IPX, vamos primeiro explorar como você pode conectar seus ativos de outras cadeias como Ethereum à Rede Sui. Isso pode ser feito em nossa ponte Dapp, que é alimentada por <link>Wormhole</link>",
       "buttonAssets": "activos de pontes",
       "buttonTutorial": "tutorial de pontes"
     },

@@ -12,7 +12,7 @@
     "firstThingFirst": {
       "title": "How to Bridge Assets From other Chains to Sui Network",
       "subtitle": "First things First",
-      "description": "If your assets are on other chains you need to bridge them to the Sui Network; this can be done using two options, Celer and Wormhole.",
+      "description": "Before you start earning IPX rewards, let’s first explore how you can bridge your assets from other chains like Ethereum to the Sui Network. This can on our Dapp bridge which is powered by <link>Wormhole</link>.",
       "buttonAssets": "bridge assets",
       "buttonTutorial": "bridge tutorial"
     },
