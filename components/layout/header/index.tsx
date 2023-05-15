@@ -101,6 +101,32 @@ const Header: FC = () => {
               DEX
             </Typography>
           </Link>
+          {network === Network.MAINNET && (
+            <Box
+              alignItems="center"
+              justifyContent="center"
+              display={['none', 'none', 'flex']}
+            >
+              <Link href={Routes[RoutesEnum.LiquidityFarms]}>
+                <Typography
+                  px="XL"
+                  cursor="pointer"
+                  variant="normal"
+                  borderRight="1px solid"
+                  textTransform="uppercase"
+                  borderColor="bottomBackground"
+                  color={
+                    pathname.includes(Routes[RoutesEnum.LiquidityFarms])
+                      ? 'accent'
+                      : 'inherit'
+                  }
+                  nHover={{ color: 'accentActive' }}
+                >
+                  {t('common.liquidity')}
+                </Typography>
+              </Link>
+            </Box>
+          )}
           {network !== Network.MAINNET && (
             <Link href={Routes[RoutesEnum.Farms]}>
               <Typography

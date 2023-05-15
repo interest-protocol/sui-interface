@@ -49,8 +49,8 @@ export const PARTNER_LIST = [
     link: 'https://link3.to/suiwhale',
   },
   {
-    name: 'SUIS',
-    link: 'https://suistart.com/',
+    name: 'UMI',
+    link: 'https://umi.ag/swap',
   },
   {
     name: 'MISES BROWSER',
