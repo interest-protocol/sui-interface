@@ -91,7 +91,7 @@ const PoolProviderCard: FC<PoolProviderProps> = ({
             {percentage}%
           </Typography>
         </Box>
-        <Box height={['14rem', '5rem', '12rem', '9rem']}>
+        <Box height={['13rem', '7rem', '15rem', '12rem']}>
           <Typography variant="medium" opacity=".7">
             {t.rich(
               `liquidity.liquidity-program.poolProviders.${name}.available` as TTranslatedMessage,
