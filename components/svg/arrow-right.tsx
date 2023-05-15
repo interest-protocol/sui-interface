@@ -11,14 +11,14 @@ const ArrowRight: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   >
     <path
       d="M3.125 10L15.9375 10"
-      stroke="white"
+      stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="square"
       strokeLinejoin="round"
     />
     <path
       d="M11.25 4.375L16.875 10L11.25 15.625"
-      stroke="white"
+      stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="square"
       strokeLinejoin="bevel"

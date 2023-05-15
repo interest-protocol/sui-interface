@@ -6,6 +6,26 @@
         "en-US": "English",
         "pt-PT": "Portuguese",
         "pt-BR": "Portuguese"
+      },
+      "banner": {
+        "liquidity": {
+          "title": "20 Million IPX Tokens",
+          "label": "For grabs",
+          "description": "Provide Liquidity to farm the IPX tokens",
+          "buttons": { "main": "Go to AirDrop", "secondary": "Learn More" }
+        },
+        "zealy": {
+          "title": "3 Million IPX Tokens",
+          "label": "For grabs",
+          "description": "Complete quests to get Airdrop",
+          "buttons": { "main": "Go to Zealy", "secondary": "Learn More" }
+        },
+        "swap": {
+          "title": "5 Million IPX Tokens",
+          "label": "For grabs",
+          "description": "Swap to get Airdrop",
+          "buttons": { "main": "Swap Now", "secondary": "Learn More" }
+        }
       }
     },
     "dex": "dex",
@@ -80,7 +100,7 @@
     "copyObjectNumber": "copy objectId",
     "followUs": "FOLLOW US",
     "coin": "coin",
-    "bannerHeader": "This is an alpha product deployed on a Devnet. It might be down because of version updates or unexpected issues."
+    "bannerHeader": "Airdrop: 28M IPX tokens up for grabs!"
   },
   "error": {
     "generic": "something went wrong",

@@ -22,11 +22,30 @@ const HeroCallToAction: FC = () => {
       >
         {t('landingPage.hero.description')}
       </Typography>
-      <Link href={Routes[RoutesEnum.DEX]}>
-        <Button my="4xl" variant="filled">
-          {t('landingPage.hero.button')}
-        </Button>
-      </Link>
+      <Box
+        gap="s"
+        my="4xl"
+        display="flex"
+        width="min-content"
+        alignItems="center"
+        flexDirection="column"
+      >
+        <Link href={Routes[RoutesEnum.DEX]}>
+          <Button variant="filled" justifyContent="center" whiteSpace="nowrap">
+            {t('landingPage.hero.dappCTA')}
+          </Button>
+        </Link>
+        <Link href={Routes[RoutesEnum.LiquidityCampaign]}>
+          <Button
+            variant="text"
+            justifyContent="center"
+            whiteSpace="nowrap"
+            textAlign="center"
+          >
+            {t('landingPage.hero.campaignCTA')}
+          </Button>
+        </Link>
+      </Box>
     </Box>
   );
 };

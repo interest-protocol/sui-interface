@@ -4,9 +4,10 @@ import { FC } from 'react';
 
 import { LogoSVG } from '@/svg';
 
+import { LayoutProps } from '../layout.types';
 import SwitchLangButton from './switch-lang-button';
 
-const Header: FC = () => {
+const Header: FC<LayoutProps> = ({ noContent }) => {
   const { colors } = useTheme() as Theme;
 
   return (
@@ -21,16 +22,18 @@ const Header: FC = () => {
             fill={colors.primary}
           />
         </Link>
-        <Box
-          color="text"
-          display="flex"
-          position="relative"
-          alignItems="flex-end"
-          flexDirection="column"
-          gridColumn={['2/5', '2/9', '2/13']}
-        >
-          <SwitchLangButton />
-        </Box>
+        {!noContent && (
+          <Box
+            color="text"
+            display="flex"
+            position="relative"
+            alignItems="flex-end"
+            flexDirection="column"
+            gridColumn={['2/5', '2/9', '2/13']}
+          >
+            <SwitchLangButton />
+          </Box>
+        )}
       </Box>
     </Box>
   );

@@ -13,6 +13,7 @@ export enum RoutesEnum {
   DEXPoolDetails = 'dex-pool-details',
   Bridge = 'bridge',
   Faucet = 'faucet',
+  LiquidityCampaign = 'liquidity-campaign',
   LiquidityFarms = 'liquidity-farms',
   LiquidityFarmsDetails = 'liquidity-farms-details',
 }
@@ -31,6 +32,7 @@ export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.DEXFindPool]: '/dapp/dex/pool/find',
   [RoutesEnum.DEXPoolDetails]: '/dapp/dex/pool/details',
   [RoutesEnum.Faucet]: '/dapp/faucet',
+  [RoutesEnum.LiquidityCampaign]: '/campaign/liquidity',
   [RoutesEnum.Bridge]: 'https://www.portalbridge.com/sui/',
   [RoutesEnum.LiquidityFarms]: '/dapp/liquidity',
   [RoutesEnum.LiquidityFarmsDetails]: '/dapp/liquidity/details',

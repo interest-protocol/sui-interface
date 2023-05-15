@@ -1,0 +1,138 @@
+{
+  "liquidity": {
+    "metadata": {
+      "title": "Liquidity Program"
+    },
+    "hero": {
+      "title": "Programa de Liquidez da Interest Protocol",
+      "title2": "Agarre uma parte de 28M Tokens",
+      "paragraph": "Temos o prazer de apresentar o Programa de Liquidez da Interest Protocol, o primeiro do género no ecossistema Sui. Este programa foi concebido para incentivar os indivíduos que contribuem para o crescimento e estabilidade da nossa plataforma, permitindo-lhes ganhar um rendimento extra com as suas participações em criptomoedas. Os participantes podem obter uma parte de 28M tokens IPX que são distribuídos em 3 tipos diferentes de atividades nas quais você pode participar: Fornecer Liquidez e Fazenda, Trocar Ativos e completar as atividades sociais da Zealy.",
+      "button": "Saiba como"
+    },
+    "firstThingFirst": {
+      "title": "Como transferir activos de outras chains para a rede Sui",
+      "subtitle": "primeiro o mais importante",
+      "description": "Se os seus activos estão noutras chains, precisa de transferi-los para a Sui Blockchain.; isto pode ser feito utilizando duas opções, Celer e Wormhole.",
+      "buttonAssets": "activos de pontes",
+      "buttonTutorial": "tutorial de pontes"
+    },
+    "then": {
+      "title": "Em seguida...",
+      "description": "Para participar no Programa de Recompensas de Liquidez, siga estes passos:",
+      "step": "passo {value, number}...",
+      "steps": {
+        "1": "Se está a ler isto, completou o primeiro passo! Parabéns por ter chegado ao nosso Centro do Programa de Liquidez. Está um passo mais perto de começar a ganhar!",
+        "2": "Fornece liquidez aos nossos pools de liquidez para adquirir tokens LP. Quanto mais fornecer, maior será a recompensa!",
+        "3": "Deposite seus Tokens LP em nossas Farms para começar a cultivar Tokens aIPX (Airdrop Interest Protocol Tokens)",
+        "4": "Trocar um token IPX por IPX 1:1 após TGE."
+      }
+    },
+    "liquidity-program": {
+      "title": "PROGRAMA DE LIQUIDEZ",
+      "description": "Nós alocamos 20 milhões de tokens aIPX entre 10 farms suportados, oferecendo-lhe uma variedade de opções para fornecer liquidez. Os 20 milhões de tokens são representados como 7200 pontos distribuídos nas seguintes fazendas, como segue:",
+      "poolProviders": {
+        "sui-btcb": {
+          "title": "SUI∙BTC<sup>BNB</sup>",
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como BTCB<sup>BNB</sup>."
+        },
+        "sui-ethb": {
+          "title": "SUI∙BTC<sup>BNB</sup>",
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como ETH<sup>BNB</sup>."
+        },
+        "sui-eth": {
+          "title": "SUI∙ETH<sup>ETH</sup>",
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Ethereum Network, designado como ETH<sup>ETH</sup>."
+        },
+        "sui-bnb": {
+          "title": "SUI∙BNB<sup>BNB</sup>",
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como ETH<sup>ETH</sup>."
+        },
+        "sui-usdcb": {
+          "title": "SUI∙USDC<sup>BNB</sup>",
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas USDC bridged from Binance Smart Chain, designado como USDC<sup>BNB</sup>"
+        },
+        "sui-usdc": {
+          "title": "SUI∙USDC<sup>ETH</sup>",
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas USDC bridged from Ethereum Network, designado como USDC<sup>ETH</sup>."
+        },
+        "usdcb-usdtb": {
+          "title": "USDC<sup>BNB</sup>∙USDT<sup>BNB</sup>",
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas ambos USDC e USDT foram transferidos da Binance Smart Chain, designados como USDC<sup>BNB</sup> e USDT<sup>BNB</sup> respetivamente."
+        },
+        "usdc-usdcb": {
+          "title": "USDC<sup>ETH</sup>∙USDC<sup>BNB</sup>",
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas one pair of USDC foi transferido da Ethereum Network e o outro USDC transferido da Binance Smart Chain, designados como USDC<sup>ETH</sup> e USDT<sup>BNB</sup> respetivamente."
+        },
+        "sui-dogeb": {
+          "title": "SUI∙DOGE<sup>BNB</sup>",
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas DOGE transferido da Binance Smart Chain, designado como DOGE<sup>BNB</sup>."
+        },
+        "sui-flokib": {
+          "title": "SUI∙FLOKI<sup>BNB</sup>",
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas FLOKI transferido da Binance Smart Chain, designado como FLOKI<sup>BNB</sup>."
+        }
+      },
+      "addLiquidity": "Adicionar liquidez",
+      "informations": {
+        "first": "Depois de ter adicionado liquidez aos pools e depositado os tokens LP em qualquer uma das Quintas acima mencionadas, começará a cultivar tokens aIPX.",
+        "second": "O airdrop será enviado para o endereço no qual depositou enquanto adicionava a liquidez.",
+        "warning": "Além disso, como provedor de liquidez, você ganhará 0,3% de todas as taxas de negociação geradas pela pool, proporcionalmente à sua participação na pool."
+      }
+    },
+    "share": {
+      "title": "Obter uma quota",
+      "card1": {
+        "title": "5M IPX Tokens",
+        "subtitle": "para troca no nosso DApp",
+        "description": "Sempre que trocar tokens, também se qualifica para obter uma parte de um conjunto de 5 milhões de tokens. Quanto mais trocas fizer, maiores serão as suas hipóteses de obter uma melhor recompensa."
+      },
+      "card2": {
+        "title": "3M IPX Tokens",
+        "subtitle": "para participar no nosso <link>Zealy</link>",
+        "description": "Se completar qualquer actividade do Zealy, acumula XP e, a partir daí, fica habilitado a receber uma parte dos Tokens IPX 3M. Quanto mais XP obtiver, maiores são as suas hipóteses de obter uma recompensa melhor."
+      },
+      "buttonCard": "Verificar fórmula",
+      "sentence": {
+        "first": "A campanha pode ser participada entre ",
+        "date": "15 de Maio de 2023 e 2 de Julho de 2023.",
+        "second": "Os prémios serão distribuídos uma semana após o fim da campanha."
+      }
+    },
+    "rewardDistribution": {
+      "title": "Distribuição de recompensas",
+      "distributionList": {
+        "option1": "As recompensas serão atribuídas aos endereços das carteiras que utilizou para fornecer liquidez e fazer swaps.",
+        "option2": "Os vencedores do prémio Zealy terão de fornecer as suas carteiras no final da campanha"
+      },
+      "simplicity": {
+        "title": "SIMPLES E FÁCIL",
+        "description": "Fácil de participar, tanto para especialistas como para principiantes"
+      },
+      "security": {
+        "title": "SEGURANÇA",
+        "description": "Activos armazenados de forma segura. Auditado por <link>MoveBit</link>"
+      },
+      "support": {
+        "title": "APOIO RÁPIDO",
+        "description": "Estamos disponíveis 24 horas por dia, 7 dias por semana, para responder às suas questões"
+      },
+      "reward": {
+        "title": "RECOMPENSA MÁXIMA",
+        "description": "Entre os melhores prémios da indústria"
+      }
+    },
+    "newsletter": {
+      "title": "Esteja actualizado",
+      "description": "Se tiver alguma dúvida ou preocupação, não hesite em contactar-nos. Estamos ansiosos por o ver aderir ao nosso Programa de Recompensas de Liquidez!",
+      "placeholder": "seu-email@gmail.com",
+      "button": "{isLoading, plural, =1 {Enviando...} other {Enviar}}",
+      "errors": {
+        "1008": "Email já adicionado"
+      }
+    },
+    "footer": {
+      "title": "Siga-nos",
+      "description": "Fique atento às nossas últimas actualizações e anúncios. Siga-nos nas redes sociais."
+    }
+  }
+}

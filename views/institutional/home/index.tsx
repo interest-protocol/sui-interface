@@ -12,7 +12,7 @@ import {
   ValueProposition,
 } from '../components';
 
-const Home: FC = () => (
+const HomeView: FC = () => (
   <Layout>
     <Hero />
     <AboutUs />
@@ -25,4 +25,4 @@ const Home: FC = () => (
   </Layout>
 );
 
-export default Home;
+export default HomeView;
