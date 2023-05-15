@@ -12,8 +12,10 @@ export interface RewardDistributionIconWrapperProps {
   bottom?: string;
   shadow?: boolean;
   floating?: boolean;
+  shinning?: boolean;
   Icon: FC<SVGProps>;
   to?: [number, number];
+  floatingStar?: boolean;
 }
 
 export interface BenefitsCardProps {
