@@ -19,12 +19,7 @@ export const COIN_PRICES = {
     COINS[Network.TESTNET].USDC.type,
     COINS[Network.TESTNET].SUI.type,
   ],
-  [Network.MAINNET]: [
-    COINS[Network.MAINNET].WORMHOLE_ETH.type,
-    COINS[Network.MAINNET].WORMHOLE_USDC.type,
-    COINS[Network.MAINNET].WORMHOLE_USDT.type,
-    COINS[Network.MAINNET].SUI.type,
-  ],
+  [Network.MAINNET]: [],
 };
 
 // The order has to remain the same
