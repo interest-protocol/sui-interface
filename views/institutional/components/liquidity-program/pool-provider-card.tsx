@@ -91,18 +91,20 @@ const PoolProviderCard: FC<PoolProviderProps> = ({
             {percentage}%
           </Typography>
         </Box>
-        <Typography variant="medium" opacity=".7">
-          {t.rich(
-            `liquidity.liquidity-program.poolProviders.${name}.available` as TTranslatedMessage,
-            {
-              sup: (chunks) => (
-                <Typography as="sub" variant="extraSmall">
-                  ({chunks})
-                </Typography>
-              ),
-            }
-          )}
-        </Typography>
+        <Box height={['13rem', '7rem', '15rem', '12rem']}>
+          <Typography variant="medium" opacity=".7">
+            {t.rich(
+              `liquidity.liquidity-program.poolProviders.${name}.available` as TTranslatedMessage,
+              {
+                sup: (chunks) => (
+                  <Typography as="sub" variant="extraSmall">
+                    ({chunks})
+                  </Typography>
+                ),
+              }
+            )}
+          </Typography>
+        </Box>
       </Box>
       <Button variant="filled" bg="primary" width="max-content" margin="xl">
         {t('liquidity.liquidity-program.addLiquidity')}
