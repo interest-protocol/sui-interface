@@ -4,10 +4,12 @@ import { FC } from 'react';
 
 import {
   AdvantagesTiltedCoin,
-  ValuePropositionBallShadow,
-  ValuePropositionCubeClose,
-  ValuePropositionCubeOpen,
+  RewardDistributionCoinShadow,
+  RewardDistributionCube,
+  RewardDistributionCubeWithbigShadow,
+  RewardDistributionCubeWithFrontShadow,
 } from '../svg';
+import Star from '../svg/star';
 import { RewardDistributionIconWrapperProps } from './reward-distribution.types';
 
 const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
@@ -16,17 +18,19 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
   Icon,
   chock,
   shadow,
+  shinning,
   floating,
+  floatingStar,
   ...props
 }) => (
   <Motion width={size} height={size} position="absolute" {...props}>
     {shadow && (
       <Motion
-        left="18%"
-        bottom={['-80%', '-80%', '-80%', '-130%']}
+        left="50%"
+        bottom={['-71%', '-93%', '-100%', '-120%']}
         position="absolute"
         animate={{
-          scale: 0.8,
+          scale: 0.9,
         }}
         transition={{
           delay: 0.5,
@@ -35,9 +39,9 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
           repeat: Infinity,
           repeatType: 'reverse',
         }}
-        width={['70%', '70%', '70%', '75%']}
+        width={['90%', '90%', '100%', '90%']}
       >
-        <ValuePropositionBallShadow
+        <RewardDistributionCoinShadow
           width="100%"
           maxWidth="100%"
           maxHeight="100%"
@@ -59,7 +63,7 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
       })}
       {...(floating && {
         animate: {
-          translateY: -7,
+          translateY: -23,
         },
         transition: {
           delay: 0.5,
@@ -67,6 +71,25 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
           ease: easeInOut,
           repeat: Infinity,
           repeatType: 'reverse',
+        },
+      })}
+      {...(floatingStar && {
+        ...(shinning && {
+          filter: 'drop-shadow(0 0 0rem #fff)',
+        }),
+        animate: {
+          translateY: -7,
+          ...(shinning && {
+            filter:
+              'hue-rotate(360deg) brightness(1.5) drop-shadow(0 0 .2rem #fff)',
+          }),
+        },
+        transition: {
+          ease: easeInOut,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          delay: Math.random() * 1 + 0.2,
+          duration: Math.random() * (shinning ? 2 : 1) + (shinning ? 1 : 0.5),
         },
       })}
       {...(chock && {
@@ -89,82 +112,104 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
 );
 
 const RewardDistributionIllustration: FC = () => (
-  <Motion
-    height="23rem"
-    borderRadius="m"
-    whileHover="hover"
-    position="relative"
-  >
+  <Motion height="23rem" borderRadius="m" position="relative">
     <RewardDistributionIconWrapper
-      top="15%"
-      left="40%"
+      top={['15%', '13%', '13%', '13%']}
+      left={['42%', '42%', '42%', '42%']}
       size="20%"
       to={[-100, 0]}
-      Icon={ValuePropositionCubeClose}
+      Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
-      top="27%"
-      left="28%"
+      top={['27%', '26%', '26%', '26%']}
+      left={['29%', '29%', '29%', '29%']}
       size="20%"
       to={[-50, 50]}
-      Icon={ValuePropositionCubeClose}
+      Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
-      top="27%"
-      left="52%"
+      top={['29%', '25%', '25%', '25%']}
+      left={['54%', '54%', '54%', '54%']}
       size="20%"
       to={[-50, -50]}
-      Icon={ValuePropositionCubeClose}
+      Icon={RewardDistributionCubeWithbigShadow}
     />
     <RewardDistributionIconWrapper
       chock
-      top="39%"
-      left="40%"
+      top={['39%', '38%', '38%', '38%']}
+      left={['41%', '41%', '41%', '41%']}
       size="20%"
-      Icon={ValuePropositionCubeClose}
+      Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
       size="20%"
-      top="39%"
-      left="16%"
+      top={['40%', '39%', '39%', '39%']}
+      left={['16%', '16%', '16%', '16%']}
       to={[0, 100]}
-      Icon={ValuePropositionCubeOpen}
+      Icon={RewardDistributionCube}
     />
     <RewardDistributionIconWrapper
       size="20%"
-      top="39%"
-      left="64%"
+      top={['38%', '37%', '37%', '37%']}
+      left={['66%', '66%', '66%', '66%']}
       to={[0, -100]}
-      Icon={ValuePropositionCubeOpen}
+      Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
-      top="49%"
-      left="28%"
+      top={['51%', '51%', '51%', '51%']}
+      left={['28%', '28%', '28%', '28%']}
       size="20%"
       to={[50, 60]}
-      Icon={ValuePropositionCubeClose}
+      Icon={RewardDistributionCube}
     />
     <RewardDistributionIconWrapper
       size="20%"
-      top="49%"
-      left="52%"
+      top={['51%', '50%', '50%', '50%']}
+      left="53%"
       to={[50, -50]}
-      Icon={ValuePropositionCubeOpen}
+      Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
       top="63%"
       left="40%"
       size="20%"
       to={[100, 0]}
-      Icon={ValuePropositionCubeClose}
+      Icon={RewardDistributionCube}
     />
     <RewardDistributionIconWrapper
       shadow
       floating
-      top="19%"
-      size="17%"
-      left="40.5%"
+      top={['15%', '10%', '10%', '9%']}
+      size="20%"
+      left="38%"
       Icon={AdvantagesTiltedCoin}
+    />
+    <RewardDistributionIconWrapper
+      top="9%"
+      floatingStar
+      shinning
+      left="32%"
+      size="5%"
+      to={[100, 0]}
+      Icon={Star}
+    />
+    <RewardDistributionIconWrapper
+      top="17%"
+      floatingStar
+      shinning
+      left="65%"
+      size="3%"
+      to={[100, 0]}
+      Icon={Star}
+    />
+    <RewardDistributionIconWrapper
+      top="9%"
+      floatingStar
+      shinning
+      left="60%"
+      size="1.5%"
+      to={[100, 0]}
+      Icon={Star}
     />
   </Motion>
 );
