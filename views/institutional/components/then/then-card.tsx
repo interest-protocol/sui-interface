@@ -36,7 +36,6 @@ const ThenCard: FC<ThenCardProps> = ({
   const [desktop, setDesktop] = useState(false);
 
   const handleSetDesktop = useCallback(() => {
-    console.log('>>>>1');
     const mediaIsDesktop = window.matchMedia('(min-width: 64em)').matches;
     setDesktop(mediaIsDesktop);
   }, []);
@@ -116,7 +115,7 @@ const ThenCard: FC<ThenCardProps> = ({
           >
             <Typography
               variant="extraSmall"
-              fontSize="0.75rem"
+              fontSize="1.5rem"
               lineHeight="0.75rem"
               fontFamily="Share Tech Mono"
               color="#002A78"
