@@ -33,43 +33,43 @@
       "poolProviders": {
         "sui-btcb": {
           "title": "SUI∙BTC<sub>(BNB)</sub>",
-          "available": "600 points - 8% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como BTCB<sub>(BNB)</sub>."
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como BTCB<sub>(BNB)</sub>."
         },
         "sui-ethb": {
           "title": "SUI∙BTC<sub>(BNB)</sub>",
-          "available": "1000 points - 14% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como ETH<sub>(BNB)</sub>."
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como ETH<sub>(BNB)</sub>."
         },
         "sui-eth": {
           "title": "SUI∙ETH<sub>(ETH)</sub>",
-          "available": "1000 points - 14% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Ethereum Network, designado como ETH<sub>(ETH)</sub>."
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Ethereum Network, designado como ETH<sub>(ETH)</sub>."
         },
         "sui-bnb": {
           "title": "SUI∙BNB<sub>(BNB)</sub>",
-          "available": "800 points - 11% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como ETH<sub>(ETH)</sub>."
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como ETH<sub>(ETH)</sub>."
         },
         "sui-usdcb": {
           "title": "SUI∙USDC<sub>(BNB)</sub>",
-          "available": "900 points - 13% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas USDC bridged from Binance Smart Chain, designado como USDC<sub>(BNB)</sub>"
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas USDC bridged from Binance Smart Chain, designado como USDC<sub>(BNB)</sub>"
         },
         "sui-usdc": {
           "title": "SUI∙USDC<sub>(ETH)</sub>",
-          "available": "900 points - 12% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas USDC bridged from Ethereum Network, designado como USDC<sub>(ETH)</sub>."
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas USDC bridged from Ethereum Network, designado como USDC<sub>(ETH)</sub>."
         },
         "usdcb-usdtb": {
           "title": "USDC<sub>(BNB)</sub>∙USDT<sub>(BNB)</sub>",
-          "available": "600 points - 8% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas ambos USDC e USDT foram transferidos da Binance Smart Chain, designados como USDC<sub>(BNB)</sub> e USDT<sub>(BNB)</sub> respetivamente."
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas ambos USDC e USDT foram transferidos da Binance Smart Chain, designados como USDC<sub>(BNB)</sub> e USDT<sub>(BNB)</sub> respetivamente."
         },
         "usdc-usdcb": {
           "title": "USDC<sub>(ETH)</sub>∙USDC<sub>(BNB)</sub>",
-          "available": "600 points - 8% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas one pair of USDC foi transferido da Ethereum Network e o outro USDC transferido da Binance Smart Chain, designados como USDC<sub>(ETH)</sub> e USDT<sub>(BNB)</sub> respetivamente."
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas one pair of USDC foi transferido da Ethereum Network e o outro USDC transferido da Binance Smart Chain, designados como USDC<sub>(ETH)</sub> e USDT<sub>(BNB)</sub> respetivamente."
         },
         "sui-dogeb": {
           "title": "SUI∙DOGE<sub>(BNB)</sub>",
-          "available": "300 points - 4% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas DOGE transferido da Binance Smart Chain, designado como DOGE<sub>(BNB)</sub>."
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas DOGE transferido da Binance Smart Chain, designado como DOGE<sub>(BNB)</sub>."
         },
         "sui-flokib": {
           "title": "SUI∙FLOKI<sub>(BNB)</sub>",
-          "available": "500 points - 7% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas FLOKI transferido da Binance Smart Chain, designado como FLOKI<sub>(BNB)</sub>."
+          "available": "Quando estiveres a adicionar liquidez nessa pool, assegura-te que usas FLOKI transferido da Binance Smart Chain, designado como FLOKI<sub>(BNB)</sub>."
         }
       },
       "addLiquidity": "Adicionar liquidez",

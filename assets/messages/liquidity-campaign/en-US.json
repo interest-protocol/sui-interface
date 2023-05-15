@@ -33,19 +33,19 @@
       "poolProviders": {
         "sui-btcb": {
           "title": "SUI∙BTC<sub>(BNB)</sub>",
-          "available": "600 points  - 8% - when adding liquidity to this pool,l make sure you are using BTC bridged from Binance Smart Chain, designated as BTCB<sub>(BNB)</sub>."
+          "available": "When adding liquidity to this pool,l make sure you are using BTC bridged from Binance Smart Chain, designated as BTCB<sub>(BNB)</sub>."
         },
         "sui-ethb": {
           "title": "SUI∙BTC<sub>(BNB)</sub>",
-          "available": "1000 points - 14% - when adding liquidity to this pool, make sure you are using ETH bridged from Binance Smart Chain, designated as ETH<sub>(BNB)</sub>."
+          "available": "When adding liquidity to this pool, make sure you are using ETH bridged from Binance Smart Chain, designated as ETH<sub>(BNB)</sub>."
         },
         "sui-eth": {
           "title": "SUI∙ETH<sub>(ETH)</sub>",
-          "available": "1000 points - 14% - when adding liquidity to this pool, make sure you are using ETH bridged from Ethereum Network, designated as ETH<sub>(ETH)</sub>."
+          "available": "When adding liquidity to this pool, make sure you are using ETH bridged from Ethereum Network, designated as ETH<sub>(ETH)</sub>."
         },
         "sui-bnb": {
           "title": "SUI∙BNB<sub>(BNB)</sub>",
-          "available": "800 points - 11% - when adding liquidity to this pool, make sure you are using BNB bridged from Binance Smart Chain, designated as ETH<sub>(ETH)</sub>."
+          "available": "When adding liquidity to this pool, make sure you are using BNB bridged from Binance Smart Chain, designated as ETH<sub>(ETH)</sub>."
         },
         "sui-usdcb": {
           "title": "SUI∙USDC<sub>(BNB)</sub>",
@@ -53,23 +53,23 @@
         },
         "sui-usdc": {
           "title": "SUI∙USDC<sub>(ETH)</sub>",
-          "available": "900 points - 12% - when adding liquidity to this pool, make sure you are using USDC bridged from Ethereum Network, designated as USDC<sub>(ETH)</sub>."
+          "available": "When adding liquidity to this pool, make sure you are using USDC bridged from Ethereum Network, designated as USDC<sub>(ETH)</sub>."
         },
         "usdcb-usdtb": {
           "title": "USDC<sub>(BNB)</sub>∙USDT<sub>(BNB)</sub>",
-          "available": "600 points - 8% - when adding liquidity to this pool, make sure you that both USDC and USDT are bridged from Binance Smart Chain, designated as USDC<sub>(BNB)</sub> and USDT<sub>(BNB)</sub> respectively."
+          "available": "When adding liquidity to this pool, make sure you that both USDC and USDT are bridged from Binance Smart Chain, designated as USDC<sub>(BNB)</sub> and USDT<sub>(BNB)</sub> respectively."
         },
         "usdc-usdcb": {
           "title": "USDC<sub>(ETH)</sub>∙USDC<sub>(BNB)</sub>",
-          "available": "600 points - 8% - when adding liquidity to this pool, make sure that one pair of USDC is bridged from Ethereum Network and the other USDC bridged from Binance Smart Chain, designated as USDC<sub>(ETH)</sub> and USDT<sub>(BNB)</sub> respectively."
+          "available": "When adding liquidity to this pool, make sure that one pair of USDC is bridged from Ethereum Network and the other USDC bridged from Binance Smart Chain, designated as USDC<sub>(ETH)</sub> and USDT<sub>(BNB)</sub> respectively."
         },
         "sui-dogeb": {
           "title": "SUI∙DOGE<sub>(BNB)</sub>",
-          "available": "300 points - 4% - when adding liquidity to this pool, make sure that DOGE is bridged from Binance Smart Chain, designated as DOGE<sub>(BNB)</sub>."
+          "available": "When adding liquidity to this pool, make sure that DOGE is bridged from Binance Smart Chain, designated as DOGE<sub>(BNB)</sub>."
         },
         "sui-flokib": {
           "title": "SUI∙FLOKI<sub>(BNB)</sub>",
-          "available": "500 points - 7% - when adding liquidity to this pool, make sure that FLOKI is bridged from Binance Smart Chain, designated as FLOKI<sub>(BNB)</sub>."
+          "available": "When adding liquidity to this pool, make sure that FLOKI is bridged from Binance Smart Chain, designated as FLOKI<sub>(BNB)</sub>."
         }
       },
       "addLiquidity": "Add liquidity",
