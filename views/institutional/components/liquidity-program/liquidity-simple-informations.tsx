@@ -12,6 +12,7 @@ const LiquiditySimpleInformation: FC = () => {
       gridColumn="1/-1"
       textAlign="left"
       gridTemplateColumns={['1fr', '1fr', '1fr', 'repeat(2, 1fr)']}
+      my={['2.5rem', '2.5rem', '2.5rem', '5rem']}
     >
       <Box width="100%">
         <Typography variant="small" width="100%" opacity=".7">

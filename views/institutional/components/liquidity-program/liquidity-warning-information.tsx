@@ -10,7 +10,6 @@ const LiquidityWarning: FC = () => {
   return (
     <Box
       gridColumn={['1/23', '1/-1']}
-      mt="3.75rem"
       background="#E9D5FF"
       padding="l"
       borderRadius="m"
