@@ -13,7 +13,7 @@ const ActionButton: FC<ActionButtonProps> = ({ tutorial }) => {
   return (
     <a
       href={
-        tutorial ? Routes[RoutesEnum.Bridge] : 'https://youtu.be/czLQNJoQHBA'
+        tutorial ? 'https://youtu.be/czLQNJoQHBA' : Routes[RoutesEnum.Bridge]
       }
       target="_blank"
       rel="noreferrer"

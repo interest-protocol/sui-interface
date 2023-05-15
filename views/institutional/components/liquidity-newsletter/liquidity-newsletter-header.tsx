@@ -30,7 +30,13 @@ const NewsletterHeader: FC = () => {
           {t('liquidity.newsletter.title')}
         </Typography>
       </Title>
-      <Typography variant="medium" as="span" color="textSoft" mb="3.563rem">
+      <Typography
+        variant="medium"
+        as="span"
+        color="textSoft"
+        mb="3.563rem"
+        textAlign="left"
+      >
         {t('liquidity.newsletter.description')}
       </Typography>
     </>
