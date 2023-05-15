@@ -40,7 +40,7 @@ const FarmsPage: NextPageWithProps = ({ pageTitle, messages, now }) => {
     },
   });
 
-  if (network !== Network.TESTNET)
+  if (network !== Network.MAINNET)
     return (
       <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
     );
