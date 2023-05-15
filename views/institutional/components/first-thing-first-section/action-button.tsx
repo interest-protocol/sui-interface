@@ -2,42 +2,49 @@ import { Button, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import { Routes, RoutesEnum } from '@/constants';
 import { ArrowRightSVG } from '@/svg';
 
 import { ActionButtonProps } from './first-thing-first-section.types';
 
-const ActionButton: FC<ActionButtonProps> = ({ isText, text, url }) => {
+const ActionButton: FC<ActionButtonProps> = ({ tutorial }) => {
   const t = useTranslations();
+
   return (
-    <Button
-      variant={isText ? 'text' : 'outline'}
-      width={[
-        '-webkit-fill-available',
-        '-webkit-fill-available',
-        '-webkit-fill-available',
-        'unset',
-      ]}
-      display="flex"
-      justifyContent="center"
-      color="text"
-      textTransform="capitalize"
+    <a
+      href={
+        tutorial ? Routes[RoutesEnum.Bridge] : 'https://youtu.be/czLQNJoQHBA'
+      }
+      target="_blank"
+      rel="noreferrer"
     >
-      <ArrowRightSVG
-        width="1.25rem"
-        maxWidth="1.25rem"
-        height="1.25rem"
-        maxHeight="1.25rem"
-      />
-      <Typography
-        as="a"
-        variant="medium"
-        color="primary"
-        textDecoration={isText ? 'unset' : 'underline'}
-        {...{ href: url, target: '_blank', rel: 'noreferrer' }}
+      <Button
+        variant={tutorial ? 'text' : 'outline'}
+        width={[
+          '-webkit-fill-available',
+          '-webkit-fill-available',
+          '-webkit-fill-available',
+          'unset',
+        ]}
+        display="flex"
+        justifyContent="center"
+        color="text"
+        textTransform="capitalize"
       >
-        {t(text)}
-      </Typography>
-    </Button>
+        <ArrowRightSVG
+          width="1.25rem"
+          maxWidth="1.25rem"
+          height="1.25rem"
+          maxHeight="1.25rem"
+        />
+        <Typography variant="medium" color="primary">
+          {tutorial
+            ? t('liquidity.firstThingFirst.buttonTutorial')
+            : t('liquidity.firstThingFirst.buttonAssets')}
+        </Typography>
+      </Button>
+    </a>
   );
 };
+
 export default ActionButton;

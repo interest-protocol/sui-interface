@@ -6,13 +6,13 @@
     "hero": {
       "title": "Programa de Liquidez da Interest Protocol",
       "title2": "Agarre uma parte de 28M Tokens",
-      "paragraph": "Estamos entusiasmados em apresentar o Programa de Recompensas de Liquidez da Interest Protocol, o primeiro do seu tipo no ecossistema Sui. Este programa foi criado para incentivar os indivíduos que contribuem para o crescimento e estabilidade da nossa plataforma, permitindo-lhes ganhar rendimentos extras em suas criptomoedas. Os participantes têm a oportunidade de obter uma parte dos 28M de tokens IPX que são distribuídos em 3 tipos diferentes de atividades em que pode participar: fornecer liquidez, trocar ativos e completar atividades sociais Zealy.",
-      "button": "Aprender como"
+      "paragraph": "Temos o prazer de apresentar o Programa de Liquidez da Interest Protocol, o primeiro do género no ecossistema Sui. Este programa foi concebido para incentivar os indivíduos que contribuem para o crescimento e estabilidade da nossa plataforma, permitindo-lhes ganhar um rendimento extra com as suas participações em criptomoedas. Os participantes podem obter uma parte de 28M tokens IPX que são distribuídos em 3 tipos diferentes de atividades nas quais você pode participar: Fornecer Liquidez e Fazenda, Trocar Ativos e completar as atividades sociais da Zealy.",
+      "button": "Saiba como"
     },
     "firstThingFirst": {
       "title": "Como transferir activos de outras chains para a rede Sui",
       "subtitle": "primeiro o mais importante",
-      "description": "Se os seus activos estão noutras chains, precisa de os ligar à Rede Sui; isto pode ser feito utilizando duas opções, Celer e Wormhole.",
+      "description": "Se os seus activos estão noutras chains, precisa de transferi-los para a Sui Blockchain.; isto pode ser feito utilizando duas opções, Celer e Wormhole.",
       "buttonAssets": "activos de pontes",
       "buttonTutorial": "tutorial de pontes"
     },
@@ -29,33 +29,54 @@
     },
     "liquidity-program": {
       "title": "PROGRAMA DE LIQUIDEZ",
-      "description": {
-        "paragraph1": "A Interest Protocol suporta quatro pools principais - SUI/USDC, SUI/ETH, SUI/BTC e USDC/USDT. Como fornecedor de liquidez, pode escolher qualquer uma dessas pools para fornecer liquidez.",
-        "paragraph2": "Alocamos 25 milhões de tokens para serem obtidos por fornecedores de liquidez, e a cada pool serão atribuídos o seguinte número de tokens:"
-      },
+      "description": "Nós alocamos 20 milhões de tokens aIPX entre 10 farms suportados, oferecendo-lhe uma variedade de opções para fornecer liquidez. Os 20 milhões de tokens são representados como 7200 pontos distribuídos nas seguintes fazendas, como segue:",
       "poolProviders": {
-        "suiEth": {
-          "title": "SUI∙ETH",
-          "available": "35% - 8.750.000 tokens aIPX disponíveis para obtenção."
+        "sui-btcb": {
+          "title": "SUI∙BTC<sub>(BNB)</sub>",
+          "available": "600 points - 8% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como BTCB<sub>(BNB)</sub>."
         },
-        "suiUSDC": {
-          "title": "SUI∙USDC",
-          "available": "20% - 5.000.000 tokens aIPX disponíveis para obtenção."
+        "sui-ethb": {
+          "title": "SUI∙BTC<sub>(BNB)</sub>",
+          "available": "1000 points - 14% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como ETH<sub>(BNB)</sub>."
         },
-        "suiBTC": {
-          "title": "SUI∙BTC",
-          "available": "35% - 8.750.000 tokens aIPX disponíveis para obtenção."
+        "sui-eth": {
+          "title": "SUI∙ETH<sub>(ETH)</sub>",
+          "available": "1000 points - 14% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Ethereum Network, designado como ETH<sub>(ETH)</sub>."
         },
-        "udscUSDT": {
-          "title": "USDC∙USDT",
-          "available": "10% - 2.500.000 tokens aIPX disponíveis para obtenção."
+        "sui-bnb": {
+          "title": "SUI∙BNB<sub>(BNB)</sub>",
+          "available": "800 points - 11% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas BTC transferido da Binance Smart Chain, designado como ETH<sub>(ETH)</sub>."
+        },
+        "sui-usdcb": {
+          "title": "SUI∙USDC<sub>(BNB)</sub>",
+          "available": "900 points - 13% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas USDC bridged from Binance Smart Chain, designado como USDC<sub>(BNB)</sub>"
+        },
+        "sui-usdc": {
+          "title": "SUI∙USDC<sub>(ETH)</sub>",
+          "available": "900 points - 12% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas USDC bridged from Ethereum Network, designado como USDC<sub>(ETH)</sub>."
+        },
+        "usdcb-usdtb": {
+          "title": "USDC<sub>(BNB)</sub>∙USDT<sub>(BNB)</sub>",
+          "available": "600 points - 8% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas ambos USDC e USDT foram transferidos da Binance Smart Chain, designados como USDC<sub>(BNB)</sub> e USDT<sub>(BNB)</sub> respetivamente."
+        },
+        "usdc-usdcb": {
+          "title": "USDC<sub>(ETH)</sub>∙USDC<sub>(BNB)</sub>",
+          "available": "600 points - 8% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas one pair of USDC foi transferido da Ethereum Network e o outro USDC transferido da Binance Smart Chain, designados como USDC<sub>(ETH)</sub> e USDT<sub>(BNB)</sub> respetivamente."
+        },
+        "sui-dogeb": {
+          "title": "SUI∙DOGE<sub>(BNB)</sub>",
+          "available": "300 points - 4% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas DOGE transferido da Binance Smart Chain, designado como DOGE<sub>(BNB)</sub>."
+        },
+        "sui-flokib": {
+          "title": "SUI∙FLOKI<sub>(BNB)</sub>",
+          "available": "500 points - 7% - quando estiveres a adicionar liquidez nessa pool, assegura-te que usas FLOKI transferido da Binance Smart Chain, designado como FLOKI<sub>(BNB)</sub>."
         }
       },
       "addLiquidity": "Adicionar liquidez",
       "informations": {
-        "first": "Assim que investir em qualquer um dos pools de liquidez, começará a obter tokens aIPX.",
+        "first": "Depois de ter adicionado liquidez aos pools e depositado os tokens LP em qualquer uma das Quintas acima mencionadas, começará a cultivar tokens aIPX.",
         "second": "O airdrop será enviado para o endereço no qual depositou enquanto adicionava a liquidez.",
-        "warning": "Além disso, como fornecedor de liquidez, ganhará 0,3% de todas as taxas de negociação geradas pela pool, proporcionalmente à sua participação na pool."
+        "warning": "Além disso, como provedor de liquidez, você ganhará 0,3% de todas as taxas de negociação geradas pela pool, proporcionalmente à sua participação na pool."
       }
     },
     "share": {
@@ -73,7 +94,7 @@
       "buttonCard": "Verificar fórmula",
       "sentence": {
         "first": "A campanha pode ser participada entre ",
-        "date": "10 de Maio de 2023 e 27 de Junho de 2023.",
+        "date": "15 de Maio de 2023 e 2 de Julho de 2023.",
         "second": "Os prémios serão distribuídos uma semana após o fim da campanha."
       }
     },
