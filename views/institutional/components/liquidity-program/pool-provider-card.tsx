@@ -63,18 +63,20 @@ const PoolProviderCard: FC<PoolProviderProps> = ({ name, Illustration }) => {
             }
           )}
         </Typography>
-        <Typography variant="medium" opacity=".7">
-          {t.rich(
-            `liquidity.liquidity-program.poolProviders.${name}.available` as TTranslatedMessage,
-            {
-              sub: (chunks) => (
-                <Typography as="sub" variant="extraSmall">
-                  {chunks}
-                </Typography>
-              ),
-            }
-          )}
-        </Typography>
+        <Box height={['14rem', '5rem', '12rem', '9rem']}>
+          <Typography variant="medium" opacity=".7">
+            {t.rich(
+              `liquidity.liquidity-program.poolProviders.${name}.available` as TTranslatedMessage,
+              {
+                sub: (chunks) => (
+                  <Typography as="sub" variant="extraSmall">
+                    {chunks}
+                  </Typography>
+                ),
+              }
+            )}
+          </Typography>
+        </Box>
       </Box>
       <Button variant="filled" bg="primary" width="max-content" margin="xl">
         {t('liquidity.liquidity-program.addLiquidity')}
