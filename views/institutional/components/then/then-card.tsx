@@ -115,7 +115,7 @@ const ThenCard: FC<ThenCardProps> = ({
           >
             <Typography
               variant="extraSmall"
-              fontSize="0.75rem"
+              fontSize="1.5rem"
               lineHeight="0.75rem"
               fontFamily="Share Tech Mono"
               color="#002A78"
