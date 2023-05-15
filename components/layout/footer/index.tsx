@@ -86,40 +86,44 @@ const Footer: FC = () => {
               />
               Dex
             </Button>
-          </Link>
-          <Link href={Routes[RoutesEnum.DEX]}>
-            <Button
-              ml="S"
-              px="0.8rem"
-              fontSize="M"
-              display="flex"
-              flexDirection="column"
-              variant="primary"
-              alignItems="center"
-              borderRadius="M"
-              justifyContent="space-between"
-              bg={
-                pathname.includes(Routes[RoutesEnum.DEX])
-                  ? 'accentActive'
-                  : 'transparent'
-              }
-              nHover={{ bg: 'accent', color: 'text' }}
-              nActive={{ bg: 'accentActive', color: 'text' }}
-              color={
-                pathname.includes(Routes[RoutesEnum.DEX]) ? 'textSoft' : 'text'
-              }
-            >
-              <LiquiditySVG
-                width="1.1rem"
-                height="1.1rem"
-                fill="currentColor"
-                maxHeight="2.5rem"
-                maxWidth="auto"
-                style={{ marginBottom: '8px' }}
-              />
-              {t('common.liquidity')}
-            </Button>
-          </Link>
+          </Link>{' '}
+          {network === Network.MAINNET && (
+            <Link href={Routes[RoutesEnum.DEX]}>
+              <Button
+                ml="S"
+                px="0.8rem"
+                fontSize="M"
+                display="flex"
+                flexDirection="column"
+                variant="primary"
+                alignItems="center"
+                borderRadius="M"
+                justifyContent="space-between"
+                bg={
+                  pathname.includes(Routes[RoutesEnum.DEX])
+                    ? 'accentActive'
+                    : 'transparent'
+                }
+                nHover={{ bg: 'accent', color: 'text' }}
+                nActive={{ bg: 'accentActive', color: 'text' }}
+                color={
+                  pathname.includes(Routes[RoutesEnum.DEX])
+                    ? 'textSoft'
+                    : 'text'
+                }
+              >
+                <LiquiditySVG
+                  width="1.1rem"
+                  height="1.1rem"
+                  fill="currentColor"
+                  maxHeight="2.5rem"
+                  maxWidth="auto"
+                  style={{ marginBottom: '8px' }}
+                />
+                {t('common.liquidity')}
+              </Button>
+            </Link>
+          )}
           {network !== Network.MAINNET && (
             <Link href={Routes[RoutesEnum.Farms]}>
               <Button
