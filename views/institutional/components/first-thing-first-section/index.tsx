@@ -8,7 +8,10 @@ const FirstThingFirst: FC = () => (
   <Box variant="container">
     <Box gridColumn="1/-1" width="100%" py="5rem">
       <FirstThingFirstHeader />
-      <ActionButton />
+      <Box display="flex" gap="m">
+        <ActionButton />
+        <ActionButton tutorial />
+      </Box>
     </Box>
   </Box>
 );

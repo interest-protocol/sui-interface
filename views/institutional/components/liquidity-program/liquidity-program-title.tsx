@@ -16,16 +16,9 @@ const LiquidityProgramTitle: FC = () => {
         {t('liquidity.liquidity-program.title')}
       </Typography>
 
-      <Box width="100%" opacity=".7" mb="2xl">
-        <Typography
-          variant="small"
-          width={['100%', '100%', '100%', '520px']}
-          mb="2xl"
-        >
-          {t('liquidity.liquidity-program.description.paragraph1')}
-        </Typography>
+      <Box width="100%" opacity=".7" my="2xl">
         <Typography variant="small" width={['100%', '100%', '100%', '520px']}>
-          {t('liquidity.liquidity-program.description.paragraph2')}
+          {t('liquidity.liquidity-program.description')}
         </Typography>
       </Box>
     </Box>
