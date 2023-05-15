@@ -5,34 +5,74 @@ import { SVGProps } from './svg.types';
 const WormholeCELO: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   <svg
     style={{ maxWidth, maxHeight }}
-    viewBox="0 0 32 32"
+    viewBox="0 0 34 34"
     fill="none"
     {...props}
   >
+    <rect width="32" height="32" rx="16" fill="#211D42" />
     <g clipPath="url(#clip0_WormholeCELO)">
-      <path
-        d="M32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32C24.8366 32 32 24.8366 32 16Z"
-        fill="#211D42"
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M26 6H6V26H25.9996V19.0186H22.6805C21.5364 21.5655 18.9611 23.3393 16.014 23.3393C11.951 23.3393 8.6607 20.0206 8.6607 15.986C8.6607 11.9514 11.951 8.6611 16.014 8.6611C19.0183 8.6611 21.5935 10.4924 22.7381 13.096H26V6Z"
-        fill="white"
-      />
-      <path
-        d="M29 6C29 4.34315 27.6569 3 26 3C24.3431 3 23 4.34315 23 6C23 7.65685 24.3431 9 26 9C27.6569 9 29 7.65685 29 6Z"
-        fill="white"
-      />
-      <path
-        d="M29 6C29 4.34315 27.6569 3 26 3C24.3431 3 23 4.34315 23 6C23 7.65685 24.3431 9 26 9C27.6569 9 29 7.65685 29 6Z"
-        stroke="#211D42"
-        strokeWidth="2"
-      />
+      <mask
+        id="mask0_WormholeCELO"
+        style={{ maskType: 'luminance' }}
+        maskUnits="userSpaceOnUse"
+        x="9"
+        y="9"
+        width="14"
+        height="14"
+      >
+        <path d="M22.875 9.125H9.125V22.875H22.875V9.125Z" fill="white" />
+      </mask>
+      <g mask="url(#mask0_WormholeCELO)">
+        <path
+          d="M22.875 9.125H9.125V22.875H22.8746V18.0754H20.5929C19.8063 19.8263 18.0357 21.0459 16.0095 21.0459C13.2162 21.0459 10.9541 18.7644 10.9541 15.9903C10.9541 13.2162 13.2162 10.9545 16.0095 10.9545C18.0748 10.9545 19.8454 12.2136 20.6323 14.0036H22.875V9.125Z"
+          fill="white"
+        />
+      </g>
+    </g>
+    <g clipPath="url(#clip1_WormholeCELO)">
+      <rect x="19" y="19" width="15" height="15" rx="7.5" fill="white" />
+      <g clipPath="url(#clip2_WormholeCELO)">
+        <mask
+          id="mask1_WormholeCELO"
+          style={{ maskType: 'luminance' }}
+          maskUnits="userSpaceOnUse"
+          x="21"
+          y="21"
+          width="11"
+          height="11"
+        >
+          <path
+            d="M31.6562 21.3438H21.3438V31.6562H31.6562V21.3438Z"
+            fill="white"
+          />
+        </mask>
+        <g mask="url(#mask1_WormholeCELO)">
+          <path
+            d="M31.6562 21.3438H21.3438V31.6562H31.656V28.0566H29.9447C29.3547 29.3697 28.0268 30.2844 26.5072 30.2844C24.4121 30.2844 22.7156 28.5733 22.7156 26.4927C22.7156 24.4122 24.4121 22.7159 26.5072 22.7159C28.0561 22.7159 29.3841 23.6602 29.9742 25.0027H31.6562V21.3438Z"
+            fill="#1B1B1F"
+          />
+        </g>
+      </g>
     </g>
     <defs>
       <clipPath id="clip0_WormholeCELO">
-        <rect width="32" height="32" fill="white" />
+        <rect
+          width="13.75"
+          height="13.75"
+          fill="white"
+          transform="translate(9.125 9.125)"
+        />
+      </clipPath>
+      <clipPath id="clip1_WormholeCELO">
+        <rect x="19" y="19" width="15" height="15" rx="7.5" fill="white" />
+      </clipPath>
+      <clipPath id="clip2_WormholeCELO">
+        <rect
+          width="10.3125"
+          height="10.3125"
+          fill="white"
+          transform="translate(21.3438 21.3438)"
+        />
       </clipPath>
     </defs>
   </svg>
