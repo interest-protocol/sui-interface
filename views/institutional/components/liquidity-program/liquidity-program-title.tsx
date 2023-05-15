@@ -8,11 +8,11 @@ const LiquidityProgramTitle: FC = () => {
   const t = useTranslations();
 
   return (
-    <Box gridColumn="1/-1">
+    <Box gridColumn="1/-1" textAlign="left">
       <Title>
         <Typography
           color="primary"
-          variant="displaySmall"
+          variant="displayLarge"
           letterSpacing="-0.15rem"
           width="100%"
         >
