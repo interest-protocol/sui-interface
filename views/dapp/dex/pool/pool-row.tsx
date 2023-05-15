@@ -44,8 +44,8 @@ const PoolRow: FC<PoolRowProps> = ({
         >
           <Box display="flex">
             <Box my="M" display="flex" alignItems="center">
-              <FirstIcon width="1.2rem" maxHeight="1.2rem" maxWidth="1.2rem" />
-              <SecondIcon width="1.2rem" maxHeight="1.2rem" maxWidth="1.2rem" />
+              <FirstIcon width="1.7rem" maxHeight="1.7rem" maxWidth="1.7rem" />
+              <SecondIcon width="1.7rem" maxHeight="1.7rem" maxWidth="1.7rem" />
               <Typography mx="M" as="span" variant="normal">
                 {symbol0} / {symbol1}
               </Typography>

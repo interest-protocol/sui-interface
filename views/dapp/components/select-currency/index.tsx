@@ -62,8 +62,8 @@ const SelectCurrency: FC<SelectCurrencyProps> = ({
         <Box as="span" minWidth="1.3rem" display="flex" mr="M">
           <SVG
             width="100%"
-            maxHeight="1.3rem"
-            maxWidth="1.3rem"
+            maxWidth="1.5rem"
+            maxHeight="1.5rem"
             fill="currentColor"
           />
         </Box>
