@@ -104,6 +104,9 @@
     "createTokenModalTitle": "NOVO TOKEN",
     "createTokenModalInputName": "Nome",
     "createTokenModalInputSymbol": "Símbolo",
+    "createTokenModalInputIconUrl": "URL do ícone",
+    "createTokenModalInputDescription": "Descrição",
+    "createTokenModalAdvice": "Deves pagar 1 Sui para a criação do Token",
     "createTokenModalInputAmount": "Montante",
     "createTokenModalInputPlaceholder": "Escreva o {label}",
     "bannerHeader": "Airdrop: 28M de tokens IPX para ganhar! Clique aqui!"

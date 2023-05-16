@@ -32,12 +32,18 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
   handleCloseModal,
 }) => {
   const t = useTranslations();
+  const { network } = useNetwork();
   const [loading, setLoading] = useState(false);
-  const { name, symbol, amount } = useWatch({ control });
+  const { name, symbol, amount, iconUrl } = useWatch({ control });
   const { signAndExecuteTransactionBlock } = useWalletKit();
   const { account, walletAccount } = useWeb3();
-  const isValid = name && symbol && amount && +amount > 0;
-  const { network } = useNetwork();
+
+  const isValid =
+    name &&
+    symbol &&
+    amount &&
+    +amount > 0 &&
+    (network === Network.MAINNET ? !!iconUrl : true);
 
   const [localTokens, setLocalTokens] =
     useLocalStorage<LocalTokenMetadataRecord>(
