@@ -58,7 +58,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
       if (!account) throw new Error(t('error.accountNotFound'));
       if (isValid) {
         if (!isNaN(+name) || !isNaN(+symbol))
-          throw new Error('name and symbol must not contain numbers');
+          throw new Error(t('error.createToken'));
 
         const compiledModulesAndDeps = await getTokenByteCode({
           decimals: 9,

@@ -133,7 +133,8 @@
     },
     "error": {
       "title": "Wallet error",
-      "advice": "Please check your wallet or/and restart."
+      "advice": "Please check your wallet or/and restart.",
+      "createToken": "name and symbol must not be numbers"
     }
   }
 }

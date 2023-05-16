@@ -133,7 +133,8 @@
     },
     "error": {
       "title": "Erro na carteira",
-      "advice": "Abra a sua carteira e/ou reinicie."
+      "advice": "Abra a sua carteira e/ou reinicie.",
+      "createToken": "O nome e símbolo não podem ser números."
     }
   }
 }
