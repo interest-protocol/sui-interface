@@ -159,7 +159,8 @@ const FarmOptions: FC<FarmOptionsProps> = ({
         title={t('farmsDetails.thirdCardTitle')}
         shadow={!farm.pendingRewards.isZero()}
         amountUSD={formatDollars(
-          farm.pendingRewards.multipliedBy(farm.lpCoinPrice).toNumber()
+          // IPX price is hard coded to be 0.04
+          farm.pendingRewards.multipliedBy(0.04).toNumber()
         )}
         amount={`${formatMoney(farm.pendingRewards.toNumber())} ${
           TOKEN_SYMBOL.AIPX

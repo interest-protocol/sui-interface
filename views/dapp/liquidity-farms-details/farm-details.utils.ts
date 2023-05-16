@@ -85,14 +85,12 @@ export const parseFarmData: ParseFarmData = ({
   const lpCoinData =
     coinsMap[farmMetadata.lpCoin.type] || DEFAULT_FARM_DATA.lpCoinData;
 
-  const lpCoinPrice = farmMetadata.isSingleCoin
-    ? ipxUSDPrice
-    : calculateLPCoinPrice(
-        prices,
-        farmMetadata.coin0,
-        farmMetadata.coin1,
-        pool
-      );
+  const lpCoinPrice = calculateLPCoinPrice(
+    prices,
+    farmMetadata.coin0,
+    farmMetadata.coin1,
+    pool
+  );
 
   return {
     ...farmMetadata,
