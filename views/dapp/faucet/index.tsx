@@ -43,7 +43,7 @@ const Faucet: FC<FaucetProps> = ({ form }) => {
             {t('common.recommendedToken')}
           </Typography>
           <Button variant="primary" onClick={openModal}>
-            {t('faucet.modalButton', { isLoading: Number(false) })}
+            {t('common.createTokenModalButton', { isLoading: Number(false) })}
           </Button>
         </Box>
         <FaucetForm form={form} />
