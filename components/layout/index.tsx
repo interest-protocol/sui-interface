@@ -8,7 +8,7 @@ import { Tooltip } from 'react-tooltip';
 import { TOAST_DURATION } from '@/constants';
 import { Theme } from '@/design-system';
 import { Box, Button } from '@/elements';
-import { useModal, useNetwork } from '@/hooks';
+import { useModal, useNetwork, useWeb3 } from '@/hooks';
 import CreateTokenForm from '@/views/dapp/components/create-token-form';
 import ErrorBoundary from '@/views/dapp/components/error-boundary';
 
@@ -27,6 +27,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   const { colors, radii } = useTheme() as Theme;
 
   const modal = useModal();
+  const { connected } = useWeb3();
 
   const openModal = () =>
     modal &&
@@ -63,7 +64,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
           flexDirection="column"
         >
           {children}
-          {network === Network.MAINNET && (
+          {network === Network.MAINNET && connected && (
             <Box
               p="L"
               bottom="0"
