@@ -4,6 +4,7 @@ import { mergeDeepRight } from 'ramda';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
+import { ModalProvider } from '@/context/modal';
 import { withObjectIdGuard } from '@/HOC';
 import { NextPageDefaultProps } from '@/interface';
 import DEXPoolDetailsView from '@/views/dapp/dex-pool-details';
@@ -43,15 +44,17 @@ const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
   });
 
   return (
-    <Web3Manager>
-      <Layout pageTitle={pageTitle}>
-        <DEXPoolDetailsView
-          objectId={objectId}
-          formAddLiquidity={formAddLiquidity}
-          formRemoveLiquidity={formRemoveLiquidity}
-        />
-      </Layout>
-    </Web3Manager>
+    <ModalProvider>
+      <Web3Manager>
+        <Layout pageTitle={pageTitle}>
+          <DEXPoolDetailsView
+            objectId={objectId}
+            formAddLiquidity={formAddLiquidity}
+            formRemoveLiquidity={formRemoveLiquidity}
+          />
+        </Layout>
+      </Web3Manager>
+    </ModalProvider>
   );
 };
 

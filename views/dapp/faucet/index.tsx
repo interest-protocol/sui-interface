@@ -6,8 +6,8 @@ import Web3Manager from '@/components/web3-manager';
 import { Box, Button, Typography } from '@/elements';
 import { useModal } from '@/hooks/use-modal';
 
+import CreateTokenForm from '../components/create-token-form';
 import GoBack from '../components/go-back';
-import CreateTokenForm from './create-token-form';
 import { FaucetProps } from './faucet.types';
 import FaucetForm from './faucet-form';
 
@@ -43,7 +43,7 @@ const Faucet: FC<FaucetProps> = ({ form }) => {
             {t('common.recommendedToken')}
           </Typography>
           <Button variant="primary" onClick={openModal}>
-            {t('faucet.modalButton', { isLoading: Number(false) })}
+            {t('common.createTokenModalButton', { isLoading: Number(false) })}
           </Button>
         </Box>
         <FaucetForm form={form} />

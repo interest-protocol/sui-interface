@@ -32,12 +32,18 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
   handleCloseModal,
 }) => {
   const t = useTranslations();
+  const { network } = useNetwork();
   const [loading, setLoading] = useState(false);
-  const { name, symbol, amount } = useWatch({ control });
+  const { name, symbol, amount, iconUrl } = useWatch({ control });
   const { signAndExecuteTransactionBlock } = useWalletKit();
   const { account, walletAccount } = useWeb3();
-  const isValid = name && symbol && amount && +amount > 0;
-  const { network } = useNetwork();
+
+  const isValid =
+    name &&
+    symbol &&
+    amount &&
+    +amount > 0 &&
+    (network === Network.MAINNET ? !!iconUrl : true);
 
   const [localTokens, setLocalTokens] =
     useLocalStorage<LocalTokenMetadataRecord>(
@@ -102,7 +108,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
         await incrementCreatedCoins(account || AddressZero);
       }
     } catch (error) {
-      throw new Error(t('faucet.errorCreateToken'));
+      throw new Error(t('error.createToken'));
     } finally {
       setLoading(false);
       handleCloseModal();
@@ -111,7 +117,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
 
   const safeCreateToken = () =>
     showToast(createToken(), {
-      loading: `${t('faucet.modalButton', { isLoading: 1 })}`,
+      loading: `${t('common.createTokenModalButton', { isLoading: 1 })}`,
       success: capitalize(t('common.success')),
       error: prop('message'),
     });
@@ -135,11 +141,11 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
             ml="M"
             textTransform="capitalize"
           >
-            {t('faucet.modalButton', { isLoading: 1 })}
+            {t('common.createTokenModalButton', { isLoading: 1 })}
           </Typography>
         </Box>
       ) : (
-        t('faucet.modalButton', { isLoading: 0 })
+        t('common.createTokenModalButton', { isLoading: 0 })
       )}
     </Button>
   );
