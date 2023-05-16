@@ -1,11 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { AddressZero } from 'lib';
 import { useTranslations } from 'next-intl';
-import { pathOr } from 'ramda';
 import { FC, useMemo } from 'react';
 
 import { Container } from '@/components';
-import { COINS, RoutesEnum } from '@/constants';
+import { RoutesEnum } from '@/constants';
 import {
   useGetCoinsPrices,
   useGetMultiGetObjects,
@@ -63,11 +62,7 @@ const FarmDetails: FC<FarmDetailsProps> = ({
     isLoading: poolsLoading,
   } = useGetMultiGetObjects([farmMetadata.poolObjectId]);
 
-  const coinsPrices = useGetCoinsPrices([
-    coin0.type,
-    coin1.type,
-    pathOr('', [network, 'ETH', 'type'], COINS),
-  ]);
+  const coinsPrices = useGetCoinsPrices([coin0.type, coin1.type]);
 
   const loading = useMemo(
     () => farmsLoading || isFetchingCoinBalances || poolsLoading,
