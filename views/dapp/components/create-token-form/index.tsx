@@ -47,7 +47,7 @@ const CreateTokenForm: FC<CreateTokenFormProps> = ({ handleCloseModal }) => {
           variant="normal"
           textTransform="uppercase"
         >
-          {t('faucet.modalTitle')}
+          {t('common.createTokenModalTitle')}
         </Typography>
         <Box
           display="grid"
@@ -55,18 +55,18 @@ const CreateTokenForm: FC<CreateTokenFormProps> = ({ handleCloseModal }) => {
           gridTemplateColumns={['1fr', '1f', '1fr', '1fr 1fr']}
         >
           <CreateTokenField
-            label={t('faucet.modalInputName')}
+            label={t('common.createTokenModalInputName')}
             name="name"
             register={register}
           />
           <CreateTokenField
-            label={t('faucet.modalInputSymbol')}
+            label={t('common.createTokenModalInputSymbol')}
             name="symbol"
             register={register}
           />
         </Box>
         <CreateTokenSupplyField
-          label={t('faucet.modalInputAmount')}
+          label={t('common.createTokenModalInputAmount')}
           register={register}
           setValue={setValue}
         />

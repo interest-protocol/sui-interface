@@ -100,10 +100,17 @@
     "copyObjectNumber": "copy objectId",
     "followUs": "FOLLOW US",
     "coin": "coin",
+    "createTokenModalButton": "{isLoading, plural, =1 {Creating Token...} other {Create Token}}",
+    "createTokenModalTitle": "CREATE NEW TOKEN",
+    "createTokenModalInputName": "Name",
+    "createTokenModalInputSymbol": "Symbol",
+    "createTokenModalInputAmount": "Amount",
+    "createTokenModalInputPlaceholder": "Type {label}",
     "bannerHeader": "Airdrop: 28M IPX tokens up for grabs! Click here!"
   },
   "error": {
     "generic": "something went wrong",
+    "createToken": "Failed to create the token",
     "wrongParams": "Wrong params",
     "fetchingContract": "Error fetching contract",
     "fetchingBalances": "Error fetching balances",

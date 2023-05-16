@@ -102,7 +102,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
         await incrementCreatedCoins(account || AddressZero);
       }
     } catch (error) {
-      throw new Error(t('faucet.errorCreateToken'));
+      throw new Error(t('error.createToken'));
     } finally {
       setLoading(false);
       handleCloseModal();
@@ -111,7 +111,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
 
   const safeCreateToken = () =>
     showToast(createToken(), {
-      loading: `${t('faucet.modalButton', { isLoading: 1 })}`,
+      loading: `${t('common.createTokenModalButton', { isLoading: 1 })}`,
       success: capitalize(t('common.success')),
       error: prop('message'),
     });
@@ -135,11 +135,11 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
             ml="M"
             textTransform="capitalize"
           >
-            {t('faucet.modalButton', { isLoading: 1 })}
+            {t('common.createTokenModalButton', { isLoading: 1 })}
           </Typography>
         </Box>
       ) : (
-        t('faucet.modalButton', { isLoading: 0 })
+        t('common.createTokenModalButton', { isLoading: 0 })
       )}
     </Button>
   );

@@ -25,7 +25,7 @@ const CreateTokenField: FC<CreateTokenFieldProps> = ({
         {label}:
       </Typography>
       <Input
-        placeholder={t('faucet.type', {
+        placeholder={t('common.createTokenModalInputPlaceholder', {
           currentLocale,
           label: label,
         })}

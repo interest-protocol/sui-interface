@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
 
 import { LoadingPage } from '@/components';
+import { ModalProvider } from '@/context/modal';
 import { NextPageWithProps } from '@/interface';
 import DEXPoolView from '@/views/dapp/dex/pool-view';
 
@@ -17,11 +18,13 @@ const Layout = dynamic(() => import('@/components/layout'), {
 });
 
 const DEXPoolPage: NextPageWithProps = ({ pageTitle }) => (
-  <Web3Manager>
-    <Layout pageTitle={pageTitle}>
-      <DEXPoolView />
-    </Layout>
-  </Web3Manager>
+  <ModalProvider>
+    <Web3Manager>
+      <Layout pageTitle={pageTitle}>
+        <DEXPoolView />
+      </Layout>
+    </Web3Manager>
+  </ModalProvider>
 );
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {

@@ -100,10 +100,17 @@
     "copyObjectNumber": "copiar o id do objecto",
     "followUs": "SIGA-NOS",
     "coin": "moeda",
+    "createTokenModalButton": "{isLoading, plural, =1 {Criando O Token...} other {Crie Um Token}}",
+    "createTokenModalTitle": "NOVO TOKEN",
+    "createTokenModalInputName": "Nome",
+    "createTokenModalInputSymbol": "Símbolo",
+    "createTokenModalInputAmount": "Montante",
+    "createTokenModalInputPlaceholder": "Escreva o {label}",
     "bannerHeader": "Airdrop: 28M de tokens IPX para ganhar! Clique aqui!"
   },
   "error": {
     "generic": "algo deu errado",
+    "createToken": "Ocorreu um error ao criar o token",
     "wrongParams": "Parâmetros errados",
     "fetchingContract": "Erro ao obter os contractos",
     "fetchingBalances": "Erro ao obter os saldos",
