@@ -21,10 +21,12 @@ export const NetworkProviderContext = createContext<NetworkProviderState>(
 const NetworkProvider: FC<NetworkProviderProps> = ({ children }) => {
   const [localNetwork, setLocalNetwork] = useLocalStorage(
     'sui-interest-network',
-    Network.TESTNET
+    Network.MAINNET
   );
   const [network, setNetwork] = useState<Network>(
-    localNetwork || Network.TESTNET
+    process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'
+      ? localNetwork || Network.MAINNET
+      : Network.MAINNET
   );
 
   const handleSetNetwork = (x: Network) => {
