@@ -13,10 +13,6 @@ export const getTokenByteCode = async ({
   url = 'https://www.interestprotocol.com/logo.png',
   ...otherArgs
 }: GetTokenByteCoreArgs): Promise<CompiledModules> => {
-  console.log({
-    url,
-    ...otherArgs,
-  });
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_IPX_ANALYTICS_SERVER_URL}api/v1/token/makeToken`,
     {
