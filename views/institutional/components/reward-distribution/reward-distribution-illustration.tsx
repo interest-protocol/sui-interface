@@ -114,49 +114,48 @@ const RewardDistributionIconWrapper: FC<RewardDistributionIconWrapperProps> = ({
 const RewardDistributionIllustration: FC = () => (
   <Motion height="23rem" borderRadius="m" position="relative">
     <RewardDistributionIconWrapper
-      top={['15%', '13%', '13%', '13%']}
+      top={['25%', '13%', '13%', '13%']}
       left={['42%', '42%', '42%', '42%']}
       size="20%"
       to={[-100, 0]}
       Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
-      top={['27%', '26%', '26%', '26%']}
+      top={['33%', '29%', '26%', '26%']}
       left={['29%', '29%', '29%', '29%']}
       size="20%"
       to={[-50, 50]}
       Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
-      top={['29%', '25%', '25%', '25%']}
+      top={['33%', '28%', '25%', '25%']}
       left={['54%', '54%', '54%', '54%']}
       size="20%"
       to={[-50, -50]}
       Icon={RewardDistributionCubeWithbigShadow}
     />
     <RewardDistributionIconWrapper
-      chock
-      top={['39%', '38%', '38%', '38%']}
+      top={['41%', '41%', '38%', '38%']}
       left={['41%', '41%', '41%', '41%']}
       size="20%"
       Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
       size="20%"
-      top={['40%', '39%', '39%', '39%']}
+      top={['41.5%', '42%', '39%', '39%']}
       left={['16%', '16%', '16%', '16%']}
       to={[0, 100]}
       Icon={RewardDistributionCube}
     />
     <RewardDistributionIconWrapper
       size="20%"
-      top={['38%', '37%', '37%', '37%']}
+      top={['41%', '40%', '37%', '37%']}
       left={['66%', '66%', '66%', '66%']}
       to={[0, -100]}
       Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
-      top={['51%', '51%', '51%', '51%']}
+      top={['49%', '54%', '51%', '51%']}
       left={['28%', '28%', '28%', '28%']}
       size="20%"
       to={[50, 60]}
@@ -164,13 +163,13 @@ const RewardDistributionIllustration: FC = () => (
     />
     <RewardDistributionIconWrapper
       size="20%"
-      top={['51%', '50%', '50%', '50%']}
+      top={['49%', '53%', '50%', '50%']}
       left="53%"
       to={[50, -50]}
       Icon={RewardDistributionCubeWithFrontShadow}
     />
     <RewardDistributionIconWrapper
-      top="63%"
+      top={['57%', '60%', '63%', '63%']}
       left="40%"
       size="20%"
       to={[100, 0]}
