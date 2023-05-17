@@ -66,6 +66,39 @@ export const DApp: FC = () => (
   </>
 );
 
+export const BannerDApp: FC = () => (
+  <>
+    <IconWrapper
+      floating
+      top={['72%', '72%', '73.7%', '73.7%']}
+      left="51%"
+      size="17%"
+      Icon={PrimaryBox}
+    />
+    <IconWrapper
+      top={['66%', '66%', '71%', '71%']}
+      left="57.5%"
+      size="17%"
+      Icon={PrimaryBox}
+    />
+    <IconWrapper top="41%" size="40%" left="33%" Icon={PrimaryTallBox} />
+    <IconWrapper top="30%" size="40%" left="33%" Icon={CyanTallBox} />
+    <IconWrapper
+      top={['18.3%', '18.3%', '20.3%', '20.3%']}
+      left="30.8%"
+      size="17%"
+      Icon={CyanBox}
+    />
+    <IconWrapper
+      floating
+      top={['13.8%', '13.8%', '15.8%', '15.8%']}
+      left="37%"
+      size="17%"
+      Icon={CyanBox}
+    />
+  </>
+);
+
 export const Zealy: FC = () => (
   <>
     <IconWrapper top="20%" size="37%" left="30%" Icon={ZealyPrimaryBoxesBack} />
@@ -82,6 +115,27 @@ export const Zealy: FC = () => (
       top="45%"
       size="37%"
       left="30%"
+      Icon={ZealyPrimaryBoxesFront}
+    />
+  </>
+);
+
+export const BannerZealy: FC = () => (
+  <>
+    <IconWrapper top="25%" size="37%" left="35%" Icon={ZealyPrimaryBoxesBack} />
+    <IconWrapper top="37%" size="18%" left="23%" Icon={ZealyGreenBoxes} />
+    <IconWrapper
+      floating
+      top="38%"
+      size="18%"
+      left="45%"
+      Icon={ZealyGreenBoxes}
+    />
+    <IconWrapper top="39%" size="18%" left="66%" Icon={ZealyGreenBoxes} />
+    <IconWrapper
+      top="45%"
+      size="37%"
+      left="35%"
       Icon={ZealyPrimaryBoxesFront}
     />
   </>
