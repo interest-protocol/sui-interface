@@ -3,7 +3,7 @@ import { always } from 'ramda';
 import { Routes, RoutesEnum } from '@/constants';
 import { TTranslatedMessage } from '@/interface';
 
-import { DApp, Zealy } from '../share-section/share-illustration';
+import { BannerDApp, BannerZealy } from '../share-section/share-illustration';
 import { HeroIllustration } from '../svg/liquidity';
 import { LiquidityBannerCardProps } from './liquidity-banner.types';
 
@@ -23,7 +23,7 @@ export const LIQUIDITY_BANNER_DATA: ReadonlyArray<LiquidityBannerCardProps> = [
         name: 'common.v2.banner.zealy.buttons.secondary' as TTranslatedMessage,
       },
     ],
-    Illustration: Zealy,
+    Illustration: BannerZealy,
   },
   {
     title: 'common.v2.banner.liquidity.title' as TTranslatedMessage,
@@ -59,7 +59,7 @@ export const LIQUIDITY_BANNER_DATA: ReadonlyArray<LiquidityBannerCardProps> = [
         name: 'common.v2.banner.swap.buttons.secondary' as TTranslatedMessage,
       },
     ],
-    Illustration: DApp,
+    Illustration: BannerDApp,
   },
 ];
 
@@ -67,7 +67,7 @@ export const slideShowSettings = {
   dots: true,
   speed: 500,
   arrows: false,
-  autoplay: true,
+  autoplay: false,
   infinite: true,
   slidesToShow: 1,
   slidesToScroll: 1,
