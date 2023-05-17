@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
@@ -10,8 +11,10 @@ const CreateTokenField: FC<CreateTokenFieldProps> = ({
   name,
   label,
   register,
+  required,
 }) => {
   const t = useTranslations();
+  const { dark } = useTheme() as { dark: boolean };
   const { currentLocale } = useLocale();
 
   return (
@@ -22,10 +25,16 @@ const CreateTokenField: FC<CreateTokenFieldProps> = ({
         variant="normal"
         display="inline-block"
       >
-        {label}:
+        {label}
+        {required && '*'}
       </Typography>
       <Input
-        placeholder={t('faucet.type', {
+        required
+        nPlaceholder={{
+          color: 'text',
+          opacity: 0.7,
+        }}
+        placeholder={t('common.createTokenModalInputPlaceholder', {
           currentLocale,
           label: label,
         })}
@@ -34,7 +43,7 @@ const CreateTokenField: FC<CreateTokenFieldProps> = ({
           p: 'S',
           my: 'M',
           height: '3rem',
-          bg: 'background',
+          bg: dark ? 'bottomBackground' : 'background',
           borderRadius: '1.5rem',
           overflow: 'visible',
           border: '1px solid',

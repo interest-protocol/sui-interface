@@ -10,7 +10,7 @@ import { capitalize, formatDollars } from '@/utils';
 import {
   getFarmsSVGByToken,
   makeFarmSymbol,
-} from '@/views/dapp/farms/farms.utils';
+} from '@/views/dapp/liquidity-farms/farms.utils';
 
 import { DetailsProps } from './farm-details.types';
 

@@ -1,6 +1,8 @@
 import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
 import { UseFormSetValue } from 'react-hook-form';
 
+import WormholeDOGEB from '@/components/svg/wormhole-dogeb';
+import WormholeFLOKIB from '@/components/svg/wormhole-flokib';
 import { ISwitchOption } from '@/components/switch/switch.types';
 import {
   BinanceSVG,
@@ -11,6 +13,13 @@ import {
   UnknownCoinSVG,
   USDCoinSVG,
   USDTSVG,
+  WormholeBTCBSVG,
+  WormholeETHBSVG,
+  WormholeETHSVG,
+  WormholeUSDCBSVG,
+  WormholeUSDCESVG,
+  WormholeUSDTBSVG,
+  WormholeWBNBSVG,
 } from '@/svg';
 
 import { IFarmsForm } from './farms.types';
@@ -258,16 +267,106 @@ export const FARMS_TOKENS_SVG_MAP = {
       highZIndex: false,
     },
   ],
-  [COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_BTCB]: [],
-  [COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_ETH]: [],
-  [COIN_TYPE[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_ETH]: [],
-  [COIN_TYPE[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_WBNB]: [],
-  [COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_USDC]: [],
-  [COIN_TYPE[Network.MAINNET].V_LP_SUI_ETH_WORMHOLE_USDC]: [],
-  [COIN_TYPE[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_BSC_WORMHOLE_USDC]: [],
-  [COIN_TYPE[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_BSC_WORMHOLE_USDC]: [],
-  [COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_DOGE]: [],
-  [COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_FLOKI]: [],
+  [COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_BTCB]: [
+    {
+      SVG: SuiSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: WormholeBTCBSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_ETH]: [
+    {
+      SVG: SuiSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: WormholeETHBSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_ETH]: [
+    {
+      SVG: SuiSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: WormholeETHSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_WBNB]: [
+    {
+      SVG: SuiSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: WormholeWBNBSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_USDC]: [
+    {
+      SVG: SuiSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: WormholeUSDCBSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.MAINNET].V_LP_SUI_ETH_WORMHOLE_USDC]: [
+    {
+      SVG: SuiSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: WormholeUSDCESVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.MAINNET].S_LP_BSC_WORMHOLE_USDT_BSC_WORMHOLE_USDC]: [
+    {
+      SVG: WormholeUSDTBSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: WormholeUSDCBSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_BSC_WORMHOLE_USDC]: [
+    {
+      SVG: WormholeUSDCESVG,
+      highZIndex: true,
+    },
+    {
+      SVG: WormholeUSDCBSVG,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_DOGE]: [
+    {
+      SVG: SuiSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: WormholeDOGEB,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_FLOKI]: [
+    {
+      SVG: SuiSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: WormholeFLOKIB,
+      highZIndex: false,
+    },
+  ],
 };
 
 export const getFilterSwitchDefaultData = (

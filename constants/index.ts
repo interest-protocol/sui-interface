@@ -91,3 +91,6 @@ export const TOKENS_SVG_MAP = {
 export const MILLISECONDS_PER_YEAR = 31540000000;
 
 export const TOAST_DURATION = 10000;
+
+export const TREASURY =
+  '0xdd224f2287f0b38693555c6077abe85fcb4aa13e355ad54bc167611896b007e6\n';

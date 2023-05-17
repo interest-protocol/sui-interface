@@ -100,10 +100,20 @@
     "copyObjectNumber": "copiar o id do objecto",
     "followUs": "SIGA-NOS",
     "coin": "moeda",
+    "createTokenModalButton": "{isLoading, plural, =1 {Criando O Token...} other {Crie Um Token}}",
+    "createTokenModalTitle": "NOVO TOKEN",
+    "createTokenModalInputName": "Nome",
+    "createTokenModalInputSymbol": "Símbolo",
+    "createTokenModalInputIconUrl": "URL do ícone",
+    "createTokenModalInputDescription": "Descrição",
+    "createTokenModalAdvice": "Deves pagar 1 Sui para a criação do Token",
+    "createTokenModalInputAmount": "Montante",
+    "createTokenModalInputPlaceholder": "Escreva o {label}",
     "bannerHeader": "Airdrop: 28M de tokens IPX para ganhar! Clique aqui!"
   },
   "error": {
     "generic": "algo deu errado",
+    "createToken": "Ocorreu um error ao criar o token",
     "wrongParams": "Parâmetros errados",
     "fetchingContract": "Erro ao obter os contractos",
     "fetchingBalances": "Erro ao obter os saldos",
@@ -123,7 +133,8 @@
     },
     "error": {
       "title": "Erro na carteira",
-      "advice": "Abra a sua carteira e/ou reinicie."
+      "advice": "Abra a sua carteira e/ou reinicie.",
+      "createToken": "O nome e símbolo não podem ser números."
     }
   }
 }

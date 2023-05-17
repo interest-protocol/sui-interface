@@ -33,7 +33,7 @@ export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.DEXPoolDetails]: '/dapp/dex/pool/details',
   [RoutesEnum.Faucet]: '/dapp/faucet',
   [RoutesEnum.LiquidityCampaign]: '/campaign/liquidity',
-  [RoutesEnum.Bridge]: 'https://www.portalbridge.com/sui/',
+  [RoutesEnum.Bridge]: 'https://wormhole.interestprotocol.com/',
   [RoutesEnum.LiquidityFarms]: '/dapp/liquidity',
   [RoutesEnum.LiquidityFarmsDetails]: '/dapp/liquidity/details',
 };

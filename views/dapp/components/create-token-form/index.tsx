@@ -1,9 +1,11 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Box, Button, Typography } from '@/elements';
-import { TimesSVG } from '@/svg';
+import { useNetwork } from '@/hooks';
+import { InfoSVG, TimesSVG } from '@/svg';
 
 import CreateTokenButton from './create-token-button';
 import CreateTokenField from './create-token-field';
@@ -15,11 +17,13 @@ import CreateTokenSupplyField from './create-token-supply-field';
 
 const CreateTokenForm: FC<CreateTokenFormProps> = ({ handleCloseModal }) => {
   const t = useTranslations();
+  const { network } = useNetwork();
   const { setValue, register, control } = useForm<TCreateTokenForm>({
     defaultValues: {
       name: '',
       symbol: '',
       amount: '',
+      iconUrl: '',
     },
   });
 
@@ -47,7 +51,7 @@ const CreateTokenForm: FC<CreateTokenFormProps> = ({ handleCloseModal }) => {
           variant="normal"
           textTransform="uppercase"
         >
-          {t('faucet.modalTitle')}
+          {t('common.createTokenModalTitle')}
         </Typography>
         <Box
           display="grid"
@@ -55,21 +59,52 @@ const CreateTokenForm: FC<CreateTokenFormProps> = ({ handleCloseModal }) => {
           gridTemplateColumns={['1fr', '1f', '1fr', '1fr 1fr']}
         >
           <CreateTokenField
-            label={t('faucet.modalInputName')}
+            required
             name="name"
             register={register}
+            label={t('common.createTokenModalInputName')}
           />
           <CreateTokenField
-            label={t('faucet.modalInputSymbol')}
+            required
+            label={t('common.createTokenModalInputSymbol')}
             name="symbol"
             register={register}
           />
         </Box>
+        <CreateTokenField
+          label={t('common.createTokenModalInputDescription')}
+          name="description"
+          register={register}
+        />
+        {network === Network.MAINNET && (
+          <CreateTokenField
+            required
+            name="iconUrl"
+            register={register}
+            label={t('common.createTokenModalInputIconUrl')}
+          />
+        )}
         <CreateTokenSupplyField
-          label={t('faucet.modalInputAmount')}
           register={register}
           setValue={setValue}
+          label={t('common.createTokenModalInputAmount')}
         />
+        {network === Network.MAINNET && (
+          <Box
+            p="L"
+            my="M"
+            color="text"
+            display="flex"
+            bg="background"
+            borderRadius="M"
+            alignItems="center"
+          >
+            <InfoSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+            <Typography variant="small" ml="L">
+              {t('common.createTokenModalAdvice')}
+            </Typography>
+          </Box>
+        )}
         <CreateTokenButton
           control={control}
           handleCloseModal={handleCloseModal}

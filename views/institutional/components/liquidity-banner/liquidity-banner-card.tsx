@@ -98,7 +98,6 @@ const LiquidityBannerCard: FC<LiquidityBannerCardProps> = ({
             </Button>
           </a>
         )}
-
         {buttons[1].link.startsWith('/') ? (
           <Link href={buttons[1].link}>
             <Button

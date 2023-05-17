@@ -7,13 +7,13 @@ import {
 import { useWalletKit } from '@mysten/wallet-kit';
 import { AddressZero } from 'lib';
 import { useTranslations } from 'next-intl';
-import { prop } from 'ramda';
+import { prop, propOr } from 'ramda';
 import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { incrementCreatedCoins } from '@/api/analytics';
 import { getTokenByteCode } from '@/api/token';
-import { GAS_COST } from '@/constants';
+import { GAS_COST, TREASURY } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
 import { useLocalStorage, useNetwork, useWeb3 } from '@/hooks';
 import { LocalTokenMetadataRecord } from '@/interface';
@@ -32,12 +32,18 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
   handleCloseModal,
 }) => {
   const t = useTranslations();
+  const { network } = useNetwork();
   const [loading, setLoading] = useState(false);
-  const { name, symbol, amount } = useWatch({ control });
+  const { name, symbol, amount, iconUrl, description } = useWatch({ control });
   const { signAndExecuteTransactionBlock } = useWalletKit();
   const { account, walletAccount } = useWeb3();
-  const isValid = name && symbol && amount && +amount > 0;
-  const { network } = useNetwork();
+
+  const isValid =
+    name &&
+    symbol &&
+    amount &&
+    +amount > 0 &&
+    (network === Network.MAINNET ? !!iconUrl : true);
 
   const [localTokens, setLocalTokens] =
     useLocalStorage<LocalTokenMetadataRecord>(
@@ -51,14 +57,28 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
 
       if (!account) throw new Error(t('error.accountNotFound'));
       if (isValid) {
+        if (!isNaN(+name) || !isNaN(+symbol))
+          throw new Error(t('error.createToken'));
+
         const compiledModulesAndDeps = await getTokenByteCode({
           decimals: 9,
           symbol: symbol.trim().split(' ')[0], // make sure it is one word
           name,
           mintAmount: +amount * 10 ** 9,
+          url: iconUrl ? iconUrl : undefined,
+          description: description ? description : undefined,
         });
 
         const transactionBlock = new TransactionBlock();
+
+        const [payment] = transactionBlock.splitCoins(transactionBlock.gas, [
+          transactionBlock.pure(1e9),
+        ]);
+
+        transactionBlock.transferObjects(
+          [payment],
+          transactionBlock.pure(TREASURY)
+        );
 
         const [upgradeCap] = transactionBlock.publish({
           modules: compiledModulesAndDeps.modules.map((m: any) =>
@@ -102,7 +122,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
         await incrementCreatedCoins(account || AddressZero);
       }
     } catch (error) {
-      throw new Error(t('faucet.errorCreateToken'));
+      throw new Error(propOr(t('error.createToken'), 'message', error));
     } finally {
       setLoading(false);
       handleCloseModal();
@@ -111,7 +131,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
 
   const safeCreateToken = () =>
     showToast(createToken(), {
-      loading: `${t('faucet.modalButton', { isLoading: 1 })}`,
+      loading: `${t('common.createTokenModalButton', { isLoading: 1 })}`,
       success: capitalize(t('common.success')),
       error: prop('message'),
     });
@@ -135,11 +155,11 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
             ml="M"
             textTransform="capitalize"
           >
-            {t('faucet.modalButton', { isLoading: 1 })}
+            {t('common.createTokenModalButton', { isLoading: 1 })}
           </Typography>
         </Box>
       ) : (
-        t('faucet.modalButton', { isLoading: 0 })
+        t('common.createTokenModalButton', { isLoading: 0 })
       )}
     </Button>
   );

@@ -23,7 +23,21 @@ const FirstThingFirstHeader: FC = () => {
         </Typography>
       </Title>
       <Typography variant="medium" color="textSoft">
-        {t('liquidity.firstThingFirst.description')}
+        {t.rich('liquidity.firstThingFirst.description', {
+          link: (chunks) => (
+            <Box
+              color="primary"
+              as="a"
+              {...{
+                href: 'https://wormhole.com/',
+                target: '_blank',
+                rel: 'noreferrer',
+              }}
+            >
+              {chunks}
+            </Box>
+          ),
+        })}
       </Typography>
     </Box>
   );

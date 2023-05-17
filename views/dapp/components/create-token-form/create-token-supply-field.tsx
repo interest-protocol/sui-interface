@@ -11,12 +11,12 @@ const CreateTokenSupplyField: FC<CreateTokenSupplyFieldProps> = ({
 }) => (
   <Box mb="L">
     <Typography as="label" fontSize="S" variant="normal" display="inline-block">
-      {label}:
+      {label}*
     </Typography>
     <InputBalance
       isLarge
-      balance={Infinity}
       name="amount"
+      balance={Infinity}
       register={register}
       setValue={setValue}
     />
