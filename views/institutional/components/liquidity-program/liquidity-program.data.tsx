@@ -1,3 +1,5 @@
+import { FC } from 'react';
+
 const CaretLeft: FC = (props) => {
   const { className, onClick } = props;
   return (
@@ -63,7 +65,6 @@ export const sliderSettings = {
       breakpoint: 628,
       settings: {
         slidesToShow: 1,
-        centerMode: true,
       },
     },
   ],
