@@ -31,30 +31,30 @@ const WormholeETH: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
       fill="white"
     />
     <path d="M11 15.8984L16.2122 18.9794V13.5293L11 15.8984Z" fill="white" />
-    <rect x="19" y="19" width="15" height="15" rx="7.5" fill="white" />
+    <rect x="19" y="19" width="15" height="15" rx="7.5" fill="#627eea" />
     <path
       d="M26.6591 19.9375L26.5737 20.2277V28.6493L26.6591 28.7346L30.5683 26.4238L26.6591 19.9375Z"
-      fill="#1B1B1F"
+      fill="#FFFFFF"
     />
     <path
       d="M26.6592 19.9375L22.75 26.4238L26.6592 28.7346V24.647V19.9375Z"
-      fill="#1B1B1F"
+      fill="#FFFFFF"
     />
     <path
       d="M26.6592 30.0063L26.6111 30.065V33.065L26.6592 33.2055L30.5708 27.6968L26.6592 30.0063Z"
-      fill="#1B1B1F"
+      fill="#FFFFFF"
     />
     <path
       d="M26.6592 33.2055V30.0063L22.75 27.6968L26.6592 33.2055Z"
-      fill="#1B1B1F"
+      fill="#FFFFFF"
     />
     <path
       d="M26.6592 28.7345L30.5683 26.4238L26.6592 24.647V28.7345Z"
-      fill="#1B1B1F"
+      fill="#FFFFFF"
     />
     <path
       d="M22.75 26.4238L26.6591 28.7345V24.647L22.75 26.4238Z"
-      fill="#1B1B1F"
+      fill="#FFFFFF"
     />
   </svg>
 );

@@ -28,7 +28,7 @@ const WormholeUSDCB: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
       d="M16.1128 17.2674C15.4699 17.2674 14.8729 17.2674 14.2759 17.2227V23.8869H18.1333V17.178C17.4904 17.2227 16.8016 17.2674 16.1128 17.2674Z"
       fill="white"
     />
-    <rect x="19" y="19" width="15" height="15" rx="7.5" fill="white" />
+    <rect x="19" y="19" width="15" height="15" rx="7.5" fill="#F8D12F" />
     <path
       fillRule="evenodd"
       clipRule="evenodd"

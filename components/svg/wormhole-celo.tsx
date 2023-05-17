@@ -30,7 +30,7 @@ const WormholeCELO: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
       </g>
     </g>
     <g clipPath="url(#clip1_WormholeCELO)">
-      <rect x="19" y="19" width="15" height="15" rx="7.5" fill="white" />
+      <rect x="19" y="19" width="15" height="15" rx="7.5" fill="#FCFF51" />
       <g clipPath="url(#clip2_WormholeCELO)">
         <mask
           id="mask1_WormholeCELO"
@@ -43,7 +43,7 @@ const WormholeCELO: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
         >
           <path
             d="M31.6562 21.3438H21.3438V31.6562H31.6562V21.3438Z"
-            fill="white"
+            fill="#FCFF51"
           />
         </mask>
         <g mask="url(#mask1_WormholeCELO)">
@@ -64,7 +64,7 @@ const WormholeCELO: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
         />
       </clipPath>
       <clipPath id="clip1_WormholeCELO">
-        <rect x="19" y="19" width="15" height="15" rx="7.5" fill="white" />
+        <rect x="19" y="19" width="15" height="15" rx="7.5" fill="#FCFF51" />
       </clipPath>
       <clipPath id="clip2_WormholeCELO">
         <rect

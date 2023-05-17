@@ -31,7 +31,7 @@ const WormholeETHB: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
       fill="white"
     />
     <path d="M11 15.8984L16.2122 18.9794V13.5293L11 15.8984Z" fill="white" />
-    <rect x="19" y="19" width="15" height="15" rx="7.5" fill="white" />
+    <rect x="19" y="19" width="15" height="15" rx="7.5" fill="#F8D12F" />
     <path
       fillRule="evenodd"
       clipRule="evenodd"
