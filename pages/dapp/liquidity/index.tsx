@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
+import { ModalProvider } from '@/context/modal';
 import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import Farms from '@/views/dapp/liquidity-farms';
@@ -46,14 +47,16 @@ const FarmsPage: NextPageWithProps = ({ pageTitle, messages, now }) => {
     );
 
   return (
-    <Web3Manager>
-      <Layout pageTitle={pageTitle}>
-        <Farms
-          form={form}
-          desktopState={{ isDesktop: isDesktop, setDesktop: setDesktop }}
-        />
-      </Layout>
-    </Web3Manager>
+    <ModalProvider>
+      <Web3Manager>
+        <Layout pageTitle={pageTitle}>
+          <Farms
+            form={form}
+            desktopState={{ isDesktop: isDesktop, setDesktop: setDesktop }}
+          />
+        </Layout>
+      </Web3Manager>
+    </ModalProvider>
   );
 };
 
