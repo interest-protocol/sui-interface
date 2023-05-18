@@ -62,6 +62,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
           pb={['XXXL', 'L']}
           position="relative"
           flexDirection="column"
+          justifyContent="space-between"
         >
           {children}
           {network === Network.MAINNET && connected && (

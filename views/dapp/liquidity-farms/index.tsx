@@ -8,7 +8,7 @@ import { Box, InfiniteScroll, Typography } from '@/elements';
 import { useGetCoinsPrices, useNetwork, useWeb3 } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
 import { LoadingSVG } from '@/svg';
-import { noop } from '@/utils';
+import { formatDollars, noop } from '@/utils';
 
 import ErrorView from '../components/error';
 import FarmsFilters from './components/farms-filters';
@@ -62,15 +62,24 @@ const Farms: FC<FarmsProps> = ({ form, desktopState }) => {
       <Box>
         <Container
           dapp
-          py="XL"
+          pt="XL"
           width="100%"
           display="flex"
-          alignItems="center"
           justifyContent={['center', 'flex-start']}
         >
           <Typography variant="normal" ml="M">
             Farms
           </Typography>
+        </Container>
+        <Container dapp display="flex">
+          <Box bg="foreground" p="L" borderRadius="L">
+            <Typography variant="normal">Total {t('common.tvl')}:</Typography>
+            <Typography variant="title3">
+              {formatDollars(
+                parsedData.farms.reduce((acc, { tvl }) => acc + tvl, 0)
+              )}
+            </Typography>
+          </Box>
         </Container>
       </Box>
       <Container
