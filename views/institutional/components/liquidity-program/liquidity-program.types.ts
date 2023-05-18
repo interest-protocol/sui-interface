@@ -9,6 +9,7 @@ export interface PoolProviderProps {
   Illustration: FC;
   percentage: number;
 }
+
 export interface IconWrapperProps {
   size: string;
   top?: string;
