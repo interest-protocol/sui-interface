@@ -1,3 +1,4 @@
+import { BoxProps } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { SVGProps } from '@/components/svg/svg.types';
@@ -17,11 +18,11 @@ export interface ShareProps {
 
 export interface IconWrapperProps {
   size: string;
-  top?: string;
-  left?: string;
-  right?: string;
-  bottom?: string;
   shining?: boolean;
   floating?: boolean;
   Icon: FC<SVGProps>;
+  top?: BoxProps['top'];
+  left?: BoxProps['left'];
+  right?: BoxProps['right'];
+  bottom?: BoxProps['bottom'];
 }
