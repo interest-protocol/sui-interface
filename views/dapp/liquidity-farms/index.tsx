@@ -65,16 +65,16 @@ const Farms: FC<FarmsProps> = ({ form, desktopState }) => {
           pt="XL"
           width="100%"
           display="flex"
-          justifyContent="space-between"
+          justifyContent={['center', 'flex-start']}
         >
           <Typography variant="normal" ml="M">
             Farms
           </Typography>
+        </Container>
+        <Container dapp display="flex">
           <Box bg="foreground" p="L" borderRadius="L">
-            <Typography variant="title4" textAlign="right" fontWeight="400">
-              {t('common.tvl')}{' '}
-            </Typography>
-            <Typography variant="title3" textAlign="right">
+            <Typography variant="normal">Total {t('common.tvl')}:</Typography>
+            <Typography variant="title3">
               {formatDollars(
                 parsedData.farms.reduce((acc, { tvl }) => acc + tvl, 0)
               )}
