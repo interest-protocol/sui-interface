@@ -146,6 +146,12 @@ export const DEX_TOKENS_DATA = {
       name: 'Wormhole WBNB',
     },
     {
+      symbol: TOKEN_SYMBOL.WORMHOLE_SOL,
+      decimals: 8,
+      type: COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_SOL,
+      name: 'Wormhole SOL',
+    },
+    {
       symbol: TOKEN_SYMBOL.WORMHOLE_ADA,
       decimals: 8,
       type: COIN_TYPE[Network.MAINNET].BSC_WORMHOLE_ADA,
@@ -225,6 +231,7 @@ export const RECOMMENDED_TOKENS_TYPES = {
     COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_ETH,
     COIN_TYPE[Network.MAINNET].ETH_WORMHOLE_USDT,
     COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_WBNB,
+    COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_SOL,
     COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_WAVAX,
     COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_WFTM,
     COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_CELO,

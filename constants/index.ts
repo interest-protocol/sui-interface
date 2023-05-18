@@ -16,6 +16,7 @@ import {
   WormholeETHBSVG,
   WormholeETHSVG,
   WormholeFLOKIBSVG,
+  WormholeSOLSVG,
   WormholeUSDCBSVG,
   WormholeUSDCESVG,
   WormholeUSDCSVG,
@@ -42,7 +43,7 @@ export const MAX_NUMBER_INPUT_VALUE = 9000000000000000;
 export const GAS_COST = {
   [Network.TESTNET]: 3_00_000_000,
   [Network.DEVNET]: 3_00_000_000,
-  [Network.MAINNET]: 3_00_000_000,
+  [Network.MAINNET]: 1_000_000_000,
 };
 
 export enum StakeState {
@@ -86,6 +87,7 @@ export const TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.MAINNET].BSC_WORMHOLE_USDT]: WormholeUSDTBSVG,
   [COIN_TYPE[Network.MAINNET].ETH_WORMHOLE_USDC]: WormholeUSDCESVG,
   [COIN_TYPE[Network.MAINNET].ETH_WORMHOLE_USDT]: WormholeUSDTESVG,
+  [COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_SOL]: WormholeSOLSVG,
 };
 
 export const MILLISECONDS_PER_YEAR = 31540000000;
