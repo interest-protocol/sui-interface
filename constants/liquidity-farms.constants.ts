@@ -26,6 +26,8 @@ export const COIN_FARM = {
       '0xadbbad101f598649937b0f18aced1bdf7e2cf544d277e838abd5e2a8c441807a',
     V_LP_SUI_BSC_WORMHOLE_ETH:
       '0x4e633d8f9a34f7789b9be2845a1a42410d2dbb0d8162bc4a1835367bf179ac5d',
+    V_LP_SUI_NATIVE_WORMHOLE_SOL:
+      '0xd4bf01215ea0822a0b894fba9487c2971d582da9e27b8618a6bb17384424335e',
   },
 };
 
@@ -90,6 +92,7 @@ export const POOL_IDS_RECORD = {
     COIN_POOL[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_BSC_WORMHOLE_USDC,
     COIN_POOL[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_DOGE,
     COIN_POOL[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_FLOKI,
+    COIN_POOL[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_SOL,
   ],
 };
 
@@ -122,10 +125,10 @@ export const FARM_IDS_RECORD_FIRST_CALL = {
       ],
     },
     {
-      number: 1,
+      number: 2,
       data: [
         COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_FLOKI,
-        COIN_TYPE[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_BSC_WORMHOLE_USDC,
+        COIN_TYPE[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_SOL,
         COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_DOGE,
       ],
     },
@@ -144,6 +147,7 @@ export const COIN_TYPE_ARRAY_UI = {
     COIN_TYPE[Network.MAINNET].V_LP_SUI_ETH_WORMHOLE_USDC,
     COIN_TYPE[Network.MAINNET].S_LP_BSC_WORMHOLE_USDT_BSC_WORMHOLE_USDC,
     COIN_TYPE[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_BSC_WORMHOLE_USDC,
+    COIN_TYPE[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_SOL,
     COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_DOGE,
     COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_FLOKI,
   ],
@@ -276,6 +280,18 @@ export const FARMS_RECORD: Record<Network, Record<string, FarmMetadataType>> = {
       coin1: COINS[Network.MAINNET].BSC_WORMHOLE_FLOKI,
       isSingleCoin: false,
       id: 9,
+      isLive: true,
+      stable: false,
+    },
+    [COIN_TYPE[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_SOL]: {
+      farmType: COIN_TYPE[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_SOL,
+      farmObjectId: COIN_FARM[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_SOL,
+      poolObjectId: COIN_POOL[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_SOL,
+      lpCoin: COINS[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_SOL,
+      coin0: COINS[Network.MAINNET].SUI,
+      coin1: COINS[Network.MAINNET].NATIVE_WORMHOLE_SOL,
+      isSingleCoin: false,
+      id: 10,
       isLive: true,
       stable: false,
     },

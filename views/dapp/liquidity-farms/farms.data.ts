@@ -16,6 +16,7 @@ import {
   WormholeBTCBSVG,
   WormholeETHBSVG,
   WormholeETHSVG,
+  WormholeSOLSVG,
   WormholeUSDCBSVG,
   WormholeUSDCESVG,
   WormholeUSDTBSVG,
@@ -364,6 +365,16 @@ export const FARMS_TOKENS_SVG_MAP = {
     },
     {
       SVG: WormholeFLOKIB,
+      highZIndex: false,
+    },
+  ],
+  [COIN_TYPE[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_SOL]: [
+    {
+      SVG: SuiSVG,
+      highZIndex: true,
+    },
+    {
+      SVG: WormholeSOLSVG,
       highZIndex: false,
     },
   ],
