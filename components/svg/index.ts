@@ -67,6 +67,7 @@ export { default as WormholeDOGEBSVG } from './wormhole-dogeb';
 export { default as WormholeETHSVG } from './wormhole-eth';
 export { default as WormholeETHBSVG } from './wormhole-ethb';
 export { default as WormholeFLOKIBSVG } from './wormhole-flokib';
+export { default as WormholeSOLSVG } from './wormhole-sol';
 export { default as WormholeUSDCSVG } from './wormhole-usdc';
 export { default as WormholeUSDCESVG } from './wormhole-usdc';
 export { default as WormholeUSDCBSVG } from './wormhole-usdcb';
