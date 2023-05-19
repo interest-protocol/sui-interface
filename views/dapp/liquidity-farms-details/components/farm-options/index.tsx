@@ -129,7 +129,7 @@ const FarmOptions: FC<FarmOptionsProps> = ({
               -
             </Button>
             <Button
-              mr="S"
+              ml="S"
               variant="primary"
               disabled={farm.lpCoinData.totalBalance.isZero() || !farm.isLive}
               onClick={() => handleChangeModal(StakeState.Stake)}
