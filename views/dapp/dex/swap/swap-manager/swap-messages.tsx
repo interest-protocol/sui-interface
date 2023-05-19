@@ -1,47 +1,13 @@
-import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
-import { Box, Typography } from '@/elements';
-import { TTranslatedMessage } from '@/interface';
+import { Message } from '@/components';
 import { LoadingSVG, TimesSVG } from '@/svg';
 import SwapPath from '@/views/dapp/dex/swap/swap-path';
 
-import { SwapMessageProps, SwapMessagesProps } from './swap-manager.types';
+import { SwapMessagesProps } from './swap-manager.types';
 
-const SwapMessage: FC<SwapMessageProps> = ({
-  Icon,
-  color,
-  message,
-  extraData,
-}) => {
-  const t = useTranslations();
-  return (
-    <Box
-      p="L"
-      my="M"
-      display="flex"
-      bg="background"
-      borderRadius="M"
-      alignItems="center"
-      color={color ?? 'text'}
-    >
-      <Box mr={['L', 'M']}>
-        <Icon width="1.2rem" maxHeight="1.2rem" maxWidth="1.2rem" />
-      </Box>
-      <Typography
-        fontSize="S"
-        variant="normal"
-        maxWidth="40rem"
-        overflow="hidden"
-      >
-        {t(message as TTranslatedMessage, extraData)}
-      </Typography>
-    </Box>
-  );
-};
-
-const SwapMessages: FC<SwapMessagesProps> = ({
+export const SwapMessages: FC<SwapMessagesProps> = ({
   control,
   isFetchingSwapAmountIn,
   isFetchingSwapAmountOut,
@@ -66,7 +32,7 @@ const SwapMessages: FC<SwapMessagesProps> = ({
     <>
       {isFetchingSwapAmountIn ||
         (isFetchingSwapAmountOut && (
-          <SwapMessage
+          <Message
             Icon={LoadingSVG}
             message="dexSwap.swapMessage.fetchingAmounts"
           />
@@ -75,7 +41,7 @@ const SwapMessages: FC<SwapMessagesProps> = ({
         (isZeroSwapAmountOut &&
           !!+tokenOut.value &&
           !isFetchingSwapAmountOut && (
-            <SwapMessage
+            <Message
               color="error"
               Icon={TimesSVG}
               extraData={{
@@ -85,21 +51,21 @@ const SwapMessages: FC<SwapMessagesProps> = ({
             />
           ))}
       {tokenIn.type === tokenOut.type && (
-        <SwapMessage
+        <Message
           color="error"
           Icon={TimesSVG}
           message="dexSwap.swapMessage.sameOut"
         />
       )}
       {hasNoMarket && (
-        <SwapMessage
+        <Message
           color="error"
           Icon={TimesSVG}
           message="dexSwap.swapMessage.noMarket"
         />
       )}
       {error && (
-        <SwapMessage
+        <Message
           color="error"
           Icon={TimesSVG}
           message="dexSwap.swapMessage.error"
@@ -109,5 +75,3 @@ const SwapMessages: FC<SwapMessagesProps> = ({
     </>
   );
 };
-
-export default SwapMessages;

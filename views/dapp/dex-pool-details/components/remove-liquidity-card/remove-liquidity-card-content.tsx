@@ -6,12 +6,12 @@ import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
 
+import { Message } from '@/components';
 import { Box, Button } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { TimesSVG } from '@/svg';
 import { capitalize } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
-import SwapMessages from '@/views/dapp/dex/swap/swap-manager/swap-messages';
 
 import LinearLoader from './linear-loader';
 import RemoveLiquidityButton from './remove-liquidity-button';
@@ -56,7 +56,7 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
     <>
       <LinearLoader loading={isLoading} />
       {(!isLoading && !!error) ?? (
-        <SwapMessages
+        <Message
           color="error"
           Icon={TimesSVG}
           message={capitalize(t('error.generic'))}

@@ -6,7 +6,7 @@ import { useNetwork } from '@/hooks';
 import { SwapManagerWrapperProps } from '../swap.types';
 import SwapButton from './swap-button';
 import SwapManagerField from './swap-manager-field';
-import SwapMessages from './swap-messages';
+import { SwapMessages } from './swap-messages';
 
 const SwapManager: FC<SwapManagerWrapperProps> = ({
   swapButtonProps,
