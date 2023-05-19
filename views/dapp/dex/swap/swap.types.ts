@@ -67,8 +67,8 @@ export interface SwapManagerProps {
   hasNoMarket: boolean;
   account: string | null;
   tokenIn: SwapFormTokenData;
+  tokenOut: SwapFormTokenData;
   poolsMap: PoolsMap;
-  control: Control<ISwapForm>;
   isFetchingSwapAmount: boolean;
   register: UseFormRegister<ISwapForm>;
   setValue: UseFormSetValue<ISwapForm>;

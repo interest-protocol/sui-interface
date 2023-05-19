@@ -162,24 +162,24 @@ const Swap: FC<SwapProps> = ({
             account={account}
             coinsMap={coinsMap}
             tokenInType={tokenInType}
+            poolsMap={poolsMap || {}}
             control={formSwap.control}
             tokenOutType={tokenOutType}
             setValue={formSwap.setValue}
             register={formSwap.register}
             getValues={formSwap.getValues}
-            poolsMap={poolsMap || {}}
             searchTokenModalState={searchTokenModalState}
             onSelectCurrency={onSelectCurrency('tokenOut')}
             swapButtonProps={{
               mutate,
-              control: formSwap.control,
               coinsMap,
-              setValue: formSwap.setValue,
-              getValues: formSwap.getValues,
               tokenInType,
               tokenOutType,
-              slippage: localSettings.slippage,
               poolsMap: poolsMap || {},
+              control: formSwap.control,
+              setValue: formSwap.setValue,
+              getValues: formSwap.getValues,
+              slippage: localSettings.slippage,
               deadline: localSettings.deadline,
             }}
           />

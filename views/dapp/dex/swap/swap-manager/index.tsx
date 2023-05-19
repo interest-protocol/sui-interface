@@ -1,5 +1,5 @@
 import { findMarket } from '@interest-protocol/sui-sdk';
-import { FC, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
 
@@ -16,35 +16,58 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
   swapButtonProps,
   ...props
 }) => {
-  const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
-  const [isZeroSwapAmount, setIsZeroSwapAmount] = useState(false);
+  const { network } = useNetwork();
   const [error, setError] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [isZeroSwapAmount, setIsZeroSwapAmount] = useState(false);
+  const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
+
   const [tokenIn] = useDebounce(
     useWatch({ control: props.control, name: 'tokenIn' }),
     900
   );
-  const { network } = useNetwork();
+  const [tokenOut] = useDebounce(
+    useWatch({ control: props.control, name: 'tokenOut' }),
+    900
+  );
 
-  const markets = findMarket({
-    data: props.poolsMap,
-    coinInType: props.tokenInType,
-    coinOutType: props.tokenOutType,
-    network,
-  });
-  const hasNoMarket = !markets.length;
+  useEffect(() => {
+    console.log('>> tokenOut :: ', tokenOut);
+  }, [tokenOut]);
 
-  const readyToSwap =
-    !(error && +tokenIn.value > 0) &&
-    !isFetchingSwapAmount &&
-    !(isZeroSwapAmount && !!+tokenIn.value && !isFetchingSwapAmount) &&
-    !(props.tokenInType === props.tokenOutType) &&
-    !hasNoMarket;
+  useEffect(() => {
+    console.log('>> tokenIn :: ', tokenIn);
+  }, [tokenIn]);
+
+  const markets = useMemo(() => {
+    console.log('>> markets rerender');
+
+    return findMarket({
+      data: props.poolsMap,
+      coinInType: props.tokenInType,
+      coinOutType: props.tokenOutType,
+      network,
+    });
+  }, [props.poolsMap, props.tokenInType, props.tokenOutType, network]);
+
+  const hasNoMarket = useMemo(() => {
+    console.log('>> markets rerender');
+
+    return !markets.length;
+  }, [markets]);
+
+  const readyToSwap = false;
+  // !(error && +tokenIn.value > 0) &&
+  // !isFetchingSwapAmount &&
+  // !(isZeroSwapAmount && !!+tokenIn.value && !isFetchingSwapAmount) &&
+  // !(props.tokenInType === props.tokenOutType) &&
+  // !hasNoMarket;
 
   return (
     <>
       <SwapManagerField
         {...props}
+        tokenOut={tokenOut}
         setIsFetchingSwapAmount={setIsFetchingSwapAmount}
         isFetchingSwapAmount={isFetchingSwapAmount}
         setError={setError}

@@ -1,8 +1,7 @@
 import { BigNumber } from 'bignumber.js';
 import { FixedPointMath } from 'lib';
 import { pathOr, prop } from 'ramda';
-import { FC, useEffect } from 'react';
-import { useWatch } from 'react-hook-form';
+import { FC, useEffect, useMemo } from 'react';
 import useSWR from 'swr';
 
 import { COIN_DECIMALS } from '@/constants';
@@ -15,30 +14,28 @@ import { SwapManagerProps } from '../swap.types';
 import { getSwapCoinOutAmountPayload } from '../swap.utils';
 
 const SwapManagerField: FC<SwapManagerProps> = ({
-  control,
   account,
+  tokenIn,
+  setError,
   coinsMap,
   register,
   setValue,
+  tokenOut,
+  poolsMap,
   getValues,
-  tokenInType,
   setDisabled,
+  tokenInType,
+  hasNoMarket,
   tokenOutType,
   onSelectCurrency,
-  poolsMap,
-  setIsFetchingSwapAmount,
   setIsZeroSwapAmount,
   isFetchingSwapAmount,
-  tokenIn,
-  hasNoMarket,
-  setError,
   searchTokenModalState,
+  setIsFetchingSwapAmount,
 }) => {
-  const tokenOutValue = useWatch({ control, name: 'tokenOut.value' });
-
-  const { provider } = useProvider();
-  const { network } = useNetwork();
   const sdk = useSDK();
+  const { network } = useNetwork();
+  const { provider } = useProvider();
 
   const payload = getSwapCoinOutAmountPayload({
     tokenIn,
@@ -54,6 +51,8 @@ const SwapManagerField: FC<SwapManagerProps> = ({
       provider.devInspectTransactionBlock.name
     ),
     async () => {
+      console.log('>> SWR rerender');
+
       if (!payload || !account || !tokenIn || !+tokenIn.value) return;
       setIsFetchingSwapAmount(true);
 
@@ -95,12 +94,13 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   );
 
   useEffect(() => {
+    console.log('>> disabled rerender ');
     setDisabled(
       (error && +tokenIn.value > 0) ||
         isFetchingSwapAmount ||
         tokenInType === tokenOutType ||
         hasNoMarket ||
-        (!+tokenOutValue && !!+tokenIn.value && !isFetchingSwapAmount)
+        (!+tokenOut.value && !!+tokenIn.value && !isFetchingSwapAmount)
     );
   }, [
     error,
@@ -108,17 +108,22 @@ const SwapManagerField: FC<SwapManagerProps> = ({
     hasNoMarket,
     tokenInType,
     tokenOutType,
-    tokenOutValue,
     isFetchingSwapAmount,
+    tokenOut,
   ]);
-  const balance = FixedPointMath.toNumber(
-    pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
-    pathOr(0, [tokenOutType, 'decimals'], coinsMap)
-  ).toString();
+
+  const balance = useMemo(() => {
+    console.log('>> balance rerender');
+
+    return FixedPointMath.toNumber(
+      pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
+      pathOr(0, [tokenOutType, 'decimals'], coinsMap)
+    ).toString();
+  }, [tokenOutType, coinsMap]);
+
   return (
     <InputBalance
       isLarge
-      disabled
       balance={balance}
       register={register}
       setValue={setValue}
