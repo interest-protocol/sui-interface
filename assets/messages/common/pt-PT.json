@@ -7,24 +7,25 @@
         "pt-PT": "Português",
         "pt-BR": "Português"
       },
+
       "banner": {
         "liquidity": {
-          "title": "28M de IPX tokens",
-          "label": "Para não perder",
-          "description": "Em busca de AirDrop",
-          "buttons": { "main": "Ir para AirDrop", "secondary": "Saiba mais" }
+          "title": "20 Milhões de Tokens IPX",
+          "label": "Disponíveis",
+          "description": "Forneça liquidez para cultivar os tokens IPX",
+          "buttons": { "main": "Ir para o AirDrop", "secondary": "Saber mais" }
         },
         "zealy": {
-          "title": "28M IPX tokens",
-          "label": "Para não perder",
-          "description": "Em busca de AirDrop",
-          "buttons": { "main": "Ir para Zealy", "secondary": "Saiba mais" }
+          "title": "3 Milhões de Tokens IPX",
+          "label": "Disponíveis",
+          "description": "Complete missões para obter o AirDrop",
+          "buttons": { "main": "Ir para a Zealy", "secondary": "Saber mais" }
         },
         "swap": {
-          "title": "28M IPX tokens",
-          "label": "Para não perder",
-          "description": "Em busca AirDrop",
-          "buttons": { "main": "Troque agora", "secondary": "Saiba mais" }
+          "title": "5 Milhões de Tokens IPX",
+          "label": "Disponíveis",
+          "description": "Troque para obter o AirDrop",
+          "buttons": { "main": "Trocar Agora", "secondary": "Saber mais" }
         }
       }
     },
