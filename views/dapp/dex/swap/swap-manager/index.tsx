@@ -14,6 +14,7 @@ import SwapManagerField from './swap-manager-field';
 
 const SwapManager: FC<SwapManagerWrapperProps> = ({
   swapButtonProps,
+  autoFetch,
   ...props
 }) => {
   const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
@@ -43,16 +44,18 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
 
   return (
     <>
-      <SwapManagerField
-        {...props}
-        setIsFetchingSwapAmount={setIsFetchingSwapAmount}
-        isFetchingSwapAmount={isFetchingSwapAmount}
-        setError={setError}
-        setIsZeroSwapAmount={setIsZeroSwapAmount}
-        hasNoMarket={hasNoMarket}
-        tokenIn={tokenIn}
-        setDisabled={setDisabled}
-      />
+      {autoFetch && (
+        <SwapManagerField
+          {...props}
+          setIsFetchingSwapAmount={setIsFetchingSwapAmount}
+          isFetchingSwapAmount={isFetchingSwapAmount}
+          setError={setError}
+          setIsZeroSwapAmount={setIsZeroSwapAmount}
+          hasNoMarket={hasNoMarket}
+          tokenIn={tokenIn}
+          setDisabled={setDisabled}
+        />
+      )}
       {isFetchingSwapAmount && (
         <SwapMessage
           Icon={LoadingSVG}

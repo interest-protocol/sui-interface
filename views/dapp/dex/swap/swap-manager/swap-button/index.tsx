@@ -47,10 +47,11 @@ const SwapButton: FC<SwapButtonProps> = ({
   const { provider } = useProvider();
   const sdk = useSDK();
   const tokenInValue = useWatch({ control, name: 'tokenIn.value' });
-
+  const tokenOutValue = useWatch({ control, name: 'tokenOut.value' });
   const isDisabled =
     disabled ||
     !+tokenInValue ||
+    !+tokenOutValue ||
     !findMarket({
       data: poolsMap,
       coinInType: tokenInType,

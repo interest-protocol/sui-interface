@@ -9,6 +9,7 @@ import { Box, InputBalance } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import { ZERO_BIG_NUMBER } from '@/utils';
+import SwapSelectCurrency from '@/views/dapp/components/select-currency';
 
 import SelectCurrency from '../../components/select-currency';
 import { OnSelectCurrency } from '../../components/select-currency/select-currency.types';
@@ -32,10 +33,11 @@ const Swap: FC<SwapProps> = ({
   const { data: poolsMap, isLoading } = useGetDexMarkets();
 
   const setSettings = useCallback(
-    ({ slippage, deadline }: ISwapSettingsForm) => {
+    ({ slippage, deadline, autoFetch }: ISwapSettingsForm) => {
       setLocalSettings({
         slippage,
         deadline,
+        autoFetch,
       });
     },
     []
@@ -158,6 +160,25 @@ const Swap: FC<SwapProps> = ({
               ⥯
             </Box>
           </Box>
+          <InputBalance
+            isLarge
+            balance={FixedPointMath.toNumber(
+              pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
+              pathOr(0, [tokenOutType, 'decimals'], coinsMap)
+            ).toString()}
+            register={formSwap.register}
+            setValue={formSwap.setValue}
+            name="tokenOut.value"
+            Suffix={
+              <SwapSelectCurrency
+                currentToken={tokenOutType}
+                type={tokenOutType}
+                onSelectCurrency={onSelectCurrency('tokenOut')}
+                symbol={formSwap.getValues('tokenOut.symbol')}
+                searchTokenModalState={searchTokenModalState}
+              />
+            }
+          />
           <SwapManager
             account={account}
             coinsMap={coinsMap}
@@ -165,11 +186,8 @@ const Swap: FC<SwapProps> = ({
             control={formSwap.control}
             tokenOutType={tokenOutType}
             setValue={formSwap.setValue}
-            register={formSwap.register}
-            getValues={formSwap.getValues}
             poolsMap={poolsMap || {}}
-            searchTokenModalState={searchTokenModalState}
-            onSelectCurrency={onSelectCurrency('tokenOut')}
+            autoFetch={localSettings.autoFetch}
             swapButtonProps={{
               mutate,
               control: formSwap.control,
@@ -179,7 +197,6 @@ const Swap: FC<SwapProps> = ({
               tokenInType,
               tokenOutType,
               slippage: localSettings.slippage,
-              poolsMap: poolsMap || {},
               deadline: localSettings.deadline,
             }}
           />
