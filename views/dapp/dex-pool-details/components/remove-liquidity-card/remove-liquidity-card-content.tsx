@@ -11,7 +11,7 @@ import { useWeb3 } from '@/hooks';
 import { TimesSVG } from '@/svg';
 import { capitalize } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
-import SwapMessage from '@/views/dapp/dex/swap/swap-manager/swap-button/swap-message';
+import SwapMessages from '@/views/dapp/dex/swap/swap-manager/swap-messages';
 
 import LinearLoader from './linear-loader';
 import RemoveLiquidityButton from './remove-liquidity-button';
@@ -56,7 +56,7 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
     <>
       <LinearLoader loading={isLoading} />
       {(!isLoading && !!error) ?? (
-        <SwapMessage
+        <SwapMessages
           color="error"
           Icon={TimesSVG}
           message={capitalize(t('error.generic'))}

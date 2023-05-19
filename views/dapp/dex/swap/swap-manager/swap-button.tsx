@@ -2,7 +2,6 @@ import { findMarket } from '@interest-protocol/sui-sdk';
 import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
-import { FixedPointMath } from 'lib';
 import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC, useState } from 'react';
@@ -12,6 +11,7 @@ import { incrementTX } from '@/api/analytics';
 import { Box, Button, Typography } from '@/elements';
 import { useSDK } from '@/hooks';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
+import { FixedPointMath } from '@/lib';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,
@@ -22,8 +22,8 @@ import {
 } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
 
-import { SwapButtonProps } from '../../swap.types';
-import { getAmountMinusSlippage } from '../../swap.utils';
+import { SwapButtonProps } from '../swap.types';
+import { getAmountMinusSlippage } from '../swap.utils';
 
 const SwapButton: FC<SwapButtonProps> = ({
   mutate,

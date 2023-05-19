@@ -19,6 +19,7 @@ import { ISwapSettingsForm } from './settings/settings.types';
 export interface ISwapForm {
   tokenIn: SwapFormTokenData;
   tokenOut: SwapFormTokenData;
+  lock: boolean;
 }
 
 export type PoolsMap = DexMarket;
@@ -45,32 +46,40 @@ export interface SwapButtonProps {
   deadline: string;
 }
 
+interface SwapManagerWrapperButtonProps {
+  slippage: string;
+  getValues: UseFormGetValues<ISwapForm>;
+  mutate: KeyedMutator<PaginatedCoins['data'] | undefined>;
+  deadline: string;
+}
+
 export interface SwapManagerWrapperProps {
   autoFetch: boolean;
-  swapButtonProps: Omit<SwapButtonProps, 'disabled' | 'poolsMap'>;
-  tokenInType: string;
-  tokenOutType: string;
+  swapButtonProps: SwapManagerWrapperButtonProps;
   account: string | null;
   control: Control<ISwapForm>;
   poolsMap: PoolsMap;
   setValue: UseFormSetValue<ISwapForm>;
   coinsMap: Web3ManagerState['coinsMap'];
+  tokenInType: string;
+  tokenOutType: string;
 }
 
 export interface SwapManagerProps {
-  tokenInType: string;
   tokenOutType: string;
   hasNoMarket: boolean;
   account: string | null;
-  tokenIn: SwapFormTokenData;
   poolsMap: PoolsMap;
-  isFetchingSwapAmount: boolean;
   setValue: UseFormSetValue<ISwapForm>;
   coinsMap: Web3ManagerState['coinsMap'];
   setError: Dispatch<SetStateAction<boolean>>;
   setDisabled: Dispatch<SetStateAction<boolean>>;
   setIsZeroSwapAmount: Dispatch<SetStateAction<boolean>>;
   setIsFetchingSwapAmount: Dispatch<SetStateAction<boolean>>;
+  isFetchingSwapAmount: boolean;
+  control: Control<ISwapForm>;
+  name: 'tokenIn' | 'tokenOut';
+  setValueName: 'tokenIn.value' | 'tokenOut.value';
 }
 
 export interface GetSwapCoinOutAmountPayloadArgs {

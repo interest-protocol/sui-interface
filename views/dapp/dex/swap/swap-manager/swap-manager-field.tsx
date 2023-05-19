@@ -2,7 +2,9 @@ import { BigNumber } from 'bignumber.js';
 import { FixedPointMath } from 'lib';
 import { prop } from 'ramda';
 import { FC, useEffect } from 'react';
+import { useWatch } from 'react-hook-form';
 import useSWR from 'swr';
+import { useDebounce } from 'use-debounce';
 
 import { COIN_DECIMALS } from '@/constants';
 import { useNetwork, useProvider, useSDK } from '@/hooks';
@@ -15,22 +17,27 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   account,
   coinsMap,
   setValue,
-  tokenInType,
   setDisabled,
   tokenOutType,
   poolsMap,
-  setIsFetchingSwapAmount,
-  setIsZeroSwapAmount,
-  isFetchingSwapAmount,
-  tokenIn,
   hasNoMarket,
   setError,
+  setIsZeroSwapAmount,
+  setIsFetchingSwapAmount,
+  isFetchingSwapAmount,
+  control,
+  name,
+  setValueName,
 }) => {
   const { provider } = useProvider();
   const { network } = useNetwork();
   const sdk = useSDK();
 
-  const payload = getSwapCoinOutAmountPayload({
+  const [tokenIn] = useDebounce(useWatch({ control, name }), 900);
+
+  const lock = useWatch({ control, name: 'lock' });
+
+  const payloadOut = getSwapCoinOutAmountPayload({
     tokenIn,
     coinsMap,
     tokenOutType,
@@ -40,14 +47,14 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 
   const { error } = useSWR(
     makeSWRKey(
-      [account, payload, prop('value', tokenIn), prop('type', tokenIn)],
+      [account, payloadOut, prop('value', tokenIn), prop('type', tokenIn)],
       provider.devInspectTransactionBlock.name
     ),
     async () => {
-      if (!payload || !tokenIn || !+tokenIn.value) return;
       setIsFetchingSwapAmount(true);
+      if (!payloadOut || !tokenIn || !+tokenIn.value || lock) return;
 
-      return sdk.getSwapCoinOutAmount(payload);
+      return sdk.getSwapCoinOutAmount(payloadOut);
     },
     {
       onError: () => {
@@ -56,8 +63,8 @@ const SwapManagerField: FC<SwapManagerProps> = ({
       onSuccess: (response) => {
         if (!response) {
           setError(false);
-          setValue('tokenOut.value', '0');
-          setIsZeroSwapAmount(true);
+          setIsFetchingSwapAmount(false);
+          setValue('lock', true);
           return;
         }
         if (response.data.effects.status.status === 'failure') {
@@ -68,7 +75,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 
           setIsZeroSwapAmount(!amountOut);
           setValue(
-            'tokenOut.value',
+            setValueName,
             FixedPointMath.toNumber(
               new BigNumber(amountOut),
               COIN_DECIMALS[network][tokenOutType],
@@ -77,6 +84,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
           );
         }
         setIsFetchingSwapAmount(false);
+        setValue('lock', true);
       },
       revalidateOnFocus: true,
       revalidateOnMount: true,
@@ -86,16 +94,16 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 
   useEffect(() => {
     setDisabled(
-      (error && +tokenIn.value > 0) ||
+      !!(error && +tokenIn.value > 0) ||
         isFetchingSwapAmount ||
-        tokenInType === tokenOutType ||
+        tokenIn.type === tokenOutType ||
         hasNoMarket
     );
   }, [
     error,
     tokenIn,
     hasNoMarket,
-    tokenInType,
+    tokenIn.type,
     tokenOutType,
     isFetchingSwapAmount,
   ]);

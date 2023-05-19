@@ -64,6 +64,7 @@ const DexPage: NextPageWithProps = ({ pageTitle }) => {
       decimals: TokenOut.decimals,
       symbol: TokenOut.symbol,
     });
+    formSwap.setValue('lock', false);
   }, [network]);
 
   const formSettingsDropdown = useForm<ISwapSettingsForm>();

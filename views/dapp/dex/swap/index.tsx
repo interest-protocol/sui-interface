@@ -135,6 +135,9 @@ const Swap: FC<SwapProps> = ({
                 />
               }
               isLarge={true}
+              customFunction={() => {
+                formSwap.setValue('lock', false);
+              }}
             />
             <Box
               zIndex={1}
@@ -178,24 +181,22 @@ const Swap: FC<SwapProps> = ({
                 searchTokenModalState={searchTokenModalState}
               />
             }
+            customFunction={() => {
+              formSwap.setValue('lock', false);
+            }}
           />
           <SwapManager
             account={account}
             coinsMap={coinsMap}
-            tokenInType={tokenInType}
             control={formSwap.control}
-            tokenOutType={tokenOutType}
             setValue={formSwap.setValue}
             poolsMap={poolsMap || {}}
             autoFetch={localSettings.autoFetch}
+            tokenInType={tokenInType}
+            tokenOutType={tokenOutType}
             swapButtonProps={{
               mutate,
-              control: formSwap.control,
-              coinsMap,
-              setValue: formSwap.setValue,
               getValues: formSwap.getValues,
-              tokenInType,
-              tokenOutType,
               slippage: localSettings.slippage,
               deadline: localSettings.deadline,
             }}
