@@ -83,7 +83,7 @@ const Details: FC<DetailsProps> = ({ farm, loading }) => {
           <Typography variant="normal" fontSize="S" mb="L">
             TVL
           </Typography>
-          {formatDollars(farm.tvl)}
+          {loading ? <Skeleton width="5rem" /> : formatDollars(farm.tvl)}
         </Box>
         <Box>
           <Typography
@@ -94,15 +94,23 @@ const Details: FC<DetailsProps> = ({ farm, loading }) => {
           >
             {t('common.state')}
           </Typography>
-          {capitalize(t(farm.isLive ? 'common.live' : 'common.finished'))}
+          {loading ? (
+            <Skeleton width="5rem" />
+          ) : (
+            capitalize(t(farm.isLive ? 'common.live' : 'common.finished'))
+          )}
         </Box>
         <Box>
           <Typography variant="normal" fontSize="S" mb="L">
             APR
           </Typography>
-          {farm.apr.isZero()
-            ? '0%'
-            : `${farm.apr.decimalPlaces(2).toString()}%`}
+          {loading ? (
+            <Skeleton width="5rem" />
+          ) : farm.apr.isZero() ? (
+            '0%'
+          ) : (
+            `${farm.apr.decimalPlaces(2).toString()}%`
+          )}
         </Box>
         <Box>
           <Typography
@@ -113,12 +121,16 @@ const Details: FC<DetailsProps> = ({ farm, loading }) => {
           >
             {t('common.allocation')}
           </Typography>
-          {farm.allocationPoints.isZero()
-            ? '0%'
-            : `${farm.allocationPoints
-                .multipliedBy(100)
-                .decimalPlaces(3)
-                .toNumber()}%`}
+          {loading ? (
+            <Skeleton width="5rem" />
+          ) : farm.allocationPoints.isZero() ? (
+            '0%'
+          ) : (
+            `${farm.allocationPoints
+              .multipliedBy(100)
+              .decimalPlaces(3)
+              .toNumber()}%`
+          )}
         </Box>
       </Box>
     </Box>

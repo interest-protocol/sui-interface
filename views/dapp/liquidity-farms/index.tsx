@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { isEmpty } from 'ramda';
 import { FC, useCallback } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 import { Container } from '@/components';
 import { COIN_PRICES } from '@/constants/liquidity-farms.constants';
@@ -75,8 +76,12 @@ const Farms: FC<FarmsProps> = ({ form, desktopState }) => {
           <Box bg="foreground" p="L" borderRadius="L">
             <Typography variant="normal">Total {t('common.tvl')}:</Typography>
             <Typography variant="title3">
-              {formatDollars(
-                parsedData.farms.reduce((acc, { tvl }) => acc + tvl, 0)
+              {parsedData.farms.length > 0 ? (
+                formatDollars(
+                  parsedData.farms.reduce((acc, { tvl }) => acc + tvl, 0)
+                )
+              ) : (
+                <Skeleton />
               )}
             </Typography>
           </Box>
