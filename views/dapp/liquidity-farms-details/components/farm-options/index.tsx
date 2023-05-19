@@ -117,6 +117,18 @@ const FarmOptions: FC<FarmOptionsProps> = ({
             px={['NONE', 'NONE', 'NONE', 'XL']}
           >
             <Button
+              variant="primary"
+              disabled={farm.totalStakedAmount.isZero()}
+              onClick={() => handleChangeModal(StakeState.Unstake)}
+              bg={farm.accountBalance.isZero() ? 'disabled' : 'error'}
+              cursor={farm.accountBalance.isZero() ? 'not-allowed' : 'pointer'}
+              nHover={{
+                bg: farm.accountBalance.isZero() ? 'disabled' : 'errorActive',
+              }}
+            >
+              -
+            </Button>
+            <Button
               mr="S"
               variant="primary"
               disabled={farm.lpCoinData.totalBalance.isZero() || !farm.isLive}
@@ -139,18 +151,6 @@ const FarmOptions: FC<FarmOptionsProps> = ({
               }}
             >
               +
-            </Button>
-            <Button
-              variant="primary"
-              disabled={farm.totalStakedAmount.isZero()}
-              onClick={() => handleChangeModal(StakeState.Unstake)}
-              bg={farm.accountBalance.isZero() ? 'disabled' : 'error'}
-              cursor={farm.accountBalance.isZero() ? 'not-allowed' : 'pointer'}
-              nHover={{
-                bg: farm.accountBalance.isZero() ? 'disabled' : 'errorActive',
-              }}
-            >
-              -
             </Button>
           </Box>
         }
