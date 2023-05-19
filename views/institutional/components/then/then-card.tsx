@@ -1,4 +1,5 @@
 import { Box, Motion, Typography } from '@interest-protocol/ui-kit';
+import { easeInOut } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { FC, useCallback, useState } from 'react';
 
@@ -53,7 +54,10 @@ const ThenCard: FC<ThenCardProps> = ({
       display="grid"
     >
       {isSelected ? (
-        <Box
+        <Motion
+          initial={!desktop && { scale: 0.7 }}
+          animate={!desktop && { scale: 1 }}
+          transition={{ ease: easeInOut, duration: desktop ? 0 : 0.2 }}
           border="1px solid"
           borderColor="border"
           p="1rem"
@@ -95,7 +99,7 @@ const ThenCard: FC<ThenCardProps> = ({
               {description}
             </Typography>
           </Box>
-        </Box>
+        </Motion>
       ) : (
         <Box
           width={['unset', 'unset', 'unset', '2.5rem']}
