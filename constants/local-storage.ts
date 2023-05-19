@@ -1,1 +1,1 @@
-export const LOCAL_STORAGE_VERSION = 'v2';
+export const LOCAL_STORAGE_VERSION = 'v3';

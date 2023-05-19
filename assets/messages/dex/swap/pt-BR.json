@@ -3,6 +3,7 @@
     "pageTitle": "DEX",
     "buttonText": "Trocar",
     "settingsTransactionTitle": "Configurações da transação",
+    "settingsPanelTitle": "Configurações de Painel",
     "toleranceLabel": "Tolerância da slippage?",
     "deadlineLabel": "Prazo da transação",
     "priceLabel": "Preço Automatizado",

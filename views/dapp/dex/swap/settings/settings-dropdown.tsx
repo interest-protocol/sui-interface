@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import { ChangeEvent, FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
+import { Switch } from '@/components';
 import { Box, Button, Modal, Typography } from '@/elements';
 import { TimesSVG } from '@/svg';
 import { parseInputEventToNumberString } from '@/utils';
@@ -66,6 +67,8 @@ const ModalBody: FC<ModalSettingsBody> = ({
   autoButtonState,
 }) => {
   const t = useTranslations();
+  const autoFetch = useWatch({ control, name: 'autoFetch' });
+
   return (
     <Box
       pb="L"
@@ -77,7 +80,7 @@ const ModalBody: FC<ModalSettingsBody> = ({
       boxShadow="0 0 0.5rem #0006"
       width={['80%', '80%', '80%', 'unset']}
     >
-      <Box display="flex" justifyContent="space-between" p="S">
+      <Box display="flex" justifyContent="space-between">
         <Typography
           m="M"
           pt="S"
@@ -145,6 +148,28 @@ const ModalBody: FC<ModalSettingsBody> = ({
               })}
             </Typography>
           }
+        />
+      </Box>
+      <Box p="S" mx="M">
+        <Typography
+          my="M"
+          pt="S"
+          fontSize="S"
+          variant="normal"
+          color="textSecondary"
+          textTransform="uppercase"
+        >
+          {t('dexSwap.settingsPanelTitle')}
+        </Typography>
+        <Typography variant="normal" mt="L" mb="M" fontSize="0.9rem">
+          {t('dexSwap.priceLabel')}
+        </Typography>
+        <Switch
+          defaultValue={autoFetch ? 'auto' : 'manual'}
+          options={[
+            { value: 'manual', onSelect: () => setValue('autoFetch', false) },
+            { value: 'auto', onSelect: () => setValue('autoFetch', true) },
+          ]}
         />
       </Box>
     </Box>
