@@ -48,6 +48,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
             control={props.control}
             name="tokenIn"
             setValueName="tokenOut.value"
+            setValueLockName="inputOutLocked"
           />
           <SwapManagerField
             {...props}
@@ -61,6 +62,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
             control={props.control}
             name="tokenOut"
             setValueName="tokenIn.value"
+            setValueLockName="inputInLocked"
           />
         </>
       )}

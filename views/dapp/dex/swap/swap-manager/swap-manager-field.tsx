@@ -28,6 +28,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   control,
   name,
   setValueName,
+  setValueLockName,
 }) => {
   const { provider } = useProvider();
   const { network } = useNetwork();
@@ -52,6 +53,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
     ),
     async () => {
       setIsFetchingSwapAmount(true);
+      setValue(setValueLockName, true);
       if (!payloadOut || !tokenIn || !+tokenIn.value || lock) return;
 
       return sdk.getSwapCoinOutAmount(payloadOut);
@@ -64,6 +66,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
         if (!response) {
           setError(false);
           setIsFetchingSwapAmount(false);
+          setValue(setValueLockName, false);
           setValue('lock', true);
           return;
         }
@@ -83,6 +86,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
             ).toString()
           );
         }
+        setValue(setValueLockName, false);
         setIsFetchingSwapAmount(false);
         setValue('lock', true);
       },

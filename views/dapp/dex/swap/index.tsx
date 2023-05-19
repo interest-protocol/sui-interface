@@ -1,18 +1,14 @@
-import { FixedPointMath } from 'lib';
 import dynamic from 'next/dynamic';
-import { pathOr } from 'ramda';
 import { FC } from 'react';
 import { useCallback } from 'react';
 import { useWatch } from 'react-hook-form';
 
-import { Box, InputBalance } from '@/elements';
+import { Box } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
-import { ZERO_BIG_NUMBER } from '@/utils';
-import SwapSelectCurrency from '@/views/dapp/components/select-currency';
 
-import SelectCurrency from '../../components/select-currency';
 import { OnSelectCurrency } from '../../components/select-currency/select-currency.types';
+import { InputTokenIn, InputTokenOut } from './inputs';
 import SettingsModal from './settings';
 import { ISwapSettingsForm } from './settings/settings.types';
 import { useGetDexMarkets } from './swap.hooks';
@@ -112,32 +108,11 @@ const Swap: FC<SwapProps> = ({
             flexDirection="column"
             justifyContent="space-evenly"
           >
-            <InputBalance
-              max
-              name="tokenIn.value"
-              register={formSwap.register}
-              setValue={formSwap.setValue}
-              balance={FixedPointMath.toNumber(
-                pathOr(
-                  ZERO_BIG_NUMBER,
-                  [tokenInType, 'totalBalance'],
-                  coinsMap
-                ),
-                pathOr(0, [tokenInType, 'decimals'], coinsMap)
-              ).toString()}
-              Suffix={
-                <SelectCurrency
-                  currentToken={tokenInType}
-                  type={formSwap.getValues('tokenIn.type')}
-                  symbol={formSwap.getValues('tokenIn.symbol')}
-                  onSelectCurrency={onSelectCurrency('tokenIn')}
-                  searchTokenModalState={searchTokenModalState}
-                />
-              }
-              isLarge={true}
-              customFunction={() => {
-                formSwap.setValue('lock', false);
-              }}
+            <InputTokenIn
+              formSwap={formSwap}
+              coinsMap={coinsMap}
+              onSelectCurrency={onSelectCurrency}
+              searchTokenModalState={searchTokenModalState}
             />
             <Box
               zIndex={1}
@@ -163,27 +138,11 @@ const Swap: FC<SwapProps> = ({
               ⥯
             </Box>
           </Box>
-          <InputBalance
-            isLarge
-            balance={FixedPointMath.toNumber(
-              pathOr(ZERO_BIG_NUMBER, [tokenOutType, 'totalBalance'], coinsMap),
-              pathOr(0, [tokenOutType, 'decimals'], coinsMap)
-            ).toString()}
-            register={formSwap.register}
-            setValue={formSwap.setValue}
-            name="tokenOut.value"
-            Suffix={
-              <SwapSelectCurrency
-                currentToken={tokenOutType}
-                type={tokenOutType}
-                onSelectCurrency={onSelectCurrency('tokenOut')}
-                symbol={formSwap.getValues('tokenOut.symbol')}
-                searchTokenModalState={searchTokenModalState}
-              />
-            }
-            customFunction={() => {
-              formSwap.setValue('lock', false);
-            }}
+          <InputTokenOut
+            formSwap={formSwap}
+            coinsMap={coinsMap}
+            onSelectCurrency={onSelectCurrency}
+            searchTokenModalState={searchTokenModalState}
           />
           <SwapManager
             account={account}

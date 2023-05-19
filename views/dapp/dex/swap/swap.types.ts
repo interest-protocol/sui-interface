@@ -12,7 +12,10 @@ import { KeyedMutator } from 'swr';
 import { Web3ManagerState } from '@/components/web3-manager/web3-manager.types';
 import { DexMarket } from '@/interface';
 
-import { TokenModalMetadata } from '../../components/select-currency/select-currency.types';
+import {
+  OnSelectCurrency,
+  TokenModalMetadata,
+} from '../../components/select-currency/select-currency.types';
 import { SwapFormTokenData } from '../dex.types';
 import { ISwapSettingsForm } from './settings/settings.types';
 
@@ -20,6 +23,8 @@ export interface ISwapForm {
   tokenIn: SwapFormTokenData;
   tokenOut: SwapFormTokenData;
   lock: boolean;
+  inputInLocked: boolean;
+  inputOutLocked: boolean;
 }
 
 export type PoolsMap = DexMarket;
@@ -80,6 +85,7 @@ export interface SwapManagerProps {
   control: Control<ISwapForm>;
   name: 'tokenIn' | 'tokenOut';
   setValueName: 'tokenIn.value' | 'tokenOut.value';
+  setValueLockName: 'inputInLocked' | 'inputOutLocked';
 }
 
 export interface GetSwapCoinOutAmountPayloadArgs {
@@ -114,4 +120,11 @@ export interface SwapProps {
     setIsOpen: Dispatch<SetStateAction<boolean>>;
   };
   searchTokenModalState: TokenModalMetadata | null;
+}
+
+export interface CoinInputProps {
+  coinsMap: Web3ManagerState['coinsMap'];
+  formSwap: UseFormReturn<ISwapForm>;
+  searchTokenModalState: SwapProps['searchTokenModalState'];
+  onSelectCurrency: (name: 'tokenIn' | 'tokenOut') => OnSelectCurrency;
 }
