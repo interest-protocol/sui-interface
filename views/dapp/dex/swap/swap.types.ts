@@ -4,14 +4,13 @@ import { Dispatch, SetStateAction } from 'react';
 import {
   Control,
   UseFormGetValues,
-  UseFormRegister,
   UseFormReturn,
   UseFormSetValue,
 } from 'react-hook-form';
 import { KeyedMutator } from 'swr';
 
 import { Web3ManagerState } from '@/components/web3-manager/web3-manager.types';
-import { CoinData, DexMarket } from '@/interface';
+import { DexMarket } from '@/interface';
 
 import { TokenModalMetadata } from '../../components/select-currency/select-currency.types';
 import { SwapFormTokenData } from '../dex.types';
