@@ -33,6 +33,7 @@ export const calculateLPCoinPrice = (
         // convert from fixed point to float
         .div(BigNumber(10).pow(coin0.decimals))
         .multipliedBy(coin0Price.price)
+        .multipliedBy(2)
         .div(pool.lpCoinSupply)
         .toNumber()
     );
@@ -45,6 +46,7 @@ export const calculateLPCoinPrice = (
         // convert from fixed point to float
         .div(BigNumber(10).pow(coin1.decimals))
         .multipliedBy(coin1Price.price)
+        .multipliedBy(2)
         .div(pool.lpCoinSupply)
         .toNumber()
     );
