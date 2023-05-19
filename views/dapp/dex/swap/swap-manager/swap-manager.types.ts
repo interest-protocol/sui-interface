@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { Control } from 'react-hook-form';
 
 import { SVGProps } from '@/components/svg/svg.types';
-import { DexMarket } from '@/interface';
 import { ISwapForm, SwapPathObject } from '@/views/dapp/dex/swap/swap.types';
 
 export interface SwapMessageProps {
