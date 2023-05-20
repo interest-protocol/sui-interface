@@ -6,7 +6,7 @@ const FeedbackButton: FC = () => (
   <a
     target="_blank"
     rel="noreferrer"
-    href="https://forms.gle/aDP4wHvshLPKkKv97"
+    href="https://docs.google.com/forms/d/e/1FAIpQLSfLdqMee_f4v3NRnVuKjsfuvmQH0VRu9YblU_nnnEFQ2km0Pw/viewform"
   >
     <Button
       variant="primary"
