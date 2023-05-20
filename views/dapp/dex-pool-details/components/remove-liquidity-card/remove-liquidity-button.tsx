@@ -9,7 +9,12 @@ import { incrementTX } from '@/api/analytics';
 import { Box, Button } from '@/elements';
 import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
-import { showToast, showTXSuccessToast, throwTXIfNotSuccessful } from '@/utils';
+import {
+  noop,
+  showToast,
+  showTXSuccessToast,
+  throwTXIfNotSuccessful,
+} from '@/utils';
 import { capitalize } from '@/utils';
 
 import { RemoveLiquidityButtonProps } from './remove-liquidity-card.types';
@@ -102,8 +107,9 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
       width="100%"
       variant="primary"
       disabled={disabled}
-      onClick={removeLiquidity}
       bg={disabled ? 'disabled' : 'error'}
+      onClick={disabled ? noop : removeLiquidity}
+      cursor={disabled ? 'not-allowed' : 'pointer'}
       nHover={{ bg: disabled ? 'disabled' : 'errorActive' }}
     >
       {capitalize(
@@ -117,6 +123,7 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
           as="span"
           height="1rem"
           alignItems="center"
+          pointerEvents="none"
           display="inline-flex"
           justifyContent="center"
         >
