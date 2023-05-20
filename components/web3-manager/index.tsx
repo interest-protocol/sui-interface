@@ -32,7 +32,10 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   const { network } = useNetwork();
 
   const { data, error, mutate, isLoading } = useSWR(
-    makeSWRKey([currentAccount, network], provider.getAllCoins.name),
+    makeSWRKey(
+      [currentAccount, network, currentAccount?.address],
+      provider.getAllCoins.name
+    ),
     async () => {
       if (!currentAccount?.address) return;
       return getAllCoins({ provider, account: currentAccount.address });
@@ -52,7 +55,7 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   const [coins, coinsMap] = useMemo(
     () =>
       parseCoins({ data, localTokens: tokensMetadataRecord ?? {}, network }),
-    [data, tokensMetadataRecord, network]
+    [data, tokensMetadataRecord, network, currentAccount?.address]
   );
 
   return (

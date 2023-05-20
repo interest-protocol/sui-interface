@@ -45,7 +45,13 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 
   const { error } = useSWR(
     makeSWRKey(
-      [account, tokenOutType, prop('value', tokenIn), prop('type', tokenIn)],
+      [
+        account,
+        tokenOutType,
+        prop('value', tokenIn),
+        prop('type', tokenIn),
+        network,
+      ],
       provider.devInspectTransactionBlock.name
     ),
     async () => {
