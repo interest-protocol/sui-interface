@@ -79,7 +79,7 @@ const MobileMenu: FC<SwitchThemeProps> = ({ changeTheme, dark }) => {
               <Box width="100%">
                 <a
                   href="https://forms.gle/aDP4wHvshLPKkKv97"
-                  target="__blank"
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Typography
