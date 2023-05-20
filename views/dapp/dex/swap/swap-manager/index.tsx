@@ -13,6 +13,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
   autoFetch,
   tokenOutType,
   tokenInType,
+  coinsMap,
   ...props
 }) => {
   const [isFetchingSwapAmountOut, setIsFetchingSwapAmountOut] = useState(false);
@@ -81,7 +82,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
         poolsMap={props.poolsMap}
         disabled={disabled}
         control={props.control}
-        coinsMap={props.coinsMap}
+        coinsMap={coinsMap}
         tokenInType={tokenInType}
         tokenOutType={tokenOutType}
         setValue={props.setValue}

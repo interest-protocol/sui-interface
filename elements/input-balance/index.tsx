@@ -19,6 +19,7 @@ const InputBalance: FC<InputBalanceProps> = ({
   register,
   setValue,
   customFunction,
+  noCap = false,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as { dark: boolean };
@@ -48,7 +49,10 @@ const InputBalance: FC<InputBalanceProps> = ({
           onChange: (v: ChangeEvent<HTMLInputElement>) => {
             setValue?.(
               name,
-              parseInputEventToNumberString(v, balance ? +balance : undefined)
+              parseInputEventToNumberString(
+                v,
+                noCap ? undefined : balance ? +balance : undefined
+              )
             );
             customFunction && customFunction(name);
           },

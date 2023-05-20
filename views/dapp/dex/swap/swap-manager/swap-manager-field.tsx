@@ -1,3 +1,4 @@
+import { findMarket } from '@interest-protocol/sui-sdk';
 import { BigNumber } from 'bignumber.js';
 import { FixedPointMath } from 'lib';
 import { prop } from 'ramda';
@@ -11,11 +12,9 @@ import { useNetwork, useProvider, useSDK } from '@/hooks';
 import { makeSWRKey } from '@/utils';
 
 import { SwapManagerProps } from '../swap.types';
-import { getSwapCoinOutAmountPayload } from '../swap.utils';
 
 const SwapManagerField: FC<SwapManagerProps> = ({
   account,
-  coinsMap,
   setValue,
   setDisabled,
   tokenOutType,
@@ -33,34 +32,48 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   const { provider } = useProvider();
   const { network } = useNetwork();
   const sdk = useSDK();
-
   const [tokenIn] = useDebounce(useWatch({ control, name }), 900);
 
   const lock = useWatch({ control, name: 'lock' });
 
-  const payloadOut = getSwapCoinOutAmountPayload({
-    tokenIn,
-    coinsMap,
-    tokenOutType,
-    poolsMap,
-    account,
+  const path = findMarket({
+    data: poolsMap,
+    coinInType: tokenIn.type,
+    coinOutType: tokenOutType,
+    network,
   });
 
   const { error } = useSWR(
     makeSWRKey(
-      [account, payloadOut, prop('value', tokenIn), prop('type', tokenIn)],
+      [account, tokenOutType, prop('value', tokenIn), prop('type', tokenIn)],
       provider.devInspectTransactionBlock.name
     ),
     async () => {
       setIsFetchingSwapAmount(true);
       setValue(setValueLockName, true);
-      if (!payloadOut || !tokenIn || !+tokenIn.value || lock) return;
 
-      return sdk.getSwapCoinOutAmount(payloadOut);
+      const amount = FixedPointMath.toBigNumber(
+        tokenIn.value,
+        tokenIn.decimals
+      );
+
+      const safeAmount = amount.decimalPlaces(0, BigNumber.ROUND_DOWN);
+
+      if (!tokenIn || !+tokenIn.value || lock || !path.length) return;
+
+      return sdk.getSwapCoinOutAmount({
+        coinInType: tokenIn.type,
+        coinOutType: tokenOutType,
+        coinInAmount: safeAmount.toString(),
+        dexMarkets: poolsMap,
+      });
     },
     {
       onError: () => {
-        setError(true);
+        setError(false);
+        setIsFetchingSwapAmount(false);
+        setValue(setValueLockName, false);
+        setValue('lock', true);
       },
       onSuccess: (response) => {
         if (!response) {
@@ -70,25 +83,58 @@ const SwapManagerField: FC<SwapManagerProps> = ({
           setValue('lock', true);
           return;
         }
-        if (response.data.effects.status.status === 'failure') {
-          setError(true);
-        } else {
-          setError(false);
-          const amountOut = response.parsedData;
 
-          setIsZeroSwapAmount(!amountOut);
+        setError(false);
+        const decimals = COIN_DECIMALS[network][tokenOutType];
+
+        if (decimals) {
+          setIsZeroSwapAmount(!response);
           setValue(
             setValueName,
             FixedPointMath.toNumber(
-              new BigNumber(amountOut),
-              COIN_DECIMALS[network][tokenOutType],
-              COIN_DECIMALS[network][tokenOutType]
+              new BigNumber(response),
+              decimals,
+              decimals
             ).toString()
           );
+
+          setValue(setValueLockName, false);
+          setIsFetchingSwapAmount(false);
+          setValue('lock', true);
+        } else {
+          provider
+            .getCoinMetadata({
+              coinType: tokenOutType,
+            })
+            .then((metadata) => {
+              const metadataDecimals = metadata ? metadata.decimals : 0;
+              setIsZeroSwapAmount(!response);
+              setValue(
+                setValueName,
+                FixedPointMath.toNumber(
+                  new BigNumber(response),
+                  metadataDecimals,
+                  metadataDecimals
+                ).toString()
+              );
+            })
+            .catch(() => {
+              setIsZeroSwapAmount(!response);
+              setValue(
+                setValueName,
+                FixedPointMath.toNumber(
+                  new BigNumber(response),
+                  0,
+                  0
+                ).toString()
+              );
+            })
+            .finally(() => {
+              setValue(setValueLockName, false);
+              setIsFetchingSwapAmount(false);
+              setValue('lock', true);
+            });
         }
-        setValue(setValueLockName, false);
-        setIsFetchingSwapAmount(false);
-        setValue('lock', true);
       },
       revalidateOnFocus: true,
       revalidateOnMount: true,

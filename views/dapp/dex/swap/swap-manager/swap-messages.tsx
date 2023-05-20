@@ -28,15 +28,15 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
     !isFetchingSwapAmountIn &&
     !(isZeroSwapAmountIn && !!+tokenOut.value && !isFetchingSwapAmountIn);
   !(tokenIn.type === tokenOut.type) && !hasNoMarket;
+
   return (
     <>
-      {isFetchingSwapAmountIn ||
-        (isFetchingSwapAmountOut && (
-          <Message
-            Icon={LoadingSVG}
-            message="dexSwap.swapMessage.fetchingAmounts"
-          />
-        ))}
+      {(isFetchingSwapAmountIn || isFetchingSwapAmountOut) && (
+        <Message
+          Icon={LoadingSVG}
+          message="dexSwap.swapMessage.fetchingAmounts"
+        />
+      )}
       {(isZeroSwapAmountIn && !!+tokenIn.value && !isFetchingSwapAmountIn) ||
         (isZeroSwapAmountOut &&
           !!+tokenOut.value &&

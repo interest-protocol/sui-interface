@@ -25,6 +25,7 @@ export const InputTokenIn: FC<CoinInputProps> = ({
   return (
     <InputBalance
       max
+      noCap
       disabled={locked}
       name="tokenIn.value"
       register={formSwap.register}
@@ -67,6 +68,7 @@ export const InputTokenOut: FC<CoinInputProps> = ({
   });
   return (
     <InputBalance
+      noCap
       disabled={locked}
       isLarge
       balance={FixedPointMath.toNumber(

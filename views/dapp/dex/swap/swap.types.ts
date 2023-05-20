@@ -76,7 +76,6 @@ export interface SwapManagerProps {
   account: string | null;
   poolsMap: PoolsMap;
   setValue: UseFormSetValue<ISwapForm>;
-  coinsMap: Web3ManagerState['coinsMap'];
   setError: Dispatch<SetStateAction<boolean>>;
   setDisabled: Dispatch<SetStateAction<boolean>>;
   setIsZeroSwapAmount: Dispatch<SetStateAction<boolean>>;
@@ -86,14 +85,6 @@ export interface SwapManagerProps {
   name: 'tokenIn' | 'tokenOut';
   setValueName: 'tokenIn.value' | 'tokenOut.value';
   setValueLockName: 'inputInLocked' | 'inputOutLocked';
-}
-
-export interface GetSwapCoinOutAmountPayloadArgs {
-  tokenIn: SwapFormTokenData;
-  tokenOutType: string;
-  coinsMap: Web3ManagerState['coinsMap'];
-  poolsMap: PoolsMap;
-  account: string | null;
 }
 
 export interface LocalSwapSettings {
