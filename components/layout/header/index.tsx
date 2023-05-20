@@ -12,6 +12,7 @@ import { useNetwork } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
 import { LogoSVG, MoonSVG, SunSVG } from '@/svg';
 
+import FeedbackButton from './feedback-button';
 import MobileMenu from './mobile-menu';
 import SelectNetwork from './select-network';
 import Wallet from './wallet';
@@ -80,6 +81,9 @@ const Header: FC = () => {
               />
             </Box>
           </Link>
+          <Box display={['none', 'none', 'flex']}>
+            <FeedbackButton />
+          </Box>
         </Box>
         <Box
           alignItems="center"
