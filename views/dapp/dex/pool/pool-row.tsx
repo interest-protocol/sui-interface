@@ -1,9 +1,11 @@
 import { FixedPointMath } from 'lib';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 
 import { Routes, RoutesEnum, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
+import { useSDK } from '@/hooks';
 import { UnknownCoinSVG } from '@/svg';
 import { formatMoney } from '@/utils';
 
@@ -21,6 +23,19 @@ const PoolRow: FC<PoolRowProps> = ({
   const FirstIcon = TOKENS_SVG_MAP[type0] ?? UnknownCoinSVG;
   const SecondIcon = TOKENS_SVG_MAP[type1] ?? UnknownCoinSVG;
   const balanceNumber = FixedPointMath.toNumber(balance, decimals);
+  const { push } = useRouter();
+  const sdk = useSDK();
+  const pushToPoolDetails = async () => {
+    const poolId = objectId
+      ? objectId
+      : // It always exists because we are taking it from a LPCoin
+        await sdk.findPoolId({
+          tokenAType: type0,
+          tokenBType: type1,
+        })!;
+
+    push(`${Routes[RoutesEnum.DEXPoolDetails]}?objectId=${poolId}`);
+  };
 
   return (
     <Link

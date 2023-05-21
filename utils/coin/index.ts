@@ -9,9 +9,6 @@ import {
 
 import { CreateVectorParameterArgs } from './coin.types';
 
-export const addCoinTypeToTokenType = (x: string): string =>
-  `0x2::coin::Coin<${x}>`;
-
 export const isSymbol = (text: string): boolean =>
   new RegExp(/^[A-Z-]+$/g).test(text);
 
@@ -73,31 +70,14 @@ export const processSafeAmount = (
   return amount.gt(object.totalBalance) ? object.totalBalance : amount;
 };
 
-export const getCoinsFromPoolType = (poolType: string): [string, string] => {
-  const type = poolType.split('Pool');
+export const getCoinsFromLpCoinType = (poolType: string) => {
+  const type = poolType.split('LPCoin');
   const poolArgs = type[1];
   const tokens = poolArgs.split(',');
-  return [tokens[1].trim(), tokens[2].split('>')[0].trim()];
-};
-
-export const createVectorParameter = ({
-  txb,
-  type,
-  coinsMap,
-  amount,
-}: CreateVectorParameterArgs) => {
-  if (type === SUI_TYPE_ARG) {
-    const [coin] = txb.splitCoins(txb.gas, [txb.pure(amount.toString())]);
-    return txb.makeMoveVec({
-      objects: [coin],
-    });
-  }
-
-  return txb.makeMoveVec({
-    objects: coinsMap[type]
-      ? coinsMap[type].objects.map((x) => txb.object(x.coinObjectId))
-      : [],
-  });
+  return {
+    coinXType: tokens[1].trim(),
+    coinYType: tokens[2].split('>')[0].trim(),
+  };
 };
 
 export const createObjectsParameter = ({

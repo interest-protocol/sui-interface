@@ -1,10 +1,17 @@
-import { Network } from '@interest-protocol/sui-sdk';
+import { Network, STABLE } from '@interest-protocol/sui-sdk';
+import { propOr } from 'ramda';
+import { useReadLocalStorage } from 'usehooks-ts';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
-import { RECOMMENDED_POOLS } from '@/constants';
-import { ZERO_BIG_NUMBER } from '@/utils';
+import { DEX_LP_COIN_TYPE, RECOMMENDED_POOLS } from '@/constants';
+import { CoinData } from '@/interface';
+import {
+  getCoinsFromLpCoinType,
+  getSymbolByType,
+  ZERO_BIG_NUMBER,
+} from '@/utils';
 
-import { IPools } from './pool.types';
+import { FormatLpCoinToPoolArgs, IPools } from './pool.types';
 
 export const filterPools = (
   network: Network,
@@ -39,3 +46,48 @@ export const filterPools = (
     },
     { active: [], inactive: [] } as IPools
   );
+
+export const isIPXLPCoin = (x: string, network: Network) =>
+  x.includes(DEX_LP_COIN_TYPE[network]);
+
+export const formatLpCoinToPool = ({
+  tokensMetadataRecord,
+  network,
+  object,
+}: FormatLpCoinToPoolArgs) => {
+  const { coinXType, coinYType } = getCoinsFromLpCoinType(object.type);
+
+  const coinXMetadata = propOr(
+    null,
+    coinXType,
+    tokensMetadataRecord
+  ) as null | CoinData;
+  const coinYMetadata = propOr(
+    null,
+    coinYType,
+    tokensMetadataRecord
+  ) as null | CoinData;
+
+  const stable = object.type.includes(STABLE[network]);
+
+  return {
+    stable,
+    token0: coinXMetadata
+      ? coinXMetadata
+      : {
+          type: coinXType,
+          decimals: 0,
+          symbol: getSymbolByType(coinXType),
+        },
+    token1: coinYMetadata
+      ? coinYMetadata
+      : {
+          type: coinYType,
+          decimals: 0,
+          symbol: getSymbolByType(coinYType),
+        },
+    decimals: 0,
+    balance: object.totalBalance,
+    poolObjectId: null,
+  };
+};

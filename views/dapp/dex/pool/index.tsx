@@ -1,15 +1,32 @@
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import { useReadLocalStorage } from 'usehooks-ts';
 
 import { Routes, RoutesEnum } from '@/constants';
+import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 import { Box, Button, Typography } from '@/elements';
+import { useNetwork, useWeb3 } from '@/hooks';
+import { LocalTokenMetadataRecord } from '@/interface';
 
+import { formatLpCoinToPool, isIPXLPCoin } from './pool.utils';
 import Pools from './pools';
 
 const Pool: FC = () => {
   const t = useTranslations();
   const { push } = useRouter();
+  const { coins } = useWeb3();
+  const { network } = useNetwork();
+  const tokensMetadataRecord = useReadLocalStorage<LocalTokenMetadataRecord>(
+    `${LOCAL_STORAGE_VERSION}-sui-interest-tokens-metadata`
+  );
+  const lpCoins = coins.filter((coin) => isIPXLPCoin(coin.type, network));
+
+  console.log(
+    lpCoins.map((object) =>
+      formatLpCoinToPool({ object, network, tokensMetadataRecord })
+    )
+  );
 
   return (
     <>
