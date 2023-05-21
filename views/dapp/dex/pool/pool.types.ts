@@ -14,7 +14,7 @@ export interface PoolRowProps {
   balance: BigNumber;
 }
 
-interface IPool {
+export interface IPool {
   token0: CoinData;
   token1: CoinData;
   stable: boolean;

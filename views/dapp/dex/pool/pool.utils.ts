@@ -48,7 +48,6 @@ export const filterPools = (
 
 export const isIPXLPCoin = (x: string, network: Network) =>
   x.includes(DEX_LP_COIN_TYPE[network]);
-
 export const formatLpCoinToPool = ({
   tokensMetadataRecord,
   network,

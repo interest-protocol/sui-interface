@@ -1,25 +1,14 @@
 import { useTranslations } from 'next-intl';
-import { FC, useMemo, useState } from 'react';
-import { v4 } from 'uuid';
+import { FC, useState } from 'react';
 
 import { Switch } from '@/components';
 import { Box, Typography } from '@/elements';
-import { useNetwork, useWeb3 } from '@/hooks';
 
-import { filterPools } from './pool.utils';
-import PoolRow from './pool-row';
+import PoolList from './pool-list';
 
-const Pools: FC = () => {
+const Pools: FC<{ isRecommended: boolean }> = ({ isRecommended }) => {
   const t = useTranslations();
-  const { coinsMap } = useWeb3();
   const [isStable, setIsStable] = useState(false);
-
-  const { network } = useNetwork();
-
-  const { active, inactive } = useMemo(
-    () => filterPools(network, coinsMap, isStable),
-    [coinsMap, network, isStable]
-  );
 
   return (
     <Box pb="L" pt="M" mb="L" px="L" bg="foreground" borderRadius="M">
@@ -30,7 +19,9 @@ const Pools: FC = () => {
         alignItems="center"
         gridTemplateColumns="1fr 1fr 1fr"
       >
-        <Typography variant="normal">{t('dexPool.recommended')}</Typography>
+        <Typography variant="normal">
+          {isRecommended ? t('dexPool.recommended') : t('dexPool.myPools')}
+        </Typography>
         <Box display="flex" justifyContent="center">
           <Switch
             thin
@@ -42,42 +33,7 @@ const Pools: FC = () => {
           />
         </Box>
       </Box>
-      {!!active.length && (
-        <>
-          <Typography variant="normal" color="textSecondary" my="L">
-            {t('dexPool.activePools')}
-          </Typography>
-          {active.map(({ token0, token1, poolObjectId, balance, decimals }) => (
-            <PoolRow
-              key={v4()}
-              balance={balance}
-              type0={token0.type}
-              type1={token1.type}
-              decimals={decimals}
-              symbol0={token0.symbol}
-              symbol1={token1.symbol}
-              objectId={poolObjectId}
-            />
-          ))}
-          {!!inactive.length && (
-            <Typography variant="normal" color="textSecondary" my="L">
-              {t('dexPool.otherPools')}
-            </Typography>
-          )}
-        </>
-      )}
-      {inactive.map(({ token0, token1, poolObjectId, balance, decimals }) => (
-        <PoolRow
-          key={v4()}
-          balance={balance}
-          type0={token0.type}
-          type1={token1.type}
-          decimals={decimals}
-          symbol0={token0.symbol}
-          symbol1={token1.symbol}
-          objectId={poolObjectId}
-        />
-      ))}
+      <PoolList isRecommended={isRecommended} isStable={isStable} />
     </Box>
   );
 };
