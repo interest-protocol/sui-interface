@@ -7,7 +7,6 @@ import { useWatch } from 'react-hook-form';
 import useSWR from 'swr';
 import { useDebounce } from 'use-debounce';
 
-import { COIN_DECIMALS } from '@/constants';
 import { useNetwork, useProvider, useSDK } from '@/hooks';
 import { makeSWRKey } from '@/utils';
 
@@ -16,6 +15,7 @@ import { SwapManagerProps } from '../swap.types';
 const SwapManagerField: FC<SwapManagerProps> = ({
   account,
   setValue,
+  getValues,
   setDisabled,
   tokenOutType,
   poolsMap,
@@ -90,57 +90,22 @@ const SwapManagerField: FC<SwapManagerProps> = ({
           return;
         }
 
+        const decimals = getValues('tokenOut.decimals');
+
+        setIsZeroSwapAmount(!response);
+        setValue(
+          setValueName,
+          FixedPointMath.toNumber(
+            new BigNumber(response),
+            decimals,
+            decimals
+          ).toString()
+        );
+
         setError(false);
-        const decimals = COIN_DECIMALS[network][tokenOutType];
-
-        if (decimals) {
-          setIsZeroSwapAmount(!response);
-          setValue(
-            setValueName,
-            FixedPointMath.toNumber(
-              new BigNumber(response),
-              decimals,
-              decimals
-            ).toString()
-          );
-
-          setValue(setValueLockName, false);
-          setIsFetchingSwapAmount(false);
-          setValue('lock', true);
-        } else {
-          provider
-            .getCoinMetadata({
-              coinType: tokenOutType,
-            })
-            .then((metadata) => {
-              const metadataDecimals = metadata ? metadata.decimals : 0;
-              setIsZeroSwapAmount(!response);
-              setValue(
-                setValueName,
-                FixedPointMath.toNumber(
-                  new BigNumber(response),
-                  metadataDecimals,
-                  metadataDecimals
-                ).toString()
-              );
-            })
-            .catch(() => {
-              setIsZeroSwapAmount(!response);
-              setValue(
-                setValueName,
-                FixedPointMath.toNumber(
-                  new BigNumber(response),
-                  0,
-                  0
-                ).toString()
-              );
-            })
-            .finally(() => {
-              setValue(setValueLockName, false);
-              setIsFetchingSwapAmount(false);
-              setValue('lock', true);
-            });
-        }
+        setValue(setValueLockName, false);
+        setIsFetchingSwapAmount(false);
+        setValue('lock', true);
       },
       revalidateOnFocus: true,
       revalidateOnMount: true,

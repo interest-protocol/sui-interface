@@ -149,6 +149,7 @@ const Swap: FC<SwapProps> = ({
             coinsMap={coinsMap}
             control={formSwap.control}
             setValue={formSwap.setValue}
+            getValues={formSwap.getValues}
             poolsMap={poolsMap || {}}
             autoFetch={localSettings.autoFetch}
             tokenInType={tokenInType}

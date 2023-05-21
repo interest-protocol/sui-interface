@@ -65,6 +65,7 @@ export interface SwapManagerWrapperProps {
   control: Control<ISwapForm>;
   poolsMap: PoolsMap;
   setValue: UseFormSetValue<ISwapForm>;
+  getValues: UseFormGetValues<ISwapForm>;
   coinsMap: Web3ManagerState['coinsMap'];
   tokenInType: string;
   tokenOutType: string;
@@ -76,6 +77,7 @@ export interface SwapManagerProps {
   account: string | null;
   poolsMap: PoolsMap;
   setValue: UseFormSetValue<ISwapForm>;
+  getValues: UseFormGetValues<ISwapForm>;
   setError: Dispatch<SetStateAction<boolean>>;
   setDisabled: Dispatch<SetStateAction<boolean>>;
   setIsZeroSwapAmount: Dispatch<SetStateAction<boolean>>;
