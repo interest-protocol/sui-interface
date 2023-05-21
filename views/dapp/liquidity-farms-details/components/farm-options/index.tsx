@@ -73,12 +73,10 @@ const FarmOptions: FC<FarmOptionsProps> = ({
           <Button
             variant="primary"
             onClick={() =>
-              farm.id === 0
-                ? push({ pathname: Routes[RoutesEnum.DEX] }).then()
-                : push({
-                    pathname: Routes[RoutesEnum.DEXPoolDetails],
-                    query: { objectId: farm.poolObjectId },
-                  }).then()
+              push({
+                pathname: Routes[RoutesEnum.DEXPoolDetails],
+                query: { objectId: farm.poolObjectId },
+              }).then()
             }
             nHover={{
               bg: farm.isLive ? 'accentActive' : 'disabled',

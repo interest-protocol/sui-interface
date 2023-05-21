@@ -3,7 +3,7 @@ import { useWatch } from 'react-hook-form';
 
 import { Message } from '@/components';
 import { LoadingSVG, TimesSVG } from '@/svg';
-import SwapPath from '@/views/dapp/dex/swap/swap-path';
+import SwapPath from '@/views/dapp/dex/swap/swap-manager/swap-path';
 
 import { SwapMessagesProps } from './swap-manager.types';
 
@@ -26,8 +26,9 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
     !isFetchingSwapAmountOut &&
     !(isZeroSwapAmountOut && !!+tokenIn.value && !isFetchingSwapAmountOut) &&
     !isFetchingSwapAmountIn &&
-    !(isZeroSwapAmountIn && !!+tokenOut.value && !isFetchingSwapAmountIn);
-  !(tokenIn.type === tokenOut.type) && !hasNoMarket;
+    !(isZeroSwapAmountIn && !!+tokenOut.value && !isFetchingSwapAmountIn) &&
+    !(tokenIn.type === tokenOut.type) &&
+    !hasNoMarket;
 
   return (
     <>
