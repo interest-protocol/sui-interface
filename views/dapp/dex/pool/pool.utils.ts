@@ -1,6 +1,5 @@
 import { Network, STABLE } from '@interest-protocol/sui-sdk';
 import { propOr } from 'ramda';
-import { useReadLocalStorage } from 'usehooks-ts';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { DEX_LP_COIN_TYPE, RECOMMENDED_POOLS } from '@/constants';

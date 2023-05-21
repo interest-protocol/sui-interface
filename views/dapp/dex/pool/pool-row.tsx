@@ -37,6 +37,8 @@ const PoolRow: FC<PoolRowProps> = ({
     push(`${Routes[RoutesEnum.DEXPoolDetails]}?objectId=${poolId}`);
   };
 
+  console.log(pushToPoolDetails);
+
   return (
     <Link
       href={`${Routes[RoutesEnum.DEXPoolDetails]}?objectId=${objectId}`}
