@@ -67,7 +67,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 
       if (!tokenIn || !+tokenIn.value || lock || !path.length) return;
 
-      return sdk.getSwapCoinOutAmount({
+      return sdk.quoteSwap({
         coinInType: tokenIn.type,
         coinOutType: tokenOutType,
         coinInAmount: safeAmount.toString(),

@@ -1,4 +1,7 @@
-import { OBJECT_RECORD } from '@interest-protocol/sui-sdk';
+import {
+  getReturnValuesFromInspectResults,
+  OBJECT_RECORD,
+} from '@interest-protocol/sui-sdk';
 import { bcs, SuiObjectResponse, TransactionBlock } from '@mysten/sui.js';
 import { AddressZero } from 'lib';
 import useSWR, { SWRConfiguration } from 'swr';
@@ -11,7 +14,6 @@ import {
 } from '@/hooks';
 import { Farm, Pool } from '@/interface';
 import {
-  getReturnValuesFromInspectResults,
   makeSWRKey,
   parseSuiObjectDataToPools,
   parseSuiRawDataToFarms,
@@ -64,8 +66,8 @@ export const useGetFarms = (
       if (!returnValueArray.length) return [];
 
       const deArray = returnValueArray
-        .filter((x) => !!x)
-        .map((x) => bcs.de(x![1], Uint8Array.from(x![0])));
+        .filter((x) => !!x && !!x.length)
+        .map((x) => bcs.de(x![0][1], Uint8Array.from(x![0][0])));
 
       return parseSuiRawDataToFarms(deArray.flat());
     },

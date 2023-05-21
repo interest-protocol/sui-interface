@@ -1,3 +1,4 @@
+import { getReturnValuesFromInspectResults } from '@interest-protocol/sui-sdk';
 import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import { bcs } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
@@ -8,11 +9,7 @@ import { FarmMetadataType } from '@/constants';
 import { OBJECT_RECORD } from '@/constants/liquidity-farms.constants';
 import { useNetwork, useProvider } from '@/hooks';
 import { Farm } from '@/interface';
-import {
-  getReturnValuesFromInspectResults,
-  makeSWRKey,
-  parseSuiRawDataToFarms,
-} from '@/utils';
+import { makeSWRKey, parseSuiRawDataToFarms } from '@/utils';
 
 export const useGetPendingRewards = (
   account: string | null,
@@ -46,9 +43,11 @@ export const useGetPendingRewards = (
           sender: account,
         });
 
-        const result = getReturnValuesFromInspectResults(data);
+        const resultArray = getReturnValuesFromInspectResults(data);
 
-        if (!result) return 0;
+        if (!resultArray || !resultArray.length) return 0;
+
+        const result = resultArray[0];
 
         return bcs.de(result[1], Uint8Array.from(result[0]));
       }
@@ -98,10 +97,12 @@ export const useGetFarm = (id: string, account: string) => {
 
       const returnValues = getReturnValuesFromInspectResults(result);
 
-      if (!returnValues) return [];
+      if (!returnValues || !returnValues.length) return [];
+
+      const firstReturn = returnValues[0];
 
       return parseSuiRawDataToFarms(
-        bcs.de(returnValues[1], Uint8Array.from(returnValues[0]))
+        bcs.de(firstReturn[1], Uint8Array.from(firstReturn[0]))
       );
     },
     {

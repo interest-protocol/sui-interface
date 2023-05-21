@@ -1,40 +1,38 @@
-import { TransactionBlock } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import useSWR from 'swr';
 
-import { useProvider, useSDK } from '@/hooks';
+import { useSDK } from '@/hooks';
 import { makeSWRKey } from '@/utils';
 
 import { UseGetRemoveLiquidityAmountsArgs } from './remove-liquidity-card.types';
+
+const getSafeAmount = (
+  data: [number, number] | undefined | null
+): [number, number] => {
+  if (!data || !data.length) return [0, 0];
+  return data;
+};
 
 export const useGetRemoveLiquidityAmounts = ({
   lpAmount,
   token0Type,
   token1Type,
-  account,
-  objectIds,
   stable,
 }: UseGetRemoveLiquidityAmountsArgs) => {
-  const { provider } = useProvider();
-
   const sdk = useSDK();
 
   const { isLoading, data, error } = useSWR(
     makeSWRKey(
-      [account, token1Type, token0Type, account],
-      provider.devInspectTransactionBlock.name
+      [stable, token1Type, token0Type, lpAmount.toString()],
+      sdk.quoteRemoveLiquidity.name
     ),
-    () => {
-      if (!account || !objectIds.length || !+lpAmount) return;
+    async () => {
+      if (!+lpAmount) return;
 
-      const txb = new TransactionBlock();
-
-      return sdk.getRemoveLiquidityCoinsAmountsOut({
-        txb,
+      return sdk.quoteRemoveLiquidity({
         stable,
-        coinAType: token0Type,
-        coinBType: token1Type,
-        lpCoinList: objectIds.map((x) => txb.object(x)),
+        coin0Type: token0Type,
+        coin1Type: token1Type,
         lpCoinAmount: new BigNumber(lpAmount)
           .decimalPlaces(0, BigNumber.ROUND_DOWN)
           .toString(),
@@ -45,17 +43,13 @@ export const useGetRemoveLiquidityAmounts = ({
       revalidateOnMount: true,
       refreshWhenHidden: false,
       refreshInterval: 3000,
+      isPaused: () => !+lpAmount,
     }
   );
 
   return {
-    isLoading:
-      !!account &&
-      !!objectIds &&
-      objectIds.length > 0 &&
-      isLoading &&
-      !!+lpAmount,
+    isLoading: isLoading && !!+lpAmount,
     error,
-    data: data?.parsedData,
+    data: getSafeAmount(data),
   };
 };

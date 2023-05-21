@@ -1,8 +1,6 @@
 import { Network, SDK } from '@interest-protocol/sui-sdk';
 import { Connection, devnetConnection, JsonRpcProvider } from '@mysten/sui.js';
-import { DevInspectResults } from '@mysten/sui.js';
 import { SuinsClient } from '@suins/toolkit';
-import { head, propOr } from 'ramda';
 
 export const devNetProvider = new JsonRpcProvider(
   process.env.NEXT_PUBLIC_SUI_DEVNET_RPC_URL
@@ -68,23 +66,3 @@ export const testNetIPXSdk = new SDK(testNetProvider, Network.TESTNET);
 export const mainNetIPXSdk = new SDK(mainNetProvider, Network.MAINNET);
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-export const getReturnValuesFromInspectResults = (
-  x: DevInspectResults
-): [number[], string] | null => {
-  const results = propOr(
-    [] as unknown,
-    'results',
-    x
-  ) as unknown as DevInspectResults['results'];
-
-  const firstElem = head(results!);
-
-  if (!firstElem) return null;
-
-  const returnValues = firstElem.returnValues;
-
-  if (!returnValues) return null;
-  const result = head(returnValues);
-  return result ?? null;
-};
