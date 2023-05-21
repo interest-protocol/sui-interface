@@ -9,7 +9,7 @@ export interface PoolRowProps {
   type1: string;
   symbol0: string;
   symbol1: string;
-  objectId: string;
+  objectId: string | null;
   decimals: number;
   balance: BigNumber;
 }
