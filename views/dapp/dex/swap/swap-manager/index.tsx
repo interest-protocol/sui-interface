@@ -1,7 +1,11 @@
-import { findMarket } from '@interest-protocol/sui-sdk';
+import { COIN_TYPE, findMarket, Network } from '@interest-protocol/sui-sdk';
+import BigNumber from 'bignumber.js';
+import { pathOr } from 'ramda';
 import { FC, useState } from 'react';
 
 import { useNetwork } from '@/hooks';
+import { FixedPointMath } from '@/lib';
+import { ZERO_BIG_NUMBER } from '@/utils';
 
 import { SwapManagerWrapperProps } from '../swap.types';
 import SwapButton from './swap-button';
@@ -33,6 +37,10 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
     network,
   });
   const hasNoMarket = !markets.length;
+
+  const tokenInBalance = FixedPointMath.toNumber(
+    pathOr(ZERO_BIG_NUMBER, [tokenInType, 'totalBalance'], coinsMap)
+  );
 
   return (
     <>
@@ -82,13 +90,18 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
       />
       <SwapButton
         {...swapButtonProps}
-        poolsMap={props.poolsMap}
-        disabled={disabled}
-        control={props.control}
         coinsMap={coinsMap}
+        control={props.control}
+        poolsMap={props.poolsMap}
         tokenInType={tokenInType}
-        tokenOutType={tokenOutType}
         setValue={props.setValue}
+        tokenOutType={tokenOutType}
+        disabled={
+          disabled ||
+          isFetchingSwapAmountIn ||
+          isFetchingSwapAmountOut ||
+          +getValues('tokenIn.value') > tokenInBalance
+        }
       />
     </>
   );
