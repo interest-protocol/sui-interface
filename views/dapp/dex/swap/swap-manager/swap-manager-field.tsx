@@ -15,7 +15,6 @@ import { SwapManagerProps } from '../swap.types';
 const SwapManagerField: FC<SwapManagerProps> = ({
   account,
   setValue,
-  getValues,
   setDisabled,
   tokenOutType,
   poolsMap,
@@ -28,6 +27,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   name,
   setValueName,
   setValueLockName,
+  tokenOutDecimals,
 }) => {
   const { provider } = useProvider();
   const { network } = useNetwork();
@@ -90,15 +90,13 @@ const SwapManagerField: FC<SwapManagerProps> = ({
           return;
         }
 
-        const decimals = getValues('tokenOut.decimals');
-
         setIsZeroSwapAmount(!response);
         setValue(
           setValueName,
           FixedPointMath.toNumber(
             new BigNumber(response),
-            decimals,
-            decimals
+            tokenOutDecimals,
+            tokenOutDecimals
           ).toString()
         );
 

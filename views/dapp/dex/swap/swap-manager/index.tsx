@@ -14,6 +14,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
   tokenOutType,
   tokenInType,
   coinsMap,
+  getValues,
   ...props
 }) => {
   const [isFetchingSwapAmountOut, setIsFetchingSwapAmountOut] = useState(false);
@@ -39,6 +40,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
         <>
           <SwapManagerField
             {...props}
+            tokenOutDecimals={getValues('tokenOut.decimals')}
             setIsFetchingSwapAmount={setIsFetchingSwapAmountOut}
             isFetchingSwapAmount={isFetchingSwapAmountOut}
             setIsZeroSwapAmount={setIsZeroSwapAmountOut}
@@ -53,6 +55,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
           />
           <SwapManagerField
             {...props}
+            tokenOutDecimals={getValues('tokenIn.decimals')}
             setIsFetchingSwapAmount={setIsFetchingSwapAmountIn}
             isFetchingSwapAmount={isFetchingSwapAmountIn}
             setIsZeroSwapAmount={setIsZeroSwapAmountIn}

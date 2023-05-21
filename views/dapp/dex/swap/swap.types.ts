@@ -77,8 +77,8 @@ export interface SwapManagerProps {
   account: string | null;
   poolsMap: PoolsMap;
   setValue: UseFormSetValue<ISwapForm>;
-  getValues: UseFormGetValues<ISwapForm>;
   setError: Dispatch<SetStateAction<boolean>>;
+  tokenOutDecimals: number;
   setDisabled: Dispatch<SetStateAction<boolean>>;
   setIsZeroSwapAmount: Dispatch<SetStateAction<boolean>>;
   setIsFetchingSwapAmount: Dispatch<SetStateAction<boolean>>;
