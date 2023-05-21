@@ -1,5 +1,4 @@
-import { COIN_TYPE, findMarket, Network } from '@interest-protocol/sui-sdk';
-import BigNumber from 'bignumber.js';
+import { findMarket } from '@interest-protocol/sui-sdk';
 import { pathOr } from 'ramda';
 import { FC, useState } from 'react';
 
