@@ -28,6 +28,8 @@ export const COIN_FARM = {
       '0x4e633d8f9a34f7789b9be2845a1a42410d2dbb0d8162bc4a1835367bf179ac5d',
     V_LP_SUI_NATIVE_WORMHOLE_SOL:
       '0xd4bf01215ea0822a0b894fba9487c2971d582da9e27b8618a6bb17384424335e',
+    S_LP_ETH_WORMHOLE_USDC_ETH_WORMHOLE_USDT:
+      '0x374e60f1e8f9e8161ffdefcf805c08526f88260315e70c3cb80267e5b5c232cc',
   },
 };
 
@@ -93,6 +95,7 @@ export const POOL_IDS_RECORD = {
     COIN_POOL[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_SOL,
     COIN_POOL[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_DOGE,
     COIN_POOL[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_FLOKI,
+    COIN_POOL[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_ETH_WORMHOLE_USDT,
   ],
 };
 
@@ -125,11 +128,11 @@ export const FARM_IDS_RECORD_FIRST_CALL = {
       ],
     },
     {
-      number: 2,
+      number: 3,
       data: [
         COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_DOGE,
         COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_FLOKI,
-        COIN_TYPE[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_SOL,
+        COIN_TYPE[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_ETH_WORMHOLE_USDT,
       ],
     },
   ],
@@ -150,6 +153,7 @@ export const COIN_TYPE_ARRAY_UI = {
     COIN_TYPE[Network.MAINNET].V_LP_SUI_NATIVE_WORMHOLE_SOL,
     COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_DOGE,
     COIN_TYPE[Network.MAINNET].V_LP_SUI_BSC_WORMHOLE_FLOKI,
+    COIN_TYPE[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_ETH_WORMHOLE_USDT,
   ],
 };
 
@@ -294,6 +298,21 @@ export const FARMS_RECORD: Record<Network, Record<string, FarmMetadataType>> = {
       id: 10,
       isLive: true,
       stable: false,
+    },
+    [COIN_TYPE[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_ETH_WORMHOLE_USDT]: {
+      farmType:
+        COIN_TYPE[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_ETH_WORMHOLE_USDT,
+      farmObjectId:
+        COIN_FARM[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_ETH_WORMHOLE_USDT,
+      poolObjectId:
+        COIN_POOL[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_ETH_WORMHOLE_USDT,
+      lpCoin: COINS[Network.MAINNET].S_LP_ETH_WORMHOLE_USDC_ETH_WORMHOLE_USDT,
+      coin0: COINS[Network.MAINNET].ETH_WORMHOLE_USDC,
+      coin1: COINS[Network.MAINNET].ETH_WORMHOLE_USDT,
+      isSingleCoin: false,
+      id: 11,
+      isLive: true,
+      stable: true,
     },
   },
 };
