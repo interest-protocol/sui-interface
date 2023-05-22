@@ -17,41 +17,49 @@ const Pool: FC = () => {
     <>
       <Box color="text" width="100%" minWidth={['100%', '40rem']}>
         <Box
-          py="L"
+          p="L"
           my="L"
-          px="L"
+          gap="L"
           display="flex"
           bg="foreground"
+          flexWrap="wrap"
           borderRadius="M"
           alignItems="center"
           justifyContent="space-between"
-          flexDirection={['column', 'column', 'row']}
         >
           <Typography
+            order="1"
             variant="normal"
             mr={['unset', 'auto']}
             textTransform="capitalize"
           >
             {t('dexPool.title')}
           </Typography>
-          <Switch
-            thin
-            defaultValue={recommended ? 'recommended' : 'myPools'}
-            options={[
-              {
-                value: 'recommended',
-                displayValue: t('common.recommended'),
-                onSelect: () => setRecommended(true),
-              },
-              {
-                value: 'myPools',
-                displayValue: t('dexPool.myPools'),
-                onSelect: () => setRecommended(false),
-              },
-            ]}
-          />
+          <Box
+            textAlign="center"
+            order={['3', '3', '2']}
+            width={['100%', '100%', 'unset']}
+          >
+            <Switch
+              thin
+              defaultValue={recommended ? 'recommended' : 'myPools'}
+              options={[
+                {
+                  value: 'recommended',
+                  displayValue: t('common.recommended'),
+                  onSelect: () => setRecommended(true),
+                },
+                {
+                  value: 'myPools',
+                  displayValue: t('dexPool.myPools'),
+                  onSelect: () => setRecommended(false),
+                },
+              ]}
+            />
+          </Box>
           <Button
             px="XL"
+            order={['2', '2', '3']}
             type="button"
             variant="primary"
             ml={['unset', 'auto']}
