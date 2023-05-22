@@ -25,6 +25,7 @@ const Pool: FC = () => {
           borderRadius="M"
           alignItems="center"
           justifyContent="space-between"
+          flexDirection={['column', 'column', 'row']}
         >
           <Typography
             variant="normal"
