@@ -1,23 +1,13 @@
 import { Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
+import { useLocale } from '@/hooks';
+
+import LanguageMenuItem from './language-menu-item';
 import { MenuDropdownProps } from './menu.types';
 import MenuItem from './menu-item';
-
-const MENU_ITEMS: ReadonlyArray<'languages' | 'darkMode'> = [
-  'darkMode',
-  'languages',
-];
-
-const itemVariants = {
-  open: {
-    opacity: 1,
-    y: 0,
-    transition: { type: 'spring', stiffness: 300, damping: 24 },
-  },
-  closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
-};
+import MenuItemWrapper from './menu-item-wrapper';
 
 const wrapperVariants = {
   open: {
@@ -42,6 +32,8 @@ const wrapperVariants = {
 
 const MenuDropdown: FC<MenuDropdownProps> = ({ isOpen }) => {
   const { dark } = useTheme() as Theme;
+  const { locales, changeLocale } = useLocale();
+  const [isLanguageMenu, setLanguageMenu] = useState(false);
 
   return (
     <Motion
@@ -53,32 +45,34 @@ const MenuDropdown: FC<MenuDropdownProps> = ({ isOpen }) => {
       position="absolute"
       variants={wrapperVariants}
       animate={isOpen ? 'open' : 'closed'}
+      pointerEvents={isOpen ? 'auto' : 'none'}
       bg={
         dark
           ? 'linear-gradient(0deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)), #1B1B1F'
           : 'linear-gradient(0deg, rgba(0, 85, 255, 0.08), rgba(0, 85, 255, 0.08)), #F2F0F4'
       }
-      pointerEvents={isOpen ? 'auto' : 'none'}
     >
-      {MENU_ITEMS.map((name) => (
-        <Motion
-          py="l"
-          gap="l"
-          px="xl"
-          key={v4()}
-          color="text"
-          display="grid"
-          cursor="pointer"
-          alignItems="center"
-          fontFamily="Roboto"
-          variants={itemVariants}
-          initial={itemVariants.closed}
-          nHover={{ bg: dark ? '#FFFFFF1A' : '#86868614' }}
-          gridTemplateColumns="1fr 8rem 1fr"
-        >
-          <MenuItem name={name} />
-        </Motion>
-      ))}
+      {!isLanguageMenu ? (
+        <>
+          <MenuItemWrapper>
+            <MenuItem name="darkMode" />
+          </MenuItemWrapper>
+          <MenuItemWrapper onClick={() => setLanguageMenu(true)}>
+            <MenuItem name="languages" />
+          </MenuItemWrapper>
+        </>
+      ) : (
+        <>
+          <MenuItemWrapper onClick={() => setLanguageMenu(false)}>
+            <LanguageMenuItem name="title" />
+          </MenuItemWrapper>
+          {locales.map((locale) => (
+            <MenuItemWrapper key={v4()} onClick={() => changeLocale(locale)}>
+              <LanguageMenuItem name={locale} />
+            </MenuItemWrapper>
+          ))}
+        </>
+      )}
     </Motion>
   );
 };

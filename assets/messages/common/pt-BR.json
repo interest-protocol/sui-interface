@@ -8,8 +8,15 @@
         "pt-BR": "Português"
       },
       "menu": {
-        "markMode": "Modo escuro",
+        "settings": "Definições",
+        "darkMode": "Modo escuro",
         "languages": "Idiomas"
+      },
+      "wallet": {
+        "name": "carteira",
+        "connect": "conetar à carteira",
+        "disconnect": "desconectar",
+        "switch": "trocar rede"
       },
       "on": "Ativo",
       "off": "Inativo",

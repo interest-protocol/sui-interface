@@ -1,93 +1,84 @@
-import { Box, Button, Motion } from '@interest-protocol/ui-kit';
-import { AnimatePresence } from 'framer-motion';
+import { Box, Button } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
-import { DotsSVG, TimesSVG } from '@/svg';
+import { capitalize } from '@/utils';
 
-import MenuDropdown from './menu-dropdown';
-
-const closeVariants = {
-  open: {
-    scaleY: 1,
-  },
-  closed: {
-    scaleY: 0,
-  },
-};
-
-const menuVariants = {
-  open: {
-    rotate: '0deg',
-    scaleY: 1,
-  },
-  closed: {
-    rotate: '180deg',
-    scaleY: 0,
-  },
-};
+import MenuBackButton from './menu-back-button';
+import MenuButton from './menu-button';
+import MenuDesktop from './menu-desktop';
+import MenuMobile from './menu-mobile';
 
 const Menu: FC = () => {
+  const t = useTranslations();
   const { query } = useRouter();
-  const [isOpen, setIsOpen] = useState(Boolean(query.settings) === true);
+  const [isOpen, setIsOpen] = useState(Boolean(query.menu) === true);
+  const [isSettings, setIsSettings] = useState(
+    Boolean(query.settings) === true
+  );
 
-  // const menuTracker =
+  const handleOpenSettings = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('settings', 'true');
+    window.history.pushState('', '', url.toString());
+    setIsSettings(true);
+  };
+
+  const handleCloseSettings = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('settings');
+    window.history.pushState('', '', url.toString());
+    setIsSettings(false);
+  };
 
   const handleOpen = () => {
     const url = new URL(window.location.href);
-    url.searchParams.set('settings', 'true');
+    url.searchParams.set('menu', 'true');
     window.history.pushState('', '', url.toString());
     setIsOpen(true);
   };
 
   const handleClose = () => {
+    handleCloseSettings();
     const url = new URL(window.location.href);
-    url.searchParams.delete('settings');
+    url.searchParams.delete('menu');
     window.history.pushState('', '', url.toString());
     setIsOpen(false);
   };
 
   return (
-    <Box position="relative">
-      {isOpen && (
-        <Box
-          top="0"
-          left="0"
-          right="0"
-          bottom="0"
-          position="fixed"
-          onClick={handleClose}
-        />
-      )}
-      <Button
-        color="text"
-        variant="icon"
-        bg={isOpen ? '#FFFFFF1A' : 'none'}
-        onClick={!isOpen ? handleOpen : handleClose}
+    <Box position="relative" width={['100%', 'unset']}>
+      <Box
+        zIndex="2"
+        display="flex"
+        position="relative"
+        flexDirection="row-reverse"
+        justifyContent="space-between"
       >
-        <AnimatePresence initial={false}>
-          {isOpen ? (
-            <Motion initial={menuVariants.closed} animate={menuVariants.open}>
-              <TimesSVG
-                width="100%"
-                height="100%"
-                maxWidth="1.75rem"
-                maxHeight="1.75rem"
-              />
-            </Motion>
-          ) : (
-            <Motion initial={closeVariants.closed} animate={closeVariants.open}>
-              <DotsSVG
-                width="100%"
-                height="100%"
-                maxWidth="1.75rem"
-                maxHeight="1.75rem"
-              />
-            </Motion>
+        <Box display="flex">
+          {!isOpen && (
+            <Button mr="s" variant="filled" color="textPrimary">
+              {capitalize(t('common.v2.wallet.connect'))}
+            </Button>
           )}
-        </AnimatePresence>
-      </Button>
-      {isOpen && <MenuDropdown isOpen={isOpen} />}
+          <MenuButton
+            isOpen={isOpen}
+            handleOpen={handleOpen}
+            handleClose={handleClose}
+          />
+        </Box>
+        <MenuBackButton
+          handleBack={handleCloseSettings}
+          showButton={isOpen && isSettings}
+        />
+      </Box>
+      <MenuDesktop isOpen={isOpen} handleClose={handleClose} />
+      <MenuMobile
+        isOpen={isOpen}
+        isSettings={isSettings}
+        handleOpenSettings={handleOpenSettings}
+      />
     </Box>
   );
 };
