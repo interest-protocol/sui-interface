@@ -111,6 +111,7 @@ const Footer: FC = () => {
                     ? 'textSoft'
                     : 'text'
                 }
+                textTransform="capitalize"
               >
                 <LiquiditySVG
                   width="1.1rem"
