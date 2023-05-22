@@ -7,7 +7,11 @@ import { Theme } from '@/design-system';
 import { Box, Typography } from '@/elements';
 import { InfoSVG } from '@/svg';
 
-import { CreatePoolProps, DexFindPoolForm } from '../dex-find-pool.types';
+import {
+  CreatePoolFieldProps,
+  CreatePoolProps,
+  DexFindPoolForm,
+} from '../dex-find-pool.types';
 import CreatePoolField from './create-pool-field';
 import Price from './create-pool-price';
 
@@ -51,10 +55,10 @@ const CreatePool: FC<CreatePoolProps> = ({
       {TOKEN_NAMES.map((name) => (
         <CreatePoolField
           key={v4()}
-          name={name}
           register={register}
           setValue={setValue}
           getValues={getValues}
+          name={name as CreatePoolFieldProps['name']}
         />
       ))}
       <Box
