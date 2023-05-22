@@ -8,8 +8,15 @@
         "pt-BR": "Portuguese"
       },
       "menu": {
+        "settings": "settings",
         "darkMode": "dark mode",
         "languages": "languages"
+      },
+      "wallet": {
+        "name": "wallet",
+        "connect": "connect wallet",
+        "disconnect": "disconnect",
+        "switch": "switch network"
       },
       "on": "On",
       "off": "Off",
