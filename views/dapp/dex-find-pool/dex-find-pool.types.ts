@@ -29,12 +29,14 @@ interface FormValue {
 }
 
 export interface DexFindPoolForm {
+  stable: boolean;
   tokenA: FormValue;
   tokenB: FormValue;
 }
 
 export interface FindPoolProps {
   control: Control<DexFindPoolForm>;
+  setValue: UseFormSetValue<DexFindPoolForm>;
   formSearch?: UseFormReturn<SearchFieldForm>;
   getValues: UseFormGetValues<DexFindPoolForm>;
   onSelectCurrency: (name: 'tokenA' | 'tokenB') => OnSelectCurrency;

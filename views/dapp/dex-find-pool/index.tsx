@@ -17,11 +17,11 @@ const DEXFindPool: FC<DEXFindPoolProps> = ({
   form,
   tokenAType,
   tokenBType,
-  setCreatingPair,
   isCreatingPair,
+  setCreatingPair,
 }) => {
-  const { account } = useWeb3();
   const t = useTranslations();
+  const { account } = useWeb3();
 
   const { setValue, control, getValues, register } = form;
 
@@ -45,6 +45,7 @@ const DEXFindPool: FC<DEXFindPoolProps> = ({
       </Typography>
       <FindPool
         control={control}
+        setValue={setValue}
         getValues={getValues}
         onSelectCurrency={onSelectCurrency}
       />

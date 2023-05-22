@@ -32,6 +32,7 @@ const DEXFindPoolPage: NextPage<{ pageTitle: string }> = ({ pageTitle }) => {
   useEffect(() => {
     form.setValue('tokenA', tokenADefault);
     form.setValue('tokenB', tokenBDefault);
+    form.setValue('stable', false);
   }, [network]);
 
   // We want the form to re-render if types change
