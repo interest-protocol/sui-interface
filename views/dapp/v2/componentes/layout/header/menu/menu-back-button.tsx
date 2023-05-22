@@ -13,9 +13,11 @@ const MenuBackButton: FC<MenuBackButtonProps> = ({
 
   return (
     <Button
+      left="-2.5rem"
       color="text"
       variant="icon"
       border="1px solid"
+      position="absolute"
       onClick={handleBack}
       borderColor="#FFFFFF1A"
       display={['block', 'none']}

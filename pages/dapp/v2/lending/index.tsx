@@ -22,6 +22,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     commonMessages.default,
     lendingMessages.default
   );
+
   return {
     props: {
       messages,

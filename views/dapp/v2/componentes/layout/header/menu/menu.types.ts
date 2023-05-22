@@ -37,6 +37,7 @@ export interface MenuBackButtonProps {
   handleBack: () => void;
 }
 
-export interface MenuItemWrapperProps extends Pick<BoxProps, 'surface'> {
+export interface MenuItemWrapperProps
+  extends Partial<Pick<BoxProps, 'surface'>> {
   onClick?: () => void;
 }
