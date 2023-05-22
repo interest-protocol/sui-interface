@@ -18,6 +18,7 @@ const PoolRow: FC<PoolRowProps> = ({
   balance,
   objectId,
   decimals,
+  stable,
 }) => {
   const sdk = useSDK();
   const { push } = useRouter();
@@ -31,6 +32,7 @@ const PoolRow: FC<PoolRowProps> = ({
       (await sdk.findPoolId({
         tokenAType: type0,
         tokenBType: type1,
+        stable,
       })!);
 
     push(`${Routes[RoutesEnum.DEXPoolDetails]}?objectId=${poolId}`);

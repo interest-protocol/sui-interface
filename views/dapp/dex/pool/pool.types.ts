@@ -12,6 +12,7 @@ export interface PoolRowProps {
   objectId: string | null;
   decimals: number;
   balance: BigNumber;
+  stable: boolean;
 }
 
 export interface IPool {

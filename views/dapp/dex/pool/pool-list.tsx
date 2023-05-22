@@ -41,18 +41,21 @@ const PoolList: FC<{ isRecommended?: boolean; isStable: boolean }> = ({
     return (
       <>
         {myPools.length ? (
-          myPools.map(({ token0, token1, poolObjectId, balance, decimals }) => (
-            <PoolRow
-              key={v4()}
-              balance={balance}
-              type0={token0.type}
-              type1={token1.type}
-              decimals={decimals}
-              symbol0={token0.symbol}
-              symbol1={token1.symbol}
-              objectId={poolObjectId}
-            />
-          ))
+          myPools.map(
+            ({ token0, token1, poolObjectId, balance, decimals, stable }) => (
+              <PoolRow
+                key={v4()}
+                balance={balance}
+                type0={token0.type}
+                type1={token1.type}
+                decimals={decimals}
+                symbol0={token0.symbol}
+                symbol1={token1.symbol}
+                objectId={poolObjectId}
+                stable={stable}
+              />
+            )
+          )
         ) : (
           <Box
             display="flex"
@@ -77,18 +80,21 @@ const PoolList: FC<{ isRecommended?: boolean; isStable: boolean }> = ({
           <Typography variant="normal" color="textSecondary" my="L">
             {t('dexPool.activePools')}
           </Typography>
-          {active.map(({ token0, token1, poolObjectId, balance, decimals }) => (
-            <PoolRow
-              key={v4()}
-              balance={balance}
-              type0={token0.type}
-              type1={token1.type}
-              decimals={decimals}
-              symbol0={token0.symbol}
-              symbol1={token1.symbol}
-              objectId={poolObjectId}
-            />
-          ))}
+          {active.map(
+            ({ token0, token1, poolObjectId, balance, decimals, stable }) => (
+              <PoolRow
+                key={v4()}
+                balance={balance}
+                type0={token0.type}
+                type1={token1.type}
+                decimals={decimals}
+                symbol0={token0.symbol}
+                symbol1={token1.symbol}
+                objectId={poolObjectId}
+                stable={stable}
+              />
+            )
+          )}
           {!!inactive.length && (
             <Typography variant="normal" color="textSecondary" my="L">
               {t('dexPool.otherPools')}
@@ -96,18 +102,21 @@ const PoolList: FC<{ isRecommended?: boolean; isStable: boolean }> = ({
           )}
         </>
       )}
-      {inactive.map(({ token0, token1, poolObjectId, balance, decimals }) => (
-        <PoolRow
-          key={v4()}
-          balance={balance}
-          type0={token0.type}
-          type1={token1.type}
-          decimals={decimals}
-          symbol0={token0.symbol}
-          symbol1={token1.symbol}
-          objectId={poolObjectId}
-        />
-      ))}
+      {inactive.map(
+        ({ token0, token1, poolObjectId, balance, decimals, stable }) => (
+          <PoolRow
+            key={v4()}
+            balance={balance}
+            type0={token0.type}
+            type1={token1.type}
+            decimals={decimals}
+            symbol0={token0.symbol}
+            symbol1={token1.symbol}
+            objectId={poolObjectId}
+            stable={stable}
+          />
+        )
+      )}
     </>
   );
 };

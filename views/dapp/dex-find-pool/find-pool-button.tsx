@@ -56,6 +56,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
         tokenAType,
         tokenBType,
         account: account ?? AddressZero,
+        stable: false,
       });
 
       if (!id) return setCreatingPair(true);
