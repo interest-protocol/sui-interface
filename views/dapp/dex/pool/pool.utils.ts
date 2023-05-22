@@ -2,7 +2,11 @@ import { Network, STABLE } from '@interest-protocol/sui-sdk';
 import { propOr } from 'ramda';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
-import { DEX_LP_COIN_TYPE, RECOMMENDED_POOLS } from '@/constants';
+import {
+  COIN_TYPE_TO_COIN,
+  DEX_LP_COIN_TYPE,
+  RECOMMENDED_POOLS,
+} from '@/constants';
 import { CoinData } from '@/interface';
 import {
   getCoinsFromLpCoinType,
@@ -47,7 +51,7 @@ export const filterPools = (
   );
 
 export const isIPXLPCoin = (x: string, network: Network) =>
-  x.includes(DEX_LP_COIN_TYPE[network]);
+  x.startsWith(DEX_LP_COIN_TYPE[network]);
 
 export const formatLpCoinToPool = ({
   tokensMetadataRecord,
@@ -56,16 +60,15 @@ export const formatLpCoinToPool = ({
 }: FormatLpCoinToPoolArgs) => {
   const { coinXType, coinYType } = getCoinsFromLpCoinType(object.type);
 
-  const coinXMetadata = propOr(
-    null,
-    coinXType,
-    tokensMetadataRecord
-  ) as null | CoinData;
-  const coinYMetadata = propOr(
-    null,
-    coinYType,
-    tokensMetadataRecord
-  ) as null | CoinData;
+  const coins = COIN_TYPE_TO_COIN[network];
+
+  const coinXMetadata =
+    coins[coinXType] ||
+    (propOr(null, coinXType, tokensMetadataRecord) as null | CoinData);
+
+  const coinYMetadata =
+    coins[coinYType] ||
+    (propOr(null, coinYType, tokensMetadataRecord) as null | CoinData);
 
   const stable = object.type.includes(STABLE[network]);
 
