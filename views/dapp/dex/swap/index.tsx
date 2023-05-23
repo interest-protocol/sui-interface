@@ -1,17 +1,14 @@
-import { FixedPointMath } from 'lib';
 import dynamic from 'next/dynamic';
-import { pathOr } from 'ramda';
 import { FC } from 'react';
 import { useCallback } from 'react';
 import { useWatch } from 'react-hook-form';
 
-import { Box, InputBalance } from '@/elements';
+import { Box } from '@/elements';
 import { useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
-import { ZERO_BIG_NUMBER } from '@/utils';
 
-import SelectCurrency from '../../components/select-currency';
 import { OnSelectCurrency } from '../../components/select-currency/select-currency.types';
+import { InputTokenIn, InputTokenOut } from './inputs';
 import SettingsModal from './settings';
 import { ISwapSettingsForm } from './settings/settings.types';
 import { useGetDexMarkets } from './swap.hooks';
@@ -32,14 +29,11 @@ const Swap: FC<SwapProps> = ({
   const { data: poolsMap, isLoading } = useGetDexMarkets();
 
   const setSettings = useCallback(
-    ({ slippage: newSlippage }: ISwapSettingsForm) => {
-      const slippage =
-        !!newSlippage && newSlippage !== localSettings.slippage
-          ? newSlippage
-          : localSettings.slippage;
-
+    ({ slippage, deadline, autoFetch }: ISwapSettingsForm) => {
       setLocalSettings({
         slippage,
+        deadline,
+        autoFetch,
       });
     },
     []
@@ -114,29 +108,11 @@ const Swap: FC<SwapProps> = ({
             flexDirection="column"
             justifyContent="space-evenly"
           >
-            <InputBalance
-              max
-              name="tokenIn.value"
-              register={formSwap.register}
-              setValue={formSwap.setValue}
-              balance={FixedPointMath.toNumber(
-                pathOr(
-                  ZERO_BIG_NUMBER,
-                  [tokenInType, 'totalBalance'],
-                  coinsMap
-                ),
-                pathOr(0, [tokenInType, 'decimals'], coinsMap)
-              ).toString()}
-              Suffix={
-                <SelectCurrency
-                  currentToken={tokenInType}
-                  type={formSwap.getValues('tokenIn.type')}
-                  symbol={formSwap.getValues('tokenIn.symbol')}
-                  onSelectCurrency={onSelectCurrency('tokenIn')}
-                  searchTokenModalState={searchTokenModalState}
-                />
-              }
-              isLarge={true}
+            <InputTokenIn
+              formSwap={formSwap}
+              coinsMap={coinsMap}
+              onSelectCurrency={onSelectCurrency}
+              searchTokenModalState={searchTokenModalState}
             />
             <Box
               zIndex={1}
@@ -162,28 +138,27 @@ const Swap: FC<SwapProps> = ({
               ⥯
             </Box>
           </Box>
+          <InputTokenOut
+            formSwap={formSwap}
+            coinsMap={coinsMap}
+            onSelectCurrency={onSelectCurrency}
+            searchTokenModalState={searchTokenModalState}
+          />
           <SwapManager
             account={account}
             coinsMap={coinsMap}
-            tokenInType={tokenInType}
             control={formSwap.control}
-            tokenOutType={tokenOutType}
             setValue={formSwap.setValue}
-            register={formSwap.register}
             getValues={formSwap.getValues}
             poolsMap={poolsMap || {}}
-            searchTokenModalState={searchTokenModalState}
-            onSelectCurrency={onSelectCurrency('tokenOut')}
+            autoFetch={localSettings.autoFetch}
+            tokenInType={tokenInType}
+            tokenOutType={tokenOutType}
             swapButtonProps={{
               mutate,
-              control: formSwap.control,
-              coinsMap,
-              setValue: formSwap.setValue,
               getValues: formSwap.getValues,
-              tokenInType,
-              tokenOutType,
               slippage: localSettings.slippage,
-              poolsMap: poolsMap || {},
+              deadline: localSettings.deadline,
             }}
           />
         </Box>

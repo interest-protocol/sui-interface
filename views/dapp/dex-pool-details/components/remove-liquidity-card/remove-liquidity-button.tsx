@@ -6,11 +6,15 @@ import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import { OBJECT_RECORD } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useNetwork, useWeb3 } from '@/hooks';
+import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
-import { showToast, showTXSuccessToast, throwTXIfNotSuccessful } from '@/utils';
+import {
+  noop,
+  showToast,
+  showTXSuccessToast,
+  throwTXIfNotSuccessful,
+} from '@/utils';
 import { capitalize } from '@/utils';
 
 import { RemoveLiquidityButtonProps } from './remove-liquidity-card.types';
@@ -29,8 +33,10 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
-  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { signTransactionBlock } = useWalletKit();
   const { network } = useNetwork();
+  const { provider } = useProvider();
+  const sdk = useSDK();
 
   const [loading, setLoading] = useState(false);
 
@@ -38,8 +44,8 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
 
   const handleRemoveLiquidity = async () => {
     try {
-      const objects = OBJECT_RECORD[network];
       if (disabled) return;
+
       setLoading(true);
 
       const lpAmount = getLpAmount();
@@ -49,33 +55,29 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
 
       const txb = new TransactionBlock();
 
-      txb.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::remove_${
-          stable ? 's' : 'v'
-        }_liquidity`,
-        typeArguments: [token0.type, token1.type],
-        arguments: [
-          txb.object(
-            stable ? objects.DEX_STORAGE_STABLE : objects.DEX_STORAGE_VOLATILE
-          ),
-          txb.makeMoveVec({ objects: objectIds.map((x) => txb.object(x)) }),
-          txb.pure(
-            new BigNumber(lpAmount)
-              .decimalPlaces(0, BigNumber.ROUND_DOWN)
-              .toString()
-          ),
-          txb.pure(
-            token0Amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()
-          ),
-          txb.pure(
-            token1Amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString()
-          ),
-        ],
+      const { transactionBlockBytes, signature } = await signTransactionBlock({
+        transactionBlock: sdk.removeLiquidity({
+          txb,
+          stable,
+          coinAType: token0.type,
+          coinBType: token1.type,
+          lpCoinList: objectIds.map((x) => txb.object(x)),
+          lpCoinAmount: new BigNumber(lpAmount)
+            .decimalPlaces(0, BigNumber.ROUND_DOWN)
+            .toString(),
+          coinAMinAmount: token0Amount
+            .decimalPlaces(0, BigNumber.ROUND_DOWN)
+            .toString(),
+          coinBMinAmount: token1Amount
+            .decimalPlaces(0, BigNumber.ROUND_DOWN)
+            .toString(),
+        }),
       });
 
-      const tx = await signAndExecuteTransactionBlock({
-        transactionBlock: txb,
-        options: { showEffects: true },
+      const tx = await provider.executeTransactionBlock({
+        transactionBlock: transactionBlockBytes,
+        signature,
+        options: { showEffects: true, showEvents: false },
         requestType: 'WaitForEffectsCert',
       });
 
@@ -105,8 +107,9 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
       width="100%"
       variant="primary"
       disabled={disabled}
-      onClick={removeLiquidity}
       bg={disabled ? 'disabled' : 'error'}
+      onClick={disabled ? noop : removeLiquidity}
+      cursor={disabled ? 'not-allowed' : 'pointer'}
       nHover={{ bg: disabled ? 'disabled' : 'errorActive' }}
     >
       {capitalize(
@@ -120,6 +123,7 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
           as="span"
           height="1rem"
           alignItems="center"
+          pointerEvents="none"
           display="inline-flex"
           justifyContent="center"
         >

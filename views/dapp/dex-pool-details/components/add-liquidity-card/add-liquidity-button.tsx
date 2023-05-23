@@ -7,13 +7,12 @@ import { isEmpty, prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import { incrementTX } from '@/api/analytics';
-import { OBJECT_RECORD } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useNetwork, useWeb3 } from '@/hooks';
+import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,
-  createVectorParameter,
+  createObjectsParameter,
   processSafeAmount,
   showToast,
   showTXSuccessToast,
@@ -30,13 +29,13 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
 }) => {
   const t = useTranslations();
   const { coinsMap, account } = useWeb3();
-  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { signTransactionBlock } = useWalletKit();
   const [loading, setLoading] = useState(false);
   const { network } = useNetwork();
-
+  const { provider } = useProvider();
+  const sdk = useSDK();
   const handleAddLiquidity = async () => {
     try {
-      const objects = OBJECT_RECORD[network];
       if (tokens.length !== 2 || isEmpty(coinsMap))
         throw new Error(t('error.fetchingCoins'));
 
@@ -73,39 +72,38 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
 
       const txb = new TransactionBlock();
 
-      const vector0 = createVectorParameter({
+      const vector0 = createObjectsParameter({
         txb,
         type: token0.type,
         coinsMap,
         amount: safeAmount0.toString(),
       });
 
-      const vector1 = createVectorParameter({
+      const vector1 = createObjectsParameter({
         txb,
         type: token1.type,
         coinsMap,
         amount: safeAmount1.toString(),
       });
 
-      txb.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::add_liquidity`,
-        typeArguments: [token0.type, token1.type],
-        arguments: [
-          txb.object(objects.DEX_STORAGE_VOLATILE),
-          txb.object(objects.DEX_STORAGE_STABLE),
-          vector0,
-          vector1,
-          txb.pure(safeAmount0.toString()),
-          txb.pure(safeAmount1.toString()),
-          txb.pure(!stable),
-          txb.pure('0'),
-        ],
+      const { signature, transactionBlockBytes } = await signTransactionBlock({
+        transactionBlock: sdk.addLiquidity({
+          txb,
+          stable,
+          coinAType: token0.type,
+          coinBType: token1.type,
+          coinAList: vector0,
+          coinBList: vector1,
+          coinAAmount: safeAmount0.toString(),
+          coinBAmount: safeAmount1.toString(),
+        }),
+        chain: network,
       });
 
-      const tx = await signAndExecuteTransactionBlock({
-        transactionBlock: txb,
-        chain: network,
-        options: { showEffects: true },
+      const tx = await provider.executeTransactionBlock({
+        signature,
+        transactionBlock: transactionBlockBytes,
+        options: { showEffects: true, showEvents: false },
         requestType: 'WaitForEffectsCert',
       });
 

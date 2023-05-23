@@ -3,6 +3,7 @@
     "pageTitle": "DEX",
     "buttonText": "Swap",
     "settingsTransactionTitle": "Transaction Settings",
+    "settingsPanelTitle": "Panel Settings",
     "toleranceLabel": "Slippage tolerance?",
     "deadlineLabel": "Transaction deadline",
     "priceLabel": "Automated Price",
@@ -15,7 +16,7 @@
       "infoNoPool": "This pair has no liquidity. Try a higher amount or add liquidity",
       "noPool": "No pool found! Try an existing pool",
       "error": "Failed to swap: try a higher slippage or smaller amount",
-      "increaseAmount": "Try to increase {symbol} amount, or the pool does not have enough liquidity"
+      "increaseAmount": "Try to increase {symbol} amount"
     },
     "error": {
       "cannotSell0": "Cannot sell 0 tokens",

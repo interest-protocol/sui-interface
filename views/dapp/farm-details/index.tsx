@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { AddressZero } from 'lib';
 import { useTranslations } from 'next-intl';
+import { pathOr } from 'ramda';
 import { FC, useMemo } from 'react';
 
 import { Container } from '@/components';
@@ -61,16 +62,17 @@ const FarmDetails: FC<FarmDetailsProps> = ({
     error: poolsError,
     isLoading: poolsLoading,
   } = useGetMultiGetObjects([
-    farmMetadata.poolObjectId === COIN_POOL[network].V_LP_ETH_IPX
-      ? COIN_POOL[network].V_LP_BNB_ETH
+    farmMetadata.poolObjectId ===
+    pathOr('', [network, 'V_LP_ETH_IPX'], COIN_POOL)
+      ? pathOr('', [network, 'V_LP_BNB_ETH'], COIN_POOL)
       : farmMetadata.poolObjectId,
-    COIN_POOL[network].V_LP_ETH_IPX,
+    pathOr('', [network, 'V_LP_ETH_IPX'], COIN_POOL),
   ]);
 
   const coinsPrices = useGetCoinsPrices([
     coin0.type,
     coin1.type,
-    COINS[network].ETH.type,
+    pathOr('', [network, 'ETH', 'type'], COINS),
   ]);
 
   const loading = useMemo(

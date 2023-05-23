@@ -1,98 +1,108 @@
+import { findMarket } from '@interest-protocol/sui-sdk';
+import { pathOr } from 'ramda';
 import { FC, useState } from 'react';
-import { useWatch } from 'react-hook-form';
-import { useDebounce } from 'use-debounce';
 
 import { useNetwork } from '@/hooks';
-import { LoadingSVG, TimesSVG } from '@/svg';
+import { FixedPointMath } from '@/lib';
+import { ZERO_BIG_NUMBER } from '@/utils';
 
 import { SwapManagerWrapperProps } from '../swap.types';
-import { findMarket } from '../swap.utils';
-import SwapPath from '../swap-path';
 import SwapButton from './swap-button';
-import SwapMessage from './swap-button/swap-message';
 import SwapManagerField from './swap-manager-field';
+import { SwapMessages } from './swap-messages';
 
 const SwapManager: FC<SwapManagerWrapperProps> = ({
   swapButtonProps,
+  autoFetch,
+  tokenOutType,
+  tokenInType,
+  coinsMap,
+  getValues,
   ...props
 }) => {
-  const [isFetchingSwapAmount, setIsFetchingSwapAmount] = useState(false);
-  const [isZeroSwapAmount, setIsZeroSwapAmount] = useState(false);
+  const [isFetchingSwapAmountOut, setIsFetchingSwapAmountOut] = useState(false);
+  const [isZeroSwapAmountOut, setIsZeroSwapAmountOut] = useState(false);
+  const [isFetchingSwapAmountIn, setIsFetchingSwapAmountIn] = useState(false);
+  const [isZeroSwapAmountIn, setIsZeroSwapAmountIn] = useState(false);
   const [error, setError] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [tokenIn] = useDebounce(
-    useWatch({ control: props.control, name: 'tokenIn' }),
-    900
-  );
+
   const { network } = useNetwork();
 
   const markets = findMarket({
     data: props.poolsMap,
-    tokenInType: props.tokenInType,
-    tokenOutType: props.tokenOutType,
+    coinInType: tokenInType,
+    coinOutType: tokenOutType,
     network,
   });
+
   const hasNoMarket = !markets.length;
 
-  const readyToSwap =
-    !(error && +tokenIn.value > 0) &&
-    !isFetchingSwapAmount &&
-    !(isZeroSwapAmount && !!+tokenIn.value && !isFetchingSwapAmount) &&
-    !(props.tokenInType === props.tokenOutType) &&
-    !hasNoMarket;
+  const tokenInBalance = FixedPointMath.toNumber(
+    pathOr(ZERO_BIG_NUMBER, [tokenInType, 'totalBalance'], coinsMap),
+    getValues('tokenIn.decimals')
+  );
 
   return (
     <>
-      <SwapManagerField
-        {...props}
-        setIsFetchingSwapAmount={setIsFetchingSwapAmount}
-        isFetchingSwapAmount={isFetchingSwapAmount}
-        setError={setError}
-        setIsZeroSwapAmount={setIsZeroSwapAmount}
+      {autoFetch && (
+        <>
+          <SwapManagerField
+            {...props}
+            tokenOutDecimals={getValues('tokenOut.decimals')}
+            setIsFetchingSwapAmount={setIsFetchingSwapAmountOut}
+            isFetchingSwapAmount={isFetchingSwapAmountOut}
+            setIsZeroSwapAmount={setIsZeroSwapAmountOut}
+            setError={setError}
+            hasNoMarket={hasNoMarket}
+            setDisabled={setDisabled}
+            tokenOutType={tokenOutType}
+            control={props.control}
+            name="tokenIn"
+            setValueName="tokenOut.value"
+            setValueLockName="inputOutLocked"
+          />
+          <SwapManagerField
+            {...props}
+            tokenOutDecimals={getValues('tokenIn.decimals')}
+            setIsFetchingSwapAmount={setIsFetchingSwapAmountIn}
+            isFetchingSwapAmount={isFetchingSwapAmountIn}
+            setIsZeroSwapAmount={setIsZeroSwapAmountIn}
+            setError={setError}
+            hasNoMarket={hasNoMarket}
+            setDisabled={setDisabled}
+            tokenOutType={tokenInType}
+            control={props.control}
+            name="tokenOut"
+            setValueName="tokenIn.value"
+            setValueLockName="inputInLocked"
+          />
+        </>
+      )}
+      <SwapMessages
+        isFetchingSwapAmountIn={isFetchingSwapAmountIn}
+        isFetchingSwapAmountOut={isFetchingSwapAmountOut}
+        isZeroSwapAmountIn={isZeroSwapAmountIn}
+        isZeroSwapAmountOut={isZeroSwapAmountOut}
+        error={error}
         hasNoMarket={hasNoMarket}
-        tokenIn={tokenIn}
-        setDisabled={setDisabled}
+        markets={markets}
+        control={props.control}
       />
-      {isFetchingSwapAmount && (
-        <SwapMessage
-          Icon={LoadingSVG}
-          message="dexSwap.swapMessage.fetchingAmounts"
-        />
-      )}
-      {isZeroSwapAmount && !!+tokenIn.value && !isFetchingSwapAmount && (
-        <SwapMessage
-          color="error"
-          Icon={TimesSVG}
-          extraData={{ symbol: tokenIn.symbol }}
-          message="dexSwap.swapMessage.increaseAmount"
-        />
-      )}
-      {props.tokenInType === props.tokenOutType && (
-        <SwapMessage
-          color="error"
-          Icon={TimesSVG}
-          message="dexSwap.swapMessage.sameOut"
-        />
-      )}
-      {hasNoMarket && (
-        <SwapMessage
-          color="error"
-          Icon={TimesSVG}
-          message="dexSwap.swapMessage.noMarket"
-        />
-      )}
-      {error && (
-        <SwapMessage
-          color="error"
-          Icon={TimesSVG}
-          message="dexSwap.swapMessage.error"
-        />
-      )}
-      {readyToSwap && <SwapPath markets={markets} />}
       <SwapButton
         {...swapButtonProps}
+        coinsMap={coinsMap}
+        control={props.control}
         poolsMap={props.poolsMap}
-        disabled={disabled}
+        tokenInType={tokenInType}
+        setValue={props.setValue}
+        tokenOutType={tokenOutType}
+        disabled={
+          disabled ||
+          isFetchingSwapAmountIn ||
+          isFetchingSwapAmountOut ||
+          +getValues('tokenIn.value') > tokenInBalance
+        }
       />
     </>
   );

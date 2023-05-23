@@ -2,10 +2,10 @@ import { FC } from 'react';
 
 import { Layout, Team } from '../components';
 
-const TeamPage: FC = () => (
+const TeamView: FC = () => (
   <Layout>
     <Team />
   </Layout>
 );
 
-export default TeamPage;
+export default TeamView;

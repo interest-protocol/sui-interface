@@ -7,7 +7,7 @@ import { safeSymbol } from './../../../utils/coin/index';
 export const makeToken = (
   type: string,
   token: null | CoinData,
-  coinMetadata: undefined | CoinMetadata
+  coinMetadata: undefined | CoinMetadata | null
 ): CoinData => {
   if (token) return token;
 

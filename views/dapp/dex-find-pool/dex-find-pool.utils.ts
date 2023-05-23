@@ -1,6 +1,7 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import { and, find, or, pathOr } from 'ramda';
 
-import { Network, RECOMMENDED_POOLS } from '@/constants';
+import { RECOMMENDED_POOLS } from '@/constants';
 
 export const getRecommendedPairId = (
   network: Network,

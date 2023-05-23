@@ -1,34 +1,38 @@
-import { DevInspectResults } from '@mysten/sui.js/src/types';
+import { DexFunctions } from '@interest-protocol/sui-sdk';
 import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { Dispatch, SetStateAction } from 'react';
 import {
   Control,
   UseFormGetValues,
-  UseFormRegister,
   UseFormReturn,
   UseFormSetValue,
 } from 'react-hook-form';
 import { KeyedMutator } from 'swr';
 
 import { Web3ManagerState } from '@/components/web3-manager/web3-manager.types';
-import { DexFunctions, Network } from '@/constants';
-import { CoinData, DexMarket } from '@/interface';
+import { DexMarket } from '@/interface';
 
-import { TokenModalMetadata } from '../../components/select-currency/select-currency.types';
+import {
+  OnSelectCurrency,
+  TokenModalMetadata,
+} from '../../components/select-currency/select-currency.types';
 import { SwapFormTokenData } from '../dex.types';
 import { ISwapSettingsForm } from './settings/settings.types';
 
 export interface ISwapForm {
   tokenIn: SwapFormTokenData;
   tokenOut: SwapFormTokenData;
+  lock: boolean;
+  inputInLocked: boolean;
+  inputOutLocked: boolean;
 }
 
 export type PoolsMap = DexMarket;
 
 export interface SwapPathObject {
   baseTokens: ReadonlyArray<string>;
-  tokenInType: string;
-  tokenOutType: string;
+  coinInType: string;
+  coinOutType: string;
   functionName: DexFunctions;
   typeArgs: Array<string>;
 }
@@ -42,56 +46,53 @@ export interface SwapButtonProps {
   setValue: UseFormSetValue<ISwapForm>;
   getValues: UseFormGetValues<ISwapForm>;
   coinsMap: Web3ManagerState['coinsMap'];
-  mutate: KeyedMutator<PaginatedCoins | undefined>;
+  mutate: KeyedMutator<PaginatedCoins['data'] | undefined>;
   poolsMap: PoolsMap;
+  deadline: string;
+}
+
+interface SwapManagerWrapperButtonProps {
+  slippage: string;
+  getValues: UseFormGetValues<ISwapForm>;
+  mutate: KeyedMutator<PaginatedCoins['data'] | undefined>;
+  deadline: string;
 }
 
 export interface SwapManagerWrapperProps {
-  swapButtonProps: Omit<SwapButtonProps, 'disabled'>;
-  tokenInType: string;
-  tokenOutType: string;
+  autoFetch: boolean;
+  swapButtonProps: SwapManagerWrapperButtonProps;
   account: string | null;
-  poolsMap: PoolsMap;
   control: Control<ISwapForm>;
-  register: UseFormRegister<ISwapForm>;
+  poolsMap: PoolsMap;
   setValue: UseFormSetValue<ISwapForm>;
   getValues: UseFormGetValues<ISwapForm>;
   coinsMap: Web3ManagerState['coinsMap'];
-  onSelectCurrency: (data: CoinData) => void;
-  searchTokenModalState: TokenModalMetadata | null;
+  tokenInType: string;
+  tokenOutType: string;
 }
 
 export interface SwapManagerProps {
-  tokenInType: string;
   tokenOutType: string;
   hasNoMarket: boolean;
   account: string | null;
-  tokenIn: SwapFormTokenData;
   poolsMap: PoolsMap;
-  control: Control<ISwapForm>;
-  isFetchingSwapAmount: boolean;
-  register: UseFormRegister<ISwapForm>;
   setValue: UseFormSetValue<ISwapForm>;
-  getValues: UseFormGetValues<ISwapForm>;
-  coinsMap: Web3ManagerState['coinsMap'];
   setError: Dispatch<SetStateAction<boolean>>;
+  tokenOutDecimals: number;
   setDisabled: Dispatch<SetStateAction<boolean>>;
-  searchTokenModalState: TokenModalMetadata | null;
   setIsZeroSwapAmount: Dispatch<SetStateAction<boolean>>;
-  onSelectCurrency: (data: CoinData) => void;
   setIsFetchingSwapAmount: Dispatch<SetStateAction<boolean>>;
-}
-
-export interface GetSwapPayload {
-  tokenIn: SwapFormTokenData;
-  tokenOutType: string;
-  coinsMap: Web3ManagerState['coinsMap'];
-  poolsMap: PoolsMap;
-  network: Network;
+  isFetchingSwapAmount: boolean;
+  control: Control<ISwapForm>;
+  name: 'tokenIn' | 'tokenOut';
+  setValueName: 'tokenIn.value' | 'tokenOut.value';
+  setValueLockName: 'inputInLocked' | 'inputOutLocked';
 }
 
 export interface LocalSwapSettings {
   slippage: string; // 20 equals 20%
+  deadline: string; // 5 equals 5 minutes
+  autoFetch: boolean;
 }
 
 export interface SwapPathProps {
@@ -114,14 +115,9 @@ export interface SwapProps {
   searchTokenModalState: TokenModalMetadata | null;
 }
 
-export interface FindMarketArgs {
-  data: PoolsMap;
-  tokenInType: string;
-  tokenOutType: string;
-  network: Network;
-}
-
-export interface FindSwapAmountOutput {
-  packageId: string;
-  data: DevInspectResults | undefined;
+export interface CoinInputProps {
+  coinsMap: Web3ManagerState['coinsMap'];
+  formSwap: UseFormReturn<ISwapForm>;
+  searchTokenModalState: SwapProps['searchTokenModalState'];
+  onSelectCurrency: (name: 'tokenIn' | 'tokenOut') => OnSelectCurrency;
 }

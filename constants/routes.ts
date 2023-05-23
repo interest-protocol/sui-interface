@@ -11,8 +11,12 @@ export enum RoutesEnum {
   DEXPool = 'dex-pool',
   DEXFindPool = 'dex-find-pool',
   DEXPoolDetails = 'dex-pool-details',
+  Bridge = 'bridge',
   Faucet = 'faucet',
   Lend = 'lend',
+  LiquidityCampaign = 'liquidity-campaign',
+  LiquidityFarms = 'liquidity-farms',
+  LiquidityFarmsDetails = 'liquidity-farms-details',
 }
 
 /**
@@ -30,4 +34,8 @@ export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.DEXPoolDetails]: '/dapp/dex/pool/details',
   [RoutesEnum.Faucet]: '/dapp/faucet',
   [RoutesEnum.Lend]: '/dapp/v2/lending',
+  [RoutesEnum.LiquidityCampaign]: '/campaign/liquidity',
+  [RoutesEnum.Bridge]: 'https://wormhole.interestprotocol.com/',
+  [RoutesEnum.LiquidityFarms]: '/dapp/liquidity',
+  [RoutesEnum.LiquidityFarmsDetails]: '/dapp/liquidity/details',
 };

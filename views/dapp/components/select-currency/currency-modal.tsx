@@ -5,7 +5,11 @@ import { useForm } from 'react-hook-form';
 
 import { Switch } from '@/components';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
-import { BASE_TOKENS_TYPES, COIN_DECIMALS, COIN_SYMBOL } from '@/constants';
+import {
+  BASE_TOKENS_TYPES,
+  COIN_DECIMALS,
+  COIN_TYPE_TO_SYMBOL,
+} from '@/constants';
 import { Box, Button } from '@/elements';
 import { useLocalStorage } from '@/hooks';
 import { CoinData, LocalTokenMetadataRecord } from '@/interface';
@@ -77,9 +81,13 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
       }
 
       setFetchingData(true);
-      const { symbol, decimals } = await provider.getCoinMetadata({
+      const metadata = await provider.getCoinMetadata({
         coinType: args.type,
       });
+
+      if (!metadata) throw new Error();
+
+      const { symbol, decimals } = metadata;
 
       const tokenMetaData = {
         symbol: symbol,
@@ -96,11 +104,7 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
     } catch (error) {
       const decimals = args.decimals === -1 ? 0 : args.decimals;
 
-      if (
-        !storedToken &&
-        coinsMap[args.type] &&
-        (error as Error).message.startsWith('Error fetching CoinMetadata')
-      )
+      if (!storedToken && coinsMap[args.type])
         setLocalTokensMetadata({
           ...localTokensMetadata,
           [args.type]: {
@@ -125,7 +129,7 @@ const CurrencyModal: FC<CurrencyDropdownProps> = ({
         type,
         objects: [],
         totalBalance: BigNumber(0),
-        symbol: COIN_SYMBOL[network][type],
+        symbol: COIN_TYPE_TO_SYMBOL[network][type],
         decimals: COIN_DECIMALS[network][type],
       }
   );
