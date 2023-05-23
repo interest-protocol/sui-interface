@@ -1,19 +1,35 @@
-import { Box } from '@interest-protocol/ui-kit';
+import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { MarketTable } from '..';
 
-// import { BorrowMarketTable, SupplyMarketTable } from '..';
-
-const LendTables: FC = () => (
-  <Box variant="container">
-    <Box gridColumn="1 / -1" color="text">
-      <Box display="flex" flexWrap="wrap" gap=".5rem">
+const LendTables: FC = () => {
+  const { dark } = useTheme() as Theme;
+  const surface1 = dark
+    ? 'linear-gradient(0deg, rgba(182, 196, 255, 0.04), rgba(182, 196, 255, 0.04)), #1B1B1F;'
+    : 'linear-gradient(0deg, rgba(0, 85, 255, 0.04), rgba(0, 85, 255, 0.04)), #F2F0F4;';
+  return (
+    <Box variant="container">
+      <Box
+        width="100%"
+        color="text"
+        borderRadius=".25rem"
+        gridColumn={['1 / -1', '1 / -1', '1 / -1', '1 / 7']}
+        bg={surface1}
+      >
         <MarketTable title="Supply Market" />
+      </Box>
+      <Box
+        width="100%"
+        color="text"
+        borderRadius=".25rem"
+        gridColumn={['1 / -1', '1 / -1', '1 / -1', '7 / -1']}
+        bg={surface1}
+      >
         <MarketTable title="Borrow Market" />
       </Box>
     </Box>
-  </Box>
-);
+  );
+};
 
 export default LendTables;
