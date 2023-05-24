@@ -28,17 +28,17 @@ const MarketTable: FC<MarketTableProps> = ({ title }) => {
   };
 
   return (
-    <Box
-      width="100%"
-      onClick={
-        title === 'Supply Market' ? handleChangeElement1 : handleChangeElement2
-      }
-    >
+    <Box width="100%">
       <Box
         display="flex"
         justifyContent="center"
         alignItems="center"
         position="relative"
+        onClick={
+          title === 'Supply Market'
+            ? handleChangeElement1
+            : handleChangeElement2
+        }
       >
         <Typography variant="title6" textAlign="center" py="2xl">
           {title}
