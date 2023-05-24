@@ -695,13 +695,13 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@interest-protocol/sui-sdk@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@interest-protocol/sui-sdk/-/sui-sdk-6.0.0.tgz#7c60eb2d15491203e31d453f226116f580bdc03d"
-  integrity sha512-TRm2zXGNgf4cmROhgbcDUxpQ1M/dujdaO6C4L/otUpQQkpaaxQzOr38u0Oyl/KY6M6MNfghatMlfWHKzAcqtNA==
+"@interest-protocol/sui-sdk@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@interest-protocol/sui-sdk/-/sui-sdk-6.1.0.tgz#e3a9da6041bab3eef063c86351dfda5589f4ab5d"
+  integrity sha512-E2fxrnuDoLx34mBOk19kFfhlAX2RcskEjQHQMYOmK5lzvcw+/7y5TP1UJETZEe0lP16iSJQIjeQoCgg5jcPojA==
   dependencies:
     "@mysten/bcs" "^0.7.1"
-    "@mysten/sui.js" "^0.34.0"
+    "@mysten/sui.js" "^0.34.1"
     ramda "^0.28.0"
     tiny-invariant "^1.3.1"
 
@@ -1010,22 +1010,6 @@
   version "0.33.0"
   resolved "https://registry.yarnpkg.com/@mysten/sui.js/-/sui.js-0.33.0.tgz#3ed0831d733fffb65430c3949fd00eaa7510e462"
   integrity sha512-vPswzowPoxYmexN+jKrSQ5uKWv8AoX30c11t8VAODCCXeCziq7Y27TEcYFsQmWJBIMU/hYw75kGj9oorJyXyKw==
-  dependencies:
-    "@mysten/bcs" "0.7.1"
-    "@noble/curves" "^1.0.0"
-    "@noble/hashes" "^1.3.0"
-    "@scure/bip32" "^1.3.0"
-    "@scure/bip39" "^1.2.0"
-    "@suchipi/femver" "^1.0.0"
-    jayson "^4.0.0"
-    rpc-websockets "^7.5.1"
-    superstruct "^1.0.3"
-    tweetnacl "^1.0.3"
-
-"@mysten/sui.js@^0.34.0":
-  version "0.34.0"
-  resolved "https://registry.yarnpkg.com/@mysten/sui.js/-/sui.js-0.34.0.tgz#c6b8ef11ce251c12fa408a43278dbc1ea9eedaaf"
-  integrity sha512-mNb4vX+HSm/Y2oJSDeCNOUV7L7IXW1fRQ0zU7fFUAeJdNgf1ObFmxiItVCA7GU0EXoSPtYnpxcdJFiBcSnQtbA==
   dependencies:
     "@mysten/bcs" "0.7.1"
     "@noble/curves" "^1.0.0"

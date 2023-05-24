@@ -18,7 +18,7 @@ const HarvestButton: FC<HarvestButtonProps> = ({
   const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
   const { signTransactionBlock } = useWalletKit();
-  const { mutate, account } = useWeb3();
+  const { mutate } = useWeb3();
   const { provider } = useProvider();
   const { network } = useNetwork();
 

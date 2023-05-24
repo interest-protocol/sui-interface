@@ -27,7 +27,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
   stable,
 }) => {
   const t = useTranslations();
-  const { coinsMap, account } = useWeb3();
+  const { coinsMap } = useWeb3();
   const { signTransactionBlock } = useWalletKit();
   const [loading, setLoading] = useState(false);
   const { network } = useNetwork();

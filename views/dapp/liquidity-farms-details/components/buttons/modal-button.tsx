@@ -32,7 +32,7 @@ const ModalButton: FC<ModalButtonProps> = ({
   const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
   const { signTransactionBlock } = useWalletKit();
-  const { coinsMap, account } = useWeb3();
+  const { coinsMap } = useWeb3();
   const { network } = useNetwork();
   const { provider } = useProvider();
 
