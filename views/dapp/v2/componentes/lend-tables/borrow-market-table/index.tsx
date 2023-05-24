@@ -5,12 +5,14 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
 import { BORROW_MARKET_TABLE_DATA } from '../market-table/market-table-data';
 
 const BorrowMarketTable: FC = () => {
+  const t = useTranslations();
   const [hovered, setHovered] = useState<number | null>(null);
   const { dark } = useTheme() as Theme;
   const surface1 = dark
@@ -25,22 +27,22 @@ const BorrowMarketTable: FC = () => {
       <Box display="grid" gridTemplateColumns="repeat(4, 1fr)">
         <Box px="l">
           <Typography variant="small" color="foreground">
-            Asset / APY
+            {t('common.v2.lend.marketTables.borrowMarket.columns.netAPY')}
           </Typography>
         </Box>
         <Box>
           <Typography variant="small" textAlign="center" color="foreground">
-            Borrowed
+            {t('common.v2.lend.marketTables.borrowMarket.columns.borrowed')}
           </Typography>
         </Box>
         <Box>
           <Typography variant="small" textAlign="center" color="foreground">
-            Wallet
+            {t('common.v2.lend.marketTables.borrowMarket.columns.wallet')}
           </Typography>
         </Box>
         <Box px="l">
           <Typography variant="small" textAlign="right" color="foreground">
-            Liquidity
+            {t('common.v2.lend.marketTables.borrowMarket.columns.liquidity')}
           </Typography>
         </Box>
 

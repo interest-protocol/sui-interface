@@ -1,4 +1,5 @@
 import { Box, Motion, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
 import { CaretUp } from '@/svg';
@@ -8,6 +9,7 @@ import SupplyMarketTable from '../supply-market-table';
 import { MarketTableProps } from './market-table.types';
 
 const MarketTable: FC<MarketTableProps> = ({ title }) => {
+  const t = useTranslations();
   const [toggle, setToggle] = useState({
     element1: true,
     element2: true,
@@ -36,7 +38,7 @@ const MarketTable: FC<MarketTableProps> = ({ title }) => {
         position="relative"
         justifyContent="center"
         onClick={
-          title === 'Supply Market'
+          title === t('common.v2.lend.marketTables.supplyMarket.title')
             ? handleChangeElement1
             : handleChangeElement2
         }
@@ -58,7 +60,7 @@ const MarketTable: FC<MarketTableProps> = ({ title }) => {
       </Box>
 
       <Box>
-        {title === 'Supply Market' ? (
+        {title === t('common.v2.lend.marketTables.supplyMarket.title') ? (
           <Motion
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
@@ -70,7 +72,7 @@ const MarketTable: FC<MarketTableProps> = ({ title }) => {
           >
             <SupplyMarketTable />
           </Motion>
-        ) : title === 'Borrow Market' ? (
+        ) : title === t('common.v2.lend.marketTables.borrowMarket.title') ? (
           <Motion
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
