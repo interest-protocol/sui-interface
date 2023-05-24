@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl';
 import { isEmpty, prop } from 'ramda';
 import { FC, useState } from 'react';
 
-import { incrementTX } from '@/api/analytics';
 import { Box, Button } from '@/elements';
 import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
@@ -110,7 +109,6 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
-      incrementTX(account ?? '');
       return;
     } catch {
       throw new Error(t('dexPoolPair.error.failedAdd'));

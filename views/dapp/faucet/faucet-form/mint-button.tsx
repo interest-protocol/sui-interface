@@ -11,7 +11,6 @@ import { pathOr, prop } from 'ramda';
 import { useState } from 'react';
 import { FC } from 'react';
 
-import { incrementTX } from '@/api/analytics';
 import { Box, Button, Typography } from '@/elements';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
@@ -142,7 +141,6 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
-      incrementTX(account ?? '');
     } finally {
       setLoading(false);
       await mutate();

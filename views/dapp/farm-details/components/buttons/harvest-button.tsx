@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';
 import { FC, useState } from 'react';
 
-import { incrementTX } from '@/api/analytics';
 import Button from '@/elements/button';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { capitalize, showToast, showTXSuccessToast } from '@/utils';
@@ -19,7 +18,7 @@ const HarvestButton: FC<HarvestButtonProps> = ({
   const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
   const { signTransactionBlock } = useWalletKit();
-  const { mutate, account } = useWeb3();
+  const { mutate } = useWeb3();
   const { provider } = useProvider();
   const { network } = useNetwork();
 
@@ -54,7 +53,6 @@ const HarvestButton: FC<HarvestButtonProps> = ({
 
       if (tx?.effects?.status.status === 'success') {
         await showTXSuccessToast(tx, network);
-        incrementTX(account ?? '');
       }
     } finally {
       mutate();

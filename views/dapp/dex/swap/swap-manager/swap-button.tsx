@@ -7,7 +7,6 @@ import { prop } from 'ramda';
 import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
-import { incrementTX } from '@/api/analytics';
 import { Box, Button, Typography } from '@/elements';
 import { useSDK } from '@/hooks';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
@@ -119,9 +118,6 @@ const SwapButton: FC<SwapButtonProps> = ({
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
-
-      incrementTX(account ?? '');
-      return;
     } catch {
       throw new Error(t('dexSwap.error.failedToSwap'));
     } finally {

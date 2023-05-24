@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';
 import { FC, useState } from 'react';
 
-import { incrementTX } from '@/api/analytics';
 import { OBJECT_RECORD } from '@/constants/liquidity-farms.constants';
 import Button from '@/elements/button';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
@@ -54,7 +53,6 @@ const HarvestButton: FC<HarvestButtonProps> = ({
 
       if (tx?.effects?.status.status === 'success') {
         await showTXSuccessToast(tx, network);
-        incrementTX(account ?? '');
       }
     } finally {
       mutate();

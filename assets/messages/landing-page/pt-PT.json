@@ -39,13 +39,13 @@
           "title": "Utilizadores",
           "description": "Endereços únicos"
         },
-        "markets": {
-          "title": "Mercados",
-          "description": "Pools implementadas"
+        "tvl": {
+          "title": "TVL (USD)",
+          "description": "Valor total Depositado"
         },
-        "transactions": {
-          "title": "Transações",
-          "description": "Total TXs"
+        "volume": {
+          "title": "Volume (USD)",
+          "description": "Volume cumulativo"
         }
       }
     },

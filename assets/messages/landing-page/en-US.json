@@ -39,13 +39,13 @@
           "title": "Users",
           "description": "Unique addresses"
         },
-        "markets": {
-          "title": "Markets",
-          "description": "Pools deployed"
+        "tvl": {
+          "title": "TVL (USD)",
+          "description": "Total Value Locked"
         },
-        "transactions": {
-          "title": "Transactions",
-          "description": "Total TXs"
+        "volume": {
+          "title": "Volume (USD)",
+          "description": "Cumulative volume"
         }
       }
     },
