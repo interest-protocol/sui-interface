@@ -1,7 +1,7 @@
 import { Box, Motion, Typography } from '@interest-protocol/ui-kit';
 import { FC, useState } from 'react';
 
-import { CaretDown, CaretUp } from '@/svg';
+import { CaretUp } from '@/svg';
 
 import BorrowMarketTable from '../borrow-market-table';
 import SupplyMarketTable from '../supply-market-table';
