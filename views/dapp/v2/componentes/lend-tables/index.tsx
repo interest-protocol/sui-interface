@@ -11,20 +11,22 @@ const LendTables: FC = () => {
   return (
     <Box variant="container">
       <Box
-        width="100%"
+        width="calc(100% + .625rem)"
         color="text"
         borderRadius=".25rem"
         gridColumn={['1 / -1', '1 / -1', '1 / -1', '1 / 7']}
         bg={surface1}
+        height="fit-content"
       >
         <MarketTable title="Supply Market" />
       </Box>
       <Box
-        width="100%"
+        width="calc(100% + .625rem)"
         color="text"
         borderRadius=".25rem"
         gridColumn={['1 / -1', '1 / -1', '1 / -1', '7 / -1']}
         bg={surface1}
+        height="fit-content"
       >
         <MarketTable title="Borrow Market" />
       </Box>

@@ -1,5 +1,6 @@
 import {
   Box,
+  Motion,
   SwitchButton,
   Theme,
   Typography,
@@ -13,9 +14,12 @@ import { SUPPLY_MARKET_TABLE_DATA } from '../market-table/market-table-data';
 const SupplyMarketTable: FC = () => {
   const [hovered, setHovered] = useState<number | null>(null);
   const { dark } = useTheme() as Theme;
+  const surface1 = dark
+    ? 'linear-gradient(0deg, rgba(182, 196, 255, 0.04), rgba(182, 196, 255, 0.04)), #1B1B1F'
+    : 'linear-gradient(0deg, rgba(0, 85, 255, 0.04), rgba(0, 85, 255, 0.04)), #F2F0F4';
   const surface2 = dark
-    ? 'linear-gradient(0deg, rgba(182, 196, 255, 0.08), rgba(182, 196, 255, 0.08)), #1B1B1F;'
-    : 'linear-gradient(0deg, rgba(0, 85, 255, 0.08), rgba(0, 85, 255, 0.08)), #F2F0F4;';
+    ? 'linear-gradient(0deg, rgba(182, 196, 255, 0.08), rgba(182, 196, 255, 0.08)), #1B1B1F'
+    : 'linear-gradient(0deg, rgba(0, 85, 255, 0.08), rgba(0, 85, 255, 0.08)), #F2F0F4';
 
   return (
     <>
@@ -43,7 +47,7 @@ const SupplyMarketTable: FC = () => {
 
         {SUPPLY_MARKET_TABLE_DATA.map((item, index) => (
           <>
-            <Box
+            <Motion
               key={v4()}
               p="l"
               gap="m"
@@ -52,7 +56,13 @@ const SupplyMarketTable: FC = () => {
               marginTop={index === 0 ? 'l' : '0'}
               onMouseOver={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
-              bg={hovered === index ? surface2 : 'transparent'}
+              initial={{
+                background: surface1,
+              }}
+              animate={{
+                background: hovered === index ? surface2 : surface1,
+              }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
               <Box display="flex" alignItems="center">
                 {
@@ -80,8 +90,8 @@ const SupplyMarketTable: FC = () => {
                   {item.assetApy.percentage}%
                 </Typography>
               </Box>
-            </Box>
-            <Box
+            </Motion>
+            <Motion
               gap="2xs"
               display="flex"
               cursor="pointer"
@@ -91,7 +101,13 @@ const SupplyMarketTable: FC = () => {
               marginTop={index === 0 ? 'l' : '0'}
               onMouseOver={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
-              bg={hovered === index ? surface2 : 'transparent'}
+              initial={{
+                background: surface1,
+              }}
+              animate={{
+                background: hovered === index ? surface2 : surface1,
+              }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
               <Typography variant="small" textAlign="center">
                 {item.supplied.percentage}
@@ -103,8 +119,8 @@ const SupplyMarketTable: FC = () => {
               >
                 ${item.supplied.value}
               </Typography>
-            </Box>
-            <Box
+            </Motion>
+            <Motion
               display="flex"
               cursor="pointer"
               alignItems="center"
@@ -112,13 +128,19 @@ const SupplyMarketTable: FC = () => {
               marginTop={index === 0 ? 'l' : '0'}
               onMouseOver={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
-              bg={hovered === index ? surface2 : 'transparent'}
+              initial={{
+                background: surface1,
+              }}
+              animate={{
+                background: hovered === index ? surface2 : surface1,
+              }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
               <Typography variant="small" textAlign="center">
                 {item.wallet}
               </Typography>
-            </Box>
-            <Box
+            </Motion>
+            <Motion
               px="l"
               display="flex"
               cursor="pointer"
@@ -127,14 +149,20 @@ const SupplyMarketTable: FC = () => {
               marginTop={index === 0 ? 'l' : '0'}
               onMouseOver={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
-              bg={hovered === index ? surface2 : 'transparent'}
+              initial={{
+                background: surface1,
+              }}
+              animate={{
+                background: hovered === index ? surface2 : surface1,
+              }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
               <SwitchButton
                 defaultValue={item.collateral}
                 name={item.assetApy.coin.name}
                 labels={''}
               />
-            </Box>
+            </Motion>
           </>
         ))}
       </Box>
