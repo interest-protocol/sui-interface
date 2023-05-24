@@ -30,10 +30,11 @@ const MarketTable: FC<MarketTableProps> = ({ title }) => {
   return (
     <Box width="100%">
       <Box
+        cursor="pointer"
         display="flex"
-        justifyContent="center"
         alignItems="center"
         position="relative"
+        justifyContent="center"
         onClick={
           title === 'Supply Market'
             ? handleChangeElement1
