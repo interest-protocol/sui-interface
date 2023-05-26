@@ -64,27 +64,27 @@ const BorrowMarketTable: FC = () => {
 
       {BORROW_MARKET_TABLE_DATA.map((item, index) => (
         <Motion
-          display="grid"
-          gridTemplateColumns="repeat(4, 1fr)"
-          marginTop={index === 0 ? 'l' : '0'}
+          key={v4()}
           width="100%"
+          display="grid"
+          cursor="pointer"
           whileHover={{
             background: surface2,
           }}
           initial={{
             background: surface1,
           }}
+          marginTop={index === 0 ? 'l' : '0'}
+          gridTemplateColumns="repeat(4, 1fr)"
           transition={{ duration: 0.3, ease: 'easeInOut' }}
-          key={v4()}
-          cursor="pointer"
         >
           <Box p="l" gap="m" display="flex">
             <Box display="flex" alignItems="center">
               {
                 <item.assetApy.coin.symbol
+                  width="2.5rem"
                   maxHeight="100%"
                   maxWidth="2.5rem"
-                  width="2.5rem"
                 />
               }
             </Box>
