@@ -43,8 +43,8 @@ const MarketTable: FC<MarketTableProps> = ({ title }) => {
             : handleChangeElement2
         }
       >
-        <Typography variant="title6" textAlign="center" py="2xl">
-          {title}
+        <Typography as="span" variant="title6" textAlign="center" py="1.875rem">
+          <Typography variant="large">{title}</Typography>
         </Typography>
         <Box
           position="absolute"
@@ -58,7 +58,6 @@ const MarketTable: FC<MarketTableProps> = ({ title }) => {
           <CaretUp maxWidth="100%" maxHeight="100%" width="1.5625rem" />
         </Box>
       </Box>
-
       <Box>
         {title === t('common.v2.lend.marketTables.supplyMarket.title') ? (
           <Motion

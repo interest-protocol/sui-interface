@@ -26,22 +26,34 @@ const BorrowMarketTable: FC = () => {
     <>
       <Box display="grid" gridTemplateColumns="repeat(4, 1fr)">
         <Box px="l">
-          <Typography variant="small" color="foreground">
+          <Typography variant="extraSmall" color={dark ? '#77767A' : '#47464A'}>
             {t('common.v2.lend.marketTables.borrowMarket.columns.netAPY')}
           </Typography>
         </Box>
         <Box>
-          <Typography variant="small" textAlign="center" color="foreground">
+          <Typography
+            variant="extraSmall"
+            textAlign="center"
+            color={dark ? '#77767A' : '#47464A'}
+          >
             {t('common.v2.lend.marketTables.borrowMarket.columns.borrowed')}
           </Typography>
         </Box>
         <Box>
-          <Typography variant="small" textAlign="center" color="foreground">
+          <Typography
+            variant="extraSmall"
+            textAlign="center"
+            color={dark ? '#77767A' : '#47464A'}
+          >
             {t('common.v2.lend.marketTables.borrowMarket.columns.wallet')}
           </Typography>
         </Box>
         <Box px="l">
-          <Typography variant="small" textAlign="right" color="foreground">
+          <Typography
+            variant="extraSmall"
+            textAlign="right"
+            color={dark ? '#77767A' : '#47464A'}
+          >
             {t('common.v2.lend.marketTables.borrowMarket.columns.liquidity')}
           </Typography>
         </Box>
@@ -74,12 +86,12 @@ const BorrowMarketTable: FC = () => {
                   />
                 }
               </Box>
-              <Box display="flex" flexDirection="column" rowGap="2xs">
-                <Typography variant="small">
+              <Box display="flex" flexDirection="column">
+                <Typography variant="medium">
                   {item.assetApy.coin.name}
                 </Typography>
                 <Typography
-                  variant="extraSmall"
+                  variant="small"
                   color={
                     item.assetApy.coin.color !== undefined && dark
                       ? item.assetApy.coin.color.dark
@@ -110,11 +122,11 @@ const BorrowMarketTable: FC = () => {
               }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
-              <Typography variant="small" textAlign="center">
+              <Typography variant="medium" textAlign="center">
                 {item.borrowed.percentage}
               </Typography>
               <Typography
-                variant="extraSmall"
+                variant="medium"
                 textAlign="center"
                 color="foreground"
               >
@@ -137,7 +149,7 @@ const BorrowMarketTable: FC = () => {
               }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
-              <Typography variant="small" textAlign="center">
+              <Typography variant="medium" textAlign="center">
                 {item.wallet}
               </Typography>
             </Motion>
@@ -158,7 +170,7 @@ const BorrowMarketTable: FC = () => {
               }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
-              <Typography variant="small" textAlign="right">
+              <Typography variant="medium" textAlign="right">
                 ${item.liquidity}
               </Typography>
             </Motion>

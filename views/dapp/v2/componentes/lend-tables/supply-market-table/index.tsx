@@ -27,22 +27,34 @@ const SupplyMarketTable: FC = () => {
     <>
       <Box display="grid" gridTemplateColumns="repeat(4, 1fr)">
         <Box px="l">
-          <Typography variant="small" color="foreground">
+          <Typography variant="extraSmall" color={dark ? '#77767A' : '#47464A'}>
             {t('common.v2.lend.marketTables.supplyMarket.columns.netAPY')}
           </Typography>
         </Box>
         <Box>
-          <Typography variant="small" textAlign="center" color="foreground">
+          <Typography
+            variant="extraSmall"
+            textAlign="center"
+            color={dark ? '#77767A' : '#47464A'}
+          >
             {t('common.v2.lend.marketTables.supplyMarket.columns.supplied')}
           </Typography>
         </Box>
         <Box>
-          <Typography variant="small" textAlign="center" color="foreground">
+          <Typography
+            variant="extraSmall"
+            textAlign="center"
+            color={dark ? '#77767A' : '#47464A'}
+          >
             {t('common.v2.lend.marketTables.supplyMarket.columns.wallet')}
           </Typography>
         </Box>
         <Box px="l">
-          <Typography variant="small" textAlign="right" color="foreground">
+          <Typography
+            variant="extraSmall"
+            textAlign="right"
+            color={dark ? '#77767A' : '#47464A'}
+          >
             {t('common.v2.lend.marketTables.supplyMarket.columns.collateral')}
           </Typography>
         </Box>
@@ -75,12 +87,12 @@ const SupplyMarketTable: FC = () => {
                   />
                 }
               </Box>
-              <Box display="flex" flexDirection="column" rowGap="2xs">
-                <Typography variant="small">
+              <Box display="flex" flexDirection="column">
+                <Typography variant="medium">
                   {item.assetApy.coin.name}
                 </Typography>
                 <Typography
-                  variant="extraSmall"
+                  variant="small"
                   color={
                     item.assetApy.coin.color !== undefined && dark
                       ? item.assetApy.coin.color.dark
@@ -111,13 +123,13 @@ const SupplyMarketTable: FC = () => {
               }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
-              <Typography variant="small" textAlign="center">
+              <Typography variant="medium" textAlign="center">
                 {item.supplied.percentage}
               </Typography>
               <Typography
                 textAlign="center"
                 color="foreground"
-                variant="extraSmall"
+                variant="medium"
               >
                 ${item.supplied.value}
               </Typography>
@@ -138,7 +150,7 @@ const SupplyMarketTable: FC = () => {
               }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
-              <Typography variant="small" textAlign="center">
+              <Typography variant="medium" textAlign="center">
                 {item.wallet}
               </Typography>
             </Motion>
