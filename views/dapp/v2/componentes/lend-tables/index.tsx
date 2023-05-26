@@ -12,9 +12,9 @@ const LendTables: FC = () => {
     : 'linear-gradient(0deg, rgba(0, 85, 255, 0.04), rgba(0, 85, 255, 0.04)), #F2F0F4;';
   return (
     <Box marginTop="4.375rem">
-      <Box variant="container" gap=".5rem">
+      <Box variant="container">
         <Box
-          width="calc(100% + .5rem)"
+          width="calc(100% + .625rem)"
           color="text"
           borderRadius=".25rem"
           gridColumn={['1 / -1', '1 / -1', '1 / -1', '1 / 7']}
