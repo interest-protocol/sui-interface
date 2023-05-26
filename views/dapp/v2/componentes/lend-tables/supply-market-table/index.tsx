@@ -100,7 +100,9 @@ const SupplyMarketTable: FC = () => {
                     ? item.assetApy.coin.color.dark
                     : item.assetApy.coin.color !== undefined && !dark
                     ? item.assetApy.coin.color.light
-                    : 'foreground'
+                    : dark
+                    ? '#77767A'
+                    : '#47464A'
                 }
               >
                 {item.assetApy.percentage}%
@@ -117,7 +119,11 @@ const SupplyMarketTable: FC = () => {
             <Typography variant="medium" textAlign="center">
               {item.supplied.percentage}
             </Typography>
-            <Typography textAlign="center" color="foreground" variant="medium">
+            <Typography
+              textAlign="center"
+              color={dark ? '#77767A' : '#47464A'}
+              variant="small"
+            >
               ${item.supplied.value}
             </Typography>
           </Box>

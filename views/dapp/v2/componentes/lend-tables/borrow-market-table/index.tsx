@@ -78,7 +78,7 @@ const BorrowMarketTable: FC = () => {
           key={v4()}
           cursor="pointer"
         >
-          <Motion p="l" gap="m" display="flex">
+          <Box p="l" gap="m" display="flex">
             <Box display="flex" alignItems="center">
               {
                 <item.assetApy.coin.symbol
@@ -99,14 +99,16 @@ const BorrowMarketTable: FC = () => {
                     ? item.assetApy.coin.color.dark
                     : item.assetApy.coin.color !== undefined && !dark
                     ? item.assetApy.coin.color.light
-                    : 'foreground'
+                    : dark
+                    ? '#77767A'
+                    : '#47464A'
                 }
               >
                 {item.assetApy.percentage}%
               </Typography>
             </Box>
-          </Motion>
-          <Motion
+          </Box>
+          <Box
             gap="2xs"
             display="flex"
             alignItems="center"
@@ -116,16 +118,20 @@ const BorrowMarketTable: FC = () => {
             <Typography variant="medium" textAlign="center">
               {item.borrowed.percentage}
             </Typography>
-            <Typography variant="medium" textAlign="center" color="foreground">
+            <Typography
+              variant="small"
+              textAlign="center"
+              color={dark ? '#77767A' : '#47464A'}
+            >
               ${item.borrowed.value}
             </Typography>
-          </Motion>
-          <Motion display="flex" alignItems="center" justifyContent="center">
+          </Box>
+          <Box display="flex" alignItems="center" justifyContent="center">
             <Typography variant="medium" textAlign="center">
               {item.wallet}
             </Typography>
-          </Motion>
-          <Motion
+          </Box>
+          <Box
             px="l"
             display="flex"
             alignItems="center"
@@ -134,7 +140,7 @@ const BorrowMarketTable: FC = () => {
             <Typography variant="medium" textAlign="right">
               ${item.liquidity}
             </Typography>
-          </Motion>
+          </Box>
         </Motion>
       ))}
     </>
