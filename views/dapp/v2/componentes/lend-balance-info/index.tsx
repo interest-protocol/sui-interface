@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react';
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
@@ -6,6 +7,7 @@ import ArrowLeft from '@/components/svg/arrow-left';
 import InfoLight from '@/components/svg/info-light';
 
 const LendBalanceInfo: FC = () => {
+  const { dark } = useTheme() as { dark: boolean };
   const t = useTranslations();
   return (
     <Box variant="container" color="text">
@@ -29,10 +31,18 @@ const LendBalanceInfo: FC = () => {
         </Box>
         <Box marginLeft="auto">
           <Box display="flex" gap="m">
-            <Typography variant="small" color="foreground">
+            <Typography variant="small" color={dark ? '#77767a' : '#47464a'}>
               {t('common.v2.lend.firstSection.netAPY')}
             </Typography>
-            <Box width="1rem" color="textHighlighter">
+            <Box
+              width="1rem"
+              color={[
+                dark ? '#77767a' : '#47464a',
+                dark ? '#77767a' : '#47464a',
+                dark ? '#77767a' : '#47464a',
+                'textHighlighter',
+              ]}
+            >
               <InfoLight maxHeight="1rem" maxWidth="1rem" />
             </Box>
           </Box>
@@ -40,12 +50,13 @@ const LendBalanceInfo: FC = () => {
           <Typography
             variant="title1"
             textAlign={['right', 'right', 'right', 'left']}
+            color={['primary', 'primary', 'primary', 'text']}
           >
             0%
           </Typography>
         </Box>
         <Box>
-          <Typography variant="small" color="foreground">
+          <Typography variant="small" color={dark ? '#77767a' : '#47464a'}>
             {t('common.v2.lend.firstSection.supplyBalance')}
           </Typography>
           <Typography
@@ -56,7 +67,7 @@ const LendBalanceInfo: FC = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="small" color="foreground">
+          <Typography variant="small" color={dark ? '#77767a' : '#47464a'}>
             {t('common.v2.lend.firstSection.walletBalance')}
           </Typography>
           <Typography variant="title1" textAlign="right">
