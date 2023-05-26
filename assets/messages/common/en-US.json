@@ -8,11 +8,28 @@
         "pt-BR": "Portuguese"
       },
       "menu": {
+        "settings": "settings",
         "darkMode": "dark mode",
         "languages": "languages"
       },
+      "wallet": {
+        "name": "wallet",
+        "connect": "connect wallet",
+        "disconnect": "disconnect",
+        "switch": "switch network"
+      },
       "on": "On",
-      "off": "Off"
+      "off": "Off",
+      "lend": {
+        "title": "Lend",
+        "firstSection": {
+          "netAPY": "Net APY",
+          "supplyBalance": "Supply Balance",
+          "walletBalance": "Wallet Balance",
+          "borrowLimit": "Borrow Limit",
+          "borrowLimitUsed": "Borrow Limit Used"
+        }
+      }
     },
     "dex": "dex",
     "soon": "soon",

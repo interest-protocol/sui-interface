@@ -8,11 +8,28 @@
         "pt-BR": "Português"
       },
       "menu": {
-        "markMode": "Modo escuro",
+        "settings": "Definições",
+        "darkMode": "Modo escuro",
         "languages": "Idiomas"
       },
+      "wallet": {
+        "name": "carteira",
+        "connect": "conetar à carteira",
+        "disconnect": "desconectar",
+        "switch": "trocar rede"
+      },
       "on": "Ativo",
-      "off": "Inativo"
+      "off": "Inativo",
+      "lend": {
+        "title": "Emprestar",
+        "firstSection": {
+          "netAPY": "APY líquido",
+          "supplyBalance": "Saldo de suprimento",
+          "walletBalance": "Saldo da carteira",
+          "borrowLimit": "Limite de empréstimo",
+          "borrowLimitUsed": "Limite de empréstimo utilizado"
+        }
+      }
     },
     "dex": "dex",
     "soon": "em breve",

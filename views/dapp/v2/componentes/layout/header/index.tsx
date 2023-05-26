@@ -7,7 +7,7 @@ import Menu from './menu';
 import Navbar from './navbar';
 
 const Header: FC = () => (
-  <Box variant="container" pt="2.5rem" pb="xl">
+  <Box variant="container" pt={['s', 's', '2.5rem']} pb={['s', 's', 'xl']}>
     <Box
       width="100%"
       display="flex"
@@ -26,9 +26,7 @@ const Header: FC = () => (
         </Box>
         <Navbar />
       </Box>
-      <Box>
-        <Menu />
-      </Box>
+      <Menu />
     </Box>
   </Box>
 );
