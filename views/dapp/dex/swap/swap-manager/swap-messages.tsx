@@ -30,9 +30,6 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
     !(tokenIn.type === tokenOut.type) &&
     !hasNoMarket;
 
-  console.log(readyToSwap);
-  console.log(swapPath);
-
   return (
     <>
       {(isFetchingSwapAmountIn || isFetchingSwapAmountOut) && (

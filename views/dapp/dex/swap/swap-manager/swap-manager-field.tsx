@@ -77,7 +77,6 @@ const SwapManagerField: FC<SwapManagerProps> = ({
       },
       onSuccess: (response) => {
         if (!response) {
-          console.log('ran');
           setError(false);
           setIsFetchingSwapAmount(false);
           setValue(setValueLockName, false);

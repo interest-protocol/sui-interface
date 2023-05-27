@@ -44,8 +44,6 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
     getValues('tokenIn.decimals')
   );
 
-  console.log(swapPath, 'wtf');
-
   return (
     <>
       {autoFetch && (
