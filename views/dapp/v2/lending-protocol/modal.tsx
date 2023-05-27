@@ -102,10 +102,10 @@ const ModalPreview: FC = () => {
       onClose={handleClosed}
       ariaHideApp={false}
       buttonProps={{
-        display: loading ? 'none' : 'flex',
+        display: loading ? 'none' : 'block',
         variant: 'filled',
         textAlign: 'center',
-        justifyContent: 'center',
+        padding: 'min(20px, 5%)',
         onClick: !loading && !confirm ? handleConfirm : backToLend,
       }}
       buttonText={confirm ? 'Back to lend' : 'Confirm'}
