@@ -13,6 +13,7 @@ export enum RoutesEnum {
   DEXPoolDetails = 'dex-pool-details',
   Faucet = 'faucet',
   Lend = 'lend',
+  LendDetails = 'lend-details',
 }
 
 /**
@@ -30,4 +31,5 @@ export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.DEXPoolDetails]: '/dapp/dex/pool/details',
   [RoutesEnum.Faucet]: '/dapp/faucet',
   [RoutesEnum.Lend]: '/dapp/v2/lending',
+  [RoutesEnum.LendDetails]: '/dapp/v2/lending/details',
 };

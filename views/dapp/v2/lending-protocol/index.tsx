@@ -1,12 +1,31 @@
+import { Box, TabsNavigator } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { Layout } from '../componentes';
-import LendBalanceInfo from '../componentes/lend-balance-info';
+import LendDetailsBalanceInfo from '../componentes/lend-details-balance-info';
+import BorrowCard from './borrow';
+import RepayCard from './repay';
 
-const LendingProtocol: FC = () => (
-  <Layout>
-    <LendBalanceInfo />
-  </Layout>
-);
+const LendingProtocolDetails: FC = () => {
+  return (
+    <Layout>
+      <LendDetailsBalanceInfo />
+      <Box bg="background" p="l">
+        <TabsNavigator
+          tabs={[
+            {
+              content: <BorrowCard />,
+              label: 'Borrow',
+            },
+            {
+              content: <RepayCard />,
+              label: 'Repay',
+            },
+          ]}
+        />
+      </Box>
+    </Layout>
+  );
+};
 
-export default LendingProtocol;
+export default LendingProtocolDetails;
