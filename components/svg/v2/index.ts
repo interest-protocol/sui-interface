@@ -1,0 +1,15 @@
+export { default as BNBSVG } from './bnb';
+export { default as BTCSVG } from './btc';
+export { default as CheckmarkSVG } from './checkmark';
+export { default as CogsSVG } from './cogs';
+export { default as DotsSVG } from './dots';
+export { default as DownArrowSVG } from './down-arrow';
+export { default as ETHSVG } from './eth';
+export { default as FarmSVG } from './farm';
+export { default as HeartSVG } from './heart';
+export { default as LeftArrowSVG } from './left-arrow';
+export { default as LogoSVG } from './logo';
+export { default as NewTokenSVG } from './new-token';
+export { default as SearchSVG } from './search';
+export { default as SUISVG } from './sui';
+export { default as USDTSVG } from './usdt';

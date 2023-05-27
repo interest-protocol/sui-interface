@@ -3,13 +3,27 @@ import { FC, PropsWithChildren } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import { TOAST_DURATION } from '@/constants';
-import { IEmptyObj } from '@/interface';
 
 import Footer from './footer';
 import Header from './header';
+import { LayoutProps } from './layout.types';
+import Sidebar from './sidebar';
 
-const Layout: FC<PropsWithChildren<IEmptyObj>> = ({ children }) => {
+const Layout: FC<PropsWithChildren<LayoutProps>> = ({
+  children,
+  dashboard,
+}) => {
   const { colors, radii } = useTheme() as Theme;
+
+  if (dashboard)
+    return (
+      <Box display="flex" bg="background" height="100vh">
+        <Sidebar />
+        <Box as="main" flex="1">
+          {children}
+        </Box>
+      </Box>
+    );
 
   return (
     <Box

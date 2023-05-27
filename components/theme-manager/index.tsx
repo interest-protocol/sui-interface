@@ -31,7 +31,7 @@ const WalletKitProvider = dynamic(
 
 // TODO: REMOVE THESE CONSTANTS
 const INSTITUTIONAL_PAGES = ['/', '/team', '/campaign'];
-const DAPP_REDESIGN_PAGES = ['/dapp/v2'];
+const DAPP_REDESIGN_PAGES = ['/dapp/v2', 'dapp/swap'];
 
 const Theme: FC<PropsWithChildren<ThemeProps>> = ({
   dark,
