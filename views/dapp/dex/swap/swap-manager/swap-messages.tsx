@@ -14,7 +14,7 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
   error,
   isZeroSwapAmountOut,
   hasNoMarket,
-  markets,
+  swapPath,
   isZeroSwapAmountIn,
 }) => {
   const tokenIn = useWatch({ control: control, name: 'tokenIn' });
@@ -29,6 +29,9 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
     !(isZeroSwapAmountIn && !!+tokenOut.value && !isFetchingSwapAmountIn) &&
     !(tokenIn.type === tokenOut.type) &&
     !hasNoMarket;
+
+  console.log(readyToSwap);
+  console.log(swapPath);
 
   return (
     <>
@@ -72,7 +75,7 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
           message="dexSwap.swapMessage.error"
         />
       )}
-      {readyToSwap && <SwapPath markets={markets} />}
+      {readyToSwap && swapPath && <SwapPath swapPath={swapPath} />}
     </>
   );
 };

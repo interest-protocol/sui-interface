@@ -9,6 +9,6 @@ export interface SwapMessagesProps {
   error: boolean;
   isZeroSwapAmountOut: boolean;
   hasNoMarket: boolean;
-  markets: ReadonlyArray<SwapPathObject>;
+  swapPath: SwapPathObject | null;
   isZeroSwapAmountIn: boolean;
 }

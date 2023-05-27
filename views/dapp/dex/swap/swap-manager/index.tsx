@@ -1,4 +1,4 @@
-import { findMarket } from '@interest-protocol/sui-sdk';
+import { findMarket, SwapPathObject } from '@interest-protocol/sui-sdk';
 import { pathOr } from 'ramda';
 import { FC, useState } from 'react';
 
@@ -26,6 +26,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
   const [isZeroSwapAmountIn, setIsZeroSwapAmountIn] = useState(false);
   const [error, setError] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [swapPath, setSwapPath] = useState<SwapPathObject | null>(null);
 
   const { network } = useNetwork();
 
@@ -42,6 +43,8 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
     pathOr(ZERO_BIG_NUMBER, [tokenInType, 'totalBalance'], coinsMap),
     getValues('tokenIn.decimals')
   );
+
+  console.log(swapPath, 'wtf');
 
   return (
     <>
@@ -61,6 +64,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
             name="tokenIn"
             setValueName="tokenOut.value"
             setValueLockName="inputOutLocked"
+            setSwapPath={setSwapPath}
           />
           <SwapManagerField
             {...props}
@@ -76,6 +80,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
             name="tokenOut"
             setValueName="tokenIn.value"
             setValueLockName="inputInLocked"
+            setSwapPath={setSwapPath}
           />
         </>
       )}
@@ -86,7 +91,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
         isZeroSwapAmountOut={isZeroSwapAmountOut}
         error={error}
         hasNoMarket={hasNoMarket}
-        markets={markets}
+        swapPath={swapPath}
         control={props.control}
       />
       <SwapButton
@@ -103,6 +108,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
           isFetchingSwapAmountOut ||
           +getValues('tokenIn.value') > tokenInBalance
         }
+        hasNoMarket={hasNoMarket}
       />
     </>
   );
