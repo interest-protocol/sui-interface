@@ -2,7 +2,7 @@ import { Button } from '@interest-protocol/ui-kit';
 import { FC, useState } from 'react';
 
 const SwapFormPreview: FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [, setIsOpen] = useState(false);
 
   return (
     <Button
