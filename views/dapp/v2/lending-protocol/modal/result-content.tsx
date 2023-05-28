@@ -7,9 +7,10 @@ import { ModalContentProps } from './modal.types';
 
 const ResultContent: FC<ModalContentProps> = ({ message }) => (
   <Box
-    pb="3.375rem"
-    pt="3.375rem"
+    py="3.375rem"
     flexDirection="column"
+    borderTop="1px solid"
+    borderColor="#B6C4FF33"
     alignItems="center"
     display="flex"
     width="21.25rem"

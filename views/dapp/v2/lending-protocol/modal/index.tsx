@@ -1,5 +1,5 @@
 import { Modal } from '@interest-protocol/ui-kit';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { capitalize } from '@/utils';
 
@@ -7,68 +7,8 @@ import LoadingContent from './loading-content';
 import { ModalLendingProps } from './modal.types';
 import PreviewContent from './preview-content';
 import ResultContent from './result-content';
-// import { ModalLoadingProps } from './lending-protocol.types';
 
-// export const ModalResult: FC<ModalLoadingProps> = ({ message }) => {
-//   return (
-//     <Modal
-//       isOpen={true}
-//       allowClose={true}
-//       title="Borrow"
-//       hasCloseButton={true}
-//       onClose={() => console.log('>>>closed')}
-//       ariaHideApp={false}
-//       buttonText="Back to lend"
-//       buttonProps={{
-//         variant: 'filled',
-//         p: '1.25rem 2rem',
-//       }}
-//     >
-//       <Box
-//         pb="2.25rem"
-//         pt="0.625rem"
-//         display="flex"
-//         flexDirection="column"
-//         alignItems="center"
-//         width="21.25rem"
-//       >
-//         <ProgressIndicator variant="loading" size={48} />
-//         <Typography variant="medium" mt="1rem" px="5rem">
-//           {message}
-//         </Typography>
-//       </Box>
-//     </Modal>
-//   );
-// };
-
-// export const ModalLoading: FC<ModalLoadingProps> = ({ message }) => {
-//   return (
-//     <Modal
-//       isOpen={true}
-//       allowClose={true}
-//       title="Borrow"
-//       hasCloseButton={true}
-//       onClose={() => console.log('>>>closed')}
-//       ariaHideApp={false}
-//     >
-//       <Box
-//         pb="2.25rem"
-//         pt="0.625rem"
-//         display="flex"
-//         flexDirection="column"
-//         alignItems="center"
-//         width="21.25rem"
-//       >
-//         <ProgressIndicator variant="loading" size={48} />
-//         <Typography variant="medium" mt="1rem" px="5rem">
-//           {message}
-//         </Typography>
-//       </Box>
-//     </Modal>
-//   );
-// };
-
-const Modallending: FC<ModalLendingProps> = ({
+const ModalLending: FC<ModalLendingProps> = ({
   amount,
   type,
   handleClosed,
@@ -85,6 +25,11 @@ const Modallending: FC<ModalLendingProps> = ({
       setConfirm(true);
     }, 5000);
   };
+
+  useEffect(() => {
+    setLoading(false);
+    setConfirm(false);
+  }, [closed]);
 
   return (
     <Modal
@@ -122,4 +67,4 @@ const Modallending: FC<ModalLendingProps> = ({
   );
 };
 
-export default Modallending;
+export default ModalLending;

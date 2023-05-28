@@ -11,7 +11,6 @@ import { LendCardProps } from './lending-protocol.types';
 
 const BorrowCard: FC<LendCardProps> = ({ formLend, name, balance }) => {
   const t = useTranslations();
-  //"Available to borrow"
   return (
     <CardWrapper
       position="right"
