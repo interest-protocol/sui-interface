@@ -6,7 +6,9 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
+
+import { parseInputEventToNumberString } from '@/utils';
 
 import { InputSectionProps } from './lending-protocol.types';
 
@@ -15,6 +17,9 @@ const InputSection: FC<InputSectionProps> = ({
   amount,
   Icon,
   placeholder,
+  register,
+  setValue,
+  name,
 }) => {
   const { dark } = useTheme() as Theme;
   const surface1 = dark
@@ -31,7 +36,18 @@ const InputSection: FC<InputSectionProps> = ({
           {amount}
         </Typography>
       </Box>
-      <TextField PrefixIcon={Icon} placeholder={placeholder} />
+      <TextField
+        PrefixIcon={Icon}
+        placeholder={placeholder}
+        {...register(`${name}.value`, {
+          onChange: (v: ChangeEvent<HTMLInputElement>) => {
+            setValue?.(
+              `${name}.value`,
+              parseInputEventToNumberString(v, amount ? +amount : undefined)
+            );
+          },
+        })}
+      />
       <Box mt="1.625rem">
         <Slider max={100} min={0} value={0} />
       </Box>

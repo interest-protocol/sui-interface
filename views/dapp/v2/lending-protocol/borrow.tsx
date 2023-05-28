@@ -1,4 +1,5 @@
 import { Box, ProgressIndicator } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { LogoSVG, SuiSVG } from '@/svg';
@@ -6,28 +7,55 @@ import { LogoSVG, SuiSVG } from '@/svg';
 import CardSection from './card-section';
 import CardWrapper from './card-wrapper';
 import InputSection from './input-section';
+import { LendCardProps } from './lending-protocol.types';
 
-const BorrowCard: FC = () => {
+const BorrowCard: FC<LendCardProps> = ({ formLend, name, balance }) => {
+  const t = useTranslations();
+  //"Available to borrow"
   return (
-    <CardWrapper position="right" buttonDescription="Preview Borrow">
+    <CardWrapper
+      position="right"
+      buttonDescription={`${t('lending.card.button')} ${t('common.v2.repay')}`}
+      control={formLend.control}
+      name={name}
+    >
       <InputSection
-        title="Available to borrow"
-        amount="2.123"
+        register={formLend.register}
+        setValue={formLend.setValue}
+        name={name}
+        amount={balance}
+        title={t('lending.card.header', {
+          isBorrow: 1,
+        })}
         placeholder={'0.123'}
         Icon={<SuiSVG maxHeight="100%" maxWidth="100%" filled />}
       />
       <CardSection
-        title="Currently Borrowing"
+        title={t('lending.card.currentSection.header', {
+          isBorrow: 1,
+        })}
         lines={[
-          { description: 'In Tokens', value: '0.0' },
-          { description: 'In USD', value: '$0' },
+          { description: `${t('common.v2.in')} Tokens`, value: '0.0' },
+          { description: `${t('common.v2.in')} USD`, value: '$0' },
         ]}
       />
       <CardSection
-        title="New Borrow Limit"
+        title={t('lending.card.borrowLimitSection.header', {
+          isBorrow: 1,
+        })}
         lines={[
-          { description: 'Borrow Limit', value: '$300' },
-          { description: 'Borrow Limit Used', value: '50%' },
+          {
+            description: t('lending.card.borrowLimitSection.borrowLimit', {
+              isBorrow: 1,
+            }),
+            value: '$300',
+          },
+          {
+            description: t('lending.card.borrowLimitSection.borrowLimitUsed', {
+              isBorrow: 1,
+            }),
+            value: '50%',
+          },
         ]}
       >
         <Box mb="1.125rem">
@@ -35,15 +63,15 @@ const BorrowCard: FC = () => {
         </Box>
       </CardSection>
       <CardSection
-        title="Rates"
+        title={t('lending.card.ratesSection.header')}
         lines={[
           {
-            description: 'SUI Borrow APY',
+            description: `SUI ${t('common.v2.borrow')} APY`,
             value: '3.5%',
             Icon: <SuiSVG maxHeight="0.875rem" maxWidth="0.875rem" filled />,
           },
           {
-            description: 'IPX Rewards APY',
+            description: `IPX ${t('common.v2.rewards')} APY`,
             value: '2.4%',
             Icon: (
               <LogoSVG

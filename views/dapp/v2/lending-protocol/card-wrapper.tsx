@@ -1,53 +1,79 @@
 import { Box, Button } from '@interest-protocol/ui-kit';
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { useWatch } from 'react-hook-form';
 
 import { CardWrapperProps } from './lending-protocol.types';
+import Modallending from './modal';
 
 const CardWrapper: FC<CardWrapperProps> = ({
   position,
   buttonDescription,
+  control,
+  name,
   children,
 }) => {
+  const [closed, setClosed] = useState(true);
+  const value = useWatch({ control, name: `${name}.value` });
+
+  const handleClosed = () => {
+    setClosed(!closed);
+  };
+
+  const backToLend = () => {
+    setClosed(true);
+  };
+
   return (
-    <Box
-      display="flex"
-      width={['100%', '100%', '100%', '34rem']}
-      float={position}
-    >
+    <>
+      <Modallending
+        amount={value}
+        type={name}
+        closed={closed}
+        handleClosed={handleClosed}
+        backToLend={backToLend}
+      />
       <Box
-        width="calc(100% + .635rem)"
-        color="text"
-        borderRadius=".25rem"
-        gridColumn={['1 / -1', '1 / -1', '1 / -1', '1 / 7']}
-        height="fit-content"
+        display="flex"
+        width={['100%', '100%', '100%', '34rem']}
+        float={position}
       >
-        {children}
         <Box
-          display="flex"
-          textAlign="center"
-          justifyContent={[
-            'unset',
-            'unset',
-            'unset',
-            position == 'right' ? 'flex-start' : 'flex-end',
-          ]}
+          width="calc(100% + .635rem)"
+          color="text"
+          borderRadius=".25rem"
+          gridColumn={['1 / -1', '1 / -1', '1 / -1', '1 / 7']}
+          height="fit-content"
         >
-          <Button
-            variant="filled"
-            mt="0.5rem"
-            width={[
-              'fill-available',
-              'fill-available',
-              'fill-available',
-              'auto',
+          {children}
+          <Box
+            display="flex"
+            textAlign="center"
+            justifyContent={[
+              'unset',
+              'unset',
+              'unset',
+              position == 'right' ? 'flex-start' : 'flex-end',
             ]}
-            p="1.25rem 2rem"
           >
-            {buttonDescription}
-          </Button>
+            <Button
+              disabled={!value ? true : false}
+              variant={value ? 'filled' : 'outline'}
+              mt="0.5rem"
+              width={[
+                'fill-available',
+                'fill-available',
+                'fill-available',
+                'auto',
+              ]}
+              p="1.25rem 2rem"
+              onClick={handleClosed}
+            >
+              {buttonDescription}
+            </Button>
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

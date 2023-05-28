@@ -20,6 +20,10 @@
       },
       "on": "On",
       "off": "Off",
+      "borrow": "Borrow",
+      "repay": "Repay",
+      "rewards": "Rewards",
+      "in": "In",
       "lend": {
         "title": "Lend",
         "firstSection": {
