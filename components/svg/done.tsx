@@ -1,10 +1,10 @@
-import { useTheme } from '@interest-protocol/ui-kit';
+import { Theme, useTheme } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { SVGProps } from './svg.types';
 
 const Done: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => {
-  const { dark } = useTheme() as { dark: boolean };
+  const { dark } = useTheme() as Theme;
   return (
     <svg
       style={{ maxWidth: maxWidth, maxHeight: maxHeight }}
