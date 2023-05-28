@@ -1,7 +1,7 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { Done } from '@/svg';
+import { DoneSVG } from '@/svg';
 
 import { ModalContentProps } from './modal.types';
 
@@ -15,7 +15,7 @@ const ResultContent: FC<ModalContentProps> = ({ message }) => (
     display="flex"
     width="21.25rem"
   >
-    <Done maxHeight="100%" maxWidth="100%" width="2.5rem" />
+    <DoneSVG maxHeight="100%" maxWidth="100%" width="2.5rem" />
     <Typography variant="medium" mt="1rem" px="5rem">
       {message}
     </Typography>

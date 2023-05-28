@@ -1,4 +1,4 @@
-import { useTheme } from '@emotion/react';
+import { useTheme } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { SVGProps } from './svg.types';
