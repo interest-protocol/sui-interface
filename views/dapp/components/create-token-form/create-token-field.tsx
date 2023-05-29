@@ -34,7 +34,7 @@ const CreateTokenField: FC<CreateTokenFieldProps> = ({
           color: 'text',
           opacity: 0.7,
         }}
-        placeholder={t('common.createTokenModalInputPlaceholder', {
+        placeholder={t('createToken.inputPlaceholder', {
           currentLocale,
           label: label,
         })}

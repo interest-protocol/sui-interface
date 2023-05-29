@@ -27,6 +27,5 @@ export interface CreateTokenFormProps {
 }
 
 export interface CreateTokenButtonProps {
-  handleCloseModal: () => void;
   control: Control<TCreateTokenForm>;
 }

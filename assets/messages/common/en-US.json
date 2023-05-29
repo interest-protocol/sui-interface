@@ -101,14 +101,6 @@
     "followUs": "FOLLOW US",
     "coin": "coin",
     "createTokenModalButton": "{isLoading, plural, =1 {Creating Token...} other {Create Token}}",
-    "createTokenModalTitle": "CREATE NEW TOKEN",
-    "createTokenModalInputName": "Name",
-    "createTokenModalInputSymbol": "Symbol",
-    "createTokenModalInputIconUrl": "Icon URL",
-    "createTokenModalInputDescription": "Description",
-    "createTokenModalAdvice": "You must pay 1 Sui for Token Creation",
-    "createTokenModalInputAmount": "Amount",
-    "createTokenModalInputPlaceholder": "Type {label}",
     "bannerHeader": "Airdrop: 28M IPX tokens up for grabs! Click here!"
   },
   "error": {

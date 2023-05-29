@@ -25,10 +25,7 @@ import {
 
 import { CreateTokenButtonProps } from './create-token-form.types';
 
-const CreateTokenButton: FC<CreateTokenButtonProps> = ({
-  control,
-  handleCloseModal,
-}) => {
+const CreateTokenButton: FC<CreateTokenButtonProps> = ({ control }) => {
   const t = useTranslations();
   const { network } = useNetwork();
   const [loading, setLoading] = useState(false);
@@ -122,13 +119,12 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
       throw new Error(propOr(t('error.createToken'), 'message', error));
     } finally {
       setLoading(false);
-      handleCloseModal();
     }
   };
 
   const safeCreateToken = () =>
     showToast(createToken(), {
-      loading: `${t('common.createTokenModalButton', { isLoading: 1 })}`,
+      loading: `${t('createToken.button', { isLoading: 1 })}`,
       success: capitalize(t('common.success')),
       error: prop('message'),
     });
@@ -152,11 +148,11 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
             ml="M"
             textTransform="capitalize"
           >
-            {t('common.createTokenModalButton', { isLoading: 1 })}
+            {t('createToken.button', { isLoading: 1 })}
           </Typography>
         </Box>
       ) : (
-        t('common.createTokenModalButton', { isLoading: 0 })
+        t('createToken.button', { isLoading: 0 })
       )}
     </Button>
   );
