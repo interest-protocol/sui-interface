@@ -49,6 +49,7 @@ export interface SwapButtonProps {
   mutate: KeyedMutator<PaginatedCoins['data'] | undefined>;
   poolsMap: PoolsMap;
   deadline: string;
+  hasNoMarket: boolean;
 }
 
 interface SwapManagerWrapperButtonProps {
@@ -87,6 +88,7 @@ export interface SwapManagerProps {
   name: 'tokenIn' | 'tokenOut';
   setValueName: 'tokenIn.value' | 'tokenOut.value';
   setValueLockName: 'inputInLocked' | 'inputOutLocked';
+  setSwapPath: Dispatch<SetStateAction<SwapPathObject | null>>;
 }
 
 export interface LocalSwapSettings {
@@ -96,7 +98,7 @@ export interface LocalSwapSettings {
 }
 
 export interface SwapPathProps {
-  markets: ReadonlyArray<SwapPathObject>;
+  swapPath: SwapPathObject;
 }
 
 export interface SwapProps {

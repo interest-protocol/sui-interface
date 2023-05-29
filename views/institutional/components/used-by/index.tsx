@@ -1,5 +1,6 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
+import { isEmpty, propOr } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 
 import { getMetrics } from '@/api/analytics';
@@ -9,23 +10,16 @@ import { formatNumber } from '@/utils';
 import UsedByCard from './used-by-card';
 import UsedByTitle from './used-by-title';
 
-const DEFAULT_DATA = {
-  totalAccounts: 1_500,
-  totalPools: 19_000_000,
-  totalTXs: 3_200_000_000,
-};
-
 const UsedBy: FC = () => {
   const t = useTranslations();
 
-  const [{ totalAccounts, totalPools, totalTXs }, setData] =
-    useState(DEFAULT_DATA);
+  const [data, setData] = useState({});
 
   useEffect(() => {
     (async () => {
       const result = await getMetrics();
 
-      setData(result ?? DEFAULT_DATA);
+      if (!isEmpty(result)) setData(result);
     })();
   }, []);
 
@@ -37,7 +31,7 @@ const UsedBy: FC = () => {
           mobileHalf
           Icon={UserSVG}
           color="#D9F99D"
-          value={formatNumber(totalAccounts)}
+          value={formatNumber(propOr(0, 'totalUsers', data))}
           title={t('landingPage.usedBy.metrics.users.title')}
           description={t('landingPage.usedBy.metrics.users.description')}
         />
@@ -45,16 +39,16 @@ const UsedBy: FC = () => {
           mobileHalf
           color="#E9D5FF"
           Icon={TradesSVG}
-          value={formatNumber(totalPools)}
-          title={t('landingPage.usedBy.metrics.markets.title')}
-          description={t('landingPage.usedBy.metrics.markets.description')}
+          value={formatNumber(propOr(0, 'tvl', data))}
+          title={t('landingPage.usedBy.metrics.tvl.title')}
+          description={t('landingPage.usedBy.metrics.tvl.description')}
         />
         <UsedByCard
           color="#FED7AA"
           Icon={ChartSVG}
-          value={formatNumber(totalTXs)}
-          title={t('landingPage.usedBy.metrics.transactions.title')}
-          description={t('landingPage.usedBy.metrics.transactions.description')}
+          value={formatNumber(propOr(0, 'totalVolume', data))}
+          title={t('landingPage.usedBy.metrics.volume.title')}
+          description={t('landingPage.usedBy.metrics.volume.description')}
         />
       </Box>
     </Box>

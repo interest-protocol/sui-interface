@@ -1,4 +1,3 @@
-import { findMarket } from '@interest-protocol/sui-sdk';
 import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
@@ -7,7 +6,6 @@ import { prop } from 'ramda';
 import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
-import { incrementTX } from '@/api/analytics';
 import { Box, Button, Typography } from '@/elements';
 import { useSDK } from '@/hooks';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
@@ -37,6 +35,7 @@ const SwapButton: FC<SwapButtonProps> = ({
   tokenOutType,
   poolsMap,
   deadline,
+  hasNoMarket,
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
@@ -49,15 +48,7 @@ const SwapButton: FC<SwapButtonProps> = ({
   const tokenInValue = useWatch({ control, name: 'tokenIn.value' });
   const tokenOutValue = useWatch({ control, name: 'tokenOut.value' });
   const isDisabled =
-    disabled ||
-    !+tokenInValue ||
-    !+tokenOutValue ||
-    !findMarket({
-      data: poolsMap,
-      coinInType: tokenInType,
-      coinOutType: tokenOutType,
-      network,
-    }).length;
+    disabled || !+tokenInValue || !+tokenOutValue || hasNoMarket;
 
   const handleSwap = async () => {
     try {
@@ -119,9 +110,6 @@ const SwapButton: FC<SwapButtonProps> = ({
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
-
-      incrementTX(account ?? '');
-      return;
     } catch {
       throw new Error(t('dexSwap.error.failedToSwap'));
     } finally {

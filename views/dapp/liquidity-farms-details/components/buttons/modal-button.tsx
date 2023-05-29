@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';
 import { FC, useState } from 'react';
 
-import { incrementTX } from '@/api/analytics';
 import { OBJECT_RECORD } from '@/constants/liquidity-farms.constants';
 import { Box, Button } from '@/elements';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
@@ -33,7 +32,7 @@ const ModalButton: FC<ModalButtonProps> = ({
   const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
   const { signTransactionBlock } = useWalletKit();
-  const { coinsMap, account } = useWeb3();
+  const { coinsMap } = useWeb3();
   const { network } = useNetwork();
   const { provider } = useProvider();
 
@@ -87,7 +86,6 @@ const ModalButton: FC<ModalButtonProps> = ({
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
-      incrementTX(account ?? '');
     } finally {
       mutatePools();
       mutatePendingRewards();
@@ -152,7 +150,6 @@ const ModalButton: FC<ModalButtonProps> = ({
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
-      incrementTX(account ?? '');
     } finally {
       mutatePools();
       mutatePendingRewards();

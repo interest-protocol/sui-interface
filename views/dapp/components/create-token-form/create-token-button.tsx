@@ -5,13 +5,11 @@ import {
   TransactionBlock,
 } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
-import { AddressZero } from 'lib';
 import { useTranslations } from 'next-intl';
 import { prop, propOr } from 'ramda';
 import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
-import { incrementCreatedCoins } from '@/api/analytics';
 import { getTokenByteCode } from '@/api/token';
 import { GAS_COST, TREASURY } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
@@ -119,7 +117,6 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({
               decimals: 9,
             },
           });
-        await incrementCreatedCoins(account || AddressZero);
       }
     } catch (error) {
       throw new Error(propOr(t('error.createToken'), 'message', error));

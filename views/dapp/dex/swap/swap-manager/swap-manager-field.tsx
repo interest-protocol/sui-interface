@@ -1,4 +1,3 @@
-import { findMarket } from '@interest-protocol/sui-sdk';
 import { BigNumber } from 'bignumber.js';
 import { FixedPointMath } from 'lib';
 import { prop } from 'ramda';
@@ -28,6 +27,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   setValueName,
   setValueLockName,
   tokenOutDecimals,
+  setSwapPath,
 }) => {
   const { provider } = useProvider();
   const { network } = useNetwork();
@@ -35,13 +35,6 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   const [tokenIn] = useDebounce(useWatch({ control, name }), 900);
 
   const lock = useWatch({ control, name: 'lock' });
-
-  const path = findMarket({
-    data: poolsMap,
-    coinInType: tokenIn.type,
-    coinOutType: tokenOutType,
-    network,
-  });
 
   const { error } = useSWR(
     makeSWRKey(
@@ -65,13 +58,13 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 
       const safeAmount = amount.decimalPlaces(0, BigNumber.ROUND_DOWN);
 
-      if (!tokenIn || !+tokenIn.value || lock || !path.length) return;
+      if (!tokenIn || !+tokenIn.value || lock || hasNoMarket) return;
 
       return sdk.quoteSwap({
         coinInType: tokenIn.type,
         coinOutType: tokenOutType,
         coinInAmount: safeAmount.toString(),
-        dexMarkets: poolsMap,
+        markets: poolsMap,
       });
     },
     {
@@ -80,6 +73,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
         setIsFetchingSwapAmount(false);
         setValue(setValueLockName, false);
         setValue('lock', true);
+        setSwapPath(null);
       },
       onSuccess: (response) => {
         if (!response) {
@@ -90,15 +84,17 @@ const SwapManagerField: FC<SwapManagerProps> = ({
           return;
         }
 
-        setIsZeroSwapAmount(!response);
+        setIsZeroSwapAmount(!response.amount);
         setValue(
           setValueName,
           FixedPointMath.toNumber(
-            new BigNumber(response),
+            new BigNumber(response.amount),
             tokenOutDecimals,
             tokenOutDecimals
           ).toString()
         );
+
+        setSwapPath(response.swapObject);
 
         setError(false);
         setValue(setValueLockName, false);

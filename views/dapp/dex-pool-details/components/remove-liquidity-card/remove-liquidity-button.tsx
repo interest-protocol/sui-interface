@@ -5,9 +5,8 @@ import { useTranslations } from 'next-intl';
 import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
-import { incrementTX } from '@/api/analytics';
 import { Box, Button } from '@/elements';
-import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
+import { useNetwork, useProvider, useSDK } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import {
   noop,
@@ -32,7 +31,7 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
   stable,
 }) => {
   const t = useTranslations();
-  const { account } = useWeb3();
+
   const { signTransactionBlock } = useWalletKit();
   const { network } = useNetwork();
   const { provider } = useProvider();
@@ -84,7 +83,6 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
-      incrementTX(account ?? '');
       return;
     } catch {
       throw new Error(t('dexPoolPair.error.failedRemove'));
