@@ -3,12 +3,12 @@ import { mergeDeepRight } from 'ramda';
 
 import { SEO } from '@/components';
 import { NextPageWithProps } from '@/interface';
-import LendingProtocol from '@/views/dapp/v2/lending-protocol';
+import LendingProtocolDetails from '@/views/dapp/v2/lending-protocol-details';
 
 const LendingProtocolPage: NextPageWithProps = ({ pageTitle }) => (
   <>
     <SEO pageTitle={pageTitle} />
-    <LendingProtocol />
+    <LendingProtocolDetails />
   </>
 );
 

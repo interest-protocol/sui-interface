@@ -5,9 +5,13 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
+
+import { Routes, RoutesEnum } from '@/constants';
+import { AddressZero } from '@/lib';
 
 import { BORROW_MARKET_TABLE_DATA } from '../market-table/market-table-data';
 
@@ -63,85 +67,92 @@ const BorrowMarketTable: FC = () => {
       </Box>
 
       {BORROW_MARKET_TABLE_DATA.map((item, index) => (
-        <Motion
+        <Link
           key={v4()}
-          width="100%"
-          display="grid"
-          cursor="pointer"
-          whileHover={{
-            background: surface2,
+          href={{
+            pathname: Routes[RoutesEnum.LendDetails],
+            query: { type: AddressZero },
           }}
-          initial={{
-            background: surface1,
-          }}
-          marginTop={index === 0 ? 'l' : '0'}
-          gridTemplateColumns="repeat(4, 1fr)"
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
         >
-          <Box p="l" gap="m" display="flex">
-            <Box display="flex" alignItems="center">
-              {
-                <item.assetApy.coin.symbol
-                  width="2.5rem"
-                  maxHeight="100%"
-                  maxWidth="2.5rem"
-                />
-              }
+          <Motion
+            width="100%"
+            display="grid"
+            cursor="pointer"
+            whileHover={{
+              background: surface2,
+            }}
+            initial={{
+              background: surface1,
+            }}
+            marginTop={index === 0 ? 'l' : '0'}
+            gridTemplateColumns="repeat(4, 1fr)"
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
+            <Box p="l" gap="m" display="flex">
+              <Box display="flex" alignItems="center">
+                {
+                  <item.assetApy.coin.symbol
+                    width="2.5rem"
+                    maxHeight="100%"
+                    maxWidth="2.5rem"
+                  />
+                }
+              </Box>
+              <Box display="flex" flexDirection="column">
+                <Typography variant="medium">
+                  {item.assetApy.coin.name}
+                </Typography>
+                <Typography
+                  variant="small"
+                  color={
+                    item.assetApy.coin.color !== undefined && dark
+                      ? item.assetApy.coin.color.dark
+                      : item.assetApy.coin.color !== undefined && !dark
+                      ? item.assetApy.coin.color.light
+                      : dark
+                      ? '#77767A'
+                      : '#47464A'
+                  }
+                >
+                  {item.assetApy.percentage}%
+                </Typography>
+              </Box>
             </Box>
-            <Box display="flex" flexDirection="column">
-              <Typography variant="medium">
-                {item.assetApy.coin.name}
+            <Box
+              gap="2xs"
+              display="flex"
+              alignItems="center"
+              flexDirection="column"
+              justifyContent="center"
+            >
+              <Typography variant="medium" textAlign="center">
+                {item.borrowed.percentage}
               </Typography>
               <Typography
                 variant="small"
-                color={
-                  item.assetApy.coin.color !== undefined && dark
-                    ? item.assetApy.coin.color.dark
-                    : item.assetApy.coin.color !== undefined && !dark
-                    ? item.assetApy.coin.color.light
-                    : dark
-                    ? '#77767A'
-                    : '#47464A'
-                }
+                textAlign="center"
+                color={dark ? '#77767A' : '#47464A'}
               >
-                {item.assetApy.percentage}%
+                ${item.borrowed.value}
               </Typography>
             </Box>
-          </Box>
-          <Box
-            gap="2xs"
-            display="flex"
-            alignItems="center"
-            flexDirection="column"
-            justifyContent="center"
-          >
-            <Typography variant="medium" textAlign="center">
-              {item.borrowed.percentage}
-            </Typography>
-            <Typography
-              variant="small"
-              textAlign="center"
-              color={dark ? '#77767A' : '#47464A'}
+            <Box display="flex" alignItems="center" justifyContent="center">
+              <Typography variant="medium" textAlign="center">
+                {item.wallet}
+              </Typography>
+            </Box>
+            <Box
+              px="l"
+              display="flex"
+              alignItems="center"
+              justifyContent="flex-end"
             >
-              ${item.borrowed.value}
-            </Typography>
-          </Box>
-          <Box display="flex" alignItems="center" justifyContent="center">
-            <Typography variant="medium" textAlign="center">
-              {item.wallet}
-            </Typography>
-          </Box>
-          <Box
-            px="l"
-            display="flex"
-            alignItems="center"
-            justifyContent="flex-end"
-          >
-            <Typography variant="medium" textAlign="right">
-              ${item.liquidity}
-            </Typography>
-          </Box>
-        </Motion>
+              <Typography variant="medium" textAlign="right">
+                ${item.liquidity}
+              </Typography>
+            </Box>
+          </Motion>
+        </Link>
       ))}
     </>
   );
