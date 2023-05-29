@@ -20,6 +20,10 @@
       },
       "on": "Ativo",
       "off": "Inativo",
+      "borrow": "Empréstimo",
+      "repay": "Reembolso",
+      "rewards": "Ganhos",
+      "in": "Em",
       "lend": {
         "title": "Emprestar",
         "firstSection": {
