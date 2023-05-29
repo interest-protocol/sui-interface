@@ -32,6 +32,26 @@
           "walletBalance": "Wallet Balance",
           "borrowLimit": "Borrow Limit",
           "borrowLimitUsed": "Borrow Limit Used"
+        },
+        "marketTables": {
+          "supplyMarket": {
+            "title": "Supply Market",
+            "columns": {
+              "netAPY": "Asset / APY",
+              "supplied": "Supplied",
+              "wallet": "Wallet",
+              "collateral": "Collateral"
+            }
+          },
+          "borrowMarket": {
+            "title": "Borrow Market",
+            "columns": {
+              "netAPY": "Asset / APY",
+              "borrowed": "Borrowed",
+              "wallet": "Wallet",
+              "liquidity": "Liquidity"
+            }
+          }
         }
       }
     },

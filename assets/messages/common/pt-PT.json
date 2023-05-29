@@ -32,6 +32,26 @@
           "walletBalance": "Saldo da carteira",
           "borrowLimit": "Limite de empréstimo",
           "borrowLimitUsed": "Limite de empréstimo utilizado"
+        },
+        "marketTables": {
+          "supplyMarket": {
+            "title": "Mercado de Fornecimento",
+            "columns": {
+              "netAPY": "Ativo / APY",
+              "supplied": "Fornecido",
+              "wallet": "Carteira",
+              "collateral": "Garantia"
+            }
+          },
+          "borrowMarket": {
+            "title": "Mercado de Empréstimo",
+            "columns": {
+              "netAPY": "Ativo / APY",
+              "borrowed": "Emprestado",
+              "wallet": "Carteira",
+              "liquidity": "Liquidez"
+            }
+          }
         }
       }
     },

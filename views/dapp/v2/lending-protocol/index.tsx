@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Layout } from '../componentes';
+import { Layout, LendTables } from '../componentes';
 import LendDetailsBalanceInfo from '../componentes/lend-details-balance-info';
 import BorrowCard from './borrow';
 import { ILendForm } from './lending-protocol.types';
@@ -15,6 +15,7 @@ const LendingProtocolDetails: FC = () => {
   return (
     <Layout>
       <LendDetailsBalanceInfo />
+      <LendTables />
       <Box bg="background" p="l">
         <TabsNavigator
           tabs={[
