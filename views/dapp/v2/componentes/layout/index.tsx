@@ -1,8 +1,9 @@
 import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
-import { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import { TOAST_DURATION } from '@/constants';
+import useEventListener from '@/hooks/use-event-listener';
 
 import Footer from './footer';
 import Header from './header';
@@ -13,11 +14,17 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   children,
   dashboard,
 }) => {
-  const { colors, radii } = useTheme() as Theme;
+  const [isDesktop, setIsDesktop] = useState(false);
+  const { dark, colors, radii, breakpoints } = useTheme() as Theme;
 
-  if (dashboard)
+  const handleSetDesktopView = () =>
+    setIsDesktop(window.matchMedia(`(min-width: ${breakpoints[1]})`).matches);
+
+  useEventListener('resize', handleSetDesktopView, true);
+
+  if (dashboard && isDesktop)
     return (
-      <Box display="flex" bg="background" height="100vh">
+      <Box display="flex" bg={dark ? 'background' : '#FBF8FD'} height="100vh">
         <Sidebar />
         <Box as="main" flex="1">
           {children}
@@ -50,7 +57,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
       <Box as="main" flex="1">
         {children}
       </Box>
-      <Footer />
+      {!dashboard && <Footer />}
     </Box>
   );
 };

@@ -1,41 +1,47 @@
-import { Box, Button } from '@interest-protocol/ui-kit';
-import { FC, useState } from 'react';
+import { Box, Button, Theme, useTheme } from '@interest-protocol/ui-kit';
+import { FC } from 'react';
 
 import { DotsSVG } from '@/components/svg/v2';
+import { useModal } from '@/hooks';
 
 import SelectTokenModal from './select-token-modal';
 
 const SelectToken: FC = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const { dark } = useTheme() as Theme;
+  const { setModal, handleClose } = useModal();
+
+  const openModal = () =>
+    setModal(<SelectTokenModal closeModal={handleClose} />, {
+      isOpen: true,
+      custom: true,
+      opaque: false,
+      allowClose: true,
+      onClose: handleClose,
+      hasCloseButton: true,
+    });
 
   return (
-    <>
-      <Button
-        size="small"
-        bg="#1F1F23"
-        color="text"
-        variant="filled"
-        whiteSpace="nowrap"
-        onClick={() => setModalOpen(true)}
-        SuffixIcon={
-          <Box as="span" display="inline-block" ml="m">
-            <DotsSVG
-              maxWidth="1rem"
-              maxHeight="1rem"
-              height="100%"
-              width="100%"
-              filled
-            />
-          </Box>
-        }
-      >
-        Select Token
-      </Button>
-      <SelectTokenModal
-        isOpen={modalOpen}
-        closeModal={() => setModalOpen(false)}
-      />
-    </>
+    <Button
+      size="small"
+      bg={dark ? '#1F1F23' : '#EFEDF1'}
+      color="text"
+      variant="filled"
+      whiteSpace="nowrap"
+      onClick={openModal}
+      SuffixIcon={
+        <Box as="span" display="inline-block" ml="m">
+          <DotsSVG
+            maxWidth="1rem"
+            maxHeight="1rem"
+            height="100%"
+            width="100%"
+            filled
+          />
+        </Box>
+      }
+    >
+      Select Token
+    </Button>
   );
 };
 
