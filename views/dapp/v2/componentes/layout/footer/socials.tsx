@@ -11,11 +11,10 @@ const SocialWrapper: FC<SocialWrapperProps> = ({ Icon, link }) => {
   return (
     <Motion
       as="a"
-      color={dark ? 'background' : 'accentSoft'}
+      color={dark ? '#5E5E62' : '#C2D1F6'}
       cursor="pointer"
       whileHover={{
         translateY: -5,
-        filter: 'hue-rotate(15deg) brightness(1.5) opacity(0.95)',
       }}
       transition={{ duration: 0.3 }}
       {...{ href: link, target: '_blank', rel: 'noreferrer' }}

@@ -2,6 +2,21 @@
   "lending": {
     "metadata": {
       "title": "Empréstimo"
+    },
+    "card": {
+      "header": "{isBorrow, plural, =1 {Disponível para empréstimo} other {Disponível para reembolsar}}",
+      "currentSection": {
+        "header": "{isBorrow, plural, =1 {Empréstimo actual} other {Reembolso actual}}"
+      },
+      "borrowLimitSection": {
+        "header": "Novo limite de empréstimo",
+        "borrowLimit": "Limite de empréstimo",
+        "borrowLimitUsed": "Limite de empréstimo utilizado"
+      },
+      "ratesSection": {
+        "header": "Taxas"
+      },
+      "button": "Pré-visualizar o "
     }
   }
 }

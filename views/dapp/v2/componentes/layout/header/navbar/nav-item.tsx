@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 
+import { Routes, RoutesEnum } from '@/constants';
 import { capitalize } from '@/utils';
 
 import NavItemText from './nav-item-text';
@@ -12,7 +13,8 @@ import { NavItemProps } from './navbar.types';
 const NavItem: FC<NavItemProps> = ({ path, item }) => {
   const { asPath } = useRouter();
   const notDesktop = item === 'home';
-  const isSelected = asPath === path;
+  const isSelected =
+    asPath === path || asPath === Routes[RoutesEnum.LendDetails];
   const Icon = NAVBAR_ICONS[item];
 
   return (
