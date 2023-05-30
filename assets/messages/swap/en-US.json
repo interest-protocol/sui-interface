@@ -28,6 +28,13 @@
         "tokenSwapped": "Token Swapped",
         "explorerMessage": "You can check you transaction in the Explorer",
         "seeOnExplorer": "See on Explore"
+      },
+      "selectToken": {
+        "title": "Select token",
+        "search": "Search token",
+        "recommended": "Recommended",
+        "favorite": "Favorite",
+        "wallet": "Wallet"
       }
     }
   }

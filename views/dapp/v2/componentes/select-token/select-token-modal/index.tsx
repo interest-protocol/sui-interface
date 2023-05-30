@@ -1,4 +1,5 @@
 import { Box, Button, TextField, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
@@ -19,6 +20,8 @@ const SelectTokenModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
     'sui-interest-favorite-tokens',
     []
   );
+
+  const t = useTranslations();
 
   return (
     <Box
@@ -44,7 +47,7 @@ const SelectTokenModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
           <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>
         <Typography variant="medium" color="text">
-          Select Token
+          {t('swap.swapModalPreview.selectToken.title')}
         </Typography>
         <Button variant="icon" onClick={closeModal}>
           <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
@@ -61,17 +64,17 @@ const SelectTokenModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
       </Box>
       <Box p="xl" display="flex" gap="s">
         <Chip
-          text="Recommended"
+          text={t('swap.swapModalPreview.selectToken.recommended')}
           isActive={tokenOrigin === 'recommended'}
           onClick={() => setTokenOrigin('recommended')}
         />
         <Chip
-          text="Favorite"
+          text={t('swap.swapModalPreview.selectToken.favorite')}
           isActive={tokenOrigin === 'favorites'}
           onClick={() => setTokenOrigin('favorites')}
         />
         <Chip
-          text="Wallet"
+          text={t('swap.swapModalPreview.selectToken.wallet')}
           isActive={tokenOrigin === 'wallet'}
           onClick={() => setTokenOrigin('wallet')}
         />

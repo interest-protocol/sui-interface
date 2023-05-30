@@ -28,6 +28,13 @@
         "tokenSwapped": "Token Trocado",
         "explorerMessage": "Você pode verificar sua transação no Explorador",
         "seeOnExplorer": "Ver no Explorador"
+      },
+      "selectToken": {
+        "title": "Selecionar token",
+        "search": "Buscar token",
+        "recommended": "Recomendados",
+        "favorite": "Favoritos",
+        "wallet": "Carteira"
       }
     }
   }
