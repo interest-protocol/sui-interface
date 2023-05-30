@@ -1,4 +1,5 @@
 import { Box, Button, Theme, useTheme } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { DotsSVG } from '@/components/svg/v2';
@@ -9,6 +10,7 @@ import SelectTokenModal from './select-token-modal';
 const SelectToken: FC = () => {
   const { dark } = useTheme() as Theme;
   const { setModal, handleClose } = useModal();
+  const t = useTranslations();
 
   const openModal = () =>
     setModal(<SelectTokenModal closeModal={handleClose} />, {
@@ -40,7 +42,7 @@ const SelectToken: FC = () => {
         </Box>
       }
     >
-      Select Token
+      {t('swap.swapForm.selectToken')}
     </Button>
   );
 };

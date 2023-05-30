@@ -1,4 +1,5 @@
 import { Button } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { useModal } from '@/hooks';
@@ -8,6 +9,7 @@ import SwapFormPreviewModal from './swap-form-preview-modal';
 
 const SwapFormPreview: FC = () => {
   const { setModal, handleClose } = useModal();
+  const t = useTranslations();
 
   const openConfirmModal = () =>
     setModal(
@@ -50,7 +52,7 @@ const SwapFormPreview: FC = () => {
       onClick={openPreviewModal}
       width={['100%', '100%', 'auto']}
     >
-      Preview
+      {t('swap.swapForm.preview')}
     </Button>
   );
 };

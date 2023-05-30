@@ -4,6 +4,7 @@ import {
   ProgressIndicator,
   Typography,
 } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { CheckmarkSVG } from '@/components/svg/v2';
@@ -15,6 +16,7 @@ const SwapFormConfirmModal: FC<SwapFormConfirmModalProps> = ({
   loading,
   handleClose,
 }) => {
+  const t = useTranslations();
   if (loading)
     return (
       <Box
@@ -31,7 +33,7 @@ const SwapFormConfirmModal: FC<SwapFormConfirmModalProps> = ({
         boxShadow="0 0 5px #3334"
       >
         <Box py="m" display="flex" alignItems="center" justifyContent="center">
-          <Typography variant="medium">Swap</Typography>
+          <Typography variant="medium">{t('swap.metadata.title')}</Typography>
         </Box>
         <Box
           pt="4xl"
@@ -50,7 +52,7 @@ const SwapFormConfirmModal: FC<SwapFormConfirmModalProps> = ({
             variant="medium"
             textAlign="center"
           >
-            Swapping Token please wait...
+            {t('swap.swapModalPreview.swappingToken')}
           </Typography>
         </Box>
       </Box>
@@ -71,7 +73,7 @@ const SwapFormConfirmModal: FC<SwapFormConfirmModalProps> = ({
       boxShadow="0 0 5px #3334"
     >
       <Box py="m" display="flex" alignItems="center" justifyContent="center">
-        <Typography variant="medium">Swap</Typography>
+        <Typography variant="medium">{t('swap.metadata.title')}</Typography>
       </Box>
       <Box
         pt="4xl"
@@ -87,15 +89,15 @@ const SwapFormConfirmModal: FC<SwapFormConfirmModalProps> = ({
           <CheckmarkSVG filled width="100%" maxWidth="3rem" maxHeight="3rem" />
         </Box>
         <Typography my="xl" width="16rem" variant="medium" textAlign="center">
-          Token swapped
+          {t('swap.swapModalPreview.swapFormConfirmModal.tokenSwapped')}
         </Typography>
       </Box>
       <Typography variant="extraSmall">
-        You can check you transaction in the Explorer
+        {t('swap.swapModalPreview.swapFormConfirmModal.explorerMessage')}
       </Typography>
       <a href={txLink} target="_blank" rel="noreferrer" onClick={handleClose}>
         <Button variant="filled" justifyContent="center" size="small" mb="2xl">
-          See on Explorer
+          {t('swap.swapModalPreview.swapFormConfirmModal.seeOnExplorer')}
         </Button>
       </a>
     </Box>

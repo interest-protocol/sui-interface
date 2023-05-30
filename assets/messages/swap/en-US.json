@@ -2,6 +2,33 @@
   "swap": {
     "metadata": {
       "title": "Swap"
+    },
+    "swapForm": {
+      "from": "From",
+      "to": "To",
+      "balance": "Balance",
+      "selectToken": "Select a token",
+      "preview": "Preview"
+    },
+    "swapMenu": {
+      "home": "Home",
+      "swap": "Swap",
+      "pool": "Pool",
+      "farm": "Farm"
+    },
+    "swapModalPreview": {
+      "swappingToken": "Swapping Token please wait...",
+      "exchangeRate": "Exchange Rate",
+      "networkFee": "Network Fee",
+      "newQuoteIn": "New Quote in",
+      "networkFeesAreSetBy": "Network fees are set by “@network name”. Learn more about fees.",
+      "FinalAmountMessage": "Final amount may change due to market activity. By approving this Swap you agree to Interest protocol Refund Policy.",
+      "confirmSwap": "Confirm Swap",
+      "swapFormConfirmModal": {
+        "tokenSwapped": "Token Swapped",
+        "explorerMessage": "You can check you transaction in the Explorer",
+        "seeOnExplorer": "See on Explore"
+      }
     }
   }
 }

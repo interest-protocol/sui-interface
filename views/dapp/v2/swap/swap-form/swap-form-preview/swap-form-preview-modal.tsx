@@ -4,6 +4,7 @@ import {
   ProgressIndicator,
   Typography,
 } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import {
@@ -20,6 +21,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
   closeModal,
   openConfirmModal,
 }) => {
+  const t = useTranslations();
   return (
     <Box
       px="xl"
@@ -43,7 +45,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
         <Button variant="icon" onClick={closeModal}>
           <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>
-        <Typography variant="medium">Swap</Typography>
+        <Typography variant="medium">{t('swap.metadata.title')}</Typography>
         <Button variant="icon" onClick={closeModal}>
           <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>
@@ -131,7 +133,9 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
             justifyContent="space-between"
             borderBottom="1px solid #1B1B1F"
           >
-            <Typography variant="medium">Exchange Rate</Typography>
+            <Typography variant="medium">
+              {t('swap.swapModalPreview.exchangeRate')}
+            </Typography>
             <Typography variant="medium">0.000</Typography>
           </Box>
           <Box
@@ -140,7 +144,9 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
             justifyContent="space-between"
             borderBottom="1px solid #1B1B1F"
           >
-            <Typography variant="medium">Network Fee</Typography>
+            <Typography variant="medium">
+              {t('swap.swapModalPreview.networkFee')}
+            </Typography>
             <Typography variant="medium">~ 0%</Typography>
           </Box>
           <Box
@@ -153,15 +159,16 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
             <Box display="flex">
               <ProgressIndicator size={30} variant="loading" />
             </Box>
-            <Typography variant="medium">New quote in 00:00</Typography>
+            <Typography variant="medium">
+              {t('swap.swapModalPreview.newQuoteIn')} 00:00
+            </Typography>
           </Box>
         </Box>
         <Typography variant="extraSmall" mb="l">
-          Network fees are set by “@network name”. Learn more about fees.
+          {t('swap.swapModalPreview.networkFeesAreSetBy')}
         </Typography>
         <Typography variant="extraSmall">
-          Final amount may change due to market activity. By approving this Swap
-          you agree to Interest protocol Refund Policy
+          {t('swap.swapModalPreview.FinalAmountMessage')}
         </Typography>
       </Box>
       <Button
@@ -171,7 +178,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
         justifyContent="center"
         onClick={openConfirmModal}
       >
-        Confirm Swap
+        {t('swap.swapModalPreview.confirmSwap')}
       </Button>
     </Box>
   );
