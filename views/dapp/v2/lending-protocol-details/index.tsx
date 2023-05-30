@@ -6,12 +6,18 @@ import { useForm } from 'react-hook-form';
 import { Layout } from '../componentes';
 import LendDetailsBalanceInfo from '../componentes/lend-details-balance-info';
 import BorrowCard from './borrow';
-import { ILendForm } from './lending-protocol.types';
+import {
+  ILendForm,
+  LendingProtocolDetailsProps,
+} from './lending-protocol.types';
 import RepayCard from './repay';
 
-const LendingProtocolDetails: FC = () => {
+const LendingProtocolDetails: FC<LendingProtocolDetailsProps> = ({ type }) => {
   const t = useTranslations();
   const formLend = useForm<ILendForm>();
+
+  console.log(type, '>>>type');
+
   return (
     <Layout>
       <LendDetailsBalanceInfo />

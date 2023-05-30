@@ -53,3 +53,6 @@ export interface LendFormTokenData {
   value: string;
   type: string;
 }
+export interface LendingProtocolDetailsProps {
+  type: string;
+}

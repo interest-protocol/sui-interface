@@ -1,14 +1,21 @@
-import { GetStaticProps } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import { mergeDeepRight } from 'ramda';
 
 import { SEO } from '@/components';
-import { NextPageWithProps } from '@/interface';
+import { NextPageDefaultProps } from '@/interface';
 import LendingProtocolDetails from '@/views/dapp/v2/lending-protocol-details';
 
-const LendingProtocolPage: NextPageWithProps = ({ pageTitle }) => (
+interface LendingDetailsPageProps extends NextPageDefaultProps {
+  type: string;
+}
+
+const LendingProtocolPage: NextPage<LendingDetailsPageProps> = ({
+  type,
+  pageTitle,
+}) => (
   <>
     <SEO pageTitle={pageTitle} />
-    <LendingProtocolDetails />
+    <LendingProtocolDetails type={type} />
   </>
 );
 

@@ -1,12 +1,14 @@
 import { FC } from 'react';
 
 import { SVGProps } from '@/components/svg/svg.types';
+import { COIN_TYPE, Network } from '@/constants';
 import { BNB, BTC, DAI, ETH, SUI, USDT } from '@/views/dapp/svg/market-tables';
 
 interface assetApyProps {
   coin: {
     name: 'BNB' | 'ETH' | 'SUI' | 'BTC' | 'DAI' | 'USDT';
     symbol: FC<SVGProps>;
+    type: string;
     color?: { dark: string; light: string };
   };
   percentage: number;
@@ -39,6 +41,7 @@ export const SUPPLY_MARKET_TABLE_DATA: MarketTableSupplyProps[] = [
         name: 'BNB',
         symbol: BNB,
         color: { dark: '#FDE68A', light: '#F59E0B' },
+        type: COIN_TYPE[Network.DEVNET].BNB,
       },
       percentage: 3,
     },
@@ -55,6 +58,7 @@ export const SUPPLY_MARKET_TABLE_DATA: MarketTableSupplyProps[] = [
         name: 'ETH',
         symbol: ETH,
         color: { dark: '#FBCFE8', light: '#EC4899' },
+        type: COIN_TYPE[Network.DEVNET].ETH,
       },
       percentage: 7,
     },
@@ -71,6 +75,7 @@ export const SUPPLY_MARKET_TABLE_DATA: MarketTableSupplyProps[] = [
         name: 'SUI',
         symbol: SUI,
         color: { dark: '#A5F3FC', light: '#06B6D4' },
+        type: COIN_TYPE[Network.DEVNET].SUI,
       },
       percentage: 5,
     },
@@ -86,6 +91,7 @@ export const SUPPLY_MARKET_TABLE_DATA: MarketTableSupplyProps[] = [
       coin: {
         name: 'BTC',
         symbol: BTC,
+        type: COIN_TYPE[Network.DEVNET].BTC,
       },
       percentage: 1,
     },
@@ -101,6 +107,7 @@ export const SUPPLY_MARKET_TABLE_DATA: MarketTableSupplyProps[] = [
       coin: {
         name: 'DAI',
         symbol: DAI,
+        type: COIN_TYPE[Network.DEVNET].DAI,
       },
       percentage: 2,
     },
@@ -116,6 +123,7 @@ export const SUPPLY_MARKET_TABLE_DATA: MarketTableSupplyProps[] = [
       coin: {
         name: 'USDT',
         symbol: USDT,
+        type: COIN_TYPE[Network.DEVNET].USDT,
       },
       percentage: 3,
     },
@@ -135,6 +143,7 @@ export const BORROW_MARKET_TABLE_DATA: MarketTableBorrowedProps[] = [
         name: 'BNB',
         symbol: BNB,
         color: { dark: '#FDE68A', light: '#F59E0B' },
+        type: COIN_TYPE[Network.DEVNET].BNB,
       },
       percentage: 3,
     },
@@ -151,6 +160,7 @@ export const BORROW_MARKET_TABLE_DATA: MarketTableBorrowedProps[] = [
         name: 'ETH',
         symbol: ETH,
         color: { dark: '#FBCFE8', light: '#EC4899' },
+        type: COIN_TYPE[Network.DEVNET].ETH,
       },
       percentage: 7,
     },
@@ -167,6 +177,7 @@ export const BORROW_MARKET_TABLE_DATA: MarketTableBorrowedProps[] = [
         name: 'SUI',
         symbol: SUI,
         color: { dark: '#A5F3FC', light: '#06B6D4' },
+        type: COIN_TYPE[Network.DEVNET].SUI,
       },
       percentage: 5,
     },
@@ -182,6 +193,7 @@ export const BORROW_MARKET_TABLE_DATA: MarketTableBorrowedProps[] = [
       coin: {
         name: 'BTC',
         symbol: BTC,
+        type: COIN_TYPE[Network.DEVNET].BTC,
       },
       percentage: 1,
     },
@@ -197,6 +209,7 @@ export const BORROW_MARKET_TABLE_DATA: MarketTableBorrowedProps[] = [
       coin: {
         name: 'DAI',
         symbol: DAI,
+        type: COIN_TYPE[Network.DEVNET].DAI,
       },
       percentage: 2,
     },
@@ -212,6 +225,7 @@ export const BORROW_MARKET_TABLE_DATA: MarketTableBorrowedProps[] = [
       coin: {
         name: 'USDT',
         symbol: USDT,
+        type: COIN_TYPE[Network.DEVNET].USDT,
       },
       percentage: 3,
     },

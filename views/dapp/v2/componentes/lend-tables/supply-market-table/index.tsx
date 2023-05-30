@@ -12,7 +12,6 @@ import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { Routes, RoutesEnum } from '@/constants';
-import { AddressZero } from '@/lib';
 
 import { SUPPLY_MARKET_TABLE_DATA } from '../market-table/market-table-data';
 
@@ -72,7 +71,7 @@ const SupplyMarketTable: FC = () => {
           key={v4()}
           href={{
             pathname: Routes[RoutesEnum.LendDetails],
-            query: { type: AddressZero },
+            query: { type: item.assetApy.coin.type },
           }}
         >
           <Motion
