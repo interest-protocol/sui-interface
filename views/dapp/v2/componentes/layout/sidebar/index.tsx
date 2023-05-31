@@ -7,6 +7,7 @@ import {
 } from '@interest-protocol/ui-kit';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -20,6 +21,7 @@ import { SIDEBAR_ITEMS } from './sidebar.data';
 const Sidebar: FC = () => {
   const { asPath } = useRouter();
   const { dark, setDark } = useTheme() as AppTheme<Theme>;
+  const t = useTranslations();
 
   return (
     <Box
@@ -70,7 +72,7 @@ const Sidebar: FC = () => {
       </Box>
       <Box display="flex" justifyContent="center" gap="l">
         <Typography variant="medium" color="text">
-          Light
+          {t('common.v2.menu.light')}
         </Typography>
         <SwitchButton
           name="theme"
@@ -79,7 +81,7 @@ const Sidebar: FC = () => {
           onChange={() => setDark(not)}
         />
         <Typography variant="medium" color="text">
-          Dark
+          {t('common.v2.menu.dark')}
         </Typography>
       </Box>
     </Box>

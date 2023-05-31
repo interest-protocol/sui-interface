@@ -10,6 +10,8 @@
       "menu": {
         "settings": "settings",
         "darkMode": "dark mode",
+        "dark": "Dark",
+        "light": "Light",
         "languages": "languages"
       },
       "wallet": {
@@ -52,6 +54,7 @@
       }
     },
     "dex": "dex",
+    "home": "Home",
     "soon": "soon",
     "pool": "pool",
     "notFoundToken": "Token meta data not found",
