@@ -6,13 +6,12 @@ import SwapHeader from './swap-header';
 
 const Swap: FC = () => (
   <Box
+    display="flex"
+    gridColumn="1/-1"
     variant="container"
     alignItems="center"
-    minHeight="100%"
-    display="flex"
-    height="100%"
-    gridColumn="1/-1"
     flexDirection="column"
+    minHeight={['100%', '100%', 'unset']}
     justifyContent={['space-between', 'space-between', 'unset']}
   >
     <SwapHeader />

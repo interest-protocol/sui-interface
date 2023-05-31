@@ -30,7 +30,7 @@ const SwapFields: FC = () => {
 };
 
 const SwapForm: FC = () => (
-  <Box maxWidth="35.25rem" width="100%" pt="4xl" mt="4xl">
+  <Box maxWidth="35.25rem" width="100%" pt="7rem">
     <SwapFormField field="from" balance="0.000" />
     <SwapFields />
     <SwapFormField field="to" balance="0.000" />

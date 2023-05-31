@@ -3,9 +3,19 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { CogsSVG, LeftArrowSVG } from '@/components/svg/v2';
+import { useModal } from '@/hooks';
+
+import SettingsModal from './settings-modal';
 
 const SwapHeader: FC = () => {
   const t = useTranslations();
+  const { setModal, handleClose } = useModal();
+
+  const openSettingsModal = () =>
+    setModal(<SettingsModal closeModal={handleClose} />, {
+      isOpen: true,
+      custom: true,
+    });
 
   return (
     <Box
@@ -25,7 +35,7 @@ const SwapHeader: FC = () => {
       >
         {t('swap.metadata.title')}
       </Typography>
-      <Box color="textSoft">
+      <Box color="textSoft" onClick={openSettingsModal}>
         <CogsSVG maxWidth="1.2rem" maxHeight="1.2rem" width="100%" />
       </Box>
     </Box>
