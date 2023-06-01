@@ -14,6 +14,14 @@
         "light": "Claro",
         "languages": "Idiomas"
       },
+      "navbar": {
+        "swap": "troca",
+        "home": "início",
+        "pool": "pool",
+        "farm": "farm",
+        "createToken": "criar token",
+        "settings": "definições"
+      },
       "wallet": {
         "name": "carteira",
         "connect": "conetar à carteira",

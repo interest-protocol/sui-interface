@@ -134,7 +134,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
             borderBottom="1px solid #1B1B1F"
           >
             <Typography variant="medium">
-              {t('swap.swapModalPreview.exchangeRate')}
+              {t('swap.modal.preview.exchangeRate')}
             </Typography>
             <Typography variant="medium">0.000</Typography>
           </Box>
@@ -145,7 +145,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
             borderBottom="1px solid #1B1B1F"
           >
             <Typography variant="medium">
-              {t('swap.swapModalPreview.networkFee')}
+              {t('swap.modal.preview.networkFee')}
             </Typography>
             <Typography variant="medium">~ 0%</Typography>
           </Box>
@@ -160,15 +160,15 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
               <ProgressIndicator size={30} variant="loading" />
             </Box>
             <Typography variant="medium">
-              {t('swap.swapModalPreview.newQuoteIn')} 00:00
+              {t('swap.modal.preview.newQuoteIn')} 00:00
             </Typography>
           </Box>
         </Box>
         <Typography variant="extraSmall" mb="l">
-          {t('swap.swapModalPreview.networkFeesAreSetBy')}
+          {t('swap.modal.preview.networkFeesAreSetBy')}
         </Typography>
         <Typography variant="extraSmall">
-          {t('swap.swapModalPreview.FinalAmountMessage')}
+          {t('swap.modal.preview.FinalAmountMessage')}
         </Typography>
       </Box>
       <Button
@@ -178,7 +178,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
         justifyContent="center"
         onClick={openConfirmModal}
       >
-        {t('swap.swapModalPreview.confirmSwap')}
+        {t('swap.modal.preview.confirmSwap')}
       </Button>
     </Box>
   );

@@ -1,10 +1,33 @@
-import { Box, Button, TextField, Typography } from '@interest-protocol/ui-kit';
+import { Box, Button, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
+import { useForm } from 'react-hook-form';
 
-import { CheckmarkSVG, PercentageSVG } from '@/components/svg/v2';
+import { useLocalStorage } from '@/hooks';
 import { TimesSVG } from '@/svg';
 
+import AutomatedPrice from './automated-price';
+import { SwapSettingsForm } from './settings-modal.types';
+import SlippageTolerance from './slippage-tolerance';
+import TransactionDeadline from './transaction-deadline';
+
 const SettingsModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
+  const [localSwapSettings, setLocalSwapSettings] =
+    useLocalStorage<SwapSettingsForm>('sui-interest-swap-settings', {
+      slippage: 0.1,
+      deadline: 30,
+      autoFetch: true,
+    });
+
+  const { register, setValue, control, handleSubmit } =
+    useForm<SwapSettingsForm>({
+      defaultValues: localSwapSettings,
+    });
+
+  const onSubmit = (data: SwapSettingsForm) => {
+    setLocalSwapSettings(data);
+    closeModal();
+  };
+
   return (
     <Box
       px="xl"
@@ -44,56 +67,8 @@ const SettingsModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
         alignItems="center"
         flexDirection="column"
       >
-        <Box>
-          <Typography variant="extraSmall" alignSelf="start" mb="s">
-            Slippage tolerance
-          </Typography>
-          <TextField
-            Suffix={
-              <Box px="s" color="#C7C6CA" width="3.5rem" textAlign="right">
-                <PercentageSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
-              </Box>
-            }
-            Prefix={
-              <Button
-                p="0"
-                size="small"
-                width="2.5rem"
-                height="2.5rem"
-                variant="filled"
-                fontWeight="700"
-                fontSize="0.6rem"
-                justifyContent="center"
-                textTransform="uppercase"
-              >
-                Auto
-              </Button>
-            }
-            textAlign="right"
-            placeholder="0.10"
-          />
-        </Box>
-        <Box mt="2xl">
-          <Typography variant="extraSmall" alignSelf="start" mb="s">
-            Transaction deadline
-          </Typography>
-          <TextField
-            textAlign="right"
-            width="100%"
-            placeholder="10"
-            SuffixIcon={
-              <Typography
-                px="s"
-                width="3.5rem"
-                color="#C7C6CA"
-                variant="medium"
-                textAlign="right"
-              >
-                min
-              </Typography>
-            }
-          />
-        </Box>
+        <SlippageTolerance register={register} setValue={setValue} />
+        <TransactionDeadline register={register} />
       </Box>
       <Typography variant="small" my="m">
         Panel settings
@@ -107,46 +82,19 @@ const SettingsModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
         alignItems="center"
         flexDirection="column"
       >
-        <Typography variant="extraSmall" alignSelf="start" mb="s">
-          Automated Price
-        </Typography>
-        <Box
-          my="s"
-          bg="#1B1B1F"
-          width="100%"
-          display="grid"
-          borderRadius="m"
-          overflow="hidden"
-          textAlign="center"
-          gridTemplateColumns="1fr 1fr"
-        >
-          <Typography
-            py="m"
-            bg="primary"
-            variant="small"
-            cursor="pointer"
-            color="textAccent"
-          >
-            <Box as="span" mr="m">
-              <CheckmarkSVG maxWidth="0.8rem" maxHeight="0.8rem" width="100%" />
-            </Box>
-            Auto
-          </Typography>
-          <Typography variant="small" py="m" cursor="pointer">
-            Manual
-          </Typography>
-        </Box>
+        <AutomatedPrice setValue={setValue} control={control} />
       </Box>
       <Box display="grid" gridTemplateColumns="1fr 1fr">
         <Button variant="text" justifyContent="center" size="small" mb="2xl">
           <Typography variant="small">Cancel</Typography>
         </Button>
         <Button
-          variant="filled"
-          justifyContent="center"
-          size="small"
           mb="2xl"
+          size="small"
+          variant="filled"
           fontSize="0.9rem"
+          justifyContent="center"
+          onClick={handleSubmit(onSubmit)}
         >
           <Typography variant="small">Confirm Changes</Typography>
         </Button>

@@ -14,12 +14,13 @@ import { v4 } from 'uuid';
 
 import { LogoSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
-import { AppTheme } from '@/interface';
+import { AppTheme, TTranslatedMessage } from '@/interface';
+import { capitalize } from '@/utils';
 
 import { SIDEBAR_ITEMS } from './sidebar.data';
 
 const Sidebar: FC = () => {
-  const { asPath } = useRouter();
+  const { asPath, push } = useRouter();
   const { dark, setDark } = useTheme() as AppTheme<Theme>;
   const t = useTranslations();
 
@@ -48,25 +49,28 @@ const Sidebar: FC = () => {
           Menu
         </Typography>
         <Box display="flex" flexDirection="column" gap="s">
-          {SIDEBAR_ITEMS.map(({ Icon, name, path }) => (
-            <Link href={path} key={v4()}>
-              <Box
-                p="l"
-                display="flex"
-                borderRadius="m"
-                cursor="pointer"
-                color={dark ? 'disabled' : 'textDisabled'}
-                bg={asPath === path ? '#99BBFF14' : undefined}
-                nHover={{
-                  bg: '#99BBFF28',
-                }}
-              >
-                <Icon maxHeight="1.2rem" maxWidth="1.2rem" width="100%" />
-                <Typography variant="small" ml="l">
-                  {name}
-                </Typography>
-              </Box>
-            </Link>
+          {SIDEBAR_ITEMS.map(({ Icon, name, path, disabled }) => (
+            <Box
+              p="l"
+              key={v4()}
+              display="flex"
+              borderRadius="m"
+              opacity={disabled ? 0.7 : 1}
+              color={dark ? 'disabled' : 'textDisabled'}
+              cursor={disabled ? 'not-allowed' : 'pointer'}
+              bg={asPath === path ? '#99BBFF14' : undefined}
+              onClick={disabled ? undefined : () => push(path)}
+              nHover={{
+                bg: !disabled && '#99BBFF28',
+              }}
+            >
+              <Icon maxHeight="1.2rem" maxWidth="1.2rem" width="100%" />
+              <Typography variant="small" ml="l">
+                {capitalize(
+                  t(`common.v2.navbar.${name}` as TTranslatedMessage)
+                )}
+              </Typography>
+            </Box>
           ))}
         </Box>
       </Box>

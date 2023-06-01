@@ -1,20 +1,42 @@
-import { FarmSVG } from '@/components/svg/v2';
+import { FarmSVG, NewTokenSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
-import { HomeSVG, PoolSVG, SwapSVG } from '@/svg';
+import { DotsSVG, HomeSVG, PoolSVG, SwapSVG } from '@/svg';
 
 export const SIDEBAR_ITEMS = [
-  { Icon: HomeSVG, name: 'Home', path: Routes[RoutesEnum.Home] },
-  { Icon: SwapSVG, name: 'Swap', path: Routes[RoutesEnum.Swap] },
-  { Icon: PoolSVG, name: 'Pool', path: Routes[RoutesEnum.DEXPool] },
-  { Icon: FarmSVG, name: 'Farm', path: Routes[RoutesEnum.LiquidityFarms] },
-  // {
-  //   Icon: NewTokenSVG,
-  //   name: 'Create Token',
-  //   path: Routes[RoutesEnum.CreateToken],
-  // },
-  // {
-  //   Icon: DotsSVG,
-  //   name: 'Settings',
-  //   path: Routes[RoutesEnum.Settings],
-  // },
+  {
+    Icon: HomeSVG,
+    name: 'home',
+    path: Routes[RoutesEnum.Home],
+    disabled: true,
+  },
+  {
+    Icon: SwapSVG,
+    name: 'swap',
+    path: Routes[RoutesEnum.Swap],
+    disabled: false,
+  },
+  {
+    Icon: PoolSVG,
+    name: 'pool',
+    path: Routes[RoutesEnum.DEXPool],
+    disabled: false,
+  },
+  {
+    Icon: FarmSVG,
+    name: 'farm',
+    path: Routes[RoutesEnum.LiquidityFarms],
+    disabled: false,
+  },
+  {
+    Icon: NewTokenSVG,
+    name: 'createToken',
+    path: '',
+    disabled: false,
+  },
+  {
+    Icon: DotsSVG,
+    name: 'settings',
+    path: '',
+    disabled: true,
+  },
 ];

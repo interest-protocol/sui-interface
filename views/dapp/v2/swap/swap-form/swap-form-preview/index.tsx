@@ -52,7 +52,7 @@ const SwapFormPreview: FC = () => {
       onClick={openPreviewModal}
       width={['100%', '100%', 'auto']}
     >
-      {t('swap.swapForm.preview')}
+      {t('swap.form.preview')}
     </Button>
   );
 };

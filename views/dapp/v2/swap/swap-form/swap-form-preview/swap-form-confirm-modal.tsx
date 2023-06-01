@@ -52,7 +52,7 @@ const SwapFormConfirmModal: FC<SwapFormConfirmModalProps> = ({
             variant="medium"
             textAlign="center"
           >
-            {t('swap.swapModalPreview.swappingToken')}
+            {t('swap.modal.preview.swappingToken')}
           </Typography>
         </Box>
       </Box>
@@ -89,15 +89,15 @@ const SwapFormConfirmModal: FC<SwapFormConfirmModalProps> = ({
           <CheckmarkSVG filled width="100%" maxWidth="3rem" maxHeight="3rem" />
         </Box>
         <Typography my="xl" width="16rem" variant="medium" textAlign="center">
-          {t('swap.swapModalPreview.swapFormConfirmModal.tokenSwapped')}
+          {t('swap.modal.preview.swapFormConfirmModal.tokenSwapped')}
         </Typography>
       </Box>
       <Typography variant="extraSmall">
-        {t('swap.swapModalPreview.swapFormConfirmModal.explorerMessage')}
+        {t('swap.modal.preview.swapFormConfirmModal.explorerMessage')}
       </Typography>
       <a href={txLink} target="_blank" rel="noreferrer" onClick={handleClose}>
         <Button variant="filled" justifyContent="center" size="small" mb="2xl">
-          {t('swap.swapModalPreview.swapFormConfirmModal.seeOnExplorer')}
+          {t('swap.modal.preview.swapFormConfirmModal.seeOnExplorer')}
         </Button>
       </a>
     </Box>

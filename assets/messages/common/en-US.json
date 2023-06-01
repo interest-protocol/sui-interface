@@ -7,6 +7,14 @@
         "pt-PT": "Portuguese",
         "pt-BR": "Portuguese"
       },
+      "navbar": {
+        "swap": "swap",
+        "home": "home",
+        "pool": "pool",
+        "farm": "farm",
+        "createToken": "create token",
+        "settings": "settings"
+      },
       "menu": {
         "settings": "settings",
         "darkMode": "dark mode",

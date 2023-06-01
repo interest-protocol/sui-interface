@@ -16,10 +16,10 @@ const SwapFormField: FC<SwapFormFieldProps> = ({ field, balance }) => {
         mb="xs"
       >
         <Typography variant="medium">
-          {field === 'from' ? t('swap.swapForm.from') : t('swap.swapForm.to')}
+          {field === 'from' ? t('swap.form.from') : t('swap.form.to')}
         </Typography>
         <Typography variant="medium">
-          {t('swap.swapForm.balance')} {balance}
+          {t('swap.form.balance')} {balance}
         </Typography>
       </Box>
       <TextField

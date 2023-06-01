@@ -42,7 +42,7 @@ const SelectToken: FC = () => {
         </Box>
       }
     >
-      {t('swap.swapForm.selectToken')}
+      {t('swap.form.selectToken')}
     </Button>
   );
 };

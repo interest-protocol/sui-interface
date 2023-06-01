@@ -47,7 +47,7 @@ const SelectTokenModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
           <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>
         <Typography variant="medium" color="text">
-          {t('swap.swapModalPreview.selectToken.title')}
+          {t('swap.modal.preview.selectToken.title')}
         </Typography>
         <Button variant="icon" onClick={closeModal}>
           <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
@@ -64,17 +64,17 @@ const SelectTokenModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
       </Box>
       <Box p="xl" display="flex" gap="s">
         <Chip
-          text={t('swap.swapModalPreview.selectToken.recommended')}
+          text={t('swap.modal.preview.selectToken.recommended')}
           isActive={tokenOrigin === 'recommended'}
           onClick={() => setTokenOrigin('recommended')}
         />
         <Chip
-          text={t('swap.swapModalPreview.selectToken.favorite')}
+          text={t('swap.modal.preview.selectToken.favorite')}
           isActive={tokenOrigin === 'favorites'}
           onClick={() => setTokenOrigin('favorites')}
         />
         <Chip
-          text={t('swap.swapModalPreview.selectToken.wallet')}
+          text={t('swap.modal.preview.selectToken.wallet')}
           isActive={tokenOrigin === 'wallet'}
           onClick={() => setTokenOrigin('wallet')}
         />
