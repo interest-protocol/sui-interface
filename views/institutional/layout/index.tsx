@@ -14,6 +14,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   noContent,
 }) => {
   const { colors, radii } = useTheme() as Theme;
+
   return (
     <Box minHeight="100vh" display="flex" flexDirection="column">
       <Toaster

@@ -1,13 +1,48 @@
 {
   "common": {
     "v2": {
+      "on": "Ativo",
+      "off": "Inativo",
+      "cancel": "cancelar",
+      "confirm": "confirmar",
+      "confirmChanges": "confirmar alterações",
       "languages": {
         "title": "Idioma",
         "en-US": "Inglês",
         "pt-PT": "Português",
         "pt-BR": "Português"
       },
-
+      "menu": {
+        "settings": "Definições",
+        "darkMode": "Modo escuro",
+        "dark": "Escuro",
+        "light": "Claro",
+        "languages": "Idiomas"
+      },
+      "navbar": {
+        "swap": "troca",
+        "home": "início",
+        "pool": "pool",
+        "farm": "farm",
+        "createToken": "criar token",
+        "settings": "definições"
+      },
+      "wallet": {
+        "name": "carteira",
+        "connect": "conetar à carteira",
+        "disconnect": "desconectar",
+        "switch": "trocar rede"
+      },
+      "lend": {
+        "title": "Emprestar",
+        "firstSection": {
+          "netAPY": "APY líquido",
+          "supplyBalance": "Saldo de fornecimento",
+          "walletBalance": "Saldo da carteira",
+          "borrowLimit": "Limite de empréstimo",
+          "borrowLimitUsed": "Limite de empréstimo utilizado"
+        }
+      },
       "banner": {
         "liquidity": {
           "title": "20 Milhões de Tokens IPX",
@@ -30,6 +65,7 @@
       }
     },
     "dex": "dex",
+    "home": "Início",
     "soon": "em breve",
     "pool": "pool",
     "notFoundToken": "Meta dados do token não encontrados",

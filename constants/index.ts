@@ -37,6 +37,7 @@ export * from './faucet';
 export * from './pools';
 export * from './routes';
 export * from './social-media';
+export * from './social-media-alternatives';
 
 export const MAX_NUMBER_INPUT_VALUE = 9000000000000000;
 

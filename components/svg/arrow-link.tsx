@@ -11,14 +11,14 @@ const ArrowLink: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   >
     <path
       d="M2 13L13.25 1.75"
-      stroke="#F2F0F4"
+      stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="square"
       strokeLinejoin="bevel"
     />
     <path
       d="M4.25 1H14V10.75"
-      stroke="#F2F0F4"
+      stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="square"
       strokeLinejoin="bevel"

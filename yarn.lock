@@ -705,17 +705,20 @@
     ramda "^0.28.0"
     tiny-invariant "^1.3.1"
 
-"@interest-protocol/ui-kit@^0.1.2-beta":
-  version "0.1.2-beta"
-  resolved "https://registry.npmjs.org/@interest-protocol/ui-kit/-/ui-kit-0.1.2-beta.tgz"
-  integrity sha512-O6v83Wp5IIZ6HCHaLmPnKTt/cKfl4S7wZNNRA+//498bIZ5GbtdraOhq0kTY6rdw93tcEPmp5Q8MIlgX87sGXw==
+"@interest-protocol/ui-kit@^0.1.14-beta":
+  version "0.1.14-beta"
+  resolved "https://registry.yarnpkg.com/@interest-protocol/ui-kit/-/ui-kit-0.1.14-beta.tgz#48169260b713bc0758429eadeaa82bc1ec7e8619"
+  integrity sha512-XHCVNh1DtrV+1NWS70G8fsuGr2eL/Qfr6uEjD27SwwvAfifQQwST8FJEb9Y5sbSY/6vg4i4+q3smebpFVCQniQ==
   dependencies:
     "@emotion/react" "^11.10.6"
     "@stylin.js/react" "^1.0.1"
+    "@types/react-modal" "^3.16.0"
     framer-motion "^10.11.2"
     ramda "^0.29.0"
     react "^18.2.0"
     react-dom "^18.2.0"
+    react-modal "^3.16.1"
+    react-range "^1.8.14"
     uuid "^8.3.2"
 
 "@istanbuljs/load-nyc-config@^1.0.0":
@@ -1661,6 +1664,13 @@
   version "3.13.1"
   resolved "https://registry.npmjs.org/@types/react-modal/-/react-modal-3.13.1.tgz"
   integrity sha512-iY/gPvTDIy6Z+37l+ibmrY+GTV4KQTHcCyR5FIytm182RQS69G5ps4PH2FxtC7bAQ2QRHXMevsBgck7IQruHNg==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-modal@^3.16.0":
+  version "3.16.0"
+  resolved "https://registry.yarnpkg.com/@types/react-modal/-/react-modal-3.16.0.tgz#b8d6be10de894139a2ea9f4a2505b1b5d02023df"
+  integrity sha512-iphdqXAyUfByLbxJn5j6d+yh93dbMgshqGP0IuBeaKbZXx0aO+OXsvEkt6QctRdxjeM9/bR+Gp3h9F9djVWTQQ==
   dependencies:
     "@types/react" "*"
 
@@ -4046,7 +4056,16 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-framer-motion@^10.11.2, framer-motion@^10.12.2:
+framer-motion@^10.11.2:
+  version "10.12.16"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-10.12.16.tgz#ccba11d216ac370c6bc65fcd9953a61deb54f071"
+  integrity sha512-w/SfWEIWJkYSgRHYBmln7EhcNo31ao8Xexol8lGXf1pR/tlnBtf1HcxoUmEiEh6pacB4/geku5ami53AAQWHMQ==
+  dependencies:
+    tslib "^2.4.0"
+  optionalDependencies:
+    "@emotion/is-prop-valid" "^0.8.2"
+
+framer-motion@^10.12.2:
   version "10.12.2"
   resolved "https://registry.npmjs.org/framer-motion/-/framer-motion-10.12.2.tgz"
   integrity sha512-DD3Ieqy4pjmL0qBtfNMqnU/IONchUqnhHtgFtu0Nq5jw7bhkksD/Cs4cNhLYd1vs7iB8Q+WInxuBeMmzIoA5Xg==
@@ -6872,7 +6891,7 @@ ramda@0.28.0, ramda@^0.28.0:
 
 ramda@^0.29.0:
   version "0.29.0"
-  resolved "https://registry.npmjs.org/ramda/-/ramda-0.29.0.tgz"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.29.0.tgz#fbbb67a740a754c8a4cbb41e2a6e0eb8507f55fb"
   integrity sha512-BBea6L67bYLtdbOqfp8f58fPMqEwx0doL+pAi8TZyp2YWz8R9G8z9x75CZI8W+ftqhFHCpEX2cRnUUXK130iKA==
 
 rc@1.2.8, rc@^1.2.7, rc@^1.2.8:
@@ -6959,6 +6978,11 @@ react-modal@^3.16.1:
     prop-types "^15.7.2"
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
+
+react-range@^1.8.14:
+  version "1.8.14"
+  resolved "https://registry.yarnpkg.com/react-range/-/react-range-1.8.14.tgz#11047f69b365ac6c75c3d715771ebe76b93982ec"
+  integrity sha512-v2nyD5106rHf9dwHzq+WRlhCes83h1wJRHIMFjbZsYYsO6LF4mG/mR3cH7Cf+dkeHq65DItuqIbLn/3jjYjsHg==
 
 react-router-dom@^6.2.2:
   version "6.10.0"

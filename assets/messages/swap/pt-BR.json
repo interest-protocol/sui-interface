@@ -1,0 +1,49 @@
+{
+  "swap": {
+    "metadata": {
+      "title": "Troca"
+    },
+    "form": {
+      "from": "De",
+      "to": "Para",
+      "balance": "Saldo",
+      "selectToken": "Selecionar um token",
+      "preview": "Visualizar"
+    },
+    "modal": {
+      "settings": {
+        "title": "definições de troca",
+        "subtitles": {
+          "transaction": "definições de transação",
+          "panel": "definições de painel"
+        },
+        "field": {
+          "slippage": "tolerância da slippage",
+          "deadline": "prazo da transação",
+          "automated": "preço automatizado"
+        }
+      },
+      "preview": {
+        "swappingToken": "A trocar token, por favor aguarde...",
+        "exchangeRate": "Taxa de câmbio",
+        "networkFee": "Taxa de rede",
+        "newQuoteIn": "Nova cotação em",
+        "networkFeesAreSetBy": "As taxas de rede são definidas por “@nome da rede”. Saiba mais sobre as taxas.",
+        "FinalAmountMessage": "O valor final pode ser alterado devido à atividade de mercado. Ao aprovar esta troca, você concorda com a Política de Reembolso do protocolo Interest.",
+        "confirmSwap": "Confirmar Troca",
+        "swapFormConfirmModal": {
+          "tokenSwapped": "Token Trocado",
+          "explorerMessage": "Você pode verificar sua transação no Explorador",
+          "seeOnExplorer": "Ver no Explorador"
+        },
+        "selectToken": {
+          "title": "Selecionar token",
+          "search": "Buscar token",
+          "recommended": "Recomendados",
+          "favorite": "Favoritos",
+          "wallet": "Carteira"
+        }
+      }
+    }
+  }
+}
