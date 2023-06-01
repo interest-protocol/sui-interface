@@ -16,6 +16,7 @@ export enum RoutesEnum {
   Faucet = 'faucet',
   Lend = 'lend',
   LiquidityCampaign = 'liquidity-campaign',
+  CreateToken = 'create-token',
   LiquidityFarms = 'liquidity-farms',
   LiquidityFarmsDetails = 'liquidity-farms-details',
 }
@@ -35,6 +36,7 @@ export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.DEXFindPool]: '/dapp/dex/pool/find',
   [RoutesEnum.DEXPoolDetails]: '/dapp/dex/pool/details',
   [RoutesEnum.Faucet]: '/dapp/faucet',
+  [RoutesEnum.CreateToken]: '/dapp/create-token',
   [RoutesEnum.Lend]: '/dapp/v2/lending',
   [RoutesEnum.LiquidityCampaign]: '/campaign/liquidity',
   [RoutesEnum.Bridge]: 'https://wormhole.interestprotocol.com/',

@@ -1,27 +1,17 @@
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { Container } from '@/components';
-import Web3Manager from '@/components/web3-manager';
+import { Routes, RoutesEnum } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
-import { useModal } from '@/hooks/use-modal';
 
-import CreateTokenForm from '../components/create-token-form';
 import GoBack from '../components/go-back';
 import { FaucetProps } from './faucet.types';
 import FaucetForm from './faucet-form';
 
 const Faucet: FC<FaucetProps> = ({ form }) => {
   const t = useTranslations();
-
-  const { setModal, handleClose } = useModal();
-
-  const openModal = () =>
-    setModal(
-      <Web3Manager>
-        <CreateTokenForm handleCloseModal={handleClose} />
-      </Web3Manager>
-    );
 
   return (
     <Box display="flex" flexDirection="column">
@@ -42,9 +32,11 @@ const Faucet: FC<FaucetProps> = ({ form }) => {
           <Typography variant="normal" textTransform="capitalize">
             {t('common.recommendedToken')}
           </Typography>
-          <Button variant="primary" onClick={openModal}>
-            {t('common.createTokenModalButton', { isLoading: Number(false) })}
-          </Button>
+          <Link href={Routes[RoutesEnum.CreateToken]}>
+            <Button variant="primary">
+              {t('common.createTokenModalButton', { isLoading: Number(false) })}
+            </Button>
+          </Link>
         </Box>
         <FaucetForm form={form} />
       </Container>
