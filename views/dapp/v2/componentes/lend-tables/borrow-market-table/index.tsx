@@ -11,7 +11,6 @@ import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { Routes, RoutesEnum } from '@/constants';
-import { AddressZero } from '@/lib';
 
 import { BORROW_MARKET_TABLE_DATA } from '../market-table/market-table-data';
 
@@ -71,7 +70,7 @@ const BorrowMarketTable: FC = () => {
           key={v4()}
           href={{
             pathname: Routes[RoutesEnum.LendDetails],
-            query: { type: AddressZero },
+            query: { type: item.assetApy.coin.type },
           }}
         >
           <Motion

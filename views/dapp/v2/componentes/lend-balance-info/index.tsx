@@ -1,4 +1,5 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
+import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
@@ -7,6 +8,8 @@ import InfoLight from '@/components/svg/info-light';
 
 const LendBalanceInfo: FC = () => {
   const t = useTranslations();
+  const { back } = useRouter();
+
   return (
     <Box variant="container" color="text">
       <Box
@@ -20,7 +23,10 @@ const LendBalanceInfo: FC = () => {
         justifyContent="space-between"
       >
         <Box display="flex" flexDirection="column" gap="l">
-          <Box display={['none', 'none', 'none', 'block']}>
+          <Box
+            display={['none', 'none', 'none', 'block']}
+            onClick={() => back()}
+          >
             <ArrowLeft maxHeight="1.5rem" maxWidth="1.5rem" />
           </Box>
           <Typography variant="displayLarge">
