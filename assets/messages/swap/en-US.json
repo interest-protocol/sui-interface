@@ -11,6 +11,18 @@
       "preview": "Preview"
     },
     "modal": {
+      "settings": {
+        "title": "swap settings",
+        "subtitles": {
+          "transaction": "transaction settings",
+          "panel": "panel settings"
+        },
+        "field": {
+          "slippage": "slippage tolerance",
+          "deadline": "transaction deadline",
+          "automated": "automated price"
+        }
+      },
       "preview": {
         "swappingToken": "Swapping Token please wait...",
         "exchangeRate": "Exchange Rate",

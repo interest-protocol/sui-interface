@@ -1,6 +1,11 @@
 {
   "common": {
     "v2": {
+      "on": "On",
+      "off": "Off",
+      "cancel": "cancel",
+      "confirm": "confirm",
+      "confirmChanges": "confirm changes",
       "languages": {
         "title": "language",
         "en-US": "English",
@@ -28,8 +33,6 @@
         "disconnect": "disconnect",
         "switch": "switch network"
       },
-      "on": "On",
-      "off": "Off",
       "lend": {
         "title": "Lend",
         "firstSection": {

@@ -1,9 +1,11 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useLocalStorage } from '@/hooks';
 import { TimesSVG } from '@/svg';
+import { capitalize } from '@/utils';
 
 import AutomatedPrice from './automated-price';
 import { SwapSettingsForm } from './settings-modal.types';
@@ -11,6 +13,7 @@ import SlippageTolerance from './slippage-tolerance';
 import TransactionDeadline from './transaction-deadline';
 
 const SettingsModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
+  const t = useTranslations();
   const [localSwapSettings, setLocalSwapSettings] =
     useLocalStorage<SwapSettingsForm>('sui-interest-swap-settings', {
       slippage: 0.1,
@@ -48,15 +51,20 @@ const SettingsModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
         alignItems="center"
         gridTemplateColumns="2rem auto 2rem"
       >
-        <Typography gridColumn="2" variant="medium" textAlign="center">
-          Swap
+        <Typography
+          gridColumn="2"
+          variant="medium"
+          textAlign="center"
+          textTransform="capitalize"
+        >
+          {t('swap.modal.settings.title')}
         </Typography>
         <Button variant="icon" onClick={closeModal}>
           <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>
       </Box>
       <Typography variant="small" my="m">
-        Transaction settings
+        {capitalize(t('swap.modal.settings.subtitles.transaction'))}
       </Typography>
       <Box
         p="xl"
@@ -71,7 +79,7 @@ const SettingsModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
         <TransactionDeadline register={register} />
       </Box>
       <Typography variant="small" my="m">
-        Panel settings
+        {capitalize(t('swap.modal.settings.subtitles.panel'))}
       </Typography>
       <Box
         p="xl"
@@ -85,8 +93,16 @@ const SettingsModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
         <AutomatedPrice setValue={setValue} control={control} />
       </Box>
       <Box display="grid" gridTemplateColumns="1fr 1fr">
-        <Button variant="text" justifyContent="center" size="small" mb="2xl">
-          <Typography variant="small">Cancel</Typography>
+        <Button
+          mb="2xl"
+          size="small"
+          variant="text"
+          onClick={closeModal}
+          justifyContent="center"
+        >
+          <Typography variant="small" textTransform="capitalize">
+            {t('common.v2.cancel')}
+          </Typography>
         </Button>
         <Button
           mb="2xl"
@@ -96,7 +112,13 @@ const SettingsModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
           justifyContent="center"
           onClick={handleSubmit(onSubmit)}
         >
-          <Typography variant="small">Confirm Changes</Typography>
+          <Typography
+            variant="small"
+            textAlign="center"
+            textTransform="capitalize"
+          >
+            {t('common.v2.confirmChanges')}
+          </Typography>
         </Button>
       </Box>
     </Box>

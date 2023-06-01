@@ -1,4 +1,5 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
@@ -7,12 +8,13 @@ import { CheckmarkSVG } from '@/components/svg/v2';
 import { AutomatedPriceProps } from './settings-modal.types';
 
 const AutomatedPrice: FC<AutomatedPriceProps> = ({ setValue, control }) => {
+  const t = useTranslations();
   const autoFetch = useWatch({ control, name: 'autoFetch' });
 
   return (
     <>
       <Typography variant="extraSmall" alignSelf="start" mb="s">
-        Automated Price
+        {t('swap.modal.settings.field.automated')}
       </Typography>
       <Box
         my="s"

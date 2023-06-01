@@ -1,6 +1,11 @@
 {
   "common": {
     "v2": {
+      "on": "Ativo",
+      "off": "Inativo",
+      "cancel": "cancelar",
+      "confirm": "confirmar",
+      "confirmChanges": "confirmar alterações",
       "languages": {
         "title": "Idioma",
         "en-US": "Inglês",
@@ -28,8 +33,6 @@
         "disconnect": "desconectar",
         "switch": "trocar rede"
       },
-      "on": "Ativo",
-      "off": "Inativo",
       "lend": {
         "title": "Emprestar",
         "firstSection": {
