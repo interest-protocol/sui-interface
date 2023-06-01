@@ -6,7 +6,7 @@ export const SIDEBAR_ITEMS = [
   {
     Icon: HomeSVG,
     name: 'home',
-    path: Routes[RoutesEnum.Home],
+    path: Routes[RoutesEnum.DApp],
     disabled: true,
   },
   {
@@ -30,7 +30,7 @@ export const SIDEBAR_ITEMS = [
   {
     Icon: NewTokenSVG,
     name: 'createToken',
-    path: '',
+    path: Routes[RoutesEnum.CreateToken],
     disabled: false,
   },
   {
