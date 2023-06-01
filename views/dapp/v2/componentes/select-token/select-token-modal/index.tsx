@@ -62,21 +62,21 @@ const SelectTokenModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
           }
         />
       </Box>
-      <Box p="xl" display="flex" gap="s">
+      <Box p="xl" display="flex" gap="s" flexWrap="wrap">
         <Chip
-          text={t('swap.modal.preview.selectToken.recommended')}
           isActive={tokenOrigin === 'recommended'}
           onClick={() => setTokenOrigin('recommended')}
+          text={t('swap.modal.preview.selectToken.recommended')}
         />
         <Chip
-          text={t('swap.modal.preview.selectToken.favorite')}
           isActive={tokenOrigin === 'favorites'}
           onClick={() => setTokenOrigin('favorites')}
+          text={t('swap.modal.preview.selectToken.favorite')}
         />
         <Chip
-          text={t('swap.modal.preview.selectToken.wallet')}
           isActive={tokenOrigin === 'wallet'}
           onClick={() => setTokenOrigin('wallet')}
+          text={t('swap.modal.preview.selectToken.wallet')}
         />
       </Box>
       <Box

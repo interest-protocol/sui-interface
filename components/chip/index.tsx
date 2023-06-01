@@ -2,12 +2,9 @@ import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import Checkmark from '../svg/v2/checkmark';
+import { ChipProps } from './chip.types';
 
-const Chip: FC<{ text: string; isActive: boolean; onClick: () => void }> = ({
-  text,
-  onClick,
-  isActive,
-}) => (
+const Chip: FC<ChipProps> = ({ text, onClick, isActive }) => (
   <Box
     py="s"
     px="l"
@@ -26,7 +23,11 @@ const Chip: FC<{ text: string; isActive: boolean; onClick: () => void }> = ({
       borderColor: 'primary',
     })}
   >
-    {isActive && <Checkmark maxHeight="1rem" maxWidth="1rem" width="100%" />}
+    {isActive && (
+      <Box width="1rem">
+        <Checkmark maxHeight="1rem" maxWidth="1rem" width="100%" />
+      </Box>
+    )}
     <Typography variant="small">{text}</Typography>
   </Box>
 );
