@@ -78,7 +78,7 @@ export interface SwapFieldProps {
   getValues: UseFormGetValues<SwapForm>;
 }
 
-export interface SwapManagerWrapper {
+export interface SwapManagerWrapperProps {
   formSettings: SwapProps['formSettings'];
   formSwap: SwapProps['formSwap'];
   dexMarket: DexMarket;

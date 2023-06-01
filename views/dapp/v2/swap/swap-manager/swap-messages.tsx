@@ -1,3 +1,4 @@
+import { propOr } from 'ramda';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
@@ -17,17 +18,20 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
   swapPath,
   isZeroSwapAmountIn,
 }) => {
-  const tokenIn = useWatch({ control: control, name: 'tokenIn' });
-  const tokenOut = useWatch({ control: control, name: 'tokenOut' });
+  const tokenIn = useWatch({ control: control, name: 'from' });
+  const tokenOut = useWatch({ control: control, name: 'to' });
+
+  const tokenInValue = +(propOr('0', 'value', tokenIn) as string);
+  const tokenOutValue = +(propOr('0', 'value', tokenOut) as string);
 
   const readyToSwap =
-    !(error && +tokenIn.value > 0) &&
-    !(error && +tokenOut.value > 0) &&
+    !(error && tokenInValue > 0) &&
+    !(error && tokenOutValue > 0) &&
     !isFetchingSwapAmountOut &&
-    !(isZeroSwapAmountOut && !!+tokenIn.value && !isFetchingSwapAmountOut) &&
+    !(isZeroSwapAmountOut && !!tokenInValue && !isFetchingSwapAmountOut) &&
     !isFetchingSwapAmountIn &&
-    !(isZeroSwapAmountIn && !!+tokenOut.value && !isFetchingSwapAmountIn) &&
-    !(tokenIn.type === tokenOut.type) &&
+    !(isZeroSwapAmountIn && !!tokenOutValue && !isFetchingSwapAmountIn) &&
+    !(propOr('', 'type', tokenIn) === propOr('', 'type', tokenOut)) &&
     !hasNoMarket;
 
   return (
@@ -38,19 +42,17 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
           message="dexSwap.swapMessage.fetchingAmounts"
         />
       )}
-      {(isZeroSwapAmountIn && !!+tokenIn.value && !isFetchingSwapAmountIn) ||
-        (isZeroSwapAmountOut &&
-          !!+tokenOut.value &&
-          !isFetchingSwapAmountOut && (
-            <Message
-              color="error"
-              Icon={TimesSVG}
-              extraData={{
-                symbol: +tokenIn.value ? tokenIn.symbol : tokenOut.symbol,
-              }}
-              message="dexSwap.swapMessage.increaseAmount"
-            />
-          ))}
+      {(isZeroSwapAmountIn && !!tokenInValue && !isFetchingSwapAmountIn) ||
+        (isZeroSwapAmountOut && !!tokenOutValue && !isFetchingSwapAmountOut && (
+          <Message
+            color="error"
+            Icon={TimesSVG}
+            extraData={{
+              symbol: tokenInValue ? tokenIn.symbol : tokenOut.symbol,
+            }}
+            message="dexSwap.swapMessage.increaseAmount"
+          />
+        ))}
       {tokenIn.type === tokenOut.type && (
         <Message
           color="error"

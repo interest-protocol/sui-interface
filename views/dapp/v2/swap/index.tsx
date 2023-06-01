@@ -5,12 +5,16 @@ import { mutate } from 'swr';
 
 import { useGetDexMarkets } from '@/views/dapp/dex/swap/swap.hooks';
 
-import { SwapBodyProps, SwapManagerWrapper, SwapProps } from './swap.types';
+import {
+  SwapBodyProps,
+  SwapManagerWrapperProps,
+  SwapProps,
+} from './swap.types';
 import SwapForm from './swap-form';
 import SwapHeader from './swap-header';
 import SwapManager from './swap-manager';
 
-const SwapManagerWrapper: FC<SwapManagerWrapper> = ({
+const SwapManagerWrapper: FC<SwapManagerWrapperProps> = ({
   formSettings,
   formSwap,
   dexMarket,
@@ -47,7 +51,7 @@ const SwapFormBody: FC<SwapBodyProps> = ({
   formSettings,
 }) => {
   const { data, isLoading } = useGetDexMarkets();
-
+  console.log('handle loading', isLoading);
   return (
     <>
       <SwapForm
