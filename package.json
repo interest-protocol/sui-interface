@@ -21,7 +21,7 @@
     "@mysten/sui.js": "^0.34.1",
     "@mysten/wallet-kit": "^0.4.7",
     "@stylin.js/react": "^1.0.1",
-    "@suins/toolkit": "^1.5.0",
+    "@suins/toolkit": "^1.5.2",
     "@vercel/analytics": "^0.1.5",
     "api-getresponse": "^1.0.0",
     "bignumber.js": "^9.1.1",

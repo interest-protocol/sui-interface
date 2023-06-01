@@ -13,10 +13,8 @@ import MenuMobile from './menu-mobile';
 const Menu: FC = () => {
   const t = useTranslations();
   const { query } = useRouter();
-  const [isOpen, setIsOpen] = useState(Boolean(query.menu) === true);
-  const [isSettings, setIsSettings] = useState(
-    Boolean(query.settings) === true
-  );
+  const [isOpen, setIsOpen] = useState(Boolean(query.menu));
+  const [isSettings, setIsSettings] = useState(Boolean(query.settings));
 
   const handleOpenSettings = () => {
     const url = new URL(window.location.href);

@@ -16,7 +16,7 @@ const Chip: FC<ChipProps> = ({ text, onClick, isActive }) => (
     alignItems="center"
     borderRadius="1.5rem"
     borderColor="outline"
-    onClick={!isActive ? onClick : undefined}
+    onClick={isActive ? undefined : onClick}
     {...(isActive && {
       bg: 'primary',
       color: 'textAccent',

@@ -4,8 +4,11 @@ import {
   ProgressIndicator,
   Typography,
 } from '@interest-protocol/ui-kit';
+import { TransactionBlock } from '@mysten/sui.js';
+import { useWalletKit } from '@mysten/wallet-kit';
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import {
   DownArrowSVG,
@@ -13,15 +16,112 @@ import {
   LeftArrowSVG,
   USDTSVG,
 } from '@/components/svg/v2';
+import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
+import { FixedPointMath } from '@/lib';
 import { TimesSVG } from '@/svg';
+import {
+  createObjectsParameter,
+  showTXSuccessToast,
+  throwTXIfNotSuccessful,
+} from '@/utils';
+import { getAmountMinusSlippage } from '@/views/dapp/dex/swap/swap.utils';
 
 import { SwapFormPreviewModalProps } from './swap-form-preview.types';
 
 const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
   closeModal,
   openConfirmModal,
+  formSwap,
+  formSettings,
+  mutate,
+  dexMarket,
 }) => {
   const t = useTranslations();
+  const { account, coinsMap } = useWeb3();
+
+  const [loading, setLoading] = useState(false);
+  const { signTransactionBlock } = useWalletKit();
+  const { network } = useNetwork();
+  const { provider } = useProvider();
+  const sdk = useSDK();
+
+  const resetInput = () => {
+    formSwap.setValue('from.value', '0.0');
+    formSwap.setValue('to.value', '0.0');
+  };
+
+  const handleSwap = async () => {
+    try {
+      setLoading(true);
+
+      const tokenIn = formSwap.getValues('from');
+      const tokenOut = formSwap.getValues('to');
+      const slippage = formSettings.getValues('slippage');
+      const deadline = formSettings.getValues('deadline');
+
+      if (!tokenIn.type || !tokenOut.type)
+        throw new Error(t('dexSwap.error.select2Tokens'));
+
+      if (!account) throw new Error(t('error.accountNotFound'));
+
+      if (!+tokenIn.value) throw new Error(t('dexSwap.error.cannotSell0'));
+
+      const amount = FixedPointMath.toBigNumber(
+        tokenIn.value,
+        tokenIn.decimals
+      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
+
+      const amountOut = FixedPointMath.toBigNumber(
+        tokenOut.value,
+        tokenOut.decimals
+      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
+
+      const minAmountOut = getAmountMinusSlippage(amountOut, slippage);
+
+      const txb = new TransactionBlock();
+
+      const coinInList = createObjectsParameter({
+        coinsMap,
+        txb,
+        type: tokenIn.type,
+        amount: amount.toString(),
+      });
+
+      const swapTxB = await sdk.swap({
+        txb,
+        coinInList,
+        coinInAmount: amount.toString(),
+        coinInType: tokenIn.type,
+        coinOutType: tokenOut.type,
+        coinOutMinimumAmount: minAmountOut.toString(),
+        deadline: deadline,
+        dexMarkets: dexMarket,
+      });
+
+      const { signature, transactionBlockBytes } = await signTransactionBlock({
+        transactionBlock: swapTxB,
+      });
+
+      const tx = await provider.executeTransactionBlock({
+        transactionBlock: transactionBlockBytes,
+        signature,
+        options: { showEffects: true },
+        requestType: 'WaitForEffectsCert',
+      });
+
+      throwTXIfNotSuccessful(tx);
+
+      await showTXSuccessToast(tx, network);
+    } catch {
+      throw new Error(t('dexSwap.error.failedToSwap'));
+    } finally {
+      resetInput();
+      setLoading(false);
+      await mutate();
+      openConfirmModal();
+    }
+  };
+
   return (
     <Box
       px="xl"
@@ -176,7 +276,8 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
         size="small"
         variant="filled"
         justifyContent="center"
-        onClick={openConfirmModal}
+        onClick={handleSwap}
+        disabled={loading}
       >
         {t('swap.modal.preview.confirmSwap')}
       </Button>

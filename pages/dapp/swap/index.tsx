@@ -1,24 +1,66 @@
 import { GetStaticProps } from 'next';
+import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Layout } from 'views/dapp/v2/components';
 
-import { SEO } from '@/components';
+import { LoadingPage, SEO } from '@/components';
 import { ModalProvider } from '@/context/modal';
+import { useLocalStorage } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
-import { Layout } from '@/views/dapp/v2/componentes';
+import { TokenModalMetadata } from '@/interface';
 import Swap from '@/views/dapp/v2/swap';
-import { SwapForm } from '@/views/dapp/v2/swap/swap.types';
+import {
+  ISwapSettingsForm,
+  LocalSwapSettings,
+  SwapForm,
+} from '@/views/dapp/v2/swap/swap.types';
+
+const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
+  ssr: false,
+  loading: LoadingPage,
+});
 
 const SwapPage: NextPageWithProps = ({ pageTitle }) => {
-  const form = useForm<SwapForm>();
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchedToken] = useState<null | TokenModalMetadata>(null);
+
+  const [localSettings, setLocalSettings] = useLocalStorage<LocalSwapSettings>(
+    'sui-interest-swap-settings',
+    { slippage: '1', deadline: '30', autoFetch: true }
+  );
+
+  const formSwap = useForm<SwapForm>({
+    defaultValues: {
+      fromLocked: false,
+      toLocked: false,
+    },
+  });
+
+  const formSettings = useForm<ISwapSettingsForm>();
+
+  useEffect(() => {
+    formSettings.setValue('slippage', localSettings.slippage);
+    formSettings.setValue('autoFetch', localSettings.autoFetch);
+    formSettings.setValue('deadline', localSettings.deadline);
+  }, [localSettings]);
 
   return (
-    <ModalProvider>
-      <SEO pageTitle={pageTitle} />
-      <Layout dashboard>
-        <Swap form={form} />
-      </Layout>
-    </ModalProvider>
+    <Web3Manager>
+      <ModalProvider>
+        <SEO pageTitle={pageTitle} />
+        <Layout dashboard>
+          <Swap
+            formSwap={formSwap}
+            openModalState={{ isOpen, setIsOpen }}
+            setLocalSettings={setLocalSettings}
+            formSettings={formSettings}
+            searchTokenModalState={searchedToken}
+          />
+        </Layout>
+      </ModalProvider>
+    </Web3Manager>
   );
 };
 

@@ -1,5 +1,4 @@
-import { Box, Button, Theme, useTheme } from '@interest-protocol/ui-kit';
-import { useTranslations } from 'next-intl';
+import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { FC, PropsWithChildren, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
@@ -10,12 +9,12 @@ import Footer from './footer';
 import Header from './header';
 import { LayoutProps } from './layout.types';
 import Sidebar from './sidebar';
+import Wallet from './wallet';
 
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   children,
   dashboard,
 }) => {
-  const t = useTranslations();
   const [isDesktop, setIsDesktop] = useState(false);
   const { dark, colors, radii, breakpoints } = useTheme() as Theme;
 
@@ -35,9 +34,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
             variant="container"
             justifyContent="flex-end"
           >
-            <Button variant="filled" size="small" textTransform="capitalize">
-              {t('common.v2.wallet.connect')}
-            </Button>
+            <Wallet />
           </Box>
           {children}
         </Box>

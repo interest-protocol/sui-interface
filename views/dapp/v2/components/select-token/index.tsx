@@ -9,23 +9,35 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { DotsSVG } from '@/components/svg/v2';
-import { useModal } from '@/hooks';
+import { COIN_TYPE_TO_SYMBOL, TOKENS_SVG_MAP_V2 } from '@/constants';
+import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
 
 import { SelectTokenProps } from './select-token.types';
 import SelectTokenModal from './select-token-modal';
-import { RECOMMENDED_TOKENS } from './select-token-modal/tokens.data';
 
-const SelectToken: FC<SelectTokenProps> = ({ onSelectToken, type }) => {
+const SelectToken: FC<SelectTokenProps> = ({
+  onSelectToken,
+  currentTokenType,
+  searchTokenModalState,
+}) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const { setModal, handleClose } = useModal();
+  const { coinsMap, coins } = useWeb3();
+  const { network } = useNetwork();
+  const { provider } = useProvider();
 
   const openModal = () =>
     setModal(
       <SelectTokenModal
-        type={type}
+        currentTokenType={currentTokenType}
+        searchTokenModalState={searchTokenModalState}
         closeModal={handleClose}
         onSelectToken={onSelectToken}
+        coinsMap={coinsMap}
+        coins={coins}
+        provider={provider}
+        network={network}
       />,
       {
         isOpen: true,
@@ -37,7 +49,7 @@ const SelectToken: FC<SelectTokenProps> = ({ onSelectToken, type }) => {
       }
     );
 
-  if (!type)
+  if (!currentTokenType)
     return (
       <Button
         size="small"
@@ -64,9 +76,10 @@ const SelectToken: FC<SelectTokenProps> = ({ onSelectToken, type }) => {
       </Button>
     );
 
-  const { Icon, symbol } = RECOMMENDED_TOKENS.find(
-    (item) => item.type === type
-  )!;
+  const Icon =
+    TOKENS_SVG_MAP_V2[currentTokenType || ''] ?? TOKENS_SVG_MAP_V2.default;
+
+  const symbol = COIN_TYPE_TO_SYMBOL[network][currentTokenType || ''] || '???';
 
   return (
     <Button

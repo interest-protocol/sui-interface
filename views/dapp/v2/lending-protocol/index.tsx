@@ -1,7 +1,8 @@
 import { FC } from 'react';
 
-import { Layout } from '../componentes';
-import LendBalanceInfo from '../componentes/lend-balance-info';
+import LendBalanceInfo from '@/views/dapp/v2/components/lend-balance-info';
+
+import { Layout } from '../components';
 
 const LendingProtocol: FC = () => (
   <Layout>

@@ -1,21 +1,23 @@
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
-export interface SwapSettingsForm {
-  slippage: number;
-  deadline: number;
-  autoFetch: boolean;
-}
+import { LocalSwapSettings, SwapProps } from '../../swap.types';
 
 export interface AutomatedPriceProps {
-  setValue: UseFormSetValue<SwapSettingsForm>;
-  control: Control<SwapSettingsForm>;
+  setValue: UseFormSetValue<LocalSwapSettings>;
+  control: Control<LocalSwapSettings>;
 }
 
 export interface SlippageToleranceProps {
-  setValue: UseFormSetValue<SwapSettingsForm>;
-  register: UseFormRegister<SwapSettingsForm>;
+  setValue: UseFormSetValue<LocalSwapSettings>;
+  register: UseFormRegister<LocalSwapSettings>;
 }
 
 export interface TransactionDeadlineProps {
-  register: UseFormRegister<SwapSettingsForm>;
+  register: UseFormRegister<LocalSwapSettings>;
+}
+
+export interface SettingsModalProps {
+  setLocalSettings: SwapProps['setLocalSettings'];
+  formSettings: SwapProps['formSettings'];
+  closeModal: () => void;
 }

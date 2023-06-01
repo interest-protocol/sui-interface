@@ -1,11 +1,77 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
+import { useWatch } from 'react-hook-form';
+import { mutate } from 'swr';
 
-import { SwapProps } from './swap.types';
+import { useGetDexMarkets } from '@/views/dapp/dex/swap/swap.hooks';
+
+import { SwapBodyProps, SwapManagerWrapper, SwapProps } from './swap.types';
 import SwapForm from './swap-form';
 import SwapHeader from './swap-header';
+import SwapManager from './swap-manager';
 
-const Swap: FC<SwapProps> = ({ form }) => (
+const SwapManagerWrapper: FC<SwapManagerWrapper> = ({
+  formSettings,
+  formSwap,
+  dexMarket,
+}) => {
+  const autoFetch = useWatch({
+    control: formSettings.control,
+    name: 'autoFetch',
+  });
+
+  const tokenInType = useWatch({
+    control: formSwap.control,
+    name: 'from.type',
+  });
+
+  const tokenOutType = useWatch({
+    control: formSwap.control,
+    name: 'to.type',
+  });
+
+  return (
+    <SwapManager
+      autoFetch={autoFetch}
+      formSwap={formSwap}
+      dexMarket={dexMarket}
+      tokenInType={tokenInType}
+      tokenOutType={tokenOutType}
+    />
+  );
+};
+
+const SwapFormBody: FC<SwapBodyProps> = ({
+  formSwap,
+  searchTokenModalState,
+  formSettings,
+}) => {
+  const { data, isLoading } = useGetDexMarkets();
+
+  return (
+    <>
+      <SwapForm
+        formSwap={formSwap}
+        searchTokenModalState={searchTokenModalState}
+        formSettings={formSettings}
+        dexMarket={data || {}}
+        mutate={mutate}
+      />
+      <SwapManagerWrapper
+        formSwap={formSwap}
+        formSettings={formSettings}
+        dexMarket={data || {}}
+      />
+    </>
+  );
+};
+
+const Swap: FC<SwapProps> = ({
+  formSwap,
+  searchTokenModalState,
+  formSettings,
+  ...rest
+}) => (
   <Box
     display="flex"
     gridColumn="1/-1"
@@ -15,8 +81,12 @@ const Swap: FC<SwapProps> = ({ form }) => (
     minHeight={['100%', '100%', 'unset']}
     justifyContent={['space-between', 'space-between', 'unset']}
   >
-    <SwapHeader />
-    <SwapForm form={form} />
+    <SwapHeader {...rest} formSettings={formSettings} />
+    <SwapFormBody
+      formSwap={formSwap}
+      formSettings={formSettings}
+      searchTokenModalState={searchTokenModalState}
+    />
   </Box>
 );
 

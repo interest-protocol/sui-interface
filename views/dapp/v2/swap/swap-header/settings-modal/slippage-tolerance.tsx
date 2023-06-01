@@ -40,7 +40,7 @@ const SlippageTolerance: FC<SlippageToleranceProps> = ({
             fontSize="0.6rem"
             justifyContent="center"
             textTransform="uppercase"
-            onClick={() => setValue('slippage', 0.1)}
+            onClick={() => setValue('slippage', '0.1')}
           >
             Auto
           </Button>

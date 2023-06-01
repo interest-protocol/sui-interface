@@ -1,33 +1,25 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
-import { useForm } from 'react-hook-form';
 
-import { useLocalStorage } from '@/hooks';
 import { TimesSVG } from '@/svg';
 import { capitalize } from '@/utils';
+import { LocalSwapSettings } from '@/views/dapp/v2/swap/swap.types';
 
 import AutomatedPrice from './automated-price';
-import { SwapSettingsForm } from './settings-modal.types';
+import { SettingsModalProps } from './settings-modal.types';
 import SlippageTolerance from './slippage-tolerance';
 import TransactionDeadline from './transaction-deadline';
 
-const SettingsModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
+const SettingsModal: FC<SettingsModalProps> = ({
+  closeModal,
+  setLocalSettings,
+  formSettings,
+}) => {
   const t = useTranslations();
-  const [localSwapSettings, setLocalSwapSettings] =
-    useLocalStorage<SwapSettingsForm>('sui-interest-swap-settings', {
-      slippage: 0.1,
-      deadline: 30,
-      autoFetch: true,
-    });
 
-  const { register, setValue, control, handleSubmit } =
-    useForm<SwapSettingsForm>({
-      defaultValues: localSwapSettings,
-    });
-
-  const onSubmit = (data: SwapSettingsForm) => {
-    setLocalSwapSettings(data);
+  const onSubmit = (data: LocalSwapSettings) => {
+    setLocalSettings(data);
     closeModal();
   };
 
@@ -75,8 +67,11 @@ const SettingsModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
         alignItems="center"
         flexDirection="column"
       >
-        <SlippageTolerance register={register} setValue={setValue} />
-        <TransactionDeadline register={register} />
+        <SlippageTolerance
+          register={formSettings.register}
+          setValue={formSettings.setValue}
+        />
+        <TransactionDeadline register={formSettings.register} />
       </Box>
       <Typography variant="small" my="m">
         {capitalize(t('swap.modal.settings.subtitles.panel'))}
@@ -90,7 +85,10 @@ const SettingsModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
         alignItems="center"
         flexDirection="column"
       >
-        <AutomatedPrice setValue={setValue} control={control} />
+        <AutomatedPrice
+          setValue={formSettings.setValue}
+          control={formSettings.control}
+        />
       </Box>
       <Box display="grid" gridTemplateColumns="1fr 1fr">
         <Button
@@ -110,7 +108,7 @@ const SettingsModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
           variant="filled"
           fontSize="0.9rem"
           justifyContent="center"
-          onClick={handleSubmit(onSubmit)}
+          onClick={formSettings.handleSubmit(onSubmit)}
         >
           <Typography
             variant="small"

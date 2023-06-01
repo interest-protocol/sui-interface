@@ -5,14 +5,15 @@ import { FC } from 'react';
 import { CogsSVG, LeftArrowSVG } from '@/components/svg/v2';
 import { useModal } from '@/hooks';
 
+import { SwapHeaderProps } from '../swap.types';
 import SettingsModal from './settings-modal';
 
-const SwapHeader: FC = () => {
+const SwapHeader: FC<SwapHeaderProps> = (props) => {
   const t = useTranslations();
   const { setModal, handleClose } = useModal();
 
   const openSettingsModal = () =>
-    setModal(<SettingsModal closeModal={handleClose} />, {
+    setModal(<SettingsModal closeModal={handleClose} {...props} />, {
       isOpen: true,
       custom: true,
     });

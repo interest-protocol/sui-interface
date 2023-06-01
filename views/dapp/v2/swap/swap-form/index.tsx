@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 import { DownArrowSVG } from '@/components/svg/v2';
 
-import { SwapFieldProps, SwapProps } from '../swap.types';
+import { SwapFieldProps, SwapFormProps } from '../swap.types';
 import SwapFormField from './swap-form-field';
 import SwapFormPreview from './swap-form-preview';
 
@@ -37,12 +37,31 @@ const SwapFields: FC<SwapFieldProps> = ({ setValue, getValues }) => {
   );
 };
 
-const SwapForm: FC<SwapProps> = ({ form }) => (
+const SwapForm: FC<SwapFormProps> = ({
+  formSwap,
+  formSettings,
+  searchTokenModalState,
+  dexMarket,
+  mutate,
+}) => (
   <Box maxWidth="35.25rem" width="100%" pt="7rem">
-    <SwapFormField name="from" form={form} />
-    <SwapFields setValue={form.setValue} getValues={form.getValues} />
-    <SwapFormField name="to" form={form} />
-    <SwapFormPreview />
+    <SwapFormField
+      name="from"
+      formSwap={formSwap}
+      searchTokenModalState={searchTokenModalState}
+    />
+    <SwapFields setValue={formSwap.setValue} getValues={formSwap.getValues} />
+    <SwapFormField
+      name="to"
+      formSwap={formSwap}
+      searchTokenModalState={searchTokenModalState}
+    />
+    <SwapFormPreview
+      formSwap={formSwap}
+      formSettings={formSettings}
+      dexMarket={dexMarket}
+      mutate={mutate}
+    />
   </Box>
 );
 

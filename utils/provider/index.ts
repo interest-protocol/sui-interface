@@ -37,7 +37,6 @@ export const mainNetProvider = new JsonRpcProvider(
   })
 );
 
-// TODO SUINS IS NOT LIVE YET. THIS WILL BE UPDATED.
 export const suiNSDevNetProvider = new SuinsClient(
   new JsonRpcProvider() as any,
   {

@@ -1402,10 +1402,10 @@
   resolved "https://registry.npmjs.org/@suchipi/femver/-/femver-1.0.0.tgz"
   integrity sha512-bprE8+K5V+DPX7q2e2K57ImqNBdfGHDIWaGI5xHxZoxbKOuQZn4wzPiUxOAHnsUr3w3xHrWXwN7gnG/iIuEMIg==
 
-"@suins/toolkit@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@suins/toolkit/-/toolkit-1.5.0.tgz#0d7474540dc9411482ecfd0d008819eff2523822"
-  integrity sha512-BeWLkrKGGLygE/6idSvWD69WUPAPp45LmVs+fwlsH0blB0JOlVWucqp+LvRSrSYnMdsKuPDfC4z94LSWc28igw==
+"@suins/toolkit@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@suins/toolkit/-/toolkit-1.5.2.tgz#ee33340dd78d17b0e992b5201dc4492f6e33f65b"
+  integrity sha512-w9GPJ3pK31mhG0xK0YcoLH/XYwbzyB9njbMGCGhhGhBy189fhIR+mjRTCtK9Z+QntOZouq5f3K1na2IRtQmVCw==
   dependencies:
     "@mysten/sui.js" "^0.33.0"
 
