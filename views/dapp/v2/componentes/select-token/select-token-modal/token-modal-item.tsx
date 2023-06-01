@@ -6,23 +6,24 @@ import { HeartSVG } from '@/components/svg/v2';
 import { TokenModalItemProps } from '../select-token.types';
 
 const TokenModalItem: FC<TokenModalItemProps> = ({
+  type,
   Icon,
   symbol,
   balance,
-  address,
   onClick,
+  selected,
   recommended,
   setFavorites,
   favoriteTokens,
 }) => {
-  const isFav = favoriteTokens.includes(address);
+  const isFav = favoriteTokens.includes(type);
 
   const handleHeart: MouseEventHandler<SVGSVGElement> = (e) => {
     e.preventDefault();
     setFavorites(
       isFav
-        ? favoriteTokens.filter((favAddress) => favAddress !== address)
-        : [...favoriteTokens, address]
+        ? favoriteTokens.filter((favAddress) => favAddress !== type)
+        : [...favoriteTokens, type]
     );
   };
 
@@ -33,9 +34,10 @@ const TokenModalItem: FC<TokenModalItemProps> = ({
       color="textSoft"
       cursor="pointer"
       borderRadius="m"
-      onClick={onClick}
       alignItems="center"
       justifyContent="space-between"
+      bg={selected ? 'textAccent' : 'none'}
+      onClick={selected ? undefined : onClick}
       transition="background 500ms ease-in-out"
       nHover={{
         bg: 'textAccent',

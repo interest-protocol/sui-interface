@@ -1,10 +1,11 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
+import { SwapProps } from './swap.types';
 import SwapForm from './swap-form';
 import SwapHeader from './swap-header';
 
-const Swap: FC = () => (
+const Swap: FC<SwapProps> = ({ form }) => (
   <Box
     display="flex"
     gridColumn="1/-1"
@@ -15,7 +16,7 @@ const Swap: FC = () => (
     justifyContent={['space-between', 'space-between', 'unset']}
   >
     <SwapHeader />
-    <SwapForm />
+    <SwapForm form={form} />
   </Box>
 );
 

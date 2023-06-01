@@ -6,12 +6,20 @@ import { v4 } from 'uuid';
 import { Chip } from '@/components';
 import { LeftArrowSVG, SearchSVG } from '@/components/svg/v2';
 import { useLocalStorage } from '@/hooks';
+import { CoinData } from '@/interface';
 import { TimesSVG } from '@/svg';
 
+import { SelectTokenModalProps } from '../select-token.types';
 import TokenModalItem from './token-modal-item';
 import { RECOMMENDED_TOKENS } from './tokens.data';
 
-const SelectTokenModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
+const SelectTokenModal: FC<SelectTokenModalProps> = ({
+  closeModal,
+  onSelectToken,
+  type: selectedType,
+}) => {
+  const t = useTranslations();
+
   const [tokenOrigin, setTokenOrigin] = useState<
     'recommended' | 'favorites' | 'wallet'
   >('recommended');
@@ -21,7 +29,10 @@ const SelectTokenModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
     []
   );
 
-  const t = useTranslations();
+  const handleSelectToken = (data: CoinData) => () => {
+    onSelectToken(data);
+    closeModal();
+  };
 
   return (
     <Box
@@ -88,17 +99,18 @@ const SelectTokenModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
         overflowY="auto"
         flexDirection="column"
       >
-        {RECOMMENDED_TOKENS.map(({ symbol, balance, Icon, address }) => (
+        {RECOMMENDED_TOKENS.map(({ symbol, balance, Icon, type, decimals }) => (
           <TokenModalItem
             key={v4()}
             Icon={Icon}
+            type={type}
             symbol={symbol}
-            address={address}
             balance={balance}
             setFavorites={setFavorites}
             favoriteTokens={favoriteTokens}
+            selected={selectedType === type}
             recommended={tokenOrigin === 'recommended'}
-            onClick={() => console.log('>> address :: ', address)}
+            onClick={handleSelectToken({ symbol, decimals, type })}
           />
         ))}
       </Box>

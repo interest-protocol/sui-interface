@@ -1,18 +1,22 @@
 import { GetStaticProps } from 'next';
 import { mergeDeepRight } from 'ramda';
+import { useForm } from 'react-hook-form';
 
 import { SEO } from '@/components';
 import { ModalProvider } from '@/context/modal';
 import { NextPageWithProps } from '@/interface';
 import { Layout } from '@/views/dapp/v2/componentes';
 import Swap from '@/views/dapp/v2/swap';
+import { SwapForm } from '@/views/dapp/v2/swap/swap.types';
 
 const SwapPage: NextPageWithProps = ({ pageTitle }) => {
+  const form = useForm<SwapForm>();
+
   return (
     <ModalProvider>
       <SEO pageTitle={pageTitle} />
       <Layout dashboard>
-        <Swap />
+        <Swap form={form} />
       </Layout>
     </ModalProvider>
   );

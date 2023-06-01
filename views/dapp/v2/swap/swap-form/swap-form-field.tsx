@@ -1,12 +1,27 @@
 import { Box, Slider, TextField, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import { useWatch } from 'react-hook-form';
+
+import { CoinData } from '@/interface';
 
 import SelectToken from '../../componentes/select-token';
-import { SwapFormFieldProps } from './swap-form.types';
+import { SwapInputProps } from '../swap.types';
 
-const SwapFormField: FC<SwapFormFieldProps> = ({ field, balance }) => {
+const SwapFormField: FC<SwapInputProps> = ({
+  form: { register, setValue, control },
+  name,
+}) => {
   const t = useTranslations();
+  const type = useWatch({ control, name: `${name}.type` });
+
+  const onSelectToken = (token: CoinData) =>
+    setValue(name, {
+      ...token,
+      value: '0',
+      locked: false,
+    });
+
   return (
     <Box pt="l">
       <Box
@@ -16,20 +31,21 @@ const SwapFormField: FC<SwapFormFieldProps> = ({ field, balance }) => {
         mb="xs"
       >
         <Typography variant="medium">
-          {field === 'from' ? t('swap.form.from') : t('swap.form.to')}
+          {name === 'from' ? t('swap.form.from') : t('swap.form.to')}
         </Typography>
         <Typography variant="medium">
-          {t('swap.form.balance')} {balance}
+          {t('swap.form.balance')} {0}
         </Typography>
       </Box>
       <TextField
         textAlign="right"
         placeholder="0.000"
-        Prefix={<SelectToken />}
+        {...register(`${name}.value`)}
+        Prefix={<SelectToken onSelectToken={onSelectToken} type={type} />}
       />
-      {field === 'from' && (
+      {name === 'from' && (
         <Box mx="s">
-          <Slider min={0} max={100} value={0} />
+          <Slider min={0} max={100} value={0} disabled />
         </Box>
       )}
     </Box>
