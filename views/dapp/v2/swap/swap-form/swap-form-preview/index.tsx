@@ -22,8 +22,8 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
 
   const isDisabled =
     formValues.lock ||
-    formValues.fromLocked ||
-    formValues.toLocked ||
+    formValues.to?.locked ||
+    formValues.from?.locked ||
     !path(['to', 'type'], formValues) ||
     !path(['from', 'type'], formValues) ||
     !+pathOr(0, ['to', 'value'], formValues) ||
