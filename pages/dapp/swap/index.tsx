@@ -31,12 +31,7 @@ const SwapPage: NextPageWithProps = ({ pageTitle }) => {
     { slippage: '1', deadline: '30', autoFetch: true }
   );
 
-  const formSwap = useForm<SwapForm>({
-    defaultValues: {
-      fromLocked: false,
-      toLocked: false,
-    },
-  });
+  const formSwap = useForm<SwapForm>();
 
   const formSettings = useForm<ISwapSettingsForm>();
 
