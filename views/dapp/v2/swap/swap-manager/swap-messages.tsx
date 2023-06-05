@@ -1,22 +1,25 @@
+import { Box } from '@interest-protocol/ui-kit';
 import { propOr } from 'ramda';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { Message } from '@/components';
-import { LoadingSVG, TimesSVG } from '@/svg';
+import { LoadingSVG } from '@/svg';
 import SwapPath from '@/views/dapp/dex/swap/swap-manager/swap-path';
 
 import { SwapMessagesProps } from './swap-manager.types';
 
 export const SwapMessages: FC<SwapMessagesProps> = ({
+  error,
+  errors,
   control,
+  swapPath,
+  setError,
+  hasNoMarket,
+  isZeroSwapAmountIn,
+  isZeroSwapAmountOut,
   isFetchingSwapAmountIn,
   isFetchingSwapAmountOut,
-  error,
-  isZeroSwapAmountOut,
-  hasNoMarket,
-  swapPath,
-  isZeroSwapAmountIn,
 }) => {
   const tokenIn = useWatch({ control: control, name: 'from' });
   const tokenOut = useWatch({ control: control, name: 'to' });
@@ -34,47 +37,51 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
     !(propOr('', 'type', tokenIn) === propOr('', 'type', tokenOut)) &&
     !hasNoMarket;
 
+  if (error) {
+    if (errors.to?.message !== 'error')
+      setError('to', { type: 'custom', message: 'error' });
+
+    return null;
+  }
+
+  if (hasNoMarket) {
+    if (errors.to?.message !== 'noMarket')
+      setError('to', { type: 'custom', message: 'noMarket' });
+
+    return null;
+  }
+
+  if (tokenIn?.type === tokenOut?.type) {
+    if (errors.to?.message !== 'sameTokens')
+      setError('to', { type: 'custom', message: 'sameTokens' });
+
+    return null;
+  }
+
+  const amountNotEnough =
+    (isZeroSwapAmountIn && !!tokenInValue && !isFetchingSwapAmountIn) ||
+    (isZeroSwapAmountOut && !!tokenOutValue && !isFetchingSwapAmountOut);
+
+  if (amountNotEnough) {
+    const name = tokenInValue ? 'from' : 'to';
+    if (errors[name]?.message !== 'increaseAmount')
+      setError(name, {
+        type: 'custom',
+        message: 'increaseAmount',
+      });
+
+    return null;
+  }
+
   return (
-    <>
+    <Box gridColumn="1/-1">
       {(isFetchingSwapAmountIn || isFetchingSwapAmountOut) && (
         <Message
           Icon={LoadingSVG}
           message="dexSwap.swapMessage.fetchingAmounts"
         />
       )}
-      {(isZeroSwapAmountIn && !!tokenInValue && !isFetchingSwapAmountIn) ||
-        (isZeroSwapAmountOut && !!tokenOutValue && !isFetchingSwapAmountOut && (
-          <Message
-            color="error"
-            Icon={TimesSVG}
-            extraData={{
-              symbol: tokenInValue ? tokenIn.symbol : tokenOut.symbol,
-            }}
-            message="dexSwap.swapMessage.increaseAmount"
-          />
-        ))}
-      {tokenIn.type === tokenOut.type && (
-        <Message
-          color="error"
-          Icon={TimesSVG}
-          message="dexSwap.swapMessage.sameOut"
-        />
-      )}
-      {hasNoMarket && (
-        <Message
-          color="error"
-          Icon={TimesSVG}
-          message="dexSwap.swapMessage.noMarket"
-        />
-      )}
-      {error && (
-        <Message
-          color="error"
-          Icon={TimesSVG}
-          message="dexSwap.swapMessage.error"
-        />
-      )}
       {readyToSwap && swapPath && <SwapPath swapPath={swapPath} />}
-    </>
+    </Box>
   );
 };

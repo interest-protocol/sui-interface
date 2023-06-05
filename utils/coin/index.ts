@@ -15,16 +15,16 @@ export const isSymbol = (text: string): boolean =>
 export const isType = (text: string): boolean =>
   new RegExp(/0x[a-z0-9]+::[a-z0-9_]+::[a-zA-Z0-9]+/i).test(text);
 
-export const getSymbolByType = (type: string): string => {
+export const getSymbolByType = (type?: string): string => {
   const poolTokens = type
-    .match(/::[a-z0-9_]+::+([^>,]+).+?::[a-z0-9_]+::([^>,]+)/i)
+    ?.match(/::[a-z0-9_]+::+([^>,]+).+?::[a-z0-9_]+::([^>,]+)/i)
     ?.filter(isSymbol)
     .map((text) => text.match(/[A-Z0-9]+/g)?.[0]);
 
   if (!poolTokens)
     return (
       type
-        .match(/::[a-z0-9_]+::+([^,]+)/i)
+        ?.match(/::[a-z0-9_]+::+([^,]+)/i)
         ?.filter(isSymbol)
         .join('-') ?? ''
     );

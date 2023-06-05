@@ -21,23 +21,23 @@ const SelectToken: FC<SelectTokenProps> = ({
   searchTokenModalState,
 }) => {
   const t = useTranslations();
-  const { dark } = useTheme() as Theme;
-  const { setModal, handleClose } = useModal();
-  const { coinsMap, coins } = useWeb3();
   const { network } = useNetwork();
   const { provider } = useProvider();
+  const { dark } = useTheme() as Theme;
+  const { coinsMap, coins } = useWeb3();
+  const { setModal, handleClose } = useModal();
 
   const openModal = () =>
     setModal(
       <SelectTokenModal
-        currentTokenType={currentTokenType}
-        searchTokenModalState={searchTokenModalState}
+        coins={coins}
+        network={network}
+        provider={provider}
+        coinsMap={coinsMap}
         closeModal={handleClose}
         onSelectToken={onSelectToken}
-        coinsMap={coinsMap}
-        coins={coins}
-        provider={provider}
-        network={network}
+        currentTokenType={currentTokenType}
+        searchTokenModalState={searchTokenModalState}
       />,
       {
         isOpen: true,

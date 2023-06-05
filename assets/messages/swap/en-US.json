@@ -4,8 +4,8 @@
       "title": "Swap"
     },
     "form": {
-      "from": "From",
       "to": "To",
+      "from": "From",
       "balance": "Balance",
       "selectToken": "Select a token",
       "preview": "Preview"

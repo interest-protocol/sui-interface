@@ -1,6 +1,12 @@
 import { DexMarket, SwapPathObject } from '@interest-protocol/sui-sdk';
 import { Dispatch, SetStateAction } from 'react';
-import { Control, UseFormReturn, UseFormSetValue } from 'react-hook-form';
+import {
+  Control,
+  FieldErrors,
+  UseFormReturn,
+  UseFormSetError,
+  UseFormSetValue,
+} from 'react-hook-form';
 
 import { SwapForm } from '../swap.types';
 
@@ -13,30 +19,30 @@ export interface SwapManagerWrapperProps {
 }
 
 export interface SwapMessagesProps {
+  error: boolean;
+  hasNoMarket: boolean;
   control: Control<SwapForm>;
+  isZeroSwapAmountIn: boolean;
+  isZeroSwapAmountOut: boolean;
+  errors: FieldErrors<SwapForm>;
+  swapPath: SwapPathObject | null;
   isFetchingSwapAmountIn: boolean;
   isFetchingSwapAmountOut: boolean;
-  error: boolean;
-  isZeroSwapAmountOut: boolean;
-  hasNoMarket: boolean;
-  swapPath: SwapPathObject | null;
-  isZeroSwapAmountIn: boolean;
+  setError: UseFormSetError<SwapForm>;
 }
 
 export interface SwapManagerProps {
-  tokenOutType: string;
+  type: string;
+  decimals: number;
+  name: 'from' | 'to';
   hasNoMarket: boolean;
-  account: string | null;
   dexMarket: DexMarket;
+  account: string | null;
+  control: Control<SwapForm>;
+  isFetchingSwapAmount: boolean;
   setValue: UseFormSetValue<SwapForm>;
   setError: Dispatch<SetStateAction<boolean>>;
-  tokenOutDecimals: number;
   setIsZeroSwapAmount: Dispatch<SetStateAction<boolean>>;
   setIsFetchingSwapAmount: Dispatch<SetStateAction<boolean>>;
-  isFetchingSwapAmount: boolean;
-  control: Control<SwapForm>;
-  name: 'from' | 'to';
-  setValueName: 'to.value' | 'from.value';
-  setValueLockName: 'fromLocked' | 'toLocked';
   setSwapPath: Dispatch<SetStateAction<SwapPathObject | null>>;
 }

@@ -15,9 +15,9 @@ import SwapHeader from './swap-header';
 import SwapManager from './swap-manager';
 
 const SwapManagerWrapper: FC<SwapManagerWrapperProps> = ({
-  formSettings,
   formSwap,
   dexMarket,
+  formSettings,
 }) => {
   const autoFetch = useWatch({
     control: formSettings.control,
@@ -47,24 +47,25 @@ const SwapManagerWrapper: FC<SwapManagerWrapperProps> = ({
 
 const SwapFormBody: FC<SwapBodyProps> = ({
   formSwap,
-  searchTokenModalState,
   formSettings,
+  searchTokenModalState,
 }) => {
   const { data, isLoading } = useGetDexMarkets();
   console.log('handle loading', isLoading);
+
   return (
     <>
       <SwapForm
-        formSwap={formSwap}
-        searchTokenModalState={searchTokenModalState}
-        formSettings={formSettings}
-        dexMarket={data || {}}
         mutate={mutate}
+        formSwap={formSwap}
+        dexMarket={data || {}}
+        formSettings={formSettings}
+        searchTokenModalState={searchTokenModalState}
       />
       <SwapManagerWrapper
         formSwap={formSwap}
-        formSettings={formSettings}
         dexMarket={data || {}}
+        formSettings={formSettings}
       />
     </>
   );
@@ -72,15 +73,14 @@ const SwapFormBody: FC<SwapBodyProps> = ({
 
 const Swap: FC<SwapProps> = ({
   formSwap,
-  searchTokenModalState,
   formSettings,
+  searchTokenModalState,
   ...rest
 }) => (
   <Box
-    display="flex"
-    gridColumn="1/-1"
     variant="container"
     alignItems="center"
+    justifyItems="unset"
     flexDirection="column"
     minHeight={['100%', '100%', 'unset']}
     justifyContent={['space-between', 'space-between', 'unset']}

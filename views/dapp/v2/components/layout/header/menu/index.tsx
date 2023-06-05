@@ -1,17 +1,14 @@
-import { Box, Button } from '@interest-protocol/ui-kit';
+import { Box } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
-import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
-import { capitalize } from '@/utils';
-
+import Wallet from '../../wallet';
 import MenuBackButton from './menu-back-button';
 import MenuButton from './menu-button';
 import MenuDesktop from './menu-desktop';
 import MenuMobile from './menu-mobile';
 
 const Menu: FC = () => {
-  const t = useTranslations();
   const { query } = useRouter();
   const [isOpen, setIsOpen] = useState(Boolean(query.menu));
   const [isSettings, setIsSettings] = useState(Boolean(query.settings));
@@ -56,9 +53,9 @@ const Menu: FC = () => {
       >
         <Box display="flex">
           {!isOpen && (
-            <Button mr="s" variant="filled" color="textPrimary">
-              {capitalize(t('common.v2.wallet.connect'))}
-            </Button>
+            <Box mr="xl">
+              <Wallet />
+            </Box>
           )}
           <MenuButton
             isOpen={isOpen}

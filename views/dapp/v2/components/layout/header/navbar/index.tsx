@@ -8,7 +8,12 @@ const Navbar: FC<NavbarProps> = ({ isMobile }) => (
   <Box
     as="nav"
     flexDirection={isMobile ? 'column' : 'row'}
-    display={[isMobile ? 'flex' : 'none', isMobile ? 'flex' : 'none', 'flex']}
+    display={[
+      isMobile ? 'flex' : 'none',
+      isMobile ? 'flex' : 'none',
+      isMobile ? 'flex' : 'none',
+      'flex',
+    ]}
   >
     <NavItem item="home" path="/dapp/v2" />
     <NavItem item="swap" path="/dapp/v2/swap" />

@@ -1,5 +1,6 @@
-import { Box } from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import BigNumber from 'bignumber.js';
+import { useTranslations } from 'next-intl';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
@@ -8,29 +9,32 @@ import { v4 } from 'uuid';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { TOKENS_SVG_MAP_V2 } from '@/constants';
 import { FixedPointMath } from '@/lib';
+import { EmptyBoxSVG } from '@/svg';
 import { isType } from '@/utils';
+import LinearLoader from '@/views/dapp/dex-pool-details/components/remove-liquidity-card/linear-loader';
 import TokenModalItem from '@/views/dapp/v2/components/select-token/select-token-modal/token-modal-item';
 
 import { SelectTokenModalBodyProps, TokenOrigin } from '../select-token.types';
 
 const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
-  favoriteTokens,
   coins,
-  tokenOrigin,
-  currentTokenType,
-  searchTokenModalState,
-  coinsMap,
-  recommendedTokens,
-  walletTokens,
-  favorites,
-  provider,
   network,
   control,
-  onSelectToken,
+  coinsMap,
+  provider,
+  favorites,
+  tokenOrigin,
+  walletTokens,
   setFavorites,
-  favoriteTokensTypes,
+  onSelectToken,
+  favoriteTokens,
+  currentTokenType,
   fetchingMetaData,
+  recommendedTokens,
+  favoriteTokensTypes,
+  searchTokenModalState,
 }) => {
+  const t = useTranslations();
   const [loading, setLoading] = useState(false);
   const [askedToken, setAskedToken] = useState<Web3ManagerSuiObject | null>(
     null
@@ -102,40 +106,62 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
     }
   }, [filteredTokens, debouncedSearch, favoriteTokens, search]);
 
-  console.log('HANDLE loadings', loading, fetchingMetaData);
-
   const TOKENS_RECORD = {
     [TokenOrigin.Recommended]: recommendedTokens,
     [TokenOrigin.Favorites]: favoriteTokens,
     [TokenOrigin.Wallet]: coins,
   };
+
+  const tokens = TOKENS_RECORD[tokenOrigin];
+
+  if (!tokens.length)
+    return (
+      <Box
+        p="4xl"
+        gap="xl"
+        flex="1"
+        color="text"
+        display="flex"
+        bg="background"
+        overflowY="auto"
+        alignItems="center"
+        flexDirection="column"
+      >
+        <EmptyBoxSVG maxHeight="4rem" maxWidth="4rem" width="100%" />
+        <Typography variant="medium" textTransform="capitalize">
+          {t('common.notFound')}
+        </Typography>
+      </Box>
+    );
+
   return (
-    <Box
-      p="2xl"
-      gap="xl"
-      flex="1"
-      display="flex"
-      bg="background"
-      overflowY="auto"
-      flexDirection="column"
-    >
-      {TOKENS_RECORD[tokenOrigin].map(
-        ({ symbol, type, decimals, totalBalance }) => (
+    <>
+      <LinearLoader loading={loading || fetchingMetaData} />
+      <Box
+        p="2xl"
+        gap="xl"
+        flex="1"
+        display="flex"
+        bg="background"
+        overflowY="auto"
+        flexDirection="column"
+      >
+        {tokens.map(({ symbol, type, decimals, totalBalance }) => (
           <TokenModalItem
             key={v4()}
-            Icon={TOKENS_SVG_MAP_V2[type] ?? TOKENS_SVG_MAP_V2.default}
             type={type}
             symbol={symbol}
-            balance={FixedPointMath.toNumber(totalBalance, decimals).toString()}
             setFavorites={setFavorites}
             favoriteTokens={favoriteTokensTypes}
             selected={currentTokenType === type}
             recommended={tokenOrigin === TokenOrigin.Recommended}
+            Icon={TOKENS_SVG_MAP_V2[type] ?? TOKENS_SVG_MAP_V2.default}
             onClick={async () => onSelectToken({ symbol, decimals, type })}
+            balance={FixedPointMath.toNumber(totalBalance, decimals).toString()}
           />
-        )
-      )}
-    </Box>
+        ))}
+      </Box>
+    </>
   );
 };
 

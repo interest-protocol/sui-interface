@@ -17,7 +17,6 @@ export interface TransactionDeadlineProps {
 }
 
 export interface SettingsModalProps {
-  setLocalSettings: SwapProps['setLocalSettings'];
   formSettings: SwapProps['formSettings'];
   closeModal: () => void;
 }

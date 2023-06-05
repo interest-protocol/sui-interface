@@ -15,12 +15,12 @@ export const SERVICES_LIST: ReadonlyArray<AboutUsCardProps> = [
   },
   {
     name: 'trade',
-    link: Routes[RoutesEnum.DEX],
+    link: Routes[RoutesEnum.Swap],
     Illustration: TradeIllustration,
   },
   {
     name: 'lend',
-    link: Routes[RoutesEnum.DEX],
+    link: Routes[RoutesEnum.Swap],
     Illustration: LendIllustration,
   },
 ];

@@ -7,7 +7,11 @@ import Menu from './menu';
 import Navbar from './navbar';
 
 const Header: FC = () => (
-  <Box variant="container" pt={['s', 's', '2.5rem']} pb={['s', 's', 'xl']}>
+  <Box
+    variant="container"
+    pt={['s', 's', 's', '2.5rem']}
+    pb={['s', 's', 's', 'xl']}
+  >
     <Box
       width="100%"
       display="flex"

@@ -38,13 +38,13 @@ const SwapFields: FC<SwapFieldProps> = ({ setValue, getValues }) => {
 };
 
 const SwapForm: FC<SwapFormProps> = ({
+  mutate,
   formSwap,
+  dexMarket,
   formSettings,
   searchTokenModalState,
-  dexMarket,
-  mutate,
 }) => (
-  <Box maxWidth="35.25rem" width="100%" pt="7rem">
+  <Box pt="7rem" mx="auto" width="100%" gridColumn="1/-1" maxWidth="35.25rem">
     <SwapFormField
       name="from"
       formSwap={formSwap}
@@ -57,10 +57,10 @@ const SwapForm: FC<SwapFormProps> = ({
       searchTokenModalState={searchTokenModalState}
     />
     <SwapFormPreview
-      formSwap={formSwap}
-      formSettings={formSettings}
-      dexMarket={dexMarket}
       mutate={mutate}
+      formSwap={formSwap}
+      dexMarket={dexMarket}
+      formSettings={formSettings}
     />
   </Box>
 );

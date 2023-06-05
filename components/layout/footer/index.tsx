@@ -54,7 +54,7 @@ const Footer: FC = () => {
           justifyContent="center"
           display={['flex', 'flex', 'none']}
         >
-          <Link href={Routes[RoutesEnum.DEX]}>
+          <Link href={Routes[RoutesEnum.Swap]}>
             <Button
               ml="S"
               px="0.8rem"
@@ -66,14 +66,14 @@ const Footer: FC = () => {
               borderRadius="M"
               justifyContent="space-between"
               bg={
-                pathname.includes(Routes[RoutesEnum.DEX])
+                pathname.includes(Routes[RoutesEnum.Swap])
                   ? 'accentActive'
                   : 'transparent'
               }
               nHover={{ bg: 'accent', color: 'text' }}
               nActive={{ bg: 'accentActive', color: 'text' }}
               color={
-                pathname.includes(Routes[RoutesEnum.DEX]) ? 'textSoft' : 'text'
+                pathname.includes(Routes[RoutesEnum.Swap]) ? 'textSoft' : 'text'
               }
             >
               <DexSVG

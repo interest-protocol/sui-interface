@@ -23,17 +23,18 @@ import {
   SelectTokenModalProps,
   TokenOrigin,
 } from '../select-token.types';
+import SelectTokenBaseTokens from './select-token-modal-base';
 import SelectTokenModalBody from './select-token-modal-body';
 
 const SelectTokenModal: FC<SelectTokenModalProps> = ({
-  closeModal,
-  onSelectToken,
   coins,
+  network,
   coinsMap,
   provider,
-  network,
-  searchTokenModalState,
+  closeModal,
+  onSelectToken,
   currentTokenType,
+  searchTokenModalState,
 }) => {
   const t = useTranslations();
 
@@ -181,8 +182,8 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
       width="100%"
       display="flex"
       maxHeight="90vh"
+      maxWidth="26rem"
       overflow="hidden"
-      maxWidth="24.375rem"
       borderRadius="1rem"
       flexDirection="column"
       boxShadow="0 0 5px #3334"
@@ -215,6 +216,11 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
           }
         />
       </Box>
+      <SelectTokenBaseTokens
+        tokens={baseTokens}
+        onSelectToken={onSelectToken}
+        currentTokenType={currentTokenType}
+      />
       <Box p="xl" display="flex" gap="s" flexWrap="wrap">
         <Chip
           isActive={tokenOrigin === TokenOrigin.Recommended}
@@ -233,22 +239,22 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
         />
       </Box>
       <SelectTokenModalBody
-        fetchingMetaData={fetchingData}
-        onSelectToken={handleSelectCurrency}
-        searchTokenModalState={searchTokenModalState}
+        coins={coins}
+        control={control}
         network={network}
         provider={provider}
-        currentTokenType={currentTokenType}
-        favoriteTokens={favorites}
-        favoriteTokensTypes={favoriteTokens}
-        coins={coins}
         coinsMap={coinsMap}
-        control={control}
-        recommendedTokens={recommendedTokens}
-        tokenOrigin={tokenOrigin}
-        walletTokens={walletTokens}
         favorites={favorites}
+        tokenOrigin={tokenOrigin}
         setFavorites={addFavorite}
+        favoriteTokens={favorites}
+        walletTokens={walletTokens}
+        fetchingMetaData={fetchingData}
+        currentTokenType={currentTokenType}
+        onSelectToken={handleSelectCurrency}
+        favoriteTokensTypes={favoriteTokens}
+        recommendedTokens={recommendedTokens}
+        searchTokenModalState={searchTokenModalState}
       />
     </Box>
   );

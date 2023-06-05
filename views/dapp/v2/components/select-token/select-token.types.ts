@@ -20,6 +20,13 @@ export interface TokenModalItemProps {
   setFavorites: (value: ReadonlyArray<string>) => void;
 }
 
+export interface BaseTokenModalItemProps {
+  symbol: string;
+  selected: boolean;
+  onClick: () => void;
+  Icon: FC<SVGProps & { filled?: boolean }>;
+}
+
 export interface SelectTokenProps {
   onSelectToken: (token: CoinData) => void;
   currentTokenType: string | null;
@@ -44,21 +51,27 @@ export interface SearchTokenForm {
   search: string;
 }
 
+export interface SelectTokenBaseTokensProps {
+  tokens: ReadonlyArray<Web3ManagerSuiObject>;
+  onSelectToken: SelectTokenProps['onSelectToken'];
+  currentTokenType: SelectTokenProps['currentTokenType'];
+}
+
 export interface SelectTokenModalBodyProps {
-  favoriteTokens: ReadonlyArray<Web3ManagerSuiObject>;
+  network: Network;
+  tokenOrigin: TokenOrigin;
+  fetchingMetaData: boolean;
+  provider: JsonRpcProvider;
+  control: Control<SearchTokenForm>;
   favoriteTokensTypes: ReadonlyArray<string>;
   coins: ReadonlyArray<Web3ManagerSuiObject>;
   coinsMap: Record<string, Web3ManagerSuiObject>;
-  tokenOrigin: TokenOrigin;
+  favorites: ReadonlyArray<Web3ManagerSuiObject>;
+  onSelectToken: SelectTokenProps['onSelectToken'];
+  walletTokens: ReadonlyArray<Web3ManagerSuiObject>;
+  favoriteTokens: ReadonlyArray<Web3ManagerSuiObject>;
   setFavorites: (value: ReadonlyArray<string>) => void;
   currentTokenType: SelectTokenProps['currentTokenType'];
-  onSelectToken: SelectTokenProps['onSelectToken'];
-  searchTokenModalState: SelectTokenProps['searchTokenModalState'];
   recommendedTokens: ReadonlyArray<Web3ManagerSuiObject>;
-  walletTokens: ReadonlyArray<Web3ManagerSuiObject>;
-  favorites: ReadonlyArray<Web3ManagerSuiObject>;
-  provider: JsonRpcProvider;
-  network: Network;
-  control: Control<SearchTokenForm>;
-  fetchingMetaData: boolean;
+  searchTokenModalState: SelectTokenProps['searchTokenModalState'];
 }

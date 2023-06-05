@@ -19,15 +19,20 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   const { dark, colors, radii, breakpoints } = useTheme() as Theme;
 
   const handleSetDesktopView = () =>
-    setIsDesktop(window.matchMedia(`(min-width: ${breakpoints[1]})`).matches);
+    setIsDesktop(window.matchMedia(`(min-width: ${breakpoints[2]})`).matches);
 
   useEventListener('resize', handleSetDesktopView, true);
 
   if (dashboard && isDesktop)
     return (
-      <Box display="flex" bg={dark ? 'background' : '#FBF8FD'} height="100vh">
+      <Box
+        display="flex"
+        height="100vh"
+        overflow="hidden"
+        bg={dark ? 'background' : '#FBF8FD'}
+      >
         <Sidebar />
-        <Box as="main" flex="1" height="100%">
+        <Box as="main" flex="1" minHeight="100vh" overflow="auto">
           <Box
             as="header"
             display="flex"

@@ -4,7 +4,6 @@ import { FC } from 'react';
 
 import { TimesSVG } from '@/svg';
 import { capitalize } from '@/utils';
-import { LocalSwapSettings } from '@/views/dapp/v2/swap/swap.types';
 
 import AutomatedPrice from './automated-price';
 import { SettingsModalProps } from './settings-modal.types';
@@ -13,15 +12,9 @@ import TransactionDeadline from './transaction-deadline';
 
 const SettingsModal: FC<SettingsModalProps> = ({
   closeModal,
-  setLocalSettings,
   formSettings,
 }) => {
   const t = useTranslations();
-
-  const onSubmit = (data: LocalSwapSettings) => {
-    setLocalSettings(data);
-    closeModal();
-  };
 
   return (
     <Box
@@ -31,7 +24,6 @@ const SettingsModal: FC<SettingsModalProps> = ({
       display="flex"
       color="#C7C6CA"
       maxHeight="90vh"
-      overflow="hidden"
       borderRadius="1rem"
       maxWidth="24.375rem"
       flexDirection="column"
@@ -55,69 +47,42 @@ const SettingsModal: FC<SettingsModalProps> = ({
           <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>
       </Box>
-      <Typography variant="small" my="m">
-        {capitalize(t('swap.modal.settings.subtitles.transaction'))}
-      </Typography>
-      <Box
-        p="xl"
-        mb="xl"
-        bg="#0D0E11"
-        display="flex"
-        borderRadius="m"
-        alignItems="center"
-        flexDirection="column"
-      >
-        <SlippageTolerance
-          register={formSettings.register}
-          setValue={formSettings.setValue}
-        />
-        <TransactionDeadline register={formSettings.register} />
-      </Box>
-      <Typography variant="small" my="m">
-        {capitalize(t('swap.modal.settings.subtitles.panel'))}
-      </Typography>
-      <Box
-        p="xl"
-        mb="4xl"
-        bg="#0D0E11"
-        display="flex"
-        borderRadius="m"
-        alignItems="center"
-        flexDirection="column"
-      >
-        <AutomatedPrice
-          setValue={formSettings.setValue}
-          control={formSettings.control}
-        />
-      </Box>
-      <Box display="grid" gridTemplateColumns="1fr 1fr">
-        <Button
-          mb="2xl"
-          size="small"
-          variant="text"
-          onClick={closeModal}
-          justifyContent="center"
+      <Box overflowY="auto">
+        <Typography variant="small" my="m">
+          {capitalize(t('swap.modal.settings.subtitles.transaction'))}
+        </Typography>
+        <Box
+          p="xl"
+          mb="xl"
+          bg="#0D0E11"
+          display="flex"
+          borderRadius="m"
+          alignItems="center"
+          flexDirection="column"
         >
-          <Typography variant="small" textTransform="capitalize">
-            {t('common.v2.cancel')}
-          </Typography>
-        </Button>
-        <Button
-          mb="2xl"
-          size="small"
-          variant="filled"
-          fontSize="0.9rem"
-          justifyContent="center"
-          onClick={formSettings.handleSubmit(onSubmit)}
+          <SlippageTolerance
+            register={formSettings.register}
+            setValue={formSettings.setValue}
+          />
+          <TransactionDeadline register={formSettings.register} />
+        </Box>
+        <Typography variant="small" my="m">
+          {capitalize(t('swap.modal.settings.subtitles.panel'))}
+        </Typography>
+        <Box
+          p="xl"
+          mb="4xl"
+          bg="#0D0E11"
+          display="flex"
+          borderRadius="m"
+          alignItems="center"
+          flexDirection="column"
         >
-          <Typography
-            variant="small"
-            textAlign="center"
-            textTransform="capitalize"
-          >
-            {t('common.v2.confirmChanges')}
-          </Typography>
-        </Button>
+          <AutomatedPrice
+            setValue={formSettings.setValue}
+            control={formSettings.control}
+          />
+        </Box>
       </Box>
     </Box>
   );

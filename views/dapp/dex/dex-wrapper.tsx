@@ -30,7 +30,7 @@ const DEXViewWrapper: FC<PropsWithChildren<IEmptyObj>> = ({ children }) => {
         <Switch
           defaultValue={isSwap ? 'swap' : 'pool'}
           options={[
-            { value: 'swap', onSelect: () => push(Routes[RoutesEnum.DEX]) },
+            { value: 'swap', onSelect: () => push(Routes[RoutesEnum.Swap]) },
             { value: 'pool', onSelect: () => push(Routes[RoutesEnum.DEXPool]) },
           ]}
         />

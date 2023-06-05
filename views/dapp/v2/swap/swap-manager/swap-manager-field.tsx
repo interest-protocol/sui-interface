@@ -12,21 +12,19 @@ import { makeSWRKey } from '@/utils';
 import { SwapManagerProps } from './swap-manager.types';
 
 const SwapManagerField: FC<SwapManagerProps> = ({
+  type,
+  name,
+  control,
   account,
+  setError,
+  decimals,
   setValue,
-  tokenOutType,
   dexMarket,
   hasNoMarket,
-  setError,
-  setIsZeroSwapAmount,
-  setIsFetchingSwapAmount,
-  isFetchingSwapAmount,
-  control,
-  name,
-  setValueName,
-  setValueLockName,
-  tokenOutDecimals,
   setSwapPath,
+  setIsZeroSwapAmount,
+  isFetchingSwapAmount,
+  setIsFetchingSwapAmount,
 }) => {
   const { provider } = useProvider();
   const { network } = useNetwork();
@@ -37,18 +35,12 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 
   const { error } = useSWR(
     makeSWRKey(
-      [
-        account,
-        tokenOutType,
-        prop('value', tokenIn),
-        prop('type', tokenIn),
-        network,
-      ],
+      [account, type, prop('value', tokenIn), prop('type', tokenIn), network],
       provider.devInspectTransactionBlock.name
     ),
     async () => {
       setIsFetchingSwapAmount(true);
-      setValue(setValueLockName, true);
+      setValue(`${name}.locked`, true);
 
       const amount = FixedPointMath.toBigNumber(
         tokenIn.value,
@@ -61,7 +53,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 
       return sdk.quoteSwap({
         coinInType: tokenIn.type,
-        coinOutType: tokenOutType,
+        coinOutType: type,
         coinInAmount: safeAmount.toString(),
         markets: dexMarket,
       });
@@ -70,7 +62,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
       onError: () => {
         setError(false);
         setIsFetchingSwapAmount(false);
-        setValue(setValueLockName, false);
+        setValue(`${name}.locked`, false);
         setValue('lock', true);
         setSwapPath(null);
       },
@@ -78,25 +70,25 @@ const SwapManagerField: FC<SwapManagerProps> = ({
         if (!response) {
           setError(false);
           setIsFetchingSwapAmount(false);
-          setValue(setValueLockName, false);
+          setValue(`${name}.locked`, false);
           setValue('lock', true);
           return;
         }
 
         setIsZeroSwapAmount(!response.amount);
         setValue(
-          setValueName,
+          `${name}.value`,
           FixedPointMath.toNumber(
             new BigNumber(response.amount),
-            tokenOutDecimals,
-            tokenOutDecimals
+            decimals,
+            decimals
           ).toString()
         );
 
         setSwapPath(response.swapObject);
 
         setError(false);
-        setValue(setValueLockName, false);
+        setValue(`${name}.locked`, false);
         setIsFetchingSwapAmount(false);
         setValue('lock', true);
       },
@@ -111,17 +103,10 @@ const SwapManagerField: FC<SwapManagerProps> = ({
       'disabled',
       !!(error && +tokenIn.value > 0) ||
         isFetchingSwapAmount ||
-        tokenIn.type === tokenOutType ||
+        tokenIn?.type === type ||
         hasNoMarket
     );
-  }, [
-    error,
-    tokenIn,
-    hasNoMarket,
-    tokenIn.type,
-    tokenOutType,
-    isFetchingSwapAmount,
-  ]);
+  }, [error, tokenIn, hasNoMarket, tokenIn?.type, type, isFetchingSwapAmount]);
 
   return null;
 };

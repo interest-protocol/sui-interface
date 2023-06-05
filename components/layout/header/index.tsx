@@ -90,7 +90,7 @@ const Header: FC = () => {
           justifyContent="center"
           display={['none', 'none', 'flex']}
         >
-          <Link href={Routes[RoutesEnum.DEX]}>
+          <Link href={Routes[RoutesEnum.Swap]}>
             <Typography
               px="XL"
               cursor="pointer"
@@ -98,7 +98,9 @@ const Header: FC = () => {
               borderRight="1px solid"
               borderColor="bottomBackground"
               color={
-                pathname.includes(Routes[RoutesEnum.DEX]) ? 'accent' : 'inherit'
+                pathname.includes(Routes[RoutesEnum.Swap])
+                  ? 'accent'
+                  : 'inherit'
               }
               nHover={{ color: 'accentActive' }}
             >

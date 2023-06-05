@@ -30,7 +30,7 @@ const HeroCallToAction: FC = () => {
         alignItems="center"
         flexDirection="column"
       >
-        <Link href={Routes[RoutesEnum.DEX]}>
+        <Link href={Routes[RoutesEnum.Swap]}>
           <Button variant="filled" justifyContent="center" whiteSpace="nowrap">
             {t('landingPage.hero.dappCTA')}
           </Button>

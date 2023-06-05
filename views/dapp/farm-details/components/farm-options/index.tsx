@@ -20,13 +20,13 @@ import { FarmOptionsProps } from './farm-options.types';
 
 const FarmOptions: FC<FarmOptionsProps> = ({
   farm,
+  form,
+  loading,
+  modalState,
   mutateFarms,
   mutatePools,
-  mutatePendingRewards,
-  modalState,
   setModalState,
-  loading,
-  form,
+  mutatePendingRewards,
 }) => {
   const t = useTranslations();
   const { push } = useRouter();
@@ -77,7 +77,7 @@ const FarmOptions: FC<FarmOptionsProps> = ({
             variant="primary"
             onClick={() =>
               farm.id === 0
-                ? push({ pathname: Routes[RoutesEnum.DEX] }).then()
+                ? push({ pathname: Routes[RoutesEnum.Swap] }).then()
                 : push({
                     pathname: Routes[RoutesEnum.DEXPoolDetails],
                     query: { objectId: farm.poolObjectId },

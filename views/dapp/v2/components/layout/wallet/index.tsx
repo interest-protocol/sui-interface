@@ -1,16 +1,13 @@
 import styled from '@emotion/styled';
-import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
+import { Box } from '@interest-protocol/ui-kit';
 import { ConnectButton } from '@mysten/wallet-kit';
-import { pathOr } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { ConnectWalletProps } from '@/components/layout/header/header.types';
-import { Box, Typography } from '@/elements';
+import { UserSVG } from '@/components/svg/v2';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
-import { FixedPointMath } from '@/lib';
-import { LoadingSVG, SuiSVG } from '@/svg';
-import { noop, ZERO_BIG_NUMBER } from '@/utils';
+import { noop } from '@/utils';
 
 const StyledConnectButton = styled(ConnectButton)`
   width: 100%;
@@ -31,9 +28,9 @@ export const ConnectWallet: FC<ConnectWalletProps> = (props) => (
 );
 
 const Wallet: FC = () => {
-  const { coinsMap, connected, isFetchingCoinBalances, account } = useWeb3();
   const { network } = useNetwork();
   const { suiNSProvider } = useProvider();
+  const { connected, account } = useWeb3();
   const [loading, setLoading] = useState(false);
   const [suiNs, setSuiNS] = useState<string | undefined>(undefined);
 
@@ -48,6 +45,19 @@ const Wallet: FC = () => {
     }
   }, [network, account]);
 
+  if (connected)
+    return (
+      <Box
+        bg="primary"
+        width="2.5rem"
+        height="2.5rem"
+        color="textAccent"
+        borderRadius="100%"
+      >
+        <UserSVG maxHeight="2.5rem" maxWidth="2.5rem" width="100%" />
+      </Box>
+    );
+
   return (
     <Box
       bg="textSoft"
@@ -56,53 +66,6 @@ const Wallet: FC = () => {
       borderRadius="2.5rem"
       justifyContent="space-between"
     >
-      {connected && (
-        <Typography
-          pl="L"
-          pr="M"
-          as="span"
-          variant="normal"
-          whiteSpace="nowrap"
-          display={['none', 'flex']}
-        >
-          {isFetchingCoinBalances ? (
-            <Box as="span" display="inline-block">
-              <LoadingSVG
-                width="100%"
-                height="100%"
-                maxWidth="1rem"
-                maxHeight="1rem"
-              />
-            </Box>
-          ) : (
-            FixedPointMath.toNumber(
-              pathOr(
-                ZERO_BIG_NUMBER,
-                [COIN_TYPE[Network.DEVNET].SUI, 'totalBalance'],
-                coinsMap
-              )
-            )
-          )}
-          <Box
-            ml="S"
-            as="span"
-            color="text"
-            width="1.2rem"
-            height="1.2rem"
-            overflow="hidden"
-            borderRadius="50%"
-            display="inline-block"
-          >
-            <SuiSVG
-              height="100%"
-              width="100%"
-              maxHeight="1.2rem"
-              maxWidth="1.2rem"
-              fill="currentColor"
-            />
-          </Box>
-        </Typography>
-      )}
       <Box
         fontSize="M"
         width="auto"

@@ -2,6 +2,7 @@ import { DexMarket } from '@interest-protocol/sui-sdk';
 import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { Dispatch, SetStateAction } from 'react';
 import {
+  Control,
   UseFormGetValues,
   UseFormReturn,
   UseFormSetValue,
@@ -26,14 +27,13 @@ export interface ISwapSettingsForm {
 export interface SwapToken extends CoinData {
   value: string;
   locked: boolean;
+  usdPrice: number;
 }
 
 export interface SwapForm {
   to: SwapToken;
   from: SwapToken;
   lock: boolean;
-  fromLocked: boolean;
-  toLocked: boolean;
   disabled: boolean;
 }
 
@@ -71,6 +71,16 @@ export interface SwapInputProps {
   name: 'to' | 'from';
   formSwap: UseFormReturn<SwapForm>;
   searchTokenModalState: TokenModalMetadata | null;
+}
+
+export interface SwapSliderProps {
+  balance: number;
+  setValue: UseFormSetValue<SwapForm>;
+}
+
+export interface SwapAmountInUSDProps {
+  name: 'to' | 'from';
+  control: Control<SwapForm>;
 }
 
 export interface SwapFieldProps {
