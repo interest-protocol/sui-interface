@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { PercentageSVG } from '@/components/svg/v2';
+import { capitalize } from '@/utils';
 
 import { SlippageToleranceProps } from './settings-modal.types';
 
@@ -15,17 +16,18 @@ const SlippageTolerance: FC<SlippageToleranceProps> = ({
   return (
     <Box width="100%">
       <Typography variant="extraSmall" alignSelf="start" mb="s">
-        {t('swap.modal.settings.field.slippage')}
+        {capitalize(t('swap.modal.settings.field.slippage'))}
       </Typography>
       <TextField
-        min="2"
         max="10"
+        min="0.1"
+        step="0.1"
         type="number"
         textAlign="right"
         placeholder="0.10"
         {...register('slippage')}
         Suffix={
-          <Box px="s" color="#C7C6CA" width="3rem" textAlign="right">
+          <Box px="s" width="3rem" textAlign="right">
             <PercentageSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
           </Box>
         }

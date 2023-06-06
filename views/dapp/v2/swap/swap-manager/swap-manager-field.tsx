@@ -25,6 +25,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   setIsZeroSwapAmount,
   isFetchingSwapAmount,
   setIsFetchingSwapAmount,
+  setValueName,
 }) => {
   const { provider } = useProvider();
   const { network } = useNetwork();
@@ -39,7 +40,6 @@ const SwapManagerField: FC<SwapManagerProps> = ({
       provider.devInspectTransactionBlock.name
     ),
     async () => {
-      setIsFetchingSwapAmount(true);
       setValue(`${name}.locked`, true);
 
       const amount = FixedPointMath.toBigNumber(
@@ -50,6 +50,8 @@ const SwapManagerField: FC<SwapManagerProps> = ({
       const safeAmount = amount.decimalPlaces(0, BigNumber.ROUND_DOWN);
 
       if (!tokenIn || !+tokenIn.value || lock || hasNoMarket) return;
+
+      setIsFetchingSwapAmount(true);
 
       return sdk.quoteSwap({
         coinInType: tokenIn.type,
@@ -77,7 +79,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
 
         setIsZeroSwapAmount(!response.amount);
         setValue(
-          `${name}.value`,
+          `${setValueName}.value`,
           FixedPointMath.toNumber(
             new BigNumber(response.amount),
             decimals,
@@ -101,7 +103,7 @@ const SwapManagerField: FC<SwapManagerProps> = ({
   useEffect(() => {
     setValue(
       'disabled',
-      !!(error && +tokenIn.value > 0) ||
+      !!(error && +tokenIn?.value > 0) ||
         isFetchingSwapAmount ||
         tokenIn?.type === type ||
         hasNoMarket

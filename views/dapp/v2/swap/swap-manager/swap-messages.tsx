@@ -1,6 +1,7 @@
 import { Box } from '@interest-protocol/ui-kit';
-import { propOr } from 'ramda';
+import { pathOr, propOr } from 'ramda';
 import { FC } from 'react';
+import { useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { Message } from '@/components';
@@ -37,41 +38,71 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
     !(propOr('', 'type', tokenIn) === propOr('', 'type', tokenOut)) &&
     !hasNoMarket;
 
-  if (error) {
-    if (errors.to?.message !== 'error')
-      setError('to', { type: 'custom', message: 'error' });
-
-    return null;
-  }
-
-  if (hasNoMarket) {
-    if (errors.to?.message !== 'noMarket')
-      setError('to', { type: 'custom', message: 'noMarket' });
-
-    return null;
-  }
-
-  if (tokenIn?.type === tokenOut?.type) {
-    if (errors.to?.message !== 'sameTokens')
-      setError('to', { type: 'custom', message: 'sameTokens' });
-
-    return null;
-  }
-
   const amountNotEnough =
     (isZeroSwapAmountIn && !!tokenInValue && !isFetchingSwapAmountIn) ||
     (isZeroSwapAmountOut && !!tokenOutValue && !isFetchingSwapAmountOut);
 
-  if (amountNotEnough) {
-    const name = tokenInValue ? 'from' : 'to';
-    if (errors[name]?.message !== 'increaseAmount')
-      setError(name, {
-        type: 'custom',
-        message: 'increaseAmount',
-      });
+  const errorMessage = pathOr(null, ['to', 'message'], errors);
 
-    return null;
-  }
+  // Clear errors
+  useEffect(() => {
+    // If there is no error or both tokens are not selected - do nothing
+    if (!errorMessage || !tokenIn?.type || !tokenOut?.type) return;
+
+    const name = tokenInValue ? 'from' : 'to';
+
+    if (!amountNotEnough && errors[name]?.message === 'increaseAmount')
+      setError(name, {});
+
+    if (tokenIn?.type !== tokenOut?.type && errorMessage === 'sameTokens')
+      setError(name, {});
+
+    if (!error && errorMessage === 'error') setError(name, {});
+
+    if (!hasNoMarket && errorMessage === 'noMarket') setError(name, {});
+  }, [
+    error,
+    amountNotEnough,
+    hasNoMarket,
+    errorMessage,
+    tokenIn?.type,
+    tokenOut?.type,
+  ]);
+
+  // Set Error
+  useEffect(() => {
+    // If there is already an error or both tokens are not selected -> do nothing
+    if (!!errorMessage || !tokenIn?.type || !tokenOut?.type) return;
+    if (error)
+      if (errors.to?.message !== 'error')
+        setError('to', { type: 'custom', message: 'error' });
+
+    if (hasNoMarket)
+      if (errors.to?.message !== 'noMarket')
+        setError('to', { type: 'custom', message: 'noMarket' });
+
+    if (tokenIn?.type === tokenOut?.type)
+      if (errors.to?.message !== 'sameTokens')
+        setError('to', { type: 'custom', message: 'sameTokens' });
+
+    if (amountNotEnough) {
+      const name = tokenInValue ? 'from' : 'to';
+      if (errors[name]?.message !== 'increaseAmount')
+        setError(name, {
+          type: 'custom',
+          message: 'increaseAmount',
+        });
+    }
+  }, [
+    error,
+    amountNotEnough,
+    hasNoMarket,
+    tokenIn?.type,
+    tokenOut?.type,
+    errorMessage,
+  ]);
+
+  if (errorMessage) return null;
 
   return (
     <Box gridColumn="1/-1">

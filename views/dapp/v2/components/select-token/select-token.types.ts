@@ -28,12 +28,16 @@ export interface BaseTokenModalItemProps {
 }
 
 export interface SelectTokenProps {
-  onSelectToken: (token: CoinData) => void;
+  onSelectToken: (token: CoinData) => Promise<void>;
   currentTokenType: string | null;
+  currentTokenSymbol: string | null;
   searchTokenModalState: TokenModalMetadata | null;
 }
 
-export interface SelectTokenModalProps extends SelectTokenProps {
+export interface SelectTokenModalProps {
+  onSelectToken: (token: CoinData) => Promise<void>;
+  currentTokenType: string | null;
+  searchTokenModalState: TokenModalMetadata | null;
   closeModal: () => void;
   coins: ReadonlyArray<Web3ManagerSuiObject>;
   coinsMap: Record<string, Web3ManagerSuiObject>;

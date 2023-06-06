@@ -3,6 +3,7 @@ import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { Dispatch, SetStateAction } from 'react';
 import {
   Control,
+  FieldErrors,
   UseFormGetValues,
   UseFormReturn,
   UseFormSetValue,
@@ -27,7 +28,7 @@ export interface ISwapSettingsForm {
 export interface SwapToken extends CoinData {
   value: string;
   locked: boolean;
-  usdPrice: number;
+  usdPrice: number | null;
 }
 
 export interface SwapForm {
@@ -35,6 +36,7 @@ export interface SwapForm {
   from: SwapToken;
   lock: boolean;
   disabled: boolean;
+  maxValue: boolean;
 }
 
 export interface SwapProps {
@@ -60,10 +62,11 @@ export interface SwapHeaderProps {
 }
 
 export interface SwapFormProps {
-  formSwap: UseFormReturn<SwapForm>;
-  searchTokenModalState: TokenModalMetadata | null;
-  formSettings: SwapProps['formSettings'];
+  isLoading: boolean;
   dexMarket: DexMarket;
+  formSwap: UseFormReturn<SwapForm>;
+  formSettings: SwapProps['formSettings'];
+  searchTokenModalState: TokenModalMetadata | null;
   mutate: KeyedMutator<PaginatedCoins['data'] | undefined>;
 }
 
@@ -73,9 +76,22 @@ export interface SwapInputProps {
   searchTokenModalState: TokenModalMetadata | null;
 }
 
+export interface TextFieldWrapperProps {
+  control: UseFormReturn<SwapForm>['control'];
+  name: SwapInputProps['name'];
+  errors: FieldErrors<SwapForm>;
+  currentTokenType: string;
+  register: UseFormReturn<SwapForm>['register'];
+  onSelectToken: (x: CoinData) => Promise<void>;
+  searchTokenModalState: SwapInputProps['searchTokenModalState'];
+  currentTokenSymbol: string | null;
+  setValue: UseFormSetValue<SwapForm>;
+}
+
 export interface SwapSliderProps {
   balance: number;
   setValue: UseFormSetValue<SwapForm>;
+  currentValue: number;
 }
 
 export interface SwapAmountInUSDProps {

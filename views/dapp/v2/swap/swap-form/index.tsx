@@ -1,5 +1,7 @@
 import { Box, Button, Theme, useTheme } from '@interest-protocol/ui-kit';
-import { FC } from 'react';
+import { useTranslations } from 'next-intl';
+import { FC, useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 import { DownArrowSVG } from '@/components/svg/v2';
 
@@ -40,29 +42,50 @@ const SwapFields: FC<SwapFieldProps> = ({ setValue, getValues }) => {
 const SwapForm: FC<SwapFormProps> = ({
   mutate,
   formSwap,
+  isLoading,
   dexMarket,
   formSettings,
   searchTokenModalState,
-}) => (
-  <Box pt="7rem" mx="auto" width="100%" gridColumn="1/-1" maxWidth="35.25rem">
-    <SwapFormField
-      name="from"
-      formSwap={formSwap}
-      searchTokenModalState={searchTokenModalState}
-    />
-    <SwapFields setValue={formSwap.setValue} getValues={formSwap.getValues} />
-    <SwapFormField
-      name="to"
-      formSwap={formSwap}
-      searchTokenModalState={searchTokenModalState}
-    />
-    <SwapFormPreview
-      mutate={mutate}
-      formSwap={formSwap}
-      dexMarket={dexMarket}
-      formSettings={formSettings}
-    />
-  </Box>
-);
+}) => {
+  const t = useTranslations();
+  const [toastState, setToastState] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isLoading && !toastState) setToastState(true);
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (toastState) toast.loading(t('swap.form.fetchMarkets'));
+  }, [toastState]);
+
+  useEffect(() => {
+    if (!isLoading && toastState) {
+      setToastState(false);
+      toast.dismiss();
+    }
+  }, [isLoading]);
+
+  return (
+    <Box pt="7rem" mx="auto" width="100%" gridColumn="1/-1" maxWidth="35.25rem">
+      <SwapFormField
+        name="from"
+        formSwap={formSwap}
+        searchTokenModalState={searchTokenModalState}
+      />
+      <SwapFields setValue={formSwap.setValue} getValues={formSwap.getValues} />
+      <SwapFormField
+        name="to"
+        formSwap={formSwap}
+        searchTokenModalState={searchTokenModalState}
+      />
+      <SwapFormPreview
+        mutate={mutate}
+        formSwap={formSwap}
+        dexMarket={dexMarket}
+        formSettings={formSettings}
+      />
+    </Box>
+  );
+};
 
 export default SwapForm;

@@ -35,7 +35,7 @@ const FooterSocialMedias: FC = () => {
                 width="100%"
                 maxWidth="2rem"
                 maxHeight="2rem"
-                stroke={colors.textSoft}
+                stroke={colors['outline.outlineVariant']}
                 fill="none"
               />
             </Box>

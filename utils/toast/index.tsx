@@ -3,18 +3,12 @@ import { SuiTransactionBlockResponse } from '@mysten/sui.js';
 import { propOr } from 'ramda';
 import toast from 'react-hot-toast';
 
-import { SUI_EXPLORER_URL } from '@/constants';
+import { NETWORK_RECORD, SUI_EXPLORER_URL } from '@/constants';
 import { Box, Typography } from '@/elements';
 import { SuiSVG } from '@/svg';
 import { tryCatch } from '@/utils/promise';
 
 import { ToastMsgs, ToastOpts } from './toast.types';
-
-const NETWORK_RECORD = {
-  [Network.DEVNET]: 'devnet',
-  [Network.TESTNET]: 'testnet',
-  [Network.MAINNET]: 'mainnet',
-};
 
 export const showTXSuccessToast = async (
   tx: SuiTransactionBlockResponse,

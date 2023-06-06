@@ -19,8 +19,8 @@ const Chip: FC<ChipProps> = ({ text, onClick, isActive }) => (
     onClick={isActive ? undefined : onClick}
     {...(isActive && {
       bg: 'primary',
-      color: 'textAccent',
       borderColor: 'primary',
+      color: 'primary.onPrimary',
     })}
   >
     {isActive && (

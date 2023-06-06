@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { CheckmarkSVG } from '@/components/svg/v2';
+import { capitalize } from '@/utils';
 
 import { AutomatedPriceProps } from './settings-modal.types';
 
@@ -14,16 +15,16 @@ const AutomatedPrice: FC<AutomatedPriceProps> = ({ setValue, control }) => {
   return (
     <>
       <Typography variant="extraSmall" alignSelf="start" mb="s">
-        {t('swap.modal.settings.field.automated')}
+        {capitalize(t('swap.modal.settings.field.automated'))}
       </Typography>
       <Box
         my="s"
-        bg="#1B1B1F"
         width="100%"
         display="grid"
         borderRadius="m"
         overflow="hidden"
         textAlign="center"
+        bg="surface.containerLow"
         gridTemplateColumns="1fr 1fr"
       >
         <Typography
@@ -31,7 +32,7 @@ const AutomatedPrice: FC<AutomatedPriceProps> = ({ setValue, control }) => {
           variant="small"
           cursor="pointer"
           onClick={() => setValue('autoFetch', true)}
-          {...(autoFetch && { bg: 'primary', color: 'textAccent' })}
+          {...(autoFetch && { bg: 'primary', color: 'primary.onPrimary' })}
         >
           {autoFetch && (
             <Box as="span" mr="m">
@@ -45,7 +46,7 @@ const AutomatedPrice: FC<AutomatedPriceProps> = ({ setValue, control }) => {
           variant="small"
           cursor="pointer"
           onClick={() => setValue('autoFetch', false)}
-          {...(!autoFetch && { bg: 'primary', color: 'textAccent' })}
+          {...(!autoFetch && { bg: 'primary', color: 'primary.onPrimary' })}
         >
           {!autoFetch && (
             <Box as="span" mr="m">

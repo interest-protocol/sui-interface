@@ -1,16 +1,27 @@
 import { Box, TextField, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { pathOr } from 'ramda';
-import { FC } from 'react';
+import { pathOr, propOr } from 'ramda';
+import { ChangeEvent, FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
+import { getUSDPriceByCoinSymbol } from '@/api/prices';
+import { COIN_MARKET_CAP_ID_RECORD } from '@/constants';
 import { useWeb3 } from '@/hooks';
-import { CoinData } from '@/interface';
+import { useNetwork } from '@/hooks';
+import { CoinData, TTranslatedMessage } from '@/interface';
 import { FixedPointMath } from '@/lib';
-import { formatDollars, ZERO_BIG_NUMBER } from '@/utils';
+import {
+  formatDollars,
+  parseInputEventToNumberString,
+  ZERO_BIG_NUMBER,
+} from '@/utils';
 import SelectToken from '@/views/dapp/v2/components/select-token';
 
-import { SwapAmountInUSDProps, SwapInputProps } from '../swap.types';
+import {
+  SwapAmountInUSDProps,
+  SwapInputProps,
+  TextFieldWrapperProps,
+} from '../swap.types';
 import SwapFormFieldSlider from './swap-form-slider';
 
 const SwapAmountInUSD: FC<SwapAmountInUSDProps> = ({ name, control }) => {
@@ -22,40 +33,105 @@ const SwapAmountInUSD: FC<SwapAmountInUSDProps> = ({ name, control }) => {
 
   const valueNumber = Number(value);
 
-  if (!valueNumber) return null;
+  if (!valueNumber || !usdPrice) return null;
 
   return <>{formatDollars(valueNumber * usdPrice)} USD</>;
+};
+
+const TextFieldWrapper: FC<TextFieldWrapperProps> = ({
+  control,
+  name,
+  errors,
+  currentTokenType,
+  register,
+  onSelectToken,
+  searchTokenModalState,
+  currentTokenSymbol,
+  setValue,
+}) => {
+  const locked = useWatch({
+    control: control,
+    name: `${name}.locked`,
+  });
+
+  const t = useTranslations();
+
+  return (
+    <TextField
+      disabled={locked}
+      textAlign="right"
+      placeholder="0.000"
+      error={
+        currentTokenType &&
+        errors[name]?.message &&
+        t(`swap.form.errors.${errors[name]?.message}` as TTranslatedMessage)
+      }
+      {...register(`${name}.value`, {
+        onChange: (v: ChangeEvent<HTMLInputElement>) => {
+          setValue?.(`${name}.value`, parseInputEventToNumberString(v));
+          setValue('lock', false);
+        },
+      })}
+      Bottom={<SwapAmountInUSD name={name} control={control} />}
+      Prefix={
+        <SelectToken
+          onSelectToken={onSelectToken}
+          searchTokenModalState={searchTokenModalState}
+          currentTokenType={currentTokenType ? currentTokenType : null}
+          currentTokenSymbol={currentTokenSymbol}
+        />
+      }
+    />
+  );
 };
 
 const SwapFormField: FC<SwapInputProps> = ({
   name,
   searchTokenModalState,
   formSwap: {
-    register,
     control,
+    register,
     setValue,
     formState: { errors },
+    getValues,
   },
 }) => {
   const t = useTranslations();
   const { coinsMap } = useWeb3();
-
+  const { network } = useNetwork();
   const currentTokenType = useWatch({
     control: control,
     name: `${name}.type`,
   });
-  const locked = useWatch({
-    control: control,
-    name: `${name}.locked`,
-  });
 
-  const onSelectToken = (token: CoinData) =>
+  const onSelectToken = async (token: CoinData) => {
     setValue(name, {
       ...token,
       value: '0',
-      usdPrice: 1,
+      usdPrice: null,
       locked: false,
     });
+
+    const rawData = await getUSDPriceByCoinSymbol([
+      token.symbol.toUpperCase(),
+    ]).catch();
+
+    const priceData = pathOr(
+      [],
+      ['data', token.symbol.toUpperCase()],
+      rawData
+    ).find(
+      (x: Record<string, unknown>) =>
+        propOr('', 'symbol', x) === token.symbol.toUpperCase() ||
+        COIN_MARKET_CAP_ID_RECORD[network][token.type] === x.id
+    );
+
+    if (priceData)
+      setValue(
+        `${name}.usdPrice`,
+        pathOr(null, ['quote', 'USD', 'price'], priceData)
+      );
+  };
 
   const balance = FixedPointMath.toNumber(
     pathOr(ZERO_BIG_NUMBER, [currentTokenType, 'totalBalance'], coinsMap)
@@ -66,7 +142,7 @@ const SwapFormField: FC<SwapInputProps> = ({
       <Box
         mb="xs"
         display="flex"
-        color="textSoft"
+        color="onSurface"
         justifyContent="space-between"
       >
         <Typography variant="medium">
@@ -76,23 +152,23 @@ const SwapFormField: FC<SwapInputProps> = ({
           {t('swap.form.balance')}: {balance}
         </Typography>
       </Box>
-      <TextField
-        disabled={locked}
-        textAlign="right"
-        placeholder="0.000"
-        error={errors[name]?.message}
-        {...register(`${name}.value`)}
-        Bottom={<SwapAmountInUSD name={name} control={control} />}
-        Prefix={
-          <SelectToken
-            onSelectToken={onSelectToken}
-            searchTokenModalState={searchTokenModalState}
-            currentTokenType={currentTokenType ? currentTokenType : null}
-          />
-        }
+      <TextFieldWrapper
+        searchTokenModalState={searchTokenModalState}
+        currentTokenType={currentTokenType}
+        onSelectToken={onSelectToken}
+        control={control}
+        errors={errors}
+        name={name}
+        register={register}
+        currentTokenSymbol={getValues(`${name}.symbol`)}
+        setValue={setValue}
       />
       {name === 'from' && (
-        <SwapFormFieldSlider balance={10} setValue={setValue} />
+        <SwapFormFieldSlider
+          balance={balance}
+          setValue={setValue}
+          currentValue={+getValues('from.value')}
+        />
       )}
     </Box>
   );

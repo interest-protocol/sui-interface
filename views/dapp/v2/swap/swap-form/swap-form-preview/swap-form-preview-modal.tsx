@@ -2,7 +2,9 @@ import {
   Box,
   Button,
   ProgressIndicator,
+  Theme,
   Typography,
+  useTheme,
 } from '@interest-protocol/ui-kit';
 import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
@@ -10,17 +12,15 @@ import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
-import {
-  DownArrowSVG,
-  ETHSVG,
-  LeftArrowSVG,
-  USDTSVG,
-} from '@/components/svg/v2';
+import { DownArrowSVG, LeftArrowSVG } from '@/components/svg/v2';
+import { NETWORK_RECORD, SUI_EXPLORER_URL, TOKENS_SVG_MAP } from '@/constants';
 import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
-import { TimesSVG } from '@/svg';
+import { EtherSVG, TimesSVG } from '@/svg';
 import {
   createObjectsParameter,
+  formatDollars,
+  formatMoney,
   showTXSuccessToast,
   throwTXIfNotSuccessful,
 } from '@/utils';
@@ -29,14 +29,15 @@ import { getAmountMinusSlippage } from '@/views/dapp/dex/swap/swap.utils';
 import { SwapFormPreviewModalProps } from './swap-form-preview.types';
 
 const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
-  closeModal,
-  openConfirmModal,
-  formSwap,
-  formSettings,
   mutate,
+  formSwap,
   dexMarket,
+  closeModal,
+  formSettings,
+  openConfirmModal,
 }) => {
   const t = useTranslations();
+  const { dark } = useTheme() as Theme;
   const { account, coinsMap } = useWeb3();
 
   const [loading, setLoading] = useState(false);
@@ -50,12 +51,13 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
     formSwap.setValue('to.value', '0.0');
   };
 
+  const tokenIn = formSwap.getValues('from');
+  const tokenOut = formSwap.getValues('to');
+
   const handleSwap = async () => {
     try {
       setLoading(true);
 
-      const tokenIn = formSwap.getValues('from');
-      const tokenOut = formSwap.getValues('to');
       const slippage = formSettings.getValues('slippage');
       const deadline = formSettings.getValues('deadline');
 
@@ -112,27 +114,75 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
+      openConfirmModal(
+        `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`
+      );
     } catch {
-      throw new Error(t('dexSwap.error.failedToSwap'));
+      throw new Error(t('swap.error.failedToSwap'));
     } finally {
       resetInput();
       setLoading(false);
       await mutate();
-      openConfirmModal();
     }
   };
+
+  const [FromIcon, ToIcon] = [
+    TOKENS_SVG_MAP[tokenIn?.type] ?? EtherSVG,
+    TOKENS_SVG_MAP[tokenOut?.type] ?? EtherSVG,
+  ];
+
+  if (loading)
+    return (
+      <Box
+        px="xl"
+        width="100%"
+        display="flex"
+        maxHeight="90vh"
+        color="onSurface"
+        overflow="hidden"
+        borderRadius="1rem"
+        maxWidth="24.375rem"
+        flexDirection="column"
+        bg="surface.container"
+        boxShadow="0 0 5px #3334"
+      >
+        <Box py="m" display="flex" alignItems="center" justifyContent="center">
+          <Typography variant="medium">{t('swap.metadata.title')}</Typography>
+        </Box>
+        <Box
+          pt="4xl"
+          pb="xl"
+          mb="xl"
+          display="flex"
+          borderRadius="m"
+          alignItems="center"
+          flexDirection="column"
+          bg="surface.containerLowest"
+        >
+          <ProgressIndicator variant="loading" />
+          <Typography
+            mt="2xl"
+            width="16rem"
+            variant="medium"
+            textAlign="center"
+          >
+            {t('swap.modal.preview.swappingToken')}
+          </Typography>
+        </Box>
+      </Box>
+    );
 
   return (
     <Box
       px="xl"
-      bg="#1F1F23"
       width="100%"
       display="flex"
-      color="#C7C6CA"
       maxHeight="90vh"
+      color="onSurface"
       overflow="hidden"
       borderRadius="1rem"
       maxWidth="24.375rem"
+      bg="surface.container"
       flexDirection="column"
       boxShadow="0 0 5px #3334"
     >
@@ -151,7 +201,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
         </Button>
       </Box>
       <Box overflowY="auto" mx="-0.5rem" px="0.5rem">
-        <Box bg="#0D0E11" borderRadius="m" mb="xl">
+        <Box bg="surface.containerLowest" borderRadius="m" mb="xl">
           <Box
             p="xl"
             display="flex"
@@ -160,7 +210,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
           >
             <Box display="flex" alignItems="center" gap="xl">
               <Box>
-                <ETHSVG
+                <FromIcon
                   maxWidth="2.5rem"
                   maxHeight="2.5rem"
                   width="100%"
@@ -168,31 +218,40 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
                 />
               </Box>
               <Typography variant="medium" color="">
-                ETH
+                {tokenIn.symbol}
               </Typography>
             </Box>
             <Box textAlign="right">
-              <Typography variant="medium" color="#FFF">
-                0.000
+              <Typography variant="medium" color={dark ? 'white' : 'black'}>
+                {formatMoney(Number(tokenIn?.value ?? '0'))}
               </Typography>
               <Typography variant="medium" color="#ACAAAF">
-                $ 0.000 USD
+                {formatDollars(
+                  Number(tokenIn?.value || 0) * (tokenIn?.usdPrice || 0)
+                )}{' '}
+                USD
               </Typography>
             </Box>
           </Box>
-          <Box as="hr" mx="4xl" borderColor="#45464F" />
+          <Box
+            as="hr"
+            mx="4xl"
+            border="none"
+            borderBottom="1px solid"
+            borderColor="outline.outlineVariant"
+          />
           <Box display="flex" justifyContent="center" my="-1.25rem">
             <Box
-              bg="#0D0E11"
               width="2.5rem"
               height="2.5rem"
-              cursor="pointer"
+              color="onSurface"
               borderRadius="m"
               border="1px solid"
               alignItems="center"
               display="inline-flex"
-              borderColor="#45464F"
               justifyContent="center"
+              bg="surface.containerLowest"
+              borderColor="outline.outlineVariant"
             >
               <DownArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
             </Box>
@@ -205,7 +264,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
           >
             <Box display="flex" alignItems="center" gap="xl">
               <Box>
-                <USDTSVG
+                <ToIcon
                   maxWidth="2.5rem"
                   maxHeight="2.5rem"
                   width="100%"
@@ -213,54 +272,81 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
                 />
               </Box>
               <Typography variant="medium" color="">
-                USDT
+                {tokenOut.symbol}
               </Typography>
             </Box>
             <Box textAlign="right">
-              <Typography variant="medium" color="#FFF">
-                0.000
+              <Typography variant="medium" color={dark ? 'white' : 'black'}>
+                {formatMoney(Number(tokenOut?.value ?? '0'))}
               </Typography>
               <Typography variant="medium" color="#ACAAAF">
-                $ 0.000 USD
+                {formatDollars(
+                  Number(tokenOut?.value || 0) * (tokenOut?.usdPrice || 0)
+                )}{' '}
+                USD
               </Typography>
             </Box>
           </Box>
         </Box>
-        <Box bg="#0D0E11" borderRadius="m" mb="xl">
+        <Box bg="surface.containerLowest" borderRadius="m" mb="xl">
           <Box
             p="xl"
+            gap="l"
             display="flex"
+            borderBottom="1px solid"
             justifyContent="space-between"
-            borderBottom="1px solid #1B1B1F"
+            borderColor="outline.outlineVariant"
           >
-            <Typography variant="medium">
+            <Typography variant="small">
               {t('swap.modal.preview.exchangeRate')}
             </Typography>
-            <Typography variant="medium">0.000</Typography>
+            <Typography variant="medium" whiteSpace="nowrap">
+              0.000 {tokenOut.symbol}/{tokenIn.symbol}
+            </Typography>
           </Box>
           <Box
             p="xl"
+            gap="l"
             display="flex"
+            borderBottom="1px solid"
             justifyContent="space-between"
-            borderBottom="1px solid #1B1B1F"
+            borderColor="outline.outlineVariant"
           >
-            <Typography variant="medium">
-              {t('swap.modal.preview.networkFee')}
+            <Typography variant="small">
+              {t('swap.modal.preview.priceImpact')}
             </Typography>
-            <Typography variant="medium">~ 0%</Typography>
+            <Typography variant="medium" whiteSpace="nowrap">
+              ~ 0%
+            </Typography>
+          </Box>
+          <Box
+            p="xl"
+            gap="l"
+            display="flex"
+            borderBottom="1px solid"
+            justifyContent="space-between"
+            borderColor="outline.outlineVariant"
+          >
+            <Typography variant="small">
+              {t('swap.modal.preview.minimumReceived')}
+            </Typography>
+            <Typography variant="medium" whiteSpace="nowrap">
+              ~ 0%
+            </Typography>
           </Box>
           <Box
             py="m"
             px="xl"
+            gap="l"
             display="flex"
             alignItems="center"
             justifyContent="space-between"
           >
-            <Box display="flex">
-              <ProgressIndicator size={30} variant="loading" />
-            </Box>
-            <Typography variant="medium">
-              {t('swap.modal.preview.newQuoteIn')} 00:00
+            <Typography variant="small">
+              {t('swap.modal.preview.liquidityFee')}
+            </Typography>
+            <Typography variant="medium" whiteSpace="nowrap">
+              00:00
             </Typography>
           </Box>
         </Box>

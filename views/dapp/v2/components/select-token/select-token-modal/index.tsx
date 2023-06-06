@@ -70,7 +70,7 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
 
     try {
       if (storedToken) {
-        onSelectToken(storedToken);
+        await onSelectToken(storedToken);
         return;
       }
 
@@ -79,7 +79,7 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
           ...localTokensMetadata,
           [args.type]: args,
         });
-        onSelectToken(args);
+        await onSelectToken(args);
         return;
       }
 
@@ -103,7 +103,7 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
         [args.type]: tokenMetaData,
       });
 
-      onSelectToken(tokenMetaData);
+      await onSelectToken(tokenMetaData);
     } catch (error) {
       const decimals = args.decimals === -1 ? 0 : args.decimals;
 
@@ -116,7 +116,7 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
           },
         });
 
-      onSelectToken({
+      await onSelectToken({
         ...args,
         decimals,
       });
@@ -136,8 +136,6 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
         decimals: COIN_DECIMALS[network][type],
       }
   );
-
-  console.log(baseTokens);
 
   const [recommendedTokens, walletTokens, favorites] = useMemo(() => {
     const recommendedTokens: ReadonlyArray<Web3ManagerSuiObject> =
@@ -174,24 +172,24 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
       ReadonlyArray<Web3ManagerSuiObject>,
       ReadonlyArray<Web3ManagerSuiObject>
     ];
-  }, [coinsMap, coins.length, network]);
+  }, [coinsMap, coins.length, network, favoriteTokens]);
 
   return (
     <Box
-      bg="#1F1F23"
       width="100%"
       display="flex"
       maxHeight="90vh"
       maxWidth="26rem"
       overflow="hidden"
+      color="onSurface"
       borderRadius="1rem"
+      bg="surface.container"
       flexDirection="column"
       boxShadow="0 0 5px #3334"
     >
       <Box
         py="m"
         px="xl"
-        color="text"
         display="flex"
         alignItems="center"
         justifyContent="space-between"
@@ -218,10 +216,10 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
       </Box>
       <SelectTokenBaseTokens
         tokens={baseTokens}
-        onSelectToken={onSelectToken}
         currentTokenType={currentTokenType}
+        onSelectToken={handleSelectCurrency}
       />
-      <Box p="xl" display="flex" gap="s" flexWrap="wrap">
+      <Box px="l" py="l" display="flex" gap="s" flexWrap="wrap">
         <Chip
           isActive={tokenOrigin === TokenOrigin.Recommended}
           onClick={() => handleChangeTab(TokenOrigin.Recommended)}

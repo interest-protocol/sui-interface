@@ -1,5 +1,3 @@
-import { BoxProps } from '@interest-protocol/ui-kit';
-
 import { Locales } from '@/constants/locale';
 
 export interface MenuDropdownProps {
@@ -37,7 +35,6 @@ export interface MenuBackButtonProps {
   handleBack: () => void;
 }
 
-export interface MenuItemWrapperProps
-  extends Partial<Pick<BoxProps, 'surface'>> {
+export interface MenuItemWrapperProps {
   onClick?: () => void;
 }

@@ -106,6 +106,20 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
     }
   }, [filteredTokens, debouncedSearch, favoriteTokens, search]);
 
+  useEffect(() => {
+    if ((!debouncedSearch && !isPending()) || !search) setAskedToken(null);
+  }, [debouncedSearch]);
+
+  if (debouncedSearch) {
+    // handle it
+    // Allow him to click
+    return askedToken ? (
+      <div>{askedToken.symbol}</div>
+    ) : (
+      <div>Token not found // delete search</div>
+    );
+  }
+
   const TOKENS_RECORD = {
     [TokenOrigin.Recommended]: recommendedTokens,
     [TokenOrigin.Favorites]: favoriteTokens,
@@ -122,10 +136,10 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
         flex="1"
         color="text"
         display="flex"
-        bg="background"
         overflowY="auto"
         alignItems="center"
         flexDirection="column"
+        bg="surface.containerLow"
       >
         <EmptyBoxSVG maxHeight="4rem" maxWidth="4rem" width="100%" />
         <Typography variant="medium" textTransform="capitalize">
@@ -142,9 +156,9 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
         gap="xl"
         flex="1"
         display="flex"
-        bg="background"
         overflowY="auto"
         flexDirection="column"
+        bg="surface.containerLow"
       >
         {tokens.map(({ symbol, type, decimals, totalBalance }) => (
           <TokenModalItem

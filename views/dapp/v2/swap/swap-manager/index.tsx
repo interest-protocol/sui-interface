@@ -1,6 +1,7 @@
-import { findMarket, SwapPathObject } from '@interest-protocol/sui-sdk';
+import { findAllMarkets, SwapPathObject } from '@interest-protocol/sui-sdk';
 import { FC, useState } from 'react';
 
+import { BASE_TOKENS_TYPES } from '@/constants';
 import { useNetwork, useWeb3 } from '@/hooks';
 
 import { SwapManagerWrapperProps } from './swap-manager.types';
@@ -24,9 +25,9 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
   const [isFetchingSwapAmountIn, setIsFetchingSwapAmountIn] = useState(false);
   const [isFetchingSwapAmountOut, setIsFetchingSwapAmountOut] = useState(false);
 
-  const markets = findMarket({
-    network,
-    data: dexMarket,
+  const markets = findAllMarkets({
+    baseTokens: BASE_TOKENS_TYPES[network],
+    markets: dexMarket,
     coinInType: tokenInType,
     coinOutType: tokenOutType,
   });
@@ -39,6 +40,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
         <>
           <SwapManagerField
             name="from"
+            setValueName="to"
             account={account}
             setError={setError}
             type={tokenOutType}
@@ -54,6 +56,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
           />
           <SwapManagerField
             name="to"
+            setValueName="from"
             account={account}
             type={tokenInType}
             setError={setError}

@@ -16,7 +16,6 @@ const itemVariants = {
 
 const MenuItemWrapper: FC<PropsWithChildren<MenuItemWrapperProps>> = ({
   onClick,
-  surface,
   children,
 }) => {
   const { dark } = useTheme() as AppTheme<Theme>;
@@ -30,7 +29,6 @@ const MenuItemWrapper: FC<PropsWithChildren<MenuItemWrapperProps>> = ({
       display="flex"
       cursor="pointer"
       minWidth="14rem"
-      surface={surface}
       onClick={onClick}
       alignItems="center"
       fontFamily="Roboto"

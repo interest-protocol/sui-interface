@@ -51,13 +51,13 @@ const SwapFormBody: FC<SwapBodyProps> = ({
   searchTokenModalState,
 }) => {
   const { data, isLoading } = useGetDexMarkets();
-  console.log('handle loading', isLoading);
 
   return (
     <>
       <SwapForm
         mutate={mutate}
         formSwap={formSwap}
+        isLoading={isLoading}
         dexMarket={data || {}}
         formSettings={formSettings}
         searchTokenModalState={searchTokenModalState}

@@ -36,11 +36,11 @@ const TokenModalItem: FC<TokenModalItemProps> = ({
       borderRadius="m"
       alignItems="center"
       justifyContent="space-between"
-      bg={selected ? 'textAccent' : 'none'}
+      bg={selected ? '#99BBFF28' : 'none'}
       onClick={selected ? undefined : onClick}
       transition="background 500ms ease-in-out"
       nHover={{
-        bg: 'textAccent',
+        bg: '#99BBFF28',
       }}
     >
       <Box display="flex" alignItems="center">

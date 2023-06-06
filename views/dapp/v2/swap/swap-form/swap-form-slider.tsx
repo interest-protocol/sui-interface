@@ -1,18 +1,34 @@
-import { Box, Slider } from '@interest-protocol/ui-kit';
+import { Box } from '@interest-protocol/ui-kit';
+import dynamic from 'next/dynamic';
 import { FC } from 'react';
 
 import { SwapSliderProps } from '../swap.types';
 
-const SwapFormFieldSlider: FC<SwapSliderProps> = ({ balance, setValue }) => (
+const Slider = dynamic(
+  import('@interest-protocol/ui-kit').then(({ Slider }) => Slider),
+  { ssr: false }
+);
+
+const SwapFormFieldSlider: FC<SwapSliderProps> = ({
+  balance,
+  setValue,
+  currentValue,
+}) => (
   <Box mx="s">
     <Slider
       min={0}
       max={100}
-      initial={0}
       disabled={!balance}
-      onChange={(value: number) =>
-        setValue('from.value', `${(value / 100) * balance}`)
+      initial={
+        currentValue && balance >= currentValue
+          ? (currentValue * 100) / balance
+          : undefined
       }
+      onChange={(value: number) => {
+        setValue('maxValue', value === 100);
+        setValue('from.value', `${(value / 100) * balance}`);
+        setValue('lock', false);
+      }}
     />
   </Box>
 );
