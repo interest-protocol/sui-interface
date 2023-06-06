@@ -21,13 +21,13 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
   const formValues = useWatch({ control: formSwap.control });
 
   const isDisabled = false;
-  // formValues.to?.locked ||
-  // formValues.from?.locked ||
-  // !path(['to', 'type'], formValues) ||
-  // !path(['from', 'type'], formValues) ||
-  // !+pathOr(0, ['to', 'value'], formValues) ||
-  // !+pathOr(0, ['from', 'value'], formValues) ||
-  // formValues.disabled;
+  formValues.to?.locked ||
+    formValues.from?.locked ||
+    !path(['to', 'type'], formValues) ||
+    !path(['from', 'type'], formValues) ||
+    !+pathOr(0, ['to', 'value'], formValues) ||
+    !+pathOr(0, ['from', 'value'], formValues) ||
+    formValues.disabled;
 
   const openConfirmModal = (link: string) =>
     setModal(<SwapFormConfirmModal txLink={link} handleClose={handleClose} />, {
