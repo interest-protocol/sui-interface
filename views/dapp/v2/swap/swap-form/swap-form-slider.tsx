@@ -1,7 +1,13 @@
-import { Box, Slider } from '@interest-protocol/ui-kit';
+import { Box } from '@interest-protocol/ui-kit';
+import dynamic from 'next/dynamic';
 import { FC } from 'react';
 
 import { SwapSliderProps } from '../swap.types';
+
+const Slider = dynamic(
+  import('@interest-protocol/ui-kit').then(({ Slider }) => Slider),
+  { ssr: false }
+);
 
 const SwapFormFieldSlider: FC<SwapSliderProps> = ({
   getValues,
