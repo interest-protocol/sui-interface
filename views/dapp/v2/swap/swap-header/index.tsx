@@ -40,11 +40,10 @@ const SwapHeader: FC<SwapHeaderProps> = ({
 
   return (
     <Box
-      display="grid"
-      gridColumn="2/-2"
+      gridColumn="1/-1"
+      display="flex"
       alignItems="center"
       color={dark ? 'white' : 'black'}
-      gridTemplateColumns="1.2rem 1fr 1.2rem"
     >
       <Box display={['block', 'block', 'none']}>
         <LeftArrowSVG maxWidth="1.2rem" maxHeight="1.2rem" width="100%" />
@@ -54,17 +53,18 @@ const SwapHeader: FC<SwapHeaderProps> = ({
         gridColumn="2"
         textAlign="center"
         variant="displayLarge"
+        pl={['unset', 'unset', 'unset', '3.85rem']}
       >
         {t('swap.metadata.title')}
       </Typography>
       <Button
-        width="100%"
         variant="icon"
         display="flex"
         color="textSoft"
         alignItems="center"
         justifyContent="center"
         onClick={openSettingsModal}
+        mr={['unset', 'unset', 'unset', 'xl']}
       >
         <Motion
           display="flex"

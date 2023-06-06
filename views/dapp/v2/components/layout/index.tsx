@@ -48,6 +48,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
               display="flex"
               variant="container"
               justifyContent="flex-end"
+              pr={['unset', 'unset', 'unset', 'xl']}
             >
               <Wallet />
             </Box>
