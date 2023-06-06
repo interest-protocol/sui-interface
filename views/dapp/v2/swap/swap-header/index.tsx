@@ -15,8 +15,8 @@ import { SwapHeaderProps } from '../swap.types';
 import SettingsModal from './settings-modal';
 
 const SwapHeader: FC<SwapHeaderProps> = ({
-  setLocalSettings,
   formSettings,
+  setLocalSettings,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
@@ -40,7 +40,7 @@ const SwapHeader: FC<SwapHeaderProps> = ({
   return (
     <Box
       display="grid"
-      gridColumn="1/-1"
+      gridColumn="2/-2"
       alignItems="center"
       color={dark ? 'white' : 'black'}
       gridTemplateColumns="1.2rem 1fr 1.2rem"

@@ -58,12 +58,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
     );
 
   return (
-    <Box
-      display="flex"
-      bg="background"
-      minHeight="100vh"
-      flexDirection="column"
-    >
+    <Box bg="surface" display="flex" minHeight="100vh" flexDirection="column">
       <Toaster
         position="bottom-right"
         reverseOrder={false}

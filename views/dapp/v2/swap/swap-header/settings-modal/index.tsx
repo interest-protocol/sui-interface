@@ -20,13 +20,13 @@ const SettingsModal: FC<SettingsModalProps> = ({
     <Box
       px="xl"
       width="100%"
-      bg="#1F1F23"
       display="flex"
-      color="#C7C6CA"
       maxHeight="90vh"
+      color="onSurface"
       borderRadius="1rem"
       maxWidth="24.375rem"
       flexDirection="column"
+      bg="surface.container"
       boxShadow="0 0 5px #3334"
     >
       <Box
@@ -54,11 +54,11 @@ const SettingsModal: FC<SettingsModalProps> = ({
         <Box
           p="xl"
           mb="xl"
-          bg="#0D0E11"
           display="flex"
           borderRadius="m"
           alignItems="center"
           flexDirection="column"
+          bg="surface.containerLowest"
         >
           <SlippageTolerance
             register={formSettings.register}
@@ -72,11 +72,11 @@ const SettingsModal: FC<SettingsModalProps> = ({
         <Box
           p="xl"
           mb="4xl"
-          bg="#0D0E11"
           display="flex"
           borderRadius="m"
           alignItems="center"
           flexDirection="column"
+          bg="surface.containerLowest"
         >
           <AutomatedPrice
             setValue={formSettings.setValue}
