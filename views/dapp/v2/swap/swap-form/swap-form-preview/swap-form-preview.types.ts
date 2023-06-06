@@ -14,11 +14,10 @@ export interface SwapFormPreviewProps {
 
 export interface SwapFormPreviewModalProps extends SwapFormPreviewProps {
   closeModal: () => void;
-  openConfirmModal: () => void;
+  openConfirmModal: (link: string) => void;
 }
 
 export interface SwapFormConfirmModalProps {
-  txLink?: string;
-  loading: boolean;
+  txLink: string;
   handleClose: () => void;
 }

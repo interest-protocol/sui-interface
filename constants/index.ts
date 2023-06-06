@@ -136,3 +136,9 @@ export const TOAST_DURATION = 10000;
 
 export const TREASURY =
   '0xdd224f2287f0b38693555c6077abe85fcb4aa13e355ad54bc167611896b007e6\n';
+
+export const NETWORK_RECORD = {
+  [Network.DEVNET]: 'devnet',
+  [Network.TESTNET]: 'testnet',
+  [Network.MAINNET]: 'mainnet',
+};

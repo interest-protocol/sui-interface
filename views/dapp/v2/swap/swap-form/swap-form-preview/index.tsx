@@ -30,32 +30,25 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
     !+pathOr(0, ['from', 'value'], formValues) ||
     formValues.disabled;
 
-  const openConfirmModal = () =>
-    setModal(
-      <SwapFormConfirmModal
-        txLink="link"
-        loading={true}
-        handleClose={handleClose}
-      />,
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: false,
-      }
-    );
+  const openConfirmModal = (link: string) =>
+    setModal(<SwapFormConfirmModal txLink={link} handleClose={handleClose} />, {
+      isOpen: true,
+      custom: true,
+      opaque: false,
+      allowClose: false,
+    });
 
   const openPreviewModal = () => {
     if (isDisabled) return;
 
     setModal(
       <SwapFormPreviewModal
-        closeModal={handleClose}
-        openConfirmModal={openConfirmModal}
-        dexMarket={dexMarket}
-        formSwap={formSwap}
-        formSettings={formSettings}
         mutate={mutate}
+        formSwap={formSwap}
+        dexMarket={dexMarket}
+        closeModal={handleClose}
+        formSettings={formSettings}
+        openConfirmModal={openConfirmModal}
       />,
       {
         isOpen: true,
@@ -69,15 +62,15 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
 
   return (
     <Button
-      disabled={isDisabled}
       mx="auto"
       size="small"
       variant="filled"
+      disabled={isDisabled}
       boxSizing="border-box"
       justifyContent="center"
       mt={['4xl', '4xl', '2xl']}
-      onClick={openPreviewModal}
       width={['100%', '100%', 'auto']}
+      onClick={isDisabled ? undefined : openPreviewModal}
     >
       {t('swap.form.preview')}
     </Button>

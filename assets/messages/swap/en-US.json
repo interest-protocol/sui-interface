@@ -9,7 +9,18 @@
       "balance": "Balance",
       "selectToken": "Select a token",
       "preview": "Preview",
-      "fetchMarkets": "Fetching markets..."
+      "fetchMarkets": "Fetching markets...",
+      "errors": {
+        "fetchingAmounts": "Fetching amounts",
+        "amountOut": "Failed to fetch the amount out",
+        "sameTokens": "Cannot swap the same token",
+        "balances": "Failed to fetch balances",
+        "noMarket": "This pair has no market",
+        "infoNoPool": "This pair has no liquidity. Try a higher amount or add liquidity",
+        "noPool": "No pool found! Try an existing pool",
+        "error": "Failed to swap: try a higher slippage or smaller amount",
+        "increaseAmount": "Try to increase {symbol} amount"
+      }
     },
     "modal": {
       "settings": {
@@ -27,8 +38,9 @@
       "preview": {
         "swappingToken": "Swapping Token please wait...",
         "exchangeRate": "Exchange Rate",
-        "networkFee": "Network Fee",
-        "newQuoteIn": "New Quote in",
+        "liquidityFee": "Liquidity Provider fee",
+        "priceImpact": "Price impact",
+        "minimumReceived": "Minimum received after slippage",
         "networkFeesAreSetBy": "Network fees are set by “@network name”. Learn more about fees.",
         "FinalAmountMessage": "Final amount may change due to market activity. By approving this Swap you agree to Interest protocol Refund Policy.",
         "confirmSwap": "Confirm Swap",
@@ -45,6 +57,15 @@
           "wallet": "Wallet"
         }
       }
+    },
+    "error": {
+      "cannotSell0": "Cannot sell 0 tokens",
+      "noMarket": "No market found",
+      "select2Tokens": "Select two tokens",
+      "failedToSwap": "Failed to Swap",
+      "wethDeposit": "Failed to deposit",
+      "wethWithdraw": "Failed to withdraw",
+      "soonFeature": "This feature will be available in the next version"
     }
   }
 }

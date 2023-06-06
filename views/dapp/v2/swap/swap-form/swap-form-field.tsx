@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { useWeb3 } from '@/hooks';
-import { CoinData } from '@/interface';
+import { CoinData, TTranslatedMessage } from '@/interface';
 import { FixedPointMath } from '@/lib';
 import { formatDollars, ZERO_BIG_NUMBER } from '@/utils';
 import SelectToken from '@/views/dapp/v2/components/select-token';
@@ -80,7 +80,10 @@ const SwapFormField: FC<SwapInputProps> = ({
         disabled={locked}
         textAlign="right"
         placeholder="0.000"
-        error={errors[name]?.message}
+        error={
+          errors[name]?.message &&
+          t(`swap.form.errors.${errors[name]?.message}` as TTranslatedMessage)
+        }
         {...register(`${name}.value`)}
         Bottom={<SwapAmountInUSD name={name} control={control} />}
         Prefix={
