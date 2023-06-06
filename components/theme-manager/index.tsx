@@ -15,7 +15,7 @@ import {
   DappGlobalStyles,
   LandingGlobalStyles,
 } from '@/design-system/global-styles';
-import institutionalTheme from '@/design-system/insitutianal-theme/dark';
+import institutionalTheme from '@/design-system/insitutional-theme/dark';
 import { useLocalStorage } from '@/hooks';
 
 import LoadingPage from '../loading-page';
@@ -31,7 +31,7 @@ const WalletKitProvider = dynamic(
 );
 
 // TODO: REMOVE THESE CONSTANTS
-const INSTITUTIONAL_PAGES = ['/', '/team', '/campaign'];
+const INSTITUTIONAL_PAGES = ['/', '/team', '/campaign/liquidity'];
 const DAPP_REDESIGN_PAGES = ['/dapp/v2', 'dapp/swap'];
 
 const Theme: FC<PropsWithChildren<ThemeProps>> = ({

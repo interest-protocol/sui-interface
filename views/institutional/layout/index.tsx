@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import { TOAST_DURATION } from '@/constants';
-import institutionalTheme from '@/design-system/insitutianal-theme/dark';
+import institutionalTheme from '@/design-system/insitutional-theme/dark';
 import Box from '@/elements/box';
 
 import Footer from './footer';
