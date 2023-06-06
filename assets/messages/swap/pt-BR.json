@@ -8,7 +8,8 @@
       "to": "Para",
       "balance": "Saldo",
       "selectToken": "Selecionar um token",
-      "preview": "Visualizar"
+      "preview": "Visualizar",
+      "fetchMarkets": "Trazer mercados..."
     },
     "modal": {
       "settings": {

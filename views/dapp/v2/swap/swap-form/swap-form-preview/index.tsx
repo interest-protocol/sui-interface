@@ -11,10 +11,10 @@ import { SwapFormPreviewProps } from './swap-form-preview.types';
 import SwapFormPreviewModal from './swap-form-preview-modal';
 
 const SwapFormPreview: FC<SwapFormPreviewProps> = ({
-  formSwap,
-  formSettings,
-  dexMarket,
   mutate,
+  formSwap,
+  dexMarket,
+  formSettings,
 }) => {
   const { setModal, handleClose } = useModal();
   const t = useTranslations();

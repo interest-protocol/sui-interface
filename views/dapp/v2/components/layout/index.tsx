@@ -16,7 +16,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   dashboard,
 }) => {
   const [isDesktop, setIsDesktop] = useState(false);
-  const { dark, colors, radii, breakpoints } = useTheme() as Theme;
+  const { colors, radii, breakpoints } = useTheme() as Theme;
 
   const handleSetDesktopView = () =>
     setIsDesktop(window.matchMedia(`(min-width: ${breakpoints[2]})`).matches);
@@ -25,25 +25,36 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
 
   if (dashboard && isDesktop)
     return (
-      <Box
-        display="flex"
-        height="100vh"
-        overflow="hidden"
-        bg={dark ? 'background' : '#FBF8FD'}
-      >
-        <Sidebar />
-        <Box as="main" flex="1" minHeight="100vh" overflow="auto">
-          <Box
-            as="header"
-            display="flex"
-            variant="container"
-            justifyContent="flex-end"
-          >
-            <Wallet />
+      <>
+        <Toaster
+          position="bottom-right"
+          reverseOrder={false}
+          toastOptions={{
+            style: {
+              border: '1px solid',
+              borderRadius: radii.m,
+              color: colors.onSurface,
+              background: colors.surface,
+              borderColor: colors['primary.onPrimaryContainer'],
+            },
+            duration: TOAST_DURATION,
+          }}
+        />
+        <Box bg="surface" display="flex" height="100vh" overflow="hidden">
+          <Sidebar />
+          <Box as="main" flex="1" minHeight="100vh" overflow="auto">
+            <Box
+              as="header"
+              display="flex"
+              variant="container"
+              justifyContent="flex-end"
+            >
+              <Wallet />
+            </Box>
+            {children}
           </Box>
-          {children}
         </Box>
-      </Box>
+      </>
     );
 
   return (
@@ -58,11 +69,11 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
         reverseOrder={false}
         toastOptions={{
           style: {
-            color: colors.text,
             border: '1px solid',
             borderRadius: radii.m,
-            background: colors.background,
-            borderColor: colors.textAccent,
+            color: colors.onSurface,
+            background: colors.surface,
+            borderColor: colors['primary.onPrimaryContainer'],
           },
           duration: TOAST_DURATION,
         }}

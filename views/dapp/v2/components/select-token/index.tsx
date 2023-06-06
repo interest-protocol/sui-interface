@@ -53,11 +53,11 @@ const SelectToken: FC<SelectTokenProps> = ({
     return (
       <Button
         size="small"
-        bg={dark ? '#1F1F23' : '#EFEDF1'}
-        color="text"
         variant="filled"
         whiteSpace="nowrap"
         onClick={openModal}
+        bg="surface.container"
+        color={dark ? 'white' : 'black'}
         SuffixIcon={
           <Box as="span" display="inline-block" ml="m">
             <DotsSVG
@@ -84,11 +84,11 @@ const SelectToken: FC<SelectTokenProps> = ({
   return (
     <Button
       size="small"
-      bg={dark ? '#1F1F23' : '#EFEDF1'}
-      color="text"
       variant="filled"
       whiteSpace="nowrap"
       onClick={openModal}
+      bg="surface.container"
+      color={dark ? 'white' : 'black'}
       SuffixIcon={
         <Box as="span" display="inline-block" ml="m">
           <DotsSVG

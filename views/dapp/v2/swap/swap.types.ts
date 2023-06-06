@@ -60,10 +60,11 @@ export interface SwapHeaderProps {
 }
 
 export interface SwapFormProps {
-  formSwap: UseFormReturn<SwapForm>;
-  searchTokenModalState: TokenModalMetadata | null;
-  formSettings: SwapProps['formSettings'];
+  isLoading: boolean;
   dexMarket: DexMarket;
+  formSwap: UseFormReturn<SwapForm>;
+  formSettings: SwapProps['formSettings'];
+  searchTokenModalState: TokenModalMetadata | null;
   mutate: KeyedMutator<PaginatedCoins['data'] | undefined>;
 }
 

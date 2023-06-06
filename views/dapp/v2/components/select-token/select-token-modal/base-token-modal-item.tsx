@@ -14,24 +14,25 @@ const BaseTokenModalItem: FC<BaseTokenModalItemProps> = ({
     display="flex"
     color="textSoft"
     cursor="pointer"
-    borderRadius="m"
+    border="1px solid"
     alignItems="center"
+    borderRadius="1.5rem"
     justifyContent="space-between"
-    bg={selected ? 'textAccent' : 'none'}
+    transition="all 500ms ease-in-out"
+    bg={selected ? '#99BBFF28' : 'none'}
     onClick={selected ? undefined : onClick}
-    transition="background 500ms ease-in-out"
+    borderColor={selected ? 'transparent' : 'outline.outlineVariant'}
     nHover={{
-      bg: 'textAccent',
+      bg: '#99BBFF28',
+      borderColor: 'transparent',
     }}
   >
-    <Box display="flex" alignItems="center">
-      <Box>
-        <Icon filled width="100%" maxWidth="1.5rem" maxHeight="1.5rem" />
-      </Box>
-      <Typography variant="medium" ml="s">
-        {symbol}
-      </Typography>
+    <Box maxHeight="1.5rem">
+      <Icon filled width="100%" maxWidth="1.5rem" maxHeight="1.5rem" />
     </Box>
+    <Typography variant="medium" ml="s">
+      {symbol}
+    </Typography>
   </Box>
 );
 

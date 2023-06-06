@@ -12,7 +12,7 @@ const SelectTokenBaseTokens: FC<SelectTokenBaseTokensProps> = ({
   onSelectToken,
   currentTokenType,
 }) => (
-  <Box p="l" gap="s" flex="1" display="flex" overflowY="auto">
+  <Box px="l" py="s" gap="s" flex="1" display="flex" overflowY="auto">
     {tokens.map(({ symbol, type, decimals }) => (
       <BaseTokenModalItem
         key={v4()}

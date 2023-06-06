@@ -122,10 +122,10 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
         flex="1"
         color="text"
         display="flex"
-        bg="background"
         overflowY="auto"
         alignItems="center"
         flexDirection="column"
+        bg="surface.containerLow"
       >
         <EmptyBoxSVG maxHeight="4rem" maxWidth="4rem" width="100%" />
         <Typography variant="medium" textTransform="capitalize">
@@ -142,9 +142,9 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
         gap="xl"
         flex="1"
         display="flex"
-        bg="background"
         overflowY="auto"
         flexDirection="column"
+        bg="surface.containerLow"
       >
         {tokens.map(({ symbol, type, decimals, totalBalance }) => (
           <TokenModalItem

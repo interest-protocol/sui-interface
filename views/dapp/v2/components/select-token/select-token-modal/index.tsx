@@ -137,8 +137,6 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
       }
   );
 
-  console.log(baseTokens);
-
   const [recommendedTokens, walletTokens, favorites] = useMemo(() => {
     const recommendedTokens: ReadonlyArray<Web3ManagerSuiObject> =
       RECOMMENDED_TOKENS_TYPES[network].map(
@@ -178,20 +176,20 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
 
   return (
     <Box
-      bg="#1F1F23"
       width="100%"
       display="flex"
       maxHeight="90vh"
       maxWidth="26rem"
       overflow="hidden"
+      color="onSurface"
       borderRadius="1rem"
+      bg="surface.container"
       flexDirection="column"
       boxShadow="0 0 5px #3334"
     >
       <Box
         py="m"
         px="xl"
-        color="text"
         display="flex"
         alignItems="center"
         justifyContent="space-between"
@@ -218,10 +216,10 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
       </Box>
       <SelectTokenBaseTokens
         tokens={baseTokens}
-        onSelectToken={onSelectToken}
         currentTokenType={currentTokenType}
+        onSelectToken={handleSelectCurrency}
       />
-      <Box p="xl" display="flex" gap="s" flexWrap="wrap">
+      <Box px="l" py="l" display="flex" gap="s" flexWrap="wrap">
         <Chip
           isActive={tokenOrigin === TokenOrigin.Recommended}
           onClick={() => handleChangeTab(TokenOrigin.Recommended)}

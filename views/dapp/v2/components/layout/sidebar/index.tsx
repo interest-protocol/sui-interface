@@ -30,10 +30,10 @@ const Sidebar: FC = () => {
       width="100%"
       display="flex"
       maxWidth="20rem"
+      bg="surface.container"
       flexDirection="column"
       borderRadius="0 1rem 1rem 0"
       justifyContent="space-between"
-      {...(dark ? { surface: 'surface1' } : { bg: '#EFEDF1' })}
     >
       <Box>
         <Link href={Routes[RoutesEnum.Home]}>
@@ -41,11 +41,7 @@ const Sidebar: FC = () => {
             <LogoSVG full maxWidth="100%" maxHeight="2.6rem" height="100%" />
           </Box>
         </Link>
-        <Typography
-          variant="small"
-          m="xl"
-          color={dark ? 'disabled' : 'foreground'}
-        >
+        <Typography m="xl" variant="small" color="onSurfaceVariant">
           Menu
         </Typography>
         <Box display="flex" flexDirection="column" gap="s">
@@ -55,8 +51,8 @@ const Sidebar: FC = () => {
               key={v4()}
               display="flex"
               borderRadius="m"
+              color="onSurface"
               opacity={disabled ? 0.7 : 1}
-              color={dark ? 'disabled' : 'textDisabled'}
               cursor={disabled ? 'not-allowed' : 'pointer'}
               bg={asPath === path ? '#99BBFF14' : undefined}
               onClick={disabled ? undefined : () => push(path)}
@@ -75,7 +71,7 @@ const Sidebar: FC = () => {
         </Box>
       </Box>
       <Box display="flex" justifyContent="center" gap="l">
-        <Typography variant="medium" color="text">
+        <Typography variant="medium" color="onSurface">
           {t('common.v2.menu.light')}
         </Typography>
         <SwitchButton
@@ -84,7 +80,7 @@ const Sidebar: FC = () => {
           defaultValue={dark}
           onChange={() => setDark(not)}
         />
-        <Typography variant="medium" color="text">
+        <Typography variant="medium" color="onSurface">
           {t('common.v2.menu.dark')}
         </Typography>
       </Box>

@@ -66,7 +66,7 @@ const SwapFormField: FC<SwapInputProps> = ({
       <Box
         mb="xs"
         display="flex"
-        color="textSoft"
+        color="onSurface"
         justifyContent="space-between"
       >
         <Typography variant="medium">
