@@ -11,7 +11,11 @@ import { FixedPointMath } from '@/lib';
 import { formatDollars, ZERO_BIG_NUMBER } from '@/utils';
 import SelectToken from '@/views/dapp/v2/components/select-token';
 
-import { SwapAmountInUSDProps, SwapInputProps } from '../swap.types';
+import {
+  SwapAmountInUSDProps,
+  SwapInputProps,
+  TextFieldWrapperProps,
+} from '../swap.types';
 import SwapFormFieldSlider from './swap-form-slider';
 
 const SwapAmountInUSD: FC<SwapAmountInUSDProps> = ({ name, control }) => {
@@ -28,6 +32,45 @@ const SwapAmountInUSD: FC<SwapAmountInUSDProps> = ({ name, control }) => {
   return <>{formatDollars(valueNumber * usdPrice)} USD</>;
 };
 
+const TextFieldWrapper: FC<TextFieldWrapperProps> = ({
+  control,
+  name,
+  errors,
+  currentTokenType,
+  register,
+  onSelectToken,
+  searchTokenModalState,
+}) => {
+  const locked = useWatch({
+    control: control,
+    name: `${name}.locked`,
+  });
+
+  const t = useTranslations();
+
+  return (
+    <TextField
+      disabled={locked}
+      textAlign="right"
+      placeholder="0.000"
+      error={
+        currentTokenType &&
+        errors[name]?.message &&
+        t(`swap.form.errors.${errors[name]?.message}` as TTranslatedMessage)
+      }
+      {...register(`${name}.value`)}
+      Bottom={<SwapAmountInUSD name={name} control={control} />}
+      Prefix={
+        <SelectToken
+          onSelectToken={onSelectToken}
+          searchTokenModalState={searchTokenModalState}
+          currentTokenType={currentTokenType ? currentTokenType : null}
+        />
+      }
+    />
+  );
+};
+
 const SwapFormField: FC<SwapInputProps> = ({
   name,
   searchTokenModalState,
@@ -35,8 +78,8 @@ const SwapFormField: FC<SwapInputProps> = ({
     control,
     register,
     setValue,
-    getValues,
     formState: { errors },
+    clearErrors,
   },
 }) => {
   const t = useTranslations();
@@ -45,11 +88,6 @@ const SwapFormField: FC<SwapInputProps> = ({
   const currentTokenType = useWatch({
     control: control,
     name: `${name}.type`,
-  });
-
-  const locked = useWatch({
-    control: control,
-    name: `${name}.locked`,
   });
 
   const onSelectToken = async (token: CoinData) => {
@@ -96,31 +134,17 @@ const SwapFormField: FC<SwapInputProps> = ({
           {t('swap.form.balance')}: {balance}
         </Typography>
       </Box>
-      <TextField
-        disabled={locked}
-        textAlign="right"
-        placeholder="0.000"
-        error={
-          currentTokenType &&
-          errors[name]?.message &&
-          t(`swap.form.errors.${errors[name]?.message}` as TTranslatedMessage)
-        }
-        {...register(`${name}.value`)}
-        Bottom={<SwapAmountInUSD name={name} control={control} />}
-        Prefix={
-          <SelectToken
-            onSelectToken={onSelectToken}
-            searchTokenModalState={searchTokenModalState}
-            currentTokenType={currentTokenType ? currentTokenType : null}
-          />
-        }
+      <TextFieldWrapper
+        searchTokenModalState={searchTokenModalState}
+        currentTokenType={currentTokenType}
+        onSelectToken={onSelectToken}
+        control={control}
+        errors={errors}
+        name={name}
+        register={register}
       />
       {name === 'from' && (
-        <SwapFormFieldSlider
-          balance={balance}
-          setValue={setValue}
-          getValues={getValues}
-        />
+        <SwapFormFieldSlider balance={balance} setValue={setValue} />
       )}
     </Box>
   );

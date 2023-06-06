@@ -3,6 +3,7 @@ import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { Dispatch, SetStateAction } from 'react';
 import {
   Control,
+  FieldErrors,
   UseFormGetValues,
   UseFormReturn,
   UseFormSetValue,
@@ -75,9 +76,18 @@ export interface SwapInputProps {
   searchTokenModalState: TokenModalMetadata | null;
 }
 
+export interface TextFieldWrapperProps {
+  control: UseFormReturn<SwapForm>['control'];
+  name: SwapInputProps['name'];
+  errors: FieldErrors<SwapForm>;
+  currentTokenType: string;
+  register: UseFormReturn<SwapForm>['register'];
+  onSelectToken: (x: CoinData) => Promise<void>;
+  searchTokenModalState: SwapInputProps['searchTokenModalState'];
+}
+
 export interface SwapSliderProps {
   balance: number;
-  getValues: UseFormGetValues<SwapForm>;
   setValue: UseFormSetValue<SwapForm>;
 }
 

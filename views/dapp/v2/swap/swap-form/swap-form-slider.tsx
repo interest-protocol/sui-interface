@@ -9,17 +9,12 @@ const Slider = dynamic(
   { ssr: false }
 );
 
-const SwapFormFieldSlider: FC<SwapSliderProps> = ({
-  getValues,
-  balance,
-  setValue,
-}) => (
+const SwapFormFieldSlider: FC<SwapSliderProps> = ({ balance, setValue }) => (
   <Box mx="s">
     <Slider
       min={0}
       max={100}
       disabled={!balance}
-      initial={(+(getValues('from.value') ?? 0) * 100) / balance}
       onChange={(value: number) => {
         setValue('maxValue', value === 100);
         setValue('from.value', `${(value / 100) * balance}`);

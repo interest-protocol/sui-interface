@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 import {
   Control,
   FieldErrors,
+  UseFormClearErrors,
   UseFormReturn,
   UseFormSetError,
   UseFormSetValue,
