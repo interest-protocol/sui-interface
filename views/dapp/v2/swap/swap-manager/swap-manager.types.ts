@@ -35,6 +35,7 @@ export interface SwapManagerProps {
   type: string;
   decimals: number;
   name: 'from' | 'to';
+  setValueName: 'from' | 'to';
   hasNoMarket: boolean;
   dexMarket: DexMarket;
   account: string | null;

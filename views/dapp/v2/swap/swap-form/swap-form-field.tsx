@@ -1,7 +1,7 @@
 import { Box, TextField, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { pathOr, propOr } from 'ramda';
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { getUSDPriceByCoinSymbol } from '@/api/prices';
@@ -10,7 +10,11 @@ import { useWeb3 } from '@/hooks';
 import { useNetwork } from '@/hooks';
 import { CoinData, TTranslatedMessage } from '@/interface';
 import { FixedPointMath } from '@/lib';
-import { formatDollars, ZERO_BIG_NUMBER } from '@/utils';
+import {
+  formatDollars,
+  parseInputEventToNumberString,
+  ZERO_BIG_NUMBER,
+} from '@/utils';
 import SelectToken from '@/views/dapp/v2/components/select-token';
 
 import {
@@ -43,6 +47,7 @@ const TextFieldWrapper: FC<TextFieldWrapperProps> = ({
   onSelectToken,
   searchTokenModalState,
   currentTokenSymbol,
+  setValue,
 }) => {
   const locked = useWatch({
     control: control,
@@ -61,7 +66,12 @@ const TextFieldWrapper: FC<TextFieldWrapperProps> = ({
         errors[name]?.message &&
         t(`swap.form.errors.${errors[name]?.message}` as TTranslatedMessage)
       }
-      {...register(`${name}.value`)}
+      {...register(`${name}.value`, {
+        onChange: (v: ChangeEvent<HTMLInputElement>) => {
+          setValue?.(`${name}.value`, parseInputEventToNumberString(v));
+          setValue('lock', false);
+        },
+      })}
       Bottom={<SwapAmountInUSD name={name} control={control} />}
       Prefix={
         <SelectToken
@@ -151,6 +161,7 @@ const SwapFormField: FC<SwapInputProps> = ({
         name={name}
         register={register}
         currentTokenSymbol={getValues(`${name}.symbol`)}
+        setValue={setValue}
       />
       {name === 'from' && (
         <SwapFormFieldSlider

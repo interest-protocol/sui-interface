@@ -43,7 +43,7 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
     (isZeroSwapAmountOut && !!tokenOutValue && !isFetchingSwapAmountOut);
 
   const errorMessage = pathOr(null, ['to', 'message'], errors);
-  console.log('render');
+
   // Clear errors
   useEffect(() => {
     // If there is no error or both tokens are not selected - do nothing
@@ -65,8 +65,8 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
     amountNotEnough,
     hasNoMarket,
     errorMessage,
-    tokenIn.type,
-    tokenOut.type,
+    tokenIn?.type,
+    tokenOut?.type,
   ]);
 
   // Set Error
@@ -97,8 +97,8 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
     error,
     amountNotEnough,
     hasNoMarket,
-    tokenIn.type,
-    tokenOut.type,
+    tokenIn?.type,
+    tokenOut?.type,
     errorMessage,
   ]);
 

@@ -40,6 +40,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
         <>
           <SwapManagerField
             name="from"
+            setValueName="to"
             account={account}
             setError={setError}
             type={tokenOutType}
@@ -55,6 +56,7 @@ const SwapManager: FC<SwapManagerWrapperProps> = ({
           />
           <SwapManagerField
             name="to"
+            setValueName="from"
             account={account}
             type={tokenInType}
             setError={setError}
