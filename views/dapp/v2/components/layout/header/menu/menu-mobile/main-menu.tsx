@@ -40,7 +40,6 @@ const MainMenu: FC<Pick<MenuMobileProps, 'handleOpenSettings'>> = ({
             mt="s"
             display="flex"
             borderRadius="m"
-            surface="surface2"
             alignItems="center"
           >
             <Box height="1.5rem" color="text">
