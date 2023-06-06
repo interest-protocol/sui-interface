@@ -30,7 +30,7 @@
         "liquidityFee": "Taxa do Liquidity Provider",
         "priceImpact": "Impacto de preço",
         "minimumReceived": "Mínimo received depois da slippage",
-        "networkFeesAreSetBy": "As taxas de rede são definidas por “@nome da rede”. Saiba mais sobre as taxas.",
+        "networkFeesAreSetBy": "As taxas de rede são definidas por {networkName}. Saiba mais sobre as taxas.",
         "FinalAmountMessage": "O valor final pode ser alterado devido à atividade de mercado. Ao aprovar esta troca, você concorda com a Política de Reembolso do protocolo Interest.",
         "confirmSwap": "Confirmar Troca",
         "swapFormConfirmModal": {

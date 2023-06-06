@@ -11,15 +11,17 @@ import { noop } from '@/utils';
 
 const StyledConnectButton = styled(ConnectButton)`
   width: 100%;
+  color: #002266 !important;
+  font-weight: 400 !important;
   white-space: nowrap !important;
-  color: #fff !important;
-  padding-left: 0.7rem !important;
-  padding-right: 0.7rem !important;
-  background: #4282a8 !important;
-  transition: background-color 1s;
-  border-radius: 2.5rem !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+  background: #99bbff !important;
+  border-radius: 0.25rem !important;
+  transition: all 0.2s ease-in-out !important;
+  font-family: 'Roboto Mono', 'Share Tech Mono', monospace !important;
   &:hover {
-    background: #6fbcf0 !important;
+    transform: scale(1.05) translateZ(0px) !important;
   }
 `;
 
