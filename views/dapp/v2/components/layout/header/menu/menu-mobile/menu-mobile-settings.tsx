@@ -17,13 +17,10 @@ const LanguageMenu: FC = () => {
 
   return (
     <>
-      <MenuItemWrapper
-        onClick={() => setOpen(not)}
-        surface={isOpen ? 'surface2' : undefined}
-      >
+      <MenuItemWrapper onClick={() => setOpen(not)}>
         <MenuItem name="languages" isActive={isOpen} />
       </MenuItemWrapper>
-      <Box surface={isOpen ? 'surface2' : undefined}>
+      <Box>
         {isOpen &&
           locales.map((locale) => (
             <MenuItemWrapper key={v4()} onClick={() => changeLocale(locale)}>
@@ -45,7 +42,7 @@ const SettingsMenu: FC = () => {
           {capitalize(t('common.v2.menu.settings'))}
         </Typography>
         <Motion animate="open" mt="4xl" py="4xl">
-          <MenuItemWrapper surface={undefined}>
+          <MenuItemWrapper>
             <MenuItem name="darkMode" />
           </MenuItemWrapper>
           <LanguageMenu />

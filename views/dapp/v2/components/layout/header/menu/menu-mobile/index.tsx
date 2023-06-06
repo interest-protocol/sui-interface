@@ -21,7 +21,6 @@ const MenuMobile: FC<MenuMobileProps> = ({
       width="100vw"
       height="100vh"
       position="fixed"
-      surface="surface1"
       display={['block', 'none']}
     >
       {isSettings ? (
