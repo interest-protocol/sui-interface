@@ -28,7 +28,7 @@
         "exchangeRate": "Exchange Rate",
         "networkFee": "Network Fee",
         "newQuoteIn": "New Quote in",
-        "networkFeesAreSetBy": "Network fees are set by “@network name”. Learn more about fees.",
+        "networkFeesAreSetBy": "Network fees are set by {networkName}. Learn more about fees.",
         "FinalAmountMessage": "Final amount may change due to market activity. By approving this Swap you agree to Interest protocol Refund Policy.",
         "confirmSwap": "Confirm Swap",
         "swapFormConfirmModal": {

@@ -265,7 +265,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
           </Box>
         </Box>
         <Typography variant="extraSmall" mb="l">
-          {t('swap.modal.preview.networkFeesAreSetBy')}
+          {t('swap.modal.preview.networkFeesAreSetBy', { networkName: 'SUI' })}
         </Typography>
         <Typography variant="extraSmall">
           {t('swap.modal.preview.FinalAmountMessage')}
