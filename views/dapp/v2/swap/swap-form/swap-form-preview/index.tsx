@@ -20,8 +20,8 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
   const t = useTranslations();
   const formValues = useWatch({ control: formSwap.control });
 
-  const isDisabled = false;
-  formValues.to?.locked ||
+  const isDisabled =
+    formValues.to?.locked ||
     formValues.from?.locked ||
     !path(['to', 'type'], formValues) ||
     !path(['from', 'type'], formValues) ||
