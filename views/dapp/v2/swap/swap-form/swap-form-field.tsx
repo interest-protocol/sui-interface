@@ -153,7 +153,11 @@ const SwapFormField: FC<SwapInputProps> = ({
         currentTokenSymbol={getValues(`${name}.symbol`)}
       />
       {name === 'from' && (
-        <SwapFormFieldSlider balance={balance} setValue={setValue} />
+        <SwapFormFieldSlider
+          balance={balance}
+          setValue={setValue}
+          currentValue={+getValues('from.value')}
+        />
       )}
     </Box>
   );

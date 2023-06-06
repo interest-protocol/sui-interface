@@ -90,6 +90,7 @@ export interface TextFieldWrapperProps {
 export interface SwapSliderProps {
   balance: number;
   setValue: UseFormSetValue<SwapForm>;
+  currentValue: number;
 }
 
 export interface SwapAmountInUSDProps {

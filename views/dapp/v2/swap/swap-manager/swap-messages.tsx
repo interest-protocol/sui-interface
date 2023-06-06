@@ -45,22 +45,22 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
   const errorMessage = pathOr(null, ['to', 'message'], errors);
 
   // Clear errors
-  useEffect(() => {
-    // If there is no error or both tokens are not selected - do nothing
-    if (!errorMessage || !tokenIn?.type || !tokenOut?.type) return;
-
-    const name = tokenInValue ? 'from' : 'to';
-
-    if (!amountNotEnough && errors[name]?.message !== 'increaseAmount')
-      setError(name, {});
-
-    if (tokenIn?.type !== tokenOut?.type && errorMessage === 'sameTokens')
-      setError(name, {});
-
-    if (!error && errorMessage === 'error') setError(name, {});
-
-    if (!hasNoMarket && errorMessage === 'noMarket') setError(name, {});
-  }, [error, amountNotEnough, hasNoMarket, errorMessage]);
+  // useEffect(() => {
+  //   // If there is no error or both tokens are not selected - do nothing
+  //   if (!errorMessage || !tokenIn?.type || !tokenOut?.type) return;
+  //
+  //   const name = tokenInValue ? 'from' : 'to';
+  //
+  //   if (!amountNotEnough && errors[name]?.message !== 'increaseAmount')
+  //     setError(name, {});
+  //
+  //   if (tokenIn?.type !== tokenOut?.type && errorMessage === 'sameTokens')
+  //     setError(name, {});
+  //
+  //   if (!error && errorMessage === 'error') setError(name, {});
+  //
+  //   if (!hasNoMarket && errorMessage === 'noMarket') setError(name, {});
+  // }, [error, amountNotEnough, hasNoMarket, errorMessage]);
 
   // Set Error
   useEffect(() => {
