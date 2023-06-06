@@ -1,4 +1,5 @@
-import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
+import { animate, transform } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
@@ -49,13 +50,27 @@ const SwapHeader: FC<SwapHeaderProps> = ({
       >
         {t('swap.metadata.title')}
       </Typography>
+
       <Button
         width="100%"
         variant="icon"
+        display="flex"
         color="textSoft"
+        alignItems="center"
+        justifyContent="center"
         onClick={openSettingsModal}
       >
-        <CogsSVG maxWidth="1.5rem" maxHeight="1.5rem" width="100%" />
+        <Motion
+          display="flex"
+          justifyContent="center"
+          transformOrigin="center center"
+          whileHover={{
+            rotate: 180,
+            transition: { duration: 0.7, ease: 'easeInOut' },
+          }}
+        >
+          <CogsSVG maxWidth="1.5rem" maxHeight="1.5rem" width="1.5rem" />
+        </Motion>
       </Button>
     </Box>
   );
