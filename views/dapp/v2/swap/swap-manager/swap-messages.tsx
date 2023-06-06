@@ -1,5 +1,5 @@
 import { Box } from '@interest-protocol/ui-kit';
-import { isEmpty, pathOr, propOr } from 'ramda';
+import { pathOr, propOr } from 'ramda';
 import { FC } from 'react';
 import { useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
@@ -43,24 +43,31 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
     (isZeroSwapAmountOut && !!tokenOutValue && !isFetchingSwapAmountOut);
 
   const errorMessage = pathOr(null, ['to', 'message'], errors);
-
+  console.log('render');
   // Clear errors
-  // useEffect(() => {
-  //   // If there is no error or both tokens are not selected - do nothing
-  //   if (!errorMessage || !tokenIn?.type || !tokenOut?.type) return;
-  //
-  //   const name = tokenInValue ? 'from' : 'to';
-  //
-  //   if (!amountNotEnough && errors[name]?.message !== 'increaseAmount')
-  //     setError(name, {});
-  //
-  //   if (tokenIn?.type !== tokenOut?.type && errorMessage === 'sameTokens')
-  //     setError(name, {});
-  //
-  //   if (!error && errorMessage === 'error') setError(name, {});
-  //
-  //   if (!hasNoMarket && errorMessage === 'noMarket') setError(name, {});
-  // }, [error, amountNotEnough, hasNoMarket, errorMessage]);
+  useEffect(() => {
+    // If there is no error or both tokens are not selected - do nothing
+    if (!errorMessage || !tokenIn?.type || !tokenOut?.type) return;
+
+    const name = tokenInValue ? 'from' : 'to';
+
+    if (!amountNotEnough && errors[name]?.message === 'increaseAmount')
+      setError(name, {});
+
+    if (tokenIn?.type !== tokenOut?.type && errorMessage === 'sameTokens')
+      setError(name, {});
+
+    if (!error && errorMessage === 'error') setError(name, {});
+
+    if (!hasNoMarket && errorMessage === 'noMarket') setError(name, {});
+  }, [
+    error,
+    amountNotEnough,
+    hasNoMarket,
+    errorMessage,
+    tokenIn.type,
+    tokenOut.type,
+  ]);
 
   // Set Error
   useEffect(() => {
@@ -95,7 +102,7 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
     errorMessage,
   ]);
 
-  if (!isEmpty(errors)) return null;
+  if (errorMessage) return null;
 
   return (
     <Box gridColumn="1/-1">
