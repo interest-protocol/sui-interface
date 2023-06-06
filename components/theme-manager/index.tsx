@@ -15,6 +15,7 @@ import {
   DappGlobalStyles,
   LandingGlobalStyles,
 } from '@/design-system/global-styles';
+import institutionalTheme from '@/design-system/insitutianal-theme/dark';
 import { useLocalStorage } from '@/hooks';
 
 import LoadingPage from '../loading-page';
@@ -45,7 +46,7 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
 
   if (isInstitutional)
     return (
-      <InterestThemeProvider theme={{ setDark, ...darkTheme }}>
+      <InterestThemeProvider theme={{ setDark, ...institutionalTheme }}>
         <Global styles={LandingGlobalStyles} />
         {children}
       </InterestThemeProvider>

@@ -1,8 +1,9 @@
-import { Theme, useTheme } from '@interest-protocol/ui-kit';
+import { useTheme } from '@interest-protocol/ui-kit';
 import { FC, PropsWithChildren } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import { TOAST_DURATION } from '@/constants';
+import institutionalTheme from '@/design-system/insitutianal-theme/dark';
 import Box from '@/elements/box';
 
 import Footer from './footer';
@@ -13,7 +14,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   children,
   noContent,
 }) => {
-  const { colors, radii } = useTheme() as Theme;
+  const { colors, radii } = useTheme() as typeof institutionalTheme;
 
   return (
     <Box minHeight="100vh" display="flex" flexDirection="column">
