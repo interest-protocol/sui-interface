@@ -19,6 +19,7 @@ const SelectToken: FC<SelectTokenProps> = ({
   onSelectToken,
   currentTokenType,
   searchTokenModalState,
+  currentTokenSymbol,
 }) => {
   const t = useTranslations();
   const { network } = useNetwork();
@@ -79,7 +80,9 @@ const SelectToken: FC<SelectTokenProps> = ({
   const Icon =
     TOKENS_SVG_MAP_V2[currentTokenType || ''] ?? TOKENS_SVG_MAP_V2.default;
 
-  const symbol = COIN_TYPE_TO_SYMBOL[network][currentTokenType || ''] || '???';
+  const symbol =
+    currentTokenSymbol ??
+    (COIN_TYPE_TO_SYMBOL[network][currentTokenType || ''] || '???');
 
   return (
     <Button

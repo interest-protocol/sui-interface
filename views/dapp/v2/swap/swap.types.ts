@@ -84,6 +84,7 @@ export interface TextFieldWrapperProps {
   register: UseFormReturn<SwapForm>['register'];
   onSelectToken: (x: CoinData) => Promise<void>;
   searchTokenModalState: SwapInputProps['searchTokenModalState'];
+  currentTokenSymbol: string | null;
 }
 
 export interface SwapSliderProps {

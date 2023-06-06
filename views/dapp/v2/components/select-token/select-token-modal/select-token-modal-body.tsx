@@ -106,6 +106,20 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
     }
   }, [filteredTokens, debouncedSearch, favoriteTokens, search]);
 
+  useEffect(() => {
+    if ((!debouncedSearch && !isPending()) || !search) setAskedToken(null);
+  }, [debouncedSearch]);
+
+  if (debouncedSearch) {
+    // handle it
+    // Allow him to click
+    return askedToken ? (
+      <div>{askedToken.symbol}</div>
+    ) : (
+      <div>Token not found // delete search</div>
+    );
+  }
+
   const TOKENS_RECORD = {
     [TokenOrigin.Recommended]: recommendedTokens,
     [TokenOrigin.Favorites]: favoriteTokens,

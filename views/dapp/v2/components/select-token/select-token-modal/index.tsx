@@ -70,7 +70,7 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
 
     try {
       if (storedToken) {
-        onSelectToken(storedToken);
+        await onSelectToken(storedToken);
         return;
       }
 
@@ -79,7 +79,7 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
           ...localTokensMetadata,
           [args.type]: args,
         });
-        onSelectToken(args);
+        await onSelectToken(args);
         return;
       }
 
@@ -103,7 +103,7 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
         [args.type]: tokenMetaData,
       });
 
-      onSelectToken(tokenMetaData);
+      await onSelectToken(tokenMetaData);
     } catch (error) {
       const decimals = args.decimals === -1 ? 0 : args.decimals;
 
@@ -116,7 +116,7 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
           },
         });
 
-      onSelectToken({
+      await onSelectToken({
         ...args,
         decimals,
       });
@@ -172,7 +172,7 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
       ReadonlyArray<Web3ManagerSuiObject>,
       ReadonlyArray<Web3ManagerSuiObject>
     ];
-  }, [coinsMap, coins.length, network]);
+  }, [coinsMap, coins.length, network, favoriteTokens]);
 
   return (
     <Box
