@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Motion,
   Theme,
   Typography,
   useTheme,
@@ -56,8 +57,26 @@ const SwapHeader: FC<SwapHeaderProps> = ({
       >
         {t('swap.metadata.title')}
       </Typography>
-      <Button width="100%" variant="icon" onClick={openSettingsModal}>
-        <CogsSVG maxWidth="1.5rem" maxHeight="1.5rem" width="100%" />
+      <Button
+        width="100%"
+        variant="icon"
+        display="flex"
+        color="textSoft"
+        alignItems="center"
+        justifyContent="center"
+        onClick={openSettingsModal}
+      >
+        <Motion
+          display="flex"
+          justifyContent="center"
+          transformOrigin="center center"
+          whileHover={{
+            rotate: 180,
+            transition: { duration: 0.7, ease: 'easeInOut' },
+          }}
+        >
+          <CogsSVG maxWidth="1.5rem" maxHeight="1.5rem" width="1.5rem" />
+        </Motion>
       </Button>
     </Box>
   );
