@@ -3,13 +3,17 @@ import { FC } from 'react';
 
 import { SwapSliderProps } from '../swap.types';
 
-const SwapFormFieldSlider: FC<SwapSliderProps> = ({ balance, setValue }) => (
+const SwapFormFieldSlider: FC<SwapSliderProps> = ({
+  getValues,
+  balance,
+  setValue,
+}) => (
   <Box mx="s">
     <Slider
       min={0}
       max={100}
-      initial={0}
       disabled={!balance}
+      initial={(+(getValues('from.value') ?? 0) * 100) / balance}
       onChange={(value: number) =>
         setValue('from.value', `${(value / 100) * balance}`)
       }

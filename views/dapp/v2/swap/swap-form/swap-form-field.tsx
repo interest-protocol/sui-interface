@@ -31,9 +31,10 @@ const SwapFormField: FC<SwapInputProps> = ({
   name,
   searchTokenModalState,
   formSwap: {
-    register,
     control,
+    register,
     setValue,
+    getValues,
     formState: { errors },
   },
 }) => {
@@ -44,6 +45,7 @@ const SwapFormField: FC<SwapInputProps> = ({
     control: control,
     name: `${name}.type`,
   });
+
   const locked = useWatch({
     control: control,
     name: `${name}.locked`,
@@ -81,6 +83,7 @@ const SwapFormField: FC<SwapInputProps> = ({
         textAlign="right"
         placeholder="0.000"
         error={
+          currentTokenType &&
           errors[name]?.message &&
           t(`swap.form.errors.${errors[name]?.message}` as TTranslatedMessage)
         }
@@ -95,7 +98,11 @@ const SwapFormField: FC<SwapInputProps> = ({
         }
       />
       {name === 'from' && (
-        <SwapFormFieldSlider balance={10} setValue={setValue} />
+        <SwapFormFieldSlider
+          balance={10}
+          setValue={setValue}
+          getValues={getValues}
+        />
       )}
     </Box>
   );
