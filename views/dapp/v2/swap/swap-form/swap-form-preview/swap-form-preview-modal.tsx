@@ -227,7 +227,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
               </Typography>
               <Typography variant="medium" color="#ACAAAF">
                 {formatDollars(
-                  Number(tokenIn?.value || 0) * tokenIn?.usdPrice || 0
+                  Number(tokenIn?.value || 0) * (tokenIn?.usdPrice || 0)
                 )}{' '}
                 USD
               </Typography>
@@ -281,7 +281,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
               </Typography>
               <Typography variant="medium" color="#ACAAAF">
                 {formatDollars(
-                  Number(tokenOut?.value || 0) * tokenOut?.usdPrice || 0
+                  Number(tokenOut?.value || 0) * (tokenOut?.usdPrice || 0)
                 )}{' '}
                 USD
               </Typography>
