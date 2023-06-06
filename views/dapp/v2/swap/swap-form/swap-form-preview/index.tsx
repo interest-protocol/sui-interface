@@ -21,7 +21,6 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
   const formValues = useWatch({ control: formSwap.control });
 
   const isDisabled =
-    formValues.lock ||
     formValues.to?.locked ||
     formValues.from?.locked ||
     !path(['to', 'type'], formValues) ||

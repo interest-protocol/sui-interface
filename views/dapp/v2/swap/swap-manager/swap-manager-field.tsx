@@ -50,7 +50,9 @@ const SwapManagerField: FC<SwapManagerProps> = ({
       const safeAmount = amount.decimalPlaces(0, BigNumber.ROUND_DOWN);
 
       if (!tokenIn || !+tokenIn.value || lock || hasNoMarket) return;
+
       setIsFetchingSwapAmount(true);
+
       return sdk.quoteSwap({
         coinInType: tokenIn.type,
         coinOutType: type,
