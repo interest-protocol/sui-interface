@@ -1,9 +1,10 @@
 import { Box, TextField, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { pathOr } from 'ramda';
+import { pathOr, propOr } from 'ramda';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
+import { getUSDPriceByCoinSymbol } from '@/api/prices';
 import { useWeb3 } from '@/hooks';
 import { CoinData, TTranslatedMessage } from '@/interface';
 import { FixedPointMath } from '@/lib';
@@ -22,7 +23,7 @@ const SwapAmountInUSD: FC<SwapAmountInUSDProps> = ({ name, control }) => {
 
   const valueNumber = Number(value);
 
-  if (!valueNumber) return null;
+  if (!valueNumber || !usdPrice) return null;
 
   return <>{formatDollars(valueNumber * usdPrice)} USD</>;
 };
@@ -51,13 +52,30 @@ const SwapFormField: FC<SwapInputProps> = ({
     name: `${name}.locked`,
   });
 
-  const onSelectToken = (token: CoinData) =>
+  const onSelectToken = async (token: CoinData) => {
     setValue(name, {
       ...token,
       value: '0',
-      usdPrice: 1,
+      usdPrice: null,
       locked: false,
     });
+
+    const rawData = await getUSDPriceByCoinSymbol([token.symbol.toUpperCase()]);
+
+    const priceData = pathOr(
+      [],
+      ['data', token.symbol.toUpperCase()],
+      rawData
+    ).find(
+      (x: Record<string, unknown>) =>
+        propOr('', 'symbol', x) === token.symbol.toUpperCase()
+    );
+
+    setValue(
+      `${name}.usdPrice`,
+      pathOr(null, ['quote', 'USD', 'price'], priceData)
+    );
+  };
 
   const balance = FixedPointMath.toNumber(
     pathOr(ZERO_BIG_NUMBER, [currentTokenType, 'totalBalance'], coinsMap)
@@ -99,7 +117,7 @@ const SwapFormField: FC<SwapInputProps> = ({
       />
       {name === 'from' && (
         <SwapFormFieldSlider
-          balance={10}
+          balance={balance}
           setValue={setValue}
           getValues={getValues}
         />
