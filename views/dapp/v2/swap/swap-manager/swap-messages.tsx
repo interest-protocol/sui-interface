@@ -6,9 +6,9 @@ import { useWatch } from 'react-hook-form';
 
 import { Message } from '@/components';
 import { LoadingSVG } from '@/svg';
-import SwapPath from '@/views/dapp/dex/swap/swap-manager/swap-path';
 
 import { SwapMessagesProps } from './swap-manager.types';
+import SwapPath from './swap-path';
 
 export const SwapMessages: FC<SwapMessagesProps> = ({
   error,

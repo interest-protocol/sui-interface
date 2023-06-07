@@ -3,8 +3,7 @@ import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 import { mutate } from 'swr';
 
-import { useGetDexMarkets } from '@/views/dapp/dex/swap/swap.hooks';
-
+import { useGetDexMarkets } from './swap.hooks';
 import {
   SwapBodyProps,
   SwapManagerWrapperProps,

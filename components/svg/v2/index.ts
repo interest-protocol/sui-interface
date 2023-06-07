@@ -13,5 +13,6 @@ export { default as NewTokenSVG } from './new-token';
 export { default as PercentageSVG } from './percentage';
 export { default as SearchSVG } from './search';
 export { default as SUISVG } from './sui';
+export { default as UnknownCoinSVGSVG } from './unknown-coin';
 export { default as USDTSVG } from './usdt';
 export { default as UserSVG } from './user';

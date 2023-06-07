@@ -4,7 +4,7 @@ import { TOKENS_SVG_MAP } from '@/constants';
 import Box from '@/elements/box';
 import { SwapArrowSVG } from '@/svg';
 
-import { SwapPathProps } from '../../../dex/swap/swap.types';
+import { SwapPathProps } from '../swap.types';
 
 const SwapPath: FC<SwapPathProps> = ({ swapPath }) => {
   const TokenInIcon =

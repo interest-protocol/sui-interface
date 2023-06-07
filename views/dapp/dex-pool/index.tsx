@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
-import { Switch } from '@/components';
+import { Container, Switch } from '@/components';
 import { Routes, RoutesEnum } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
 
@@ -14,7 +14,13 @@ const Pool: FC = () => {
   const [recommended, setRecommended] = useState(true);
 
   return (
-    <>
+    <Container
+      display="flex"
+      minHeight="60vh"
+      flexDirection="column"
+      justifyContent="center"
+      width={['100%', '100%', '100%', 'auto']}
+    >
       <Box color="text" width="100%" minWidth={['100%', '40rem']}>
         <Box
           p="L"
@@ -70,7 +76,7 @@ const Pool: FC = () => {
         </Box>
         <Pools isRecommended={recommended} />
       </Box>
-    </>
+    </Container>
   );
 };
 

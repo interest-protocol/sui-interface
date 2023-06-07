@@ -24,8 +24,8 @@ import {
   showTXSuccessToast,
   throwTXIfNotSuccessful,
 } from '@/utils';
-import { getAmountMinusSlippage } from '@/views/dapp/dex/swap/swap.utils';
 
+import { getAmountMinusSlippage } from '../../swap.utils';
 import { SwapFormPreviewModalProps } from './swap-form-preview.types';
 
 const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({

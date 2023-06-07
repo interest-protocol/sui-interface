@@ -1,4 +1,4 @@
-import { DexMarket } from '@interest-protocol/sui-sdk';
+import { DexFunctions, DexMarket } from '@interest-protocol/sui-sdk';
 import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { Dispatch, SetStateAction } from 'react';
 import {
@@ -108,4 +108,16 @@ export interface SwapManagerWrapperProps {
   formSettings: SwapProps['formSettings'];
   formSwap: SwapProps['formSwap'];
   dexMarket: DexMarket;
+}
+
+export interface SwapPathObject {
+  baseTokens: ReadonlyArray<string>;
+  coinInType: string;
+  coinOutType: string;
+  functionName: DexFunctions;
+  typeArgs: Array<string>;
+}
+
+export interface SwapPathProps {
+  swapPath: SwapPathObject;
 }
