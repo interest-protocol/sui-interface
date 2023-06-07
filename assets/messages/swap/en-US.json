@@ -41,8 +41,8 @@
         "liquidityFee": "Liquidity Provider fee",
         "priceImpact": "Price impact",
         "minimumReceived": "Minimum received after slippage",
-        "networkFeesAreSetBy": "Network fees are set by “@network name”. Learn more about fees.",
-        "FinalAmountMessage": "Final amount may change due to market activity. By approving this Swap you agree to Interest protocol Refund Policy.",
+        "networkFeesAreSetBy": "Network fees are set by {networkName}. <link>Learn more about fees.</link>",
+        "FinalAmountMessage": "Final amount may change due to market activity. By approving this Swap you agree to Interest protocol <link>Refund Policy.</link>",
         "confirmSwap": "Confirm Swap",
         "swapFormConfirmModal": {
           "tokenSwapped": "Token Swapped",
