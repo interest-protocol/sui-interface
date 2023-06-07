@@ -7,9 +7,9 @@ import { makeSWRKey } from '@/utils';
 import { UseGetRemoveLiquidityAmountsArgs } from './remove-liquidity-card.types';
 
 const getSafeAmount = (
-  data: [number, number] | undefined | null
-): [number, number] => {
-  if (!data || !data.length) return [0, 0];
+  data: [string, string] | undefined | null
+): [string, string] => {
+  if (!data || !data.length) return ['0', '0'];
   return data;
 };
 
