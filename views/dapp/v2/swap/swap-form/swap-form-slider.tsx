@@ -20,9 +20,11 @@ const SwapFormFieldSlider: FC<SwapSliderProps> = ({
       max={100}
       disabled={!balance}
       initial={
-        currentValue && balance >= currentValue
-          ? (currentValue * 100) / balance
-          : undefined
+        currentValue && balance
+          ? balance >= currentValue
+            ? (currentValue * 100) / balance
+            : 100
+          : 0
       }
       onChange={(value: number) => {
         setValue('maxValue', value === 100);

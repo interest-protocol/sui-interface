@@ -39,22 +39,22 @@ const SwapAmountInUSD: FC<SwapAmountInUSDProps> = ({ name, control }) => {
 };
 
 const TextFieldWrapper: FC<TextFieldWrapperProps> = ({
-  control,
   name,
   errors,
-  currentTokenType,
+  control,
   register,
+  setValue,
   onSelectToken,
+  currentTokenType,
   searchTokenModalState,
   currentTokenSymbol,
-  setValue,
 }) => {
+  const t = useTranslations();
+
   const locked = useWatch({
     control: control,
     name: `${name}.locked`,
   });
-
-  const t = useTranslations();
 
   return (
     <TextField
@@ -92,8 +92,8 @@ const SwapFormField: FC<SwapInputProps> = ({
     control,
     register,
     setValue,
-    formState: { errors },
     getValues,
+    formState: { errors },
   },
 }) => {
   const t = useTranslations();
@@ -108,8 +108,8 @@ const SwapFormField: FC<SwapInputProps> = ({
     setValue(name, {
       ...token,
       value: '0',
-      usdPrice: null,
       locked: false,
+      usdPrice: null,
     });
 
     const rawData = await getUSDPriceByCoinSymbol([
