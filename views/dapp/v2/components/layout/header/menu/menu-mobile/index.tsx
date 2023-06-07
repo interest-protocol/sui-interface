@@ -12,8 +12,6 @@ const MenuMobile: FC<MenuMobileProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  console.log(handleOpenSettings);
-
   return (
     <Box
       top="0"

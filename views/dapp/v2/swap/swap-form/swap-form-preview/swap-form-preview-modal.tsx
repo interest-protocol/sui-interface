@@ -1,3 +1,4 @@
+import { DEX_BASE_TOKEN_ARRAY } from '@interest-protocol/sui-sdk';
 import {
   Box,
   Button,
@@ -10,7 +11,7 @@ import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { DownArrowSVG, LeftArrowSVG } from '@/components/svg/v2';
 import { NETWORK_RECORD, SUI_EXPLORER_URL, TOKENS_SVG_MAP } from '@/constants';
@@ -40,6 +41,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const { account, coinsMap } = useWeb3();
+  const [priceImpact, setPriceImpact] = useState('0');
 
   const [loading, setLoading] = useState(false);
   const { signTransactionBlock } = useWalletKit();
@@ -47,13 +49,73 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
   const { provider } = useProvider();
   const sdk = useSDK();
 
+  const tokenIn = formSwap.getValues('from');
+  const tokenOut = formSwap.getValues('to');
+
+  const minimumAmount = FixedPointMath.toNumber(
+    getAmountMinusSlippage(
+      FixedPointMath.toBigNumber(
+        tokenOut.value,
+        tokenOut.decimals
+      ).decimalPlaces(0, BigNumber.ROUND_DOWN),
+      formSettings.getValues('slippage')
+    ),
+    tokenOut.decimals
+  );
+
+  useEffect(() => {
+    if (+tokenIn.value && minimumAmount) {
+      const valueIn = FixedPointMath.toBigNumber(
+        +tokenIn.value / 100,
+        tokenOut.decimals
+      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
+
+      if (valueIn.isZero()) return;
+
+      sdk
+        .quoteSwap({
+          coinInAmount: valueIn.toString(),
+          coinInType: tokenIn.type,
+          coinOutType: tokenOut.type,
+          markets: dexMarket,
+          baseTokens: DEX_BASE_TOKEN_ARRAY[network],
+        })
+        .then((data) => {
+          if (!data) return;
+
+          const amount = FixedPointMath.toNumber(
+            FixedPointMath.toBigNumber(data.amount, 0),
+            tokenOut.decimals
+          );
+
+          const lowSlippageRate =
+            FixedPointMath.toNumber(valueIn, tokenIn.decimals) / amount;
+
+          const actualRate = +tokenIn.value / minimumAmount;
+
+          if (actualRate > lowSlippageRate) {
+            setPriceImpact(
+              (
+                ((actualRate - lowSlippageRate) / lowSlippageRate) *
+                100
+              ).toFixed(2)
+            );
+          }
+        })
+        .catch();
+    }
+  }, [
+    tokenIn.value,
+    tokenOut.value,
+    tokenIn.type,
+    tokenOut.type,
+    minimumAmount,
+  ]);
+
   const resetInput = () => {
     formSwap.setValue('from.value', '0.0');
     formSwap.setValue('to.value', '0.0');
   };
-
-  const tokenIn = formSwap.getValues('from');
-  const tokenOut = formSwap.getValues('to');
 
   const handleSwap = async () => {
     try {
@@ -119,6 +181,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
         `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`
       );
     } catch {
+      // Handle failure case modal
       throw new Error(t('swap.error.failedToSwap'));
     } finally {
       resetInput();
@@ -317,7 +380,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
               {t('swap.modal.preview.priceImpact')}
             </Typography>
             <Typography variant="medium" whiteSpace="nowrap">
-              ~ 0%
+              ~ {priceImpact}%
             </Typography>
           </Box>
           <Box
@@ -332,7 +395,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
               {t('swap.modal.preview.minimumReceived')}
             </Typography>
             <Typography variant="medium" whiteSpace="nowrap">
-              ~ 0%
+              {minimumAmount} ${tokenOut.symbol}
             </Typography>
           </Box>
           <Box
@@ -347,7 +410,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
               {t('swap.modal.preview.liquidityFee')}
             </Typography>
             <Typography variant="medium" whiteSpace="nowrap">
-              00:00
+              {+tokenIn.value * 0.003} {tokenIn.symbol}
             </Typography>
           </Box>
         </Box>
