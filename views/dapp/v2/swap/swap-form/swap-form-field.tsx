@@ -114,7 +114,7 @@ const SwapFormField: FC<SwapInputProps> = ({
 
     if (pathOr(null, [network, token.type], COIN_MARKET_CAP_ID_RECORD)) {
       const id = COIN_MARKET_CAP_ID_RECORD[network][token.type].toString();
-      const data = await getUSDPriceById([id]);
+      const data = await getUSDPriceById([id]).catch();
 
       setValue(
         `${name}.usdPrice`,
