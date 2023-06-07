@@ -12,6 +12,8 @@ const MenuMobile: FC<MenuMobileProps> = ({
 }) => {
   if (!isOpen) return null;
 
+  console.log(handleOpenSettings);
+
   return (
     <Box
       top="0"
@@ -22,12 +24,9 @@ const MenuMobile: FC<MenuMobileProps> = ({
       height="100vh"
       position="fixed"
       display={['block', 'none']}
+      bg="surface.container"
     >
-      {isSettings ? (
-        <SettingsMenu />
-      ) : (
-        <MainMenu handleOpenSettings={handleOpenSettings} />
-      )}
+      {isSettings ? <SettingsMenu /> : <MainMenu />}
     </Box>
   );
 };

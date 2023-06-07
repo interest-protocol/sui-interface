@@ -1,84 +1,80 @@
-import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import {
+  Box,
+  SwitchButton,
+  Theme,
+  Typography,
+  useTheme,
+} from '@interest-protocol/ui-kit';
+import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
+import { not } from 'ramda';
 import { FC } from 'react';
+import { v4 } from 'uuid';
 
-import { DotsSVG, SuiSVG } from '@/svg';
+import { AppTheme, TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
-import Navbar from '../../navbar';
-import NavItemText from '../../navbar/nav-item-text';
-import { MenuMobileProps } from '../menu.types';
+import { SIDEBAR_ITEMS } from '../../../sidebar/sidebar.data';
 
-const MainMenu: FC<Pick<MenuMobileProps, 'handleOpenSettings'>> = ({
-  handleOpenSettings,
-}) => {
+const MainMenu: FC = () => {
+  const { asPath, push } = useRouter();
+  const { dark, setDark } = useTheme() as AppTheme<Theme>;
   const t = useTranslations();
 
   return (
-    <Box variant="container" justifyItems="unset">
-      <Box pt="4xl" mt="4xl" zIndex="2" gridColumn="1/-1">
-        <Box mb="2xl">
-          <Box display="flex" alignItems="center">
+    <Box
+      variant="container"
+      justifyItems="unset"
+      height="100%"
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
+      m="0 1.25rem"
+      pt="2.875rem"
+    >
+      <Box zIndex="2" gridColumn="1/-1">
+        <Typography m="xl" variant="small" color="onSurfaceVariant">
+          Menu
+        </Typography>
+        <Box display="flex" flexDirection="column" gap="s">
+          {SIDEBAR_ITEMS.map(({ Icon, name, path, disabled }) => (
             <Box
-              bg="#99BBFF"
+              p="l"
+              key={v4()}
               display="flex"
-              color="#0055FF"
-              width="3.625rem"
               borderRadius="m"
-              height="3.625rem"
-              alignItems="center"
-              justifyContent="center"
+              color="onSurface"
+              opacity={disabled ? 0.7 : 1}
+              cursor={disabled ? 'not-allowed' : 'pointer'}
+              bg={asPath === path ? '#99BBFF14' : undefined}
+              onClick={disabled ? undefined : () => push(path)}
+              nHover={{
+                bg: !disabled && '#99BBFF28',
+              }}
             >
-              A
-            </Box>
-            <Typography variant="medium" ml="l" color="textSoft">
-              0x85...9be9
-            </Typography>
-          </Box>
-          <Box
-            p="xl"
-            mt="s"
-            display="flex"
-            borderRadius="m"
-            alignItems="center"
-          >
-            <Box height="1.5rem" color="text">
-              <SuiSVG
-                filled
-                height="100%"
-                maxWidth="1.5rem"
-                maxHeight="1.5rem"
-              />
-            </Box>
-            <Box ml="4xl">
-              <Typography variant="extraSmall" color="textSoft">
-                {capitalize(t('common.v2.wallet.name'))}
-              </Typography>
-              <Typography variant="title4" color="text">
-                0.0123
+              <Icon maxHeight="1.2rem" maxWidth="1.2rem" width="100%" />
+              <Typography variant="small" ml="l">
+                {capitalize(
+                  t(`common.v2.navbar.${name}` as TTranslatedMessage)
+                )}
               </Typography>
             </Box>
-          </Box>
-          <Box display="flex" gap="s" mt="s">
-            <Button variant="outline" width="100%" justifyContent="center">
-              {t('common.v2.wallet.switch')}
-            </Button>
-            <Button variant="filled" width="100%" justifyContent="center">
-              {t('common.v2.wallet.disconnect')}
-            </Button>
-          </Box>
+          ))}
         </Box>
-        <Box m="m" pt="xl">
-          <Navbar isMobile />
-          <Box display="block" onClick={handleOpenSettings}>
-            <Box display="flex" alignItems="center" color="textSoft">
-              <Box height="1rem">
-                <DotsSVG maxWidth="1rem" maxHeight="1rem" height="100%" />
-              </Box>
-              <NavItemText>{capitalize('settings')}</NavItemText>
-            </Box>
-          </Box>
-        </Box>
+      </Box>
+      <Box display="flex" justifyContent="center" gap="l" mb="4.188rem">
+        <Typography variant="medium" color="onSurface">
+          {t('common.v2.menu.light')}
+        </Typography>
+        <SwitchButton
+          name="theme"
+          size="medium"
+          defaultValue={dark}
+          onChange={() => setDark(not)}
+        />
+        <Typography variant="medium" color="onSurface">
+          {t('common.v2.menu.dark')}
+        </Typography>
       </Box>
     </Box>
   );

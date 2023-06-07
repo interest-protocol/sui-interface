@@ -18,6 +18,7 @@ import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import { EtherSVG, TimesSVG } from '@/svg';
 import {
+  capitalize,
   createObjectsParameter,
   formatDollars,
   formatMoney,
@@ -351,10 +352,39 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
           </Box>
         </Box>
         <Typography variant="extraSmall" mb="l">
-          {t('swap.modal.preview.networkFeesAreSetBy')}
+          {t.rich('swap.modal.preview.networkFeesAreSetBy', {
+            networkName: `SUI ${capitalize(NETWORK_RECORD[network])}`,
+            link: (chunk) => (
+              <Box
+                as="a"
+                color="primary"
+                {...{
+                  target: '_blank',
+                  rel: 'noreferrer',
+                  href: '#',
+                }}
+              >
+                {chunk}
+              </Box>
+            ),
+          })}
         </Typography>
         <Typography variant="extraSmall">
-          {t('swap.modal.preview.FinalAmountMessage')}
+          {t.rich('swap.modal.preview.FinalAmountMessage', {
+            link: (chunk) => (
+              <Box
+                as="a"
+                color="primary"
+                {...{
+                  target: '_blank',
+                  rel: 'noreferrer',
+                  href: '#',
+                }}
+              >
+                {chunk}
+              </Box>
+            ),
+          })}
         </Typography>
       </Box>
       <Button

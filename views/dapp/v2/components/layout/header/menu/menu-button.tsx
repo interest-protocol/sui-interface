@@ -36,8 +36,9 @@ const MenuButton: FC<MenuButtonProps> = ({
     variant="icon"
     bg={['none', isOpen ? '#FFFFFF1A' : 'none']}
     onClick={!isOpen ? handleOpen : handleClose}
-    border={[isOpen ? '1px solid' : 'none', 'none']}
+    border={['1px solid', 'none']}
     borderColor="#FFFFFF1A"
+    borderRadius="10rem"
   >
     <AnimatePresence initial={false}>
       {isOpen ? (
