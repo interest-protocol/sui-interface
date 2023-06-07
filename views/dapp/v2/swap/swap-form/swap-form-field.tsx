@@ -153,15 +153,15 @@ const SwapFormField: FC<SwapInputProps> = ({
         </Typography>
       </Box>
       <TextFieldWrapper
-        searchTokenModalState={searchTokenModalState}
-        currentTokenType={currentTokenType}
-        onSelectToken={onSelectToken}
-        control={control}
-        errors={errors}
         name={name}
+        errors={errors}
+        control={control}
         register={register}
-        currentTokenSymbol={getValues(`${name}.symbol`)}
         setValue={setValue}
+        onSelectToken={onSelectToken}
+        currentTokenType={currentTokenType}
+        searchTokenModalState={searchTokenModalState}
+        currentTokenSymbol={getValues(`${name}.symbol`)}
       />
       {name === 'from' && (
         <SwapFormFieldSlider
