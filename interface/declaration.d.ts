@@ -6,7 +6,6 @@ type DexPoolFindMessages =
 type DexPoolDetailsMessages =
   typeof import('../assets/messages/dex/pool/details/en-US.json');
 type DexPoolMessages = typeof import('../assets/messages/dex/pool/en-US.json');
-type DexSwapMessages = typeof import('../assets/messages/dex/swap/en-US.json');
 type TeamMessages = typeof import('../assets/messages/team/en-US.json');
 type FarmsMessages = typeof import('../assets/messages/farms/en-US.json');
 type CreateTokenMessages =
@@ -26,7 +25,6 @@ declare interface IntlMessages
     FaucetMessages,
     DexPoolFindMessages,
     DexPoolDetailsMessages,
-    DexSwapMessages,
     FarmsMessages,
     CreateTokenMessages,
     TeamMessages,

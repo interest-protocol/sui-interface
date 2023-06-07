@@ -63,11 +63,11 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
       const deadline = formSettings.getValues('deadline');
 
       if (!tokenIn.type || !tokenOut.type)
-        throw new Error(t('dexSwap.error.select2Tokens'));
+        throw new Error(t('swap.error.select2Tokens'));
 
       if (!account) throw new Error(t('error.accountNotFound'));
 
-      if (!+tokenIn.value) throw new Error(t('dexSwap.error.cannotSell0'));
+      if (!+tokenIn.value) throw new Error(t('swap.error.cannotSell0'));
 
       const amount = FixedPointMath.toBigNumber(
         tokenIn.value,
