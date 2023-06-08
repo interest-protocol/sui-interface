@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { Box } from '@interest-protocol/ui-kit';
 import { ConnectButton } from '@mysten/wallet-kit';
-import { not } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
