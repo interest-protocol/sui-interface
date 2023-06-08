@@ -65,9 +65,21 @@ const Wallet: FC = () => {
           width="100%"
           maxWidth="2.5rem"
           maxHeight="2.5rem"
-          onClick={() => setIsOpen(not)}
+          onClick={() => setIsOpen(true)}
         />
-        {isOpen && <WalletDropdown isOpen={isOpen} />}
+        {isOpen && (
+          <>
+            <Box
+              top="0"
+              left="0"
+              right="0"
+              bottom="0"
+              position="fixed"
+              onClick={() => setIsOpen(false)}
+            />
+            <WalletDropdown isOpen={isOpen} />
+          </>
+        )}
       </Box>
     );
 
