@@ -23,8 +23,8 @@ const MenuMobile: FC<MenuMobileProps> = ({
       width="100vw"
       height="100vh"
       position="fixed"
-      display={['block', 'none']}
       bg="surface.container"
+      display={['block', 'block', 'block', 'none']}
     >
       {isSettings ? <SettingsMenu /> : <MainMenu />}
     </Box>

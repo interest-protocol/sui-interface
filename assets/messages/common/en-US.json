@@ -31,7 +31,8 @@
         "name": "wallet",
         "connect": "connect wallet",
         "disconnect": "disconnect",
-        "switch": "switch network"
+        "switch": "switch network",
+        "copy": "address copied to the clipboard"
       },
       "lend": {
         "title": "Lend",

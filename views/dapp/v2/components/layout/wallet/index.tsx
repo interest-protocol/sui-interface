@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Box } from '@interest-protocol/ui-kit';
 import { ConnectButton } from '@mysten/wallet-kit';
+import { not } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
@@ -8,6 +9,8 @@ import { ConnectWalletProps } from '@/components/layout/header/header.types';
 import { UserSVG } from '@/components/svg/v2';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { noop } from '@/utils';
+
+import WalletDropdown from './wallet-dropdown';
 
 const StyledConnectButton = styled(ConnectButton)`
   width: 100%;
@@ -30,6 +33,7 @@ export const ConnectWallet: FC<ConnectWalletProps> = (props) => (
 );
 
 const Wallet: FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { network } = useNetwork();
   const { suiNSProvider } = useProvider();
   const { connected, account } = useWeb3();
@@ -53,10 +57,17 @@ const Wallet: FC = () => {
         bg="primary"
         width="2.5rem"
         height="2.5rem"
-        color="textAccent"
+        color="surface"
+        position="relative"
         borderRadius="100%"
       >
-        <UserSVG maxHeight="2.5rem" maxWidth="2.5rem" width="100%" />
+        <UserSVG
+          width="100%"
+          maxWidth="2.5rem"
+          maxHeight="2.5rem"
+          onClick={() => setIsOpen(not)}
+        />
+        {isOpen && <WalletDropdown isOpen={isOpen} />}
       </Box>
     );
 

@@ -8,7 +8,7 @@ const MenuDesktop: FC<MenuDesktopProps> = ({ isOpen, handleClose }) => {
   if (!isOpen) return null;
 
   return (
-    <Box display={['none', 'block']}>
+    <Box display={['none', 'none', 'none', 'block']}>
       <Box
         top="0"
         left="0"
