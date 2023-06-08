@@ -4,7 +4,7 @@ import { pathOr, propOr } from 'ramda';
 import { ChangeEvent, FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
-import { getUSDPriceByCoinSymbol } from '@/api/prices';
+import { getUSDPriceByCoinSymbol, getUSDPriceById } from '@/api/prices';
 import { COIN_MARKET_CAP_ID_RECORD } from '@/constants';
 import { useWeb3 } from '@/hooks';
 import { useNetwork } from '@/hooks';
@@ -111,6 +111,17 @@ const SwapFormField: FC<SwapInputProps> = ({
       locked: false,
       usdPrice: null,
     });
+
+    if (pathOr(null, [network, token.type], COIN_MARKET_CAP_ID_RECORD)) {
+      const id = COIN_MARKET_CAP_ID_RECORD[network][token.type].toString();
+      const data = await getUSDPriceById([id]).catch();
+
+      setValue(
+        `${name}.usdPrice`,
+        pathOr(null, ['data', id, 'quote', 'USD', 'price'], data)
+      );
+      return;
+    }
 
     const rawData = await getUSDPriceByCoinSymbol([
       token.symbol.toUpperCase(),
