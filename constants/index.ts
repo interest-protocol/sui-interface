@@ -23,6 +23,7 @@ import {
   WormholeUSDTBSCSVG,
   WormholeUSDTETHSVG,
 } from '@/components/svg/v2';
+import UnknownCoin from '@/components/svg/v2/unknown-coin';
 import {
   BinanceSVG,
   BitcoinSVG,
