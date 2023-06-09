@@ -17,12 +17,11 @@ import { DownArrowSVG, LeftArrowSVG } from '@/components/svg/v2';
 import {
   NETWORK_RECORD,
   SUI_EXPLORER_URL,
-  TOKENS_SVG_MAP,
   TOKENS_SVG_MAP_V2,
 } from '@/constants';
 import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
-import { EtherSVG, TimesSVG } from '@/svg';
+import { TimesSVG } from '@/svg';
 import {
   createObjectsParameter,
   formatDollars,
