@@ -15,8 +15,8 @@ const SwapFields: FC<SwapFieldProps> = ({ setValue, getValues }) => {
   const handleClick = () => {
     const { to, from } = getValues();
 
-    setValue('from', { ...to, value: '0.0' });
-    setValue('to', { ...from, value: '0.0' });
+    setValue('from', { ...to, value: '0' });
+    setValue('to', { ...from, value: '0' });
   };
 
   return (

@@ -10,6 +10,7 @@ export { default as HeartSVG } from './heart';
 export { default as LeftArrowSVG } from './left-arrow';
 export { default as LogoSVG } from './logo';
 export { default as NewTokenSVG } from './new-token';
+export { default as NoSearchSVG } from './no-search';
 export { default as PercentageSVG } from './percentage';
 export { default as SearchSVG } from './search';
 export { default as SUISVG } from './sui';

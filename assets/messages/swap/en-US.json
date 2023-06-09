@@ -10,8 +10,8 @@
       "selectToken": "Select a token",
       "preview": "Preview",
       "fetchMarkets": "Fetching markets...",
+      "fetchingAmounts": "Fetching amounts...",
       "errors": {
-        "fetchingAmounts": "Fetching amounts",
         "amountOut": "Failed to fetch the amount out",
         "sameTokens": "Cannot swap the same token",
         "balances": "Failed to fetch balances",

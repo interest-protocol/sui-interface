@@ -60,7 +60,7 @@ const LendBalanceInfo: FC = () => {
             {t('common.v2.lend.firstSection.walletBalance')}
           </Typography>
           <Typography variant="title1" textAlign="right">
-            0.0
+            0
           </Typography>
         </Box>
         <Box

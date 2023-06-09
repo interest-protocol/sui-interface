@@ -117,8 +117,8 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
   ]);
 
   const resetInput = () => {
-    formSwap.setValue('from.value', '0.0');
-    formSwap.setValue('to.value', '0.0');
+    formSwap.setValue('from.value', '0');
+    formSwap.setValue('to.value', '0');
   };
 
   const handleSwap = async () => {

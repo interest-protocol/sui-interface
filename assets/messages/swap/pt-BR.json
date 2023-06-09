@@ -9,7 +9,18 @@
       "balance": "Saldo",
       "selectToken": "Selecionar um token",
       "preview": "Visualizar",
-      "fetchMarkets": "Trazer mercados..."
+      "fetchMarkets": "Trazendo mercados...",
+      "fetchingAmounts": "Trazendo amounts...",
+      "errors": {
+        "amountOut": "Falha ao obter o montante",
+        "sameTokens": "Não é possível trocar o mesmo token",
+        "balances": "Falha na obtenção de saldos",
+        "noMarket": "Este par não tem mercado",
+        "infoNoPool": "Este par não tem liquidez. Experimente um montante superior ou adicione liquidez",
+        "noPool": "Não foi encontrada nenhuma pool! Experimente uma pool existente",
+        "error": "Falha na troca: tentar um deslizamento maior ou uma quantidade menor",
+        "increaseAmount": "Tentar aumentar a quantidade de {symbol}"
+      }
     },
     "modal": {
       "settings": {

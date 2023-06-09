@@ -1,11 +1,10 @@
 import { Box } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { pathOr, propOr } from 'ramda';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
-
-import { Message } from '@/components';
-import { LoadingSVG } from '@/svg';
+import toast from 'react-hot-toast';
 
 import { SwapMessagesProps } from './swap-manager.types';
 import SwapPath from './swap-path';
@@ -22,8 +21,10 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
   isFetchingSwapAmountIn,
   isFetchingSwapAmountOut,
 }) => {
+  const t = useTranslations();
   const tokenIn = useWatch({ control: control, name: 'from' });
   const tokenOut = useWatch({ control: control, name: 'to' });
+  const [toastState, setToastState] = useState<boolean>(false);
 
   const tokenInValue = +(propOr('0', 'value', tokenIn) as string);
   const tokenOutValue = +(propOr('0', 'value', tokenOut) as string);
@@ -69,6 +70,22 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
     tokenOut?.type,
   ]);
 
+  useEffect(() => {
+    if ((isFetchingSwapAmountIn || isFetchingSwapAmountOut) && !toastState)
+      setToastState(true);
+  }, [isFetchingSwapAmountIn, isFetchingSwapAmountOut]);
+
+  useEffect(() => {
+    if (toastState) toast.loading(t('swap.form.fetchMarkets'));
+  }, [toastState]);
+
+  useEffect(() => {
+    if (!(isFetchingSwapAmountIn || isFetchingSwapAmountOut) && toastState) {
+      setToastState(false);
+      toast.dismiss();
+    }
+  }, [isFetchingSwapAmountIn, isFetchingSwapAmountOut]);
+
   // Set Error
   useEffect(() => {
     // If there is already an error or both tokens are not selected -> do nothing
@@ -106,12 +123,6 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
 
   return (
     <Box gridColumn="1/-1">
-      {(isFetchingSwapAmountIn || isFetchingSwapAmountOut) && (
-        <Message
-          Icon={LoadingSVG}
-          message="dexSwap.swapMessage.fetchingAmounts"
-        />
-      )}
       {readyToSwap && swapPath && <SwapPath swapPath={swapPath} />}
     </Box>
   );

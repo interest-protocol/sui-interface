@@ -1,15 +1,19 @@
-import { Motion } from '@interest-protocol/ui-kit';
+import { Box, Motion } from '@interest-protocol/ui-kit';
 import { formatAddress } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
+import { AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import toast from 'react-hot-toast';
 
-import { useNetwork, useProvider, useWeb3 } from '@/hooks';
-import { capitalize, noop } from '@/utils';
+import { useWeb3 } from '@/hooks';
+import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../header/menu/menu-item-wrapper';
-import { WalletDropdownProps } from '../wallet.types';
+import {
+  WalletDropdownProps,
+  WalletDropdownWrapperProps,
+} from '../wallet.types';
 import WalletItem from './wallet-item';
 
 const wrapperVariants = {
@@ -33,25 +37,14 @@ const wrapperVariants = {
   },
 };
 
-const WalletDropdown: FC<WalletDropdownProps> = ({ isOpen }) => {
+const WalletDropdown: FC<WalletDropdownProps> = ({
+  isOpen,
+  loading,
+  addressName,
+}) => {
   const t = useTranslations();
   const { account } = useWeb3();
-  const { network } = useNetwork();
   const { disconnect } = useWalletKit();
-  const { suiNSProvider } = useProvider();
-  const [loading, setLoading] = useState(false);
-  const [suiNs, setSuiNS] = useState<string | undefined>(undefined);
-
-  useEffect(() => {
-    if (account) {
-      setLoading(true);
-      suiNSProvider
-        .getName(account)
-        .then(setSuiNS)
-        .catch(noop)
-        .finally(() => setLoading(false));
-    }
-  }, [network, account]);
 
   const copyToClipboard = () => {
     window.navigator.clipboard.writeText(account || '');
@@ -73,7 +66,7 @@ const WalletDropdown: FC<WalletDropdownProps> = ({ isOpen }) => {
     >
       <MenuItemWrapper onClick={copyToClipboard}>
         <WalletItem>
-          {loading || !suiNs ? formatAddress(account ?? '') : suiNs}
+          {loading || !addressName ? formatAddress(account ?? '') : addressName}
         </WalletItem>
       </MenuItemWrapper>
       <MenuItemWrapper onClick={disconnect}>
@@ -83,4 +76,26 @@ const WalletDropdown: FC<WalletDropdownProps> = ({ isOpen }) => {
   );
 };
 
-export default WalletDropdown;
+const WalletDropdownWrapper: FC<WalletDropdownWrapperProps> = ({
+  isOpen,
+  handleClose,
+  ...props
+}) => (
+  <AnimatePresence>
+    {isOpen && (
+      <>
+        <Box
+          top="0"
+          left="0"
+          right="0"
+          bottom="0"
+          position="fixed"
+          onClick={handleClose}
+        />
+        <WalletDropdown isOpen={isOpen} {...props} />
+      </>
+    )}
+  </AnimatePresence>
+);
+
+export default WalletDropdownWrapper;

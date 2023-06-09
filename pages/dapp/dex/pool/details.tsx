@@ -29,8 +29,8 @@ const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
 }) => {
   const formAddLiquidity = useForm({
     defaultValues: {
-      token0Amount: '0.0',
-      token1Amount: '0.0',
+      token0Amount: '0',
+      token1Amount: '0',
       error: '',
       token0InputLocked: false,
       token1InputLocked: false,
@@ -39,7 +39,7 @@ const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
 
   const formRemoveLiquidity = useForm({
     defaultValues: {
-      lpAmount: '0.0',
+      lpAmount: '0',
     },
   });
 

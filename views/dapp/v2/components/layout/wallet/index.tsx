@@ -52,33 +52,23 @@ const Wallet: FC = () => {
 
   if (connected)
     return (
-      <Box
-        bg="primary"
-        width="2.5rem"
-        height="2.5rem"
-        color="surface"
-        position="relative"
-        borderRadius="100%"
-      >
-        <UserSVG
-          width="100%"
-          maxWidth="2.5rem"
-          maxHeight="2.5rem"
+      <Box color="surface" position="relative">
+        <Box
+          bg="primary"
+          width="2.5rem"
+          height="2.5rem"
+          cursor="pointer"
+          borderRadius="50%"
           onClick={() => setIsOpen(true)}
+        >
+          <UserSVG width="100%" maxWidth="2.5rem" maxHeight="2.5rem" />
+        </Box>
+        <WalletDropdown
+          isOpen={isOpen}
+          loading={loading}
+          addressName={suiNs}
+          handleClose={() => setIsOpen(false)}
         />
-        {isOpen && (
-          <>
-            <Box
-              top="0"
-              left="0"
-              right="0"
-              bottom="0"
-              position="fixed"
-              onClick={() => setIsOpen(false)}
-            />
-            <WalletDropdown isOpen={isOpen} />
-          </>
-        )}
       </Box>
     );
 

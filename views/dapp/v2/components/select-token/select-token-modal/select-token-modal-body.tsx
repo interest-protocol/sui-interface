@@ -6,10 +6,10 @@ import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
 import { v4 } from 'uuid';
 
+import { NoSearchSVG } from '@/components/svg/v2';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { TOKENS_SVG_MAP_V2 } from '@/constants';
 import { FixedPointMath } from '@/lib';
-import { EmptyBoxSVG } from '@/svg';
 import { isType } from '@/utils';
 import LinearLoader from '@/views/dapp/dex-pool-details/components/remove-liquidity-card/linear-loader';
 import TokenModalItem from '@/views/dapp/v2/components/select-token/select-token-modal/token-modal-item';
@@ -131,7 +131,7 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
         flexDirection="column"
         bg="surface.containerLow"
       >
-        <EmptyBoxSVG maxHeight="4rem" maxWidth="4rem" width="100%" />
+        <NoSearchSVG maxHeight="4rem" maxWidth="4rem" width="100%" />
         <Typography variant="medium" textTransform="capitalize">
           {t('common.notFound')}
         </Typography>
