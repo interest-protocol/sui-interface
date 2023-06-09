@@ -2,7 +2,7 @@ import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { MarketTable } from '..';
+import MarketTable from './market-table';
 
 const LendTables: FC = () => {
   const { dark } = useTheme() as Theme;
