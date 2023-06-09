@@ -110,16 +110,6 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
     if ((!debouncedSearch && !isPending()) || !search) setAskedToken(null);
   }, [debouncedSearch]);
 
-  if (debouncedSearch) {
-    // handle it
-    // Allow him to click
-    return askedToken ? (
-      <div>{askedToken.symbol}</div>
-    ) : (
-      <div>Token not found // delete search</div>
-    );
-  }
-
   const TOKENS_RECORD = {
     [TokenOrigin.Recommended]: recommendedTokens,
     [TokenOrigin.Favorites]: favoriteTokens,
@@ -128,7 +118,7 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
 
   const tokens = TOKENS_RECORD[tokenOrigin];
 
-  if (!tokens.length)
+  if ((debouncedSearch && !askedToken) || !tokens.length)
     return (
       <Box
         p="4xl"
@@ -160,20 +150,25 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
         flexDirection="column"
         bg="surface.containerLow"
       >
-        {tokens.map(({ symbol, type, decimals, totalBalance }) => (
-          <TokenModalItem
-            key={v4()}
-            type={type}
-            symbol={symbol}
-            setFavorites={setFavorites}
-            favoriteTokens={favoriteTokensTypes}
-            selected={currentTokenType === type}
-            recommended={tokenOrigin === TokenOrigin.Recommended}
-            Icon={TOKENS_SVG_MAP_V2[type] ?? TOKENS_SVG_MAP_V2.default}
-            onClick={async () => onSelectToken({ symbol, decimals, type })}
-            balance={FixedPointMath.toNumber(totalBalance, decimals).toString()}
-          />
-        ))}
+        {(debouncedSearch && askedToken ? [askedToken] : tokens).map(
+          ({ symbol, type, decimals, totalBalance }) => (
+            <TokenModalItem
+              key={v4()}
+              type={type}
+              symbol={symbol}
+              setFavorites={setFavorites}
+              favoriteTokens={favoriteTokensTypes}
+              selected={currentTokenType === type}
+              recommended={tokenOrigin === TokenOrigin.Recommended}
+              Icon={TOKENS_SVG_MAP_V2[type] ?? TOKENS_SVG_MAP_V2.default}
+              onClick={async () => onSelectToken({ symbol, decimals, type })}
+              balance={FixedPointMath.toNumber(
+                totalBalance,
+                decimals
+              ).toString()}
+            />
+          )
+        )}
       </Box>
     </>
   );

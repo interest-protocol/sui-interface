@@ -1,4 +1,10 @@
-import { Box, Button, TextField, Typography } from '@interest-protocol/ui-kit';
+import {
+  Box,
+  Button,
+  Motion,
+  TextField,
+  Typography,
+} from '@interest-protocol/ui-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC, useMemo, useState } from 'react';
@@ -175,7 +181,8 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
   }, [coinsMap, coins.length, network, favoriteTokens]);
 
   return (
-    <Box
+    <Motion
+      layout
       width="100%"
       display="flex"
       maxHeight="90vh"
@@ -186,6 +193,7 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
       bg="surface.container"
       flexDirection="column"
       boxShadow="0 0 5px #3334"
+      transition={{ duration: 0.3 }}
     >
       <Box
         py="m"
@@ -236,25 +244,27 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
           text={t('swap.modal.preview.selectToken.wallet')}
         />
       </Box>
-      <SelectTokenModalBody
-        coins={coins}
-        control={control}
-        network={network}
-        provider={provider}
-        coinsMap={coinsMap}
-        favorites={favorites}
-        tokenOrigin={tokenOrigin}
-        setFavorites={addFavorite}
-        favoriteTokens={favorites}
-        walletTokens={walletTokens}
-        fetchingMetaData={fetchingData}
-        currentTokenType={currentTokenType}
-        onSelectToken={handleSelectCurrency}
-        favoriteTokensTypes={favoriteTokens}
-        recommendedTokens={recommendedTokens}
-        searchTokenModalState={searchTokenModalState}
-      />
-    </Box>
+      <Motion layout transition={{ duration: 0.3 }}>
+        <SelectTokenModalBody
+          coins={coins}
+          control={control}
+          network={network}
+          provider={provider}
+          coinsMap={coinsMap}
+          favorites={favorites}
+          tokenOrigin={tokenOrigin}
+          setFavorites={addFavorite}
+          favoriteTokens={favorites}
+          walletTokens={walletTokens}
+          fetchingMetaData={fetchingData}
+          currentTokenType={currentTokenType}
+          onSelectToken={handleSelectCurrency}
+          favoriteTokensTypes={favoriteTokens}
+          recommendedTokens={recommendedTokens}
+          searchTokenModalState={searchTokenModalState}
+        />
+      </Motion>
+    </Motion>
   );
 };
 
