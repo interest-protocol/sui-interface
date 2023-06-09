@@ -41,14 +41,8 @@
         "liquidityFee": "Liquidity Provider fee",
         "priceImpact": "Price impact",
         "minimumReceived": "Minimum received after slippage",
-        "networkFeesAreSetBy": "Network fees are set by {networkName}. <link>Learn more about fees.</link>",
-        "FinalAmountMessage": "Final amount may change due to market activity. By approving this Swap you agree to Interest protocol <link>Refund Policy.</link>",
+        "footerText": "By approving this transaction, you acknowledge and agree to all the information provided above. The final amount may change due to market activity.",
         "confirmSwap": "Confirm Swap",
-        "swapFormConfirmModal": {
-          "tokenSwapped": "Token Swapped",
-          "explorerMessage": "You can check you transaction in the Explorer",
-          "seeOnExplorer": "See on Explore"
-        },
         "selectToken": {
           "title": "Select token",
           "search": "Search token",
@@ -56,6 +50,16 @@
           "favorite": "Favorite",
           "wallet": "Wallet"
         }
+      },
+      "confirm": {
+        "title": "Token Swapped",
+        "description": "You can check you transaction in the Explorer",
+        "button": "See on Explore"
+      },
+      "error": {
+        "title": "Error",
+        "description": "Your swap failed",
+        "button": "Go back, and try again"
       }
     },
     "error": {

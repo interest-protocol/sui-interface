@@ -30,14 +30,8 @@
         "liquidityFee": "Taxa do Liquidity Provider",
         "priceImpact": "Impacto de preço",
         "minimumReceived": "Mínimo received depois da slippage",
-        "networkFeesAreSetBy": "As taxas de rede são definidas por {networkName}. Saiba mais sobre as taxas.",
-        "FinalAmountMessage": "O valor final pode ser alterado devido à atividade de mercado. Ao aprovar esta troca, você concorda com a Política de Reembolso do protocolo Interest.",
+        "footerText": "Ao aprovar esta transação, você concorda com todas as informações acima. O valor final pode variar devido ao mercado.",
         "confirmSwap": "Confirmar Troca",
-        "swapFormConfirmModal": {
-          "tokenSwapped": "Token Trocado",
-          "explorerMessage": "Você pode verificar sua transação no Explorador",
-          "seeOnExplorer": "Ver no Explorador"
-        },
         "selectToken": {
           "title": "Selecionar token",
           "search": "Buscar token",
@@ -45,7 +39,26 @@
           "favorite": "Favoritos",
           "wallet": "Carteira"
         }
+      },
+      "confirm": {
+        "tokenSwapped": "Token Trocado",
+        "explorerMessage": "Você pode verificar sua transação no Explorador",
+        "seeOnExplorer": "Ver no Explorador"
+      },
+      "error": {
+        "swapFailed": "Erro",
+        "explorerMessage": "Sua troca falhou",
+        "seeOnExplorer": "Voltar e tentar de novo"
       }
+    },
+    "error": {
+      "cannotSell0": "Não pode vender 0 tokens",
+      "noMarket": "Nenhum mercado encontrado",
+      "select2Tokens": "Selecione 2 tokens",
+      "failedToSwap": "Falha ao trocar",
+      "wethDeposit": "Falha ao depositar",
+      "wethWithdraw": "Falhar ao sacar",
+      "soonFeature": "Essa funcionalidade estará disponível na próxima versão"
     }
   }
 }

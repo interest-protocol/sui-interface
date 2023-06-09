@@ -2,12 +2,12 @@ import { Box, Button, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { CheckmarkSVG } from '@/components/svg/v2';
+import { TimesSVG } from '@/components/svg/v2';
 
-import { SwapFormConfirmModalProps } from './swap-form-preview.types';
+import { SwapFormFailModalProps } from './swap-form-preview.types';
 
-const SwapFormConfirmModal: FC<SwapFormConfirmModalProps> = ({
-  txLink,
+const SwapFormFailModal: FC<SwapFormFailModalProps> = ({
+  message,
   handleClose,
 }) => {
   const t = useTranslations();
@@ -40,31 +40,30 @@ const SwapFormConfirmModal: FC<SwapFormConfirmModalProps> = ({
         flexDirection="column"
         bg="surface.containerLowest"
       >
-        <Box my="xl" color="success">
-          <CheckmarkSVG filled width="100%" maxWidth="3rem" maxHeight="3rem" />
+        <Box my="xl" color="error">
+          <TimesSVG filled width="100%" maxWidth="3rem" maxHeight="3rem" />
         </Box>
         <Typography my="xl" width="16rem" variant="medium" textAlign="center">
-          {t('swap.modal.confirm.title')}
+          {t('swap.modal.error.title')}
         </Typography>
       </Box>
       <Typography variant="extraSmall">
-        {t('swap.modal.confirm.description')}
+        {message ?? t('swap.modal.error.description')}
       </Typography>
-      <a href={txLink} target="_blank" rel="noreferrer" onClick={handleClose}>
-        <Button
-          mt="xl"
-          mb="2xl"
-          size="small"
-          width="100%"
-          variant="filled"
-          boxSizing="border-box"
-          justifyContent="center"
-        >
-          {t('swap.modal.confirm.button')}
-        </Button>
-      </a>
+      <Button
+        mt="xl"
+        mb="2xl"
+        size="small"
+        width="100%"
+        variant="filled"
+        onClick={handleClose}
+        boxSizing="border-box"
+        justifyContent="center"
+      >
+        {t('swap.modal.error.button')}
+      </Button>
     </Box>
   );
 };
 
-export default SwapFormConfirmModal;
+export default SwapFormFailModal;

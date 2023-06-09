@@ -15,21 +15,12 @@ const Checkmark: FC<SVGProps & { filled?: boolean }> = ({
       fill="none"
       {...props}
     >
-      <g clipPath="url(#clip0_Checkmark)">
-        <rect width="40" height="40" rx="20" fill="#D9F99D" />
-        <path
-          d="M28.25 14.75L17.75 25.25L12.5 20"
-          stroke="#1B1B1F"
-          strokeWidth="2"
-          strokeLinecap="square"
-          strokeLinejoin="bevel"
-        />
-      </g>
-      <defs>
-        <clipPath id="clip0_Checkmark">
-          <rect width="40" height="40" rx="20" fill="white" />
-        </clipPath>
-      </defs>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M20 0C31.0457 0 40 8.9543 40 20C40 31.0457 31.0457 40 20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0ZM28.9571 15.4571L29.6642 14.75L28.25 13.3358L27.5429 14.0429L17.75 23.8358L13.2071 19.2929L12.5 18.5858L11.0858 20L11.7929 20.7071L17.0429 25.9571H18.4571L28.9571 15.4571Z"
+        fill="currentColor"
+      />
     </svg>
   ) : (
     <svg

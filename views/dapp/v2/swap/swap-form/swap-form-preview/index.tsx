@@ -7,6 +7,7 @@ import { useWatch } from 'react-hook-form';
 import { useModal } from '@/hooks';
 
 import SwapFormConfirmModal from './swap-form-confirm-modal';
+import SwapFormFailModal from './swap-form-fail-modal';
 import { SwapFormPreviewProps } from './swap-form-preview.types';
 import SwapFormPreviewModal from './swap-form-preview-modal';
 
@@ -29,6 +30,17 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
     !+pathOr(0, ['from', 'value'], formValues) ||
     formValues.disabled;
 
+  const openFailModal = (message?: string) =>
+    setModal(
+      <SwapFormFailModal message={message} handleClose={handleClose} />,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: false,
+      }
+    );
+
   const openConfirmModal = (link: string) =>
     setModal(<SwapFormConfirmModal txLink={link} handleClose={handleClose} />, {
       isOpen: true,
@@ -47,6 +59,7 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
         dexMarket={dexMarket}
         closeModal={handleClose}
         formSettings={formSettings}
+        openFailModal={openFailModal}
         openConfirmModal={openConfirmModal}
       />,
       {

@@ -28,7 +28,7 @@ const BaseTokenModalItem: FC<BaseTokenModalItemProps> = ({
     }}
   >
     <Box maxHeight="1.5rem">
-      <Icon filled width="100%" maxWidth="1.5rem" maxHeight="1.5rem" />
+      <Icon width="100%" maxWidth="1.5rem" maxHeight="1.5rem" />
     </Box>
     <Typography variant="medium" ml="s">
       {symbol}

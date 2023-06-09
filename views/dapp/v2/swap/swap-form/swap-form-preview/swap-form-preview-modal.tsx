@@ -19,7 +19,6 @@ import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import { EtherSVG, TimesSVG } from '@/svg';
 import {
-  capitalize,
   createObjectsParameter,
   formatDollars,
   formatMoney,
@@ -36,6 +35,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
   dexMarket,
   closeModal,
   formSettings,
+  openFailModal,
   openConfirmModal,
 }) => {
   const t = useTranslations();
@@ -181,8 +181,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
         `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`
       );
     } catch {
-      // Handle failure case modal
-      throw new Error(t('swap.error.failedToSwap'));
+      openFailModal(t('swap.error.failedToSwap'));
     } finally {
       resetInput();
       setLoading(false);
@@ -365,7 +364,12 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
               {t('swap.modal.preview.exchangeRate')}
             </Typography>
             <Typography variant="medium" whiteSpace="nowrap">
-              0.000 {tokenOut.symbol}/{tokenIn.symbol}
+              {formatMoney(
+                +(+(+tokenOut?.value / +tokenIn?.value).toFixed(
+                  6
+                )).toPrecision()
+              )}{' '}
+              {tokenOut.symbol}/{tokenIn.symbol}
             </Typography>
           </Box>
           <Box
@@ -395,7 +399,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
               {t('swap.modal.preview.minimumReceived')}
             </Typography>
             <Typography variant="medium" whiteSpace="nowrap">
-              {minimumAmount} ${tokenOut.symbol}
+              {(+minimumAmount.toFixed(6)).toPrecision()} ${tokenOut.symbol}
             </Typography>
           </Box>
           <Box
@@ -415,39 +419,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
           </Box>
         </Box>
         <Typography variant="extraSmall" mb="l">
-          {t.rich('swap.modal.preview.networkFeesAreSetBy', {
-            networkName: `SUI ${capitalize(NETWORK_RECORD[network])}`,
-            link: (chunk) => (
-              <Box
-                as="a"
-                color="primary"
-                {...{
-                  target: '_blank',
-                  rel: 'noreferrer',
-                  href: '#',
-                }}
-              >
-                {chunk}
-              </Box>
-            ),
-          })}
-        </Typography>
-        <Typography variant="extraSmall">
-          {t.rich('swap.modal.preview.FinalAmountMessage', {
-            link: (chunk) => (
-              <Box
-                as="a"
-                color="primary"
-                {...{
-                  target: '_blank',
-                  rel: 'noreferrer',
-                  href: '#',
-                }}
-              >
-                {chunk}
-              </Box>
-            ),
-          })}
+          {t('swap.modal.preview.footerText')}
         </Typography>
       </Box>
       <Button
