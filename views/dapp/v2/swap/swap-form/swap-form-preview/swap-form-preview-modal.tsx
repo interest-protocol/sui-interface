@@ -14,7 +14,12 @@ import { useTranslations } from 'next-intl';
 import { FC, useEffect, useState } from 'react';
 
 import { DownArrowSVG, LeftArrowSVG } from '@/components/svg/v2';
-import { NETWORK_RECORD, SUI_EXPLORER_URL, TOKENS_SVG_MAP } from '@/constants';
+import {
+  NETWORK_RECORD,
+  SUI_EXPLORER_URL,
+  TOKENS_SVG_MAP,
+  TOKENS_SVG_MAP_V2,
+} from '@/constants';
 import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import { EtherSVG, TimesSVG } from '@/svg';
@@ -190,8 +195,8 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
   };
 
   const [FromIcon, ToIcon] = [
-    TOKENS_SVG_MAP[tokenIn?.type] ?? EtherSVG,
-    TOKENS_SVG_MAP[tokenOut?.type] ?? EtherSVG,
+    TOKENS_SVG_MAP_V2[tokenIn?.type] ?? TOKENS_SVG_MAP_V2.default,
+    TOKENS_SVG_MAP_V2[tokenOut?.type] ?? TOKENS_SVG_MAP_V2.default,
   ];
 
   if (loading)
