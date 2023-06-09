@@ -51,7 +51,7 @@ const Menu: FC = () => {
         flexDirection="row-reverse"
         justifyContent="space-between"
       >
-        <Box display="flex">
+        <Box display="flex" alignItems="center">
           {!isOpen && (
             <Box mr="xl">
               <Wallet />

@@ -34,11 +34,11 @@ const MenuButton: FC<MenuButtonProps> = ({
   <Button
     color="text"
     variant="icon"
+    borderRadius="50%"
     bg={['none', isOpen ? '#FFFFFF1A' : 'none']}
     onClick={!isOpen ? handleOpen : handleClose}
-    border={['1px solid', 'none']}
+    border={['1px solid', '1px solid', '1px solid', 'none']}
     borderColor="#FFFFFF1A"
-    borderRadius="10rem"
   >
     <AnimatePresence initial={false}>
       {isOpen ? (
@@ -66,7 +66,7 @@ const MenuButton: FC<MenuButtonProps> = ({
           animate={closeVariants.open}
           initial={closeVariants.closed}
         >
-          <Box as="span" display={['none', 'none', 'inline-block']}>
+          <Box as="span" display={['none', 'none', 'none', 'inline-block']}>
             <DotsSVG
               width="100%"
               height="100%"
@@ -74,7 +74,10 @@ const MenuButton: FC<MenuButtonProps> = ({
               maxHeight="1.75rem"
             />
           </Box>
-          <Box as="span" display={['inline-block', 'inline-block', 'none']}>
+          <Box
+            as="span"
+            display={['inline-block', 'inline-block', 'inline-block', 'none']}
+          >
             <MenuSVG
               width="100%"
               height="100%"
