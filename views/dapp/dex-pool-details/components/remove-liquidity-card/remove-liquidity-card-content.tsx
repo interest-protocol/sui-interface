@@ -1,17 +1,15 @@
 import BigNumber from 'bignumber.js';
 import { FixedPointMath } from 'lib';
 import { useTranslations } from 'next-intl';
-import { propOr } from 'ramda';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
 
+import { Message } from '@/components';
 import { Box, Button } from '@/elements';
-import { useWeb3 } from '@/hooks';
 import { TimesSVG } from '@/svg';
 import { capitalize } from '@/utils';
 import { WalletGuardButton } from '@/views/dapp/components';
-import SwapMessage from '@/views/dapp/dex/swap/swap-manager/swap-button/swap-message';
 
 import LinearLoader from './linear-loader';
 import RemoveLiquidityButton from './remove-liquidity-button';
@@ -29,7 +27,6 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
   isStable,
 }) => {
   const t = useTranslations();
-  const { account } = useWeb3();
 
   const [lpAmount] = useDebounce(
     useWatch({ control: lpAmountControl, name: 'lpAmount' }),
@@ -42,20 +39,19 @@ const RemoveLiquidityCardContent: FC<RemoveLiquidityCardContentProps> = ({
 
   const { isLoading, data, error } = useGetRemoveLiquidityAmounts({
     lpAmount,
-    objectIds,
     token0Type: token0.type,
     token1Type: token1.type,
-    account: account,
+    stable: isStable,
   });
 
-  const amount0 = new BigNumber(propOr(0, token0.type || '', data));
-  const amount1 = new BigNumber(propOr(0, token1.type || '', data));
+  const amount0 = new BigNumber(data[0]);
+  const amount1 = new BigNumber(data[1]);
 
   return (
     <>
       <LinearLoader loading={isLoading} />
       {(!isLoading && !!error) ?? (
-        <SwapMessage
+        <Message
           color="error"
           Icon={TimesSVG}
           message={capitalize(t('error.generic'))}

@@ -78,8 +78,13 @@ const CurrencyToken: FC<CurrencyTokenItemProps> = ({
         onClick={handleSelectCurrency}
       >
         <Box py="M" display="flex" alignItems="center">
-          <Box as="span" display="inline-flex" width="1rem" alignItems="center">
-            <SVG width="100%" maxHeight="1rem" maxWidth="1rem" />
+          <Box
+            as="span"
+            width="1.7rem"
+            display="inline-flex"
+            alignItems="center"
+          >
+            <SVG width="100%" maxHeight="1.7rem" maxWidth="1.7rem" />
           </Box>
           <Typography mx="M" as="span" variant="normal">
             {symbol}

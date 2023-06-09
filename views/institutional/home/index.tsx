@@ -7,20 +7,22 @@ import {
   Layout,
   LearnMore,
   Partners,
+  Security,
   UsedBy,
   ValueProposition,
 } from '../components';
 
-const Home: FC = () => (
+const HomeView: FC = () => (
   <Layout>
     <Hero />
     <AboutUs />
     <UsedBy />
     <ValueProposition />
+    <Security />
     <Advantages />
     <LearnMore />
     <Partners />
   </Layout>
 );
 
-export default Home;
+export default HomeView;

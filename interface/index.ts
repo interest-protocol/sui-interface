@@ -77,3 +77,11 @@ export interface FormattedNumber {
 export type AppTheme<T> = T & {
   setDark: Dispatch<SetStateAction<boolean>>;
 };
+
+export interface TokenModalMetadata {
+  name: string;
+  symbol: string;
+  type: string;
+  decimals: number;
+  totalBalance: BigNumber;
+}

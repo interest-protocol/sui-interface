@@ -6,14 +6,7 @@
     "firstSectionTitle": "Tokens recomendados",
     "secondSectionTitle": "Meus tokens",
     "amountInput": "Digite o montante",
-    "modalButton": "{isLoading, plural, =1 {Criando O Token...} other {Crie Um Token}}",
-    "modalTitle": "NOVO TOKEN",
-    "modalInputName": "Nome",
-    "modalInputSymbol": "Simbolo",
-    "modalInputAmount": "Montante",
     "notFoundToken": "Nenhum token encontrado",
-    "select": "Selecione um token",
-    "type": "Escreva o {label}",
-    "errorCreateToken": "Ocorreu um error ao criar o token"
+    "select": "Selecione um token"
   }
 }

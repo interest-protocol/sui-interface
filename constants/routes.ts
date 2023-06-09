@@ -5,15 +5,20 @@
 export enum RoutesEnum {
   Home = 'home',
   DApp = 'dapp',
-  DEX = 'dex',
+  Swap = 'swap',
   Farms = 'farms',
   FarmDetails = 'farms-details',
   DEXPool = 'dex-pool',
   DEXFindPool = 'dex-find-pool',
   DEXPoolDetails = 'dex-pool-details',
+  Bridge = 'bridge',
   Faucet = 'faucet',
   Lend = 'lend',
   LendDetails = 'lend-details',
+  LiquidityCampaign = 'liquidity-campaign',
+  CreateToken = 'create-token',
+  LiquidityFarms = 'liquidity-farms',
+  LiquidityFarmsDetails = 'liquidity-farms-details',
 }
 
 /**
@@ -23,13 +28,18 @@ export enum RoutesEnum {
 export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.Home]: '/',
   [RoutesEnum.DApp]: '/dapp',
-  [RoutesEnum.DEX]: '/dapp/dex',
+  [RoutesEnum.Swap]: '/dapp/swap',
   [RoutesEnum.Farms]: '/dapp/farms',
   [RoutesEnum.FarmDetails]: '/dapp/farms/details',
   [RoutesEnum.DEXPool]: '/dapp/dex/pool',
   [RoutesEnum.DEXFindPool]: '/dapp/dex/pool/find',
   [RoutesEnum.DEXPoolDetails]: '/dapp/dex/pool/details',
   [RoutesEnum.Faucet]: '/dapp/faucet',
+  [RoutesEnum.CreateToken]: '/dapp/create-token',
   [RoutesEnum.Lend]: '/dapp/v2/lending',
   [RoutesEnum.LendDetails]: '/dapp/v2/lending/details',
+  [RoutesEnum.LiquidityCampaign]: '/campaign/liquidity',
+  [RoutesEnum.Bridge]: 'https://wormhole.interestprotocol.com/',
+  [RoutesEnum.LiquidityFarms]: '/dapp/liquidity',
+  [RoutesEnum.LiquidityFarmsDetails]: '/dapp/liquidity/details',
 };

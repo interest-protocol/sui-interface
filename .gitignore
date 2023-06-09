@@ -112,3 +112,6 @@ dist
 types
 
 .vercel
+
+# Husky
+.husky/_

@@ -34,6 +34,7 @@ const RemoveLiquidityCard: FC<RemoveLiquidityCardProps> = ({
         </Typography>
       </Box>
       <InputBalance
+        noCap
         max
         name="lpAmount"
         register={formRemoveLiquidity.register}

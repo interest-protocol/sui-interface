@@ -12,6 +12,14 @@ import {
   SearchFieldForm,
 } from './../components/select-currency/select-currency.types';
 
+export interface DEXFindPoolProps {
+  form: UseFormReturn<DexFindPoolForm>;
+  tokenAType: string;
+  tokenBType: string;
+  isCreatingPair: boolean;
+  setCreatingPair: Dispatch<SetStateAction<boolean>>;
+}
+
 interface FormValue {
   type: string;
   name: string;

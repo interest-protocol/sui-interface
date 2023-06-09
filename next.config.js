@@ -3,7 +3,7 @@ module.exports = {
     return [
       {
         source: '/dapp',
-        destination: '/dapp/dex',
+        destination: '/dapp/swap',
         permanent: true,
       },
     ];

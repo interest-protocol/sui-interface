@@ -3,8 +3,8 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Layout, LendTables } from '../componentes';
 import LendDetailsBalanceInfo from '../componentes/lend-details-balance-info';
+import { Layout, LendTables } from '../components';
 import BorrowCard from './borrow';
 import { ILendForm } from './lending-protocol.types';
 import RepayCard from './repay';

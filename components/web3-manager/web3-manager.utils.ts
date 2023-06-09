@@ -1,24 +1,24 @@
+import { CoinStruct, PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { pathOr } from 'ramda';
 
 import { COIN_DECIMALS, COIN_TYPE_TO_SYMBOL } from '@/constants';
 import { parseBigNumberish, safeSymbol } from '@/utils';
 
-import { ParseCoinsArg, Web3ManagerSuiObject } from './web3-manager.types';
+import {
+  GetAllCoinsArgs,
+  GetAllCoinsInternalArgs,
+  ParseCoinsArgs,
+  Web3ManagerSuiObject,
+} from './web3-manager.types';
 
-export const parseCoins = ({ data, localTokens, network }: ParseCoinsArg) => {
-  if (!data)
+export const parseCoins = ({ data, localTokens, network }: ParseCoinsArgs) => {
+  if (!data || !data.length)
     return [[], {}] as [
       ReadonlyArray<Web3ManagerSuiObject>,
       Record<string, Web3ManagerSuiObject>
     ];
 
-  if (!('data' in data))
-    return [[], {}] as [
-      ReadonlyArray<Web3ManagerSuiObject>,
-      Record<string, Web3ManagerSuiObject>
-    ];
-
-  return data.data.reduce(
+  return (data as CoinStruct[]).reduce(
     (acc, object) => {
       const type = object.coinType;
       const list = acc[0];
@@ -100,4 +100,36 @@ export const parseCoins = ({ data, localTokens, network }: ParseCoinsArg) => {
       Record<string, Web3ManagerSuiObject>
     ]
   );
+};
+
+const getAllCoinsInternal = async ({
+  data,
+  account,
+  cursor,
+  hasNextPage,
+  provider,
+}: GetAllCoinsInternalArgs): Promise<PaginatedCoins['data']> => {
+  if (!hasNextPage) return data;
+
+  const payload = await provider.getAllCoins({ owner: account, cursor });
+
+  return await getAllCoinsInternal({
+    provider,
+    account,
+    cursor: payload.nextCursor,
+    hasNextPage: payload.hasNextPage,
+    data: data.concat(payload.data),
+  });
+};
+
+export const getAllCoins = async ({ provider, account }: GetAllCoinsArgs) => {
+  const payload = await provider.getAllCoins({ owner: account });
+
+  return getAllCoinsInternal({
+    provider,
+    account,
+    cursor: payload.nextCursor,
+    data: payload.data,
+    hasNextPage: payload.hasNextPage,
+  });
 };

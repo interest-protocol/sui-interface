@@ -1,10 +1,10 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { Network } from '@/constants';
 import { Box, Dropdown, Typography } from '@/elements';
 import { useNetwork } from '@/hooks';
-import { ArrowSVG, SuiSVG } from '@/svg';
+import { ArrowSVG, StarLightSVG, SuiSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
 const SelectNetwork: FC = () => {
@@ -34,7 +34,8 @@ const SelectNetwork: FC = () => {
       defaultValue={network}
       data={[
         {
-          value: 'mainnet',
+          value: Network.MAINNET,
+          onSelect: () => setNetwork(Network.MAINNET),
           displayTitle: (
             <Box display="flex" alignItems="center" py="S">
               <Box
@@ -64,14 +65,8 @@ const SelectNetwork: FC = () => {
             </Box>
           ),
           displayOption: (
-            <Box
-              pl="L"
-              width="100%"
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Box display="flex" alignItems="center">
+            <Box display="flex" justifyContent="space-between" width="100%">
+              <Box pl="L" display="flex" alignItems="center">
                 <Box
                   as="span"
                   display="inline-block"
@@ -97,150 +92,176 @@ const SelectNetwork: FC = () => {
                   SUI
                 </Typography>
               </Box>
-              <Typography
-                px="M"
-                py="S"
-                mr="L"
-                variant="normal"
-                borderRadius="L"
-                bg="accentSecondary"
-              >
-                {t('common.soon')}
-              </Typography>
-            </Box>
-          ),
-          disabled: true,
-          noSelectable: true,
-        },
-        {
-          value: Network.DEVNET,
-          onSelect: () => setNetwork(Network.DEVNET),
-          displayTitle: (
-            <Box display="flex" alignItems="center" py="S">
-              <Box
-                as="span"
-                display="inline-block"
-                width={['1rem', '1rem', '1rem', '1.5rem']}
-                height={['1rem', '1rem', '1rem', '1.5rem']}
-                color="text"
-              >
-                <SuiSVG
-                  width="100%"
-                  height="100%"
-                  fill="currentColor"
-                  maxHeight="1.5rem"
-                  maxWidth="1.5rem"
-                />
-              </Box>
-              <Typography
-                variant="normal"
-                mx="M"
-                whiteSpace="nowrap"
-                color="text"
-                display={['none', 'none', 'flex', 'flex']}
-              >
-                SUI DevNet
-              </Typography>
-            </Box>
-          ),
-          displayOption: (
-            <Box pl="L" display="flex" alignItems="center">
-              <Box
-                as="span"
-                display="inline-block"
-                width="1.5rem"
-                height="1.5rem"
-                color="text"
-              >
-                <SuiSVG
-                  width="100%"
-                  height="100%"
-                  fill="currentColor"
-                  maxHeight="1.5rem"
-                  maxWidth="1.5rem"
-                />
-              </Box>
-              <Typography
-                variant="normal"
-                mx="M"
-                whiteSpace="nowrap"
-                color="text"
-                display="flex"
-              >
-                SUI DevNet
-              </Typography>
-            </Box>
-          ),
-        },
-        {
-          value: Network.TESTNET,
-          onSelect: () => setNetwork(Network.TESTNET),
-          displayTitle: (
-            <Box display="flex" alignItems="center" py="S">
-              <Box
-                as="span"
-                display="inline-block"
-                width={['1rem', '1rem', '1rem', '1.5rem']}
-                height={['1rem', '1rem', '1rem', '1.5rem']}
-                color="text"
-              >
-                <SuiSVG
-                  width="100%"
-                  height="100%"
-                  fill="currentColor"
-                  maxHeight="1.5rem"
-                  maxWidth="1.5rem"
-                />
-              </Box>
-              <Typography
-                variant="normal"
-                mx="M"
-                whiteSpace="nowrap"
-                color="text"
-                display={['none', 'none', 'flex', 'flex']}
-              >
-                SUI TestNet
-              </Typography>
-            </Box>
-          ),
-          displayOption: (
-            <Box
-              px="L"
-              width="100%"
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Box display="flex" alignItems="center">
-                <Box
-                  as="span"
-                  display="inline-block"
-                  width="1.5rem"
-                  height="1.5rem"
-                  color="text"
-                >
-                  <SuiSVG
-                    width="100%"
+              <Box width="2.5rem" height="2rem" position="relative">
+                <Box position="absolute" top="0" left="0.5rem" width="0.7rem">
+                  <StarLightSVG
                     height="100%"
-                    fill="currentColor"
-                    maxHeight="1.5rem"
-                    maxWidth="1.5rem"
+                    maxWidth="0.7rem"
+                    maxHeight="0.7rem"
                   />
                 </Box>
-                <Typography
-                  variant="normal"
-                  mx="M"
-                  whiteSpace="nowrap"
-                  color="text"
-                  display="flex"
+                <Box
+                  position="absolute"
+                  left="0"
+                  bottom="0.3rem"
+                  width="0.7rem"
                 >
-                  SUI TestNet
-                </Typography>
+                  <StarLightSVG
+                    height="100%"
+                    maxWidth="0.7rem"
+                    maxHeight="0.7rem"
+                  />
+                </Box>
+                <Box
+                  position="absolute"
+                  bottom="0"
+                  left="0.6rem"
+                  width="0.7rem"
+                >
+                  <StarLightSVG
+                    height="100%"
+                    maxWidth="0.7rem"
+                    maxHeight="0.7rem"
+                  />
+                </Box>
               </Box>
             </Box>
           ),
         },
-      ]}
+      ].concat(
+        process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'
+          ? [
+              {
+                value: Network.TESTNET,
+                onSelect: () => setNetwork(Network.TESTNET),
+                displayTitle: (
+                  <Box display="flex" alignItems="center" py="S">
+                    <Box
+                      as="span"
+                      display="inline-block"
+                      width={['1rem', '1rem', '1rem', '1.5rem']}
+                      height={['1rem', '1rem', '1rem', '1.5rem']}
+                      color="text"
+                    >
+                      <SuiSVG
+                        width="100%"
+                        height="100%"
+                        fill="currentColor"
+                        maxHeight="1.5rem"
+                        maxWidth="1.5rem"
+                      />
+                    </Box>
+                    <Typography
+                      variant="normal"
+                      mx="M"
+                      whiteSpace="nowrap"
+                      color="text"
+                      display={['none', 'none', 'flex', 'flex']}
+                    >
+                      SUI TestNet
+                    </Typography>
+                  </Box>
+                ),
+                displayOption: (
+                  <Box
+                    px="L"
+                    width="100%"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
+                    <Box display="flex" alignItems="center">
+                      <Box
+                        as="span"
+                        display="inline-block"
+                        width="1.5rem"
+                        height="1.5rem"
+                        color="text"
+                      >
+                        <SuiSVG
+                          width="100%"
+                          height="100%"
+                          fill="currentColor"
+                          maxHeight="1.5rem"
+                          maxWidth="1.5rem"
+                        />
+                      </Box>
+                      <Typography
+                        variant="normal"
+                        mx="M"
+                        whiteSpace="nowrap"
+                        color="text"
+                        display="flex"
+                      >
+                        SUI TestNet
+                      </Typography>
+                    </Box>
+                  </Box>
+                ),
+              },
+              {
+                value: Network.DEVNET,
+                onSelect: () => setNetwork(Network.DEVNET),
+                displayTitle: (
+                  <Box display="flex" alignItems="center" py="S">
+                    <Box
+                      as="span"
+                      display="inline-block"
+                      width={['1rem', '1rem', '1rem', '1.5rem']}
+                      height={['1rem', '1rem', '1rem', '1.5rem']}
+                      color="text"
+                    >
+                      <SuiSVG
+                        width="100%"
+                        height="100%"
+                        fill="currentColor"
+                        maxHeight="1.5rem"
+                        maxWidth="1.5rem"
+                      />
+                    </Box>
+                    <Typography
+                      variant="normal"
+                      mx="M"
+                      whiteSpace="nowrap"
+                      color="text"
+                      display={['none', 'none', 'flex', 'flex']}
+                    >
+                      SUI DevNet
+                    </Typography>
+                  </Box>
+                ),
+                displayOption: (
+                  <Box pl="L" display="flex" alignItems="center">
+                    <Box
+                      as="span"
+                      display="inline-block"
+                      width="1.5rem"
+                      height="1.5rem"
+                      color="text"
+                    >
+                      <SuiSVG
+                        width="100%"
+                        height="100%"
+                        fill="currentColor"
+                        maxHeight="1.5rem"
+                        maxWidth="1.5rem"
+                      />
+                    </Box>
+                    <Typography
+                      variant="normal"
+                      mx="M"
+                      whiteSpace="nowrap"
+                      color="text"
+                      display="flex"
+                    >
+                      SUI DevNet
+                    </Typography>
+                  </Box>
+                ),
+              },
+            ]
+          : []
+      )}
     />
   );
 };
