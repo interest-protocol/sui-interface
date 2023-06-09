@@ -10,7 +10,8 @@ const BaseTokenModalItem: FC<BaseTokenModalItemProps> = ({
   selected,
 }) => (
   <Box
-    p="m"
+    px="m"
+    py="xs"
     display="flex"
     color="textSoft"
     cursor="pointer"
@@ -27,10 +28,10 @@ const BaseTokenModalItem: FC<BaseTokenModalItemProps> = ({
       borderColor: 'transparent',
     }}
   >
-    <Box maxHeight="1.5rem">
-      <Icon width="100%" maxWidth="1.5rem" maxHeight="1.5rem" />
+    <Box height="2rem">
+      <Icon width="100%" maxWidth="2rem" maxHeight="2rem" />
     </Box>
-    <Typography variant="medium" ml="s">
+    <Typography variant="medium" ml="xs">
       {symbol}
     </Typography>
   </Box>

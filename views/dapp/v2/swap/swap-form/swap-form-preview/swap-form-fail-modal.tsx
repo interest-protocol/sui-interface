@@ -47,7 +47,7 @@ const SwapFormFailModal: FC<SwapFormFailModalProps> = ({
           {t('swap.modal.error.title')}
         </Typography>
       </Box>
-      <Typography variant="extraSmall">
+      <Typography variant="extraSmall" textAlign="center">
         {message ?? t('swap.modal.error.description')}
       </Typography>
       <Button

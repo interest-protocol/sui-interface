@@ -45,7 +45,7 @@ const TokenModalItem: FC<TokenModalItemProps> = ({
     >
       <Box display="flex" alignItems="center">
         <Box>
-          <Icon width="100%" maxWidth="2.5rem" maxHeight="2.5rem" />
+          <Icon filled width="100%" maxWidth="2.8rem" maxHeight="2.8rem" />
         </Box>
         <Typography variant="medium" ml="xl">
           {symbol}

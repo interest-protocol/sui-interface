@@ -105,7 +105,7 @@ const SelectToken: FC<SelectTokenProps> = ({
       }
       PrefixIcon={
         <Box as="span" display="inline-block">
-          <Icon maxWidth="1rem" maxHeight="1rem" height="100%" width="100%" />
+          <Icon maxWidth="2rem" maxHeight="2rem" height="100%" width="100%" />
         </Box>
       }
     >
