@@ -169,13 +169,16 @@ export const parseInputEventToNumberString = (
       ? value.slice(0, value.length - 1)
       : value;
 
-  return isNaN(+x)
-    ? ''
-    : +x >= max
-    ? max.toString()
-    : x.charAt(0) == '0' && !x.startsWith('0.')
-    ? String(Number(x))
-    : x;
+  if (isNaN(+x)) return '';
+
+  if (+x >= max) return max.toString();
+
+  if (x.charAt(0) == '0' && !x.startsWith('0.')) return String(Number(x));
+
+  if (value.includes('.') && value[value.length - 1] !== '.')
+    return (+(+x).toFixed(6)).toPrecision();
+
+  return x;
 };
 
 export const capitalize = (str: string | undefined): string =>

@@ -5,6 +5,7 @@ import {
   BTCSVG,
   ETHSVG,
   SUISVG,
+  UnknownCoinSVG,
   USDTSVG,
   WormholeADABSCSVG,
   WormholeAVAXSVG,
@@ -23,14 +24,13 @@ import {
   WormholeUSDTBSCSVG,
   WormholeUSDTETHSVG,
 } from '@/components/svg/v2';
-import UnknownCoin from '@/components/svg/v2/unknown-coin';
 import {
   BinanceSVG,
   BitcoinSVG,
   EtherSVG,
   InterestTokenSVG,
   SuiSVG,
-  UnknownCoinSVG,
+  UnknownCoinSVG as UnknownCoinV1SVG,
   USDCoinSVG,
   USDTSVG as USDTv1SVG,
   WormholeADABSVG,
@@ -78,7 +78,7 @@ export enum StakeState {
 
 export const SUI_EXPLORER_URL = 'https://explorer.sui.io';
 export const TOKENS_SVG_MAP = {
-  default: UnknownCoinSVG,
+  default: UnknownCoinV1SVG,
   [COIN_TYPE[Network.DEVNET].BNB]: BinanceSVG,
   [COIN_TYPE[Network.DEVNET].BTC]: BitcoinSVG,
   [COIN_TYPE[Network.DEVNET].ETH]: EtherSVG,
