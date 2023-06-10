@@ -61,27 +61,31 @@ const MarketTable: FC<MarketTableProps> = ({ title }) => {
       <Box>
         {title === t('common.v2.lend.marketTables.supplyMarket.title') ? (
           <Motion
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
+            initial={{ height: toggle.element1 ? '0' : 'auto' }}
+            animate={{ height: toggle.element1 ? 'auto' : '0' }}
             transition={{
               duration: 0.3,
               ease: 'easeInOut',
             }}
-            display={toggle.element1 ? '' : 'none'}
+            overflow="hidden"
           >
-            <SupplyMarketTable />
+            <Box>
+              <SupplyMarketTable />
+            </Box>
           </Motion>
         ) : title === t('common.v2.lend.marketTables.borrowMarket.title') ? (
           <Motion
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
+            initial={{ height: toggle.element2 ? '0' : 'auto' }}
+            animate={{ height: toggle.element2 ? 'auto' : '0' }}
             transition={{
               duration: 0.3,
               ease: 'easeInOut',
             }}
-            display={toggle.element2 ? '' : 'none'}
+            overflow="hidden"
           >
-            <BorrowMarketTable />
+            <Box>
+              <BorrowMarketTable />
+            </Box>
           </Motion>
         ) : (
           ''
