@@ -53,6 +53,7 @@ const Sidebar: FC = () => {
               borderRadius="m"
               color="onSurface"
               opacity={disabled ? 0.7 : 1}
+              transition="all 350ms ease-in-out"
               cursor={disabled ? 'not-allowed' : 'pointer'}
               bg={asPath === path ? '#99BBFF14' : undefined}
               onClick={disabled ? undefined : () => push(path)}
