@@ -122,7 +122,7 @@ export const SwapMessages: FC<SwapMessagesProps> = ({
   if (errorMessage) return null;
 
   return (
-    <Box gridColumn="1/-1">
+    <Box gridColumn="1/-1" textAlign="center">
       {readyToSwap && swapPath && <SwapPath swapPath={swapPath} />}
     </Box>
   );
