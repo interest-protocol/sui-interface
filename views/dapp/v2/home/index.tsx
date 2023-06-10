@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Layout } from '../componentes';
+import { Layout } from '../components';
 
 const Home: FC = () => <Layout>Home</Layout>;
 

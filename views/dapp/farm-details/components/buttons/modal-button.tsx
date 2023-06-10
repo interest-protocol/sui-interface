@@ -1,4 +1,5 @@
-import { TransactionBlock } from '@mysten/sui.js';
+import { OBJECT_RECORD } from '@interest-protocol/sui-sdk';
+import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { FixedPointMath } from 'lib';
@@ -6,10 +7,8 @@ import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';
 import { FC, useState } from 'react';
 
-import { incrementTX } from '@/api/analytics';
-import { OBJECT_RECORD } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useNetwork, useWeb3 } from '@/hooks';
+import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,
@@ -32,9 +31,10 @@ const ModalButton: FC<ModalButtonProps> = ({
 }) => {
   const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
-  const { signAndExecuteTransactionBlock } = useWalletKit();
-  const { coinsMap, account } = useWeb3();
+  const { signTransactionBlock } = useWalletKit();
+  const { coinsMap } = useWeb3();
   const { network } = useNetwork();
+  const { provider } = useProvider();
 
   const handleWithdrawTokens = async () => {
     try {
@@ -61,25 +61,31 @@ const ModalButton: FC<ModalButtonProps> = ({
       const txb = new TransactionBlock();
 
       txb.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::unstake`,
+        target: `${objects.DEX_PACKAGE_ID}::interface::unstake`,
         typeArguments: [farm.lpCoin.type],
         arguments: [
+          txb.object(objects.DEX_MASTER_CHEF_STORAGE),
+          txb.object(objects.DEX_MASTER_CHEF_ACCOUNT_STORAGE),
           txb.object(objects.IPX_STORAGE),
-          txb.object(objects.IPX_ACCOUNT_STORAGE),
+          txb.object(SUI_CLOCK_OBJECT_ID),
           txb.pure(safeAmount.toString()),
         ],
       });
 
-      const tx = await signAndExecuteTransactionBlock({
+      const { signature, transactionBlockBytes } = await signTransactionBlock({
         transactionBlock: txb,
+      });
+
+      const tx = await provider.executeTransactionBlock({
+        transactionBlock: transactionBlockBytes,
+        signature,
         requestType: 'WaitForEffectsCert',
-        options: { showEffects: true },
+        options: { showEffects: true, showEvents: false },
       });
 
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
-      incrementTX(account ?? '');
     } finally {
       mutatePools();
       mutatePendingRewards();
@@ -115,11 +121,13 @@ const ModalButton: FC<ModalButtonProps> = ({
       const txb = new TransactionBlock();
 
       txb.moveCall({
-        target: `${objects.PACKAGE_ID}::interface::stake`,
+        target: `${objects.DEX_PACKAGE_ID}::interface::stake`,
         typeArguments: [farm.lpCoin.type],
         arguments: [
+          txb.object(objects.DEX_MASTER_CHEF_STORAGE),
+          txb.object(objects.DEX_MASTER_CHEF_ACCOUNT_STORAGE),
           txb.object(objects.IPX_STORAGE),
-          txb.object(objects.IPX_ACCOUNT_STORAGE),
+          txb.object(SUI_CLOCK_OBJECT_ID),
           txb.makeMoveVec({
             objects: coinsMap[farm.lpCoin.type].objects.map((x) =>
               txb.object(x.coinObjectId)
@@ -128,16 +136,20 @@ const ModalButton: FC<ModalButtonProps> = ({
           txb.pure(safeAmount.toString()),
         ],
       });
-      const tx = await signAndExecuteTransactionBlock({
+      const { signature, transactionBlockBytes } = await signTransactionBlock({
         transactionBlock: txb,
+      });
+
+      const tx = await provider.executeTransactionBlock({
+        signature,
+        transactionBlock: transactionBlockBytes,
         requestType: 'WaitForEffectsCert',
-        options: { showEffects: true },
+        options: { showEffects: true, showEvents: false },
       });
 
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
-      incrementTX(account ?? '');
     } finally {
       mutatePools();
       mutatePendingRewards();

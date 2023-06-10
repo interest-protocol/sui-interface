@@ -5,11 +5,14 @@ interface GetTokenByteCoreArgs {
   decimals: number;
   symbol: string;
   mintAmount: number;
+  url?: string;
+  description?: string;
 }
 
-export const getTokenByteCode = async (
-  data: GetTokenByteCoreArgs
-): Promise<CompiledModules> => {
+export const getTokenByteCode = async ({
+  url = 'https://www.interestprotocol.com/logo.png',
+  ...otherArgs
+}: GetTokenByteCoreArgs): Promise<CompiledModules> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_IPX_ANALYTICS_SERVER_URL}api/v1/token/makeToken`,
     {
@@ -18,7 +21,7 @@ export const getTokenByteCode = async (
         'Content-Type': 'application/json',
         ...(!process.env.production && { mode: 'cors' }),
       },
-      body: JSON.stringify(data), // body data type must match "Content-Type" header
+      body: JSON.stringify({ ...otherArgs, url }), // body data type must match "Content-Type" header
     }
   );
 

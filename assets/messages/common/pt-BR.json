@@ -1,6 +1,11 @@
 {
   "common": {
     "v2": {
+      "on": "Ativo",
+      "off": "Inativo",
+      "cancel": "cancelar",
+      "confirm": "confirmar",
+      "confirmChanges": "confirmar alterações",
       "languages": {
         "title": "Idioma",
         "en-US": "Inglês",
@@ -10,16 +15,29 @@
       "menu": {
         "settings": "Definições",
         "darkMode": "Modo escuro",
+        "dark": "Escuro",
+        "light": "Claro",
         "languages": "Idiomas"
+      },
+      "navbar": {
+        "swap": "troca",
+        "home": "início",
+        "pool": "pool",
+        "farm": "farm",
+        "createToken": "criar token",
+        "settings": "definições"
       },
       "wallet": {
         "name": "carteira",
         "connect": "conetar à carteira",
         "disconnect": "desconectar",
-        "switch": "trocar rede"
+        "switch": "trocar rede",
+        "copy": "Endereço copiado para a clipboard"
       },
-      "on": "Ativo",
-      "off": "Inativo",
+      "borrow": "Empréstimo",
+      "repay": "Reembolso",
+      "rewards": "Ganhos",
+      "in": "Em",
       "lend": {
         "title": "Emprestar",
         "firstSection": {
@@ -28,10 +46,51 @@
           "walletBalance": "Saldo da carteira",
           "borrowLimit": "Limite de empréstimo",
           "borrowLimitUsed": "Limite de empréstimo utilizado"
+        },
+        "marketTables": {
+          "supplyMarket": {
+            "title": "Mercado de Fornecimento",
+            "columns": {
+              "netAPY": "Ativo / APY",
+              "supplied": "Fornecido",
+              "wallet": "Carteira",
+              "collateral": "Garantia"
+            }
+          },
+          "borrowMarket": {
+            "title": "Mercado de Empréstimo",
+            "columns": {
+              "netAPY": "Ativo / APY",
+              "borrowed": "Emprestado",
+              "wallet": "Carteira",
+              "liquidity": "Liquidez"
+            }
+          }
+        }
+      },
+      "banner": {
+        "liquidity": {
+          "title": "20 Milhões de Tokens IPX",
+          "label": "Disponíveis",
+          "description": "Forneça liquidez para cultivar os tokens IPX",
+          "buttons": { "main": "Ir para o AirDrop", "secondary": "Saiba Mais" }
+        },
+        "zealy": {
+          "title": "3 Milhões de Tokens IPX",
+          "label": "Disponíveis",
+          "description": "Complete missões para obter o Airdrop",
+          "buttons": { "main": "Ir para a Zealy", "secondary": "Saiba Mais" }
+        },
+        "swap": {
+          "title": "5 Milhões de Tokens IPX",
+          "label": "Disponíveis",
+          "description": "Troque para obter o Airdrop",
+          "buttons": { "main": "Trocar Agora", "secondary": "Saiba Mais" }
         }
       }
     },
     "dex": "dex",
+    "home": "Início",
     "soon": "em breve",
     "pool": "pool",
     "notFoundToken": "Meta dados do token não encontrados",
@@ -51,6 +110,7 @@
     "volatile": "{count, plural, =1 {volátil} other {voláteis}}",
     "stable": "{count, plural, =1 {estável} other {estáveis}}",
     "enter": "aceder",
+    "bridge": "Bridge",
     "type": "tipo",
     "add": "{isLoading, plural, =1 {adicionando...} other {adicione}}",
     "reset": "reiniciar",
@@ -102,11 +162,13 @@
     "copyObjectNumber": "copiar o id do objecto",
     "followUs": "SIGA-NOS",
     "coin": "moeda",
-    "bannerHeader": "Este é um produto alfa implantado num Devnet. Pode estar em baixo por causa de actualizações de versões ou problemas inesperados."
+    "createTokenModalButton": "{isLoading, plural, =1 {Criando O Token...} other {Crie Um Token}}",
+    "bannerHeader": "Airdrop: 28M de tokens IPX para ganhar! Clique aqui!"
   },
   "error": {
     "generic": "algo deu errado",
     "wrongParams": "Parâmetros errados",
+    "createToken": "Ocorreu um error ao criar o token",
     "fetchingContract": "Erro ao obter os contractos",
     "fetchingBalances": "Erro ao obter os saldos",
     "fetchingCoins": "Erro ao obter dados das moedas",
@@ -125,7 +187,8 @@
     },
     "error": {
       "title": "Erro na carteira",
-      "advice": "Abra a sua carteira e/ou reinicie."
+      "advice": "Abra a sua carteira e/ou reinicie.",
+      "createToken": "O nome e símbolo não podem ser números."
     }
   }
 }

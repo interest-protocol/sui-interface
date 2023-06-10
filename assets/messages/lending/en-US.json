@@ -2,6 +2,25 @@
   "lending": {
     "metadata": {
       "title": "Lending"
+    },
+    "navigator": {
+      "borrow": "borrow",
+      "repay": "repay"
+    },
+    "card": {
+      "header": "{isBorrow, plural, =1 {Available to borrow} other {Available to repay}}",
+      "currentSection": {
+        "header": "{isBorrow, plural, =1 {Currently Borrowing} other {Currently Repaying}}"
+      },
+      "borrowLimitSection": {
+        "header": "New Borrow Limit",
+        "borrowLimit": "Borrow Limit",
+        "borrowLimitUsed": "Borrow Limit Used"
+      },
+      "ratesSection": {
+        "header": "Rates"
+      },
+      "button": "Preview "
     }
   }
 }

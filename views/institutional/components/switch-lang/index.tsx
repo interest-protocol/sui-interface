@@ -53,7 +53,7 @@ const SwitchLang: FC<{ isOpen: boolean }> = ({ isOpen }) => {
       variants={wrapperVariants}
       animate={isOpen ? 'open' : 'closed'}
       pointerEvents={isOpen ? 'auto' : 'none'}
-      backgroundImage={`linear-gradient(#FFFFFF1A,#FFFFFF1A), linear-gradient(${colors.background},${colors.background})`}
+      backgroundImage={`linear-gradient(#FFFFFF1A,#FFFFFF1A), linear-gradient(${colors.surface},${colors.surface})`}
     >
       <Typography
         m="xl"

@@ -50,8 +50,8 @@ const AddLiquidityCardContent: FC<AddLiquidityCardContentProps> = ({
             variant="neutral"
             disabled={fetchingInitialData}
             onClick={() => {
-              setValue('token0Amount', '0.0');
-              setValue('token1Amount', '0.0');
+              setValue('token0Amount', '0');
+              setValue('token1Amount', '0');
               setValue('token0InputLocked', false);
               setValue('token1InputLocked', false);
             }}
