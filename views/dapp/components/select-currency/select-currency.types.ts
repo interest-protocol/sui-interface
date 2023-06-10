@@ -1,3 +1,4 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import { JsonRpcProvider } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { FC, ReactNode } from 'react';
@@ -5,7 +6,6 @@ import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 import { SVGProps } from '@/components/svg/svg.types';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
-import { Network } from '@/constants';
 import { CoinData } from '@/interface';
 
 export interface SearchFieldForm {

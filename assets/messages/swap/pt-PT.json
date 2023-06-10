@@ -1,0 +1,76 @@
+{
+  "swap": {
+    "metadata": {
+      "title": "Troca"
+    },
+    "form": {
+      "from": "De",
+      "to": "Para",
+      "balance": "Saldo",
+      "selectToken": "Selecionar um token",
+      "preview": "Visualizar",
+      "fetchMarkets": "Trazer mercados...",
+      "fetchingAmounts": "Trazendo amounts...",
+      "errors": {
+        "amountOut": "Falha ao obter o montante",
+        "sameTokens": "Não é possível trocar o mesmo token",
+        "balances": "Falha na obtenção de saldos",
+        "noMarket": "Este par não tem mercado",
+        "infoNoPool": "Este par não tem liquidez. Experimente um montante superior ou adicione liquidez",
+        "noPool": "Não foi encontrada nenhuma pool! Experimente uma pool existente",
+        "error": "Falha na troca: tentar um deslizamento maior ou uma quantidade menor",
+        "increaseAmount": "Tentar aumentar a quantidade de {symbol}"
+      }
+    },
+    "modal": {
+      "settings": {
+        "title": "definições de troca",
+        "subtitles": {
+          "transaction": "definições de transação",
+          "panel": "definições de painel"
+        },
+        "field": {
+          "slippage": "tolerância da slippage",
+          "deadline": "prazo da transação",
+          "automated": "preço automatizado"
+        }
+      },
+      "preview": {
+        "swappingToken": "A trocar token, por favor aguarde...",
+        "exchangeRate": "Taxa de câmbio",
+        "liquidityFee": "Taxa do Liquidity Provider",
+        "priceImpact": "Impacto de preço",
+        "minimumReceived": "Mínimo received depois da slippage",
+        "networkFeesAreSetBy": "As taxas de rede são definidas por {networkName}. Saiba mais sobre as taxas.",
+        "FinalAmountMessage": "O valor final pode ser alterado devido à atividade de mercado. Ao aprovar esta troca, você concorda com a Política de Reembolso do protocolo Interest.",
+        "confirmSwap": "Confirmar Troca",
+        "selectToken": {
+          "title": "Selecionar token",
+          "search": "Buscar token",
+          "recommended": "Recomendados",
+          "favorite": "Favoritos",
+          "wallet": "Carteira"
+        }
+      },
+      "confirm": {
+        "tokenSwapped": "Token Trocado",
+        "explorerMessage": "Você pode verificar sua transação no Explorador",
+        "seeOnExplorer": "Ver no Explorador"
+      },
+      "error": {
+        "swapFailed": "Erro",
+        "explorerMessage": "Sua troca falhou",
+        "seeOnExplorer": "Voltar e tentar de novo"
+      }
+    },
+    "error": {
+      "cannotSell0": "Não pode vender 0 tokens",
+      "noMarket": "Nenhum mercado encontrado",
+      "select2Tokens": "Selecione 2 tokens",
+      "failedToSwap": "Falha ao trocar",
+      "wethDeposit": "Falha ao depositar",
+      "wethWithdraw": "Falhar ao sacar",
+      "soonFeature": "Essa funcionalidade estará disponível na próxima versão"
+    }
+  }
+}

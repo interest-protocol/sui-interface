@@ -3,12 +3,13 @@ import { createContext, FC, useMemo } from 'react';
 import useSWR from 'swr';
 import { useReadLocalStorage } from 'usehooks-ts';
 
+import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 import { useNetwork, useProvider } from '@/hooks';
 import { LocalTokenMetadataRecord } from '@/interface';
 import { makeSWRKey, noop } from '@/utils';
 
 import { Web3ManagerProps, Web3ManagerState } from './web3-manager.types';
-import { parseCoins } from './web3-manager.utils';
+import { getAllCoins, parseCoins } from './web3-manager.utils';
 
 const CONTEXT_DEFAULT_STATE = {
   account: null,
@@ -31,10 +32,13 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   const { network } = useNetwork();
 
   const { data, error, mutate, isLoading } = useSWR(
-    makeSWRKey([currentAccount, network], provider.getAllCoins.name),
+    makeSWRKey(
+      [currentAccount, network, currentAccount?.address],
+      provider.getAllCoins.name
+    ),
     async () => {
       if (!currentAccount?.address) return;
-      return await provider.getAllCoins({ owner: currentAccount.address });
+      return getAllCoins({ provider, account: currentAccount.address });
     },
     {
       revalidateOnFocus: false,
@@ -45,13 +49,13 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   );
 
   const tokensMetadataRecord = useReadLocalStorage<LocalTokenMetadataRecord>(
-    'sui-interest-tokens-metadata'
+    `${LOCAL_STORAGE_VERSION}-sui-interest-tokens-metadata`
   );
 
   const [coins, coinsMap] = useMemo(
     () =>
       parseCoins({ data, localTokens: tokensMetadataRecord ?? {}, network }),
-    [data, tokensMetadataRecord, network]
+    [data, tokensMetadataRecord, network, currentAccount?.address]
   );
 
   return (

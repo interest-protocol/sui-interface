@@ -1,6 +1,7 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import BigNumber from 'bignumber.js';
 
-import { FarmMetadataType, Network } from '@/constants';
+import { FarmMetadataType } from '@/constants';
 import { CoinPriceRecord, IPXStorage } from '@/hooks';
 import { Farm, Pool } from '@/interface';
 

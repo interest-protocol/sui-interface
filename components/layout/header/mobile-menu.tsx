@@ -42,6 +42,37 @@ const MobileMenu: FC<SwitchThemeProps> = ({ changeTheme, dark }) => {
           </Box>
         }
         data={[
+          {
+            value: 'feedback',
+            onSelect: () =>
+              parent.open(
+                'https://docs.google.com/forms/d/e/1FAIpQLSfLdqMee_f4v3NRnVuKjsfuvmQH0VRu9YblU_nnnEFQ2km0Pw/viewform'
+              ),
+            displayOption: (
+              <Box width="100%">
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSfLdqMee_f4v3NRnVuKjsfuvmQH0VRu9YblU_nnnEFQ2km0Pw/viewform"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Typography
+                    px="M"
+                    py="L"
+                    width="100%"
+                    variant="normal"
+                    textAlign="center"
+                    bg="accentActive"
+                    textTransform="uppercase"
+                    nHover={{
+                      bg: 'warning',
+                    }}
+                  >
+                    Feedback
+                  </Typography>
+                </a>
+              </Box>
+            ),
+          },
           ...[
             ...SOCIAL_MEDIAS,
             {
@@ -72,34 +103,6 @@ const MobileMenu: FC<SwitchThemeProps> = ({ changeTheme, dark }) => {
               </a>
             ),
           })),
-          {
-            value: 'feedback',
-            onSelect: () => parent.open('https://forms.gle/aDP4wHvshLPKkKv97'),
-            displayOption: (
-              <Box width="100%">
-                <a
-                  href="https://forms.gle/aDP4wHvshLPKkKv97"
-                  target="__blank"
-                  rel="noopener noreferrer"
-                >
-                  <Typography
-                    px="M"
-                    py="L"
-                    width="100%"
-                    variant="normal"
-                    textAlign="center"
-                    bg="accentActive"
-                    textTransform="uppercase"
-                    nHover={{
-                      bg: 'warning',
-                    }}
-                  >
-                    Feedback
-                  </Typography>
-                </a>
-              </Box>
-            ),
-          },
         ]}
       />
     </>

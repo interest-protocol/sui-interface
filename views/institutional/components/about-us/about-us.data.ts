@@ -10,18 +10,17 @@ import {
 export const SERVICES_LIST: ReadonlyArray<AboutUsCardProps> = [
   {
     name: 'earn',
-    link: Routes[RoutesEnum.Farms],
+    link: Routes[RoutesEnum.LiquidityFarms],
     Illustration: EarnIllustration,
   },
   {
     name: 'trade',
-    link: Routes[RoutesEnum.DEX],
+    link: Routes[RoutesEnum.Swap],
     Illustration: TradeIllustration,
   },
   {
     name: 'lend',
-    // TODO: change the link
-    link: Routes[RoutesEnum.Faucet],
+    link: Routes[RoutesEnum.Swap],
     Illustration: LendIllustration,
   },
 ];
