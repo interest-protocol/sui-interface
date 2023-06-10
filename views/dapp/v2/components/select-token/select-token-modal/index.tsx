@@ -244,24 +244,26 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
           text={t('swap.modal.preview.selectToken.wallet')}
         />
       </Box>
-      <SelectTokenModalBody
-        coins={coins}
-        control={control}
-        network={network}
-        provider={provider}
-        coinsMap={coinsMap}
-        favorites={favorites}
-        tokenOrigin={tokenOrigin}
-        setFavorites={addFavorite}
-        favoriteTokens={favorites}
-        walletTokens={walletTokens}
-        fetchingMetaData={fetchingData}
-        currentTokenType={currentTokenType}
-        onSelectToken={handleSelectCurrency}
-        favoriteTokensTypes={favoriteTokens}
-        recommendedTokens={recommendedTokens}
-        searchTokenModalState={searchTokenModalState}
-      />
+      <Motion initial={{ height: 0 }} animate={{ height: 'auto' }}>
+        <SelectTokenModalBody
+          coins={coins}
+          control={control}
+          network={network}
+          provider={provider}
+          coinsMap={coinsMap}
+          favorites={favorites}
+          tokenOrigin={tokenOrigin}
+          setFavorites={addFavorite}
+          favoriteTokens={favorites}
+          walletTokens={walletTokens}
+          fetchingMetaData={fetchingData}
+          currentTokenType={currentTokenType}
+          onSelectToken={handleSelectCurrency}
+          favoriteTokensTypes={favoriteTokens}
+          recommendedTokens={recommendedTokens}
+          searchTokenModalState={searchTokenModalState}
+        />
+      </Motion>
     </Motion>
   );
 };

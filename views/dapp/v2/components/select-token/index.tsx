@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Motion,
   Theme,
   Typography,
   useTheme,
@@ -30,16 +31,24 @@ const SelectToken: FC<SelectTokenProps> = ({
 
   const openModal = () =>
     setModal(
-      <SelectTokenModal
-        coins={coins}
-        network={network}
-        provider={provider}
-        coinsMap={coinsMap}
-        closeModal={handleClose}
-        onSelectToken={onSelectToken}
-        currentTokenType={currentTokenType}
-        searchTokenModalState={searchTokenModalState}
-      />,
+      <Motion
+        initial={{ scale: 0.85 }}
+        animate={{ scale: 1 }}
+        transition={{
+          duration: 0.3,
+        }}
+      >
+        <SelectTokenModal
+          coins={coins}
+          network={network}
+          provider={provider}
+          coinsMap={coinsMap}
+          closeModal={handleClose}
+          onSelectToken={onSelectToken}
+          currentTokenType={currentTokenType}
+          searchTokenModalState={searchTokenModalState}
+        />
+      </Motion>,
       {
         isOpen: true,
         custom: true,
