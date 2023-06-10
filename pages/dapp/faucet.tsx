@@ -1,5 +1,7 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
+import NotFoundPage from 'pages/404';
 import { mergeDeepRight } from 'ramda';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -22,7 +24,7 @@ const Layout = dynamic(() => import('@/components/layout'), {
   loading: LoadingPage,
 });
 
-const FaucetPage: NextPageWithProps = ({ pageTitle }) => {
+const FaucetPage: NextPageWithProps = ({ pageTitle, messages, now }) => {
   const { network } = useNetwork();
 
   const tokens = FAUCET_TOKENS[network];
@@ -33,6 +35,11 @@ const FaucetPage: NextPageWithProps = ({ pageTitle }) => {
     form.setValue('type', tokens?.[0]?.type ?? '');
     form.setValue('amount', 0);
   }, [network]);
+
+  if (network === Network.MAINNET)
+    return (
+      <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
+    );
 
   return (
     <ModalProvider>

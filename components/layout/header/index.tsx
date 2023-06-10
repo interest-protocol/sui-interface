@@ -1,4 +1,5 @@
 import { useTheme } from '@emotion/react';
+import { Network } from '@interest-protocol/sui-sdk';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
@@ -7,17 +8,20 @@ import { FC, useCallback, useState } from 'react';
 import { SwitchLang } from '@/components';
 import { Routes, RoutesEnum } from '@/constants';
 import { Box, Typography } from '@/elements';
+import { useNetwork } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
 import { LogoSVG, MoonSVG, SunSVG } from '@/svg';
 
+import FeedbackButton from './feedback-button';
 import MobileMenu from './mobile-menu';
 import SelectNetwork from './select-network';
 import Wallet from './wallet';
 
 const Header: FC = () => {
   const t = useTranslations();
-  const { setDark, dark } = useTheme() as any;
+  const { network } = useNetwork();
   const { pathname } = useRouter();
+  const { setDark, dark } = useTheme() as any;
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -33,15 +37,17 @@ const Header: FC = () => {
   return (
     <Box>
       <Box bg={dark ? 'bottomBackground' : 'accentActive'} p="L">
-        <Typography
-          fontSize="S"
-          fontWeight="600"
-          variant="normal"
-          textAlign="center"
-          color={dark ? 'text' : 'textSoft'}
-        >
-          {t('common.bannerHeader')}
-        </Typography>
+        <Link href={Routes[RoutesEnum.LiquidityCampaign]}>
+          <Typography
+            fontSize="S"
+            fontWeight="600"
+            variant="normal"
+            textAlign="center"
+            color={dark ? 'text' : 'textSoft'}
+          >
+            {t('common.bannerHeader')}
+          </Typography>
+        </Link>
       </Box>
       <Box
         py="M"
@@ -75,13 +81,16 @@ const Header: FC = () => {
               />
             </Box>
           </Link>
+          <Box display={['none', 'none', 'flex']}>
+            <FeedbackButton />
+          </Box>
         </Box>
         <Box
           alignItems="center"
           justifyContent="center"
           display={['none', 'none', 'flex']}
         >
-          <Link href={Routes[RoutesEnum.DEX]}>
+          <Link href={Routes[RoutesEnum.Swap]}>
             <Typography
               px="XL"
               cursor="pointer"
@@ -89,45 +98,98 @@ const Header: FC = () => {
               borderRight="1px solid"
               borderColor="bottomBackground"
               color={
-                pathname.includes(Routes[RoutesEnum.DEX]) ? 'accent' : 'inherit'
+                pathname.includes(Routes[RoutesEnum.Swap])
+                  ? 'accent'
+                  : 'inherit'
               }
               nHover={{ color: 'accentActive' }}
             >
               DEX
             </Typography>
           </Link>
-          <Link href={Routes[RoutesEnum.Farms]}>
-            <Typography
-              px="XL"
-              cursor="pointer"
-              variant="normal"
-              borderRight="1px solid"
-              borderColor="bottomBackground"
-              color={
-                pathname.includes(Routes[RoutesEnum.Farms])
-                  ? 'accent'
-                  : 'inherit'
-              }
-              nHover={{ color: 'accentActive' }}
+          {network === Network.MAINNET && (
+            <Box
+              alignItems="center"
+              justifyContent="center"
+              display={['none', 'none', 'flex']}
             >
-              FARMS
-            </Typography>
-          </Link>
-          <Link href={Routes[RoutesEnum.Faucet]}>
-            <Typography
-              px="XL"
-              cursor="pointer"
-              variant="normal"
-              color={
-                pathname.includes(Routes[RoutesEnum.Faucet])
-                  ? 'accent'
-                  : 'inherit'
-              }
-              nHover={{ color: 'accentActive' }}
+              <Link href={Routes[RoutesEnum.LiquidityFarms]}>
+                <Typography
+                  px="XL"
+                  cursor="pointer"
+                  variant="normal"
+                  borderRight="1px solid"
+                  textTransform="uppercase"
+                  borderColor="bottomBackground"
+                  color={
+                    pathname.includes(Routes[RoutesEnum.LiquidityFarms])
+                      ? 'accent'
+                      : 'inherit'
+                  }
+                  nHover={{ color: 'accentActive' }}
+                >
+                  {t('common.liquidity')}
+                </Typography>
+              </Link>
+            </Box>
+          )}
+          {network !== Network.MAINNET && (
+            <Link href={Routes[RoutesEnum.Farms]}>
+              <Typography
+                px="XL"
+                cursor="pointer"
+                variant="normal"
+                borderRight="1px solid"
+                borderColor="bottomBackground"
+                color={
+                  pathname.includes(Routes[RoutesEnum.Farms])
+                    ? 'accent'
+                    : 'inherit'
+                }
+                nHover={{ color: 'accentActive' }}
+              >
+                FARMS
+              </Typography>
+            </Link>
+          )}
+          {network !== Network.MAINNET && (
+            <Link href={Routes[RoutesEnum.Faucet]}>
+              <Typography
+                px="XL"
+                cursor="pointer"
+                variant="normal"
+                color={
+                  pathname.includes(Routes[RoutesEnum.Faucet])
+                    ? 'accent'
+                    : 'inherit'
+                }
+                nHover={{ color: 'accentActive' }}
+              >
+                FAUCET
+              </Typography>
+            </Link>
+          )}
+          {network === Network.MAINNET && (
+            <a
+              target="_blank"
+              href={Routes[RoutesEnum.Bridge]}
+              rel="noreferrer"
             >
-              FAUCET
-            </Typography>
-          </Link>
+              <Typography
+                px="XL"
+                cursor="pointer"
+                variant="normal"
+                color={
+                  pathname.includes(Routes[RoutesEnum.Faucet])
+                    ? 'accent'
+                    : 'inherit'
+                }
+                nHover={{ color: 'accentActive' }}
+              >
+                BRIDGE
+              </Typography>
+            </a>
+          )}
         </Box>
         <Box display="flex" justifyContent="flex-end" alignItems="center">
           <Box>

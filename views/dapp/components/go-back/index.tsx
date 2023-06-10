@@ -12,9 +12,9 @@ const GoBack: FC<GoBackProps> = ({ route, routeBack }) => {
   const { pathname, push, back } = useRouter();
 
   const backToHome = () =>
-    routeBack ? back() : push(Routes[route ?? RoutesEnum.DEX]);
+    routeBack ? back() : push(Routes[route ?? RoutesEnum.Swap]);
 
-  return pathname != Routes[RoutesEnum.DEX] ? (
+  return pathname != Routes[RoutesEnum.Swap] ? (
     <Typography
       mb="XL"
       color="accentActive"

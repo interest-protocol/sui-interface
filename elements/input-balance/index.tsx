@@ -19,13 +19,14 @@ const InputBalance: FC<InputBalanceProps> = ({
   register,
   setValue,
   customFunction,
+  noCap = false,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as { dark: boolean };
   const onFocus = (v: ChangeEvent<HTMLInputElement>) => {
     const value = v.target.value;
 
-    value === '0.0' && setValue?.(name, '');
+    value === '0' && setValue?.(name, '');
   };
 
   return (
@@ -39,15 +40,19 @@ const InputBalance: FC<InputBalanceProps> = ({
         type="text"
         max={balance}
         onFocus={onFocus}
-        placeholder="0.0"
+        placeholder="0"
         disabled={disabled || false}
         fontSize={isLarge ? 'L' : 'M'}
+        nPlaceholder={{ color: 'text', opacity: 0.7 }}
         opacity={disabled == undefined ? 1 : disabled ? 0.7 : 1}
         {...register(name, {
           onChange: (v: ChangeEvent<HTMLInputElement>) => {
             setValue?.(
               name,
-              parseInputEventToNumberString(v, balance ? +balance : undefined)
+              parseInputEventToNumberString(
+                v,
+                noCap ? undefined : balance ? +balance : undefined
+              )
             );
             customFunction && customFunction(name);
           },

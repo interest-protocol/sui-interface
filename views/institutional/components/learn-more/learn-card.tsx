@@ -71,7 +71,7 @@ const LearnMoreCard: FC<LearnMoreProps> = ({ name, big, link, external }) => {
         variants={cardVariants}
         width={['auto', 'auto', 'auto', big ? '49%' : 'auto']}
         height={['10rem', '17rem', '18rem', big ? '18rem' : '14rem']}
-        backgroundImage={`url('images/home/${name}.png')`}
+        backgroundImage={`url('images/home/${name}.webp')`}
         backgroundPosition="0% 50%"
         backgroundRepeat="no-repeat"
         backgroundSize="100%"

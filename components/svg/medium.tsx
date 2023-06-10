@@ -5,13 +5,30 @@ import { SVGProps } from './svg.types';
 const Medium: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => (
   <svg
     style={{ maxWidth: maxWidth, maxHeight: maxHeight }}
-    viewBox="0 0 16 10"
+    viewBox="0 0 22 22"
     fill="none"
     {...props}
   >
     <path
-      d="M4.51256 0C7.00478 0 9.02496 2.2387 9.02496 5.00008C9.02496 7.76147 7.00463 10 4.51256 10C2.02049 10 0 7.76147 0 5.00008C0 2.2387 2.02033 0 4.51256 0ZM11.7188 0.292892C12.9649 0.292892 13.9751 2.40016 13.9751 5.00008H13.9752C13.9752 7.59933 12.9651 9.70728 11.7189 9.70728C10.4728 9.70728 9.46266 7.59933 9.46266 5.00008C9.46266 2.40084 10.4727 0.292892 11.7188 0.292892ZM15.2065 0.783182C15.6446 0.783182 16 2.67112 16 5.00008C16 7.32837 15.6448 9.21699 15.2065 9.21699C14.7681 9.21699 14.4131 7.32888 14.4131 5.00008C14.4131 2.67129 14.7683 0.783182 15.2065 0.783182Z"
-      fill="currentColor"
+      d="M6.1875 16.1562C8.84537 16.1562 11 13.8477 11 11C11 8.15228 8.84537 5.84375 6.1875 5.84375C3.52963 5.84375 1.375 8.15228 1.375 11C1.375 13.8477 3.52963 16.1562 6.1875 16.1562Z"
+      stroke={props.stroke || 'currentColor'}
+      fill={props.fill || 'currentColor'}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M15.8125 15.8125C16.9516 15.8125 17.875 13.6579 17.875 11C17.875 8.34213 16.9516 6.1875 15.8125 6.1875C14.6734 6.1875 13.75 8.34213 13.75 11C13.75 13.6579 14.6734 15.8125 15.8125 15.8125Z"
+      stroke={props.stroke || 'currentColor'}
+      fill={props.fill || 'currentColor'}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M20.625 6.1875V15.8125"
+      stroke={props.stroke || 'currentColor'}
+      fill={props.fill || 'currentColor'}
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

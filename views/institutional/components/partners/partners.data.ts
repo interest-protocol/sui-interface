@@ -49,8 +49,8 @@ export const PARTNER_LIST = [
     link: 'https://link3.to/suiwhale',
   },
   {
-    name: 'SUIS',
-    link: 'https://suistart.com/',
+    name: 'UMI',
+    link: 'https://umi.ag/swap',
   },
   {
     name: 'MISES BROWSER',
@@ -59,5 +59,17 @@ export const PARTNER_LIST = [
   {
     name: 'SUI ECOSYSTEM',
     link: 'https://suiecosystem.top/',
+  },
+  {
+    name: 'FOX WALLET',
+    link: 'https://foxwallet.com/',
+  },
+  {
+    name: 'CUBIC GAMES',
+    link: 'https://www.cubicgames.xyz/',
+  },
+  {
+    name: 'PYTH NETWORK',
+    link: 'https://pyth.network/',
   },
 ];

@@ -5,6 +5,7 @@ export { default as Hero } from './hero';
 export { default as LearnMore } from './learn-more';
 export { default as Notification } from './notification';
 export { default as Partners } from './partners';
+export { default as Security } from './security';
 export { default as Team } from './team';
 export { default as UsedBy } from './used-by';
 export { default as ValueProposition } from './value-proposition';

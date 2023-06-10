@@ -6,14 +6,7 @@
     "firstSectionTitle": "Recommended tokens",
     "secondSectionTitle": "My tokens",
     "amountInput": "Type amount",
-    "modalButton": "{isLoading, plural, =1 {Creating Token...} other {Create Token}}",
-    "modalTitle": "CREATE NEW TOKEN",
-    "modalInputName": "Name",
-    "modalInputSymbol": "Symbol",
-    "modalInputAmount": "Amount",
     "notFoundToken": "Not found token",
-    "select": "Select a token",
-    "type": "Type {label}",
-    "errorCreateToken": "Failed to create the token"
+    "select": "Select a token"
   }
 }

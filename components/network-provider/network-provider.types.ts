@@ -1,6 +1,5 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import { ReactNode } from 'react';
-
-import { Network } from '@/constants';
 
 export interface NetworkProviderProps {
   children: ReactNode;

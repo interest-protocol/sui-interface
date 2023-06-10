@@ -4,6 +4,7 @@ import { mergeDeepRight } from 'ramda';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
+import { ModalProvider } from '@/context/modal';
 import { withObjectIdGuard } from '@/HOC';
 import { NextPageDefaultProps } from '@/interface';
 import DEXPoolDetailsView from '@/views/dapp/dex-pool-details';
@@ -28,8 +29,8 @@ const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
 }) => {
   const formAddLiquidity = useForm({
     defaultValues: {
-      token0Amount: '0.0',
-      token1Amount: '0.0',
+      token0Amount: '0',
+      token1Amount: '0',
       error: '',
       token0InputLocked: false,
       token1InputLocked: false,
@@ -38,20 +39,22 @@ const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
 
   const formRemoveLiquidity = useForm({
     defaultValues: {
-      lpAmount: '0.0',
+      lpAmount: '0',
     },
   });
 
   return (
-    <Web3Manager>
-      <Layout pageTitle={pageTitle}>
-        <DEXPoolDetailsView
-          objectId={objectId}
-          formAddLiquidity={formAddLiquidity}
-          formRemoveLiquidity={formRemoveLiquidity}
-        />
-      </Layout>
-    </Web3Manager>
+    <ModalProvider>
+      <Web3Manager>
+        <Layout pageTitle={pageTitle}>
+          <DEXPoolDetailsView
+            objectId={objectId}
+            formAddLiquidity={formAddLiquidity}
+            formRemoveLiquidity={formRemoveLiquidity}
+          />
+        </Layout>
+      </Web3Manager>
+    </ModalProvider>
   );
 };
 

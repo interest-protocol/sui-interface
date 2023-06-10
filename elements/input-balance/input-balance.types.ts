@@ -12,6 +12,7 @@ export interface InputBalanceProps {
   setValue: UseFormSetValue<any>;
   isLarge?: boolean;
   customFunction?: (name: string) => void;
+  noCap?: boolean;
 }
 
 export interface MaxButtonProps {
