@@ -159,7 +159,9 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
               setFavorites={setFavorites}
               favoriteTokens={favoriteTokensTypes}
               selected={currentTokenType === type}
-              recommended={tokenOrigin === TokenOrigin.Recommended}
+              recommended={
+                !askedToken && tokenOrigin === TokenOrigin.Recommended
+              }
               Icon={TOKENS_SVG_MAP_V2[type] ?? TOKENS_SVG_MAP_V2.default}
               onClick={async () => onSelectToken({ symbol, decimals, type })}
               balance={FixedPointMath.toNumber(

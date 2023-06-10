@@ -1,4 +1,4 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box, Button, Typography } from '@interest-protocol/ui-kit';
 import { FC, MouseEventHandler } from 'react';
 
 import { HeartSVG } from '@/components/svg/v2';
@@ -18,7 +18,7 @@ const TokenModalItem: FC<TokenModalItemProps> = ({
 }) => {
   const isFav = favoriteTokens.includes(type);
 
-  const handleHeart: MouseEventHandler<SVGSVGElement> = (e) => {
+  const handleHeart: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     setFavorites(
       isFav
@@ -54,13 +54,14 @@ const TokenModalItem: FC<TokenModalItemProps> = ({
       <Box display="flex" alignItems="center" gap="m">
         <Typography variant="medium">{balance}</Typography>
         {!recommended && (
-          <HeartSVG
-            width="100%"
-            filled={isFav}
-            maxWidth="1rem"
-            maxHeight="1rem"
-            onClick={handleHeart}
-          />
+          <Button variant="icon" onClick={handleHeart}>
+            <HeartSVG
+              width="100%"
+              filled={isFav}
+              maxWidth="1rem"
+              maxHeight="1rem"
+            />
+          </Button>
         )}
       </Box>
     </Box>
