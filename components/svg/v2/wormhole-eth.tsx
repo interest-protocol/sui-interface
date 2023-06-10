@@ -90,60 +90,57 @@ const WormholeETH: FC<SVGProps & { filled?: boolean }> = ({
       fill="none"
       {...props}
     >
+      <g clipPath="url(#clip0_ETH)">
+        <path
+          d="M24.0265 4.95453L23.7639 5.84111V31.5652L24.0265 31.8256L36.0548 24.7673L24.0265 4.95453Z"
+          fill="currentColor"
+        />
+        <path
+          d="M24.0283 4.95453L12 24.7673L24.0283 31.8256V19.3399V4.95453Z"
+          fill="currentColor"
+        />
+        <path
+          d="M24.0283 35.7088L23.8802 35.8879V45.0514L24.0283 45.4807L36.0638 28.6542L24.0283 35.7088Z"
+          fill="currentColor"
+        />
+        <path
+          d="M24.0283 45.4807V35.7088L12 28.6542L24.0283 45.4807Z"
+          fill="currentColor"
+        />
+        <path
+          d="M24.0267 31.8254L36.0548 24.7673L24.0267 19.3399V31.8254Z"
+          fill="currentColor"
+        />
+        <path
+          d="M12 24.7673L24.0281 31.8256V19.3399L12 24.7673Z"
+          fill="currentColor"
+        />
+      </g>
       <path
         d="M53 37C53 31.4772 48.5228 27 43 27C37.4772 27 33 31.4772 33 37C33 42.5228 37.4772 47 43 47C48.5228 47 53 42.5228 53 37Z"
         fill="#627EEA"
       />
-      <g clipPath="url(#clip0_ETH)">
-        <path
-          d="M24.0265 4.95453L23.7639 5.84111V31.5652L24.0265 31.8256L36.0548 24.7673L24.0265 4.95453Z"
-          fill="white"
-        />
-        <path
-          d="M24.0283 4.95453L12 24.7673L24.0283 31.8256V19.3399V4.95453Z"
-          fill="white"
-        />
-        <path
-          d="M24.0283 35.7088L23.8802 35.8879V45.0514L24.0283 45.4807L36.0638 28.6542L24.0283 35.7088Z"
-          fill="white"
-        />
-        <path
-          d="M24.0283 45.4807V35.7088L12 28.6542L24.0283 45.4807Z"
-          fill="white"
-        />
-        <path
-          d="M24.0267 31.8254L36.0548 24.7673L24.0267 19.3399V31.8254Z"
-          fill="white"
-        />
-        <path
-          d="M12 24.7673L24.0281 31.8256V19.3399L12 24.7673Z"
-          fill="white"
-        />
-      </g>
       <path
         d="M43.4747 29L43.377 29.3323V38.9743L43.4747 39.0718L47.9504 36.4263L43.4747 29Z"
-        fill="currentColor"
+        fill="white"
       />
       <path
         d="M43.4757 29L39 36.4263L43.4757 39.0719V34.392V29Z"
-        fill="currentColor"
+        fill="white"
       />
       <path
         d="M43.475 40.5271L43.4199 40.5942V44.0289L43.475 44.1898L47.9534 37.8828L43.475 40.5271Z"
-        fill="currentColor"
+        fill="white"
       />
       <path
         d="M43.4757 44.1898V40.5271L39 37.8828L43.4757 44.1898Z"
-        fill="currentColor"
+        fill="white"
       />
       <path
         d="M43.4766 39.0724L47.9522 36.4269L43.4766 34.3926V39.0724Z"
-        fill="currentColor"
+        fill="white"
       />
-      <path
-        d="M39 36.4269L43.4757 39.0725V34.3926L39 36.4269Z"
-        fill="currentColor"
-      />
+      <path d="M39 36.4269L43.4757 39.0725V34.3926L39 36.4269Z" fill="white" />
       <defs>
         <clipPath id="clip0_ETH">
           <rect
