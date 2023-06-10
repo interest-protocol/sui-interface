@@ -32,11 +32,7 @@ const CardWrapper: FC<CardWrapperProps> = ({
         handleClosed={handleClosed}
         backToLend={backToLend}
       />
-      <Box
-        display="flex"
-        width={['100%', '100%', '100%', '34rem']}
-        float={position}
-      >
+      <Box display="flex" width="100%" bg="surface" float={position}>
         <Box
           width="calc(100% + .635rem)"
           color="text"

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Layout, LendBalanceInfo, LendTables } from '../componentes';
+import { Layout, LendBalanceInfo, LendTables } from '../components';
 
 const LendingProtocol: FC = () => (
   <Layout>

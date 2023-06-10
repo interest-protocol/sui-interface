@@ -1,15 +1,28 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { Container, SocialMediaCard } from '@/components';
 import { Routes, RoutesEnum, SOCIAL_MEDIAS } from '@/constants';
 import { Box, Button } from '@/elements';
-import { DexSVG, EarnSVG, FaucetSVG, GitBookSVG } from '@/svg';
+import { useNetwork } from '@/hooks';
+import {
+  BridgeSVG,
+  DexSVG,
+  EarnSVG,
+  FaucetSVG,
+  GitBookSVG,
+  LiquiditySVG,
+} from '@/svg';
 
 const Footer: FC = () => {
+  const t = useTranslations();
+  const { network } = useNetwork();
   const { pathname } = useRouter();
+
   return (
     <Box
       zIndex={3}
@@ -41,7 +54,7 @@ const Footer: FC = () => {
           justifyContent="center"
           display={['flex', 'flex', 'none']}
         >
-          <Link href={Routes[RoutesEnum.DEX]}>
+          <Link href={Routes[RoutesEnum.Swap]}>
             <Button
               ml="S"
               px="0.8rem"
@@ -53,14 +66,14 @@ const Footer: FC = () => {
               borderRadius="M"
               justifyContent="space-between"
               bg={
-                pathname.includes(Routes[RoutesEnum.DEX])
+                pathname.includes(Routes[RoutesEnum.Swap])
                   ? 'accentActive'
                   : 'transparent'
               }
               nHover={{ bg: 'accent', color: 'text' }}
               nActive={{ bg: 'accentActive', color: 'text' }}
               color={
-                pathname.includes(Routes[RoutesEnum.DEX]) ? 'textSoft' : 'text'
+                pathname.includes(Routes[RoutesEnum.Swap]) ? 'textSoft' : 'text'
               }
             >
               <DexSVG
@@ -73,79 +86,161 @@ const Footer: FC = () => {
               />
               Dex
             </Button>
-          </Link>
-          <Link href={Routes[RoutesEnum.Farms]}>
-            <Button
-              ml="S"
-              px="0.8rem"
-              fontSize="M"
-              display="flex"
-              flexDirection="column"
-              variant="primary"
-              alignItems="center"
-              borderRadius="M"
-              justifyContent="space-between"
-              bg={
-                pathname.includes(Routes[RoutesEnum.Farms]) ||
-                pathname.includes(Routes[RoutesEnum.FarmDetails])
-                  ? 'accentActive'
-                  : 'transparent'
-              }
-              nHover={{ bg: 'accent', color: 'text' }}
-              nActive={{ bg: 'accentActive', color: 'text' }}
-              color={
-                pathname.includes(Routes[RoutesEnum.Farms]) ||
-                pathname.includes(Routes[RoutesEnum.FarmDetails])
-                  ? 'textSoft'
-                  : 'text'
-              }
+          </Link>{' '}
+          {network === Network.MAINNET && (
+            <Link href={Routes[RoutesEnum.LiquidityFarms]}>
+              <Button
+                ml="S"
+                px="0.8rem"
+                fontSize="M"
+                display="flex"
+                flexDirection="column"
+                variant="primary"
+                alignItems="center"
+                borderRadius="M"
+                justifyContent="space-between"
+                bg={
+                  pathname.includes(Routes[RoutesEnum.LiquidityFarms])
+                    ? 'accentActive'
+                    : 'transparent'
+                }
+                nHover={{ bg: 'accent', color: 'text' }}
+                nActive={{ bg: 'accentActive', color: 'text' }}
+                color={
+                  pathname.includes(Routes[RoutesEnum.LiquidityFarms])
+                    ? 'textSoft'
+                    : 'text'
+                }
+                textTransform="capitalize"
+              >
+                <LiquiditySVG
+                  width="1.1rem"
+                  height="1.1rem"
+                  fill="currentColor"
+                  maxHeight="2.5rem"
+                  maxWidth="auto"
+                  style={{ marginBottom: '8px' }}
+                />
+                {t('common.liquidity')}
+              </Button>
+            </Link>
+          )}
+          {network !== Network.MAINNET && (
+            <Link href={Routes[RoutesEnum.Farms]}>
+              <Button
+                ml="S"
+                px="0.8rem"
+                fontSize="M"
+                display="flex"
+                flexDirection="column"
+                variant="primary"
+                alignItems="center"
+                borderRadius="M"
+                justifyContent="space-between"
+                bg={
+                  pathname.includes(Routes[RoutesEnum.Farms]) ||
+                  pathname.includes(Routes[RoutesEnum.FarmDetails])
+                    ? 'accentActive'
+                    : 'transparent'
+                }
+                nHover={{ bg: 'accent', color: 'text' }}
+                nActive={{ bg: 'accentActive', color: 'text' }}
+                color={
+                  pathname.includes(Routes[RoutesEnum.Farms]) ||
+                  pathname.includes(Routes[RoutesEnum.FarmDetails])
+                    ? 'textSoft'
+                    : 'text'
+                }
+              >
+                <EarnSVG
+                  width="1.1rem"
+                  height="1.1rem"
+                  stroke="currentColor"
+                  fill="transparent"
+                  maxHeight="2.5rem"
+                  maxWidth="auto"
+                  style={{ marginBottom: '8px' }}
+                />
+                Farms
+              </Button>
+            </Link>
+          )}
+          {network !== Network.MAINNET && (
+            <Link href={Routes[RoutesEnum.Faucet]}>
+              <Button
+                ml="S"
+                px="0.8rem"
+                fontSize="M"
+                display="flex"
+                flexDirection="column"
+                variant="primary"
+                alignItems="center"
+                justifyContent="space-between"
+                borderRadius="M"
+                bg={
+                  pathname.includes(Routes[RoutesEnum.Faucet])
+                    ? 'accentActive'
+                    : 'transparent'
+                }
+                nHover={{ bg: 'accent', color: 'text' }}
+                nActive={{ bg: 'accentActive', color: 'text' }}
+                color={
+                  pathname.includes(Routes[RoutesEnum.Faucet])
+                    ? 'textSoft'
+                    : 'text'
+                }
+              >
+                <FaucetSVG
+                  width="1.1rem"
+                  height="1.1rem"
+                  maxHeight="2.5rem"
+                  maxWidth="auto"
+                  style={{ marginBottom: '8px' }}
+                />
+                Faucet
+              </Button>
+            </Link>
+          )}
+          {network === Network.MAINNET && (
+            <a
+              target="_blank"
+              href={Routes[RoutesEnum.Bridge]}
+              rel="noreferrer"
             >
-              <EarnSVG
-                width="1.1rem"
-                height="1.1rem"
-                stroke="currentColor"
-                fill="transparent"
-                maxHeight="2.5rem"
-                maxWidth="auto"
-                style={{ marginBottom: '8px' }}
-              />
-              Farms
-            </Button>
-          </Link>
-          <Link href={Routes[RoutesEnum.Faucet]}>
-            <Button
-              ml="S"
-              px="0.8rem"
-              fontSize="M"
-              display="flex"
-              flexDirection="column"
-              variant="primary"
-              alignItems="center"
-              justifyContent="space-between"
-              borderRadius="M"
-              bg={
-                pathname.includes(Routes[RoutesEnum.Faucet])
-                  ? 'accentActive'
-                  : 'transparent'
-              }
-              nHover={{ bg: 'accent', color: 'text' }}
-              nActive={{ bg: 'accentActive', color: 'text' }}
-              color={
-                pathname.includes(Routes[RoutesEnum.Faucet])
-                  ? 'textSoft'
-                  : 'text'
-              }
-            >
-              <FaucetSVG
-                width="1.1rem"
-                height="1.1rem"
-                maxHeight="2.5rem"
-                maxWidth="auto"
-                style={{ marginBottom: '8px' }}
-              />
-              Faucet
-            </Button>
-          </Link>
+              <Button
+                ml="S"
+                px="0.8rem"
+                fontSize="M"
+                display="flex"
+                borderRadius="M"
+                variant="primary"
+                alignItems="center"
+                flexDirection="column"
+                justifyContent="space-between"
+                bg={
+                  pathname.includes(Routes[RoutesEnum.Bridge])
+                    ? 'accentActive'
+                    : 'transparent'
+                }
+                nHover={{ bg: 'accent', color: 'text' }}
+                nActive={{ bg: 'accentActive', color: 'text' }}
+                color={
+                  pathname.includes(Routes[RoutesEnum.Bridge])
+                    ? 'textSoft'
+                    : 'text'
+                }
+              >
+                <BridgeSVG
+                  width="1.1rem"
+                  height="1.1rem"
+                  maxHeight="2.5rem"
+                  maxWidth="auto"
+                  style={{ marginBottom: '8px' }}
+                />
+                Bridge
+              </Button>
+            </a>
+          )}
         </Box>
       </Container>
     </Box>

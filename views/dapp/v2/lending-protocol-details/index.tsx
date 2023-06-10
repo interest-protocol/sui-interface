@@ -3,8 +3,7 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Layout } from '../componentes';
-import LendDetailsBalanceInfo from '../componentes/lend-details-balance-info';
+import { Layout, LendDetailsBalanceInfo } from '../components';
 import BorrowCard from './borrow';
 import {
   ILendForm,
@@ -21,27 +20,33 @@ const LendingProtocolDetails: FC<LendingProtocolDetailsProps> = ({ type }) => {
   return (
     <Layout>
       <LendDetailsBalanceInfo />
-      <Box bg="background" p="l">
-        <TabsNavigator
-          tabs={[
-            {
-              content: (
-                <BorrowCard
-                  formLend={formLend}
-                  name="borrow"
-                  balance="21.345"
-                />
-              ),
-              label: t('common.v2.borrow'),
-            },
-            {
-              content: (
-                <RepayCard formLend={formLend} name="repay" balance="21.345" />
-              ),
-              label: t('common.v2.repay'),
-            },
-          ]}
-        />
+      <Box variant="container">
+        <Box gridColumn="1/-1" width="100%">
+          <TabsNavigator
+            tabs={[
+              {
+                content: (
+                  <BorrowCard
+                    formLend={formLend}
+                    name="borrow"
+                    balance="21.345"
+                  />
+                ),
+                label: t('common.v2.borrow'),
+              },
+              {
+                content: (
+                  <RepayCard
+                    formLend={formLend}
+                    name="repay"
+                    balance="21.345"
+                  />
+                ),
+                label: t('common.v2.repay'),
+              },
+            ]}
+          />
+        </Box>
       </Box>
     </Layout>
   );

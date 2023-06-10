@@ -1,8 +1,9 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import BigNumber from 'bignumber.js';
 import { TOKEN_SYMBOL } from 'lib';
 import { always, cond, equals, ifElse, isEmpty, not, o, prop, T } from 'ramda';
 
-import { COIN_TYPE_TO_SYMBOL, FARMS_RECORD, Network } from '@/constants';
+import { COIN_TYPE_TO_SYMBOL, FARMS_RECORD } from '@/constants';
 import {
   calculateAPR,
   calculateIPXUSDPrice,

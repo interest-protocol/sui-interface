@@ -1,7 +1,9 @@
+import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
 import { Theme, useTheme } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { SVGProps } from '@/components/svg/svg.types';
+import { UnknownCoinSVG } from '@/components/svg/v2';
 
 export const BNB: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => {
   const { dark } = useTheme() as Theme;
@@ -267,4 +269,13 @@ export const USDT: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => {
       </defs>
     </svg>
   );
+};
+
+export const TOKENS_SVG_MARKET_MAP = {
+  default: UnknownCoinSVG,
+  [COIN_TYPE[Network.DEVNET].BNB]: BNB,
+  [COIN_TYPE[Network.DEVNET].BTC]: BTC,
+  [COIN_TYPE[Network.DEVNET].ETH]: ETH,
+  [COIN_TYPE[Network.DEVNET].SUI]: SUI,
+  [COIN_TYPE[Network.DEVNET].USDT]: USDT,
 };

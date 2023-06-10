@@ -15,7 +15,7 @@ const Layout = dynamic(() => import('@/components/layout'), {
   loading: LoadingPage,
 });
 
-const ErrorPage: NextPageWithProps = ({ pageTitle }) => (
+const NotFoundPage: NextPageWithProps = ({ pageTitle }) => (
   <Web3Manager>
     <Layout pageTitle={pageTitle}>
       <Error statusCode={404} />
@@ -36,4 +36,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default ErrorPage;
+export default NotFoundPage;

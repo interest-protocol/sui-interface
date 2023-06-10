@@ -1,0 +1,75 @@
+{
+  "swap": {
+    "metadata": {
+      "title": "Swap"
+    },
+    "form": {
+      "to": "To",
+      "from": "From",
+      "balance": "Balance",
+      "selectToken": "Select a token",
+      "preview": "Preview",
+      "fetchMarkets": "Fetching markets...",
+      "fetchingAmounts": "Fetching amounts...",
+      "errors": {
+        "amountOut": "Failed to fetch the amount out",
+        "sameTokens": "Cannot swap the same token",
+        "balances": "Failed to fetch balances",
+        "noMarket": "This pair has no market",
+        "infoNoPool": "This pair has no liquidity. Try a higher amount or add liquidity",
+        "noPool": "No pool found! Try an existing pool",
+        "error": "Failed to swap: try a higher slippage or smaller amount",
+        "increaseAmount": "Try to increase {symbol} amount"
+      }
+    },
+    "modal": {
+      "settings": {
+        "title": "swap settings",
+        "subtitles": {
+          "transaction": "transaction settings",
+          "panel": "panel settings"
+        },
+        "field": {
+          "slippage": "slippage tolerance",
+          "deadline": "transaction deadline",
+          "automated": "automated price"
+        }
+      },
+      "preview": {
+        "swappingToken": "Swapping Token please wait...",
+        "exchangeRate": "Exchange Rate",
+        "liquidityFee": "Liquidity Provider fee",
+        "priceImpact": "Price impact",
+        "minimumReceived": "Minimum received after slippage",
+        "footerText": "By approving this transaction, you acknowledge and agree to all the information provided above. The final amount may change due to market activity.",
+        "confirmSwap": "Confirm Swap",
+        "selectToken": {
+          "title": "Select token",
+          "search": "Search token",
+          "recommended": "Recommended",
+          "favorite": "Favorite",
+          "wallet": "Wallet"
+        }
+      },
+      "confirm": {
+        "title": "Token Swapped",
+        "description": "You can check you transaction in the Explorer",
+        "button": "See on Explore"
+      },
+      "error": {
+        "title": "Error",
+        "description": "Your swap failed",
+        "button": "Go back, and try again"
+      }
+    },
+    "error": {
+      "cannotSell0": "Cannot sell 0 tokens",
+      "noMarket": "No market found",
+      "select2Tokens": "Select two tokens",
+      "failedToSwap": "Failed to Swap",
+      "wethDeposit": "Failed to deposit",
+      "wethWithdraw": "Failed to withdraw",
+      "soonFeature": "This feature will be available in the next version"
+    }
+  }
+}

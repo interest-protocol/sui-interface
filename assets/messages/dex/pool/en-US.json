@@ -3,6 +3,7 @@
     "pageTitle": "Pool",
     "title": "Pools Overview",
     "button": "Find Pool",
+    "myPools": "My Pools",
     "recommendedTitle": "Recommended {type} Pools",
     "notFound": "No pools available",
     "recommended": "Recommended Pools",

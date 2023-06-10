@@ -49,7 +49,7 @@ const InputSection: FC<InputSectionProps> = ({
         })}
       />
       <Box mt="1.625rem">
-        <Slider max={100} min={0} value={0} />
+        <Slider max={100} min={0} onChange={() => console.log('#1')} />
       </Box>
     </Box>
   );

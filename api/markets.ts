@@ -1,4 +1,5 @@
-import { Network } from '@/constants';
+import { Network } from '@interest-protocol/sui-sdk';
+
 import { DexMarket } from '@/interface';
 
 export const getDexMarket = async (network: Network): Promise<DexMarket> => {
