@@ -7,22 +7,19 @@ import {
 } from '@interest-protocol/ui-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Chip } from '@/components';
 import { LeftArrowSVG, SearchSVG } from '@/components/svg/v2';
-import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import {
   BASE_TOKENS_TYPES,
   COIN_DECIMALS,
   COIN_TYPE_TO_SYMBOL,
-  RECOMMENDED_TOKENS_TYPES,
 } from '@/constants';
 import { useLocalStorage } from '@/hooks';
 import { CoinData, LocalTokenMetadataRecord } from '@/interface';
 import { TimesSVG } from '@/svg';
-import { getSymbolByType } from '@/utils';
 
 import {
   SearchTokenForm,
@@ -33,7 +30,6 @@ import SelectTokenBaseTokens from './select-token-modal-base';
 import SelectTokenModalBody from './select-token-modal-body';
 
 const SelectTokenModal: FC<SelectTokenModalProps> = ({
-  coins,
   network,
   coinsMap,
   provider,
@@ -41,6 +37,9 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
   onSelectToken,
   currentTokenType,
   searchTokenModalState,
+  recommendedTokens,
+  walletTokens,
+  favoriteForm,
 }) => {
   const t = useTranslations();
 
@@ -59,11 +58,6 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
     setTokenOrigin(origin);
     setValue('search', '');
   };
-
-  const [favoriteTokens, addFavorite] = useLocalStorage<ReadonlyArray<string>>(
-    'sui-interest-favorite-tokens',
-    []
-  );
 
   const [localTokensMetadata, setLocalTokensMetadata] =
     useLocalStorage<LocalTokenMetadataRecord>(
@@ -143,43 +137,6 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
       }
   );
 
-  const [recommendedTokens, walletTokens, favorites] = useMemo(() => {
-    const recommendedTokens: ReadonlyArray<Web3ManagerSuiObject> =
-      RECOMMENDED_TOKENS_TYPES[network].map(
-        (type) =>
-          coinsMap[type] ?? {
-            type,
-            symbol: COIN_TYPE_TO_SYMBOL[network][type],
-            decimals: COIN_DECIMALS[network][type],
-            objects: [],
-            totalBalance: BigNumber(0),
-          }
-      );
-
-    const walletTokens = coins.filter(
-      ({ type }) =>
-        !BASE_TOKENS_TYPES[network].includes(type) &&
-        !RECOMMENDED_TOKENS_TYPES[network].includes(type)
-    );
-
-    const favorites = favoriteTokens.map(
-      (type) =>
-        coinsMap[type] ?? {
-          type,
-          symbol: getSymbolByType(type),
-          totalBalance: BigNumber(0),
-          objects: [],
-          decimals: 0,
-        }
-    );
-
-    return [recommendedTokens, walletTokens, favorites] as [
-      ReadonlyArray<Web3ManagerSuiObject>,
-      ReadonlyArray<Web3ManagerSuiObject>,
-      ReadonlyArray<Web3ManagerSuiObject>
-    ];
-  }, [coinsMap, coins.length, network, favoriteTokens]);
-
   return (
     <Motion
       layout
@@ -246,22 +203,18 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
       </Box>
       <Motion initial={{ height: 0 }} animate={{ height: 'auto' }}>
         <SelectTokenModalBody
-          coins={coins}
           control={control}
           network={network}
           provider={provider}
           coinsMap={coinsMap}
-          favorites={favorites}
           tokenOrigin={tokenOrigin}
-          setFavorites={addFavorite}
-          favoriteTokens={favorites}
-          walletTokens={walletTokens}
           fetchingMetaData={fetchingData}
           currentTokenType={currentTokenType}
           onSelectToken={handleSelectCurrency}
-          favoriteTokensTypes={favoriteTokens}
-          recommendedTokens={recommendedTokens}
           searchTokenModalState={searchTokenModalState}
+          recommendedTokens={recommendedTokens}
+          favoriteForm={favoriteForm}
+          walletTokens={walletTokens}
         />
       </Motion>
     </Motion>

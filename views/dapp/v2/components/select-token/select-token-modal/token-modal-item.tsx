@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
-import { FC, MouseEventHandler } from 'react';
+import { FC, MouseEventHandler, useState } from 'react';
 
 import { HeartSVG } from '@/components/svg/v2';
 
@@ -13,18 +13,33 @@ const TokenModalItem: FC<TokenModalItemProps> = ({
   onClick,
   selected,
   recommended,
-  setFavorites,
-  favoriteTokens,
+  favoriteForm,
+  isFavorite,
 }) => {
-  const isFav = favoriteTokens.includes(type);
+  const [isFav, setIsFav] = useState(
+    !!isFavorite || favoriteForm.getValues('tokens').includes(type)
+  );
 
   const handleHeart: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setFavorites(
-      isFav
-        ? favoriteTokens.filter((favAddress) => favAddress !== type)
-        : [...favoriteTokens, type]
-    );
+    e.stopPropagation();
+
+    const favoriteTokens = favoriteForm.getValues('tokens');
+
+    if (isFavorite) {
+      favoriteForm.setValue(
+        'tokens',
+        favoriteTokens.filter((favAddress) => favAddress !== type)
+      );
+    } else {
+      setIsFav(!isFav);
+      favoriteForm.setValue(
+        'tokens',
+        isFav
+          ? favoriteTokens.filter((favAddress) => favAddress !== type)
+          : [...favoriteTokens, type]
+      );
+    }
   };
 
   return (
@@ -54,7 +69,7 @@ const TokenModalItem: FC<TokenModalItemProps> = ({
       <Box display="flex" alignItems="center" gap="m">
         <Typography variant="medium">{balance}</Typography>
         {!recommended && (
-          <Button variant="icon" onClick={handleHeart}>
+          <Button zIndex="10" variant="icon" onClick={handleHeart}>
             <HeartSVG
               width="100%"
               filled={isFav}

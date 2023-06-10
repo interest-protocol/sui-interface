@@ -68,6 +68,7 @@ const TextFieldWrapper: FC<TextFieldWrapperProps> = ({
       }
       {...register(`${name}.value`, {
         onChange: (v: ChangeEvent<HTMLInputElement>) => {
+          setValue('maxValue', false);
           setValue?.(`${name}.value`, parseInputEventToNumberString(v));
           setValue('lock', false);
         },

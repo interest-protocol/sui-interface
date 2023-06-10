@@ -44,6 +44,7 @@
         "networkFeesAreSetBy": "As taxas de rede são definidas por {networkName}. Saiba mais sobre as taxas.",
         "FinalAmountMessage": "O valor final pode ser alterado devido à atividade de mercado. Ao aprovar esta troca, você concorda com a Política de Reembolso do protocolo Interest.",
         "confirmSwap": "Confirmar Troca",
+        "notEnoughBalance": "Balanço insuficiente",
         "selectToken": {
           "title": "Selecionar token",
           "search": "Buscar token",

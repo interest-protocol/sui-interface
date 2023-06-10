@@ -43,6 +43,7 @@
         "minimumReceived": "Minimum received after slippage",
         "footerText": "By approving this transaction, you acknowledge and agree to all the information provided above. The final amount may change due to market activity.",
         "confirmSwap": "Confirm Swap",
+        "notEnoughBalance": "Not Enough Balance",
         "selectToken": {
           "title": "Select token",
           "search": "Search token",

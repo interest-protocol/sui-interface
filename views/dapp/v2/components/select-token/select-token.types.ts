@@ -1,7 +1,7 @@
 import { Network } from '@interest-protocol/sui-sdk';
 import { JsonRpcProvider } from '@mysten/sui.js';
 import { FC } from 'react';
-import { Control } from 'react-hook-form';
+import { Control, UseFormReturn } from 'react-hook-form';
 
 import { SVGProps } from '@/components/svg/svg.types';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
@@ -15,9 +15,9 @@ export interface TokenModalItemProps {
   selected: boolean;
   onClick: () => void;
   recommended?: boolean;
-  favoriteTokens: ReadonlyArray<string>;
   Icon: FC<SVGProps & { filled?: boolean }>;
-  setFavorites: (value: ReadonlyArray<string>) => void;
+  favoriteForm: UseFormReturn<FavoriteTokensForm>;
+  isFavorite?: boolean;
 }
 
 export interface BaseTokenModalItemProps {
@@ -39,10 +39,12 @@ export interface SelectTokenModalProps {
   currentTokenType: string | null;
   searchTokenModalState: TokenModalMetadata | null;
   closeModal: () => void;
-  coins: ReadonlyArray<Web3ManagerSuiObject>;
   coinsMap: Record<string, Web3ManagerSuiObject>;
   provider: JsonRpcProvider;
   network: Network;
+  walletTokens: ReadonlyArray<Web3ManagerSuiObject>;
+  recommendedTokens: ReadonlyArray<Web3ManagerSuiObject>;
+  favoriteForm: UseFormReturn<FavoriteTokensForm>;
 }
 
 export enum TokenOrigin {
@@ -67,15 +69,33 @@ export interface SelectTokenModalBodyProps {
   fetchingMetaData: boolean;
   provider: JsonRpcProvider;
   control: Control<SearchTokenForm>;
-  favoriteTokensTypes: ReadonlyArray<string>;
-  coins: ReadonlyArray<Web3ManagerSuiObject>;
   coinsMap: Record<string, Web3ManagerSuiObject>;
-  favorites: ReadonlyArray<Web3ManagerSuiObject>;
   onSelectToken: SelectTokenProps['onSelectToken'];
-  walletTokens: ReadonlyArray<Web3ManagerSuiObject>;
-  favoriteTokens: ReadonlyArray<Web3ManagerSuiObject>;
-  setFavorites: (value: ReadonlyArray<string>) => void;
   currentTokenType: SelectTokenProps['currentTokenType'];
-  recommendedTokens: ReadonlyArray<Web3ManagerSuiObject>;
   searchTokenModalState: SelectTokenProps['searchTokenModalState'];
+  walletTokens: SelectTokenModalProps['walletTokens'];
+  recommendedTokens: SelectTokenModalProps['recommendedTokens'];
+  favoriteForm: SelectTokenModalProps['favoriteForm'];
+}
+
+export interface FavoriteTokensForm {
+  tokens: ReadonlyArray<string>;
+}
+
+export interface ModalTokenBodyProps {
+  tokens: ReadonlyArray<Web3ManagerSuiObject>;
+  currentTokenType: string | null;
+  askedToken: Web3ManagerSuiObject | null;
+  tokenOrigin: TokenOrigin;
+  onSelectToken: SelectTokenProps['onSelectToken'];
+  favoriteForm: SelectTokenModalProps['favoriteForm'];
+  isFavorite?: boolean;
+}
+
+export interface FavoriteTokensProps {
+  currentTokenType: string | null;
+  askedToken: Web3ManagerSuiObject | null;
+  tokenOrigin: TokenOrigin;
+  onSelectToken: SelectTokenProps['onSelectToken'];
+  favoriteForm: SelectTokenModalProps['favoriteForm'];
 }

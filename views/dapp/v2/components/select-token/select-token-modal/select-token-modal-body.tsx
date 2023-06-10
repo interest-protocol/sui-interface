@@ -1,40 +1,111 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box } from '@interest-protocol/ui-kit';
 import BigNumber from 'bignumber.js';
-import { useTranslations } from 'next-intl';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
 import { v4 } from 'uuid';
 
-import { NoSearchSVG } from '@/components/svg/v2';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { TOKENS_SVG_MAP_V2 } from '@/constants';
+import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
-import { isType } from '@/utils';
+import { getSymbolByType, isType } from '@/utils';
 import LinearLoader from '@/views/dapp/dex-pool-details/components/remove-liquidity-card/linear-loader';
-import TokenModalItem from '@/views/dapp/v2/components/select-token/select-token-modal/token-modal-item';
 
-import { SelectTokenModalBodyProps, TokenOrigin } from '../select-token.types';
+import {
+  FavoriteTokensProps,
+  ModalTokenBodyProps,
+  SelectTokenModalBodyProps,
+  TokenOrigin,
+} from '../select-token.types';
+import NotFound from './not-found';
+import TokenModalItem from './token-modal-item';
+
+const ModalTokenBody: FC<ModalTokenBodyProps> = ({
+  tokens,
+  currentTokenType,
+  askedToken,
+  tokenOrigin,
+  onSelectToken,
+  favoriteForm,
+  isFavorite,
+}) => {
+  return tokens.length ? (
+    <>
+      {tokens.map(({ symbol, type, decimals, totalBalance }) => (
+        <TokenModalItem
+          key={v4()}
+          isFavorite={isFavorite}
+          type={type}
+          symbol={symbol}
+          favoriteForm={favoriteForm}
+          selected={currentTokenType === type}
+          recommended={!askedToken && tokenOrigin === TokenOrigin.Recommended}
+          Icon={TOKENS_SVG_MAP_V2[type] ?? TOKENS_SVG_MAP_V2.default}
+          onClick={async () => onSelectToken({ symbol, decimals, type })}
+          balance={FixedPointMath.toNumber(totalBalance, decimals).toString()}
+        />
+      ))}
+    </>
+  ) : (
+    <NotFound />
+  );
+};
+
+const FavoriteTokens: FC<FavoriteTokensProps> = ({
+  currentTokenType,
+  askedToken,
+  tokenOrigin,
+  onSelectToken,
+  favoriteForm,
+}) => {
+  const tokenTypes = useWatch({
+    control: favoriteForm.control,
+    name: 'tokens',
+  });
+
+  console.log(tokenTypes);
+
+  const { coinsMap } = useWeb3();
+
+  const tokens = tokenTypes.map(
+    (type) =>
+      coinsMap[type] ?? {
+        type,
+        symbol: getSymbolByType(type),
+        totalBalance: BigNumber(0),
+        objects: [],
+        decimals: 0,
+      }
+  );
+
+  return (
+    <ModalTokenBody
+      isFavorite
+      tokens={tokens}
+      tokenOrigin={tokenOrigin}
+      favoriteForm={favoriteForm}
+      onSelectToken={onSelectToken}
+      currentTokenType={currentTokenType}
+      askedToken={askedToken}
+    />
+  );
+};
 
 const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
-  coins,
   network,
   control,
   coinsMap,
   provider,
-  favorites,
   tokenOrigin,
-  walletTokens,
-  setFavorites,
   onSelectToken,
-  favoriteTokens,
   currentTokenType,
   fetchingMetaData,
-  recommendedTokens,
-  favoriteTokensTypes,
   searchTokenModalState,
+  recommendedTokens,
+  walletTokens,
+  favoriteForm,
 }) => {
-  const t = useTranslations();
   const [loading, setLoading] = useState(false);
   const [askedToken, setAskedToken] = useState<Web3ManagerSuiObject | null>(
     null
@@ -58,11 +129,31 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
               symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
               type == debouncedSearch
           )
-        : [...walletTokens, ...favorites].filter(
+        : tokenOrigin === TokenOrigin.Wallet
+        ? walletTokens.filter(
             ({ type, symbol }) =>
               symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
               type == debouncedSearch
-          );
+          )
+        : favoriteForm
+            .getValues('tokens')
+            .map(
+              (type) =>
+                coinsMap[type] ?? {
+                  type,
+                  symbol: getSymbolByType(type),
+                  totalBalance: BigNumber(0),
+                  objects: [],
+                  decimals: 0,
+                }
+            )
+            .filter(
+              ({ type, symbol }) =>
+                symbol
+                  .toLowerCase()
+                  .startsWith(debouncedSearch.toLowerCase()) ||
+                type == debouncedSearch
+            );
 
     return array.concat(filteredTokensArray);
   }, [
@@ -70,7 +161,6 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
     searchTokenModalState,
     tokenOrigin,
     walletTokens,
-    favorites,
     recommendedTokens,
     network,
   ]);
@@ -104,39 +194,13 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
         .catch(() => askedToken && setAskedToken(null))
         .finally(() => setLoading(false));
     }
-  }, [filteredTokens, debouncedSearch, favoriteTokens, search]);
+  }, [filteredTokens, debouncedSearch, search]);
 
   useEffect(() => {
     if ((!debouncedSearch && !isPending()) || !search) setAskedToken(null);
   }, [debouncedSearch]);
 
-  const TOKENS_RECORD = {
-    [TokenOrigin.Recommended]: recommendedTokens,
-    [TokenOrigin.Favorites]: favoriteTokens,
-    [TokenOrigin.Wallet]: coins,
-  };
-
-  const tokens = TOKENS_RECORD[tokenOrigin];
-
-  if ((debouncedSearch && !askedToken) || !tokens.length)
-    return (
-      <Box
-        p="4xl"
-        gap="xl"
-        flex="1"
-        color="text"
-        display="flex"
-        overflowY="auto"
-        alignItems="center"
-        flexDirection="column"
-        bg="surface.containerLow"
-      >
-        <NoSearchSVG maxHeight="4rem" maxWidth="4rem" width="100%" />
-        <Typography variant="medium" textTransform="capitalize">
-          {t('common.notFound')}
-        </Typography>
-      </Box>
-    );
+  if (debouncedSearch && !askedToken) return <NotFound />;
 
   return (
     <>
@@ -150,14 +214,14 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
         flexDirection="column"
         bg="surface.containerLow"
       >
-        {(debouncedSearch && askedToken ? [askedToken] : tokens).map(
-          ({ symbol, type, decimals, totalBalance }) => (
+        {debouncedSearch &&
+          askedToken &&
+          [askedToken].map(({ symbol, type, decimals, totalBalance }) => (
             <TokenModalItem
               key={v4()}
               type={type}
               symbol={symbol}
-              setFavorites={setFavorites}
-              favoriteTokens={favoriteTokensTypes}
+              favoriteForm={favoriteForm}
               selected={currentTokenType === type}
               recommended={
                 !askedToken && tokenOrigin === TokenOrigin.Recommended
@@ -169,8 +233,42 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
                 decimals
               ).toString()}
             />
-          )
-        )}
+          ))}
+        {!debouncedSearch &&
+          !askedToken &&
+          tokenOrigin === TokenOrigin.Recommended && (
+            <ModalTokenBody
+              tokens={recommendedTokens}
+              askedToken={askedToken}
+              onSelectToken={onSelectToken}
+              currentTokenType={currentTokenType}
+              favoriteForm={favoriteForm}
+              tokenOrigin={tokenOrigin}
+            />
+          )}
+        {!debouncedSearch &&
+          !askedToken &&
+          tokenOrigin === TokenOrigin.Wallet && (
+            <ModalTokenBody
+              tokens={walletTokens}
+              askedToken={askedToken}
+              onSelectToken={onSelectToken}
+              currentTokenType={currentTokenType}
+              favoriteForm={favoriteForm}
+              tokenOrigin={tokenOrigin}
+            />
+          )}
+        {!debouncedSearch &&
+          !askedToken &&
+          tokenOrigin === TokenOrigin.Favorites && (
+            <FavoriteTokens
+              askedToken={askedToken}
+              onSelectToken={onSelectToken}
+              currentTokenType={currentTokenType}
+              favoriteForm={favoriteForm}
+              tokenOrigin={tokenOrigin}
+            />
+          )}
       </Box>
     </>
   );

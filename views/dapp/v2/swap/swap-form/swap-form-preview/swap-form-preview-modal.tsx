@@ -55,6 +55,12 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
 
   const tokenIn = formSwap.getValues('from');
   const tokenOut = formSwap.getValues('to');
+  const notEnoughBalance = FixedPointMath.toBigNumber(
+    tokenIn.value,
+    tokenIn.decimals
+  )
+    .decimalPlaces(0, BigNumber.ROUND_DOWN)
+    .gt(coinsMap[tokenIn.type].totalBalance);
 
   const minimumAmount = FixedPointMath.toNumber(
     getAmountMinusSlippage(
@@ -135,10 +141,14 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
 
       if (!+tokenIn.value) throw new Error(t('swap.error.cannotSell0'));
 
-      const amount = FixedPointMath.toBigNumber(
-        tokenIn.value,
-        tokenIn.decimals
-      ).decimalPlaces(0, BigNumber.ROUND_DOWN);
+      const isMaxTrade = formSwap.getValues('maxValue');
+
+      const amount = isMaxTrade
+        ? coinsMap[tokenIn.type].totalBalance
+        : FixedPointMath.toBigNumber(
+            tokenIn.value,
+            tokenIn.decimals
+          ).decimalPlaces(0, BigNumber.ROUND_DOWN);
 
       const amountOut = FixedPointMath.toBigNumber(
         tokenOut.value,
@@ -418,7 +428,8 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
               {t('swap.modal.preview.liquidityFee')}
             </Typography>
             <Typography variant="medium" whiteSpace="nowrap">
-              {+tokenIn.value * 0.003} {tokenIn.symbol}
+              {(+(+tokenIn.value * 0.003).toFixed(6)).toPrecision()}{' '}
+              {tokenIn.symbol}
             </Typography>
           </Box>
         </Box>
@@ -432,9 +443,13 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
         variant="filled"
         justifyContent="center"
         onClick={handleSwap}
-        disabled={loading}
+        disabled={loading || notEnoughBalance}
       >
-        {t('swap.modal.preview.confirmSwap')}
+        {t(
+          notEnoughBalance
+            ? 'swap.modal.preview.notEnoughBalance'
+            : 'swap.modal.preview.confirmSwap'
+        )}
       </Button>
     </Box>
   );

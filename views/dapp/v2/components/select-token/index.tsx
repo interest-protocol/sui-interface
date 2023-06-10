@@ -6,16 +6,25 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { DotsSVG } from '@/components/svg/v2';
+import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { COIN_TYPE_TO_SYMBOL, TOKENS_SVG_MAP_V2 } from '@/constants';
+import {
+  BASE_TOKENS_TYPES,
+  COIN_DECIMALS,
+  RECOMMENDED_TOKENS_TYPES,
+} from '@/constants';
+import { useLocalStorage } from '@/hooks';
 import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
+import { CoinData } from '@/interface';
 
-import { SelectTokenProps } from './select-token.types';
+import { FavoriteTokensForm, SelectTokenProps } from './select-token.types';
 import SelectTokenModal from './select-token-modal';
-
 const SelectToken: FC<SelectTokenProps> = ({
   onSelectToken,
   currentTokenType,
@@ -28,6 +37,43 @@ const SelectToken: FC<SelectTokenProps> = ({
   const { dark } = useTheme() as Theme;
   const { coinsMap, coins } = useWeb3();
   const { setModal, handleClose } = useModal();
+  const [favoriteTokens, addFavorite] = useLocalStorage<ReadonlyArray<string>>(
+    'sui-interest-favorite-tokens',
+    []
+  );
+
+  const recommendedTokens: ReadonlyArray<Web3ManagerSuiObject> =
+    RECOMMENDED_TOKENS_TYPES[network].map(
+      (type) =>
+        coinsMap[type] ?? {
+          type,
+          symbol: COIN_TYPE_TO_SYMBOL[network][type],
+          decimals: COIN_DECIMALS[network][type],
+          objects: [],
+          totalBalance: BigNumber(0),
+        }
+    );
+
+  const walletTokens = coins.filter(
+    ({ type }) =>
+      !BASE_TOKENS_TYPES[network].includes(type) &&
+      !RECOMMENDED_TOKENS_TYPES[network].includes(type)
+  );
+  const favoritesForm = useForm<FavoriteTokensForm>({
+    defaultValues: { tokens: [] },
+  });
+
+  console.log('favoooriote local', favoriteTokens);
+
+  useEffect(() => {
+    if (!favoritesForm.getValues('tokens')?.length && favoriteTokens.length)
+      favoritesForm.setValue('tokens', favoriteTokens);
+  }, [favoriteTokens, favoritesForm]);
+
+  const handleOnSelectToken = async (data: CoinData) => {
+    await onSelectToken(data);
+    addFavorite(favoritesForm.getValues('tokens'));
+  };
 
   const openModal = () =>
     setModal(
@@ -39,14 +85,16 @@ const SelectToken: FC<SelectTokenProps> = ({
         }}
       >
         <SelectTokenModal
-          coins={coins}
           network={network}
           provider={provider}
           coinsMap={coinsMap}
           closeModal={handleClose}
-          onSelectToken={onSelectToken}
+          onSelectToken={handleOnSelectToken}
           currentTokenType={currentTokenType}
           searchTokenModalState={searchTokenModalState}
+          walletTokens={walletTokens}
+          recommendedTokens={recommendedTokens}
+          favoriteForm={favoritesForm}
         />
       </Motion>,
       {
