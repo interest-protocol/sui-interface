@@ -1,4 +1,4 @@
-import { Box, Motion } from '@interest-protocol/ui-kit';
+import { Motion } from '@interest-protocol/ui-kit';
 import { formatAddress } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { AnimatePresence } from 'framer-motion';

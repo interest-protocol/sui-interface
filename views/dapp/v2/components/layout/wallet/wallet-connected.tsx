@@ -7,12 +7,11 @@ import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import useClickOutsideListenerRef from '@/hooks/use-click-outside-listener-ref';
 import { noop } from '@/utils';
 
-import { WalletConnectedProps } from './wallet.types';
 import WalletDropdown from './wallet-dropdown';
 
 const BOX_ID = 'wallet-connected-box-id-123';
 
-const WalletConnected: FC<WalletConnectedProps> = ({ setIsConnected }) => {
+const WalletConnected: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { network } = useNetwork();
   const { suiNSProvider } = useProvider();
@@ -72,7 +71,6 @@ const WalletConnected: FC<WalletConnectedProps> = ({ setIsConnected }) => {
         addressName={suiNs}
         handleDisconnect={() => {
           setIsOpen(false);
-          setIsConnected(false);
         }}
       />
     </RefBox>

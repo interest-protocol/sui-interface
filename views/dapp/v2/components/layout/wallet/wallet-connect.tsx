@@ -2,9 +2,7 @@ import { Box } from '@interest-protocol/ui-kit';
 import { ConnectModal } from '@mysten/wallet-kit';
 import { FC, useState } from 'react';
 
-import { WalletConnectProps } from './wallet.types';
-
-const WalletConnect: FC<WalletConnectProps> = ({ setIsConnected }) => {
+const WalletConnect: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -14,7 +12,6 @@ const WalletConnect: FC<WalletConnectProps> = ({ setIsConnected }) => {
           open={isOpen}
           onClose={() => {
             setIsOpen(false);
-            setIsConnected(true);
           }}
         />
       )}
