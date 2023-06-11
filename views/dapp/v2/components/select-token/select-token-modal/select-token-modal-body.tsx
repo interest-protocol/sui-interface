@@ -18,6 +18,7 @@ import {
   SelectTokenModalBodyProps,
   TokenOrigin,
 } from '../select-token.types';
+import FetchingToken from './fetching-token';
 import NotFound from './not-found';
 import TokenModalItem from './token-modal-item';
 
@@ -200,11 +201,13 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
     if ((!debouncedSearch && !isPending()) || !search) setAskedToken(null);
   }, [debouncedSearch]);
 
+  if (loading) return <FetchingToken />;
+
   if (debouncedSearch && !askedToken) return <NotFound />;
 
   return (
     <>
-      <LinearLoader loading={loading || fetchingMetaData} />
+      <LinearLoader loading={fetchingMetaData} />
       <Box
         p="2xl"
         gap="xl"

@@ -201,7 +201,11 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
           text={t('swap.modal.preview.selectToken.wallet')}
         />
       </Box>
-      <Motion initial={{ height: 0 }} animate={{ height: 'auto' }}>
+      <Motion
+        overflow="auto"
+        initial={{ height: 0 }}
+        animate={{ height: 'auto' }}
+      >
         <SelectTokenModalBody
           control={control}
           network={network}
