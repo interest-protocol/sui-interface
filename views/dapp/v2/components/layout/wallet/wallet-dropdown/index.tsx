@@ -1,4 +1,4 @@
-import { Motion } from '@interest-protocol/ui-kit';
+import { Button, Motion } from '@interest-protocol/ui-kit';
 import { formatAddress } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { AnimatePresence } from 'framer-motion';
@@ -6,7 +6,9 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import toast from 'react-hot-toast';
 
+import { CheckmarkSVG } from '@/components/svg/v2';
 import { useWeb3 } from '@/hooks';
+import { CopySVG } from '@/svg';
 import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../header/menu/menu-item-wrapper';
@@ -47,8 +49,8 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
   const { account } = useWeb3();
   const { disconnect, accounts, selectAccount } = useWalletKit();
 
-  const copyToClipboard = () => {
-    window.navigator.clipboard.writeText(account || '');
+  const copyToClipboard = (address: string) => {
+    window.navigator.clipboard.writeText(address || '');
     toast(capitalize(t('common.v2.wallet.copy')));
   };
 
@@ -73,13 +75,29 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
               selectAccount(walletAccount);
           }}
         >
-          {walletAccount.address === account && <div>check mark</div>}
-          <button onClick={copyToClipboard}>copy</button>
+          {walletAccount.address === account && (
+            <CheckmarkSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+          )}
           <WalletItem>
             {loading || !addressName
               ? formatAddress(walletAccount.address ?? '')
               : addressName}
           </WalletItem>
+          <Button
+            size="small"
+            variant="icon"
+            p="0 !important"
+            nHover={{
+              color: 'primary',
+              bg: 'transparent',
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              copyToClipboard(walletAccount.address);
+            }}
+          >
+            <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+          </Button>
         </MenuItemWrapper>
       ))}
       <MenuItemWrapper
