@@ -60,6 +60,10 @@ const Wallet: FC = () => {
           cursor="pointer"
           borderRadius="50%"
           onClick={() => setIsOpen(true)}
+          transition="transform 300ms ease-in-out"
+          nHover={{
+            transform: 'scale(1.1)',
+          }}
         >
           <UserSVG width="100%" maxWidth="2.5rem" maxHeight="2.5rem" />
         </Box>
