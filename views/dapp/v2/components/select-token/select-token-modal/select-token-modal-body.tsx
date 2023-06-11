@@ -8,6 +8,7 @@ import { v4 } from 'uuid';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { TOKENS_SVG_MAP_V2 } from '@/constants';
 import { useWeb3 } from '@/hooks';
+import { CoinData } from '@/interface';
 import { FixedPointMath } from '@/lib';
 import { getSymbolByType, isType } from '@/utils';
 import LinearLoader from '@/views/dapp/dex-pool-details/components/remove-liquidity-card/linear-loader';
@@ -99,21 +100,31 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
   coinsMap,
   provider,
   tokenOrigin,
+  walletTokens,
+  favoriteForm,
   onSelectToken,
   currentTokenType,
   fetchingMetaData,
-  searchTokenModalState,
   recommendedTokens,
-  walletTokens,
-  favoriteForm,
+  searchTokenModalState,
 }) => {
   const [loading, setLoading] = useState(false);
+  const [selectingToken, setSelectingToken] = useState(false);
   const [askedToken, setAskedToken] = useState<Web3ManagerSuiObject | null>(
     null
   );
   const search = useWatch({ control, name: 'search' });
 
   const [debouncedSearch, { isPending }] = useDebounce(search, 800);
+
+  const handleSelectToken = async (token: CoinData) => {
+    try {
+      setSelectingToken(true);
+      await onSelectToken(token);
+    } finally {
+      setSelectingToken(false);
+    }
+  };
 
   const filteredTokens = useMemo(() => {
     const array =
@@ -207,7 +218,7 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
 
   return (
     <>
-      <LinearLoader loading={fetchingMetaData} />
+      <LinearLoader loading={fetchingMetaData || selectingToken} />
       <Box
         p="2xl"
         gap="xl"
@@ -230,7 +241,9 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
                 !askedToken && tokenOrigin === TokenOrigin.Recommended
               }
               Icon={TOKENS_SVG_MAP_V2[type] ?? TOKENS_SVG_MAP_V2.default}
-              onClick={async () => onSelectToken({ symbol, decimals, type })}
+              onClick={async () =>
+                handleSelectToken({ symbol, decimals, type })
+              }
               balance={FixedPointMath.toNumber(
                 totalBalance,
                 decimals
@@ -243,7 +256,7 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
             <ModalTokenBody
               tokens={recommendedTokens}
               askedToken={askedToken}
-              onSelectToken={onSelectToken}
+              onSelectToken={handleSelectToken}
               currentTokenType={currentTokenType}
               favoriteForm={favoriteForm}
               tokenOrigin={tokenOrigin}
@@ -255,7 +268,7 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
             <ModalTokenBody
               tokens={walletTokens}
               askedToken={askedToken}
-              onSelectToken={onSelectToken}
+              onSelectToken={handleSelectToken}
               currentTokenType={currentTokenType}
               favoriteForm={favoriteForm}
               tokenOrigin={tokenOrigin}
@@ -266,7 +279,7 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
           tokenOrigin === TokenOrigin.Favorites && (
             <FavoriteTokens
               askedToken={askedToken}
-              onSelectToken={onSelectToken}
+              onSelectToken={handleSelectToken}
               currentTokenType={currentTokenType}
               favoriteForm={favoriteForm}
               tokenOrigin={tokenOrigin}
