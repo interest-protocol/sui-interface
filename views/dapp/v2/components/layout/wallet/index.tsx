@@ -18,6 +18,7 @@ const Wallet: FC = () => {
         variant="outline"
         borderColor="error"
         onClick={disconnect}
+        textTransform="capitalize"
         nFocus={{ borderColor: 'error' }}
         nHover={{ borderColor: 'error' }}
         nActive={{ borderColor: 'error' }}
