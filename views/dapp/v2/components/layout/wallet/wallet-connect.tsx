@@ -1,16 +1,23 @@
 import { Box, Button } from '@interest-protocol/ui-kit';
 import { ConnectModal } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
-const WalletConnect: FC = () => {
+import { WalletConnectProps } from './wallet.types';
+
+const WalletConnect: FC<WalletConnectProps> = ({
+  isModalOpen,
+  setIsModalOpen,
+}) => {
   const t = useTranslations();
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      {isOpen && (
-        <ConnectModal open={isOpen} onClose={() => setIsOpen(false)} />
+      {isModalOpen && (
+        <ConnectModal
+          open={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
       )}
       <Box
         bg="textSoft"
@@ -32,9 +39,9 @@ const WalletConnect: FC = () => {
             size="small"
             variant="filled"
             textTransform="capitalize"
-            onClick={() => setIsOpen(true)}
+            onClick={() => setIsModalOpen(true)}
           >
-            {isOpen
+            {isModalOpen
               ? t('common.v2.wallet.connecting')
               : t('common.connectWallet')}
           </Button>
