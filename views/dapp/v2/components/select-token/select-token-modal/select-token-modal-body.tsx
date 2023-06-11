@@ -218,7 +218,9 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
 
   return (
     <>
-      <LinearLoader loading={fetchingMetaData || selectingToken} />
+      <Box position="absolute" width="100%" mt="-0.95rem">
+        <LinearLoader loading={fetchingMetaData || selectingToken} />
+      </Box>
       <Box
         p="2xl"
         gap="xl"

@@ -202,7 +202,8 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
         />
       </Box>
       <Motion
-        overflow="auto"
+        overflowY="auto"
+        position="relative"
         initial={{ height: 0 }}
         animate={{ height: 'auto' }}
       >
