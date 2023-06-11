@@ -41,6 +41,7 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
   isOpen,
   loading,
   addressName,
+  handleDisconnect,
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
@@ -69,7 +70,12 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
           {loading || !addressName ? formatAddress(account ?? '') : addressName}
         </WalletItem>
       </MenuItemWrapper>
-      <MenuItemWrapper onClick={disconnect}>
+      <MenuItemWrapper
+        onClick={async () => {
+          await disconnect();
+          handleDisconnect();
+        }}
+      >
         <WalletItem name="disconnect" />
       </MenuItemWrapper>
     </Motion>
@@ -78,23 +84,10 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
 
 const WalletDropdownWrapper: FC<WalletDropdownWrapperProps> = ({
   isOpen,
-  handleClose,
   ...props
 }) => (
   <AnimatePresence>
-    {isOpen && (
-      <>
-        <Box
-          top="0"
-          left="0"
-          right="0"
-          bottom="0"
-          position="fixed"
-          onClick={handleClose}
-        />
-        <WalletDropdown isOpen={isOpen} {...props} />
-      </>
-    )}
+    {isOpen && <WalletDropdown isOpen={isOpen} {...props} />}
   </AnimatePresence>
 );
 
