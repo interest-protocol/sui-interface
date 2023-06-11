@@ -21,7 +21,6 @@ export interface MenuDesktopProps {
 export interface MenuMobileProps {
   isOpen: boolean;
   isSettings: boolean;
-  handleOpenSettings: () => void;
 }
 
 export interface MenuButtonProps {

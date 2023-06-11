@@ -5,14 +5,8 @@ import { MenuMobileProps } from '../menu.types';
 import MainMenu from './main-menu';
 import SettingsMenu from './menu-mobile-settings';
 
-const MenuMobile: FC<MenuMobileProps> = ({
-  isOpen,
-  isSettings,
-  handleOpenSettings,
-}) => {
+const MenuMobile: FC<MenuMobileProps> = ({ isOpen, isSettings }) => {
   if (!isOpen) return null;
-
-  console.log(handleOpenSettings);
 
   return (
     <Box

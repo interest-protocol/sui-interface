@@ -63,8 +63,6 @@ const SelectToken: FC<SelectTokenProps> = ({
     defaultValues: { tokens: [] },
   });
 
-  console.log('favoooriote local', favoriteTokens);
-
   useEffect(() => {
     if (!favoritesForm.getValues('tokens')?.length && favoriteTokens.length)
       favoritesForm.setValue('tokens', favoriteTokens);

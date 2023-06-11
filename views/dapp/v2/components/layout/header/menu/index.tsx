@@ -13,12 +13,13 @@ const Menu: FC = () => {
   const [isOpen, setIsOpen] = useState(Boolean(query.menu));
   const [isSettings, setIsSettings] = useState(Boolean(query.settings));
 
-  const handleOpenSettings = () => {
-    const url = new URL(window.location.href);
-    url.searchParams.set('settings', 'true');
-    window.history.pushState('', '', url.toString());
-    setIsSettings(true);
-  };
+  // TODO: uncomment on Settings UI ready
+  // const handleOpenSettings = () => {
+  //   const url = new URL(window.location.href);
+  //   url.searchParams.set('settings', 'true');
+  //   window.history.pushState('', '', url.toString());
+  //   setIsSettings(true);
+  // };
 
   const handleCloseSettings = () => {
     const url = new URL(window.location.href);
@@ -69,11 +70,7 @@ const Menu: FC = () => {
         />
       </Box>
       <MenuDesktop isOpen={isOpen} handleClose={handleClose} />
-      <MenuMobile
-        isOpen={isOpen}
-        isSettings={isSettings}
-        handleOpenSettings={handleOpenSettings}
-      />
+      <MenuMobile isOpen={isOpen} isSettings={isSettings} />
     </Box>
   );
 };
