@@ -173,7 +173,7 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
         <TextField
           {...register('search')}
           fontSize="medium"
-          placeholder="Search Token"
+          placeholder={t('swap.modal.preview.selectToken.search')}
           PrefixIcon={
             <SearchSVG maxWidth="1.2rem" maxHeight="1.2rem" width="100%" />
           }
