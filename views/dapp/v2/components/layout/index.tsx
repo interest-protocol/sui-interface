@@ -7,6 +7,7 @@ import useEventListener from '@/hooks/use-event-listener';
 
 import Footer from './footer';
 import Header from './header';
+import LangSwitch from './lang-switch';
 import { LayoutProps } from './layout.types';
 import Sidebar from './sidebar';
 import Wallet from './wallet';
@@ -51,6 +52,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
               pr={['unset', 'unset', 'unset', 'xl']}
             >
               <Wallet />
+              <LangSwitch />
             </Box>
             {children}
           </Box>

@@ -43,7 +43,7 @@ const WalletConnect: FC<WalletConnectProps> = ({
           >
             {isModalOpen
               ? t('common.v2.wallet.connecting')
-              : t('common.connectWallet')}
+              : t('common.v2.wallet.connect')}
           </Button>
         </Box>
       </Box>

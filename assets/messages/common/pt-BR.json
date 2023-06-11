@@ -29,7 +29,7 @@
       },
       "wallet": {
         "name": "carteira",
-        "connect": "conetar à carteira",
+        "connect": "conetar",
         "disconnect": "desconectar",
         "switch": "trocar rede",
         "error": "erro ao conectar",
