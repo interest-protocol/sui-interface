@@ -8,7 +8,15 @@ import WalletConnected from './wallet-connected';
 
 const Wallet: FC = () => {
   const t = useTranslations();
-  const { currentAccount, isConnected, isError, disconnect } = useWalletKit();
+  const {
+    currentAccount,
+    isConnected,
+    isError,
+    disconnect,
+    connect,
+    currentWallet,
+    wallets,
+  } = useWalletKit();
 
   if (isError)
     return (
@@ -17,7 +25,13 @@ const Wallet: FC = () => {
         color="error"
         variant="outline"
         borderColor="error"
-        onClick={disconnect}
+        onClick={async () => {
+          await disconnect().catch();
+          if (currentWallet?.name || (wallets[0] && wallets[0].name))
+            await connect(
+              currentWallet ? currentWallet.name : wallets[0].name
+            ).catch();
+        }}
         textTransform="capitalize"
         nFocus={{ borderColor: 'error' }}
         nHover={{ borderColor: 'error' }}
