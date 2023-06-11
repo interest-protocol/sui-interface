@@ -8,7 +8,7 @@ import WalletConnected from './wallet-connected';
 
 const Wallet: FC = () => {
   const t = useTranslations();
-  const { currentAccount, isConnected, isError } = useWalletKit();
+  const { currentAccount, isConnected, isError, disconnect } = useWalletKit();
 
   if (isError)
     return (
@@ -17,6 +17,7 @@ const Wallet: FC = () => {
         color="error"
         variant="outline"
         borderColor="error"
+        onClick={disconnect}
         nFocus={{ borderColor: 'error' }}
         nHover={{ borderColor: 'error' }}
         nActive={{ borderColor: 'error' }}
