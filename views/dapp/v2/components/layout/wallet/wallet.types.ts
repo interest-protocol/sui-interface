@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
-
 export interface WalletDropdownProps {
   isOpen: boolean;
   loading: boolean;
