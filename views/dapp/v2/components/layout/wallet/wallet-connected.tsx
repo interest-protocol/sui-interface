@@ -1,4 +1,4 @@
-import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
+import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { formatAddress } from '@mysten/sui.js';
 import { FC, useEffect, useState } from 'react';
 
@@ -48,16 +48,22 @@ const WalletConnected: FC = () => {
     }
   }, [network, account]);
 
+  console.log('>> account :: ', account);
+
   return (
-    <>
-      {account && formatAddress(account)}
-      <RefBox
-        id={BOX_ID}
-        height="3rem"
-        color={surface}
-        position="relative"
-        ref={connectedBoxRef}
-      >
+    <RefBox
+      id={BOX_ID}
+      height="3rem"
+      color={surface}
+      position="relative"
+      ref={connectedBoxRef}
+    >
+      <Box display="flex" gap="m" alignItems="center">
+        {account && (
+          <Typography variant="medium" color="onSurface">
+            {formatAddress(account)}
+          </Typography>
+        )}
         <Box
           bg="primary"
           width="2.5rem"
@@ -72,16 +78,16 @@ const WalletConnected: FC = () => {
         >
           <UserSVG width="100%" maxWidth="2.5rem" maxHeight="2.5rem" />
         </Box>
-        <WalletDropdown
-          isOpen={isOpen}
-          loading={loading}
-          addressName={suiNs}
-          handleDisconnect={() => {
-            setIsOpen(false);
-          }}
-        />
-      </RefBox>
-    </>
+      </Box>
+      <WalletDropdown
+        isOpen={isOpen}
+        loading={loading}
+        addressName={suiNs}
+        handleDisconnect={() => {
+          setIsOpen(false);
+        }}
+      />
+    </RefBox>
   );
 };
 
