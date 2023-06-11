@@ -45,7 +45,7 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
-  const { disconnect } = useWalletKit();
+  const { disconnect, accounts, selectAccount } = useWalletKit();
 
   const copyToClipboard = () => {
     window.navigator.clipboard.writeText(account || '');
@@ -65,11 +65,23 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
       animate={isOpen ? 'open' : 'closed'}
       pointerEvents={isOpen ? 'auto' : 'none'}
     >
-      <MenuItemWrapper onClick={copyToClipboard}>
-        <WalletItem>
-          {loading || !addressName ? formatAddress(account ?? '') : addressName}
-        </WalletItem>
-      </MenuItemWrapper>
+      {accounts.map((walletAccount) => (
+        <MenuItemWrapper
+          key={walletAccount.address}
+          onClick={() => {
+            if (!(walletAccount.address === account))
+              selectAccount(walletAccount);
+          }}
+        >
+          {walletAccount.address === account && <div>check mark</div>}
+          <button onClick={copyToClipboard}>copy</button>
+          <WalletItem>
+            {loading || !addressName
+              ? formatAddress(walletAccount.address ?? '')
+              : addressName}
+          </WalletItem>
+        </MenuItemWrapper>
+      ))}
       <MenuItemWrapper
         onClick={async () => {
           await disconnect();
