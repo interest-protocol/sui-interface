@@ -66,8 +66,6 @@ const FavoriteTokens: FC<FavoriteTokensProps> = ({
     name: 'tokens',
   });
 
-  console.log(tokenTypes);
-
   const { coinsMap } = useWeb3();
 
   const tokens = tokenTypes.map(
