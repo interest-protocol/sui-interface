@@ -1,4 +1,4 @@
-import { Box } from '@interest-protocol/ui-kit';
+import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { FC, useEffect, useState } from 'react';
 
 import { UserSVG } from '@/components/svg/v2';
@@ -12,6 +12,10 @@ import WalletDropdown from './wallet-dropdown';
 const BOX_ID = 'wallet-connected-box-id-123';
 
 const WalletConnected: FC = () => {
+  const {
+    colors: { surface },
+  } = useTheme() as Theme;
+
   const [isOpen, setIsOpen] = useState(false);
   const { network } = useNetwork();
   const { suiNSProvider } = useProvider();
@@ -23,9 +27,9 @@ const WalletConnected: FC = () => {
     if (
       event?.path?.some((node: any) => node?.id == BOX_ID) ||
       event?.composedPath()?.some((node: any) => node?.id == BOX_ID)
-    ) {
+    )
       return;
-    }
+
     setIsOpen(false);
   };
 
@@ -45,11 +49,11 @@ const WalletConnected: FC = () => {
 
   return (
     <RefBox
-      color="surface"
-      position="relative"
-      height="3rem"
-      ref={connectedBoxRef}
       id={BOX_ID}
+      height="3rem"
+      color={surface}
+      position="relative"
+      ref={connectedBoxRef}
     >
       <Box
         bg="primary"
