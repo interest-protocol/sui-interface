@@ -71,8 +71,10 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
         <MenuItemWrapper
           key={walletAccount.address}
           onClick={() => {
-            if (!(walletAccount.address === account))
+            if (!(walletAccount.address === account)) {
               selectAccount(walletAccount);
+              handleDisconnect();
+            }
           }}
         >
           {walletAccount.address === account && (

@@ -1,4 +1,5 @@
 import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
+import { formatAddress } from '@mysten/sui.js';
 import { FC, useEffect, useState } from 'react';
 
 import { UserSVG } from '@/components/svg/v2';
@@ -48,36 +49,39 @@ const WalletConnected: FC = () => {
   }, [network, account]);
 
   return (
-    <RefBox
-      id={BOX_ID}
-      height="3rem"
-      color={surface}
-      position="relative"
-      ref={connectedBoxRef}
-    >
-      <Box
-        bg="primary"
-        width="2.5rem"
-        height="2.5rem"
-        cursor="pointer"
-        borderRadius="50%"
-        onClick={() => setIsOpen(true)}
-        transition="transform 300ms ease-in-out"
-        nHover={{
-          transform: 'scale(1.1)',
-        }}
+    <>
+      {account && formatAddress(account)}
+      <RefBox
+        id={BOX_ID}
+        height="3rem"
+        color={surface}
+        position="relative"
+        ref={connectedBoxRef}
       >
-        <UserSVG width="100%" maxWidth="2.5rem" maxHeight="2.5rem" />
-      </Box>
-      <WalletDropdown
-        isOpen={isOpen}
-        loading={loading}
-        addressName={suiNs}
-        handleDisconnect={() => {
-          setIsOpen(false);
-        }}
-      />
-    </RefBox>
+        <Box
+          bg="primary"
+          width="2.5rem"
+          height="2.5rem"
+          cursor="pointer"
+          borderRadius="50%"
+          onClick={() => setIsOpen(true)}
+          transition="transform 300ms ease-in-out"
+          nHover={{
+            transform: 'scale(1.1)',
+          }}
+        >
+          <UserSVG width="100%" maxWidth="2.5rem" maxHeight="2.5rem" />
+        </Box>
+        <WalletDropdown
+          isOpen={isOpen}
+          loading={loading}
+          addressName={suiNs}
+          handleDisconnect={() => {
+            setIsOpen(false);
+          }}
+        />
+      </RefBox>
+    </>
   );
 };
 
