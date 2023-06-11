@@ -48,8 +48,6 @@ const WalletConnected: FC = () => {
     }
   }, [network, account]);
 
-  console.log('>> account :: ', account);
-
   return (
     <RefBox
       id={BOX_ID}
