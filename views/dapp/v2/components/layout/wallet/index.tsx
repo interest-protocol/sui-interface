@@ -52,7 +52,7 @@ const Wallet: FC = () => {
 
   if (connected)
     return (
-      <Box color="surface" position="relative">
+      <Box color="surface" position="relative" height="3rem">
         <Box
           bg="primary"
           width="2.5rem"
@@ -79,6 +79,7 @@ const Wallet: FC = () => {
   return (
     <Box
       bg="textSoft"
+      height="3rem"
       display="flex"
       alignItems="center"
       borderRadius="2.5rem"

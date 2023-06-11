@@ -28,6 +28,7 @@ import {
   formatMoney,
   showTXSuccessToast,
   throwTXIfNotSuccessful,
+  ZERO_BIG_NUMBER,
 } from '@/utils';
 
 import { getAmountMinusSlippage } from '../../swap.utils';
@@ -60,7 +61,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
     tokenIn.decimals
   )
     .decimalPlaces(0, BigNumber.ROUND_DOWN)
-    .gt(coinsMap[tokenIn.type].totalBalance);
+    .gt(coinsMap[tokenIn.type]?.totalBalance ?? ZERO_BIG_NUMBER);
 
   const minimumAmount = FixedPointMath.toNumber(
     getAmountMinusSlippage(
@@ -144,7 +145,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
       const isMaxTrade = formSwap.getValues('maxValue');
 
       const amount = isMaxTrade
-        ? coinsMap[tokenIn.type].totalBalance
+        ? coinsMap[tokenIn.type]?.totalBalance ?? ZERO_BIG_NUMBER
         : FixedPointMath.toBigNumber(
             tokenIn.value,
             tokenIn.decimals
@@ -443,6 +444,9 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
         variant="filled"
         justifyContent="center"
         onClick={handleSwap}
+        nDisabled={{
+          bg: 'gray',
+        }}
         disabled={loading || notEnoughBalance}
       >
         {t(
