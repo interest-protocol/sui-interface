@@ -32,6 +32,8 @@
         "connect": "connect wallet",
         "disconnect": "disconnect",
         "switch": "switch network",
+        "error": "error connecting",
+        "connecting": "connecting",
         "copy": "address copied to the clipboard"
       },
       "lend": {

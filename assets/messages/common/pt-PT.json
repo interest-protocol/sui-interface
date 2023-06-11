@@ -32,6 +32,8 @@
         "connect": "conetar à carteira",
         "disconnect": "desconectar",
         "switch": "trocar rede",
+        "error": "erro ao conectar",
+        "connecting": "conectando...",
         "copy": "Endereço copiado para a clipboard"
       },
       "lend": {
