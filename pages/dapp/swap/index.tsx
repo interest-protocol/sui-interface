@@ -42,8 +42,8 @@ const SwapPage: NextPageWithProps = ({ pageTitle }) => {
   }, [localSettings]);
 
   return (
-    <Web3Manager>
-      <ModalProvider>
+    <ModalProvider newDesign>
+      <Web3Manager>
         <SEO pageTitle={pageTitle} />
         <Layout dashboard>
           <Swap
@@ -54,8 +54,8 @@ const SwapPage: NextPageWithProps = ({ pageTitle }) => {
             searchTokenModalState={searchedToken}
           />
         </Layout>
-      </ModalProvider>
-    </Web3Manager>
+      </Web3Manager>
+    </ModalProvider>
   );
 };
 
