@@ -40,20 +40,28 @@ const SwapHeader: FC<SwapHeaderProps> = ({
 
   return (
     <Box
-      gridColumn="1/-1"
       display="flex"
+      gridColumn="1/-1"
       alignItems="center"
       color={dark ? 'white' : 'black'}
     >
-      <Box display={['block', 'block', 'none']}>
+      <Button
+        opacity="0"
+        variant="icon"
+        display="flex"
+        color="textSoft"
+        visibility="hidden"
+        alignItems="center"
+        justifyContent="center"
+        mr={['unset', 'unset', 'unset', 'xl']}
+      >
         <LeftArrowSVG maxWidth="1.2rem" maxHeight="1.2rem" width="100%" />
-      </Box>
+      </Button>
       <Typography
         width="100%"
         gridColumn="2"
         textAlign="center"
         variant="displayLarge"
-        pl={['unset', 'unset', 'unset', '3.85rem']}
       >
         {t('swap.metadata.title')}
       </Typography>
