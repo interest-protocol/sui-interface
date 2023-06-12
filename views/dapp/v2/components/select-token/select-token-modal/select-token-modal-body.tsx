@@ -283,6 +283,7 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
               currentTokenType={currentTokenType}
               favoriteForm={favoriteForm}
               tokenOrigin={tokenOrigin}
+              coinsMap={coinsMap}
             />
           )}
       </Box>

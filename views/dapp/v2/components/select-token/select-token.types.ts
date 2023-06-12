@@ -98,4 +98,5 @@ export interface FavoriteTokensProps {
   tokenOrigin: TokenOrigin;
   onSelectToken: SelectTokenProps['onSelectToken'];
   favoriteForm: SelectTokenModalProps['favoriteForm'];
+  coinsMap: Record<string, Web3ManagerSuiObject>;
 }
