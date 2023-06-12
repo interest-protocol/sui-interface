@@ -59,7 +59,7 @@ export const ModalProvider: FC<PropsWithChildren<{ newDesign?: boolean }>> = ({
         </IUIModal>
       ) : (
         <Modal
-          background="#0004"
+          // background="#0004"
           modalProps={{
             isOpen: !!component,
             shouldCloseOnEsc: true,

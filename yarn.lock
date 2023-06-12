@@ -705,10 +705,10 @@
     ramda "^0.28.0"
     tiny-invariant "^1.3.1"
 
-"@interest-protocol/ui-kit@^0.1.21-beta":
-  version "0.1.21-beta"
-  resolved "https://registry.yarnpkg.com/@interest-protocol/ui-kit/-/ui-kit-0.1.21-beta.tgz#d8c3194bd964e563b37f5fb30045c6208e615c4c"
-  integrity sha512-HKS8vObcV8O/z2gE0AACjidkJRrMehmd4c93G/dktgPhyxF/5wjRKZTxZfRwp2PnVn8aXmZ7IUsesPzTfkRBng==
+"@interest-protocol/ui-kit@^0.1.22-beta":
+  version "0.1.22-beta"
+  resolved "https://registry.yarnpkg.com/@interest-protocol/ui-kit/-/ui-kit-0.1.22-beta.tgz#86f555e850d88716f61724792304dd26cf532588"
+  integrity sha512-NKMLHxoz2Fm+RddXKWtntMHGwGx516yin0hwrNZK7aSlz9rK1C1WmLvafuqgQyTZTqrMt3PjyPpYQqK1Xd/DTQ==
   dependencies:
     "@emotion/react" "^11.10.6"
     "@stylin.js/react" "^1.0.1"

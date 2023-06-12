@@ -43,7 +43,7 @@ const SwapPage: NextPageWithProps = ({ pageTitle }) => {
 
   return (
     <Web3Manager>
-      <ModalProvider>
+      <ModalProvider newDesign>
         <SEO pageTitle={pageTitle} />
         <Layout dashboard>
           <Swap
