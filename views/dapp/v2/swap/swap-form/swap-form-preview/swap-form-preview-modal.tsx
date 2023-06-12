@@ -1,4 +1,4 @@
-import { DEX_BASE_TOKEN_ARRAY } from '@interest-protocol/sui-sdk';
+import { DEX_BASE_TOKEN_ARRAY, Network } from '@interest-protocol/sui-sdk';
 import {
   Box,
   Button,
@@ -17,6 +17,7 @@ import { DownArrowSVG, LeftArrowSVG } from '@/components/svg/v2';
 import {
   NETWORK_RECORD,
   SUI_EXPLORER_URL,
+  SUI_VISION_EXPLORER_URL,
   TOKENS_SVG_MAP_V2,
 } from '@/constants';
 import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
@@ -193,7 +194,9 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
 
       await showTXSuccessToast(tx, network);
       openConfirmModal(
-        `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`
+        network === Network.MAINNET
+          ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
+          : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`
       );
     } catch {
       openFailModal(t('swap.error.failedToSwap'));

@@ -3,7 +3,11 @@ import { SuiTransactionBlockResponse } from '@mysten/sui.js';
 import { propOr } from 'ramda';
 import toast from 'react-hot-toast';
 
-import { NETWORK_RECORD, SUI_EXPLORER_URL } from '@/constants';
+import {
+  NETWORK_RECORD,
+  SUI_EXPLORER_URL,
+  SUI_VISION_EXPLORER_URL,
+} from '@/constants';
 import { Box, Typography } from '@/elements';
 import { SuiSVG } from '@/svg';
 import { tryCatch } from '@/utils/promise';
@@ -14,12 +18,12 @@ export const showTXSuccessToast = async (
   tx: SuiTransactionBlockResponse,
   network: Network
 ): Promise<void> => {
+  const explorerLink =
+    network === Network.MAINNET
+      ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
+      : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`;
   toast(
-    <a
-      target="__black"
-      rel="noreferrer nofollow"
-      href={`${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`}
-    >
+    <a target="__black" rel="noreferrer nofollow" href={explorerLink}>
       <Box display="flex" alignItems="center">
         <Box width="1.5rem" height="1.5rem" mr="M">
           <SuiSVG

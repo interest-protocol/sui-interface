@@ -1,15 +1,22 @@
 import { Button } from '@interest-protocol/ui-kit';
+import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 import { path, pathOr } from 'ramda';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
+import { LoadingPage } from '@/components';
 import { useModal } from '@/hooks';
 
 import SwapFormConfirmModal from './swap-form-confirm-modal';
 import SwapFormFailModal from './swap-form-fail-modal';
 import { SwapFormPreviewProps } from './swap-form-preview.types';
 import SwapFormPreviewModal from './swap-form-preview-modal';
+
+const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
+  ssr: false,
+  loading: LoadingPage,
+});
 
 const SwapFormPreview: FC<SwapFormPreviewProps> = ({
   mutate,
@@ -30,7 +37,9 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
 
   const openFailModal = (message?: string) =>
     setModal(
-      <SwapFormFailModal message={message} handleClose={handleClose} />,
+      <Web3Manager>
+        <SwapFormFailModal message={message} handleClose={handleClose} />
+      </Web3Manager>,
       {
         isOpen: true,
         custom: true,
@@ -40,26 +49,33 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
     );
 
   const openConfirmModal = (link: string) =>
-    setModal(<SwapFormConfirmModal txLink={link} handleClose={handleClose} />, {
-      isOpen: true,
-      custom: true,
-      opaque: false,
-      allowClose: false,
-    });
+    setModal(
+      <Web3Manager>
+        <SwapFormConfirmModal txLink={link} handleClose={handleClose} />
+      </Web3Manager>,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: false,
+      }
+    );
 
   const openPreviewModal = () => {
     if (isDisabled) return;
 
     setModal(
-      <SwapFormPreviewModal
-        mutate={mutate}
-        formSwap={formSwap}
-        dexMarket={dexMarket}
-        closeModal={handleClose}
-        formSettings={formSettings}
-        openFailModal={openFailModal}
-        openConfirmModal={openConfirmModal}
-      />,
+      <Web3Manager>
+        <SwapFormPreviewModal
+          mutate={mutate}
+          formSwap={formSwap}
+          dexMarket={dexMarket}
+          closeModal={handleClose}
+          formSettings={formSettings}
+          openFailModal={openFailModal}
+          openConfirmModal={openConfirmModal}
+        />
+      </Web3Manager>,
       {
         isOpen: true,
         custom: true,
