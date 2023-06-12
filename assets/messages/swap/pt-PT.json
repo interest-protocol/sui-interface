@@ -39,10 +39,11 @@
         "swappingToken": "A trocar token, por favor aguarde...",
         "exchangeRate": "Taxa de câmbio",
         "liquidityFee": "Taxa do Liquidity Provider",
-        "priceImpact": "Impacto de preço",
-        "minimumReceived": "Mínimo received depois da slippage",
+        "priceImpact": "Impacto no preço",
+        "minimumReceived": "Mínimo a receber depois da slippage",
         "networkFeesAreSetBy": "As taxas de rede são definidas por {networkName}. Saiba mais sobre as taxas.",
         "FinalAmountMessage": "O valor final pode ser alterado devido à atividade de mercado. Ao aprovar esta troca, você concorda com a Política de Reembolso do protocolo Interest.",
+        "footerText": "Ao aprovar esta transação, você concorda com todas as informações acima. O valor final pode variar devido ao mercado.",
         "confirmSwap": "Confirmar Troca",
         "notEnoughBalance": "Balanço insuficiente",
         "selectToken": {
