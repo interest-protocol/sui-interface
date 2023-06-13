@@ -146,7 +146,8 @@ const SwapFormField: FC<SwapInputProps> = ({
   };
 
   const balance = FixedPointMath.toNumber(
-    pathOr(ZERO_BIG_NUMBER, [currentTokenType, 'totalBalance'], coinsMap)
+    pathOr(ZERO_BIG_NUMBER, [currentTokenType, 'totalBalance'], coinsMap),
+    getValues(`${name}.decimals`)
   );
 
   return (
