@@ -9,17 +9,17 @@
       "balance": "Saldo",
       "selectToken": "Selecionar um token",
       "preview": "Visualizar",
-      "fetchMarkets": "Trazer mercados...",
-      "fetchingAmounts": "Trazendo amounts...",
+      "fetchMarkets": "Buscando mercados...",
+      "fetchingAmounts": "Buscando quantias...",
       "errors": {
         "amountOut": "Falha ao obter o montante",
         "sameTokens": "Não é possível trocar o mesmo token",
         "balances": "Falha na obtenção de saldos",
         "noMarket": "Este par não tem mercado",
-        "infoNoPool": "Este par não tem liquidez. Experimente um montante superior ou adicione liquidez",
-        "noPool": "Não foi encontrada nenhuma pool! Experimente uma pool existente",
-        "error": "Falha na troca: tentar um deslizamento maior ou uma quantidade menor",
-        "increaseAmount": "Tentar aumentar a quantidade de {symbol}"
+        "infoNoPool": "Aumente o valor ou adicione liquidez a este par",
+        "noPool": "Pool não encontrada! Tente uma existente",
+        "error": "Falha na troca: Tente um slippage maior ou uma quantidade menor",
+        "increaseAmount": "Tente aumentar a quantidade de {symbol}"
       }
     },
     "modal": {
@@ -38,9 +38,9 @@
       "preview": {
         "swappingToken": "A trocar token, por favor aguarde...",
         "exchangeRate": "Taxa de câmbio",
-        "liquidityFee": "Taxa do Liquidity Provider",
+        "liquidityFee": "Taxa do Provedor de Liquidez",
         "priceImpact": "Impacto no preço",
-        "minimumReceived": "Mínimo a receber depois da slippage",
+        "minimumReceived": "Mínimo a receber depois do slippage",
         "networkFeesAreSetBy": "As taxas de rede são definidas por {networkName}. Saiba mais sobre as taxas.",
         "FinalAmountMessage": "O valor final pode ser alterado devido à atividade de mercado. Ao aprovar esta troca, você concorda com a Política de Reembolso do protocolo Interest.",
         "footerText": "Ao aprovar esta transação, você concorda com todas as informações acima. O valor final pode variar devido ao mercado.",
