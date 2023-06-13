@@ -40,12 +40,10 @@
         "exchangeRate": "Taxa de câmbio",
         "liquidityFee": "Taxa do Provedor de Liquidez",
         "priceImpact": "Impacto no preço",
-        "minimumReceived": "Mínimo a receber depois do slippage",
-        "networkFeesAreSetBy": "As taxas de rede são definidas por {networkName}. Saiba mais sobre as taxas.",
-        "FinalAmountMessage": "O valor final pode ser alterado devido à atividade de mercado. Ao aprovar esta troca, você concorda com a Política de Reembolso do protocolo Interest.",
-        "footerText": "Ao aprovar esta transação, você concorda com todas as informações acima. O valor final pode variar devido ao mercado.",
+        "minimumReceived": "Valor Minimo depois do slippage",
+        "footerText": "Ao aprovar esta transação, você concorda com as informações fornecidas e a possibilidade de variação do valor final.",
         "confirmSwap": "Confirmar Troca",
-        "notEnoughBalance": "Balanço insuficiente",
+        "notEnoughBalance": "Saldo Insuficiente",
         "selectToken": {
           "title": "Selecionar token",
           "search": "Buscar token",
@@ -55,14 +53,14 @@
         }
       },
       "confirm": {
-        "tokenSwapped": "Token Trocado",
-        "explorerMessage": "Você pode verificar sua transação no Explorador",
-        "seeOnExplorer": "Ver no SuiVision"
+        "title": "Token trocado",
+        "description": "Pode verificar a sua transacção no Explorador",
+        "button": "Ver na SuiVision"
       },
       "error": {
-        "swapFailed": "Erro",
-        "explorerMessage": "Sua troca falhou",
-        "seeOnExplorer": "Voltar e tentar de novo"
+        "title": "Erro",
+        "description": "A sua troca falhou",
+        "button": "Tente de Novo"
       }
     },
     "error": {
