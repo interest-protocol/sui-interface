@@ -21,6 +21,8 @@ export interface CardWrapperProps {
 
 export interface CardSectionProps {
   title: string;
+  alignTitle?: 'left' | 'center' | 'right';
+  padding?: string;
   isModal?: boolean;
   lines: ReadonlyArray<LineCardProps>;
 }

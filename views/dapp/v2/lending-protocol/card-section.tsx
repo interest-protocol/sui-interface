@@ -8,7 +8,9 @@ const CardSection: FC<PropsWithChildren<CardSectionProps>> = ({
   title,
   lines,
   isModal,
+  padding,
   children,
+  alignTitle,
 }) => {
   const { dark } = useTheme() as Theme;
   const surface1 = dark
@@ -16,13 +18,13 @@ const CardSection: FC<PropsWithChildren<CardSectionProps>> = ({
     : 'linear-gradient(0deg, rgba(0, 85, 255, 0.04), rgba(0, 85, 255, 0.04)), #F2F0F4;';
 
   return (
-    <Box
-      p="1.5rem"
-      borderTop="1px solid"
-      borderColor="#B6C4FF33"
-      bg={isModal ? 'transparent' : surface1}
-    >
-      <Typography variant="medium" mb="0.75rem">
+    <Box p="1.5rem" bg={isModal ? 'transparent' : surface1}>
+      <Typography
+        mb="0.75rem"
+        variant="medium"
+        padding={padding}
+        textAlign={alignTitle}
+      >
         {title}
       </Typography>
       {lines.map(({ description, value, Icon }) => (

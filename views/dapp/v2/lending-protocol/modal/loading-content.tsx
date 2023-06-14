@@ -7,8 +7,6 @@ const LoadingContent: FC<ModalContentProps> = ({ message }) => (
   <Box
     pb="2.25rem"
     pt="2.625rem"
-    borderTop="1px solid"
-    borderColor="#B6C4FF33"
     flexDirection="column"
     alignItems="center"
     display="flex"
