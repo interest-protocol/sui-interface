@@ -5,7 +5,6 @@ import {
   FC,
   PropsWithChildren,
   ReactNode,
-  useEffect,
   useState,
 } from 'react';
 
