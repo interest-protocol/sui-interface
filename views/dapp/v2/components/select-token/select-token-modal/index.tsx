@@ -34,12 +34,12 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
   coinsMap,
   provider,
   closeModal,
-  onSelectToken,
-  currentTokenType,
-  searchTokenModalState,
-  recommendedTokens,
   walletTokens,
   favoriteForm,
+  onSelectToken,
+  currentTokenType,
+  recommendedTokens,
+  searchTokenModalState,
 }) => {
   const t = useTranslations();
 

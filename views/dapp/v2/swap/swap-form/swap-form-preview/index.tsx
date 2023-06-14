@@ -44,7 +44,7 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
         isOpen: true,
         custom: true,
         opaque: false,
-        allowClose: false,
+        allowClose: true,
       }
     );
 
@@ -57,7 +57,7 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
         isOpen: true,
         custom: true,
         opaque: false,
-        allowClose: false,
+        allowClose: true,
       }
     );
 
@@ -80,8 +80,7 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
         isOpen: true,
         custom: true,
         opaque: false,
-        allowClose: true,
-        onClose: handleClose,
+        allowClose: false,
       }
     );
   };

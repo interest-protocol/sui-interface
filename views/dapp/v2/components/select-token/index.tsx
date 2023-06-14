@@ -87,12 +87,12 @@ const SelectToken: FC<SelectTokenProps> = ({
           provider={provider}
           coinsMap={coinsMap}
           closeModal={handleClose}
+          walletTokens={walletTokens}
+          favoriteForm={favoritesForm}
           onSelectToken={handleOnSelectToken}
           currentTokenType={currentTokenType}
-          searchTokenModalState={searchTokenModalState}
-          walletTokens={walletTokens}
           recommendedTokens={recommendedTokens}
-          favoriteForm={favoritesForm}
+          searchTokenModalState={searchTokenModalState}
         />
       </Motion>,
       {
@@ -100,8 +100,6 @@ const SelectToken: FC<SelectTokenProps> = ({
         custom: true,
         opaque: false,
         allowClose: true,
-        onClose: handleClose,
-        hasCloseButton: true,
       }
     );
 

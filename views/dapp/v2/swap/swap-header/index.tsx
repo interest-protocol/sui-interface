@@ -34,6 +34,7 @@ const SwapHeader: FC<SwapHeaderProps> = ({
       {
         isOpen: true,
         custom: true,
+        allowClose: true,
         onClose: closeModal,
       }
     );
