@@ -1,0 +1,12 @@
+{
+  "faucet": {
+    "pageTitle": "Fauncet",
+    "mint": "{isLoading, plural, =1 {Minting...} other {Mint}}",
+    "tokenInput": "Elige el Token",
+    "firstSectionTitle": "Tokens recomendados",
+    "secondSectionTitle": "Mis tokens",
+    "amountInput": "cantidad",
+    "notFoundToken": "Token no encontrado",
+    "select": "Selecciona un token"
+  }
+}

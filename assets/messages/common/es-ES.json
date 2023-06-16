@@ -1,0 +1,84 @@
+{
+  "common": {
+    "v2": {
+      "on": "on",
+      "off": "off",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "confirmChanges": "Confirmar cambios",
+      "languages": {
+        "title": "Idioma",
+        "en-US": "Inglés",
+        "pt-PT": "Portugués",
+        "pt-BR": "Portugués"
+      },
+      "navbar": {
+        "swap": "Intercambio",
+        "home": "Inicio",
+        "pool": "pool",
+        "farm": "farm",
+        "createToken": "Crear token",
+        "settings": "Configuración"
+      },
+      "menu": {
+        "settings": "Configuración",
+        "darkMode": "Modo oscuro",
+        "dark": "Oscuro",
+        "light": "Claro",
+        "languages": "Idiomas"
+      },
+      "wallet": {
+        "name": "cartera",
+        "connect": "Conectar",
+        "disconnect": "Desconectar",
+        "switch": "Cambiar red",
+        "error": "Error de conexión",
+        "connecting": "Conectando",
+        "copy": "Dirección copiada"
+      },
+      "lend": {
+        "title": "Préstamo",
+        "firstSection": {
+          "netAPY": "APY neto",
+          "supplyBalance": "Saldo de suministro",
+          "walletBalance": "Saldo de la cartera",
+          "borrowLimit": "Límite de préstamo",
+          "borrowLimitUsed": "Límite de préstamo utilizado"
+        }
+      },
+      "banner": {
+        "liquidity": {
+          "title": "20 Millones de Tokens IPX",
+          "label": "Disponibles",
+          "description": "suministra liquidez para cultivar los tokens IPX",
+          "buttons": { "main": "Ir al Airdrop", "secondary": "Saber más" }
+        },
+        "zealy": {
+          "title": "3 Millones de Tokens IPX",
+          "label": "Disponibles",
+          "description": "Completa misiones para obtener el Airdrop",
+          "buttons": { "main": "Ir a Zealy", "secondary": "Saber más" }
+        },
+        "swap": {
+          "title": "5 Millones de Tokens IPX",
+          "label": "Disponibles",
+          "description": "Intercambia para obtener el Airdrop",
+          "buttons": { "main": "Intercambiar ahora", "secondary": "Saber más" }
+        }
+      }
+    },
+    "dex": "DEX",
+    "home": "Inicio",
+    "soon": "Próximamente",
+    "pool": "Pool",
+    "notFoundToken": "Metadatos del token no encontrados",
+    "searchTokenInputDescription": "Buscar por nombre, símbolo o tipo...",
+    "swap": "{isLoading, plural, =1 {intercambiando} other {Intercambiar}}",
+    "balance": "Saldo",
+    "success": "Éxito",
+    "notFound": "No encontrado",
+    "loading": "Cargando...",
+    "load": "{isLoading, plural, =1 {cargando...} other {Cargar}}",
+    "back": "Volver"
+  }
+}

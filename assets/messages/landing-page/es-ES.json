@@ -1,0 +1,133 @@
+{
+  "landingPage": {
+    "metadata": {
+      "title": "Inicio"
+    },
+    "hero": {
+      "title": {
+        "first": "{isMobile, plural, =1 {Swap, prestar} other {Swap, prestar, pedir prestado} }",
+        "second": "{isMobile, plural, =1 {pedir prestado y cultivar} other {y cultivar.} }"
+      },
+      "description": "El protocolo DeFi de última generación",
+      "dappCTA": "Opera ahora en SUI",
+      "campaignCTA": "Gana un Airdrop"
+    },
+    "aboutUs": {
+      "title": {
+        "first": "El Mejor",
+        "second": "Protocolo"
+      },
+      "services": {
+        "earn": {
+          "name": "Lucra",
+          "description": "Pon tus activos digitales a trabajar y obtén retornos estables. Interest Protocol te permitirá sentarte y ver tu inversión creciendo."
+        },
+        "trade": {
+          "name": "Trade",
+          "description": "Lleva tu juego de trading al nivel más alto. En nuestra interfaz, puedes intercambiar fácilmente tus criptomonedas favoritas en un solo lugar."
+        },
+        "lend": {
+          "name": "Préstamos",
+          "description": "Pon tus activos en piloto automático. Obtén los fondos que necesitas y conserva los Tokens que te gustan."
+        }
+      }
+    },
+    "usedBy": {
+      "title": "Utilizado por...",
+      "metrics": {
+        "users": {
+          "title": "Usuarios",
+          "description": "Direcciones únicas"
+        },
+        "tvl": {
+          "title": "TVL (USD)",
+          "description": "Valor total bloqueado"
+        },
+        "volume": {
+          "title": "Volumen (USD)",
+          "description": "Volumen acumulativo"
+        }
+      }
+    },
+    "valueProposition": {
+      "title": {
+        "first": "Completamente descentralizado",
+        "second": "Completamente seguro"
+      },
+      "description": "Interest Protocol tiene como objetivo establecer una red de intercambio que brinde todo el soporte subyacente necesario para un ecosistema DeFi robusto. Nuestro objetivo es capacitar a cada poseedor de activos digitales para que experimente un servicio verdaderamente seguro, gratuito y transparente."
+    },
+    "security": {
+      "openSource": {
+        "title": "Código abierto",
+        "description": "Priorizar la transparencia y la confianza a través de nuestra plataforma de código abierto; Fomentamos la colaboración, la innovación y al mismo tiempo proporcionamos una mayor seguridad.",
+        "link": "Visita nuestro Github"
+      },
+      "audited": {
+        "title": "Auditados",
+        "description": "Nuestro protocolo es auditado por <link>MOVEBIT</link>, una empresa de seguridad de blockchain de terceros, enfocada en la seguridad del ecosistema Move que nos ayudó a mantener seguro nuestro protocolo.",
+        "link": "Lee la Auditoría"
+      }
+    },
+    "advantages": {
+      "title": {
+        "first": "Aprovecha al máximo",
+        "second": "Todo"
+      },
+      "content": {
+        "rewards": {
+          "description": "Obtén recompensas durante el trading."
+        },
+        "profits": {
+          "description": "Maximiza las ganancias con estrategias automatizadas."
+        },
+        "fees": {
+          "description": "Intercambia tokens con comisiones bajas."
+        }
+      }
+    },
+    "learnMore": {
+      "title": {
+        "first": "Aprende más",
+        "second": "Sobre nosotros"
+      },
+      "subTitles": {
+        "documentation": "Documentación",
+        "ourTeam": "Nuestro Equipo",
+        "mediaKit": "Kit de Medios"
+      }
+    },
+    "partners": {
+      "title": "Socios"
+    },
+    "footer": {
+      "getEarlyNotifications": {
+        "title": {
+          "first": "Recibe",
+          "second": "Notificaciones",
+          "third": "Sobre nuevas funciones"
+        },
+        "placeholder": "tu-email@gmail.com",
+        "button": "{isLoading, plural, =1 {Enviando...} other {Enviar}}",
+        "errors": {
+          "1008": "contacto ya añadido"
+        }
+      }
+    }
+  },
+  "team": {
+    "metadata": {
+      "title": "Equipo"
+    },
+    "title": {
+      "first": "El",
+      "second": "Equipo"
+    },
+    "roles": {
+      "CFO": "Co-Fundador y CFO",
+      "CEO": "Co-Fundador y CEO",
+      "developer": "Desarrollador",
+      "marketing": "Gerente de Marketing",
+      "designer": "Diseñador"
+    }
+  }
+}
