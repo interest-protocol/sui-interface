@@ -10,7 +10,8 @@
         "title": "Idioma",
         "en-US": "Inglés",
         "pt-PT": "Portugués",
-        "pt-BR": "Portugués"
+        "pt-BR": "Portugués",
+        "es-ES": "Español"
       },
       "navbar": {
         "swap": "Intercambio",

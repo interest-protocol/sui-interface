@@ -22,6 +22,7 @@ export { default as DotsSVG } from './dots';
 export { default as DribbleSVG } from './dribbble';
 export { default as EarnSVG } from './earn';
 export { default as EmptyBoxSVG } from './empty-box';
+export { default as ESFlagSVG } from './es-flag';
 export { default as EtherSVG } from './ether';
 export { default as FaucetSVG } from './faucet';
 export { default as GitBookSVG } from './git-book';
