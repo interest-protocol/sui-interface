@@ -1,56 +1,32 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
-import {
-  Area,
-  AreaChart,
-  LabelList,
-  Legend,
-  Line,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
 
 import { Layout } from '../components';
-
-const data = [
-  { name: '1D', uv: 4000, pv: 2400, amt: 2400 },
-  { name: '1W', uv: 3000, pv: 1398, amt: 2210 },
-  { name: '1M', uv: 2000, pv: 9800, amt: 2290 },
-  { name: '1M', uv: 2000, pv: 9800, amt: 2290 },
-  { name: '1M', uv: 2000, pv: 9800, amt: 2290 },
-  { name: '1M', uv: 2000, pv: 9800, amt: 2290 },
-  { name: '1M', uv: 2000, pv: 9800, amt: 2290 },
-  { name: '1M', uv: 2000, pv: 9800, amt: 2290 },
-  { name: '1M', uv: 2000, pv: 9800, amt: 2290 },
-  { name: '1Y', uv: 2780, pv: 3908, amt: 2000 },
-  { name: 'All', uv: 1890, pv: 4800, amt: 2181 },
-];
-
-const CustomizedLabel: FC<any> = (props: any) => {
-  const { x, y, stroke, value } = props;
-
-  return (
-    <text x={x} y={y} dy={-4} fill={stroke} fontSize={14} textAnchor="middle">
-      {value}
-    </text>
-  );
-};
-
-const CustomizedAxisTick: FC<any> = (props: any) => {
-  const { x, y, payload } = props;
-
-  return (
-    <g transform={`translate(${x},${y})`}>
-      <text x={0} y={0} dy={20} textAnchor="middle" fill="#B4C5FF">
-        {payload.value}
-      </text>
-    </g>
-  );
-};
+import LinearChart from '../components/charts/linear';
 
 const Home: FC = () => {
+  const data = [
+    { name: 'YT', uv: 2000, pv: 332, amt: 2290 },
+    { name: '1D', uv: 4000, pv: 52, amt: 2400 },
+    { name: '1W', uv: 3000, pv: 232, amt: 2210 },
+    { name: '1M', uv: 2000, pv: 5234, amt: 2290 },
+    { name: '2M', uv: 2000, pv: 5234, amt: 2290 },
+    { name: '3M', uv: 2000, pv: 23, amt: 2290 },
+    { name: '4M', uv: 2000, pv: 525, amt: 2290 },
+    { name: '5M', uv: 2000, pv: 4164, amt: 2290 },
+    { name: '6M', uv: 2000, pv: 734, amt: 2290 },
+    { name: '7M', uv: 2000, pv: 574, amt: 2290 },
+    { name: '8M', uv: 2000, pv: 346, amt: 2290 },
+    { name: '9M', uv: 2000, pv: 236, amt: 2290 },
+    { name: '10M', uv: 2000, pv: 853, amt: 2290 },
+    { name: '11M', uv: 2000, pv: 674, amt: 2290 },
+    { name: '1Y', uv: 2780, pv: 124, amt: 2000 },
+    { name: 'All', uv: 1890, pv: 844, amt: 2181 },
+    { name: '1M', uv: 2000, pv: 346, amt: 2290 },
+    { name: '1M', uv: 2000, pv: 123, amt: 2290 },
+    { name: '1M', uv: 2000, pv: 795, amt: 2290 },
+  ];
+  const visibleData = ['1D', '1W', '1M', '1Y', 'All'];
   return (
     <Layout dashboard>
       <Box variant="container">
@@ -62,7 +38,12 @@ const Home: FC = () => {
           borderRadius="m"
           bg="surface.containerLow"
         >
-          <Box display="flex" flexDirection="column" rowGap="1rem">
+          <Box
+            display="flex"
+            flexDirection="column"
+            rowGap="1rem"
+            margin="1.125rem 1.1875rem 2.3681rem"
+          >
             <Typography variant="medium" color="white">
               Performance
             </Typography>
@@ -70,45 +51,7 @@ const Home: FC = () => {
               USD 19.90
             </Typography>
           </Box>
-          <Box height="217px" width="100%">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data}>
-                <defs>
-                  <linearGradient
-                    id="chartGradient"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop offset="6%" stopColor="rgba(180, 197, 255, 0.77)" />
-                    <stop offset="7%" stopColor="rgba(180, 197, 255, 0.54)" />
-                    <stop offset="85%" stopColor="rgba(19, 19, 22, 0)" />
-                  </linearGradient>
-                </defs>
-                <XAxis
-                  dataKey="name"
-                  //   padding={{ left: 20, right: 20 }}
-                  axisLine={false}
-                  interval="preserveStartEnd"
-                  tick={<CustomizedAxisTick />}
-                />
-                <LabelList content={<CustomizedLabel />} />
-                <YAxis hide={true} />
-                <Line dataKey="name" strokeWidth={1} />
-                <Line dataKey="name" strokeWidth={3} />
-                <Tooltip />
-                {/* <Legend /> */}
-                <Area
-                  type="linear"
-                  dataKey="pv"
-                  stroke="#B4C5FF"
-                  fill="url(#chartGradient)"
-                  fillOpacity={0.15}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </Box>
+          <LinearChart visibleData={visibleData} data={data} />
         </Box>
       </Box>
     </Layout>
