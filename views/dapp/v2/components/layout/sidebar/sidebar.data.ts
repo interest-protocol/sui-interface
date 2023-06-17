@@ -7,7 +7,7 @@ export const SIDEBAR_ITEMS = [
     Icon: HomeSVG,
     name: 'home',
     path: Routes[RoutesEnum.DApp],
-    disabled: true,
+    disabled: false,
   },
   {
     Icon: SwapSVG,
