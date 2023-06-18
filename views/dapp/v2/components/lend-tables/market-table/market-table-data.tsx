@@ -109,7 +109,7 @@ export const SUPPLY_MARKET_TABLE_DATA: ReadonlyArray<GroupSupplyRow> = [
 export const BORROW_MARKET_TABLE_DATA: ReadonlyArray<GroupBorrowRow> = [
   {
     isEngaged: true,
-    description: 'Supply Added',
+    description: 'Un loan',
     BorrowMarketTableData: [
       {
         assetApy: {

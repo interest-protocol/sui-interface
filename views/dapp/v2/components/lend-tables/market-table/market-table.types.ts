@@ -6,7 +6,7 @@ export interface MarketTableProps {
   data: ReadonlyArray<GroupBorrowRow> | ReadonlyArray<GroupSupplyRow>;
 }
 
-interface assetApyProps {
+export interface assetApyProps {
   coin: {
     token: { decimals: number; symbol: TOKEN_SYMBOL; type: string };
     color?: { dark: string; light: string };

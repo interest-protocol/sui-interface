@@ -20,7 +20,6 @@ const TopMoversSection: FC = () => (
       ]}
       overflowX="auto"
       gap="0.5rem"
-      mb="1rem"
       flexWrap="wrap"
     >
       {CARD_HEADERS.map((item) => (

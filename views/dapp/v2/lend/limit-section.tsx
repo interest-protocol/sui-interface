@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 const LimitSection: FC = () => (
   <Box
-    py="1.375rem"
+    my="2.375rem"
     color="onSurface"
     display="grid"
     gridTemplateColumns="auto 1fr"

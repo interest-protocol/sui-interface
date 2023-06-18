@@ -7,17 +7,24 @@ import {
   useTheme,
 } from '@interest-protocol/ui-kit';
 import Link from 'next/link';
-import { FC } from 'react';
+import { not } from 'ramda';
+import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
 import { Routes, RoutesEnum } from '@/constants';
+import { useModal } from '@/hooks';
 
 import { MarketTableSupplyProps } from '../market-table/market-table.types';
-import { TOKENS_SVG_MARKET_MAP } from '../svg/market-tables';
+import { getSVG } from '../market-table/market-table.utils';
+import CollateralModal from './Modal/collateral-modal';
+import DisablingCollateralModal from './Modal/disabling-collateral-modal';
+import ResultCollateralModal from './Modal/result-collateral';
 
 const SupplyMarketTableRow: FC<
   MarketTableSupplyProps & { isEngaged: boolean }
 > = ({ assetApy, supplied, wallet, collateral, isEngaged }) => {
+  const { setModal, handleClose } = useModal();
+  const [collateralSwitch, setCollateralSwitch] = useState(collateral);
   const { dark } = useTheme() as Theme;
   const surface1 = dark
     ? 'linear-gradient(0deg, rgba(182, 196, 255, 0.04), rgba(182, 196, 255, 0.04)), #1B1B1F'
@@ -26,9 +33,64 @@ const SupplyMarketTableRow: FC<
     ? 'linear-gradient(0deg, rgba(182, 196, 255, 0.08), rgba(182, 196, 255, 0.08)), #1B1B1F'
     : 'linear-gradient(0deg, rgba(0, 85, 255, 0.08), rgba(0, 85, 255, 0.08)), #F2F0F4';
 
-  const getSVG = (type: string) => {
-    const SVG = TOKENS_SVG_MARKET_MAP[type] ?? TOKENS_SVG_MARKET_MAP.default;
-    return <SVG width="2.5rem" maxHeight="100%" maxWidth="2.5rem" />;
+  const handleCollateralSwitch = () => {
+    setCollateralSwitch(not);
+  };
+
+  const openCollateralModal = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+    handleCollateralSwitch();
+    setModal(
+      <Motion
+        initial={{ scale: 0.85 }}
+        animate={{ scale: 1 }}
+        transition={{
+          duration: 0.3,
+        }}
+      >
+        {!collateralSwitch ? (
+          <CollateralModal
+            closeModal={handleClose}
+            assetApy={assetApy}
+            resultModal={openResultModal}
+          />
+        ) : (
+          <DisablingCollateralModal
+            closeModal={handleClose}
+            assetApy={assetApy}
+            resultModal={openResultModal}
+          />
+        )}
+      </Motion>,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
+  };
+
+  const openResultModal = () => {
+    const RANDOM_RESULT = Math.random() < 0.5;
+    setModal(
+      <ResultCollateralModal
+        title={'Enable as Collateral'}
+        content={
+          RANDOM_RESULT
+            ? 'You have enable [Token name] as a Collateral'
+            : 'You have NOT enable [Token name] as a Collateral'
+        }
+        closeModal={handleClose}
+        isSuccess={RANDOM_RESULT}
+      />,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
   };
 
   return (
@@ -118,9 +180,10 @@ const SupplyMarketTableRow: FC<
         >
           <Box>
             <SwitchButton
-              defaultValue={collateral}
+              defaultValue={collateralSwitch}
               name={assetApy.coin.token.symbol}
               labels={''}
+              onClick={openCollateralModal}
             />
           </Box>
         </Box>
