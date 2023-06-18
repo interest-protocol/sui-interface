@@ -1,4 +1,4 @@
-import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
+import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { FC, PropsWithChildren, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
@@ -43,16 +43,21 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
         />
         <Box bg="surface" display="flex" height="100vh" overflow="hidden">
           <Sidebar />
-          <Box as="main" flex="1" minHeight="100vh" overflow="auto">
+          <Box as="main" flex="1" minHeight="100vh" overflow="auto" px="1.5rem">
             <Box
               as="header"
               display="flex"
               variant="container"
-              justifyContent="flex-end"
+              justifyContent="space-between"
               pr={['unset', 'unset', 'unset', 'xl']}
             >
-              <Wallet />
-              <LangSwitch />
+              <Typography variant="displayLarge" color="onSurface">
+                Lend
+              </Typography>
+              <Box display="flex" justifyContent="space-between">
+                <Wallet />
+                <LangSwitch />
+              </Box>
             </Box>
             {children}
           </Box>

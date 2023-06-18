@@ -23,6 +23,7 @@
         "swap": "troca",
         "home": "início",
         "pool": "pool",
+        "lend": "emprestimo",
         "farm": "farm",
         "createToken": "criar token",
         "settings": "definições"

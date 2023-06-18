@@ -16,6 +16,7 @@
         "swap": "swap",
         "home": "home",
         "pool": "pool",
+        "lend": "lend",
         "farm": "farm",
         "createToken": "create token",
         "settings": "settings"
