@@ -6,7 +6,7 @@ import { SEO } from '@/components';
 import { NextPageWithProps } from '@/interface';
 import Home from '@/views/dapp/v2/home';
 
-const DAppPage: NextPageWithProps = ({ now, messages, pageTitle }) => {
+const HomePage: NextPageWithProps = ({ now, messages, pageTitle }) => {
   if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'production')
     return (
       <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
@@ -39,4 +39,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default DAppPage;
+export default HomePage;
