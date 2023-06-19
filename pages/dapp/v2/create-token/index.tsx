@@ -26,7 +26,7 @@ const CreateTokenPage: NextPageWithProps = ({ now, messages, pageTitle }) => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, lendingMessages] = await Promise.all([
     import(`../../../../assets/messages/common/${locale}.json`),
-    import(`../../../../assets/messages/lending/${locale}.json`),
+    import(`../../../../assets/messages/create-token/${locale}.json`),
   ]);
 
   const messages = mergeDeepRight(
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     props: {
       messages,
       now: Date.now(),
-      pageTitle: 'lending.metadata.title',
+      pageTitle: 'createToken.pageTitle',
     },
   };
 };

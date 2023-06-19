@@ -7,6 +7,7 @@
     "inputSymbol": "Symbol*",
     "inputIconUrl": "Icon URL*",
     "inputDescription": "Description",
+    "balance": "Balance",
     "advice": "You must pay 1 Sui for Token Creation",
     "inputAmount": "Amount*",
     "inputPlaceholder": "Type {label}"

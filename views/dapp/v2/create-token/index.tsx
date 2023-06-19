@@ -7,6 +7,7 @@ import { capitalize } from '@/utils';
 
 const CreateToken: FC = () => {
   const t = useTranslations();
+  const balance = 0.0234;
   return (
     <Box variant="container">
       <Box
@@ -36,7 +37,7 @@ const CreateToken: FC = () => {
           <TextField placeholder={t('createToken.inputIconUrl')} />
           <Box>
             <Typography variant="medium" mb="0.375rem" textAlign="right">
-              Balance 0.000
+              {t('createToken.balance')} {balance}
             </Typography>
             <TextField placeholder={t('createToken.inputAmount')} />
           </Box>
@@ -58,7 +59,9 @@ const CreateToken: FC = () => {
           </Box>
         </Box>
         <Box display="flex" justifyContent="center">
-          <Button variant="filled">{t('createToken.button')}</Button>
+          <Button variant="filled">
+            {t('createToken.button', { isLoading: 0 })}
+          </Button>
         </Box>
       </Box>
     </Box>
