@@ -5,6 +5,14 @@ import { FC } from 'react';
 import { WarningCircle } from '@/svg';
 import { capitalize } from '@/utils';
 
+const fieldProps = {
+  border: '0px',
+  bg: 'surface.containerLowest',
+  height: '3.5rem',
+  color: 'onSurfaceVariant',
+  paddingLeft: '1rem',
+};
+
 const CreateToken: FC = () => {
   const t = useTranslations();
   const balance = 0.0234;
@@ -16,15 +24,28 @@ const CreateToken: FC = () => {
         width="100%"
         color="onSurface"
       >
-        <Typography variant="displayLarge" mb="4.625rem" textAlign="center">
+        <Typography
+          variant="displayLarge"
+          mb="4.625rem"
+          textAlign="center"
+          color="white"
+        >
           {capitalize(t('createToken.pageTitle'))}
         </Typography>
         <Box display="flex" columnGap="1.5rem" mb="2.3125rem">
           <Box flex={1}>
-            <TextField placeholder={t('createToken.inputName')} />
+            <TextField
+              placeholder={t('createToken.inputName')}
+              fieldProps={fieldProps}
+              fontSize="1rem"
+            />
           </Box>
           <Box flex={1}>
-            <TextField placeholder={t('createToken.inputSymbol')} />
+            <TextField
+              placeholder={t('createToken.inputSymbol')}
+              fieldProps={fieldProps}
+              fontSize="1rem"
+            />
           </Box>
         </Box>
         <Box
@@ -33,21 +54,33 @@ const CreateToken: FC = () => {
           gap="2.3125rem"
           mb="2.3125rem"
         >
-          <TextField placeholder={t('createToken.inputDescription')} />
-          <TextField placeholder={t('createToken.inputIconUrl')} />
+          <TextField
+            placeholder={t('createToken.inputDescription')}
+            fieldProps={fieldProps}
+            fontSize="1rem"
+          />
+          <TextField
+            placeholder={t('createToken.inputIconUrl')}
+            fieldProps={fieldProps}
+            fontSize="1rem"
+          />
           <Box>
-            <Typography variant="medium" mb="0.375rem" textAlign="right">
+            <Typography variant="medium" mb=".375rem" textAlign="right">
               {t('createToken.balance')} {balance}
             </Typography>
-            <TextField placeholder={t('createToken.inputAmount')} />
+            <TextField
+              placeholder={t('createToken.inputAmount')}
+              fieldProps={fieldProps}
+              fontSize="1rem"
+            />
           </Box>
           <Box
             bg="secondary.secondaryContainer"
-            p="0.6875rem"
+            p=".6875rem"
             display="flex"
-            gap="0.625rem"
+            gap=".625rem"
             alignItems="center"
-            borderRadius="0.25rem"
+            borderRadius=".25rem"
           >
             <WarningCircle
               width="1.5rem"
@@ -59,7 +92,7 @@ const CreateToken: FC = () => {
           </Box>
         </Box>
         <Box display="flex" justifyContent="center">
-          <Button variant="filled">
+          <Button variant="filled" size="small" fontSize=".875rem" px="1.5rem">
             {t('createToken.button', { isLoading: 0 })}
           </Button>
         </Box>
