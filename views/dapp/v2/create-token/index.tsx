@@ -1,4 +1,11 @@
-import { Box, Button, TextField, Typography } from '@interest-protocol/ui-kit';
+import {
+  Box,
+  Button,
+  TextField,
+  Theme,
+  Typography,
+  useTheme,
+} from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
@@ -15,6 +22,7 @@ const fieldProps = {
 
 const CreateToken: FC = () => {
   const t = useTranslations();
+  const { dark } = useTheme() as Theme;
   const balance = 0.0234;
   return (
     <Box variant="container">
@@ -28,11 +36,17 @@ const CreateToken: FC = () => {
           variant="displayLarge"
           mb="4.625rem"
           textAlign="center"
-          color="white"
+          color={dark ? 'white' : 'black'}
         >
           {capitalize(t('createToken.pageTitle'))}
         </Typography>
-        <Box display="flex" columnGap="1.5rem" mb="2.3125rem">
+        <Box
+          display="flex"
+          rowGap="2.3125rem"
+          flexDirection={['column', 'column', 'column', 'row']}
+          columnGap="1.5rem"
+          mb="2.3125rem"
+        >
           <Box flex={1}>
             <TextField
               placeholder={t('createToken.inputName')}
@@ -81,6 +95,7 @@ const CreateToken: FC = () => {
             gap=".625rem"
             alignItems="center"
             borderRadius=".25rem"
+            color="primary"
           >
             <WarningCircle
               width="1.5rem"
