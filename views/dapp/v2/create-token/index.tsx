@@ -23,7 +23,7 @@ const fieldProps = {
 const CreateToken: FC = () => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
-  const balance = 0.0234;
+  const balance = '∞';
   return (
     <Box variant="container">
       <Box
@@ -80,7 +80,7 @@ const CreateToken: FC = () => {
           />
           <Box>
             <Typography variant="medium" mb=".375rem" textAlign="right">
-              {t('createToken.balance')} {balance}
+              {t('createToken.balance')}: {balance}
             </Typography>
             <TextField
               placeholder={t('createToken.inputAmount')}
