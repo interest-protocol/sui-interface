@@ -1,5 +1,6 @@
 import { Box } from '@interest-protocol/ui-kit';
-import { FC } from 'react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { FC } from 'react';
 import { Tooltip } from 'react-tooltip';
 import {
   Area,
