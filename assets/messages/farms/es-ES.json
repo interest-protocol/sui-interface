@@ -1,0 +1,17 @@
+{
+  "farms": {
+    "pageTitle": "Farms",
+    "filterStaked": "Farms usadas",
+    "column1Tip": "Valor Total Bloqueado",
+    "column2Tip": "Cantidad apostada para cultivar Int",
+    "column3Tip": "Tasa Porcentual Anual <br/> interés generado anualmente",
+    "column4": "Asignación",
+    "column4Tip": "Representa el % de Tokens de Interés emitidos en comparación con otros pools.",
+    "column5Tip": "Volátil o Estable.",
+    "errors": {
+      "farms": "Error al obtener los datos de las farms",
+      "pools": "Error al obtener los datos de las pools",
+      "prices": "Error al obtener los precios de las monedas"
+    }
+  }
+}

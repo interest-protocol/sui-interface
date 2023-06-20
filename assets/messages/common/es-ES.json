@@ -1,0 +1,173 @@
+{
+  "common": {
+    "v2": {
+      "on": "on",
+      "off": "off",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "confirmChanges": "Confirmar cambios",
+      "languages": {
+        "title": "Idioma",
+        "en-US": "Inglés",
+        "pt-PT": "Portugués",
+        "pt-BR": "Portugués",
+        "es-ES": "Español"
+      },
+      "navbar": {
+        "swap": "Intercambio",
+        "home": "Inicio",
+        "pool": "pool",
+        "farm": "farm",
+        "createToken": "Crear token",
+        "settings": "Configuración"
+      },
+      "menu": {
+        "settings": "Configuración",
+        "darkMode": "Modo oscuro",
+        "dark": "Oscuro",
+        "light": "Claro",
+        "languages": "Idiomas"
+      },
+      "wallet": {
+        "name": "cartera",
+        "connect": "Conectar",
+        "disconnect": "Desconectar",
+        "switch": "Cambiar red",
+        "error": "Error de conexión",
+        "connecting": "Conectando",
+        "copy": "Dirección copiada"
+      },
+      "lend": {
+        "title": "Préstamo",
+        "firstSection": {
+          "netAPY": "APY neto",
+          "supplyBalance": "Saldo de suministro",
+          "walletBalance": "Saldo de la cartera",
+          "borrowLimit": "Límite de préstamo",
+          "borrowLimitUsed": "Límite de préstamo utilizado"
+        }
+      },
+      "banner": {
+        "liquidity": {
+          "title": "20 Millones de Tokens IPX",
+          "label": "Disponibles",
+          "description": "suministra liquidez para cultivar los tokens IPX",
+          "buttons": { "main": "Ir al Airdrop", "secondary": "Saber más" }
+        },
+        "zealy": {
+          "title": "3 Millones de Tokens IPX",
+          "label": "Disponibles",
+          "description": "Completa misiones para obtener el Airdrop",
+          "buttons": { "main": "Ir a Zealy", "secondary": "Saber más" }
+        },
+        "swap": {
+          "title": "5 Millones de Tokens IPX",
+          "label": "Disponibles",
+          "description": "Intercambia para obtener el Airdrop",
+          "buttons": { "main": "Intercambiar ahora", "secondary": "Saber más" }
+        }
+      }
+    },
+    "dex": "dex",
+    "home": "Inicio",
+    "soon": "Próximamente",
+    "pool": "Pool",
+    "notFoundToken": "No se encontraron metadatos del token",
+    "searchTokenInputDescription": "Buscar por nombre, símbolo o tipo...",
+    "swap": "{isLoading, plural, =1 {intercambiando} other {intercambiar}}",
+    "balance": "Saldo",
+    "success": "éxito",
+    "notFound": "no encontrado",
+    "loading": "cargando...",
+    "load": "{isLoading, plural, =1 {cargando...} other {cargar}}",
+    "back": "Volver",
+    "connectWallet": "Conectar cartera",
+    "fetchingBalances": "Obteniendo saldos",
+    "add": "{isLoading, plural, =1 {agregando...} other {agregar}}",
+    "poweredBy": "Apoiado por",
+    "minute": "{count, plural, =1 {minuto} other {minutos}}",
+    "liquidity": "Liquidez",
+    "enter": "entrar",
+    "bridge": "Puente",
+    "volatile": "{count, plural, =1 {volátil} other {volátiles}}",
+    "stable": "{count, plural, =1 {estable} other {estables}}",
+    "type": "tipo",
+    "all": "todos",
+    "on": "activo",
+    "off": "desactivo",
+    "live": "en vivo",
+    "state": "estado",
+    "finished": "finalizado",
+    "sort": "ordenar",
+    "tvl": "TVL",
+    "apr": "APR",
+    "allocation": "Asignación",
+    "stake": "{isLoading, plural, =1 {apostando...} other {apostar}}",
+    "get": "obtener",
+    "yourBalance": "tu saldo",
+    "unstake": "{isLoading, plural, =1 {retirando apuesta...} other {retirar apuesta}}",
+    "farm": "farm",
+    "search": "buscar",
+    "remove": "{isLoading, plural, =1 {eliminando...} other {eliminar}}",
+    "account": "cuenta",
+    "reset": "restablecer",
+    "connected": "conectado con",
+    "disconnect": "desconectar",
+    "copy": "copiar",
+    "copyClipboard": "copiado",
+    "address": "dirección",
+    "explorer": "ver en el explorador",
+    "tryAgain": "intentar de nuevo",
+    "unlockWalletDescription": "intenta desbloquear tu cartera",
+    "initialize": "{isLoading, plural, =1 {inicializando...} other {inicializar}}",
+    "connectYourWallet": "conectar tu cartera",
+    "confirm": "{isLoading, plural, =1 {confirmando...} other {confirmar}}",
+    "cancel": "cancelar",
+    "select": "seleccionar",
+    "check": "{isLoading, plural, =1 {verificando...} other {verificar}}",
+    "seoDescription": "AMM DEX en Sui. ¡Intercambia tus tokens!",
+    "network": "{count, plural, =1 {red} other {redes}}",
+    "docs": "documentos",
+    "error": "error",
+    "submit": "{isLoading, plural, =1 {enviando...} other {enviar}}",
+    "backHome": "Volver al inicio",
+    "chooseToken": "Seleccionar token",
+    "chooseNetwork": "Seleccionar red",
+    "wallet": "artera",
+    "recommendedToken": "Tokens recomendados",
+    "recommended": "Recomendado",
+    "favorites": "Favoritos",
+    "moreDetails": "más detalles",
+    "copyObjectNumber": "copiar ID del objeto",
+    "followUs": "SÍGUENOS",
+    "coin": "moneda",
+    "createTokenModalButton": "{isLoading, plural, =1 {Creando Token...} other {Crear Token}}",
+    "bannerHeader": "¡AirDrop: ¡28M de tokens IPX disponibles! Haz clic aquí!"
+  },
+  "error": {
+    "generic": "algo salió mal",
+    "createToken": "Error al crear el token",
+    "wrongParams": "Parámetros incorrectos",
+    "fetchingContract": "Error al obtener el contrato",
+    "fetchingBalances": "Error al obtener los saldos",
+    "fetchingCoins": "Error al obtener los datos de las monedas",
+    "accountNotFound": "No se encontró la cuenta",
+    "tokenNotFound": "token no encontrado",
+    "chainNotFound": "Cadena no encontrada"
+  },
+  "wallet": {
+    "wrongNetwork": {
+      "title": "Red incorrecta",
+      "advice": "Por favor, conéctate a una red compatible en el menú desplegable o en tu billetera."
+    },
+    "switchNetwork": {
+      "title": "Cambiando de red",
+      "advice": "Por favor, verifica tu cartera y cambia a una red compatible."
+    },
+    "error": {
+      "title": "Error de cartera",
+      "advice": "Por favor, verifica tu cartera o vuelve a reiniciar la.",
+      "createToken": "El nombre y el símbolo no deben ser números"
+    }
+  }
+}
