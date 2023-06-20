@@ -4,6 +4,7 @@ import { FC } from 'react';
 
 import { SVGProps } from '@/components/svg/svg.types';
 import { UnknownCoinSVG } from '@/components/svg/v2';
+import { TOKENS_SVG_MAP_V2 } from '@/constants';
 
 export const BNB: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => {
   const { dark } = useTheme() as Theme;
@@ -278,4 +279,6 @@ export const TOKENS_SVG_MARKET_MAP = {
   [COIN_TYPE[Network.DEVNET].ETH]: ETH,
   [COIN_TYPE[Network.DEVNET].SUI]: SUI,
   [COIN_TYPE[Network.DEVNET].USDT]: USDT,
+  [COIN_TYPE[Network.DEVNET].IPX]:
+    TOKENS_SVG_MAP_V2[COIN_TYPE[Network.DEVNET].IPX],
 };

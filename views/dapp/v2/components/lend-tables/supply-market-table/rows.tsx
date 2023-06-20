@@ -6,19 +6,20 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
-import Link from 'next/link';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
-import { v4 } from 'uuid';
 
-import { Routes, RoutesEnum } from '@/constants';
 import { useModal } from '@/hooks';
 
 import { MarketTableSupplyProps } from '../market-table/market-table.types';
 import { getSVG } from '../market-table/market-table.utils';
-import CollateralModal from './Modal/collateral-modal';
-import DisablingCollateralModal from './Modal/disabling-collateral-modal';
-import ResultCollateralModal from './Modal/result-collateral';
+import CollateralModal from '../market-table/Modal/collateral-modal';
+import DisablingCollateralModal from '../market-table/Modal/disabling-collateral-modal';
+import ResultCollateralModal from '../market-table/Modal/result-collateral';
+import SupplyMarketConfirmModal from '../market-table/Modal/supply-row/supply-row-confirm-modal';
+import SupplyMarketFailModal from '../market-table/Modal/supply-row/supply-row-fail-modal';
+import SupplyMarketModal from '../market-table/Modal/supply-row/supply-row-modal';
+import SupplyMarketPreviewModal from '../market-table/Modal/supply-row/supply-row-preview-modal';
 
 const SupplyMarketTableRow: FC<
   MarketTableSupplyProps & { isEngaged: boolean }
@@ -93,102 +94,160 @@ const SupplyMarketTableRow: FC<
     );
   };
 
+  const openRowMarketModal = (isSupplyOrBorrow: boolean) => {
+    setModal(
+      <SupplyMarketModal
+        closeModal={handleClose}
+        isSupplyOrBorrow={isSupplyOrBorrow}
+        assetApy={assetApy}
+        openRowMarketPreviewModal={openRowMarketPreviewModal}
+      />,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
+  };
+
+  const openRowMarketPreviewModal = (isSupplyOrBorrow: boolean) => {
+    setModal(
+      <SupplyMarketPreviewModal
+        closeModal={handleClose}
+        assetApy={assetApy}
+        isSupplyOrBorrow={isSupplyOrBorrow}
+        backRowMarketModal={openRowMarketModal}
+        openRowMarketResultModal={openRowMarketResultModal}
+      />,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
+  };
+
+  const openRowMarketResultModal = (
+    isSuccess: boolean,
+    isSupplyOrBorrow: boolean
+  ) => {
+    setModal(
+      isSuccess ? (
+        <SupplyMarketConfirmModal
+          closeModal={handleClose}
+          title={isSupplyOrBorrow ? 'Supply' : 'Withdraw'}
+          content={isSupplyOrBorrow ? 'Token Supplied' : 'Token Withdrawed'}
+          additionalText="You can check you transaction history in the Actvity menu."
+          activityLink="#"
+        />
+      ) : (
+        <SupplyMarketFailModal
+          closeModal={handleClose}
+          title={isSupplyOrBorrow ? 'Supply' : 'Withdraw'}
+          content={
+            isSupplyOrBorrow ? 'Token Supply Failed' : 'Token Withdraw Failed'
+          }
+          description=""
+        />
+      ),
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
+  };
+
   return (
-    <Link
-      key={v4()}
-      href={{
-        pathname: Routes[RoutesEnum.Lend],
-        query: { type: assetApy.coin.token.type },
+    <Motion
+      width="100%"
+      display="grid"
+      cursor="pointer"
+      whileHover={{
+        background: surface2,
       }}
+      initial={{
+        background: surface1,
+      }}
+      gridTemplateColumns="repeat(4, 1fr)"
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
+      pl="0.75rem"
+      pr="0.5rem"
+      mb="1rem"
+      onClick={() => openRowMarketModal(true)}
     >
-      <Motion
-        width="100%"
-        display="grid"
-        cursor="pointer"
-        whileHover={{
-          background: surface2,
-        }}
-        initial={{
-          background: surface1,
-        }}
-        gridTemplateColumns="repeat(4, 1fr)"
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        pl="0.75rem"
-        pr="0.5rem"
-        mb="1rem"
+      <Box
+        borderLeft="2px solid"
+        borderColor={isEngaged ? '#D9F99D' : 'surface.containerLow'}
+        py="1.5rem"
+        pl="1.125rem"
+        gap="m"
+        display="flex"
       >
-        <Box
-          borderLeft="2px solid"
-          borderColor={isEngaged ? '#D9F99D' : 'surface.containerLow'}
-          py="1.5rem"
-          pl="1.125rem"
-          gap="m"
-          display="flex"
-        >
-          <Box display="flex" alignItems="center">
-            {getSVG(assetApy.coin.token.type)}
-          </Box>
-          <Box display="flex" flexDirection="column">
-            <Typography variant="medium">
-              {assetApy.coin.token.symbol}
-            </Typography>
-            <Typography
-              variant="small"
-              color={
-                assetApy.coin.color !== undefined && dark
-                  ? assetApy.coin.color.dark
-                  : assetApy.coin.color !== undefined && !dark
-                  ? assetApy.coin.color.light
-                  : dark
-                  ? '#77767A'
-                  : '#47464A'
-              }
-            >
-              {assetApy.percentage}%
-            </Typography>
-          </Box>
+        <Box display="flex" alignItems="center">
+          {getSVG(assetApy.coin.token.type)}
         </Box>
-        <Box
-          gap="2xs"
-          display="flex"
-          alignItems="center"
-          flexDirection="column"
-          justifyContent="center"
-        >
-          <Typography variant="medium" textAlign="center">
-            {supplied.percentage}
-          </Typography>
+        <Box display="flex" flexDirection="column">
+          <Typography variant="medium">{assetApy.coin.token.symbol}</Typography>
           <Typography
             variant="small"
-            textAlign="center"
-            color={dark ? '#77767A' : '#47464A'}
+            color={
+              assetApy.coin.color !== undefined && dark
+                ? assetApy.coin.color.dark
+                : assetApy.coin.color !== undefined && !dark
+                ? assetApy.coin.color.light
+                : dark
+                ? '#77767A'
+                : '#47464A'
+            }
           >
-            ${supplied.value}
+            {assetApy.percentage}%
           </Typography>
         </Box>
-        <Box display="flex" alignItems="center" justifyContent="center">
-          <Typography variant="medium" textAlign="center">
-            {wallet}
-          </Typography>
-        </Box>
-        <Box
-          px="l"
-          display="flex"
-          alignItems="center"
-          justifyContent="flex-end"
-          onClick={(e) => e.stopPropagation()}
+      </Box>
+      <Box
+        gap="2xs"
+        display="flex"
+        alignItems="center"
+        flexDirection="column"
+        justifyContent="center"
+      >
+        <Typography variant="medium" textAlign="center">
+          {supplied.percentage}
+        </Typography>
+        <Typography
+          variant="small"
+          textAlign="center"
+          color={dark ? '#77767A' : '#47464A'}
         >
-          <Box>
-            <SwitchButton
-              defaultValue={collateralSwitch}
-              name={assetApy.coin.token.symbol}
-              labels={''}
-              onClick={openCollateralModal}
-            />
-          </Box>
+          ${supplied.value}
+        </Typography>
+      </Box>
+      <Box display="flex" alignItems="center" justifyContent="center">
+        <Typography variant="medium" textAlign="center">
+          {wallet}
+        </Typography>
+      </Box>
+      <Box
+        px="l"
+        display="flex"
+        alignItems="center"
+        justifyContent="flex-end"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Box>
+          <SwitchButton
+            defaultValue={collateralSwitch}
+            name={assetApy.coin.token.symbol}
+            labels={''}
+            onClick={openCollateralModal}
+          />
         </Box>
-      </Motion>
-    </Link>
+      </Box>
+    </Motion>
   );
 };
 

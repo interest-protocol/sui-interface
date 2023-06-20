@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
+import { LeftArrowSVG } from '@/components/svg/v2';
 import { TimesSVG } from '@/svg';
 
 import { getSVG } from '../../market-table/market-table.utils';
@@ -9,7 +10,10 @@ import { HeaderModalProps } from './modal.types';
 const HeaderModal: FC<HeaderModalProps> = ({
   type,
   symbol,
+  withBack,
+  handleBack,
   closeModal,
+  isSupply,
   isCenter,
 }) => {
   return (
@@ -20,6 +24,16 @@ const HeaderModal: FC<HeaderModalProps> = ({
       justifyContent="space-between"
       color="onSurface"
     >
+      {withBack && (
+        <Button
+          variant="icon"
+          onClick={() => {
+            handleBack && handleBack(isSupply || true);
+          }}
+        >
+          <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+        </Button>
+      )}
       {isCenter && <Box />}
       <Box display="flex" alignItems="center">
         <Box display="flex" alignItems="center">
