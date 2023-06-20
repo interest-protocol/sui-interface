@@ -2,32 +2,23 @@ import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
 
-import { LoadingPage } from '@/components';
-import { ModalProvider } from '@/context/modal';
+import { SEO } from '@/components';
 import { NextPageWithProps } from '@/interface';
-import CreateToken from '@/views/dapp/create-token';
+import CreateToken from '@/views/dapp/v2/create-token';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
-  loading: LoadingPage,
+  loading: CreateToken,
 });
 
-const Layout = dynamic(() => import('@/components/layout'), {
-  ssr: false,
-  loading: LoadingPage,
-});
-
-const CreateTokenPage: NextPageWithProps = ({ pageTitle }) => {
-  return (
-    <ModalProvider>
-      <Web3Manager>
-        <Layout pageTitle={pageTitle}>
-          <CreateToken />
-        </Layout>
-      </Web3Manager>
-    </ModalProvider>
-  );
-};
+const CreateTokenPage: NextPageWithProps = ({ pageTitle }) => (
+  <>
+    <SEO pageTitle={pageTitle} />
+    <Web3Manager>
+      <CreateToken />
+    </Web3Manager>
+  </>
+);
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, dexMessages] = await Promise.all([
