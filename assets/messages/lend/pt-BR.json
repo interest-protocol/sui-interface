@@ -1,0 +1,88 @@
+{
+  "Lend": {
+    "metadata": {
+      "title": "Lend"
+    },
+
+    "collectTokens": "Collect your IPX Tokens",
+    "supplyTableTitle": "Supply Market",
+    "borrowTableTitle": "Borrow Market",
+    "collateral": "Collateral",
+    "assetAPY": "Asset / APY",
+    "supplied": "Supplied",
+    "borrowed": "Borrowed",
+    "supplyAdded": "Supply Added",
+    "unLoan": "Un loan",
+    "notEngaged": "Not engaged",
+    "modal": {
+      "collateral": {
+        "preview": {
+          "title": "{isEnable, plural, =1 {Enable as Collateral} other {Disable as Collateral}}",
+          "content": "{isEnable, plural, =1 {Each asset used as collateral increases your borrowing limit. Be careful, this can subject the asset to being seized in liquidation.} other {Disabling an asset as collateral will remove it from your borrowing limit, and no longer subject it to liquidation}}",
+          "button": "{isEnable, plural, =1 {Use as Collateral} other {Disable Collateral}}"
+        },
+        "loading": {
+          "title": "{isEnable, plural, =1 {Enable as Collateral} other {Disabling as Collateral}}",
+          "content": "{isEnable, plural, =1 {Confirm the transaction with {walletName}} other {Confirm the transaction with {walletName}}}"
+        },
+        "confirm": {
+          "title": "{isEnable, plural, =1 {Enable as Collateral} other {Disabling as Collateral}}",
+          "content": "{isEnable, plural, =1 {You have enable {tokenName} as a Collateral} other {You have disable {tokenName} as a Collateral}}"
+        },
+        "error": {
+          "title": "Error",
+          "content": "Error",
+          "button": "Try again"
+        }
+      },
+      "supply": {
+        "normal": {
+          "button": "{isSupply, plural, =1 {Preview Supply} other {Preview Withdraw}"
+        },
+        "preview": {
+          "sectionTitle": "New Total Supply Balance",
+          "inToken": "In token",
+          "inUSD": "In USD",
+          "button": "{isSupply, plural, =1 {Confirm Supply} other {Confirm Withdraw}"
+        },
+        "loading": {
+          "content": "{isSupply, plural, =1 {Supplying Token please wait...} other {Withdrawing Token please wait...}}"
+        },
+        "confirm": {
+          "content": "{isSupply, plural, =1 {Token Supplied} other {Token Withdrawed}",
+          "additionInfo": "You can check you transaction history in the Actvity menu.",
+          "secondButton": "View on activity"
+        },
+        "error": {
+          "title": "Error",
+          "content": "Error",
+          "button": "Try again"
+        }
+      },
+      "borrow": {
+        "normal": {
+          "button": "{isBorrow, plural, =1 {Preview Borrow} other {Preview Repay}"
+        },
+        "preview": {
+          "sectionTitle": "New Total Borrow Balance",
+          "inToken": "In token",
+          "inUSD": "In USD",
+          "button": "{isBorrow, plural, =1 {Confirm Borrow} other {Confirm Repay}"
+        },
+        "loading": {
+          "content": "{isBorrow, plural, =1 {Borrowing Token please wait...} other {Repaying Token please wait...}}"
+        },
+        "confirm": {
+          "content": "{isSupply, plural, =1 {Token Borrowed} other {Token Repayed}",
+          "additionInfo": "You can check you transaction history in the Actvity menu.",
+          "secondButton": "View on activity"
+        },
+        "error": {
+          "title": "Error",
+          "content": "Error",
+          "button": "Try again"
+        }
+      }
+    }
+  }
+}

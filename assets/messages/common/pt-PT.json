@@ -24,6 +24,7 @@
         "swap": "troca",
         "home": "início",
         "pool": "pool",
+        "lend": "emprestimo",
         "farm": "farm",
         "createToken": "criar token",
         "settings": "definições"
@@ -39,13 +40,21 @@
       },
       "lend": {
         "title": "Emprestar",
+        "subTitle": "Top movers",
         "firstSection": {
           "netAPY": "APY líquido",
-          "supplyBalance": "Saldo de fornecimento",
+          "supplyBalance": "Saldo de suprimento",
+          "borrowBalance": "Borrow Balance",
+          "newBorrowLimit": "New Borrow Limit",
           "walletBalance": "Saldo da carteira",
           "borrowLimit": "Limite de empréstimo",
           "borrowLimitUsed": "Limite de empréstimo utilizado"
-        }
+        },
+        "supply": "supply",
+        "withdraw": "withdraw",
+        "borrow": "borrow",
+        "repay": "repay",
+        "rewards": "Rewards"
       },
       "banner": {
         "liquidity": {
