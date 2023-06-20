@@ -3,7 +3,7 @@ import { CardLendProps } from './lend.types';
 export const CARD_HEADERS: ReadonlyArray<CardLendProps> = [
   {
     icon: 'percentage',
-    description: 'NET APY',
+    description: 'common.v2.lend.firstSection.netAPY',
     isTrendUp: true,
     trendAmount: '4.45',
     symbol: '%',
@@ -11,7 +11,7 @@ export const CARD_HEADERS: ReadonlyArray<CardLendProps> = [
   },
   {
     icon: 'box-down',
-    description: 'Supply Balance',
+    description: 'common.v2.lend.firstSection.supplyBalance',
     isTrendUp: false,
     trendAmount: '7.68',
     symbol: '$',
@@ -19,7 +19,7 @@ export const CARD_HEADERS: ReadonlyArray<CardLendProps> = [
   },
   {
     icon: 'box-up',
-    description: 'Borrow Balance',
+    description: 'common.v2.lend.firstSection.borrowBalance',
     isTrendUp: false,
     trendAmount: '4.68',
     symbol: 'USD',

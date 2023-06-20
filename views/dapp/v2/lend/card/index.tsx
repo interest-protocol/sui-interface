@@ -1,4 +1,5 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { PlusCircleSVG } from '@/svg';
@@ -14,6 +15,7 @@ const Card: FC<CardLendProps> = ({
   symbol,
   amount,
 }) => {
+  const t = useTranslations();
   return (
     <Box
       height="8.375rem"
@@ -53,14 +55,14 @@ const Card: FC<CardLendProps> = ({
               color="onSurface"
               fontSize={['s', 's', 's', 'm']}
             >
-              Rewards
+              {t('common.v2.lend.rewards')}
             </Typography>
             <Typography
               variant="small"
               color="onSurfaceVariant"
               fontSize={['xs', 'xs', 'xs', 's']}
             >
-              Collect your IPX Tokens
+              {t('Lend.collectTokens')}
             </Typography>
           </Box>
         </Box>

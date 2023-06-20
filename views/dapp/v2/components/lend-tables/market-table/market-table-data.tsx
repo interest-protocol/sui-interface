@@ -7,7 +7,7 @@ import { GroupBorrowRow, GroupSupplyRow } from './market-table.types';
 export const SUPPLY_MARKET_TABLE_DATA: ReadonlyArray<GroupSupplyRow> = [
   {
     isEngaged: true,
-    description: 'Supply Added',
+    description: 'Lend.supplyAdded',
     SupplyMarketTableData: [
       {
         assetApy: {
@@ -58,7 +58,7 @@ export const SUPPLY_MARKET_TABLE_DATA: ReadonlyArray<GroupSupplyRow> = [
   },
   {
     isEngaged: false,
-    description: 'Not engaged',
+    description: 'Lend.notEngaged',
     SupplyMarketTableData: [
       {
         assetApy: {
@@ -109,7 +109,7 @@ export const SUPPLY_MARKET_TABLE_DATA: ReadonlyArray<GroupSupplyRow> = [
 export const BORROW_MARKET_TABLE_DATA: ReadonlyArray<GroupBorrowRow> = [
   {
     isEngaged: true,
-    description: 'Un loan',
+    description: 'Lend.unLoan',
     BorrowMarketTableData: [
       {
         assetApy: {
@@ -159,7 +159,7 @@ export const BORROW_MARKET_TABLE_DATA: ReadonlyArray<GroupBorrowRow> = [
   },
   {
     isEngaged: false,
-    description: 'Not engaged',
+    description: 'Lend.notEngaged',
     BorrowMarketTableData: [
       {
         assetApy: {

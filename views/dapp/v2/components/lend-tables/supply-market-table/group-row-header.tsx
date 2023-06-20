@@ -6,8 +6,10 @@ import {
   useTheme,
 } from '@interest-protocol/ui-kit';
 import { easeInOut } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import { TTranslatedMessage } from '@/interface';
 import { CarteUpSVG } from '@/svg';
 
 import { GroupRowHeaderProps } from '../market-table/market-table.types';
@@ -15,6 +17,7 @@ import { GroupRowHeaderProps } from '../market-table/market-table.types';
 const SupplyMarketTableGroupRowHeader: FC<
   GroupRowHeaderProps & { handleButton: () => void; isOpen: boolean }
 > = ({ description, handleButton, isOpen }) => {
+  const t = useTranslations();
   const { dark } = useTheme() as Theme;
 
   return (
@@ -32,7 +35,7 @@ const SupplyMarketTableGroupRowHeader: FC<
           whiteSpace="nowrap"
           color={dark ? '#77767A' : '#47464A'}
         >
-          {description}
+          {t(description as TTranslatedMessage)}
         </Typography>
       </Box>
       <Box paddingRight="l" display="flex" justifyContent="flex-end">

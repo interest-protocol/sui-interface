@@ -39,13 +39,21 @@
       },
       "lend": {
         "title": "Lend",
+        "subTitle": "Top movers",
         "firstSection": {
           "netAPY": "Net APY",
           "supplyBalance": "Supply Balance",
+          "borrowBalance": "Borrow Balance",
           "walletBalance": "Wallet Balance",
+          "newBorrowLimit": "New Borrow Limit",
           "borrowLimit": "Borrow Limit",
           "borrowLimitUsed": "Borrow Limit Used"
-        }
+        },
+        "supply": "supply",
+        "withdraw": "withdraw",
+        "borrow": "borrow",
+        "repay": "repay",
+        "rewards": "Rewards"
       },
       "banner": {
         "liquidity": {

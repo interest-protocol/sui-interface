@@ -1,7 +1,9 @@
 import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 const SupplyMarketTableHeader: FC = () => {
+  const t = useTranslations();
   const { dark } = useTheme() as Theme;
   return (
     <Box
@@ -18,7 +20,7 @@ const SupplyMarketTableHeader: FC = () => {
           whiteSpace="nowrap"
           color={dark ? '#77767A' : '#47464A'}
         >
-          Asset / APY
+          {t('Lend.assetAPY')}
         </Typography>
       </Box>
       <Box>
@@ -27,7 +29,7 @@ const SupplyMarketTableHeader: FC = () => {
           textAlign="center"
           color={dark ? '#77767A' : '#47464A'}
         >
-          Supplied
+          {t('Lend.supplied')}
         </Typography>
       </Box>
       <Box>
@@ -36,7 +38,7 @@ const SupplyMarketTableHeader: FC = () => {
           textAlign="center"
           color={dark ? '#77767A' : '#47464A'}
         >
-          Wallet
+          {t('common.v2.wallet.name')}
         </Typography>
       </Box>
       <Box paddingRight="l">
@@ -45,7 +47,7 @@ const SupplyMarketTableHeader: FC = () => {
           textAlign="right"
           color={dark ? '#77767A' : '#47464A'}
         >
-          Collateral
+          {t('Lend.collateral')}
         </Typography>
       </Box>
     </Box>

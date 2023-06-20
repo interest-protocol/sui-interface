@@ -1,6 +1,8 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import { TTranslatedMessage } from '@/interface';
 import {
   BoxDownSVG,
   BoxUpSVG,
@@ -17,6 +19,7 @@ const CardTop: FC<Omit<CardLendProps, 'symbol' | 'amount'>> = ({
   isTrendUp,
   trendAmount,
 }) => {
+  const t = useTranslations();
   const getTopIcon = (
     icon: 'percentage' | 'box-up' | 'box-down' | 'special'
   ) => {
@@ -94,7 +97,7 @@ const CardTop: FC<Omit<CardLendProps, 'symbol' | 'amount'>> = ({
           color="secondary.onSecondaryContainer"
           fontSize={['xs', 'xs', 'xs', 's']}
         >
-          {description}
+          {t(description as TTranslatedMessage)}
         </Typography>
       </Box>
       <Box display="flex">

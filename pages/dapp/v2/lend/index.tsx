@@ -29,7 +29,7 @@ const LendPage: NextPageWithProps = ({ pageTitle }) => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, lendingMessages] = await Promise.all([
     import(`../../../../assets/messages/common/${locale}.json`),
-    import(`../../../../assets/messages/swap/${locale}.json`),
+    import(`../../../../assets/messages/lend/${locale}.json`),
   ]);
 
   const messages = mergeDeepRight(
