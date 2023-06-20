@@ -4,14 +4,14 @@ import { FC } from 'react';
 import Checkmark from '../svg/v2/checkmark';
 import { ChipProps } from './chip.types';
 
-const Chip: FC<ChipProps> = ({ text, onClick, isActive }) => (
+const Chip: FC<ChipProps> = ({ text, onClick, isActive, noCheckmark }) => (
   <Box
     py="s"
     px="l"
     gap="m"
-    color="text"
     display="flex"
     cursor="pointer"
+    color="onSurface"
     border="1px solid"
     alignItems="center"
     borderRadius="1.5rem"
@@ -23,7 +23,7 @@ const Chip: FC<ChipProps> = ({ text, onClick, isActive }) => (
       color: 'primary.onPrimary',
     })}
   >
-    {isActive && (
+    {!noCheckmark && isActive && (
       <Box width="1rem">
         <Checkmark maxHeight="1rem" maxWidth="1rem" width="100%" />
       </Box>
