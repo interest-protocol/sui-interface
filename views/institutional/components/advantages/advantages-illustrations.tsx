@@ -88,7 +88,7 @@ export const BlockIllustration: FC = () => (
   <>
     <Motion
       top="20%"
-      left="17%"
+      left="16%"
       width="50%"
       height="50%"
       position="absolute"
@@ -117,7 +117,7 @@ export const BlockIllustration: FC = () => (
         duration: Math.random() * 1 + 1,
       }}
       top="35%"
-      left="37.1%"
+      left="36.1%"
       width="50%"
       height="50%"
       position="absolute"
@@ -144,7 +144,7 @@ export const BlockIllustration: FC = () => (
     </Motion>
     <Motion
       top="34.2%"
-      left="33.6%"
+      left="32.6%"
       width="28.3%"
       height="28.3%"
       position="absolute"
