@@ -1,0 +1,22 @@
+{
+  "farmsDetails": {
+    "pageTitle": "Detalles de la Farm",
+    "title": "Detalles",
+    "secondCardTitle": "Apostado",
+    "thirdCardTitle": "Recompensas",
+    "thirdCardButton": "{isLoading, plural, =1 {Cosechando...} other {Cosechar}}",
+    "yourStakedLabel": "Has apostado",
+    "modalStakedTitle": "Apostado",
+    "modalUnstakedTitle": "Retirado",
+    "modalLabelInput": "Cantidad {type}",
+    "errors": {
+      "noTokens": "No se pueden retirar 0 tokens",
+      "farm": "Error al obtener datos de la Farm",
+      "pool": "Error al obtener datos de la Pool",
+      "prices": "Error al obtener precios de las monedas",
+      "ipxStorage": "Error al obtener el objeto IPXStorage",
+      "balances": "Error al obtener los saldos de las monedas",
+      "rewards": "Error al obtener las recompensas pendientes"
+    }
+  }
+}
