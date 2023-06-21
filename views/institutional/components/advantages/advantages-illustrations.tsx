@@ -88,7 +88,7 @@ export const BlockIllustration: FC = () => (
   <>
     <Motion
       top="20%"
-      left="25%"
+      left="17%"
       width="50%"
       height="50%"
       position="absolute"
@@ -117,7 +117,7 @@ export const BlockIllustration: FC = () => (
         duration: Math.random() * 1 + 1,
       }}
       top="35%"
-      left="45.1%"
+      left="37.1%"
       width="50%"
       height="50%"
       position="absolute"
@@ -135,8 +135,8 @@ export const BlockIllustration: FC = () => (
         Icon={AdvantagesBottomShadow}
       />
       <IconWrapper
-        top="4.3%"
-        left="38%"
+        top="4.12%"
+        left="37.7%"
         size="30%"
         Icon={AdvantagesTopShadow}
       />
@@ -144,7 +144,7 @@ export const BlockIllustration: FC = () => (
     </Motion>
     <Motion
       top="34.2%"
-      left="41.6%"
+      left="33.6%"
       width="28.3%"
       height="28.3%"
       position="absolute"

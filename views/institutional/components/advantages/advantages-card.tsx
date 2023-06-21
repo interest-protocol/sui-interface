@@ -30,7 +30,7 @@ const AdvantagesCard: FC<AdvantagesCardProps> = ({ name, Illustration }) => {
       <Box
         bg="#B6C4FF0A"
         borderRadius="m"
-        width="15.625rem"
+        width="15rem"
         height="15.625rem"
         position="relative"
       >
