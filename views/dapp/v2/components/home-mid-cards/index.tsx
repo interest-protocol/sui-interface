@@ -8,7 +8,7 @@ interface MidCardContainerProps {
 const MidCardContainer: FC<MidCardContainerProps> = ({ children }) => {
   return (
     <Box
-      gridColumn="span 4"
+      gridColumn={['1/-1', '1/-1', '1/-1', 'span 4']}
       width="100%"
       display="flex"
       flexDirection="column"

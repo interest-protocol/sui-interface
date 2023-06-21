@@ -13,7 +13,7 @@ const CircleChartCard: FC<CircleChartCardProps> = ({ data }) => {
   const { dark } = useTheme() as Theme;
   return (
     <Box
-      gridColumn="8/-1"
+      gridColumn={['1/-1', '1/-1', '1/-1', '8/-1']}
       width="100%"
       height="371px"
       display="flex"

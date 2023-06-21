@@ -32,7 +32,6 @@ const Home: FC = () => {
           visibleData={LINE_CHARTt_VISIBLE_DATA}
         />
         <CircleChartCard data={CIRCLE_CHART_DATA} />
-
         <MidCardContainer>
           <MidCard
             data={ASSETS_CARD_POOL_DATA}

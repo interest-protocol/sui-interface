@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import Earn from '@/components/svg/earn';
 import Swap from '@/components/svg/swap';
 import { PoolSVG } from '@/components/svg/v2';
 

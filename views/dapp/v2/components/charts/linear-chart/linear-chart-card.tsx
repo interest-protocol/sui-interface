@@ -16,7 +16,7 @@ const LineChartCard: FC<LineChartCardProps> = ({ visibleData, data }) => {
   return (
     <Box
       width="100%"
-      gridColumn="1/8"
+      gridColumn={['1/-1', '1/-1', '1/-1', '1/8']}
       height="371px"
       color="onSurface"
       borderRadius="m"
