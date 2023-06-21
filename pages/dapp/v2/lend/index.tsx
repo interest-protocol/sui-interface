@@ -1,10 +1,13 @@
+import { Network } from '@interest-protocol/sui-sdk';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
+import { useEffect } from 'react';
 import { Layout } from 'views/dapp/v2/components';
 
 import { LoadingPage, SEO } from '@/components';
 import { ModalProvider } from '@/context/modal';
+import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import Lend from '@/views/dapp/v2/lend';
 
@@ -14,6 +17,16 @@ const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
 });
 
 const LendPage: NextPageWithProps = ({ pageTitle }) => {
+  const { network, setNetwork } = useNetwork();
+
+  // Money Market is only available on Sui Testnet
+  useEffect(() => {
+    if (network !== Network.TESTNET) setNetwork(Network.TESTNET);
+  }, [network]);
+
+  // TODO FIX THIS
+  if (network !== Network.TESTNET) return <div>loading...</div>;
+
   return (
     <ModalProvider newDesign>
       <Web3Manager>
