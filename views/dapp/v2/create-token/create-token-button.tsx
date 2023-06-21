@@ -27,10 +27,10 @@ import { CreateTokenButtonProps } from './create-token-form.types';
 const CreateTokenButton: FC<CreateTokenButtonProps> = ({ control }) => {
   const t = useTranslations();
   const { network } = useNetwork();
-  const [loading, setLoading] = useState(false);
-  const { name, symbol, amount, iconUrl, description } = useWatch({ control });
-  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const [loading, setLoading] = useState(true);
   const { account, walletAccount } = useWeb3();
+  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { name, symbol, amount, iconUrl, description } = useWatch({ control });
 
   const isValid =
     name &&
@@ -137,7 +137,9 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({ control }) => {
       variant="filled"
       onClick={safeCreateToken}
       disabled={loading || !isValid}
-      PrefixIcon={loading ? <ProgressIndicator variant="loading" /> : null}
+      PrefixIcon={
+        loading ? <ProgressIndicator variant="loading" size={16} /> : null
+      }
     >
       {t('createToken.button', { isLoading: Number(loading) })}
     </Button>
