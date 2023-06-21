@@ -1,12 +1,19 @@
 import { Box } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { Layout } from '../components';
 import CircleChartCard from '../components/charts/circle-chart/circle-chart-card';
 import LineChartCard from '../components/charts/linear-chart/linear-chart-card';
+import CollectRewardCard from '../components/collect-reward-card/card';
 import InfoCardGroup from '../components/home-info-cards/info-card-group';
-import MidCardContainer from '../components/mid-card';
-import MidCard from '../components/mid-card/mid-card';
+import MidCardContainer from '../components/home-mid-cards';
+import MidCard from '../components/home-mid-cards/card';
+import {
+  ACTIVITY_CARD_POOL_DATA,
+  ASSETS_CARD_POOL_DATA,
+} from '../components/home-mid-cards/mid-card.data';
+import SmallCard from '../components/small-home-cards/card';
 import {
   CIRCLE_CHART_DATA,
   LINE_CHART_DATA,
@@ -14,6 +21,8 @@ import {
 } from './charts.data';
 
 const Home: FC = () => {
+  const t = useTranslations();
+
   return (
     <Layout dashboard>
       <Box variant="container">
@@ -25,13 +34,23 @@ const Home: FC = () => {
         <CircleChartCard data={CIRCLE_CHART_DATA} />
 
         <MidCardContainer>
-          <MidCard />
+          <MidCard
+            data={ASSETS_CARD_POOL_DATA}
+            title={t('dapp.assets')}
+            withSuffix
+            hasSuffixWithDesc
+          />
         </MidCardContainer>
         <MidCardContainer>
-          <MidCard />
+          <MidCard
+            data={ACTIVITY_CARD_POOL_DATA}
+            title={t('dapp.activity')}
+            hasPrefixWithDesc
+          />
         </MidCardContainer>
         <MidCardContainer>
-          <MidCard />
+          <SmallCard />
+          <CollectRewardCard />
         </MidCardContainer>
       </Box>
     </Layout>

@@ -1,7 +1,18 @@
 {
   "dapp": {
     "metadata": {
-      "title": "DApp"
-    }
+      "title": "Página inicial"
+    },
+    "topMovers": "Principais Movimentos",
+    "performance": "Desempenho",
+    "cryptoAllocation": "Alocação de Criptomoedas",
+    "seeMore": "Ver mais",
+    "activity": "Atividade",
+    "assets": "Ativos",
+    "typeOfTran": "Tipo de transação",
+    "collectYourIPXTokens": "Receba seus tokens IPX",
+    "swap": "Trocar",
+    "earn": "Ganhar",
+    "rewards": "Recompensas"
   }
 }

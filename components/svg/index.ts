@@ -47,6 +47,7 @@ export { default as PlaySVG } from './play';
 export { default as PlusSVG } from './plus';
 export { default as PoolSVG } from './pool';
 export { default as PTFlagSVG } from './pt-flag';
+export { default as RoundedPlusSVG } from './rounded-plus';
 export { default as SecuritySVG } from './security';
 export { default as ShieldCheckSVG } from './shield-check';
 export { default as StarSVG } from './star';

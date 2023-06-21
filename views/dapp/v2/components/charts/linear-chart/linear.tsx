@@ -1,4 +1,4 @@
-import { Box } from '@interest-protocol/ui-kit';
+import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 import { Tooltip } from 'react-tooltip';
 import {
@@ -13,6 +13,7 @@ import {
 import { LinearChartProps } from './linear.types';
 
 const LinearChart: FC<LinearChartProps> = ({ visibleData, data }) => {
+  const { dark } = useTheme() as Theme;
   const CustomizedLabel: FC<any> = (props: any) => {
     const { x, y, stroke, value } = props;
 
@@ -41,9 +42,15 @@ const LinearChart: FC<LinearChartProps> = ({ visibleData, data }) => {
         <AreaChart data={data}>
           <defs>
             <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="6%" stopColor="rgba(180, 197, 255, 0.77)" />
-              <stop offset="7%" stopColor="rgba(180, 197, 255, 0.54)" />
-              <stop offset="85%" stopColor="rgba(19, 19, 22, 0)" />
+              <stop
+                offset="6%"
+                stopColor={dark ? 'rgba(180, 197, 255, 0.77)' : '#003ea8dd'}
+              />
+              <stop
+                offset="7%"
+                stopColor={dark ? 'rgba(180, 197, 255, 0.77)' : '#003ea8b7'}
+              />
+              <stop offset="85%" stopColor="rgba(180, 197, 255, 0)" />
             </linearGradient>
           </defs>
           <XAxis

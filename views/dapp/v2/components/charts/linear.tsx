@@ -49,7 +49,6 @@ const LinearChart: FC<LinearChartProps> = ({ visibleData, data }) => {
           </defs>
           <XAxis
             dataKey="name"
-            //   padding={{ left: 20, right: 20 }}
             axisLine={false}
             interval={0}
             minTickGap={0}
@@ -62,7 +61,6 @@ const LinearChart: FC<LinearChartProps> = ({ visibleData, data }) => {
           <LabelList content={<CustomizedLabel />} />
           <YAxis hide={true} />
           <Tooltip />
-          {/* <Legend /> */}
           <Area
             type="linear"
             dataKey="pv"

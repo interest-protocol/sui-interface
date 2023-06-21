@@ -1,7 +1,18 @@
 {
   "dapp": {
     "metadata": {
-      "title": "DApp"
-    }
+      "title": "Home"
+    },
+    "topMovers": "Top Movers",
+    "performance": "Performance",
+    "cryptoAllocation": "Crypto allocation",
+    "seeMore": "See more",
+    "activity": "Activity",
+    "assets": "Assets",
+    "typeOfTran": "Type of tran",
+    "collectYourIPXTokens": "Collect your IPX tokens",
+    "swap": "Swap",
+    "earn": "Earn",
+    "rewards": "Rewards"
   }
 }
