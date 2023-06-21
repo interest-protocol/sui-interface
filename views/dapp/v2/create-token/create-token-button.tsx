@@ -92,7 +92,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({ control }) => {
 
         const tx = await signAndExecuteTransactionBlock({
           transactionBlock,
-          chain: walletAccount?.chains[0] || Network.DEVNET,
+          chain: walletAccount?.chains[0] || network,
           options: { showBalanceChanges: true, showEffects: true },
         });
 
@@ -101,7 +101,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({ control }) => {
         await showTXSuccessToast(tx, network);
 
         const data = tx?.balanceChanges?.filter(
-          (data) => data.coinType !== COIN_TYPE[Network.DEVNET].SUI
+          (data) => data.coinType !== COIN_TYPE[network].SUI
         );
 
         if (data && data.length)
