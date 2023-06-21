@@ -63,6 +63,7 @@ const CardTop: FC<Omit<CardLendProps, 'symbol' | 'amount'>> = ({
         maxWidth="1.11rem"
         width="100%"
         height="100%"
+        fill="currentColor"
       />
     ) : (
       <TrendDownSVG
@@ -70,6 +71,7 @@ const CardTop: FC<Omit<CardLendProps, 'symbol' | 'amount'>> = ({
         maxWidth="1.11rem"
         width="100%"
         height="100%"
+        fill="currentColor"
       />
     );
 
@@ -101,14 +103,19 @@ const CardTop: FC<Omit<CardLendProps, 'symbol' | 'amount'>> = ({
         </Typography>
       </Box>
       <Box display="flex">
-        <Box height="0.719rem" width="1.11rem" mr="0.578rem">
+        <Box
+          height="0.719rem"
+          width="1.11rem"
+          mr="0.578rem"
+          color={isTrendUp ? 'success' : 'error'}
+        >
           {showTrendIcon(isTrendUp)}
         </Box>
         <Typography
           variant="small"
           fontWeight="500"
           fontSize={['xs', 'xs', 'xs', 's']}
-          color={isTrendUp ? '#D9F99D' : '#FECACA'}
+          color={isTrendUp ? 'success' : 'error'}
         >
           {trendAmount} %
         </Typography>

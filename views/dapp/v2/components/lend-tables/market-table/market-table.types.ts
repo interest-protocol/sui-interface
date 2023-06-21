@@ -31,7 +31,7 @@ export interface MarketTableBorrowedProps {
     value: number;
   };
   wallet: number;
-  liquidity: number;
+  cash: number;
 }
 
 export interface GroupRowHeaderProps {

@@ -1,7 +1,9 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { CheckmarkSVG } from '@/components/svg/v2';
+import { TTranslatedMessage } from '@/interface';
 
 import { RowResultModalProps } from '../modal.types';
 
@@ -12,6 +14,7 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
   activityLink,
   closeModal,
 }) => {
+  const t = useTranslations();
   return (
     <Box
       px="xl"
@@ -28,7 +31,9 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
       boxShadow="0 0 5px #3334"
     >
       <Box py="m" display="flex" alignItems="center" justifyContent="center">
-        <Typography variant="medium">{title}</Typography>
+        <Typography variant="medium">
+          {t(title as TTranslatedMessage)}
+        </Typography>
       </Box>
       <Box
         pt="4xl"
@@ -44,7 +49,7 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
           <CheckmarkSVG filled width="100%" maxWidth="3rem" maxHeight="3rem" />
         </Box>
         <Typography my="xl" width="16rem" variant="medium" textAlign="center">
-          {content}
+          {t(content as TTranslatedMessage)}
         </Typography>
       </Box>
       <Typography variant="extraSmall">{additionalText}</Typography>
@@ -74,7 +79,7 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
           boxSizing="border-box"
           justifyContent="center"
         >
-          View on activity
+          {t('Lend.modal.supply.confirm.secondButton')}
         </Button>
       </a>
     </Box>

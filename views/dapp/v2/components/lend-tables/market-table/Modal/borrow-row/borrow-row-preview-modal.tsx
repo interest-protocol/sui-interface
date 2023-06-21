@@ -58,9 +58,10 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
       layout
       width="24.375rem"
       display="flex"
-      minHeight="90vh"
+      maxHeight="90vh"
       maxWidth="26rem"
-      overflow="hidden"
+      overflowY="auto"
+      overflowX="hidden"
       color="onSurface"
       borderRadius="1rem"
       bg="surface.container"
@@ -95,7 +96,7 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
           <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>
       </Box>
-      <Box overflowY="auto" mx="-0.5rem" px="xl">
+      <Box mx="-0.5rem" px="xl">
         <Box bg="surface.containerLowest" borderRadius="m">
           <Box
             p="xl"
@@ -132,7 +133,7 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
           borderBottom="1px solid"
           borderColor="outline.outlineVariant"
         />
-        <LineModal description="New Total Borrow Balance" value="$ 1000" />
+        <LineModal description="New Total Borrow Balance" value="" />
         <LineModal description="In token" value="0,0" />
         <LineModal description="In USD" value="0,2" />
       </Box>

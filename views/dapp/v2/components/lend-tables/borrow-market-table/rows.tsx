@@ -5,6 +5,7 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { useModal } from '@/hooks';
@@ -18,7 +19,8 @@ import BorrowMarketPreviewModal from '../market-table/Modal/borrow-row/borrow-ro
 
 const BorrowMarketTableRow: FC<
   MarketTableBorrowedProps & { isEngaged: boolean }
-> = ({ assetApy, borrowed, wallet, liquidity, isEngaged }) => {
+> = ({ assetApy, borrowed, wallet, cash, isEngaged }) => {
+  const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const { setModal, handleClose } = useModal();
   const surface1 = dark
@@ -71,18 +73,24 @@ const BorrowMarketTableRow: FC<
       isSuccess ? (
         <BorrowMarketConfirmModal
           closeModal={handleClose}
-          title={isSupplyOrBorrow ? 'Borrow' : 'Repay'}
-          content={isSupplyOrBorrow ? 'Token Supplied' : 'Token Withdrawed'}
-          additionalText="You can check you transaction history in the Actvity menu."
+          title={t(
+            isSupplyOrBorrow ? 'common.v2.lend.borrow' : 'common.v2.lend.repay'
+          )}
+          content={t('Lend.modal.borrow.confirm.content', {
+            isSupply: +isSupplyOrBorrow,
+          })}
+          additionalText={t('Lend.modal.borrow.confirm.additionInfo')}
           activityLink="#"
         />
       ) : (
         <BorrowMarketFailModal
           closeModal={handleClose}
-          title={isSupplyOrBorrow ? 'Supply' : 'Withdraw'}
-          content={
-            isSupplyOrBorrow ? 'Token Supply Failed' : 'Token Withdraw Failed'
-          }
+          title={t(
+            isSupplyOrBorrow ? 'common.v2.lend.borrow' : 'common.v2.lend.repay'
+          )}
+          content={t('Lend.modal.borrow.error.content', {
+            isSupply: +isSupplyOrBorrow,
+          })}
           description=""
         />
       ),
@@ -115,7 +123,7 @@ const BorrowMarketTableRow: FC<
     >
       <Box
         borderLeft="2px solid"
-        borderColor={isEngaged ? '#D9F99D' : 'surface.containerLow'}
+        borderColor={isEngaged ? 'success' : dark ? 'black' : 'white'}
         py="1.5rem"
         pl="1.125rem"
         gap="m"
@@ -167,7 +175,7 @@ const BorrowMarketTableRow: FC<
       </Box>
       <Box px="l" display="flex" alignItems="center" justifyContent="flex-end">
         <Typography variant="medium" textAlign="right">
-          ${liquidity}
+          ${cash}
         </Typography>
       </Box>
     </Motion>

@@ -123,7 +123,7 @@ export const BORROW_MARKET_TABLE_DATA: ReadonlyArray<GroupBorrowRow> = [
           value: 0,
         },
         wallet: 0.0,
-        liquidity: 0,
+        cash: 0,
       },
       {
         assetApy: {
@@ -138,7 +138,7 @@ export const BORROW_MARKET_TABLE_DATA: ReadonlyArray<GroupBorrowRow> = [
           value: 0,
         },
         wallet: 0.0,
-        liquidity: 0,
+        cash: 0,
       },
       {
         assetApy: {
@@ -153,7 +153,7 @@ export const BORROW_MARKET_TABLE_DATA: ReadonlyArray<GroupBorrowRow> = [
           value: 0,
         },
         wallet: 0.0,
-        liquidity: 0,
+        cash: 0,
       },
     ],
   },
@@ -173,7 +173,7 @@ export const BORROW_MARKET_TABLE_DATA: ReadonlyArray<GroupBorrowRow> = [
           value: 0,
         },
         wallet: 0.0,
-        liquidity: 0,
+        cash: 0,
       },
       {
         assetApy: {
@@ -187,7 +187,7 @@ export const BORROW_MARKET_TABLE_DATA: ReadonlyArray<GroupBorrowRow> = [
           value: 0,
         },
         wallet: 0.0,
-        liquidity: 0,
+        cash: 0,
       },
       {
         assetApy: {
@@ -201,7 +201,7 @@ export const BORROW_MARKET_TABLE_DATA: ReadonlyArray<GroupBorrowRow> = [
           value: 0,
         },
         wallet: 0.0,
-        liquidity: 0,
+        cash: 0,
       },
     ],
   },

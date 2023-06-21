@@ -17,6 +17,7 @@ const SupplyMarketTableHeader: FC = () => {
       <Box px="l">
         <Typography
           variant="extraSmall"
+          textTransform="capitalize"
           whiteSpace="nowrap"
           color={dark ? '#77767A' : '#47464A'}
         >
@@ -26,6 +27,7 @@ const SupplyMarketTableHeader: FC = () => {
       <Box>
         <Typography
           variant="extraSmall"
+          textTransform="capitalize"
           textAlign="center"
           color={dark ? '#77767A' : '#47464A'}
         >
@@ -35,6 +37,7 @@ const SupplyMarketTableHeader: FC = () => {
       <Box>
         <Typography
           variant="extraSmall"
+          textTransform="capitalize"
           textAlign="center"
           color={dark ? '#77767A' : '#47464A'}
         >
@@ -44,6 +47,7 @@ const SupplyMarketTableHeader: FC = () => {
       <Box paddingRight="l">
         <Typography
           variant="extraSmall"
+          textTransform="capitalize"
           textAlign="right"
           color={dark ? '#77767A' : '#47464A'}
         >

@@ -17,6 +17,7 @@ const BorrowMarketTableHeader: FC = () => {
       <Box px="l">
         <Typography
           variant="extraSmall"
+          textTransform="capitalize"
           whiteSpace="nowrap"
           color={dark ? '#77767A' : '#47464A'}
         >
@@ -25,6 +26,7 @@ const BorrowMarketTableHeader: FC = () => {
       </Box>
       <Box>
         <Typography
+          textTransform="capitalize"
           variant="extraSmall"
           textAlign="center"
           color={dark ? '#77767A' : '#47464A'}
@@ -35,6 +37,7 @@ const BorrowMarketTableHeader: FC = () => {
       <Box>
         <Typography
           variant="extraSmall"
+          textTransform="capitalize"
           textAlign="center"
           color={dark ? '#77767A' : '#47464A'}
         >
@@ -45,9 +48,10 @@ const BorrowMarketTableHeader: FC = () => {
         <Typography
           variant="extraSmall"
           textAlign="right"
+          textTransform="capitalize"
           color={dark ? '#77767A' : '#47464A'}
         >
-          {t('common.liquidity')}
+          {t('Lend.cash')}
         </Typography>
       </Box>
     </Box>

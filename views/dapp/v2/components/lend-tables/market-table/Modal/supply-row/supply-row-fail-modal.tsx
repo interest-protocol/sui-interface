@@ -1,7 +1,9 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import * as nextIntl from 'next-intl';
 import { FC } from 'react';
 
 import { TimesSVG } from '@/components/svg/v2';
+import { TTranslatedMessage } from '@/interface';
 
 import { RowFailModalProps } from '../modal.types';
 
@@ -11,6 +13,7 @@ const SupplyMarketFailModal: FC<RowFailModalProps> = ({
   description,
   closeModal,
 }) => {
+  const t = nextIntl.useTranslations();
   return (
     <Box
       px="xl"
@@ -27,7 +30,9 @@ const SupplyMarketFailModal: FC<RowFailModalProps> = ({
       boxShadow="0 0 5px #3334"
     >
       <Box py="m" display="flex" alignItems="center" justifyContent="center">
-        <Typography variant="medium">{title}</Typography>
+        <Typography variant="medium">
+          {t(title as TTranslatedMessage)}
+        </Typography>
       </Box>
       <Box
         pt="4xl"
@@ -44,7 +49,7 @@ const SupplyMarketFailModal: FC<RowFailModalProps> = ({
         </Box>
         {content && (
           <Typography my="xl" width="16rem" variant="medium" textAlign="center">
-            {content}
+            {t(content as TTranslatedMessage)}
           </Typography>
         )}
       </Box>

@@ -7,6 +7,7 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 
@@ -25,6 +26,7 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
   backRowMarketModal,
   openRowMarketResultModal,
 }) => {
+  const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const [FromIcon] = [getSVG(assetApy.coin.token.type)];
 
@@ -46,7 +48,9 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
 
   return isLoading ? (
     <LoadingModal
-      title={isSupplyOrBorrow ? 'Supply' : 'Withdraw'}
+      title={t(
+        isSupplyOrBorrow ? 'common.v2.lend.supply' : 'common.v2.lend.withdraw'
+      )}
       content={
         isSupplyOrBorrow
           ? 'Supplying Token please wait...'
@@ -58,9 +62,10 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
       layout
       width="24.375rem"
       display="flex"
-      minHeight="90vh"
+      maxHeight="90vh"
       maxWidth="26rem"
-      overflow="hidden"
+      overflowY="auto"
+      overflowX="hidden"
       color="onSurface"
       borderRadius="1rem"
       bg="surface.container"
@@ -95,7 +100,7 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
           <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>
       </Box>
-      <Box overflowY="auto" mx="-0.5rem" px="xl">
+      <Box mx="-0.5rem" px="xl">
         <Box bg="surface.containerLowest" borderRadius="m">
           <Box
             p="xl"
@@ -118,9 +123,18 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
         </Box>
       </Box>
       <Box p="xl" bg="surface.containerLow">
-        <LineModal description="New Borrow Limit" value="" />
-        <LineModal description="Borrow Limit" value="$ 1000" />
-        <LineModal description="Borrow Limit Used" value="0 %" />
+        <LineModal
+          description="common.v2.lend.firstSection.newBorrowLimit"
+          value="$ 1000"
+        />
+        <LineModal
+          description="common.v2.lend.firstSection.borrowLimit"
+          value="$ 1000"
+        />
+        <LineModal
+          description="common.v2.lend.firstSection.borrowLimitUsed"
+          value="0 %"
+        />
         <Box p="1rem" display="flex" justifyContent="space-between">
           <ProgressIndicator value={75} variant="bar" />
         </Box>
@@ -132,9 +146,15 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
           borderBottom="1px solid"
           borderColor="outline.outlineVariant"
         />
-        <LineModal description="New Total Supply Balance" value="$ 1000" />
-        <LineModal description="In token" value="0,0" />
-        <LineModal description="In USD" value="0,2" />
+        <LineModal
+          description="Lend.modal.supply.preview.sectionTitle"
+          value=""
+        />
+        <LineModal
+          description="Lend.modal.supply.preview.inToken"
+          value="0,0"
+        />
+        <LineModal description="Lend.modal.supply.preview.inUSD" value="0,2" />
       </Box>
       <Box
         p="xl"
@@ -151,7 +171,9 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
           justifyContent="center"
           onClick={handleCollateral}
         >
-          {isSupplyOrBorrow ? 'Preview Supply' : 'Preview Withdraw'}
+          {t('Lend.modal.supply.preview.button', {
+            isSupply: +isSupplyOrBorrow,
+          })}
         </Button>
       </Box>
     </Motion>

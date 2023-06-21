@@ -5,6 +5,7 @@ import {
   ProgressIndicator,
   Typography,
 } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 import { setTimeout } from 'timers';
@@ -19,6 +20,7 @@ const DisablingCollateralModal: FC<CollateralModalProps> = ({
   closeModal,
   resultModal,
 }) => {
+  const t = useTranslations();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleIsLoading = () => {
@@ -32,8 +34,11 @@ const DisablingCollateralModal: FC<CollateralModalProps> = ({
 
   return isLoading ? (
     <LoadingModal
-      title="Disabling as Collateral"
-      content="Confirm the transaction with [Name of Wallet]."
+      title={t('Lend.modal.collateral.loading.title', { isEnable: 0 })}
+      content={t('Lend.modal.collateral.loading.content', {
+        walletName: '###',
+        isEnable: 0,
+      })}
     />
   ) : (
     <Motion
@@ -63,16 +68,21 @@ const DisablingCollateralModal: FC<CollateralModalProps> = ({
           fontWeight="400"
           color="onSurface"
         >
-          Disable as Collateral
+          {t('Lend.modal.collateral.preview.title', { isEnable: 0 })}
         </Typography>
         <Typography variant="small" color="onSurface" lineHeight="1.25rem">
-          Disabling an asset as collateral will remove it from your borrowing
-          limit, and no longer subject it to liquidation
+          {t('Lend.modal.collateral.preview.content', { isEnable: 0 })}
         </Typography>
       </Box>
       <Box p="xl" bg="surface.containerLow">
-        <LineModal description="Borrow Limit" value="$ 1000" />
-        <LineModal description="Borrow Limit Used" value="0 %" />
+        <LineModal
+          description="common.v2.lend.firstSection.borrowLimit"
+          value="$ 1000"
+        />
+        <LineModal
+          description="common.v2.lend.firstSection.borrowLimitUsed"
+          value="0 %"
+        />
         <Box p="1rem" display="flex" justifyContent="space-between">
           <ProgressIndicator value={75} variant="bar" />
         </Box>
@@ -85,10 +95,10 @@ const DisablingCollateralModal: FC<CollateralModalProps> = ({
         justifyContent="space-between"
       >
         <Button variant="text" fontSize="s" onClick={closeModal}>
-          Cancel
+          {t('common.v2.cancel')}
         </Button>
         <Button variant="filled" fontSize="s" onClick={handleCollateral}>
-          Disable Collateral
+          {t('Lend.modal.collateral.preview.button', { isEnable: 0 })}
         </Button>
       </Box>
     </Motion>

@@ -11,6 +11,7 @@
     "assetAPY": "Asset / APY",
     "supplied": "Supplied",
     "borrowed": "Borrowed",
+    "cash": "Cash",
     "supplyAdded": "Supply Added",
     "unLoan": "Un loan",
     "notEngaged": "Not engaged",
@@ -55,7 +56,7 @@
         },
         "error": {
           "title": "Error",
-          "content": "Error",
+          "content": "{isSupply, plural, =1 {Token Suppply Failed} other {Token Withdraw Failed}",
           "button": "Try again"
         }
       },
@@ -79,7 +80,7 @@
         },
         "error": {
           "title": "Error",
-          "content": "Error",
+          "content": "{isSupply, plural, =1 {Token Borrow Failed} other {Token Repay Failed}",
           "button": "Try again"
         }
       }

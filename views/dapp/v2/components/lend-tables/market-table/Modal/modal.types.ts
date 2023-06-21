@@ -62,8 +62,7 @@ export interface LoadingModalProps {
 }
 
 export interface ResultModalProps {
-  title: string;
-  content: string;
+  tokenName: string;
   closeModal: () => void;
   isSuccess: boolean;
 }

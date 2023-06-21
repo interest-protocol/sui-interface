@@ -46,6 +46,7 @@
           "borrowBalance": "Borrow Balance",
           "walletBalance": "Wallet Balance",
           "newBorrowLimit": "New Borrow Limit",
+          "currentBorrowLimit": "Current Borrow Limit",
           "borrowLimit": "Borrow Limit",
           "borrowLimitUsed": "Borrow Limit Used"
         },
