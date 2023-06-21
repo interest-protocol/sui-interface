@@ -27,8 +27,8 @@ import { CreateTokenButtonProps } from './create-token-form.types';
 const CreateTokenButton: FC<CreateTokenButtonProps> = ({ control }) => {
   const t = useTranslations();
   const { network } = useNetwork();
-  const [loading, setLoading] = useState(true);
   const { account, walletAccount } = useWeb3();
+  const [loading, setLoading] = useState(false);
   const { signAndExecuteTransactionBlock } = useWalletKit();
   const { name, symbol, amount, iconUrl, description } = useWatch({ control });
 
