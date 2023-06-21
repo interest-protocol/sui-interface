@@ -123,8 +123,8 @@ export const BlockIllustration: FC = () => (
       position="absolute"
     >
       <IconWrapper
-        top="14%"
-        left="26%"
+        top="14.2%"
+        left="25%"
         size="35%"
         Icon={AdvantagesSideShadow}
       />
@@ -135,8 +135,8 @@ export const BlockIllustration: FC = () => (
         Icon={AdvantagesBottomShadow}
       />
       <IconWrapper
-        top="4.12%"
-        left="37.7%"
+        top="4%"
+        left="37.2%"
         size="30%"
         Icon={AdvantagesTopShadow}
       />
