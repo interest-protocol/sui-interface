@@ -1,0 +1,13 @@
+{
+  "dexPool": {
+    "pageTitle": "Pool",
+    "title": "Visión General de la Pool",
+    "button": "Buscar Pool",
+    "myPools": "Mis Pools",
+    "recommendedTitle": "Pools {type} Recomendadas",
+    "notFound": "No hay Pools disponibles",
+    "recommended": "Pools Recomendadas",
+    "activePools": "Pools Activas",
+    "otherPools": "Otras Pools"
+  }
+}

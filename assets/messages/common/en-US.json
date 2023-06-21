@@ -10,7 +10,8 @@
         "title": "language",
         "en-US": "English",
         "pt-PT": "Portuguese",
-        "pt-BR": "Portuguese"
+        "pt-BR": "Portuguese",
+        "es-ES": "Spanish"
       },
       "navbar": {
         "swap": "swap",

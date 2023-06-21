@@ -1,0 +1,76 @@
+{
+  "swap": {
+    "metadata": {
+      "title": "Intercambio"
+    },
+    "form": {
+      "to": "Para",
+      "from": "Desde",
+      "balance": "Saldo",
+      "selectToken": "Selecciona un token",
+      "preview": "Vista previa",
+      "fetchMarkets": "Buscando mercados...",
+      "fetchingAmounts": "Buscando cantidades...",
+      "errors": {
+        "amountOut": "Error al obtener la cantidad de salida",
+        "sameTokens": "No se puede intercambiar el mismo token",
+        "balances": "Error al obtener saldos",
+        "noMarket": "Este par no tiene mercado",
+        "infoNoPool": "Aumenta la cantidad o añade liquidez a este par",
+        "noPool": "¡No se encontró un pool! Intenta uno existente",
+        "error": "Error: intenta con una tolerancia de slippage más alta o una cantidad más pequeña",
+        "increaseAmount": "Intenta aumentar la cantidad de {symbol}"
+      }
+    },
+    "modal": {
+      "settings": {
+        "title": "Configuración",
+        "subtitles": {
+          "transaction": "Configuración",
+          "panel": "Configuración"
+        },
+        "field": {
+          "slippage": "Tolerancia de slippage",
+          "deadline": "Plazo de transacción",
+          "automated": "automatizado"
+        }
+      },
+      "preview": {
+        "swappingToken": "Intercambiando Token, por favor espera...",
+        "exchangeRate": "Tasa de cambio",
+        "liquidityFee": "Tarifa del proveedor de liquidez",
+        "priceImpact": "Impacto de precio",
+        "minimumReceived": "Mínimo recibido después del slippage",
+        "footerText": "Al aprobar esta transacción, reconoces y aceptas toda la información proporcionada anteriormente. El monto final puede cambiar debido a la actividad del mercado.",
+        "confirmSwap": "Confirmar Intercambio",
+        "notEnoughBalance": "Saldo Insuficiente",
+        "selectToken": {
+          "title": "Seleccionar token",
+          "search": "Buscar token",
+          "recommended": "Recomendado",
+          "favorite": "Favorito",
+          "wallet": "cartera"
+        }
+      },
+      "confirm": {
+        "title": "Tokens Intercambiado",
+        "description": "Puedes verificar tu transacción en el Explorador",
+        "button": "Ver en SuiVision"
+      },
+      "error": {
+        "title": "Error",
+        "description": "El intercambio falló",
+        "button": "intentar nuevamente"
+      }
+    },
+    "error": {
+      "cannotSell0": "No se pueden vender 0 tokens",
+      "noMarket": "No se encontró mercado",
+      "select2Tokens": "Selecciona dos tokens",
+      "failedToSwap": "Error al intercambiar",
+      "wethDeposit": "Error al depositar",
+      "wethWithdraw": "Error al retirar",
+      "soonFeature": "Esta función estará disponible en la próxima versión"
+    }
+  }
+}
