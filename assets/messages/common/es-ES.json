@@ -78,6 +78,7 @@
     "balance": "Saldo",
     "success": "éxito",
     "notFound": "no encontrado",
+    "pageNotFound": "Página no encontrada",
     "loading": "cargando...",
     "load": "{isLoading, plural, =1 {cargando...} other {cargar}}",
     "back": "Volver",

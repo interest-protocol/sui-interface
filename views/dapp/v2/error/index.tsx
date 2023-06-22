@@ -19,7 +19,7 @@ const ErrorPage: FC = () => {
           color="onSurface"
           gridColumn={['1/-1', '1/-1', '1/-1', '2/12']}
         >
-          <Box width={['unset', 'unset', 'unset', '55rem']} position="relative">
+          <Box width={['unset', 'unset', 'unset', '100%']} position="relative">
             <Motion
               top="22%"
               width="6%"

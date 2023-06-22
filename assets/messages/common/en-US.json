@@ -78,6 +78,7 @@
     "balance": "balance",
     "success": "success",
     "notFound": "not found",
+    "pageNotFound": "page not found",
     "loading": "loading...",
     "load": "{isLoading, plural, =1 {loading...} other {load}}",
     "back": "back",

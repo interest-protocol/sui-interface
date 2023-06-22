@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     props: {
       messages,
       now: Date.now(),
-      pageTitle: 'dapp.metadata.title',
+      pageTitle: 'common.pageNotFound',
     },
   };
 };
