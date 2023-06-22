@@ -11,6 +11,7 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 
@@ -26,6 +27,7 @@ const BorrowMarketModal: FC<RowModalProps> = ({
   closeModal,
   openRowMarketPreviewModal,
 }) => {
+  const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const [isSupplyOrBorrow, setIsSupplyOrBorrow] = useState(true);
   const TO_TOKEN = COINS[Network.DEVNET].IPX;
@@ -65,14 +67,14 @@ const BorrowMarketModal: FC<RowModalProps> = ({
       />
       <Box display="flex" justifyContent="center">
         <Tabs
-          items={['Borrow', 'Repay']}
+          items={[t('common.v2.lend.borrow'), t('common.v2.lend.repay')]}
           onChangeTab={handleTab}
           defaultTabIndex={+!isSupplyOrBorrow}
         />
       </Box>
       <Box p="xl" display="flex" flexDirection="column" pb="2rem">
         <Typography variant="extraSmall" textAlign="end" mb="2.313rem">
-          Balance: 0.0000
+          {t('common.balance')}: 0.0000
         </Typography>
         <TextField
           placeholder="0"
@@ -87,9 +89,18 @@ const BorrowMarketModal: FC<RowModalProps> = ({
       </Box>
       <Box overflowX="hidden" overflowY="auto">
         <Box p="xl">
-          <LineModal description="New Borrow Limit" value="" />
-          <LineModal description="Borrow Limit" value="$ 1000" />
-          <LineModal description="Borrow Limit Used" value="0 %" />
+          <LineModal
+            description="common.v2.lend.firstSection.newBorrowLimit"
+            value="$ 1000"
+          />
+          <LineModal
+            description="common.v2.lend.firstSection.borrowLimit"
+            value="$ 1000"
+          />
+          <LineModal
+            description="common.v2.lend.firstSection.borrowLimitUsed"
+            value="0 %"
+          />
           <Box p="1rem" display="flex" justifyContent="space-between">
             <ProgressIndicator value={75} variant="bar" />
           </Box>
@@ -105,7 +116,8 @@ const BorrowMarketModal: FC<RowModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 {FromIcon}
                 <Typography variant="medium" color="">
-                  {assetApy.coin.token.symbol} Supply APY
+                  {assetApy.coin.token.symbol}{' '}
+                  {' ' + t('common.v2.lend.supply') + ' '} APY
                 </Typography>
               </Box>
               <Box textAlign="right">
@@ -130,7 +142,8 @@ const BorrowMarketModal: FC<RowModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 {ToIcon}
                 <Typography variant="medium" color="">
-                  {TO_TOKEN.symbol} Rewards APY
+                  {TO_TOKEN.symbol} {' ' + t('common.v2.lend.rewards') + ' '}
+                  APY
                 </Typography>
               </Box>
               <Box textAlign="right">

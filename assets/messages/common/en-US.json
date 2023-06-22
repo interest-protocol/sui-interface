@@ -55,7 +55,8 @@
         "withdraw": "withdraw",
         "borrow": "borrow",
         "repay": "repay",
-        "rewards": "Rewards"
+        "rewards": "Rewards",
+        "close": "Close"
       },
       "banner": {
         "liquidity": {

@@ -51,11 +51,9 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
       title={t(
         isSupplyOrBorrow ? 'common.v2.lend.supply' : 'common.v2.lend.withdraw'
       )}
-      content={
-        isSupplyOrBorrow
-          ? 'Supplying Token please wait...'
-          : 'Withdrawing Token please wait...'
-      }
+      content={t('Lend.modal.supply.loading.content', {
+        isSupply: +isSupplyOrBorrow,
+      })}
     />
   ) : (
     <Motion

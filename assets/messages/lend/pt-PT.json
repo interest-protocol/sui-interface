@@ -1,33 +1,34 @@
 {
   "Lend": {
     "metadata": {
-      "title": "Lend"
+      "title": "Empréstimo"
     },
 
-    "collectTokens": "Collect your IPX Tokens",
-    "supplyTableTitle": "Supply Market",
-    "borrowTableTitle": "Borrow Market",
-    "collateral": "Collateral",
-    "assetAPY": "Asset / APY",
-    "supplied": "Supplied",
-    "borrowed": "Borrowed",
-    "supplyAdded": "Supply Added",
-    "unLoan": "Un loan",
-    "notEngaged": "Not engaged",
+    "collectTokens": "Recolha os seus Tokens IPX",
+    "supplyTableTitle": "Mercado de fornecimento",
+    "borrowTableTitle": "Mercado de empréstimos",
+    "collateral": "Garantias",
+    "assetAPY": "Ativo / APY",
+    "supplied": "Fornecido",
+    "borrowed": "Emprestado",
+    "cash": "Dinheiro",
+    "supplyAdded": "Fornecimento adicionado",
+    "unLoan": "Sem empréstimo",
+    "notEngaged": "Não comprometido",
     "modal": {
       "collateral": {
         "preview": {
-          "title": "{isEnable, plural, =1 {Enable as Collateral} other {Disable as Collateral}}",
-          "content": "{isEnable, plural, =1 {Each asset used as collateral increases your borrowing limit. Be careful, this can subject the asset to being seized in liquidation.} other {Disabling an asset as collateral will remove it from your borrowing limit, and no longer subject it to liquidation}}",
-          "button": "{isEnable, plural, =1 {Use as Collateral} other {Disable Collateral}}"
+          "title": "{isEnable, plural, =1 {Habilitar como garantia} other {Desativar como garantia}}",
+          "content": "{isEnable, plural, =1 {Cada bem utilizado como garantia aumenta o seu limite de crédito. Tenha cuidado, pois este facto pode sujeitar o bem a ser apreendido em liquidação.} other {A desativação de um ativo como garantia retira-o do seu limite de empréstimo e deixa de o sujeitar a liquidação}}",
+          "button": "{isEnable, plural, =1 {Utilizar como garantia} other {Desativar como garantia}}"
         },
         "loading": {
-          "title": "{isEnable, plural, =1 {Enable as Collateral} other {Disabling as Collateral}}",
-          "content": "{isEnable, plural, =1 {Confirm the transaction with {walletName}} other {Confirm the transaction with {walletName}}}"
+          "title": "{isEnable, plural, =1 {Utilizar como garantia} other {Desativar como garantia}}",
+          "content": "{isEnable, plural, =1 {Confirmar a transação com {walletName}} other {Confirmar a transação com {walletName}}}"
         },
         "confirm": {
-          "title": "{isEnable, plural, =1 {Enable as Collateral} other {Disabling as Collateral}}",
-          "content": "{isEnable, plural, =1 {You have enable {tokenName} as a Collateral} other {You have disable {tokenName} as a Collateral}}"
+          "title": "{isEnable, plural, =1 {Utilizar como garantia} other {Desativar como garantia}}",
+          "content": "{isEnable, plural, =1 {Você activou {tokenName} como garantia} other {Você desactivou {tokenName} como garantia}}"
         },
         "error": {
           "title": "Error",
@@ -37,50 +38,50 @@
       },
       "supply": {
         "normal": {
-          "button": "{isSupply, plural, =1 {Preview Supply} other {Preview Withdraw}"
+          "button": "{isSupply, plural, =1 {Pré-visualização da oferta} other {Pré-visualização Retirada}}"
         },
         "preview": {
-          "sectionTitle": "New Total Supply Balance",
-          "inToken": "In token",
-          "inUSD": "In USD",
-          "button": "{isSupply, plural, =1 {Confirm Supply} other {Confirm Withdraw}"
+          "sectionTitle": "Novo saldo total da oferta",
+          "inToken": "Em token",
+          "inUSD": "Em USD",
+          "button": "{isSupply, plural, =1 {Confirmar o fornecimento} other {Confirm Confirmar a retirada}}"
         },
         "loading": {
-          "content": "{isSupply, plural, =1 {Supplying Token please wait...} other {Withdrawing Token please wait...}}"
+          "content": "{isSupply, plural, =1 {Fornecimento de Token por favor aguarde...} other {Retirada de Token por favor aguarde...}}"
         },
         "confirm": {
-          "content": "{isSupply, plural, =1 {Token Supplied} other {Token Withdrawed}",
-          "additionInfo": "You can check you transaction history in the Actvity menu.",
-          "secondButton": "View on activity"
+          "content": "{isSupply, plural, =1 {Token fornecido} other {Token retirado}}",
+          "additionInfo": "Pode consultar o seu histórico de transacções no menu Atividade.",
+          "secondButton": "Ver na atividade"
         },
         "error": {
           "title": "Error",
-          "content": "Error",
+          "content": "{isSupply, plural, =1 {Falha no fornecimento de token} other {A retirada do token falhou}}",
           "button": "Try again"
         }
       },
       "borrow": {
         "normal": {
-          "button": "{isBorrow, plural, =1 {Preview Borrow} other {Preview Repay}"
+          "button": "{isBorrow, plural, =1 {Pré-visualizar Empréstimo} other {Pré-visualizar o reembolso}}"
         },
         "preview": {
-          "sectionTitle": "New Total Borrow Balance",
-          "inToken": "In token",
-          "inUSD": "In USD",
-          "button": "{isBorrow, plural, =1 {Confirm Borrow} other {Confirm Repay}"
+          "sectionTitle": "Novo Saldo total do empréstimo",
+          "inToken": "Em token",
+          "inUSD": "Em USD",
+          "button": "{isBorrow, plural, =1 {Confirmar Empréstimo} other {Confirmar o reembolso}}"
         },
         "loading": {
-          "content": "{isBorrow, plural, =1 {Borrowing Token please wait...} other {Repaying Token please wait...}}"
+          "content": "{isBorrow, plural, =1 {Borrowing Token please wait...} other {Reembolso do Token por favor aguarde...}}}"
         },
         "confirm": {
-          "content": "{isSupply, plural, =1 {Token Borrowed} other {Token Repayed}",
-          "additionInfo": "You can check you transaction history in the Actvity menu.",
-          "secondButton": "View on activity"
+          "content": "{isSupply, plural, =1 {Token Emprestado} other {Token Emprestado}}",
+          "additionInfo": "Pode consultar o seu histórico de transacções no menu Atividade.",
+          "secondButton": "Ver na atividade"
         },
         "error": {
           "title": "Error",
-          "content": "Error",
-          "button": "Try again"
+          "content": "{isSupply, plural, =1 {Empréstimo de token falhou} other {Reembolso de token falhou}",
+          "button": "Tentar novamente"
         }
       }
     }

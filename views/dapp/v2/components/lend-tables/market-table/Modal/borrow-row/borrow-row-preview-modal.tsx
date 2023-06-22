@@ -7,6 +7,7 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 
@@ -25,6 +26,7 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
   backRowMarketModal,
   openRowMarketResultModal,
 }) => {
+  const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const [FromIcon] = [getSVG(assetApy.coin.token.type)];
 
@@ -46,12 +48,12 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
 
   return isLoading ? (
     <LoadingModal
-      title={isSupplyOrBorrow ? 'Borrow' : 'Repay'}
-      content={
-        isSupplyOrBorrow
-          ? 'Borrowing Token please wait...'
-          : 'Repaying Token please wait...'
-      }
+      title={t(
+        isSupplyOrBorrow ? 'common.v2.lend.borrow' : 'common.v2.lend.repay'
+      )}
+      content={t('Lend.modal.borrow.loading.content', {
+        isSupply: +isSupplyOrBorrow,
+      })}
     />
   ) : (
     <Motion
@@ -119,9 +121,18 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
         </Box>
       </Box>
       <Box p="xl" bg="surface.containerLow">
-        <LineModal description="New Borrow Limit" value="" />
-        <LineModal description="Borrow Limit" value="$ 1000" />
-        <LineModal description="Borrow Limit Used" value="0 %" />
+        <LineModal
+          description="common.v2.lend.firstSection.newBorrowLimit"
+          value="$ 1000"
+        />
+        <LineModal
+          description="common.v2.lend.firstSection.borrowLimit"
+          value="$ 1000"
+        />
+        <LineModal
+          description="common.v2.lend.firstSection.borrowLimitUsed"
+          value="0 %"
+        />
         <Box p="1rem" display="flex" justifyContent="space-between">
           <ProgressIndicator value={75} variant="bar" />
         </Box>
@@ -152,7 +163,9 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
           justifyContent="center"
           onClick={handleCollateral}
         >
-          {isSupplyOrBorrow ? 'Confirm Borrow' : 'Confirm Repay'}
+          {t('Lend.modal.borrow.preview.button', {
+            isSupply: +isSupplyOrBorrow,
+          })}
         </Button>
       </Box>
     </Motion>

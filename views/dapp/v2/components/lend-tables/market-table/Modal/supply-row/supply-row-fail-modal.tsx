@@ -1,9 +1,10 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
-import * as nextIntl from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { TimesSVG } from '@/components/svg/v2';
 import { TTranslatedMessage } from '@/interface';
+import { capitalize } from '@/utils';
 
 import { RowFailModalProps } from '../modal.types';
 
@@ -13,7 +14,7 @@ const SupplyMarketFailModal: FC<RowFailModalProps> = ({
   description,
   closeModal,
 }) => {
-  const t = nextIntl.useTranslations();
+  const t = useTranslations();
   return (
     <Box
       px="xl"
@@ -66,7 +67,7 @@ const SupplyMarketFailModal: FC<RowFailModalProps> = ({
         boxSizing="border-box"
         justifyContent="center"
       >
-        Close
+        {capitalize(t('common.v2.lend.close'))}
       </Button>
     </Box>
   );

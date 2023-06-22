@@ -4,6 +4,7 @@ import { FC } from 'react';
 
 import { CheckmarkSVG } from '@/components/svg/v2';
 import { TTranslatedMessage } from '@/interface';
+import { capitalize } from '@/utils';
 
 import { RowResultModalProps } from '../modal.types';
 
@@ -62,7 +63,7 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
         justifyContent="center"
         onClick={closeModal}
       >
-        Close
+        {capitalize(t('common.v2.lend.close'))}
       </Button>
       <a
         href={activityLink}

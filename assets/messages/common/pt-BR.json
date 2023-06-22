@@ -40,21 +40,23 @@
       },
       "lend": {
         "title": "Emprestar",
-        "subTitle": "Top movers",
+        "subTitle": "Principais movimentos",
         "firstSection": {
           "netAPY": "APY líquido",
           "supplyBalance": "Saldo de suprimento",
-          "borrowBalance": "Borrow Balance",
-          "newBorrowLimit": "New Borrow Limit",
+          "borrowBalance": "Saldo de empréstimo",
           "walletBalance": "Saldo da carteira",
+          "newBorrowLimit": "Novo limite de empréstimo",
+          "currentBorrowLimit": "Limite de empréstimo atual",
           "borrowLimit": "Limite de empréstimo",
           "borrowLimitUsed": "Limite de empréstimo utilizado"
         },
-        "supply": "supply",
-        "withdraw": "withdraw",
-        "borrow": "borrow",
-        "repay": "repay",
-        "rewards": "Rewards"
+        "supply": "Fornecer",
+        "withdraw": "Retirar",
+        "borrow": "Emprestimo",
+        "repay": "Pagar",
+        "rewards": "Recompensas",
+        "close": "Fechar"
       },
       "banner": {
         "liquidity": {

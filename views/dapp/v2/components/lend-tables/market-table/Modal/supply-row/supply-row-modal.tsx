@@ -67,7 +67,7 @@ const SupplyMarketModal: FC<RowModalProps> = ({
       />
       <Box display="flex" justifyContent="center">
         <Tabs
-          items={['Supply', 'Withdraw']}
+          items={[t('common.v2.lend.supply'), t('common.v2.lend.withdraw')]}
           onChangeTab={handleTab}
           defaultTabIndex={+!isSupplyOrBorrow}
         />
@@ -169,10 +169,9 @@ const SupplyMarketModal: FC<RowModalProps> = ({
             justifyContent="center"
             onClick={() => handlePreview()}
           >
-            Preview
-            {/*t('Lend.modal.supply.normal.button', {
+            {t('Lend.modal.supply.normal.button', {
               isSupply: +isSupplyOrBorrow,
-            })*/}
+            })}
           </Button>
         </Box>
       </Box>
