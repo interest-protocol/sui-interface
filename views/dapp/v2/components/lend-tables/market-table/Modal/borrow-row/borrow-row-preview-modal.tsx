@@ -52,7 +52,7 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
         isSupplyOrBorrow ? 'common.v2.lend.borrow' : 'common.v2.lend.repay'
       )}
       content={t('Lend.modal.borrow.loading.content', {
-        isSupply: +isSupplyOrBorrow,
+        isBorrow: +isSupplyOrBorrow,
       })}
     />
   ) : (
@@ -144,9 +144,15 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
           borderBottom="1px solid"
           borderColor="outline.outlineVariant"
         />
-        <LineModal description="New Total Borrow Balance" value="" />
-        <LineModal description="In token" value="0,0" />
-        <LineModal description="In USD" value="0,2" />
+        <LineModal
+          description="Lend.modal.supply.preview.sectionTitle"
+          value=""
+        />
+        <LineModal
+          description="Lend.modal.supply.preview.inToken"
+          value="0,0"
+        />
+        <LineModal description="Lend.modal.supply.preview.inUSD" value="0,2" />
       </Box>
       <Box
         p="xl"
@@ -164,7 +170,7 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
           onClick={handleCollateral}
         >
           {t('Lend.modal.borrow.preview.button', {
-            isSupply: +isSupplyOrBorrow,
+            isBorrow: +isSupplyOrBorrow,
           })}
         </Button>
       </Box>

@@ -15,6 +15,7 @@
     "supplyAdded": "Fornecimento adicionado",
     "unLoan": "Sem empréstimo",
     "notEngaged": "Não comprometido",
+    "learnMore": "Saiba mais",
     "modal": {
       "collateral": {
         "preview": {
@@ -24,7 +25,7 @@
         },
         "loading": {
           "title": "{isEnable, plural, =1 {Utilizar como garantia} other {Desativar como garantia}}",
-          "content": "{isEnable, plural, =1 {Confirmar a transação com {walletName}} other {Confirmar a transação com {walletName}}}"
+          "content": "{isEnable, plural, =1 {Confirmar a transação com {walletName}} other {Confirmar a transação com {walletName}}"
         },
         "confirm": {
           "title": "{isEnable, plural, =1 {Utilizar como garantia} other {Desativar como garantia}}",
@@ -71,16 +72,16 @@
           "button": "{isBorrow, plural, =1 {Confirmar Empréstimo} other {Confirmar o reembolso}}"
         },
         "loading": {
-          "content": "{isBorrow, plural, =1 {Borrowing Token please wait...} other {Reembolso do Token por favor aguarde...}}}"
+          "content": "{isBorrow, plural, =1 {Borrowing Token please wait...} other {Reembolso do Token por favor aguarde...}}"
         },
         "confirm": {
-          "content": "{isSupply, plural, =1 {Token Emprestado} other {Token Emprestado}}",
+          "content": "{isBorrow, plural, =1 {Token Emprestado} other {Token Emprestado}}",
           "additionInfo": "Pode consultar o seu histórico de transacções no menu Atividade.",
           "secondButton": "Ver na atividade"
         },
         "error": {
           "title": "Error",
-          "content": "{isSupply, plural, =1 {Empréstimo de token falhou} other {Reembolso de token falhou}",
+          "content": "{isBorrow, plural, =1 {Empréstimo de token falhou} other {Reembolso de token falhou}",
           "button": "Tentar novamente"
         }
       }

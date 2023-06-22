@@ -3,7 +3,6 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { CheckmarkSVG } from '@/components/svg/v2';
-import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
 import { RowResultModalProps } from '../modal.types';
@@ -32,9 +31,7 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
       boxShadow="0 0 5px #3334"
     >
       <Box py="m" display="flex" alignItems="center" justifyContent="center">
-        <Typography variant="medium">
-          {t(title as TTranslatedMessage)}
-        </Typography>
+        <Typography variant="medium">{title}</Typography>
       </Box>
       <Box
         pt="4xl"
@@ -50,7 +47,7 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
           <CheckmarkSVG filled width="100%" maxWidth="3rem" maxHeight="3rem" />
         </Box>
         <Typography my="xl" width="16rem" variant="medium" textAlign="center">
-          {t(content as TTranslatedMessage)}
+          {content}
         </Typography>
       </Box>
       <Typography variant="extraSmall">{additionalText}</Typography>

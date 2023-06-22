@@ -50,10 +50,10 @@
           "borrowLimit": "Límite de préstamo",
           "borrowLimitUsed": "Límite de préstamo utilizado"
         },
-        "supply": "suministrar",
-        "withdraw": "retirar",
-        "borrow": "tomar prestado",
-        "repay": "pagar",
+        "supply": "Suministrar",
+        "withdraw": "Retirar",
+        "borrow": "Tomar prestado",
+        "repay": "Pagar",
         "rewards": "Recompensas",
         "close": "Cerrar"
       },

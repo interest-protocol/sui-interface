@@ -140,7 +140,7 @@ const SupplyMarketTableRow: FC<
               : 'common.v2.lend.withdraw'
           )}
           content={t('Lend.modal.supply.confirm.content', {
-            isSupply: +isSupplyOrBorrow,
+            isSupply: 1,
           })}
           additionalText={t('Lend.modal.supply.confirm.additionInfo')}
           activityLink="#"

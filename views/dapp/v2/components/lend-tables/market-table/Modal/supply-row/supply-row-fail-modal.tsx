@@ -3,7 +3,6 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { TimesSVG } from '@/components/svg/v2';
-import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
 import { RowFailModalProps } from '../modal.types';
@@ -31,9 +30,7 @@ const SupplyMarketFailModal: FC<RowFailModalProps> = ({
       boxShadow="0 0 5px #3334"
     >
       <Box py="m" display="flex" alignItems="center" justifyContent="center">
-        <Typography variant="medium">
-          {t(title as TTranslatedMessage)}
-        </Typography>
+        <Typography variant="medium">{title}</Typography>
       </Box>
       <Box
         pt="4xl"
@@ -50,7 +47,7 @@ const SupplyMarketFailModal: FC<RowFailModalProps> = ({
         </Box>
         {content && (
           <Typography my="xl" width="16rem" variant="medium" textAlign="center">
-            {t(content as TTranslatedMessage)}
+            {content}
           </Typography>
         )}
       </Box>

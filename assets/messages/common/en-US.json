@@ -51,10 +51,10 @@
           "borrowLimit": "Borrow Limit",
           "borrowLimitUsed": "Borrow Limit Used"
         },
-        "supply": "supply",
-        "withdraw": "withdraw",
-        "borrow": "borrow",
-        "repay": "repay",
+        "supply": "Supply",
+        "withdraw": "Withdraw",
+        "borrow": "Borrow",
+        "repay": "Repay",
         "rewards": "Rewards",
         "close": "Close"
       },

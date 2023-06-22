@@ -15,6 +15,7 @@
     "supplyAdded": "Fornecimento adicionado",
     "unLoan": "Sem empréstimo",
     "notEngaged": "Não comprometido",
+    "learnMore": "Saiba mais",
     "modal": {
       "collateral": {
         "preview": {
@@ -24,7 +25,7 @@
         },
         "loading": {
           "title": "{isEnable, plural, =1 {Utilizar como garantia} other {Desativar como garantia}}",
-          "content": "{isEnable, plural, =1 {Confirmar a transação com {walletName}} other {Confirmar a transação com {walletName}}}"
+          "content": "{isEnable, plural, =1 {Confirmar a transação com {walletName}} other {Confirmar a transação com {walletName}}"
         },
         "confirm": {
           "title": "{isEnable, plural, =1 {Utilizar como garantia} other {Desativar como garantia}}",

@@ -77,7 +77,7 @@ const BorrowMarketTableRow: FC<
             isSupplyOrBorrow ? 'common.v2.lend.borrow' : 'common.v2.lend.repay'
           )}
           content={t('Lend.modal.borrow.confirm.content', {
-            isSupply: +isSupplyOrBorrow,
+            isBorrow: +isSupplyOrBorrow,
           })}
           additionalText={t('Lend.modal.borrow.confirm.additionInfo')}
           activityLink="#"
@@ -89,7 +89,7 @@ const BorrowMarketTableRow: FC<
             isSupplyOrBorrow ? 'common.v2.lend.borrow' : 'common.v2.lend.repay'
           )}
           content={t('Lend.modal.borrow.error.content', {
-            isSupply: +isSupplyOrBorrow,
+            isBorrow: +isSupplyOrBorrow,
           })}
           description=""
         />

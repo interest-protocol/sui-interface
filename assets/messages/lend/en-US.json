@@ -15,6 +15,7 @@
     "supplyAdded": "Supply Added",
     "unLoan": "Un loan",
     "notEngaged": "Not engaged",
+    "learnMore": "Learn more",
     "modal": {
       "collateral": {
         "preview": {
@@ -71,16 +72,16 @@
           "button": "{isBorrow, plural, =1 {Confirm Borrow} other {Confirm Repay}}"
         },
         "loading": {
-          "content": "{isBorrow, plural, =1 {Borrowing Token please wait...} other {Repaying Token please wait...}}}"
+          "content": "{isBorrow, plural, =1 {Borrowing Token please wait...} other {Repaying Token please wait...}}"
         },
         "confirm": {
-          "content": "{isSupply, plural, =1 {Token Borrowed} other {Token Repayed}}",
+          "content": "{isBorrow, plural, =1 {Token Borrowed} other {Token Repayed}}",
           "additionInfo": "You can check you transaction history in the Actvity menu.",
           "secondButton": "View on activity"
         },
         "error": {
           "title": "Error",
-          "content": "{isSupply, plural, =1 {Token Borrow Failed} other {Token Repay Failed}}",
+          "content": "{isBorrow, plural, =1 {Token Borrow Failed} other {Token Repay Failed}}",
           "button": "Try again"
         }
       }
