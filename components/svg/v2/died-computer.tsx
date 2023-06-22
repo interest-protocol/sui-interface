@@ -9,7 +9,7 @@ const DiedComputer: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => {
   return (
     <svg
       style={{ maxWidth, maxHeight }}
-      viewBox="0 0 999 622"
+      viewBox="0 0 999 580"
       fill="none"
       {...props}
     >
