@@ -1,4 +1,4 @@
-import { findAllMarkets, SwapPathObject } from '@interest-protocol/sui-sdk';
+import { findAllMarkets, SwapPathObject } from '@interest-protocol/sui-amm-sdk';
 import { FC, useState } from 'react';
 
 import { BASE_TOKENS_TYPES } from '@/constants';

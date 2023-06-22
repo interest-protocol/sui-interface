@@ -1,4 +1,4 @@
-import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
+import { COIN_TYPE, Network } from '@interest-protocol/sui-amm-sdk';
 import { TOKEN_SYMBOL } from 'lib';
 
 export const COIN_TYPE_TO_STABLE = {

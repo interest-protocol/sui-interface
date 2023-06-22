@@ -1,6 +1,6 @@
-import { Network, SDK } from '@interest-protocol/sui-sdk';
+import { Network, SDK } from '@interest-protocol/sui-amm-sdk';
 import { Connection, devnetConnection, JsonRpcProvider } from '@mysten/sui.js';
-import { SuinsClient } from '@suins/toolkit';
+import { SuinsClient } from '@mysten/suins-toolkit';
 
 export const devNetProvider = new JsonRpcProvider(
   process.env.NEXT_PUBLIC_SUI_DEVNET_RPC_URL
@@ -37,25 +37,25 @@ export const mainNetProvider = new JsonRpcProvider(
   })
 );
 
-export const suiNSDevNetProvider = new SuinsClient(
-  new JsonRpcProvider() as any,
-  {
-    networkType: 'devnet',
-  }
-);
+export const suiNSDevNetProvider = new SuinsClient(new JsonRpcProvider(), {
+  networkType: 'devnet',
+});
 
-export const suiNSTestNetProvider = new SuinsClient(
-  new JsonRpcProvider() as any,
-  {
-    networkType: 'testnet',
-  }
-);
+export const suiNSTestNetProvider = new SuinsClient(new JsonRpcProvider(), {
+  networkType: 'testnet',
+});
 
 export const suiNSMainNetProvider = new SuinsClient(
-  new JsonRpcProvider() as any,
-  {
-    networkType: 'testnet', // fix once mainnet is deployed
-  }
+  new JsonRpcProvider(
+    new Connection({
+      fullnode: process.env.NEXT_PUBLIC_SUI_MAINNET_RPC_URL
+        ? process.env.NEXT_PUBLIC_SUI_MAINNET_RPC_URL
+        : 'https://fullnode.mainnet.sui.io:443',
+      websocket:
+        process.env.NEXT_PUBLIC_SUI_MAINNET_WS_URL ||
+        'wss://fullnode.mainnet.sui.io:443',
+    })
+  )
 );
 
 export const devNetIPXSdk = new SDK(devNetProvider, Network.DEVNET);

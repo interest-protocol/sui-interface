@@ -1,4 +1,4 @@
-import { OBJECT_RECORD } from '@interest-protocol/sui-sdk';
+import { OBJECT_RECORD } from '@interest-protocol/sui-amm-sdk';
 import { SuiObjectResponse } from '@mysten/sui.js';
 import { pathOr } from 'ramda';
 import useSWR from 'swr';

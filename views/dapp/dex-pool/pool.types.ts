@@ -1,4 +1,4 @@
-import { Network } from '@interest-protocol/sui-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import { BigNumber } from 'bignumber.js';
 import { useReadLocalStorage } from 'usehooks-ts';
 

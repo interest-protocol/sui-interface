@@ -1,7 +1,7 @@
 import {
   getReturnValuesFromInspectResults,
   OBJECT_RECORD,
-} from '@interest-protocol/sui-sdk';
+} from '@interest-protocol/sui-amm-sdk';
 import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import { bcs } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';

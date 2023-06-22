@@ -1,4 +1,4 @@
-import { DexMarket } from '@interest-protocol/sui-sdk';
+import { DexMarket } from '@interest-protocol/sui-amm-sdk';
 import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { UseFormReturn } from 'react-hook-form';
 import { KeyedMutator } from 'swr';

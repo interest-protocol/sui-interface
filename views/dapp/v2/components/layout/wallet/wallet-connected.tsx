@@ -40,6 +40,7 @@ const WalletConnected: FC = () => {
   useEffect(() => {
     if (account) {
       setLoading(true);
+
       suiNSProvider
         .getName(account)
         .then(setSuiNS)
