@@ -131,6 +131,7 @@
     "error": "error",
     "submit": "{isLoading, plural, =1 {submitting...} other {submit}}",
     "backHome": "Back Home",
+    "goBackHome": "Go back to Home",
     "chooseToken": "Choose token",
     "chooseNetwork": "Choose Network",
     "wallet": "wallet",

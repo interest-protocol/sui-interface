@@ -131,6 +131,7 @@
     "error": "error",
     "submit": "{isLoading, plural, =1 {enviando...} other {enviar}}",
     "backHome": "Volver al inicio",
+    "goBackHome": "Volver al inicio",
     "chooseToken": "Seleccionar token",
     "chooseNetwork": "Seleccionar red",
     "wallet": "artera",
