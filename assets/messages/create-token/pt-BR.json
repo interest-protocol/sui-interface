@@ -1,14 +1,15 @@
 {
   "createToken": {
-    "pageTitle": "Create New Token",
+    "pageTitle": "Criar Novo Token",
     "button": "{isLoading, plural, =1 {Criando O Token...} other {Crie Um Token}}",
     "title": "NOVO TOKEN",
-    "inputName": "Nome",
-    "inputSymbol": "Símbolo",
-    "inputIconUrl": "URL do ícone",
+    "inputName": "Nome*",
+    "inputSymbol": "Símbolo*",
+    "inputIconUrl": "URL do ícone*",
     "inputDescription": "Descrição",
+    "balance": "Saldo",
     "advice": "Deves pagar 1 Sui para a criação do Token",
-    "inputAmount": "Montante",
+    "inputAmount": "Montante*",
     "inputPlaceholder": "Escreva o {label}"
   }
 }
