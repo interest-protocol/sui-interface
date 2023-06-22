@@ -71,6 +71,7 @@ export { default as UserSVG } from './user';
 export { default as UserPlusSVG } from './user-plus';
 export { default as WormholeADABSVG } from './v2/wormhole-ada-bsc';
 export { default as WarningSVG } from './warning';
+export { default as WarningCircle } from './warning-circle';
 export { default as WormholeBTCBSVG } from './wormhole-btcb';
 export { default as WormholeCELOSVG } from './wormhole-celo';
 export { default as WormholeDOGEBSVG } from './wormhole-dogeb';
