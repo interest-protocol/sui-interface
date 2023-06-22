@@ -1,0 +1,21 @@
+{
+  "dexPoolPair": {
+    "pageTitle": "Detalles de la Pool",
+    "title": "{type} Resumen",
+    "sectionCustomDetail2": "Comisión de Intercambio",
+    "removeLiquidity": "Retirar Liquidez",
+    "addLiquidity": "Añadir Liquidez",
+    "error": {
+      "pairData": "Error al obtener los datos del par",
+      "lowBalance": "No tienes suficiente saldo de {symbol}",
+      "pairDoesNotExist": "El par con la dirección {objectId} no existe",
+      "unableToAdd": "No se puede agregar 0 liquidez",
+      "notEnough": "No hay suficientes monedas",
+      "failedAdd": "Error al Añadir la liquidez",
+      "failedRemove": "Error al retirar la liquidez",
+      "cannotWithdraw": "No se pueden retirar 0 tokens LP",
+      "increaseAmount": "Aumenta la cantidad de {symbol}",
+      "notEnoughGas": "No hay suficiente SUI para cubrir la tarifa de intercambio"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "dexPoolFind": {
+    "pageTitle": "Buscar Pool",
+    "title": "Buscar una Pool",
+    "button": "{isLoading, plural, =1 {Buscando...} other {Buscar y Entrar}}",
+    "buttonSameToken": "Elige tokens diferentes",
+    "buttonPool": "{isLoading, plural, =1 {Creando Pool...} other {Crear Pool}}",
+    "balanceError": "Error al conectar con el Blockchain",
+    "createPoolTitle": "Crear una Pool Volátil",
+    "createPoolAdvice": "¡Esta Pool no existe! Por favor, créala ahora.",
+    "createPoolInfo": "Importante: Estás creando un mercado diseñado para activos no correlacionados. Por ejemplo, BTC/ETH.",
+    "createPoolPopup": {
+      "title": "Atencion",
+      "description": "Estás creando un mercado volátil para {symbol0} y {symbol1}.",
+      "submit": "Crear de todos modos"
+    },
+    "switchOption1": "Recomendado",
+    "switchOption2": "Añadido por mí",
+    "errors": {
+      "create": "Error al crear la Pool",
+      "value": "Ambas monedas deben tener un valor",
+      "noAccount": "No se encontró ninguna cuenta",
+      "connecting": "Error de conexión"
+    }
+  }
+}
