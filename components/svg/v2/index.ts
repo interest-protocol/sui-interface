@@ -14,6 +14,7 @@ export { default as NoSearchSVG } from './no-search';
 export { default as PercentageSVG } from './percentage';
 export { default as SearchSVG } from './search';
 export { default as SUISVG } from './sui';
+export { default as SUIDSVG } from './suid';
 export { default as TimesSVG } from './times';
 export { default as UnknownCoinSVG } from './unknown-coin';
 export { default as USDTSVG } from './usdt';
