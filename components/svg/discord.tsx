@@ -6,7 +6,6 @@ const Discord: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => (
   <svg
     style={{ maxWidth: maxWidth, maxHeight: maxHeight }}
     viewBox="0 0 24 18"
-    fill="none"
     {...props}
   >
     <path
