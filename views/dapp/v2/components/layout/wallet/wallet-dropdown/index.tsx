@@ -73,7 +73,7 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
       pointerEvents={isOpen ? 'auto' : 'none'}
     >
       <Box display="flex" p="l" gap="m" justifyContent="center">
-        {!asPath.includes('dapp/v2') && (
+        {!asPath.includes('dapp/alpha') && (
           <Chip
             noCheckmark
             text="Mainnet"
@@ -81,7 +81,7 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
             onClick={() => setNetwork(Network.MAINNET)}
           />
         )}
-        {(asPath.includes('dapp/v2') ||
+        {(asPath.includes('dapp/alpha') ||
           process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production') && (
           <Chip
             noCheckmark

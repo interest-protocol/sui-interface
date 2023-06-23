@@ -29,7 +29,7 @@ const NetworkProvider: FC<NetworkProviderProps> = ({ children }) => {
   const [network, setNetwork] = useState<Network>(
     process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'
       ? localNetwork || Network.MAINNET
-      : asPath.includes('/dapp/v2')
+      : asPath.includes('/dapp/alpha')
       ? Network.TESTNET
       : Network.MAINNET
   );
