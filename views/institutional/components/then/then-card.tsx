@@ -61,11 +61,11 @@ const ThenCard: FC<ThenCardProps> = ({
           border="1px solid"
           borderColor="border"
           p="1rem"
-          borderRadius="4px"
+          borderRadius=".25rem"
         >
           <Box
             bg="primary"
-            borderRadius="4px"
+            borderRadius=".25rem"
             height="14.25rem"
             display="flex"
             justifyContent="center"
@@ -102,7 +102,7 @@ const ThenCard: FC<ThenCardProps> = ({
         </Motion>
       ) : (
         <Box
-          width={['unset', 'unset', 'unset', '2.5rem']}
+          width={['unset', 'unset', 'unset', '97px']}
           border="1px solid"
           borderColor="#45464F"
           p="1rem"
@@ -115,7 +115,7 @@ const ThenCard: FC<ThenCardProps> = ({
             display="flex"
             justifyContent="center"
             alignItems="center"
-            width={['100%', '100%', '100%', '2.5rem']}
+            width={['100%', '100%', '100%', '100%']}
           >
             <Typography
               variant="extraSmall"
