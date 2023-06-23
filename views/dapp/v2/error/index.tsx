@@ -1,8 +1,10 @@
 import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
+import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { ComputerEyesSVG, DiedComputerSVG } from '@/components/svg/v2';
+import { Routes, RoutesEnum } from '@/constants';
 import { ArrowLeft } from '@/svg';
 import { capitalize } from '@/utils';
 
@@ -10,6 +12,7 @@ import { Layout } from '../components';
 
 const ErrorPage: FC = () => {
   const t = useTranslations();
+  const { push } = useRouter();
 
   return (
     <Layout dashboard>
@@ -49,14 +52,15 @@ const ErrorPage: FC = () => {
             {capitalize(t('error.generic'))}
           </Typography>
           <Button
-            PrefixIcon={
-              <ArrowLeft maxHeight="100%" maxWidth="100%" width="1rem" />
-            }
             mx="auto"
             size="small"
             bg="onSurface"
             variant="filled"
             color="inverseOnSurface"
+            onClick={() => push(Routes[RoutesEnum.Swap])}
+            PrefixIcon={
+              <ArrowLeft maxHeight="100%" maxWidth="100%" width="1rem" />
+            }
           >
             {t('common.goBackHome')}
           </Button>
