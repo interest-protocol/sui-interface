@@ -46,7 +46,7 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
   isOpen,
   loading,
   addressName,
-  handleDisconnect,
+  handleClose,
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
@@ -57,6 +57,11 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
   const copyToClipboard = (address: string) => {
     window.navigator.clipboard.writeText(address || '');
     toast(capitalize(t('common.v2.wallet.copy')));
+  };
+
+  const handleChangeNetwork = (selectedNetwork: Network) => () => {
+    setNetwork(selectedNetwork);
+    handleClose();
   };
 
   return (
@@ -78,7 +83,7 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
             noCheckmark
             text="Mainnet"
             isActive={network === Network.MAINNET}
-            onClick={() => setNetwork(Network.MAINNET)}
+            onClick={handleChangeNetwork(Network.MAINNET)}
           />
         )}
         {(asPath.includes('dapp/alpha') ||
@@ -87,7 +92,7 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
             noCheckmark
             text="Testnet"
             isActive={network === Network.TESTNET}
-            onClick={() => setNetwork(Network.TESTNET)}
+            onClick={handleChangeNetwork(Network.TESTNET)}
           />
         )}
       </Box>
@@ -97,7 +102,7 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
           onClick={() => {
             if (!(walletAccount.address === account)) {
               selectAccount(walletAccount);
-              handleDisconnect();
+              handleClose();
             }
           }}
         >
@@ -129,7 +134,7 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
       <MenuItemWrapper
         onClick={async () => {
           await disconnect();
-          handleDisconnect();
+          handleClose();
         }}
       >
         <WalletItem name="disconnect" />
