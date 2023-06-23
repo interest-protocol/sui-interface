@@ -1,5 +1,6 @@
 import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 import { FC, PropsWithChildren, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
@@ -18,6 +19,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   dashboard,
 }) => {
   const [isDesktop, setIsDesktop] = useState(false);
+  const t = useTranslations();
   const { colors, radii, breakpoints } = useTheme() as Theme;
   const { pathname } = useRouter();
   const IS_LEND_PAGE = pathname == Routes[RoutesEnum.Lend];
@@ -59,7 +61,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
                   color="onSurface"
                   textTransform="capitalize"
                 >
-                  Lend
+                  {t('Lend.metadata.title')}
                 </Typography>
               )}
               <Box display="flex" justifyContent="space-between">

@@ -6,6 +6,7 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 
@@ -24,6 +25,7 @@ import SupplyMarketPreviewModal from '../market-table/Modal/supply-row/supply-ro
 const SupplyMarketTableRow: FC<
   MarketTableSupplyProps & { isEngaged: boolean }
 > = ({ assetApy, supplied, wallet, collateral, isEngaged }) => {
+  const t = useTranslations();
   const { setModal, handleClose } = useModal();
   const [collateralSwitch, setCollateralSwitch] = useState(collateral);
   const { dark } = useTheme() as Theme;
@@ -76,12 +78,7 @@ const SupplyMarketTableRow: FC<
     const RANDOM_RESULT = Math.random() < 0.5;
     setModal(
       <ResultCollateralModal
-        title={'Enable as Collateral'}
-        content={
-          RANDOM_RESULT
-            ? 'You have enable [Token name] as a Collateral'
-            : 'You have NOT enable [Token name] as a Collateral'
-        }
+        tokenName="###"
         closeModal={handleClose}
         isSuccess={RANDOM_RESULT}
       />,
@@ -137,18 +134,28 @@ const SupplyMarketTableRow: FC<
       isSuccess ? (
         <SupplyMarketConfirmModal
           closeModal={handleClose}
-          title={isSupplyOrBorrow ? 'Supply' : 'Withdraw'}
-          content={isSupplyOrBorrow ? 'Token Supplied' : 'Token Withdrawed'}
-          additionalText="You can check you transaction history in the Actvity menu."
+          title={t(
+            isSupplyOrBorrow
+              ? 'common.v2.lend.supply'
+              : 'common.v2.lend.withdraw'
+          )}
+          content={t('Lend.modal.supply.confirm.content', {
+            isSupply: 1,
+          })}
+          additionalText={t('Lend.modal.supply.confirm.additionInfo')}
           activityLink="#"
         />
       ) : (
         <SupplyMarketFailModal
           closeModal={handleClose}
-          title={isSupplyOrBorrow ? 'Supply' : 'Withdraw'}
-          content={
-            isSupplyOrBorrow ? 'Token Supply Failed' : 'Token Withdraw Failed'
-          }
+          title={t(
+            isSupplyOrBorrow
+              ? 'common.v2.lend.supply'
+              : 'common.v2.lend.withdraw'
+          )}
+          content={t('Lend.modal.supply.error.content', {
+            isSupply: +isSupplyOrBorrow,
+          })}
           description=""
         />
       ),
@@ -181,7 +188,7 @@ const SupplyMarketTableRow: FC<
     >
       <Box
         borderLeft="2px solid"
-        borderColor={isEngaged ? '#D9F99D' : 'surface.containerLow'}
+        borderColor={isEngaged ? 'success' : dark ? 'black' : 'white'}
         py="1.5rem"
         pl="1.125rem"
         gap="m"

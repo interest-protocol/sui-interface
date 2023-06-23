@@ -3,12 +3,13 @@
     "pageTitle": "Create New Token",
     "button": "{isLoading, plural, =1 {Creating Token...} other {Create Token}}",
     "title": "CREATE NEW TOKEN",
-    "inputName": "Name",
-    "inputSymbol": "Symbol",
-    "inputIconUrl": "Icon URL",
+    "inputName": "Name*",
+    "inputSymbol": "Symbol*",
+    "inputIconUrl": "Icon URL*",
     "inputDescription": "Description",
+    "balance": "Balance",
     "advice": "You must pay 1 Sui for Token Creation",
-    "inputAmount": "Amount",
+    "inputAmount": "Amount*",
     "inputPlaceholder": "Type {label}"
   }
 }

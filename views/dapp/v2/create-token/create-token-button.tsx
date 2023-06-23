@@ -1,4 +1,5 @@
 import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
+import { Button, ProgressIndicator } from '@interest-protocol/ui-kit';
 import {
   fromB64,
   normalizeSuiObjectId,
@@ -12,10 +13,8 @@ import { useWatch } from 'react-hook-form';
 
 import { getTokenByteCode } from '@/api/token';
 import { GAS_COST, TREASURY } from '@/constants';
-import { Box, Button, Typography } from '@/elements';
 import { useLocalStorage, useNetwork, useWeb3 } from '@/hooks';
 import { LocalTokenMetadataRecord } from '@/interface';
-import { LoadingSVG } from '@/svg';
 import {
   capitalize,
   showToast,
@@ -28,10 +27,10 @@ import { CreateTokenButtonProps } from './create-token-form.types';
 const CreateTokenButton: FC<CreateTokenButtonProps> = ({ control }) => {
   const t = useTranslations();
   const { network } = useNetwork();
-  const [loading, setLoading] = useState(false);
-  const { name, symbol, amount, iconUrl, description } = useWatch({ control });
-  const { signAndExecuteTransactionBlock } = useWalletKit();
   const { account, walletAccount } = useWeb3();
+  const [loading, setLoading] = useState(false);
+  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { name, symbol, amount, iconUrl, description } = useWatch({ control });
 
   const isValid =
     name &&
@@ -93,7 +92,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({ control }) => {
 
         const tx = await signAndExecuteTransactionBlock({
           transactionBlock,
-          chain: walletAccount?.chains[0] || Network.DEVNET,
+          chain: walletAccount?.chains[0] || network,
           options: { showBalanceChanges: true, showEffects: true },
         });
 
@@ -102,7 +101,7 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({ control }) => {
         await showTXSuccessToast(tx, network);
 
         const data = tx?.balanceChanges?.filter(
-          (data) => data.coinType !== COIN_TYPE[Network.DEVNET].SUI
+          (data) => data.coinType !== COIN_TYPE[network].SUI
         );
 
         if (data && data.length)
@@ -131,29 +130,18 @@ const CreateTokenButton: FC<CreateTokenButtonProps> = ({ control }) => {
 
   return (
     <Button
-      mt="L"
-      width="100%"
-      variant="primary"
+      px="2xl"
+      mx="auto"
+      size="small"
+      fontSize="s"
+      variant="filled"
       onClick={safeCreateToken}
       disabled={loading || !isValid}
+      PrefixIcon={
+        loading ? <ProgressIndicator variant="loading" size={16} /> : null
+      }
     >
-      {loading ? (
-        <Box display="flex" alignItems="center" justifyContent="center">
-          <Box as="span" display="inline-block" width="1rem">
-            <LoadingSVG width="100%" maxHeight="1rem" maxWidth="1rem" />
-          </Box>
-          <Typography
-            fontSize="S"
-            variant="normal"
-            ml="M"
-            textTransform="capitalize"
-          >
-            {t('createToken.button', { isLoading: 1 })}
-          </Typography>
-        </Box>
-      ) : (
-        t('createToken.button', { isLoading: 0 })
-      )}
+      {t('createToken.button', { isLoading: Number(loading) })}
     </Button>
   );
 };

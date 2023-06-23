@@ -1,7 +1,9 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { CheckmarkSVG } from '@/components/svg/v2';
+import { capitalize } from '@/utils';
 
 import { RowResultModalProps } from '../modal.types';
 
@@ -12,6 +14,7 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
   activityLink,
   closeModal,
 }) => {
+  const t = useTranslations();
   return (
     <Box
       px="xl"
@@ -57,7 +60,7 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
         justifyContent="center"
         onClick={closeModal}
       >
-        Close
+        {capitalize(t('common.v2.lend.close'))}
       </Button>
       <a
         href={activityLink}
@@ -74,7 +77,7 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
           boxSizing="border-box"
           justifyContent="center"
         >
-          View on activity
+          {t('Lend.modal.supply.confirm.secondButton')}
         </Button>
       </a>
     </Box>

@@ -38,14 +38,24 @@
         "copy": "Dirección copiada"
       },
       "lend": {
-        "title": "Préstamo",
+        "title": "Prestar",
+        "subTitle": "Principales movimientos",
         "firstSection": {
-          "netAPY": "APY neto",
+          "netAPY": "APY Neto",
           "supplyBalance": "Saldo de suministro",
-          "walletBalance": "Saldo de la cartera",
+          "borrowBalance": "Saldo de préstamo",
+          "walletBalance": "Saldo de billetera",
+          "newBorrowLimit": "Nuevo límite de préstamo",
+          "currentBorrowLimit": "Límite de préstamo actual",
           "borrowLimit": "Límite de préstamo",
           "borrowLimitUsed": "Límite de préstamo utilizado"
-        }
+        },
+        "supply": "Suministrar",
+        "withdraw": "Retirar",
+        "borrow": "Tomar prestado",
+        "repay": "Pagar",
+        "rewards": "Recompensas",
+        "close": "Cerrar"
       },
       "banner": {
         "liquidity": {

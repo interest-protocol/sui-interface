@@ -5,6 +5,7 @@ import {
   ProgressIndicator,
   Typography,
 } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 import { setTimeout } from 'timers';
@@ -19,6 +20,7 @@ const CollateralModal: FC<CollateralModalProps> = ({
   closeModal,
   resultModal,
 }) => {
+  const t = useTranslations();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleIsLoading = () => {
@@ -32,8 +34,11 @@ const CollateralModal: FC<CollateralModalProps> = ({
 
   return isLoading ? (
     <LoadingModal
-      title="Enable as Collateral"
-      content="Confirm the transaction with [Name of Wallet]."
+      title={t('Lend.modal.collateral.loading.title', { isEnable: 1 })}
+      content={t('Lend.modal.collateral.loading.content', {
+        walletName: '###',
+        isEnable: 1,
+      })}
     />
   ) : (
     <Motion
@@ -63,26 +68,34 @@ const CollateralModal: FC<CollateralModalProps> = ({
           fontWeight="400"
           color="onSurface"
         >
-          Enable as Collateral
+          {t('Lend.modal.collateral.preview.title', { isEnable: 1 })}
         </Typography>
         <Typography variant="small" color="onSurface" lineHeight="1.25rem">
-          Each asset used as collateral increases your borrowing limit. Be
-          careful, this can subject the asset to being seized in liquidation.{' '}
+          {t('Lend.modal.collateral.preview.content', { isEnable: 1 }) + ' '}
           <Typography variant="small" color="#A5F3FC" as="span">
             <a
               target="_blank"
               href="https://medium.com/compound-finance/faq-1a2636713b69"
               rel="noreferrer"
             >
-              Learn more.,,
+              Learn more...
             </a>
           </Typography>
         </Typography>
       </Box>
       <Box p="xl" bg="surface.containerLow">
-        <LineModal description="Current Borrow Limit" value="$ 1000" />
-        <LineModal description="New Borrow Limit" value="$ 1000" />
-        <LineModal description="Borrow Limit Used" value="0 %" />
+        <LineModal
+          description="common.v2.lend.firstSection.currentBorrowLimit"
+          value="$ 1000"
+        />
+        <LineModal
+          description="common.v2.lend.firstSection.newBorrowLimit"
+          value="$ 1000"
+        />
+        <LineModal
+          description="common.v2.lend.firstSection.borrowLimitUsed"
+          value="0 %"
+        />
         <Box p="1rem" display="flex" justifyContent="space-between">
           <ProgressIndicator value={75} variant="bar" />
         </Box>
@@ -95,10 +108,10 @@ const CollateralModal: FC<CollateralModalProps> = ({
         justifyContent="space-between"
       >
         <Button variant="text" fontSize="s" onClick={closeModal}>
-          Cancel
+          {t('common.v2.cancel')}
         </Button>
         <Button variant="filled" fontSize="s" onClick={handleCollateral}>
-          Use as Collateral
+          {t('Lend.modal.collateral.preview.button', { isEnable: 1 })}
         </Button>
       </Box>
     </Motion>

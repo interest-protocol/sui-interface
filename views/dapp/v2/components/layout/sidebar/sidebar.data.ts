@@ -1,6 +1,6 @@
-import { FarmSVG, NewTokenSVG } from '@/components/svg/v2';
+import { CogsSVG, FarmSVG, NewTokenSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
-import { DotsSVG, HomeSVG, PoolSVG, SwapSVG } from '@/svg';
+import { HomeSVG, LendSVG, PoolSVG, SwapSVG } from '@/svg';
 
 export const SIDEBAR_ITEMS = [
   {
@@ -22,7 +22,7 @@ export const SIDEBAR_ITEMS = [
     disabled: false,
   },
   {
-    Icon: PoolSVG,
+    Icon: LendSVG,
     name: 'lend',
     path: Routes[RoutesEnum.Lend],
     disabled: false,
@@ -40,7 +40,7 @@ export const SIDEBAR_ITEMS = [
     disabled: false,
   },
   {
-    Icon: DotsSVG,
+    Icon: CogsSVG,
     name: 'settings',
     path: '',
     disabled: true,

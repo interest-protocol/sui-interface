@@ -1,4 +1,5 @@
 import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { CheckmarkSVG, TimesSVG } from '@/components/svg/v2';
@@ -6,11 +7,11 @@ import { CheckmarkSVG, TimesSVG } from '@/components/svg/v2';
 import { ResultModalProps } from './modal.types';
 
 const ResultCollateralModal: FC<ResultModalProps> = ({
-  title,
-  content,
+  tokenName,
   closeModal,
   isSuccess,
 }) => {
+  const t = useTranslations();
   return (
     <Motion
       layout
@@ -32,7 +33,9 @@ const ResultCollateralModal: FC<ResultModalProps> = ({
         alignItems="center"
         justifyContent="center"
       >
-        <Typography variant="medium">{title}</Typography>
+        <Typography variant="medium">
+          {t('Lend.modal.collateral.confirm.title', { isEnable: +isSuccess })}
+        </Typography>
       </Box>
       <Box
         pt="4xl"
@@ -58,7 +61,10 @@ const ResultCollateralModal: FC<ResultModalProps> = ({
           )}
         </Box>
         <Typography my="xl" width="16rem" variant="medium" textAlign="center">
-          {content}
+          {t('Lend.modal.collateral.confirm.content', {
+            isEnable: +isSuccess,
+            tokenName: tokenName,
+          })}
         </Typography>
       </Box>
       <Box mx="xl">
@@ -71,7 +77,7 @@ const ResultCollateralModal: FC<ResultModalProps> = ({
           boxSizing="border-box"
           justifyContent="center"
         >
-          Close
+          {t('Lend.modal.collateral.confirm.title', { isEnable: +isSuccess })}
         </Button>
       </Box>
     </Motion>

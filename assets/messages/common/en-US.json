@@ -47,14 +47,16 @@
           "borrowBalance": "Borrow Balance",
           "walletBalance": "Wallet Balance",
           "newBorrowLimit": "New Borrow Limit",
+          "currentBorrowLimit": "Current Borrow Limit",
           "borrowLimit": "Borrow Limit",
           "borrowLimitUsed": "Borrow Limit Used"
         },
-        "supply": "supply",
-        "withdraw": "withdraw",
-        "borrow": "borrow",
-        "repay": "repay",
-        "rewards": "Rewards"
+        "supply": "Supply",
+        "withdraw": "Withdraw",
+        "borrow": "Borrow",
+        "repay": "Repay",
+        "rewards": "Rewards",
+        "close": "Close"
       },
       "banner": {
         "liquidity": {

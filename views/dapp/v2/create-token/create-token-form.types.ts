@@ -10,15 +10,14 @@ export type TCreateTokenFieldNames =
 export type TCreateTokenForm = Record<TCreateTokenFieldNames, string>;
 
 export interface CreateTokenFieldProps {
-  label: string;
+  placeholder: string;
   required?: boolean;
   name: TCreateTokenFieldNames;
   register: UseFormRegister<TCreateTokenForm>;
 }
 
-export interface CreateTokenSupplyFieldProps {
-  label: string;
-  register: UseFormRegister<TCreateTokenForm>;
+export interface CreateTokenAmountFieldProps
+  extends Omit<CreateTokenFieldProps, 'name'> {
   setValue: UseFormSetValue<TCreateTokenForm>;
 }
 

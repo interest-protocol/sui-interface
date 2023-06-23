@@ -11,9 +11,11 @@
     "assetAPY": "Asset / APY",
     "supplied": "Supplied",
     "borrowed": "Borrowed",
+    "cash": "Cash",
     "supplyAdded": "Supply Added",
     "unLoan": "Un loan",
     "notEngaged": "Not engaged",
+    "learnMore": "Learn more",
     "modal": {
       "collateral": {
         "preview": {
@@ -37,49 +39,49 @@
       },
       "supply": {
         "normal": {
-          "button": "{isSupply, plural, =1 {Preview Supply} other {Preview Withdraw}"
+          "button": "{isSupply, plural, =1 {Preview Supply} other {Preview Withdraw}}"
         },
         "preview": {
           "sectionTitle": "New Total Supply Balance",
           "inToken": "In token",
           "inUSD": "In USD",
-          "button": "{isSupply, plural, =1 {Confirm Supply} other {Confirm Withdraw}"
+          "button": "{isSupply, plural, =1 {Confirm Supply} other {Confirm Withdraw}}"
         },
         "loading": {
           "content": "{isSupply, plural, =1 {Supplying Token please wait...} other {Withdrawing Token please wait...}}"
         },
         "confirm": {
-          "content": "{isSupply, plural, =1 {Token Supplied} other {Token Withdrawed}",
+          "content": "{isSupply, plural, =1 {Token Supplied} other {Token Withdrawed}}",
           "additionInfo": "You can check you transaction history in the Actvity menu.",
           "secondButton": "View on activity"
         },
         "error": {
           "title": "Error",
-          "content": "Error",
+          "content": "{isSupply, plural, =1 {Token Suppply Failed} other {Token Withdraw Failed}}",
           "button": "Try again"
         }
       },
       "borrow": {
         "normal": {
-          "button": "{isBorrow, plural, =1 {Preview Borrow} other {Preview Repay}"
+          "button": "{isBorrow, plural, =1 {Preview Borrow} other {Preview Repay}}"
         },
         "preview": {
           "sectionTitle": "New Total Borrow Balance",
           "inToken": "In token",
           "inUSD": "In USD",
-          "button": "{isBorrow, plural, =1 {Confirm Borrow} other {Confirm Repay}"
+          "button": "{isBorrow, plural, =1 {Confirm Borrow} other {Confirm Repay}}"
         },
         "loading": {
           "content": "{isBorrow, plural, =1 {Borrowing Token please wait...} other {Repaying Token please wait...}}"
         },
         "confirm": {
-          "content": "{isSupply, plural, =1 {Token Borrowed} other {Token Repayed}",
+          "content": "{isBorrow, plural, =1 {Token Borrowed} other {Token Repayed}}",
           "additionInfo": "You can check you transaction history in the Actvity menu.",
           "secondButton": "View on activity"
         },
         "error": {
           "title": "Error",
-          "content": "Error",
+          "content": "{isBorrow, plural, =1 {Token Borrow Failed} other {Token Repay Failed}}",
           "button": "Try again"
         }
       }
