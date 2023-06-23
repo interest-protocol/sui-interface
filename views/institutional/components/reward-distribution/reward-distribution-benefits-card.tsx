@@ -20,7 +20,11 @@ const BenefitsLiquidityCard: FC<BenefitsCardProps> = ({
       borderRadius="0.313rem"
       cursor="pointer"
     >
-      <Box mb="6.375rem" width={['2.875rem', '2.875rem', '2.875rem', '3.5rem']}>
+      <Box
+        mb="6.375rem"
+        width={['2.875rem', '2.875rem', '2.875rem', '3.5rem']}
+        color={colorBase}
+      >
         <Icon maxWidth="3.5rem" width="100%" maxHeight="3.5rem" height="100%" />
       </Box>
       <Box p={['unset', 'unset', 'unset', '0.75rem']} textAlign="left">
