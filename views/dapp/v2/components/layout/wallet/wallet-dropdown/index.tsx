@@ -81,7 +81,8 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
             onClick={() => setNetwork(Network.MAINNET)}
           />
         )}
-        {process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production' && (
+        {(asPath.includes('dapp/v2') ||
+          process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production') && (
           <Chip
             noCheckmark
             text="Testnet"
