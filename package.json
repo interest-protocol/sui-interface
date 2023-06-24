@@ -18,6 +18,7 @@
     "@hookform/resolvers": "^2.8.8",
     "@interest-protocol/sui-sdk": "^8.2.0",
     "@interest-protocol/ui-kit": "^0.1.25-beta",
+    "@mysten/bcs": "^0.7.2",
     "@mysten/sui.js": "^0.35.1",
     "@mysten/wallet-kit": "^0.4.9",
     "@stylin.js/react": "^1.0.1",

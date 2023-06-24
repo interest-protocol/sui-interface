@@ -4,10 +4,17 @@ import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import Card from './card';
-import { CARD_HEADERS } from './lend.data';
+import { OverviewSectionProps } from './lend.types';
+import { makeCardsData } from './lend.utils';
 
-const TopMoversSection: FC = () => {
+const OverviewSection: FC<OverviewSectionProps> = ({
+  marketRecord,
+  priceMap,
+  ipxPrice,
+  moneyMarketStorage,
+}) => {
   const t = useTranslations();
+
   return (
     <>
       <Typography variant="extraSmall" color="onSurface" my="1rem">
@@ -25,7 +32,12 @@ const TopMoversSection: FC = () => {
         gap="0.5rem"
         flexWrap="wrap"
       >
-        {CARD_HEADERS.map((item) => (
+        {makeCardsData({
+          priceMap,
+          ipxPrice,
+          marketRecord,
+          moneyMarketStorage,
+        }).map((item) => (
           <Card {...item} key={v4()} />
         ))}
       </Box>
@@ -33,4 +45,4 @@ const TopMoversSection: FC = () => {
   );
 };
 
-export default TopMoversSection;
+export default OverviewSection;

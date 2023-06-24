@@ -3,6 +3,7 @@ export * from './big-number';
 export * from './coin';
 export * from './farms';
 export * from './locales';
+export * from './math';
 export * from './number';
 export * from './parse';
 export * from './pools';

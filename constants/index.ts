@@ -1,4 +1,5 @@
 import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
+import BigNumber from 'bignumber.js';
 
 import {
   BNBSVG,
@@ -166,3 +167,6 @@ export const NETWORK_RECORD = {
   [Network.TESTNET]: 'testnet',
   [Network.MAINNET]: 'mainnet',
 };
+
+export const SCALAR = BigNumber(1e9);
+export const DOUBLE_SCALAR = BigNumber(1e18);

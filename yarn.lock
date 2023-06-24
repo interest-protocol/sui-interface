@@ -993,6 +993,13 @@
   dependencies:
     bs58 "^5.0.0"
 
+"@mysten/bcs@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@mysten/bcs/-/bcs-0.7.2.tgz#3d680c3dd39ee5c4dfd4022699ae60d962489e3b"
+  integrity sha512-M8aUGFwoBEj9XPCJcYuVlv8UbqBINAYhrDGLavdCYZwGlN5saGgrBcnGpXk+D2/Vp+aEUFh3RCyKudn7H0G9hQ==
+  dependencies:
+    bs58 "^5.0.0"
+
 "@mysten/sui.js@0.35.1", "@mysten/sui.js@^0.35.1":
   version "0.35.1"
   resolved "https://registry.yarnpkg.com/@mysten/sui.js/-/sui.js-0.35.1.tgz#549cb937af21240938a0d19867f03d8995610e77"
