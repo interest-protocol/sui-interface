@@ -36,6 +36,8 @@ const Lend: FC = () => {
     error: ipxPriceError,
   } = useGetDexIpxPrice(priceMap, { refreshInterval: 100000 });
 
+  console.log({ mutate, ipxPriceIsLoading, ipxPriceError });
+
   // add skeleton
   if (isLoading || priceIsLoading) return <div>loading...</div>;
 
