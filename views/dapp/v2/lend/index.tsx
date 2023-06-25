@@ -10,6 +10,7 @@ import { COIN_PRICE_KEYS } from './lend.constants';
 import { useGetMoneyMarkets, useGetMoneyMarketStorage } from './lend.hooks';
 import LimitSection from './limit-section';
 import OverviewSection from './overview-section';
+import LendSkeleton from './skeleton';
 
 const Lend: FC = () => {
   const t = useTranslations();
@@ -36,10 +37,15 @@ const Lend: FC = () => {
     error: ipxPriceError,
   } = useGetDexIpxPrice(priceMap, { refreshInterval: 100000 });
 
-  console.log({ mutate, ipxPriceIsLoading, ipxPriceError });
+  console.log('>>>>Mutate', {
+    mutate,
+    ipxPriceIsLoading,
+    ipxPriceError,
+    marketRecord,
+  });
 
   // add skeleton
-  if (isLoading || priceIsLoading) return <div>loading...</div>;
+  if (isLoading || priceIsLoading) return <LendSkeleton />;
 
   // TODO render a custom message for each error type
   if (
