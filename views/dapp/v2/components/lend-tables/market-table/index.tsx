@@ -11,7 +11,12 @@ import {
   MarketTableProps,
 } from './market-table.types';
 
-const MarketTable: FC<MarketTableProps> = ({ title, isSupply, data }) => {
+const MarketTable: FC<MarketTableProps> = ({
+  title,
+  isSupply,
+  data,
+  isLoading,
+}) => {
   return (
     <Box width="100%">
       <Box
@@ -67,10 +72,12 @@ const MarketTable: FC<MarketTableProps> = ({ title, isSupply, data }) => {
           {isSupply ? (
             <SupplyMarketTable
               SupplyMarketTableData={data as ReadonlyArray<GroupSupplyRow>}
+              isLoading={isLoading}
             />
           ) : (
             <BorrowMarketTable
               BorrowMarketTableData={data as ReadonlyArray<GroupBorrowRow>}
+              isLoading={isLoading}
             />
           )}
         </Motion>

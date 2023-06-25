@@ -1,6 +1,7 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 import { TTranslatedMessage } from '@/interface';
 import {
@@ -18,6 +19,7 @@ const CardTop: FC<Omit<CardLendProps, 'symbol' | 'amount'>> = ({
   description,
   isTrendUp,
   trendAmount,
+  isLoading,
 }) => {
   const t = useTranslations();
   const getTopIcon = (
@@ -103,22 +105,28 @@ const CardTop: FC<Omit<CardLendProps, 'symbol' | 'amount'>> = ({
         </Typography>
       </Box>
       <Box display="flex">
-        <Box
-          height="0.719rem"
-          width="1.11rem"
-          mr="0.578rem"
-          color={isTrendUp ? 'success' : 'error'}
-        >
-          {showTrendIcon(isTrendUp)}
-        </Box>
-        <Typography
-          variant="small"
-          fontWeight="500"
-          fontSize={['xs', 'xs', 'xs', 's']}
-          color={isTrendUp ? 'success' : 'error'}
-        >
-          {trendAmount} %
-        </Typography>
+        {isLoading ? (
+          <Skeleton width="3.11rem" />
+        ) : (
+          <>
+            <Box
+              height="0.719rem"
+              width="1.11rem"
+              mr="0.578rem"
+              color={isTrendUp ? 'success' : 'error'}
+            >
+              {showTrendIcon(isTrendUp)}
+            </Box>
+            <Typography
+              variant="small"
+              fontWeight="500"
+              fontSize={['xs', 'xs', 'xs', 's']}
+              color={isTrendUp ? 'success' : 'error'}
+            >
+              {trendAmount} %
+            </Typography>
+          </>
+        )}
       </Box>
     </Box>
   );

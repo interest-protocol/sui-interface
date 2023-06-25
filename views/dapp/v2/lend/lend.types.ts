@@ -9,6 +9,7 @@ export interface CardLendProps {
   trendAmount: string;
   symbol: '%' | '$' | 'USD';
   amount: string;
+  isLoading: boolean;
 }
 
 export interface MoneyMarketStorage {
@@ -44,6 +45,7 @@ export interface OverviewSectionProps {
   marketRecord: Record<string, MoneyMarket>;
   ipxPrice: number;
   moneyMarketStorage: MoneyMarketStorage;
+  isLoading: boolean;
 }
 
 export interface MakeCardsDataArgs {

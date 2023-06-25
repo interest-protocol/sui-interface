@@ -1,8 +1,9 @@
 import { Box, ProgressIndicator, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
-const LimitSection: FC = () => {
+const LimitSection: FC<{ isLoading: boolean }> = ({ isLoading }) => {
   const t = useTranslations();
   return (
     <Box
@@ -18,15 +19,19 @@ const LimitSection: FC = () => {
           {t('common.v2.lend.firstSection.borrowLimit')}
         </Typography>
       </Box>
-      <Box display="grid" gridTemplateColumns="auto 3fr auto" gap="s">
-        <Typography variant="extraSmall">0 %</Typography>
-        <Box display="flex" alignItems="center">
-          <ProgressIndicator value={75} variant="bar" />
+      {isLoading ? (
+        <Skeleton />
+      ) : (
+        <Box display="grid" gridTemplateColumns="auto 3fr auto" gap="s">
+          <Typography variant="extraSmall">0 %</Typography>
+          <Box display="flex" alignItems="center">
+            <ProgressIndicator value={75} variant="bar" />
+          </Box>
+          <Typography variant="extraSmall" textAlign="left">
+            $ 0
+          </Typography>
         </Box>
-        <Typography variant="extraSmall" textAlign="left">
-          $ 0
-        </Typography>
-      </Box>
+      )}
     </Box>
   );
 };

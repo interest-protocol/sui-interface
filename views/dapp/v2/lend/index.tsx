@@ -6,11 +6,15 @@ import { FC } from 'react';
 import { useGetCoinsPrices, useGetDexIpxPrice, useNetwork } from '@/hooks';
 
 import LendTables from '../components/lend-tables';
+import {
+  BORROW_MARKET_TABLE_DATA,
+  SUPPLY_MARKET_TABLE_DATA,
+} from '../components/lend-tables/market-table/market-table-data';
+import ErrorPage from '../error';
 import { COIN_PRICE_KEYS } from './lend.constants';
 import { useGetMoneyMarkets, useGetMoneyMarketStorage } from './lend.hooks';
 import LimitSection from './limit-section';
 import OverviewSection from './overview-section';
-import LendSkeleton from './skeleton';
 
 const Lend: FC = () => {
   const t = useTranslations();
@@ -44,17 +48,20 @@ const Lend: FC = () => {
     marketRecord,
   });
 
-  // add skeleton
-  if (isLoading || priceIsLoading) return <LendSkeleton />;
+  const loading = isLoading || priceIsLoading;
 
   // TODO render a custom message for each error type
-  if (
-    (!isLoading && isEmpty(marketRecord)) ||
-    (!isLoading && error) ||
-    (!priceIsLoading && priceError) ||
-    (!priceIsLoading && isEmpty(priceMap))
-  )
-    return <div>error getting the markets</div>;
+  if (!isLoading && error)
+    return <ErrorPage message="Error getting the Markets" />;
+
+  if (!isLoading && isEmpty(marketRecord))
+    return <ErrorPage message="Error getting the Money Market" />;
+
+  if (!isLoading && isEmpty(priceError))
+    return <ErrorPage message="Error getting the Coins Prices" />;
+
+  if (!isLoading && isEmpty(priceMap))
+    return <ErrorPage message="Error getting Dex Ipx Price" />;
 
   return (
     <Box variant="container" display="flex" flexDirection="column">
@@ -73,10 +80,15 @@ const Lend: FC = () => {
           moneyMarketStorage={moneyMarketStorage}
           priceMap={priceMap}
           marketRecord={marketRecord}
+          isLoading={loading}
         />
-        <LimitSection />
+        <LimitSection isLoading={loading} />
         <Box as="hr" borderColor="outline.outlineVariant" />
-        <LendTables />
+        <LendTables
+          isLoading={loading}
+          supplyMarketData={SUPPLY_MARKET_TABLE_DATA}
+          borrowMarketData={BORROW_MARKET_TABLE_DATA}
+        />
       </Box>
     </Box>
   );

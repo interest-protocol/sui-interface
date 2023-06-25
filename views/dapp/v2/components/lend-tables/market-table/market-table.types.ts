@@ -4,6 +4,7 @@ export interface MarketTableProps {
   title: string;
   isSupply?: boolean;
   data: ReadonlyArray<GroupBorrowRow> | ReadonlyArray<GroupSupplyRow>;
+  isLoading: boolean;
 }
 
 export interface assetApyProps {
@@ -45,6 +46,7 @@ export interface GroupBorrowRow extends GroupRowHeaderProps {
 
 export interface BorrowMarketTableProps {
   BorrowMarketTableData: ReadonlyArray<GroupBorrowRow>;
+  isLoading: boolean;
 }
 
 export interface BorrowMarketTableColletionProps {
@@ -58,6 +60,7 @@ export interface GroupSupplyRow extends GroupRowHeaderProps {
 
 export interface SupplyMarketTableProps {
   SupplyMarketTableData: ReadonlyArray<GroupSupplyRow>;
+  isLoading: boolean;
 }
 
 export interface SupplyMarketTableColletionProps {

@@ -12,6 +12,7 @@ const OverviewSection: FC<OverviewSectionProps> = ({
   priceMap,
   ipxPrice,
   moneyMarketStorage,
+  isLoading,
 }) => {
   const t = useTranslations();
 
@@ -38,7 +39,7 @@ const OverviewSection: FC<OverviewSectionProps> = ({
           marketRecord,
           moneyMarketStorage,
         }).map((item) => (
-          <Card {...item} key={v4()} />
+          <Card {...item} key={v4()} isLoading={isLoading} />
         ))}
       </Box>
     </>

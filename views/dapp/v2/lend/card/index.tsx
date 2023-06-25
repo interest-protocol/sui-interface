@@ -14,6 +14,7 @@ const Card: FC<CardLendProps> = ({
   trendAmount,
   symbol,
   amount,
+  isLoading,
 }) => {
   const t = useTranslations();
   return (
@@ -74,6 +75,7 @@ const Card: FC<CardLendProps> = ({
           trendAmount={trendAmount}
           symbol={symbol}
           amount={amount}
+          isLoading={isLoading}
         />
       )}
     </Box>
