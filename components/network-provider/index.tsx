@@ -1,4 +1,5 @@
 import { Network } from '@interest-protocol/sui-sdk';
+import { useRouter } from 'next/router';
 import { createContext, FC, useState } from 'react';
 
 import { useLocalStorage } from '@/hooks';
@@ -19,13 +20,17 @@ export const NetworkProviderContext = createContext<NetworkProviderState>(
 );
 
 const NetworkProvider: FC<NetworkProviderProps> = ({ children }) => {
+  const { asPath } = useRouter();
   const [localNetwork, setLocalNetwork] = useLocalStorage(
     'sui-interest-network',
     Network.MAINNET
   );
+
   const [network, setNetwork] = useState<Network>(
     process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'
       ? localNetwork || Network.MAINNET
+      : asPath.includes('/dapp/alpha')
+      ? Network.TESTNET
       : Network.MAINNET
   );
 
@@ -33,6 +38,7 @@ const NetworkProvider: FC<NetworkProviderProps> = ({ children }) => {
     setLocalNetwork(x);
     setNetwork(x);
   };
+
   return (
     <NetworkProviderContext.Provider
       value={{ network, setNetwork: handleSetNetwork }}

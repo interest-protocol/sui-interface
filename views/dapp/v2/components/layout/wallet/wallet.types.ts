@@ -3,8 +3,8 @@ import { Dispatch, SetStateAction } from 'react';
 export interface WalletDropdownProps {
   isOpen: boolean;
   loading: boolean;
+  handleClose: () => void;
   addressName: string | undefined;
-  handleDisconnect: () => void;
 }
 
 export type WalletDropdownWrapperProps = WalletDropdownProps;

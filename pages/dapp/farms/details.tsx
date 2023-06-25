@@ -1,8 +1,8 @@
 import { Network } from '@interest-protocol/sui-sdk';
 import type { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
+import Error from 'next/error';
 import { useTranslations } from 'next-intl';
-import NotFoundPage from 'pages/404';
 import { mergeDeepRight, pathOr } from 'ramda';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -32,9 +32,7 @@ interface FarmDetailsPageProps extends NextPageDefaultProps {
 }
 
 const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
-  now,
   type,
-  messages,
   pageTitle,
 }) => {
   const { network } = useNetwork();
@@ -53,7 +51,11 @@ const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
 
   if (network === Network.MAINNET)
     return (
-      <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
+      <Web3Manager>
+        <Layout pageTitle="common.error">
+          <Error statusCode={404} />
+        </Layout>
+      </Web3Manager>
     );
 
   if (!farmMetadata)

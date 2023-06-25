@@ -1,37 +1,32 @@
 import { GetStaticProps } from 'next';
-import dynamic from 'next/dynamic';
-import Error from 'next/error';
+import { mergeDeepRight } from 'ramda';
 
-import { LoadingPage } from '@/components';
+import { SEO } from '@/components';
 import { NextPageWithProps } from '@/interface';
-
-const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
-  ssr: false,
-  loading: LoadingPage,
-});
-
-const Layout = dynamic(() => import('@/components/layout'), {
-  ssr: false,
-  loading: LoadingPage,
-});
+import ErrorPage from '@/views/dapp/v2/error';
 
 const NotFoundPage: NextPageWithProps = ({ pageTitle }) => (
-  <Web3Manager>
-    <Layout pageTitle={pageTitle}>
-      <Error statusCode={404} />
-    </Layout>
-  </Web3Manager>
+  <>
+    <SEO pageTitle={pageTitle} />
+    <ErrorPage />
+  </>
 );
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const messages = (await import(`../assets/messages/common/${locale}.json`))
-    .default;
+  const [commonMessages, lendingMessages] = await Promise.all([
+    import(`../assets/messages/common/${locale}.json`),
+    import(`../assets/messages/dapp/${locale}.json`),
+  ]);
 
+  const messages = mergeDeepRight(
+    commonMessages.default,
+    lendingMessages.default
+  );
   return {
     props: {
       messages,
       now: Date.now(),
-      pageTitle: 'common.error',
+      pageTitle: 'common.pageNotFound',
     },
   };
 };
