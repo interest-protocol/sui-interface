@@ -9,7 +9,7 @@ export interface CardLendProps {
   trendAmount: string;
   symbol: '%' | '$' | 'USD';
   amount: string;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 export interface MoneyMarketStorage {
