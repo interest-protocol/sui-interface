@@ -158,7 +158,7 @@ const BorrowMarketTableRow: FC<
         justifyContent="center"
       >
         <Typography variant="medium" textAlign="center">
-          {borrowed.percentage}
+          {borrowed.amount}
         </Typography>
         <Typography
           variant="small"

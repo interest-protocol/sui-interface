@@ -12,7 +12,7 @@ import { FC, useState } from 'react';
 
 import { useModal } from '@/hooks';
 
-import { MoneyMarketUIRow } from '../lend-table.types';
+import { SupplyRow } from '../lend-table.types';
 import { getSVG } from '../market-table/market-table.utils';
 import CollateralModal from '../market-table/Modal/collateral-modal';
 import DisablingCollateralModal from '../market-table/Modal/disabling-collateral-modal';
@@ -22,7 +22,7 @@ import SupplyMarketFailModal from '../market-table/Modal/supply-row/supply-row-f
 import SupplyMarketModal from '../market-table/Modal/supply-row/supply-row-modal';
 import SupplyMarketPreviewModal from '../market-table/Modal/supply-row/supply-row-preview-modal';
 
-const SupplyMarketTableRow: FC<MoneyMarketUIRow & { isEngaged: boolean }> = ({
+const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
   assetApy,
   supplied,
   wallet,
