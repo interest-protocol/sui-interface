@@ -62,7 +62,7 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
     );
 
   const openPreviewModal = () => {
-    // if (isDisabled) return;
+    if (isDisabled) return;
 
     setModal(
       <Web3Manager>
@@ -90,12 +90,12 @@ const SwapFormPreview: FC<SwapFormPreviewProps> = ({
       mx="auto"
       size="small"
       variant="filled"
-      // disabled={isDisabled}
+      disabled={isDisabled}
       boxSizing="border-box"
       justifyContent="center"
       mt={['4xl', '4xl', '2xl']}
       width={['100%', '100%', 'auto']}
-      onClick={openPreviewModal}
+      onClick={isDisabled ? undefined : openPreviewModal}
     >
       {t('swap.form.preview')}
     </Button>
