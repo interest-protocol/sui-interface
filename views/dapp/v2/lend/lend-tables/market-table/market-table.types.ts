@@ -5,7 +5,7 @@ import {
   UserBalancesInUSD,
 } from '@/views/dapp/v2/lend/lend.types';
 
-import { BorrowRow, MoneyMarketUI } from '../lend-table.types';
+import { BorrowRow, MoneyMarketUI, SupplyRow } from '../lend-table.types';
 
 export interface MarketTableProps {
   title: string;
@@ -43,7 +43,7 @@ export interface BorrowMarketTableProps {
 
 export interface GroupSupplyRow extends GroupRowHeaderProps {
   isEngaged: boolean;
-  SupplyMarketTableData: MoneyMarketUI['data'];
+  SupplyMarketTableData: ReadonlyArray<SupplyRow>;
 }
 
 export interface SupplyMarketTableProps {

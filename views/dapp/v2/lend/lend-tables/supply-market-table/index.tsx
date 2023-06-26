@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { useNetwork, useWeb3 } from '@/hooks';
+import { SupplyRow } from '@/views/dapp/v2/lend/lend-tables/lend-table.types';
 
 import { makeSupplyData } from '../lend-table.utils';
 import { SupplyMarketTableProps } from '../market-table/market-table.types';
@@ -32,7 +33,9 @@ const SupplyMarketTable: FC<SupplyMarketTableProps> = ({
                 key={v4()}
                 isEngaged={SupplyMarketTable.isEngaged}
                 description={SupplyMarketTable.description}
-                SupplyMarketTableData={SupplyMarketTable.data}
+                SupplyMarketTableData={
+                  SupplyMarketTable.data as ReadonlyArray<SupplyRow>
+                }
               />
             )
           )}
