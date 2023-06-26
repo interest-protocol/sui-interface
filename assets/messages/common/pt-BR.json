@@ -13,6 +13,13 @@
         "pt-BR": "Português",
         "es-ES": "Espanhol"
       },
+      "selectToken": {
+        "title": "Selecionar token",
+        "search": "Buscar token",
+        "recommended": "Recomendados",
+        "favorite": "Favoritos",
+        "wallet": "Carteira"
+      },
       "menu": {
         "settings": "Definições",
         "darkMode": "Modo escuro",

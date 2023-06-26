@@ -228,7 +228,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
         boxShadow="0 0 5px #3334"
       >
         <Box py="m" display="flex" alignItems="center" justifyContent="center">
-          <Typography variant="medium">{t('swap.metadata.title')}</Typography>
+          <Typography variant="medium">{t('swap.form.preview')}</Typography>
         </Box>
         <Box
           pt="4xl"
@@ -276,7 +276,9 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
         <Button variant="icon" onClick={closeModal}>
           <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>
-        <Typography variant="medium">{t('swap.metadata.title')}</Typography>
+        <Typography variant="medium">
+          {t('swap.modal.preview.confirmSwap')}
+        </Typography>
         <Button variant="icon" onClick={closeModal}>
           <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>

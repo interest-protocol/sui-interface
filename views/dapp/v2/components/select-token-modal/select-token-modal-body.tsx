@@ -18,7 +18,7 @@ import {
   ModalTokenBodyProps,
   SelectTokenModalBodyProps,
   TokenOrigin,
-} from '../select-token.types';
+} from './select-token-modal.types';
 import FetchingToken from './fetching-token';
 import NotFound from './not-found';
 import TokenModalItem from './token-modal-item';

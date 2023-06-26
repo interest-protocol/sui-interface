@@ -25,7 +25,7 @@ import {
   SearchTokenForm,
   SelectTokenModalProps,
   TokenOrigin,
-} from '../select-token.types';
+} from './select-token-modal.types';
 import SelectTokenBaseTokens from './select-token-modal-base';
 import SelectTokenModalBody from './select-token-modal-body';
 
@@ -163,7 +163,7 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
           <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>
         <Typography variant="medium" color="text">
-          {t('swap.modal.preview.selectToken.title')}
+          {t('common.v2.selectToken.title')}
         </Typography>
         <Button variant="icon" onClick={closeModal}>
           <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
@@ -173,7 +173,7 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
         <TextField
           {...register('search')}
           fontSize="medium"
-          placeholder={t('swap.modal.preview.selectToken.search')}
+          placeholder={t('common.v2.selectToken.search')}
           PrefixIcon={
             <SearchSVG maxWidth="1.2rem" maxHeight="1.2rem" width="100%" />
           }
@@ -188,17 +188,17 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
         <Chip
           isActive={tokenOrigin === TokenOrigin.Recommended}
           onClick={() => handleChangeTab(TokenOrigin.Recommended)}
-          text={t('swap.modal.preview.selectToken.recommended')}
+          text={t('common.v2.selectToken.recommended')}
         />
         <Chip
           isActive={tokenOrigin === TokenOrigin.Favorites}
           onClick={() => handleChangeTab(TokenOrigin.Favorites)}
-          text={t('swap.modal.preview.selectToken.favorite')}
+          text={t('common.v2.selectToken.favorite')}
         />
         <Chip
           isActive={tokenOrigin === TokenOrigin.Wallet}
           onClick={() => handleChangeTab(TokenOrigin.Wallet)}
-          text={t('swap.modal.preview.selectToken.wallet')}
+          text={t('common.v2.selectToken.wallet')}
         />
       </Box>
       <Motion

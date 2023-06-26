@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 
 import { TOKENS_SVG_MAP_V2 } from '@/constants';
 
-import { SelectTokenBaseTokensProps } from '../select-token.types';
+import { SelectTokenBaseTokensProps } from './select-token-modal.types';
 import BaseTokenModalItem from './base-token-modal-item';
 
 const SelectTokenBaseTokens: FC<SelectTokenBaseTokensProps> = ({
