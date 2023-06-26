@@ -1,17 +1,15 @@
-import { TOKEN_SYMBOL } from '@/lib';
-
-import { MoneyMarketUIRow } from '../../lend-table.types';
+import { AssetAPY } from '../../lend-table.types';
 
 export interface RowModalProps {
   closeModal: () => void;
   isSupplyOrBorrow?: boolean;
-  assetApy: MoneyMarketUIRow['assetApy'];
+  assetApy: AssetAPY;
   openRowMarketPreviewModal: (isSupplyOrBorrow: boolean) => void;
 }
 
 export interface RowPreviewModalProps {
   closeModal: () => void;
-  assetApy: MoneyMarketUIRow['assetApy'];
+  assetApy: AssetAPY;
   isSupplyOrBorrow: boolean;
   backRowMarketModal: (isSupplyOrBorrow: boolean) => void;
   openRowMarketResultModal: (
@@ -37,7 +35,7 @@ export interface RowFailModalProps {
 
 export interface CollateralModalProps {
   closeModal: () => void;
-  assetApy: MoneyMarketUIRow['assetApy'];
+  assetApy: AssetAPY;
   resultModal: () => void;
 }
 
