@@ -1,4 +1,4 @@
-import { Network } from '@interest-protocol/sui-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Error from 'next/error';

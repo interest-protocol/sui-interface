@@ -1,4 +1,4 @@
-import { Network, STABLE } from '@interest-protocol/sui-sdk';
+import { Network, STABLE } from '@interest-protocol/sui-amm-sdk';
 import { propOr } from 'ramda';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';

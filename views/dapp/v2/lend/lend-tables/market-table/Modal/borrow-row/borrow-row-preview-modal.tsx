@@ -14,12 +14,12 @@ import { FC, useState } from 'react';
 import { LeftArrowSVG } from '@/components/svg/v2';
 import { TimesSVG } from '@/svg';
 
-import { getSVG } from '../../../market-table/market-table.utils';
+import { getSVG } from '../../market-table.utils';
 import LineModal from '../lines';
 import LoadingModal from '../loading-collateral';
 import { RowPreviewModalProps } from '../modal.types';
 
-const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
+const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
   assetApy,
   closeModal,
   isSupplyOrBorrow,
@@ -49,10 +49,10 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
   return isLoading ? (
     <LoadingModal
       title={t(
-        isSupplyOrBorrow ? 'common.v2.lend.supply' : 'common.v2.lend.withdraw'
+        isSupplyOrBorrow ? 'common.v2.lend.borrow' : 'common.v2.lend.repay'
       )}
-      content={t('Lend.modal.supply.loading.content', {
-        isSupply: +isSupplyOrBorrow,
+      content={t('Lend.modal.borrow.loading.content', {
+        isBorrow: +isSupplyOrBorrow,
       })}
     />
   ) : (
@@ -169,8 +169,8 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
           justifyContent="center"
           onClick={handleCollateral}
         >
-          {t('Lend.modal.supply.preview.button', {
-            isSupply: +isSupplyOrBorrow,
+          {t('Lend.modal.borrow.preview.button', {
+            isBorrow: +isSupplyOrBorrow,
           })}
         </Button>
       </Box>
@@ -178,4 +178,4 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
   );
 };
 
-export default SupplyMarketPreviewModal;
+export default BorrowMarketPreviewModal;

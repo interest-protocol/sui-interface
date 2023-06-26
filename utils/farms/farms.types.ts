@@ -1,4 +1,4 @@
-import { Network } from '@interest-protocol/sui-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import BigNumber from 'bignumber.js';
 
 import { FarmMetadataType } from '@/constants';

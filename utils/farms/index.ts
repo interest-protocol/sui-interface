@@ -1,4 +1,4 @@
-import { COIN_TYPE } from '@interest-protocol/sui-sdk';
+import { COIN_TYPE } from '@interest-protocol/sui-amm-sdk';
 import BigNumber from 'bignumber.js';
 import { FixedPointMath } from 'lib';
 import { pathOr } from 'ramda';

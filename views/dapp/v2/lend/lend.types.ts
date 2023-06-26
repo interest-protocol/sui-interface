@@ -41,18 +41,12 @@ export interface MoneyMarket {
 }
 
 export interface OverviewSectionProps {
-  priceMap: CoinPriceRecord;
-  marketRecord: Record<string, MoneyMarket>;
-  ipxPrice: number;
-  moneyMarketStorage: MoneyMarketStorage;
+  userBalancesInUSD: UserBalancesInUSD;
   isLoading: boolean;
 }
 
 export interface MakeCardsDataArgs {
-  priceMap: CoinPriceRecord;
-  marketRecord: Record<string, MoneyMarket>;
-  ipxPrice: number;
-  moneyMarketStorage: MoneyMarketStorage;
+  userBalancesInUSD: UserBalancesInUSD;
 }
 
 export interface CalculateUserBalancesInUSDArgs {
@@ -64,9 +58,15 @@ export interface CalculateUserBalancesInUSDArgs {
 
 export interface UserBalancesInUSD {
   totalSupply: number;
+  totalCollateral: number;
   totalLoan: number;
   totalEarnings: number;
   totalInterestRateOwned: number;
   totalIPXCollateralRewards: number;
   totalIPXLoanRewards: number;
+}
+
+export interface LimitSectionProps {
+  isLoading: boolean;
+  userBalancesInUSD: UserBalancesInUSD;
 }

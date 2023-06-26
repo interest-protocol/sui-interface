@@ -4,15 +4,12 @@ import { isEmpty } from 'ramda';
 import { FC } from 'react';
 
 import { useGetCoinsPrices, useGetDexIpxPrice, useNetwork } from '@/hooks';
+import { calculateUserBalancesInUSD } from '@/views/dapp/v2/lend/lend.utils';
 
-import LendTables from '../components/lend-tables';
-import {
-  BORROW_MARKET_TABLE_DATA,
-  SUPPLY_MARKET_TABLE_DATA,
-} from '../components/lend-tables/market-table/market-table-data';
 import ErrorPage from '../error';
 import { COIN_PRICE_KEYS } from './lend.constants';
 import { useGetMoneyMarkets, useGetMoneyMarketStorage } from './lend.hooks';
+import LendTables from './lend-tables';
 import LimitSection from './limit-section';
 import OverviewSection from './overview-section';
 
@@ -20,7 +17,11 @@ const Lend: FC = () => {
   const t = useTranslations();
   const { network } = useNetwork();
 
-  const { data: moneyMarketStorage } = useGetMoneyMarketStorage();
+  const {
+    data: moneyMarketStorage,
+    isLoading: moneyMarketIsLoading,
+    error: moneyMarketError,
+  } = useGetMoneyMarketStorage();
 
   const {
     data: priceMap,
@@ -28,12 +29,7 @@ const Lend: FC = () => {
     isLoading: priceIsLoading,
   } = useGetCoinsPrices(COIN_PRICE_KEYS[network]);
 
-  const {
-    data: marketRecord,
-    isLoading,
-    mutate,
-    error,
-  } = useGetMoneyMarkets(moneyMarketStorage.allMarketKeys);
+  const { data: marketRecord, isLoading, mutate, error } = useGetMoneyMarkets();
 
   const {
     data: ipxPrice,
@@ -43,12 +39,10 @@ const Lend: FC = () => {
 
   console.log('>>>>Mutate', {
     mutate,
-    ipxPriceIsLoading,
-    ipxPriceError,
-    marketRecord,
   });
 
-  const loading = isLoading || priceIsLoading;
+  const loading =
+    isLoading || priceIsLoading || ipxPriceIsLoading || moneyMarketIsLoading;
 
   // TODO render a custom message for each error type
   if (!isLoading && error)
@@ -61,7 +55,22 @@ const Lend: FC = () => {
     return <ErrorPage message="Error getting the Coins Prices" />;
 
   if (!isLoading && isEmpty(priceMap))
-    return <ErrorPage message="Error getting Dex Ipx Price" />;
+    return <ErrorPage message="Error getting the Coins Prices" />;
+
+  if (!isLoading && ipxPriceError)
+    return <ErrorPage message="Error getting the IPX price" />;
+
+  if (!isLoading && moneyMarketError)
+    return (
+      <ErrorPage message="Error fetching the Money Market Storage Object" />
+    );
+
+  const userBalancesInUSD = calculateUserBalancesInUSD({
+    priceMap,
+    marketRecord,
+    ipxPrice,
+    moneyMarketStorage,
+  });
 
   return (
     <Box variant="container" display="flex" flexDirection="column">
@@ -76,18 +85,20 @@ const Lend: FC = () => {
           {t('common.v2.lend.title')}
         </Typography>
         <OverviewSection
-          ipxPrice={ipxPrice}
-          moneyMarketStorage={moneyMarketStorage}
-          priceMap={priceMap}
-          marketRecord={marketRecord}
+          userBalancesInUSD={userBalancesInUSD}
           isLoading={loading}
         />
-        <LimitSection isLoading={loading} />
+        <LimitSection
+          isLoading={loading}
+          userBalancesInUSD={userBalancesInUSD}
+        />
         <Box as="hr" borderColor="outline.outlineVariant" />
         <LendTables
           isLoading={loading}
-          supplyMarketData={SUPPLY_MARKET_TABLE_DATA}
-          borrowMarketData={BORROW_MARKET_TABLE_DATA}
+          userBalancesInUSD={userBalancesInUSD}
+          marketRecord={marketRecord}
+          moneyMarketStorage={moneyMarketStorage}
+          priceMap={priceMap}
         />
       </Box>
     </Box>

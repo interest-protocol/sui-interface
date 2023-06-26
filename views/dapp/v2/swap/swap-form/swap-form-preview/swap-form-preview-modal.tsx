@@ -1,4 +1,4 @@
-import { DEX_BASE_TOKEN_ARRAY, Network } from '@interest-protocol/sui-sdk';
+import { DEX_BASE_TOKEN_ARRAY, Network } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Button,

@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { LeftArrowSVG } from '@/components/svg/v2';
 import { TimesSVG } from '@/svg';
 
-import { getSVG } from '../../market-table/market-table.utils';
+import { getSVG } from '../market-table.utils';
 import { HeaderModalProps } from './modal.types';
 
 const HeaderModal: FC<HeaderModalProps> = ({

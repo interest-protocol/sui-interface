@@ -1,4 +1,4 @@
-import { Network } from '@interest-protocol/sui-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import { useRouter } from 'next/router';
 import { createContext, FC, useState } from 'react';
 

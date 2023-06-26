@@ -1,17 +1,17 @@
 import { TOKEN_SYMBOL } from '@/lib';
 
-import { assetApyProps } from '../../market-table/market-table.types';
+import { MoneyMarketUIRow } from '../../lend-table.types';
 
 export interface RowModalProps {
   closeModal: () => void;
   isSupplyOrBorrow?: boolean;
-  assetApy: assetApyProps;
+  assetApy: MoneyMarketUIRow['assetApy'];
   openRowMarketPreviewModal: (isSupplyOrBorrow: boolean) => void;
 }
 
 export interface RowPreviewModalProps {
   closeModal: () => void;
-  assetApy: assetApyProps;
+  assetApy: MoneyMarketUIRow['assetApy'];
   isSupplyOrBorrow: boolean;
   backRowMarketModal: (isSupplyOrBorrow: boolean) => void;
   openRowMarketResultModal: (
@@ -37,7 +37,7 @@ export interface RowFailModalProps {
 
 export interface CollateralModalProps {
   closeModal: () => void;
-  assetApy: assetApyProps;
+  assetApy: MoneyMarketUIRow['assetApy'];
   resultModal: () => void;
 }
 
@@ -48,7 +48,7 @@ export interface LinesModalProps {
 
 export interface HeaderModalProps {
   type: string;
-  symbol: TOKEN_SYMBOL;
+  symbol: string;
   withBack?: boolean;
   handleBack?: (isSupply: boolean) => void;
   isCenter?: boolean;

@@ -1,6 +1,10 @@
-import { getReturnValuesFromInspectResults } from '@interest-protocol/sui-sdk';
+import { getReturnValuesFromInspectResults } from '@interest-protocol/sui-amm-sdk';
 import { BCS, getSuiMoveConfig } from '@mysten/bcs';
-import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
+import {
+  SUI_CLOCK_OBJECT_ID,
+  SUI_TYPE_ARG,
+  TransactionBlock,
+} from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { propOr } from 'ramda';
 import useSWR, { SWRConfiguration } from 'swr';
@@ -11,6 +15,7 @@ import { useGetObject, useNetwork, useProvider } from '@/hooks';
 import { AddressZero } from '@/lib';
 import { makeSWRKey } from '@/utils';
 
+import { MONEY_MARKET_KEYS } from './lend.constants';
 import { MoneyMarket } from './lend.types';
 import { parseMoneyMarketStorage } from './lend.utils';
 
@@ -39,7 +44,6 @@ bcs.registerStructType('Market', {
 const RETURN_TYPE = 'vector<Market>';
 
 export const useGetMoneyMarkets = (
-  marketsKeys: ReadonlyArray<string>,
   account?: string | null,
   config: SWRConfiguration = {}
 ) => {
@@ -47,6 +51,8 @@ export const useGetMoneyMarkets = (
   const { network } = useNetwork();
 
   const objects = MONEY_MARKET_OBJECTS[network];
+
+  const marketsKeys = MONEY_MARKET_KEYS[network];
 
   const { data, ...otherProps } = useSWR(
     makeSWRKey(
@@ -79,7 +85,12 @@ export const useGetMoneyMarkets = (
         bcs.de(RETURN_TYPE, Uint8Array.from(x[0]))
       );
 
-      return marketsKeys.reduce((acc, key, currentIndex) => {
+      return marketsKeys.reduce((acc, rawKey, currentIndex) => {
+        const key = rawKey.replace(
+          /\b0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI\b/g,
+          SUI_TYPE_ARG
+        );
+
         const data = rawData[currentIndex];
 
         const accruedTimestamp = BigNumber(

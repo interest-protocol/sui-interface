@@ -6,9 +6,11 @@ import { LendTableProps } from './lend-table.types';
 import MarketTable from './market-table';
 
 const LendTables: FC<LendTableProps> = ({
-  supplyMarketData,
-  borrowMarketData,
   isLoading,
+  userBalancesInUSD,
+  moneyMarketStorage,
+  marketRecord,
+  priceMap,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
@@ -35,9 +37,12 @@ const LendTables: FC<LendTableProps> = ({
         >
           <MarketTable
             title={t('Lend.supplyTableTitle')}
-            data={supplyMarketData}
             isLoading={isLoading}
             isSupply
+            moneyMarketStorage={moneyMarketStorage}
+            marketRecord={marketRecord}
+            userBalancesInUSD={userBalancesInUSD}
+            priceMap={priceMap}
           />
         </Box>
         <Box
@@ -48,8 +53,11 @@ const LendTables: FC<LendTableProps> = ({
         >
           <MarketTable
             title={t('Lend.borrowTableTitle')}
-            data={borrowMarketData}
+            moneyMarketStorage={moneyMarketStorage}
+            marketRecord={marketRecord}
+            userBalancesInUSD={userBalancesInUSD}
             isLoading={isLoading}
+            priceMap={priceMap}
           />
         </Box>
       </Box>

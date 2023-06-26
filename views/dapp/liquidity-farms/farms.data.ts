@@ -1,4 +1,4 @@
-import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
+import { COIN_TYPE, Network } from '@interest-protocol/sui-amm-sdk';
 import { UseFormSetValue } from 'react-hook-form';
 
 import WormholeDOGEB from '@/components/svg/wormhole-dogeb';

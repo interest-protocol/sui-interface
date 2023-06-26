@@ -98,6 +98,11 @@ export const calculateUserBalancesInUSD = ({
         totalIPXCollateralRewards:
           acc.totalIPXCollateralRewards + totalIPXCollateralEarnings,
         totalIPXLoanRewards: acc.totalIPXLoanRewards + totalIPXLoanEarnings,
+        totalCollateral:
+          acc.totalCollateral +
+          market.LTV.multipliedBy(collateralInUSD)
+            .dividedBy(DOUBLE_SCALAR)
+            .toNumber(),
       };
     },
     {
@@ -107,6 +112,7 @@ export const calculateUserBalancesInUSD = ({
       totalInterestRateOwned: 0,
       totalIPXCollateralRewards: 0,
       totalIPXLoanRewards: 0,
+      totalCollateral: 0,
     } as UserBalancesInUSD
   );
 
@@ -152,20 +158,10 @@ const calculateBorrowAPY = (data: UserBalancesInUSD) => {
 };
 
 export const makeCardsData = ({
-  priceMap,
-  marketRecord,
-  ipxPrice,
-  moneyMarketStorage,
+  userBalancesInUSD,
 }: MakeCardsDataArgs): ReadonlyArray<CardLendProps> => {
-  const balances = calculateUserBalancesInUSD({
-    priceMap,
-    marketRecord,
-    ipxPrice,
-    moneyMarketStorage,
-  });
-
-  const netAPY = calculateNetAPY(balances);
-  const borrowAPY = calculateBorrowAPY(balances);
+  const netAPY = calculateNetAPY(userBalancesInUSD);
+  const borrowAPY = calculateBorrowAPY(userBalancesInUSD);
 
   return [
     {
@@ -174,16 +170,17 @@ export const makeCardsData = ({
       isTrendUp: netAPY >= 0,
       trendAmount: (netAPY * 100).toString(),
       symbol: '$',
-      amount: calculateNetAPYAmount(balances).toString(),
+      amount: calculateNetAPYAmount(userBalancesInUSD).toString(),
     },
     {
       icon: 'box-up',
       description: 'common.v2.lend.firstSection.supplyBalance',
       isTrendUp: true,
-      trendAmount: (calculateSupplyAPY(balances) * 100).toString(),
+      trendAmount: (calculateSupplyAPY(userBalancesInUSD) * 100).toString(),
       symbol: '$',
       amount: (
-        balances.totalEarnings + balances.totalIPXCollateralRewards
+        userBalancesInUSD.totalEarnings +
+        userBalancesInUSD.totalIPXCollateralRewards
       ).toString(),
     },
     {
@@ -192,7 +189,7 @@ export const makeCardsData = ({
       isTrendUp: borrowAPY >= 0,
       trendAmount: (Math.abs(borrowAPY) * 100).toString(),
       symbol: 'USD',
-      amount: balances.totalInterestRateOwned.toString(),
+      amount: userBalancesInUSD.totalInterestRateOwned.toString(),
     },
     {
       icon: 'special',

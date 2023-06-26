@@ -8,10 +8,7 @@ import { OverviewSectionProps } from './lend.types';
 import { makeCardsData } from './lend.utils';
 
 const OverviewSection: FC<OverviewSectionProps> = ({
-  marketRecord,
-  priceMap,
-  ipxPrice,
-  moneyMarketStorage,
+  userBalancesInUSD,
   isLoading,
 }) => {
   const t = useTranslations();
@@ -34,10 +31,7 @@ const OverviewSection: FC<OverviewSectionProps> = ({
         flexWrap="wrap"
       >
         {makeCardsData({
-          priceMap,
-          ipxPrice,
-          marketRecord,
-          moneyMarketStorage,
+          userBalancesInUSD,
         }).map((item) => (
           <Card {...item} key={v4()} isLoading={isLoading} />
         ))}

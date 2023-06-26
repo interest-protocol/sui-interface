@@ -1,4 +1,4 @@
-import { Network, SDK } from '@interest-protocol/sui-sdk';
+import { Network, SDK } from '@interest-protocol/sui-amm-sdk';
 import { Connection, devnetConnection, JsonRpcProvider } from '@mysten/sui.js';
 import { SuinsClient } from '@suins/toolkit';
 

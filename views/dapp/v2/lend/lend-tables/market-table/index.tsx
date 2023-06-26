@@ -5,17 +5,16 @@ import { BoxDownSVG, BoxUpSVG } from '@/svg';
 
 import BorrowMarketTable from '../borrow-market-table';
 import SupplyMarketTable from '../supply-market-table';
-import {
-  GroupBorrowRow,
-  GroupSupplyRow,
-  MarketTableProps,
-} from './market-table.types';
+import { MarketTableProps } from './market-table.types';
 
 const MarketTable: FC<MarketTableProps> = ({
   title,
   isSupply,
-  data,
   isLoading,
+  userBalancesInUSD,
+  marketRecord,
+  moneyMarketStorage,
+  priceMap,
 }) => {
   return (
     <Box width="100%">
@@ -71,13 +70,19 @@ const MarketTable: FC<MarketTableProps> = ({
         >
           {isSupply ? (
             <SupplyMarketTable
-              SupplyMarketTableData={data as ReadonlyArray<GroupSupplyRow>}
+              userBalancesInUSD={userBalancesInUSD}
+              marketRecord={marketRecord}
+              moneyMarketStorage={moneyMarketStorage}
               isLoading={isLoading}
+              priceMap={priceMap}
             />
           ) : (
             <BorrowMarketTable
-              BorrowMarketTableData={data as ReadonlyArray<GroupBorrowRow>}
+              userBalancesInUSD={userBalancesInUSD}
+              marketRecord={marketRecord}
+              moneyMarketStorage={moneyMarketStorage}
               isLoading={isLoading}
+              priceMap={priceMap}
             />
           )}
         </Motion>

@@ -3,8 +3,21 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
-const LimitSection: FC<{ isLoading: boolean }> = ({ isLoading }) => {
+import { safeIntDiv } from '@/utils';
+
+import { LimitSectionProps } from './lend.types';
+
+const LimitSection: FC<LimitSectionProps> = ({
+  isLoading,
+  userBalancesInUSD,
+}) => {
   const t = useTranslations();
+
+  const borrowLimitPercentage = (
+    safeIntDiv(userBalancesInUSD.totalLoan, userBalancesInUSD.totalCollateral) *
+    100
+  ).toFixed(2);
+
   return (
     <Box
       my="2.375rem"
@@ -23,12 +36,17 @@ const LimitSection: FC<{ isLoading: boolean }> = ({ isLoading }) => {
         <Skeleton />
       ) : (
         <Box display="grid" gridTemplateColumns="auto 3fr auto" gap="s">
-          <Typography variant="extraSmall">0 %</Typography>
+          <Typography variant="extraSmall">
+            {borrowLimitPercentage} %
+          </Typography>
           <Box display="flex" alignItems="center">
-            <ProgressIndicator value={75} variant="bar" />
+            <ProgressIndicator value={+borrowLimitPercentage} variant="bar" />
           </Box>
           <Typography variant="extraSmall" textAlign="left">
-            $ 0
+            ${' '}
+            {(
+              userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan
+            ).toFixed(2)}
           </Typography>
         </Box>
       )}

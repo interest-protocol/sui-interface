@@ -1,4 +1,4 @@
-import { Network } from '@interest-protocol/sui-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Button,
@@ -17,12 +17,12 @@ import { FC, useState } from 'react';
 
 import { COINS } from '@/constants';
 
-import { getSVG } from '../../../market-table/market-table.utils';
+import { getSVG } from '../../market-table.utils';
 import HeaderModal from '../header';
 import LineModal from '../lines';
 import { RowModalProps } from '../modal.types';
 
-const BorrowMarketModal: FC<RowModalProps> = ({
+const SupplyMarketModal: FC<RowModalProps> = ({
   assetApy,
   closeModal,
   openRowMarketPreviewModal,
@@ -67,14 +67,14 @@ const BorrowMarketModal: FC<RowModalProps> = ({
       />
       <Box display="flex" justifyContent="center">
         <Tabs
-          items={[t('common.v2.lend.borrow'), t('common.v2.lend.repay')]}
+          items={[t('common.v2.lend.supply'), t('common.v2.lend.withdraw')]}
           onChangeTab={handleTab}
           defaultTabIndex={+!isSupplyOrBorrow}
         />
       </Box>
       <Box p="xl" display="flex" flexDirection="column" pb="2rem">
         <Typography variant="extraSmall" textAlign="end" mb="2.313rem">
-          {t('common.balance')}: 0.0000
+          {t('common.balance')} 0.0000
         </Typography>
         <TextField
           placeholder="0"
@@ -169,7 +169,9 @@ const BorrowMarketModal: FC<RowModalProps> = ({
             justifyContent="center"
             onClick={() => handlePreview()}
           >
-            {isSupplyOrBorrow ? 'Preview Borrow' : 'Preview Repay'}
+            {t('Lend.modal.supply.normal.button', {
+              isSupply: +isSupplyOrBorrow,
+            })}
           </Button>
         </Box>
       </Box>
@@ -177,4 +179,4 @@ const BorrowMarketModal: FC<RowModalProps> = ({
   );
 };
 
-export default BorrowMarketModal;
+export default SupplyMarketModal;
