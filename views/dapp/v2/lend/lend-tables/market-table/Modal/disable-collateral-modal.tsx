@@ -46,6 +46,18 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
     try {
       const txb = new TransactionBlock();
 
+      const priceVector = txb.moveCall({
+        target: `${objects.MONEY_MARKET_PACKAGE_ID}::ipx_money_market_utils::get_prices`,
+        arguments: [
+          txb.object(objects.ORACLE_STORAGE),
+          txb.object(objects.WORMHOLE_STATE),
+          txb.object(objects.PYTH_STATE),
+          txb.makeMoveVec({
+            objects: [],
+          }),
+        ],
+      });
+
       txb.moveCall({
         target: `${objects.MONEY_MARKET_PACKAGE_ID}::ipx_money_market_sdk_interface::exit_market`,
         typeArguments: [marketKey],
