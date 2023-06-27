@@ -77,17 +77,20 @@ const WalletConnected: FC = () => {
           if (prop('nftId', object)) {
             const nft = await provider.getObject({
               id: prop('nftId', object)!,
-              options: { showContent: true },
+              options: { showDisplay: true },
             });
 
-            setAvatarUrlRecord((x) => ({
-              ...x,
-              [account]: `https://ipfs.io/ipfs/${pathOr(
-                'QmaLFg4tQYansFpyRqmDfABdkUVy66dHtpnkH15v1LPzcY',
-                ['data', 'content', 'fields', 'image_url'],
-                nft
-              )}`,
-            }));
+            const imageUrl = pathOr(
+              null,
+              ['data', 'display', 'data', 'image_url'],
+              nft
+            );
+
+            if (imageUrl)
+              setAvatarUrlRecord((x) => ({
+                ...x,
+                [account]: `https://ipfs.io/${imageUrl}`,
+              }));
           }
         })
         .catch();
