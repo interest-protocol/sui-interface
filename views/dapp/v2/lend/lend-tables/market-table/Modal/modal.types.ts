@@ -1,3 +1,11 @@
+import { Dispatch, SetStateAction } from 'react';
+
+import { CoinPriceRecord } from '@/hooks';
+import {
+  MoneyMarket,
+  UserBalancesInUSD,
+} from '@/views/dapp/v2/lend/lend.types';
+
 import { AssetAPY } from '../../lend-table.types';
 
 export interface RowModalProps {
@@ -37,6 +45,12 @@ export interface CollateralModalProps {
   closeModal: () => void;
   assetApy: AssetAPY;
   resultModal: () => void;
+  userBalancesInUSD: UserBalancesInUSD;
+  mutate: () => Promise<void>;
+  setCollateralSwitchState: Dispatch<SetStateAction<boolean>>;
+  marketKey: string;
+  marketRecord: Record<string, MoneyMarket>;
+  priceMap: CoinPriceRecord;
 }
 
 export interface LinesModalProps {

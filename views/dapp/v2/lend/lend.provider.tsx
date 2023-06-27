@@ -105,6 +105,8 @@ const LendProvider: FC<LendProviderProps> = ({ children }) => {
     moneyMarketStorage,
   });
 
+  console.log(marketRecord);
+
   return (
     <LendProviderContext.Provider
       value={{

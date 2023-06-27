@@ -29,6 +29,7 @@ export interface SupplyRow {
   };
   wallet: number;
   collateral: boolean;
+  marketKey: string;
 }
 
 export interface BorrowRow {
@@ -39,6 +40,7 @@ export interface BorrowRow {
   };
   wallet: number;
   cash: number;
+  marketKey: string;
 }
 
 export interface MoneyMarketUI {

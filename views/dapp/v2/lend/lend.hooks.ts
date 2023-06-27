@@ -11,7 +11,7 @@ import useSWR, { SWRConfiguration } from 'swr';
 
 import { COIN_DECIMALS, MILLISECONDS_PER_YEAR } from '@/constants';
 import { MONEY_MARKET_OBJECTS } from '@/constants/money-market.constants';
-import { useGetObject, useNetwork, useProvider } from '@/hooks';
+import { useGetObject, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { AddressZero } from '@/lib';
 import { makeSWRKey } from '@/utils';
 
@@ -43,12 +43,10 @@ bcs.registerStructType('Market', {
 
 const RETURN_TYPE = 'vector<Market>';
 
-export const useGetMoneyMarkets = (
-  account?: string | null,
-  config: SWRConfiguration = {}
-) => {
+export const useGetMoneyMarkets = (config: SWRConfiguration = {}) => {
   const { provider } = useProvider();
   const { network } = useNetwork();
+  const { account } = useWeb3();
 
   const objects = MONEY_MARKET_OBJECTS[network];
 
@@ -85,17 +83,22 @@ export const useGetMoneyMarkets = (
         bcs.de(RETURN_TYPE, Uint8Array.from(x[0]))
       );
 
+      if (!rawData.length || rawData[0].length !== marketsKeys.length)
+        return {} as Record<string, MoneyMarket>;
+
       return marketsKeys.reduce((acc, rawKey, currentIndex) => {
         const key = rawKey.replace(
           /\b0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI\b/g,
           SUI_TYPE_ARG
         );
 
-        const data = rawData[currentIndex];
+        const data = rawData[0][currentIndex];
 
         const accruedTimestamp = BigNumber(
           propOr(0, 'accrued_timestamp', data)
         );
+        console.log('RAW DATA', rawData);
+        console.log('DATRA', data);
 
         const timeElapsed = new Date().getTime() - accruedTimestamp.toNumber();
         const supplyRatePerMS = BigNumber(propOr(0, 'supply_rate', data));

@@ -53,6 +53,7 @@ export const makeSupplyData = ({
           coinsMap[key].decimals
         ),
         collateral: market.collateralEnabled,
+        marketKey: key,
       } as SupplyRow;
 
       return isNotEngaged
@@ -81,8 +82,6 @@ export const makeBorrowData = ({
 }: MakeMoneyMarketDataArgs): [MoneyMarketUI, MoneyMarketUI] =>
   BORROW_MARKETS_UI[network].reduce(
     ([engaged, notEngaged], key) => {
-      console.log(key);
-      console.log(marketRecord);
       const market = marketRecord[key];
 
       const loanRebase = new Rebase(
@@ -122,6 +121,7 @@ export const makeBorrowData = ({
             )
           : 0,
         cash: FixedPointMath.toNumber(market.cash, market.decimals),
+        marketKey: key,
       } as BorrowRow;
 
       return isNotEngaged
