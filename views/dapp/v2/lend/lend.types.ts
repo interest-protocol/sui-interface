@@ -2,7 +2,6 @@ import BigNumber from 'bignumber.js';
 import { ReactNode } from 'react';
 
 import { CoinPriceRecord } from '@/hooks';
-import { ZERO_BIG_NUMBER } from '@/utils';
 
 export interface CardLendProps {
   icon: 'percentage' | 'box-up' | 'box-down' | 'special';
