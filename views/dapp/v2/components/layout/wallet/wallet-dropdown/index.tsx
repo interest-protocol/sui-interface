@@ -42,7 +42,7 @@ const wrapperVariants = {
 const WalletDropdown: FC<WalletDropdownProps> = ({
   isOpen,
   loading,
-  addressName,
+  suiNSRecord,
   handleDisconnect,
 }) => {
   const t = useTranslations();
@@ -81,9 +81,9 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
             <CheckmarkSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
           )}
           <WalletItem>
-            {loading || !addressName
-              ? formatAddress(walletAccount.address ?? '')
-              : addressName}
+            {loading || suiNSRecord[walletAccount.address]
+              ? suiNSRecord[walletAccount.address]
+              : formatAddress(walletAccount.address)}
           </WalletItem>
           <Button
             size="small"

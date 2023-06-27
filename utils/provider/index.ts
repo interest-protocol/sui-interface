@@ -1,5 +1,6 @@
 import { Network, SDK } from '@interest-protocol/sui-amm-sdk';
 import { Connection, devnetConnection, JsonRpcProvider } from '@mysten/sui.js';
+import { SuiAddress } from '@mysten/sui.js/src';
 import { SuinsClient } from '@mysten/suins-toolkit';
 
 export const devNetProvider = new JsonRpcProvider(
@@ -55,7 +56,19 @@ export const suiNSMainNetProvider = new SuinsClient(
         process.env.NEXT_PUBLIC_SUI_MAINNET_WS_URL ||
         'wss://fullnode.mainnet.sui.io:443',
     })
-  )
+  ),
+  {
+    contractObjects: {
+      packageId:
+        '0xd22b24490e0bae52676651b4f56660a5ff8022a2576e0089f79b3c88d44e08f0',
+      suins:
+        '0x6e0ddefc0ad98889c04bab9639e512c21766c5e6366f89e696956d9be6952871',
+      registry:
+        '0xe64cd9db9f829c6cc405d9790bd71567ae07259855f4fba6f02c84f52298c106',
+      reverseRegistry:
+        '0x2fd099e17a292d2bc541df474f9fafa595653848cbabb2d7a4656ec786a1969f',
+    },
+  }
 );
 
 export const devNetIPXSdk = new SDK(devNetProvider, Network.DEVNET);

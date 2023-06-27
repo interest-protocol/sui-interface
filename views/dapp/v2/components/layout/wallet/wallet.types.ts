@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 export interface WalletDropdownProps {
   isOpen: boolean;
   loading: boolean;
-  addressName: string | undefined;
+  suiNSRecord: Record<string, string>;
   handleDisconnect: () => void;
 }
 
