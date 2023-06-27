@@ -1,6 +1,8 @@
 import BigNumber from 'bignumber.js';
+import { ReactNode } from 'react';
 
 import { CoinPriceRecord } from '@/hooks';
+import { ZERO_BIG_NUMBER } from '@/utils';
 
 export interface CardLendProps {
   icon: 'percentage' | 'box-up' | 'box-down' | 'special';
@@ -40,11 +42,6 @@ export interface MoneyMarket {
   decimals: number;
 }
 
-export interface OverviewSectionProps {
-  userBalancesInUSD: UserBalancesInUSD;
-  isLoading: boolean;
-}
-
 export interface MakeCardsDataArgs {
   userBalancesInUSD: UserBalancesInUSD;
 }
@@ -66,7 +63,16 @@ export interface UserBalancesInUSD {
   totalIPXLoanRewards: number;
 }
 
-export interface LimitSectionProps {
-  isLoading: boolean;
+export interface LendProviderProps {
+  children: ReactNode;
+}
+
+export interface LendProviderState {
+  priceMap: CoinPriceRecord;
+  marketRecord: Record<string, MoneyMarket>;
+  ipxPrice: number;
+  moneyMarketStorage: MoneyMarketStorage;
   userBalancesInUSD: UserBalancesInUSD;
+  loading: boolean;
+  mutate: () => Promise<void>;
 }

@@ -4,19 +4,7 @@ import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.typ
 import { CoinPriceRecord } from '@/hooks';
 import { CoinData } from '@/interface';
 
-import {
-  MoneyMarket,
-  MoneyMarketStorage,
-  UserBalancesInUSD,
-} from '../lend.types';
-
-export interface LendTableProps {
-  userBalancesInUSD: UserBalancesInUSD;
-  moneyMarketStorage: MoneyMarketStorage;
-  isLoading: boolean;
-  marketRecord: Record<string, MoneyMarket>;
-  priceMap: CoinPriceRecord;
-}
+import { MoneyMarket } from '../lend.types';
 
 export interface MakeMoneyMarketDataArgs {
   marketRecord: Record<string, MoneyMarket>;

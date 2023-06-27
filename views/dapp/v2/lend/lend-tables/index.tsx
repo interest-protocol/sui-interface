@@ -2,16 +2,9 @@ import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { LendTableProps } from './lend-table.types';
 import MarketTable from './market-table';
 
-const LendTables: FC<LendTableProps> = ({
-  isLoading,
-  userBalancesInUSD,
-  moneyMarketStorage,
-  marketRecord,
-  priceMap,
-}) => {
+const LendTables: FC = () => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const surface1 = dark
@@ -35,15 +28,7 @@ const LendTables: FC<LendTableProps> = ({
           bg={surface1}
           height="fit-content"
         >
-          <MarketTable
-            title={t('Lend.supplyTableTitle')}
-            isLoading={isLoading}
-            isSupply
-            moneyMarketStorage={moneyMarketStorage}
-            marketRecord={marketRecord}
-            userBalancesInUSD={userBalancesInUSD}
-            priceMap={priceMap}
-          />
+          <MarketTable title={t('Lend.supplyTableTitle')} isSupply />
         </Box>
         <Box
           color="text"
@@ -51,14 +36,7 @@ const LendTables: FC<LendTableProps> = ({
           bg={surface1}
           height="fit-content"
         >
-          <MarketTable
-            title={t('Lend.borrowTableTitle')}
-            moneyMarketStorage={moneyMarketStorage}
-            marketRecord={marketRecord}
-            userBalancesInUSD={userBalancesInUSD}
-            isLoading={isLoading}
-            priceMap={priceMap}
-          />
+          <MarketTable title={t('Lend.borrowTableTitle')} />
         </Box>
       </Box>
     </Box>

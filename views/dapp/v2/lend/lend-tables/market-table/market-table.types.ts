@@ -1,20 +1,8 @@
-import { CoinPriceRecord } from '@/hooks';
-import {
-  MoneyMarket,
-  MoneyMarketStorage,
-  UserBalancesInUSD,
-} from '@/views/dapp/v2/lend/lend.types';
-
 import { BorrowRow, SupplyRow } from '../lend-table.types';
 
 export interface MarketTableProps {
   title: string;
   isSupply?: boolean;
-  userBalancesInUSD: UserBalancesInUSD;
-  moneyMarketStorage: MoneyMarketStorage;
-  isLoading: boolean;
-  marketRecord: Record<string, MoneyMarket>;
-  priceMap: CoinPriceRecord;
 }
 
 export interface MarketTableBorrowedProps {
@@ -33,23 +21,7 @@ export interface GroupBorrowRow extends GroupRowHeaderProps {
   BorrowMarketTableData: ReadonlyArray<BorrowRow>;
 }
 
-export interface BorrowMarketTableProps {
-  userBalancesInUSD: UserBalancesInUSD;
-  moneyMarketStorage: MoneyMarketStorage;
-  isLoading: boolean;
-  marketRecord: Record<string, MoneyMarket>;
-  priceMap: CoinPriceRecord;
-}
-
 export interface GroupSupplyRow extends GroupRowHeaderProps {
   isEngaged: boolean;
   SupplyMarketTableData: ReadonlyArray<SupplyRow>;
-}
-
-export interface SupplyMarketTableProps {
-  userBalancesInUSD: UserBalancesInUSD;
-  moneyMarketStorage: MoneyMarketStorage;
-  isLoading: boolean;
-  marketRecord: Record<string, MoneyMarket>;
-  priceMap: CoinPriceRecord;
 }

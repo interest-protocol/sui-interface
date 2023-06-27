@@ -12,7 +12,7 @@ import { FC } from 'react';
 import { TTranslatedMessage } from '@/interface';
 import { CarteUpSVG } from '@/svg';
 
-import { GroupRowHeaderProps } from '../market-table/market-table.types';
+import { GroupRowHeaderProps } from '../market-table.types';
 
 const BorrowMarketTableGroupRowHeader: FC<
   GroupRowHeaderProps & { handleButton: () => void; isOpen: boolean }

@@ -1,38 +1,28 @@
 import {
   Box,
   Motion,
-  SwitchButton,
   Theme,
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { not } from 'ramda';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { useModal } from '@/hooks';
 
-import { SupplyRow } from '../lend-table.types';
-import { getSVG } from '../market-table/market-table.utils';
-import CollateralModal from '../market-table/Modal/collateral-modal';
-import DisablingCollateralModal from '../market-table/Modal/disabling-collateral-modal';
-import ResultCollateralModal from '../market-table/Modal/result-collateral';
-import SupplyMarketConfirmModal from '../market-table/Modal/supply-row/supply-row-confirm-modal';
-import SupplyMarketFailModal from '../market-table/Modal/supply-row/supply-row-fail-modal';
-import SupplyMarketModal from '../market-table/Modal/supply-row/supply-row-modal';
-import SupplyMarketPreviewModal from '../market-table/Modal/supply-row/supply-row-preview-modal';
+import { MarketTableBorrowedProps } from '../market-table.types';
+import { getSVG } from '../market-table.utils';
+import BorrowMarketConfirmModal from '../Modal/borrow-row/borrow-row-confirm-modal';
+import BorrowMarketFailModal from '../Modal/borrow-row/borrow-row-fail-modal';
+import BorrowMarketModal from '../Modal/borrow-row/borrow-row-modal';
+import BorrowMarketPreviewModal from '../Modal/borrow-row/borrow-row-preview-modal';
 
-const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
-  assetApy,
-  supplied,
-  wallet,
-  collateral,
-  isEngaged,
-}) => {
+const BorrowMarketTableRow: FC<
+  MarketTableBorrowedProps & { isEngaged: boolean }
+> = ({ assetApy, borrowed, wallet, cash, isEngaged }) => {
   const t = useTranslations();
-  const { setModal, handleClose } = useModal();
-  const [collateralSwitch, setCollateralSwitch] = useState(collateral);
   const { dark } = useTheme() as Theme;
+  const { setModal, handleClose } = useModal();
   const surface1 = dark
     ? 'linear-gradient(0deg, rgba(182, 196, 255, 0.04), rgba(182, 196, 255, 0.04)), #1B1B1F'
     : 'linear-gradient(0deg, rgba(0, 85, 255, 0.04), rgba(0, 85, 255, 0.04)), #F2F0F4';
@@ -40,64 +30,9 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
     ? 'linear-gradient(0deg, rgba(182, 196, 255, 0.08), rgba(182, 196, 255, 0.08)), #1B1B1F'
     : 'linear-gradient(0deg, rgba(0, 85, 255, 0.08), rgba(0, 85, 255, 0.08)), #F2F0F4';
 
-  const handleCollateralSwitch = () => {
-    setCollateralSwitch(not);
-  };
-
-  const openCollateralModal = (e: { stopPropagation: () => void }) => {
-    e.stopPropagation();
-    handleCollateralSwitch();
-    setModal(
-      <Motion
-        initial={{ scale: 0.85 }}
-        animate={{ scale: 1 }}
-        transition={{
-          duration: 0.3,
-        }}
-      >
-        {!collateralSwitch ? (
-          <CollateralModal
-            closeModal={handleClose}
-            assetApy={assetApy}
-            resultModal={openResultModal}
-          />
-        ) : (
-          <DisablingCollateralModal
-            closeModal={handleClose}
-            assetApy={assetApy}
-            resultModal={openResultModal}
-          />
-        )}
-      </Motion>,
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: true,
-      }
-    );
-  };
-
-  const openResultModal = () => {
-    const RANDOM_RESULT = Math.random() < 0.5;
-    setModal(
-      <ResultCollateralModal
-        tokenName="###"
-        closeModal={handleClose}
-        isSuccess={RANDOM_RESULT}
-      />,
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: true,
-      }
-    );
-  };
-
   const openRowMarketModal = (isSupplyOrBorrow: boolean) => {
     setModal(
-      <SupplyMarketModal
+      <BorrowMarketModal
         closeModal={handleClose}
         isSupplyOrBorrow={isSupplyOrBorrow}
         assetApy={assetApy}
@@ -114,7 +49,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
 
   const openRowMarketPreviewModal = (isSupplyOrBorrow: boolean) => {
     setModal(
-      <SupplyMarketPreviewModal
+      <BorrowMarketPreviewModal
         closeModal={handleClose}
         assetApy={assetApy}
         isSupplyOrBorrow={isSupplyOrBorrow}
@@ -136,29 +71,25 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
   ) => {
     setModal(
       isSuccess ? (
-        <SupplyMarketConfirmModal
+        <BorrowMarketConfirmModal
           closeModal={handleClose}
           title={t(
-            isSupplyOrBorrow
-              ? 'common.v2.lend.supply'
-              : 'common.v2.lend.withdraw'
+            isSupplyOrBorrow ? 'common.v2.lend.borrow' : 'common.v2.lend.repay'
           )}
-          content={t('Lend.modal.supply.confirm.content', {
-            isSupply: 1,
+          content={t('Lend.modal.borrow.confirm.content', {
+            isBorrow: +isSupplyOrBorrow,
           })}
-          additionalText={t('Lend.modal.supply.confirm.additionInfo')}
+          additionalText={t('Lend.modal.borrow.confirm.additionInfo')}
           activityLink="#"
         />
       ) : (
-        <SupplyMarketFailModal
+        <BorrowMarketFailModal
           closeModal={handleClose}
           title={t(
-            isSupplyOrBorrow
-              ? 'common.v2.lend.supply'
-              : 'common.v2.lend.withdraw'
+            isSupplyOrBorrow ? 'common.v2.lend.borrow' : 'common.v2.lend.repay'
           )}
-          content={t('Lend.modal.supply.error.content', {
-            isSupply: +isSupplyOrBorrow,
+          content={t('Lend.modal.borrow.error.content', {
+            isBorrow: +isSupplyOrBorrow,
           })}
           description=""
         />
@@ -227,14 +158,14 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
         justifyContent="center"
       >
         <Typography variant="medium" textAlign="center">
-          {supplied.amount}
+          {borrowed.amount}
         </Typography>
         <Typography
           variant="small"
           textAlign="center"
           color={dark ? '#77767A' : '#47464A'}
         >
-          ${supplied.value}
+          ${borrowed.value}
         </Typography>
       </Box>
       <Box display="flex" alignItems="center" justifyContent="center">
@@ -242,24 +173,13 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
           {wallet}
         </Typography>
       </Box>
-      <Box
-        px="l"
-        display="flex"
-        alignItems="center"
-        justifyContent="flex-end"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Box>
-          <SwitchButton
-            defaultValue={collateralSwitch}
-            name={assetApy.coin.token.symbol}
-            labels={''}
-            onClick={openCollateralModal}
-          />
-        </Box>
+      <Box px="l" display="flex" alignItems="center" justifyContent="flex-end">
+        <Typography variant="medium" textAlign="right">
+          ${cash}
+        </Typography>
       </Box>
     </Motion>
   );
 };
 
-export default SupplyMarketTableRow;
+export default BorrowMarketTableRow;
