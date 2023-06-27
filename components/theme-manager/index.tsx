@@ -32,7 +32,7 @@ const WalletKitProvider = dynamic(
 
 // TODO: REMOVE THESE CONSTANTS
 const INSTITUTIONAL_PAGES = ['/', '/team', '/campaign/liquidity'];
-const DAPP_REDESIGN_PAGES = ['/dapp/v2', 'dapp/swap', 'dapp/create-token'];
+const DAPP_OLD_DESIGN_PAGES = ['/dex', '/farms', '/liquidity', '/faucet'];
 
 const Theme: FC<PropsWithChildren<ThemeProps>> = ({
   dark,
@@ -42,7 +42,9 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
   const { asPath } = useRouter();
 
   const isInstitutional = INSTITUTIONAL_PAGES.includes(asPath);
-  const isRedesign = DAPP_REDESIGN_PAGES.some((path) => asPath.includes(path));
+  const isRedesign = !DAPP_OLD_DESIGN_PAGES.some((path) =>
+    asPath.includes(path)
+  );
 
   if (isInstitutional)
     return (

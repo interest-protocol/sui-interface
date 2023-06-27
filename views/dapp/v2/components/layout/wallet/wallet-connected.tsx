@@ -97,6 +97,8 @@ const WalletConnected: FC = () => {
     }
   }, [account, network, suiNSRecord]);
 
+  const handleClose = () => setIsOpen(false);
+
   return (
     <RefBox
       id={BOX_ID}
@@ -141,9 +143,7 @@ const WalletConnected: FC = () => {
         isOpen={isOpen}
         loading={loading}
         suiNSRecord={suiNSRecord}
-        handleDisconnect={() => {
-          setIsOpen(false);
-        }}
+        handleClose={handleClose}
       />
     </RefBox>
   );

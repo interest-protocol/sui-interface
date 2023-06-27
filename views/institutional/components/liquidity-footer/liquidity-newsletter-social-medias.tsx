@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 import { SOCIAL_MEDIAS } from '@/constants';
 
 const FooterSocialMedias: FC = () => {
-  const { colors } = useTheme() as Theme;
+  const { dark } = useTheme() as Theme;
   return (
     <Box display="grid" gap="0.5rem" gridTemplateColumns="repeat(4, 1fr)">
       {['Telegram', 'Discord', 'Twitter', 'Medium'].map((socialMediaTitle) => {
@@ -35,7 +35,7 @@ const FooterSocialMedias: FC = () => {
                 width="100%"
                 maxWidth="2rem"
                 maxHeight="2rem"
-                stroke={colors['outline.outlineVariant']}
+                stroke={dark ? '#C7C6CA' : '#1B1B1F'}
                 fill="none"
               />
             </Box>

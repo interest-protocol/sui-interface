@@ -19,7 +19,7 @@ const AdvantagesCard: FC<AdvantagesCardProps> = ({ name, Illustration }) => {
     >
       <Box
         p="xl"
-        height="6.5rem"
+        height="8.125rem"
         pb={['4xl', '4xl', 'xl']}
         mb={['xl', 'xl', 'unset']}
       >
@@ -30,7 +30,7 @@ const AdvantagesCard: FC<AdvantagesCardProps> = ({ name, Illustration }) => {
       <Box
         bg="#B6C4FF0A"
         borderRadius="m"
-        width="15.625rem"
+        width="15rem"
         height="15.625rem"
         position="relative"
       >

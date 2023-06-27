@@ -3,7 +3,7 @@ import { FC, MouseEventHandler, useState } from 'react';
 
 import { HeartSVG } from '@/components/svg/v2';
 
-import { TokenModalItemProps } from '../select-token.types';
+import { TokenModalItemProps } from './select-token-modal.types';
 
 const TokenModalItem: FC<TokenModalItemProps> = ({
   type,

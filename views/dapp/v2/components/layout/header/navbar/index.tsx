@@ -15,10 +15,10 @@ const Navbar: FC<NavbarProps> = ({ isMobile }) => (
       'flex',
     ]}
   >
-    <NavItem item="home" path="/dapp/v2" />
-    <NavItem item="swap" path="/dapp/v2/swap" />
-    <NavItem item="pool" path="/dapp/v2/pool" />
-    <NavItem item="lend" path="/dapp/v2/lending" />
+    <NavItem item="home" path="/dapp/" />
+    <NavItem item="swap" path="/dapp/alpha/swap" />
+    <NavItem item="pool" path="/dapp/alpha/pool" />
+    <NavItem item="lend" path="/dapp/alpha/lending" />
   </Box>
 );
 

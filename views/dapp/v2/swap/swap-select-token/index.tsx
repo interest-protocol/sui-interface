@@ -23,8 +23,12 @@ import { useLocalStorage } from '@/hooks';
 import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { CoinData } from '@/interface';
 
-import { FavoriteTokensForm, SelectTokenProps } from './select-token.types';
-import SelectTokenModal from './select-token-modal';
+import SelectTokenModal from '../../components/select-token-modal';
+import {
+  FavoriteTokensForm,
+  SelectTokenProps,
+} from '../../components/select-token-modal/select-token-modal.types';
+
 const SelectToken: FC<SelectTokenProps> = ({
   onSelectToken,
   currentTokenType,
