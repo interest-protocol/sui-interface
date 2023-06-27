@@ -33,9 +33,8 @@
           "content": "{isEnable, plural, =1 {Has activado {tokenName} como colateral} other {Has desactivado {tokenName} como colateral}}"
         },
         "error": {
-          "title": "Error",
-          "content": "Error",
-          "button": "Intentar de nuevo"
+          "title": "{isEnable, plural, =1 {Error al utilizar como garantía} other {Error al desactivar como garantía}}",
+          "content": "{isEnable, plural, =1 {Error al activar el {tokenName} como garantía} other {Error al desactivar el {tokenName} como garantía}}"
         }
       },
       "supply": {

@@ -2,14 +2,14 @@ import { Motion } from '@interest-protocol/ui-kit';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
-import { GroupBorrowRow } from '../market-table/market-table.types';
-import BorrowMarketTableGroupRowHeader from './group-row-header';
-import BorrowMarketTableRow from './rows';
+import { GroupSupplyRow } from '../market-table.types';
+import SupplyMarketTableGroupRowHeader from './group-row-header';
+import SupplyMarketTableRow from './rows';
 
-const BorrowMarketTableGroupRow: FC<GroupBorrowRow> = ({
+const SupplyMarketTableGroupRow: FC<GroupSupplyRow> = ({
   isEngaged,
   description,
-  BorrowMarketTableData,
+  SupplyMarketTableData,
 }) => {
   const [toggle, setToggle] = useState({
     element1: true,
@@ -24,7 +24,7 @@ const BorrowMarketTableGroupRow: FC<GroupBorrowRow> = ({
 
   return (
     <>
-      <BorrowMarketTableGroupRowHeader
+      <SupplyMarketTableGroupRowHeader
         description={description}
         handleButton={handleChangeElement}
         isOpen={toggle.element1}
@@ -38,12 +38,12 @@ const BorrowMarketTableGroupRow: FC<GroupBorrowRow> = ({
         }}
         overflow="hidden"
       >
-        {BorrowMarketTableData.map((item) => (
-          <BorrowMarketTableRow {...item} isEngaged={isEngaged} key={v4()} />
+        {SupplyMarketTableData.map((item) => (
+          <SupplyMarketTableRow {...item} isEngaged={isEngaged} key={v4()} />
         ))}
       </Motion>
     </>
   );
 };
 
-export default BorrowMarketTableGroupRow;
+export default SupplyMarketTableGroupRow;

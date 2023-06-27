@@ -3,25 +3,21 @@ import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { useNetwork, useWeb3 } from '@/hooks';
+import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
 import { BorrowRow } from '@/views/dapp/v2/lend/lend-tables/lend-table.types';
 import { makeBorrowData } from '@/views/dapp/v2/lend/lend-tables/lend-table.utils';
 
-import { BorrowMarketTableProps } from '../market-table/market-table.types';
-import MarketTableRowLoading from '../market-table/rows-loading';
+import MarketTableRowLoading from '../rows-loading';
 import BorrowMarketTableGroupRow from './group-rows';
 import BorrowMarketTableHeader from './header-table';
 
-const BorrowMarketTable: FC<BorrowMarketTableProps> = ({
-  isLoading,
-  marketRecord,
-  moneyMarketStorage,
-  userBalancesInUSD,
-  priceMap,
-}) => {
+const BorrowMarketTable: FC = () => {
   const { coinsMap } = useWeb3();
   const { network } = useNetwork();
 
-  const borrowData = isLoading
+  const { marketRecord, priceMap, loading } = useLendProviderValue();
+
+  const borrowData = loading
     ? []
     : makeBorrowData({
         marketRecord,
@@ -29,11 +25,11 @@ const BorrowMarketTable: FC<BorrowMarketTableProps> = ({
         network,
         coinsMap,
       });
-  console.log('UNUSED PROPS', { userBalancesInUSD, moneyMarketStorage });
+
   return (
     <>
       <BorrowMarketTableHeader />
-      {isLoading
+      {loading
         ? [1, 2].map(() => <MarketTableRowLoading key={v4()} />)
         : borrowData.map((BorrowMarketTable, index) => (
             <>

@@ -100,9 +100,11 @@ export const calculateUserBalancesInUSD = ({
         totalIPXLoanRewards: acc.totalIPXLoanRewards + totalIPXLoanEarnings,
         totalCollateral:
           acc.totalCollateral +
-          market.LTV.multipliedBy(collateralInUSD)
-            .dividedBy(DOUBLE_SCALAR)
-            .toNumber(),
+          (market.collateralEnabled
+            ? market.LTV.multipliedBy(collateralInUSD)
+                .dividedBy(DOUBLE_SCALAR)
+                .toNumber()
+            : 0),
       };
     },
     {

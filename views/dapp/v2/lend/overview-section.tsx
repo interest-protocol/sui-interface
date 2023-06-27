@@ -4,14 +4,13 @@ import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import Card from './card';
-import { OverviewSectionProps } from './lend.types';
+import { useLendProviderValue } from './lend.provider';
 import { makeCardsData } from './lend.utils';
 
-const OverviewSection: FC<OverviewSectionProps> = ({
-  userBalancesInUSD,
-  isLoading,
-}) => {
+const OverviewSection: FC = () => {
   const t = useTranslations();
+
+  const { userBalancesInUSD, loading } = useLendProviderValue();
 
   return (
     <>
@@ -33,7 +32,7 @@ const OverviewSection: FC<OverviewSectionProps> = ({
         {makeCardsData({
           userBalancesInUSD,
         }).map((item) => (
-          <Card {...item} key={v4()} isLoading={isLoading} />
+          <Card {...item} key={v4()} isLoading={loading} />
         ))}
       </Box>
     </>

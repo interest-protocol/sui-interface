@@ -7,20 +7,22 @@ import {
   useTheme,
 } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { not } from 'ramda';
 import { FC, useState } from 'react';
 
 import { useModal } from '@/hooks';
+import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
 
-import { SupplyRow } from '../lend-table.types';
-import { getSVG } from '../market-table/market-table.utils';
-import CollateralModal from '../market-table/Modal/collateral-modal';
-import DisablingCollateralModal from '../market-table/Modal/disabling-collateral-modal';
-import ResultCollateralModal from '../market-table/Modal/result-collateral';
-import SupplyMarketConfirmModal from '../market-table/Modal/supply-row/supply-row-confirm-modal';
-import SupplyMarketFailModal from '../market-table/Modal/supply-row/supply-row-fail-modal';
-import SupplyMarketModal from '../market-table/Modal/supply-row/supply-row-modal';
-import SupplyMarketPreviewModal from '../market-table/Modal/supply-row/supply-row-preview-modal';
+import { SupplyRow } from '../../lend-table.types';
+import { getSVG } from '../market-table.utils';
+import ConfirmCollateralModal from '../Modal/confirm-collateral';
+import DisableCollateralModal from '../Modal/disable-collateral-modal';
+import EnableCollateralModal from '../Modal/enable-collateral-modal';
+import FailCollateralModal from '../Modal/fail-collateral';
+import { ResultCollateralModalProps } from '../Modal/modal.types';
+import SupplyMarketConfirmModal from '../Modal/supply-row/supply-row-confirm-modal';
+import SupplyMarketFailModal from '../Modal/supply-row/supply-row-fail-modal';
+import SupplyMarketModal from '../Modal/supply-row/supply-row-modal';
+import SupplyMarketPreviewModal from '../Modal/supply-row/supply-row-preview-modal';
 
 const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
   assetApy,
@@ -28,10 +30,14 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
   wallet,
   collateral,
   isEngaged,
+  marketKey,
 }) => {
   const t = useTranslations();
   const { setModal, handleClose } = useModal();
-  const [collateralSwitch, setCollateralSwitch] = useState(collateral);
+  const [isCollateralEnabled, setCollateralSwitchState] = useState(collateral);
+  const { userBalancesInUSD, mutate, marketRecord, priceMap } =
+    useLendProviderValue();
+
   const { dark } = useTheme() as Theme;
   const surface1 = dark
     ? 'linear-gradient(0deg, rgba(182, 196, 255, 0.04), rgba(182, 196, 255, 0.04)), #1B1B1F'
@@ -40,13 +46,8 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
     ? 'linear-gradient(0deg, rgba(182, 196, 255, 0.08), rgba(182, 196, 255, 0.08)), #1B1B1F'
     : 'linear-gradient(0deg, rgba(0, 85, 255, 0.08), rgba(0, 85, 255, 0.08)), #F2F0F4';
 
-  const handleCollateralSwitch = () => {
-    setCollateralSwitch(not);
-  };
-
   const openCollateralModal = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    handleCollateralSwitch();
     setModal(
       <Motion
         initial={{ scale: 0.85 }}
@@ -55,17 +56,29 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
           duration: 0.3,
         }}
       >
-        {!collateralSwitch ? (
-          <CollateralModal
+        {isCollateralEnabled ? (
+          <DisableCollateralModal
             closeModal={handleClose}
             assetApy={assetApy}
             resultModal={openResultModal}
+            userBalancesInUSD={userBalancesInUSD}
+            setCollateralSwitchState={setCollateralSwitchState}
+            mutate={mutate}
+            marketKey={marketKey}
+            marketRecord={marketRecord}
+            priceMap={priceMap}
           />
         ) : (
-          <DisablingCollateralModal
+          <EnableCollateralModal
             closeModal={handleClose}
             assetApy={assetApy}
             resultModal={openResultModal}
+            userBalancesInUSD={userBalancesInUSD}
+            setCollateralSwitchState={setCollateralSwitchState}
+            mutate={mutate}
+            marketKey={marketKey}
+            marketRecord={marketRecord}
+            priceMap={priceMap}
           />
         )}
       </Motion>,
@@ -78,14 +91,27 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
     );
   };
 
-  const openResultModal = () => {
-    const RANDOM_RESULT = Math.random() < 0.5;
+  const openResultModal = ({
+    tokenName,
+    isSuccess,
+    isEnabled,
+    txLink,
+  }: ResultCollateralModalProps) => {
     setModal(
-      <ResultCollateralModal
-        tokenName="###"
-        closeModal={handleClose}
-        isSuccess={RANDOM_RESULT}
-      />,
+      isSuccess ? (
+        <ConfirmCollateralModal
+          tokenName={tokenName}
+          closeModal={handleClose}
+          isEnabled={isEnabled}
+          txLink={txLink}
+        />
+      ) : (
+        <FailCollateralModal
+          tokenName={tokenName}
+          closeModal={handleClose}
+          isEnabled={isEnabled}
+        />
+      ),
       {
         isOpen: true,
         custom: true,
@@ -249,7 +275,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
       >
         <Box>
           <SwitchButton
-            defaultValue={collateralSwitch}
+            defaultValue={isCollateralEnabled}
             name={assetApy.coin.token.symbol}
             labels={''}
             onClick={openCollateralModal}

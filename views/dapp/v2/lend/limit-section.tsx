@@ -5,13 +5,12 @@ import Skeleton from 'react-loading-skeleton';
 
 import { safeIntDiv } from '@/utils';
 
-import { LimitSectionProps } from './lend.types';
+import { useLendProviderValue } from './lend.provider';
 
-const LimitSection: FC<LimitSectionProps> = ({
-  isLoading,
-  userBalancesInUSD,
-}) => {
+const LimitSection: FC = () => {
   const t = useTranslations();
+
+  const { userBalancesInUSD, loading } = useLendProviderValue();
 
   const borrowLimitPercentage = (
     safeIntDiv(userBalancesInUSD.totalLoan, userBalancesInUSD.totalCollateral) *
@@ -32,7 +31,7 @@ const LimitSection: FC<LimitSectionProps> = ({
           {t('common.v2.lend.firstSection.borrowLimit')}
         </Typography>
       </Box>
-      {isLoading ? (
+      {loading ? (
         <Skeleton />
       ) : (
         <Box display="grid" gridTemplateColumns="auto 3fr auto" gap="s">
