@@ -124,28 +124,6 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
     safeIntDiv(userBalancesInUSD.totalLoan, userBalancesInUSD.totalCollateral) *
     100;
 
-  const collateralLeftOver =
-    userBalancesInUSD.totalCollateral -
-    FixedPointMath.toNumber(
-      collateralRebase.toElastic(market.userShares),
-      market.decimals
-    ) *
-      priceMap[marketKey].price;
-
-  const newBorrowLimitPercentage = market.userShares.isZero()
-    ? currentBorrowLimitPercentage
-    : 0 >= collateralLeftOver
-    ? 100
-    : safeIntDiv(
-        userBalancesInUSD.totalLoan,
-        userBalancesInUSD.totalCollateral -
-          FixedPointMath.toNumber(
-            collateralRebase.toElastic(market.userShares),
-            market.decimals
-          ) *
-            priceMap[marketKey].price
-      ) * 100;
-
   return isLoading ? (
     <LoadingModal
       title={t('Lend.modal.collateral.loading.title', { isEnable: 0 })}
@@ -190,10 +168,6 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
       </Box>
       <Box p="xl" bg="surface.containerLow">
         <LineModal
-          description="common.v2.lend.firstSection.currentBorrowLimit"
-          value={`$ ${currentBorrowLimit.toFixed(2)}`}
-        />
-        <LineModal
           description="common.v2.lend.firstSection.newBorrowLimit"
           value={`$ ${newBorrowLimit.toFixed(2)}`}
         />
@@ -206,16 +180,6 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
             value={currentBorrowLimitPercentage}
             variant="bar"
           />
-        </Box>
-        <LineModal
-          description="New Borrow Limit"
-          value={`${newBorrowLimitPercentage.toFixed(2)} %`}
-        />
-        <Box p="1rem" display="flex" justifyContent="space-between">
-          <ProgressIndicator value={newBorrowLimitPercentage} variant="bar" />
-        </Box>
-        <Box p="1rem" display="flex" justifyContent="space-between">
-          <ProgressIndicator value={75} variant="bar" />
         </Box>
       </Box>
       <Box
