@@ -84,13 +84,14 @@ const WalletConnected: FC = () => {
               null,
               ['data', 'display', 'data', 'image_url'],
               nft
-            );
+            ) as string | null;
 
-            if (imageUrl)
+            if (imageUrl) {
               setAvatarUrlRecord((x) => ({
                 ...x,
-                [account]: `https://ipfs.io/${imageUrl}`,
+                [account]: imageUrl.replace('ipfs://', 'https://ipfs.io/ipfs/'),
               }));
+            }
           }
         })
         .catch();
@@ -98,6 +99,9 @@ const WalletConnected: FC = () => {
   }, [account, network, suiNSRecord]);
 
   const handleClose = () => setIsOpen(false);
+
+  const getName = (account: string) =>
+    suiNSRecord[account] ? suiNSRecord[account] : formatAddress(account);
 
   return (
     <RefBox
@@ -110,9 +114,7 @@ const WalletConnected: FC = () => {
       <Box display="flex" gap="m" alignItems="center">
         {account && (
           <Typography variant="medium" color="onSurface">
-            {suiNSRecord[account]
-              ? suiNSRecord[account]
-              : formatAddress(account)}
+            {getName(account)}
           </Typography>
         )}
         <Box
@@ -120,6 +122,7 @@ const WalletConnected: FC = () => {
           width="2.5rem"
           height="2.5rem"
           cursor="pointer"
+          overflow="hidden"
           borderRadius="50%"
           onClick={() => setIsOpen(true)}
           transition="transform 300ms ease-in-out"
@@ -127,12 +130,12 @@ const WalletConnected: FC = () => {
             transform: 'scale(1.1)',
           }}
         >
-          {avatarUrlRecord[account || ''] ? (
+          {account && avatarUrlRecord[account] ? (
             <img
               width="100%"
               height="100%"
-              src={avatarUrlRecord[account || '']}
-              alt=""
+              src={avatarUrlRecord[account]}
+              alt={`${getName(account)} NFT`}
             />
           ) : (
             <UserSVG width="100%" maxWidth="2.5rem" maxHeight="2.5rem" />
