@@ -74,9 +74,10 @@ const WalletConnected: FC = () => {
           showAvatar: true,
         })
         .then(async (object) => {
-          if (prop('nftId', object)) {
+          const nftId = prop('nftId', object);
+          if (nftId) {
             const nft = await provider.getObject({
-              id: prop('nftId', object)!,
+              id: nftId,
               options: { showDisplay: true },
             });
 
