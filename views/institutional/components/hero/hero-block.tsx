@@ -11,7 +11,11 @@ import {
   HeroCubeSUI,
   StarSVG,
 } from '../svg';
-import { CubeWrapperProps, HeroStarWrapperProps } from './hero.types';
+import {
+  CubeWrapperProps,
+  HeroBlockProps,
+  HeroStarWrapperProps,
+} from './hero.types';
 import {
   cubeVariant,
   cubeWrapperVariant,
@@ -110,8 +114,8 @@ const StarWrapper: FC<HeroStarWrapperProps> = ({ Icon, size, ...props }) => {
   );
 };
 
-const HeroBlock: FC = () => (
-  <Box width="272px" height="368px" position="relative" mx="auto">
+const HeroBlock: FC<HeroBlockProps> = ({ scale }) => (
+  <Box width="272px" scale={scale} height="368px" position="relative" mx="auto">
     <StarWrapper Icon={StarSVG} left="-12%" top="9%" size="20%" />
     <StarWrapper Icon={StarSVG} left="0%" top="13%" size="15%" />
     <StarWrapper Icon={StarSVG} right="-17%" top="0%" size="30%" />

@@ -16,3 +16,7 @@ export interface CubeWrapperProps {
 export interface HeroStarWrapperProps extends CubeWrapperProps {
   size: '15%' | '20%' | '30%';
 }
+
+export interface HeroBlockProps {
+  scale?: number | string;
+}
