@@ -1,3 +1,4 @@
+import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
@@ -20,6 +21,15 @@ const SupplyMarketTable: FC<SupplyMarketTableProps> = ({
   const { coinsMap } = useWeb3();
   const { network } = useNetwork();
 
+  const supplyData = isLoading
+    ? []
+    : makeSupplyData({
+        marketRecord,
+        coinsMap,
+        priceMap,
+        network,
+      });
+
   console.log('UNUSED PROPS', { userBalancesInUSD, moneyMarketStorage });
 
   return (
@@ -27,8 +37,8 @@ const SupplyMarketTable: FC<SupplyMarketTableProps> = ({
       <SupplyMarketTableHeader />
       {isLoading
         ? [1, 2].map(() => <MarketTableRowLoading key={v4()} />)
-        : makeSupplyData({ marketRecord, coinsMap, priceMap, network }).map(
-            (SupplyMarketTable) => (
+        : supplyData.map((SupplyMarketTable, index) => (
+            <>
               <SupplyMarketTableGroupRow
                 key={v4()}
                 isEngaged={SupplyMarketTable.isEngaged}
@@ -37,8 +47,18 @@ const SupplyMarketTable: FC<SupplyMarketTableProps> = ({
                   SupplyMarketTable.data as ReadonlyArray<SupplyRow>
                 }
               />
-            )
-          )}
+
+              {supplyData.length != index + 1 && (
+                <Box
+                  as="hr"
+                  width="60%"
+                  mx="auto"
+                  border="1px dashed"
+                  borderColor="outline.outlineVariant"
+                />
+              )}
+            </>
+          ))}
     </>
   );
 };

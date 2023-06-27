@@ -9,13 +9,15 @@
     "borrowTableTitle": "Borrow Market",
     "collateral": "Collateral",
     "assetAPY": "Asset / APY",
-    "supplied": "Supplied",
+    "supplied": "Supplied / LTV",
     "borrowed": "Borrowed",
     "cash": "Cash",
     "supplyAdded": "Supply Added",
-    "unLoan": "Un loan",
+    "borrowing": "Borrowing",
     "notEngaged": "Not engaged",
     "learnMore": "Learn more",
+    "claimReward": "Rewards to claim",
+    "claim": "Claim",
     "modal": {
       "collateral": {
         "preview": {

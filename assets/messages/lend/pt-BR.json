@@ -9,13 +9,15 @@
     "borrowTableTitle": "Mercado de empréstimos",
     "collateral": "Garantias",
     "assetAPY": "Ativo / APY",
-    "supplied": "Fornecido",
+    "supplied": "Fornecido / LTV",
     "borrowed": "Emprestado",
     "cash": "Dinheiro",
     "supplyAdded": "Fornecimento adicionado",
-    "unLoan": "Sem empréstimo",
+    "borrowing": "Empréstimo",
     "notEngaged": "Não comprometido",
     "learnMore": "Saiba mais",
+    "claimReward": "Prémios a receber",
+    "claim": "Reclamar",
     "modal": {
       "collateral": {
         "preview": {

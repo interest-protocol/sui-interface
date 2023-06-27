@@ -10,6 +10,7 @@ export interface CardLendProps {
   symbol: '%' | '$' | 'USD';
   amount: string;
   isLoading?: boolean;
+  disabled?: boolean;
 }
 
 export interface MoneyMarketStorage {

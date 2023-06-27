@@ -198,9 +198,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
         gap="m"
         display="flex"
       >
-        <Box display="flex" alignItems="center">
-          {getSVG(assetApy.coin.token.type)}
-        </Box>
+        {getSVG(assetApy.coin.token.type)}
         <Box display="flex" flexDirection="column">
           <Typography variant="medium">{assetApy.coin.token.symbol}</Typography>
           <Typography

@@ -8,13 +8,15 @@
     "borrowTableTitle": "Mercado de préstamos",
     "collateral": "Colateral",
     "assetAPY": "Activo / APY",
-    "supplied": "Suministrado",
+    "supplied": "Suministrado / LTV",
     "borrowed": "Prestado",
     "cash": "Dinero",
     "supplyAdded": "Suministro agregado",
-    "unLoan": "Sin préstamo",
+    "borrowing": "Préstamo",
     "notEngaged": "No comprometido",
     "learnMore": "saber más",
+    "claimReward": "Premios a solicitar",
+    "claim": "Solicitar",
     "modal": {
       "collateral": {
         "preview": {

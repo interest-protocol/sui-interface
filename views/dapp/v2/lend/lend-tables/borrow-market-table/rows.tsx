@@ -175,7 +175,7 @@ const BorrowMarketTableRow: FC<
       </Box>
       <Box px="l" display="flex" alignItems="center" justifyContent="flex-end">
         <Typography variant="medium" textAlign="right">
-          ${cash}
+          {cash}
         </Typography>
       </Box>
     </Motion>

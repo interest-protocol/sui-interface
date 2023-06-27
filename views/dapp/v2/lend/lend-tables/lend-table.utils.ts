@@ -131,7 +131,7 @@ export const makeBorrowData = ({
     [
       {
         isEngaged: true,
-        description: 'Lend.unLoan',
+        description: 'Lend.borrowing',
         data: [] as ReadonlyArray<BorrowRow>,
       } as MoneyMarketUI,
       {

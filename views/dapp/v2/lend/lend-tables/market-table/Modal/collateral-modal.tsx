@@ -78,7 +78,7 @@ const CollateralModal: FC<CollateralModalProps> = ({
               href="https://medium.com/compound-finance/faq-1a2636713b69"
               rel="noreferrer"
             >
-              Learn more...
+              {t('Lend.learnMore')} ...
             </a>
           </Typography>
         </Typography>
