@@ -127,6 +127,7 @@ const WalletConnected: FC = () => {
               width="100%"
               height="100%"
               src={avatarUrlRecord[account || '']}
+              alt=""
             />
           ) : (
             <UserSVG width="100%" maxWidth="2.5rem" maxHeight="2.5rem" />

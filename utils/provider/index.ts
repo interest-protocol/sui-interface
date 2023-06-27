@@ -1,6 +1,5 @@
 import { Network, SDK } from '@interest-protocol/sui-amm-sdk';
 import { Connection, devnetConnection, JsonRpcProvider } from '@mysten/sui.js';
-import { SuiAddress } from '@mysten/sui.js/src';
 import { SuinsClient } from '@mysten/suins-toolkit';
 
 export const devNetProvider = new JsonRpcProvider(
