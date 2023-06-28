@@ -1,4 +1,4 @@
-import { Network, ZERO_ADDRESS } from '@interest-protocol/sui-amm-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Button,
@@ -6,13 +6,11 @@ import {
   ProgressIndicator,
   Typography,
 } from '@interest-protocol/ui-kit';
-import { BCS } from '@mysten/bcs';
 import {
   SUI_CLOCK_OBJECT_ID,
   TransactionArgument,
   TransactionBlock,
 } from '@mysten/sui.js';
-import { bcs } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { PriceServiceConnection } from '@pythnetwork/price-service-client';
 import { useTranslations } from 'next-intl';
@@ -123,41 +121,31 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
         ],
       });
 
-      const tx = await provider.devInspectTransactionBlock({
+      const { transactionBlockBytes, signature } = await signTransactionBlock({
         transactionBlock: txb,
-        sender: ZERO_ADDRESS,
       });
 
-      console.log(tx);
+      const tx = await provider.executeTransactionBlock({
+        transactionBlock: transactionBlockBytes,
+        signature,
+        options: {
+          showEffects: true,
+        },
+      });
 
-      //
-      // const { transactionBlockBytes, signature } = await signTransactionBlock({
-      //   transactionBlock: txb,
-      // });
-      //
-      // const tx = await provider.executeTransactionBlock({
-      //   transactionBlock: transactionBlockBytes,
-      //   signature,
-      //   options: {
-      //     showEffects: true,
-      //   },
-      // });
-      //
-      // console.log(tx);
-      //
-      // throwTXIfNotSuccessful(tx);
-      //
-      // resultModal({
-      //   tokenName: assetApy.coin.token.symbol,
-      //   isEnabled: false,
-      //   isSuccess: true,
-      //   txLink:
-      //     network === Network.MAINNET
-      //       ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-      //       : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`,
-      // });
-      //
-      // setCollateralSwitchState(true);
+      throwTXIfNotSuccessful(tx);
+
+      resultModal({
+        tokenName: assetApy.coin.token.symbol,
+        isEnabled: false,
+        isSuccess: true,
+        txLink:
+          network === Network.MAINNET
+            ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
+            : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`,
+      });
+
+      setCollateralSwitchState(true);
     } catch (e) {
       console.log(e);
       resultModal({
