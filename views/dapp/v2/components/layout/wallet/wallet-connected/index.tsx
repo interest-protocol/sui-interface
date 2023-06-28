@@ -43,6 +43,7 @@ const WalletConnected: FC = () => {
       <WalletProfile
         setIsOpen={setIsOpen}
         setLoading={setLoading}
+        suiNSRecord={suiNSRecord}
         setSuiNSRecord={setSuiNSRecord}
       />
       <WalletDropdown
