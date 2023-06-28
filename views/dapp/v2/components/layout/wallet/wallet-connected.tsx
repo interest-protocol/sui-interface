@@ -15,21 +15,20 @@ import WalletDropdown from './wallet-dropdown';
 const BOX_ID = 'wallet-connected-box-id-123';
 
 const WalletConnected: FC = () => {
+  const { account } = useWeb3();
+  const { network } = useNetwork();
+  const { provider } = useProvider();
+  const { accounts } = useWalletKit();
+  const { suiNSProvider } = useProvider();
+  const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [suiNSRecord, setSuiNSRecord] = useState<Record<string, string>>({});
   const {
     colors: { surface },
   } = useTheme() as Theme;
-
-  const [isOpen, setIsOpen] = useState(false);
-  const { network } = useNetwork();
-  const { suiNSProvider } = useProvider();
-  const { account } = useWeb3();
-  const [loading, setLoading] = useState(false);
-  const [suiNSRecord, setSuiNSRecord] = useState<Record<string, string>>({});
   const [avatarUrlRecord, setAvatarUrlRecord] = useState<
     Record<string, string>
   >({});
-  const { accounts } = useWalletKit();
-  const { provider } = useProvider();
 
   const closeDropdown = (event: any) => {
     if (

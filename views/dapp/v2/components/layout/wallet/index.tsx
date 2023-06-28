@@ -8,8 +8,8 @@ import WalletConnected from './wallet-connected';
 
 const Wallet: FC = () => {
   const t = useTranslations();
-  const { currentAccount, isConnected, isError, disconnect } = useWalletKit();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { currentAccount, isConnected, isError, disconnect } = useWalletKit();
 
   if (isError && !isModalOpen)
     return (

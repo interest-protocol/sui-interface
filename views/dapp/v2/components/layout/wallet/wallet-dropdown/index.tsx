@@ -101,8 +101,8 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
           key={walletAccount.address}
           onClick={() => {
             if (!(walletAccount.address === account)) {
-              selectAccount(walletAccount);
               handleClose();
+              selectAccount(walletAccount);
             }
           }}
         >
