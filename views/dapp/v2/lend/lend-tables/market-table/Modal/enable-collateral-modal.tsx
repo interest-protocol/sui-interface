@@ -1,3 +1,4 @@
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Button,
@@ -10,6 +11,11 @@ import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
+import {
+  NETWORK_RECORD,
+  SUI_EXPLORER_URL,
+  SUI_VISION_EXPLORER_URL,
+} from '@/constants';
 import { MONEY_MARKET_OBJECTS } from '@/constants/money-market.constants';
 import { useNetwork, useProvider } from '@/hooks';
 import { FixedPointMath, Rebase } from '@/lib';
@@ -65,11 +71,24 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
       });
 
       throwTXIfNotSuccessful(tx);
-
-      resultModal();
+      resultModal({
+        tokenName: assetApy.coin.token.symbol,
+        isEnabled: true,
+        isSuccess: true,
+        txLink:
+          network === Network.MAINNET
+            ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
+            : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`,
+      });
 
       setCollateralSwitchState(true);
     } catch {
+      resultModal({
+        tokenName: assetApy.coin.token.symbol,
+        isEnabled: true,
+        isSuccess: false,
+      });
+
       setCollateralSwitchState(false);
     } finally {
       setIsLoading(false);
@@ -99,18 +118,6 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
   const currentBorrowLimitPercentage =
     safeIntDiv(userBalancesInUSD.totalLoan, userBalancesInUSD.totalCollateral) *
     100;
-
-  const newBorrowLimitPercentage = market.userShares.isZero()
-    ? currentBorrowLimitPercentage
-    : safeIntDiv(
-        userBalancesInUSD.totalLoan,
-        userBalancesInUSD.totalCollateral +
-          FixedPointMath.toNumber(
-            collateralRebase.toElastic(market.userShares),
-            market.decimals
-          ) *
-            priceMap[marketKey].price
-      ) * 100;
 
   return isLoading ? (
     <LoadingModal
@@ -158,7 +165,7 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
               href="https://docs.interestprotocol.com/overview/money-market"
               rel="noreferrer"
             >
-              Learn more...
+              {t('Lend.learnMore')}...
             </a>
           </Typography>
         </Typography>
@@ -181,13 +188,6 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
             value={currentBorrowLimitPercentage}
             variant="bar"
           />
-        </Box>
-        <LineModal
-          description="New Borrow Limit"
-          value={`${newBorrowLimitPercentage.toFixed(2)} %`}
-        />
-        <Box p="1rem" display="flex" justifyContent="space-between">
-          <ProgressIndicator value={newBorrowLimitPercentage} variant="bar" />
         </Box>
       </Box>
       <Box

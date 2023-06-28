@@ -19,7 +19,7 @@ export const calculateUserBalancesInUSD = ({
   marketRecord,
   ipxPrice,
   moneyMarketStorage,
-}: CalculateUserBalancesInUSDArgs) =>
+}: CalculateUserBalancesInUSDArgs): UserBalancesInUSD =>
   moneyMarketStorage.allMarketKeys.reduce(
     (acc, key) => {
       const price = priceMap[key];
@@ -190,16 +190,17 @@ export const makeCardsData = ({
       description: 'common.v2.lend.firstSection.borrowBalance',
       isTrendUp: borrowAPY >= 0,
       trendAmount: (Math.abs(borrowAPY) * 100).toString(),
-      symbol: 'USD',
+      symbol: '$',
       amount: userBalancesInUSD.totalInterestRateOwned.toString(),
     },
     {
       icon: 'special',
-      description: '',
+      description: 'Lend.claimReward',
       isTrendUp: false,
       trendAmount: '',
-      symbol: 'USD',
-      amount: '',
+      symbol: '$',
+      amount: '1,2345 IPX',
+      disabled: false,
     },
   ];
 };

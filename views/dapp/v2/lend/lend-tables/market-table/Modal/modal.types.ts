@@ -41,10 +41,17 @@ export interface RowFailModalProps {
   description?: string;
 }
 
+export interface ResultCollateralModalProps {
+  tokenName: string;
+  isSuccess: boolean;
+  isEnabled: boolean;
+  txLink?: string;
+}
+
 export interface CollateralModalProps {
   closeModal: () => void;
   assetApy: AssetAPY;
-  resultModal: () => void;
+  resultModal: (result: ResultCollateralModalProps) => void;
   userBalancesInUSD: UserBalancesInUSD;
   mutate: () => Promise<void>;
   setCollateralSwitchState: Dispatch<SetStateAction<boolean>>;
@@ -76,5 +83,6 @@ export interface LoadingModalProps {
 export interface ResultModalProps {
   tokenName: string;
   closeModal: () => void;
-  isSuccess: boolean;
+  isEnabled: boolean;
+  txLink?: string;
 }

@@ -9,13 +9,15 @@
     "borrowTableTitle": "Mercado de empréstimos",
     "collateral": "Garantias",
     "assetAPY": "Ativo / APY",
-    "supplied": "Fornecido",
+    "supplied": "Fornecido / LTV",
     "borrowed": "Emprestado",
     "cash": "Dinheiro",
     "supplyAdded": "Fornecimento adicionado",
-    "unLoan": "Sem empréstimo",
+    "borrowing": "Empréstimo",
     "notEngaged": "Não comprometido",
     "learnMore": "Saiba mais",
+    "claimReward": "Prémios a receber",
+    "claim": "Reclamar",
     "modal": {
       "collateral": {
         "preview": {
@@ -32,9 +34,8 @@
           "content": "{isEnable, plural, =1 {Você activou {tokenName} como garantia} other {Você desactivou {tokenName} como garantia}}"
         },
         "error": {
-          "title": "Error",
-          "content": "Error",
-          "button": "Try again"
+          "title": "{isEnable, plural, =1 {Erro ao utilizar como garantia} other {Erro ao desativar como garantia}}",
+          "content": "{isEnable, plural, =1 {Erro ao activar o {tokenName} como garantia} other {Erro ao desactivar {tokenName} como garantia}}"
         }
       },
       "supply": {

@@ -1,3 +1,4 @@
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Button,
@@ -10,6 +11,11 @@ import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
+import {
+  NETWORK_RECORD,
+  SUI_EXPLORER_URL,
+  SUI_VISION_EXPLORER_URL,
+} from '@/constants';
 import { MONEY_MARKET_OBJECTS } from '@/constants/money-market.constants';
 import { useNetwork, useProvider } from '@/hooks';
 import { FixedPointMath, Rebase } from '@/lib';
@@ -82,10 +88,24 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
 
       throwTXIfNotSuccessful(tx);
 
-      resultModal();
+      resultModal({
+        tokenName: assetApy.coin.token.symbol,
+        isEnabled: false,
+        isSuccess: true,
+        txLink:
+          network === Network.MAINNET
+            ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
+            : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`,
+      });
 
       setCollateralSwitchState(true);
     } catch {
+      resultModal({
+        tokenName: assetApy.coin.token.symbol,
+        isEnabled: false,
+        isSuccess: false,
+      });
+
       setCollateralSwitchState(false);
     } finally {
       setIsLoading(false);
@@ -115,28 +135,6 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
   const currentBorrowLimitPercentage =
     safeIntDiv(userBalancesInUSD.totalLoan, userBalancesInUSD.totalCollateral) *
     100;
-
-  const collateralLeftOver =
-    userBalancesInUSD.totalCollateral -
-    FixedPointMath.toNumber(
-      collateralRebase.toElastic(market.userShares),
-      market.decimals
-    ) *
-      priceMap[marketKey].price;
-
-  const newBorrowLimitPercentage = market.userShares.isZero()
-    ? currentBorrowLimitPercentage
-    : 0 >= collateralLeftOver
-    ? 100
-    : safeIntDiv(
-        userBalancesInUSD.totalLoan,
-        userBalancesInUSD.totalCollateral -
-          FixedPointMath.toNumber(
-            collateralRebase.toElastic(market.userShares),
-            market.decimals
-          ) *
-            priceMap[marketKey].price
-      ) * 100;
 
   return isLoading ? (
     <LoadingModal
@@ -182,10 +180,6 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
       </Box>
       <Box p="xl" bg="surface.containerLow">
         <LineModal
-          description="common.v2.lend.firstSection.currentBorrowLimit"
-          value={`$ ${currentBorrowLimit.toFixed(2)}`}
-        />
-        <LineModal
           description="common.v2.lend.firstSection.newBorrowLimit"
           value={`$ ${newBorrowLimit.toFixed(2)}`}
         />
@@ -198,16 +192,6 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
             value={currentBorrowLimitPercentage}
             variant="bar"
           />
-        </Box>
-        <LineModal
-          description="New Borrow Limit"
-          value={`${newBorrowLimitPercentage.toFixed(2)} %`}
-        />
-        <Box p="1rem" display="flex" justifyContent="space-between">
-          <ProgressIndicator value={newBorrowLimitPercentage} variant="bar" />
-        </Box>
-        <Box p="1rem" display="flex" justifyContent="space-between">
-          <ProgressIndicator value={75} variant="bar" />
         </Box>
       </Box>
       <Box

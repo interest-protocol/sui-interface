@@ -1,3 +1,4 @@
+import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
@@ -16,13 +17,22 @@ const BorrowMarketTable: FC = () => {
 
   const { marketRecord, priceMap, loading } = useLendProviderValue();
 
+  const borrowData = loading
+    ? []
+    : makeBorrowData({
+        marketRecord,
+        priceMap,
+        network,
+        coinsMap,
+      });
+
   return (
     <>
       <BorrowMarketTableHeader />
       {loading
         ? [1, 2].map(() => <MarketTableRowLoading key={v4()} />)
-        : makeBorrowData({ marketRecord, priceMap, network, coinsMap }).map(
-            (BorrowMarketTable) => (
+        : borrowData.map((BorrowMarketTable, index) => (
+            <>
               <BorrowMarketTableGroupRow
                 key={v4()}
                 isEngaged={BorrowMarketTable.isEngaged}
@@ -31,8 +41,17 @@ const BorrowMarketTable: FC = () => {
                   BorrowMarketTable.data as ReadonlyArray<BorrowRow>
                 }
               />
-            )
-          )}
+              {borrowData.length != index + 1 && (
+                <Box
+                  as="hr"
+                  width="60%"
+                  mx="auto"
+                  border="1px dashed"
+                  borderColor="outline.outlineVariant"
+                />
+              )}
+            </>
+          ))}
     </>
   );
 };

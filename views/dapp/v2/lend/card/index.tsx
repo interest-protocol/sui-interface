@@ -1,8 +1,14 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import {
+  Box,
+  Button,
+  Theme,
+  Typography,
+  useTheme,
+} from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { PlusCircleSVG } from '@/svg';
+import { TTranslatedMessage } from '@/interface';
 
 import { CardLendProps } from '../lend.types';
 import NormalCard from './normal';
@@ -15,8 +21,10 @@ const Card: FC<CardLendProps> = ({
   symbol,
   amount,
   isLoading,
+  disabled,
 }) => {
   const t = useTranslations();
+  const { dark } = useTheme() as Theme;
   return (
     <Box
       height="8.375rem"
@@ -28,44 +36,44 @@ const Card: FC<CardLendProps> = ({
       border={icon == 'special' ? 'unset' : '1px dashed'}
       borderColor={icon == 'special' ? 'unset' : 'outline.outlineVariant'}
       borderRadius="4px"
-      bg={icon == 'special' ? 'primary.primaryContainer' : 'unset'}
+      bg={
+        icon == 'special'
+          ? disabled
+            ? 'surface.containerLow'
+            : 'primary.primaryContainer'
+          : 'unset'
+      }
     >
       {icon == 'special' ? (
-        <Box>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            width={['2rem', '2rem', '2rem', '2.5rem']}
-            height={['2rem', '2rem', '2rem', '2.5rem']}
-            bg="onSurface"
-            color="inverseOnSurface"
-            borderRadius="0.25rem"
-            mb={['0.45rem', '0.45rem', '0.45rem', '0.875rem']}
+        <Box width="100%">
+          <Typography
+            variant="medium"
+            color="secondary.onSecondaryContainer"
+            fontSize="s"
+            textAlign="center"
           >
-            <PlusCircleSVG
-              maxWidth="1.125rem"
-              maxHeight="1.125rem"
-              width="1.125rem"
-              height="1.125rem"
-            />
-          </Box>
-          <Box>
-            <Typography
-              variant="medium"
-              color="onSurface"
-              fontSize={['s', 's', 's', 'm']}
-            >
-              {t('common.v2.lend.rewards')}
-            </Typography>
-            <Typography
-              variant="small"
-              color="onSurfaceVariant"
-              fontSize={['xs', 'xs', 'xs', 's']}
-            >
-              {t('Lend.collectTokens')}
-            </Typography>
-          </Box>
+            {t(description as TTranslatedMessage)}
+          </Typography>
+          <Typography
+            variant="small"
+            color={dark ? 'white' : 'black'}
+            fontSize={['xs', 'xs', 'xs', 'xl']}
+            mb="0.875rem"
+            textAlign="center"
+          >
+            {amount}
+          </Typography>
+          <Button
+            variant="filled"
+            py="0.625rem"
+            width="fill-available"
+            display="flex"
+            justifyContent="center"
+            disabled={disabled}
+            bg={disabled ? 'surface.containerHighest' : 'primary'}
+          >
+            {t('Lend.claim')}
+          </Button>
         </Box>
       ) : (
         <NormalCard
