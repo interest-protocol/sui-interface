@@ -1,49 +1,21 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { formatAddress } from '@mysten/sui.js';
-import { useWalletKit } from '@mysten/wallet-kit';
 import { pathOr, prop } from 'ramda';
 import { FC, useEffect, useState } from 'react';
-import { noop } from 'swr/_internal';
 
+import { UserSVG } from '@/components/svg/v2';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
-import { UserSVG } from '@/svg';
 
 import { WalletProfileProps } from '../wallet.types';
 
-const WalletProfile: FC<WalletProfileProps> = ({
-  setIsOpen,
-  suiNSRecord,
-  setSuiNSRecord,
-}) => {
+const WalletProfile: FC<WalletProfileProps> = ({ setIsOpen, suiNSRecord }) => {
   const { account } = useWeb3();
   const { network } = useNetwork();
   const { provider } = useProvider();
-  const { accounts } = useWalletKit();
   const { suiNSProvider } = useProvider();
-
   const [avatarUrlRecord, setAvatarUrlRecord] = useState<
     Record<string, string>
   >({});
-
-  useEffect(() => {
-    if (accounts.length) {
-      const promises = accounts.map((walletAccount) =>
-        suiNSProvider.getName(walletAccount.address)
-      );
-
-      Promise.all(promises)
-        .then(async (names) => {
-          setSuiNSRecord(
-            names.reduce(
-              (acc, name, index) =>
-                name ? { ...acc, [accounts[index].address]: name } : acc,
-              {} as Record<string, string>
-            )
-          );
-        })
-        .catch(noop);
-    }
-  }, [network, accounts]);
 
   useEffect(() => {
     if (account && suiNSRecord[account]) {
