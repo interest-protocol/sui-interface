@@ -12,7 +12,6 @@ import { WalletProfileProps } from '../wallet.types';
 
 const WalletProfile: FC<WalletProfileProps> = ({
   setIsOpen,
-  setLoading,
   suiNSRecord,
   setSuiNSRecord,
 }) => {
@@ -28,8 +27,6 @@ const WalletProfile: FC<WalletProfileProps> = ({
 
   useEffect(() => {
     if (accounts.length) {
-      setLoading(true);
-
       const promises = accounts.map((walletAccount) =>
         suiNSProvider.getName(walletAccount.address)
       );
@@ -44,8 +41,7 @@ const WalletProfile: FC<WalletProfileProps> = ({
             )
           );
         })
-        .catch(noop)
-        .finally(() => setLoading(false));
+        .catch(noop);
     }
   }, [network, accounts]);
 

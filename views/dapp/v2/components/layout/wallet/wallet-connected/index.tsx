@@ -11,7 +11,6 @@ const BOX_ID = 'wallet-connected-box-id-123';
 
 const WalletConnected: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [suiNSRecord, setSuiNSRecord] = useState<Record<string, string>>({});
   const {
     colors: { surface },
@@ -42,13 +41,11 @@ const WalletConnected: FC = () => {
     >
       <WalletProfile
         setIsOpen={setIsOpen}
-        setLoading={setLoading}
         suiNSRecord={suiNSRecord}
         setSuiNSRecord={setSuiNSRecord}
       />
       <WalletDropdown
         isOpen={isOpen}
-        loading={loading}
         suiNSRecord={suiNSRecord}
         handleClose={handleClose}
       />

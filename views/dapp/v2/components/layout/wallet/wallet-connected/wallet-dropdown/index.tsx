@@ -15,10 +15,7 @@ import { CopySVG } from '@/svg';
 import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../../header/menu/menu-item-wrapper';
-import {
-  WalletDropdownProps,
-  WalletDropdownWrapperProps,
-} from '../../wallet.types';
+import { WalletDropdownProps } from '../../wallet.types';
 import WalletItem from './wallet-item';
 
 const wrapperVariants = {
@@ -44,7 +41,6 @@ const wrapperVariants = {
 
 const WalletDropdown: FC<WalletDropdownProps> = ({
   isOpen,
-  loading,
   suiNSRecord,
   handleClose,
 }) => {
@@ -110,7 +106,7 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
             <CheckmarkSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
           )}
           <WalletItem>
-            {loading || suiNSRecord[walletAccount.address]
+            {suiNSRecord[walletAccount.address]
               ? suiNSRecord[walletAccount.address]
               : formatAddress(walletAccount.address)}
           </WalletItem>
@@ -143,7 +139,7 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
   );
 };
 
-const WalletDropdownWrapper: FC<WalletDropdownWrapperProps> = ({
+const WalletDropdownWrapper: FC<WalletDropdownProps> = ({
   isOpen,
   ...props
 }) => (
