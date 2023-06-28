@@ -106,9 +106,8 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
             <CheckmarkSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
           )}
           <WalletItem>
-            {suiNSRecord[walletAccount.address]
-              ? suiNSRecord[walletAccount.address]
-              : formatAddress(walletAccount.address)}
+            {suiNSRecord[walletAccount.address] ??
+              formatAddress(walletAccount.address)}
           </WalletItem>
           <Button
             size="small"
