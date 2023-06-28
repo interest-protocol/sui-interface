@@ -1,6 +1,8 @@
+import { pathOr } from 'ramda';
+
 import { COIN_TYPE_TO_COIN, DOUBLE_SCALAR } from '@/constants';
 import { FixedPointMath, Rebase } from '@/lib';
-import { formatMoney } from '@/utils';
+import { formatMoney, ZERO_BIG_NUMBER } from '@/utils';
 
 import { BORROW_MARKETS_UI, SUPPLY_MARKETS_UI } from '../lend.constants';
 import {
@@ -49,8 +51,8 @@ export const makeSupplyData = ({
             : formatMoney(amountOfCoins * priceMap[key].price),
         },
         wallet: FixedPointMath.toNumber(
-          coinsMap[key].totalBalance,
-          coinsMap[key].decimals
+          pathOr(ZERO_BIG_NUMBER, [key, 'totalBalance'], coinsMap),
+          pathOr(1, [key, 'decimals'], coinsMap)
         ),
         collateral: market.collateralEnabled,
         marketKey: key,
@@ -116,8 +118,8 @@ export const makeBorrowData = ({
         },
         wallet: coinsMap[key]
           ? FixedPointMath.toNumber(
-              coinsMap[key].totalBalance,
-              coinsMap[key].decimals
+              pathOr(ZERO_BIG_NUMBER, [key, 'totalBalance'], coinsMap),
+              pathOr(1, [key, 'decimals'], coinsMap)
             )
           : 0,
         cash: FixedPointMath.toNumber(market.cash, market.decimals),

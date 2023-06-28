@@ -97,8 +97,6 @@ export const useGetMoneyMarkets = (config: SWRConfiguration = {}) => {
         const accruedTimestamp = BigNumber(
           propOr(0, 'accrued_timestamp', data)
         );
-        console.log('RAW DATA', rawData);
-        console.log('DATRA', data);
 
         const timeElapsed = new Date().getTime() - accruedTimestamp.toNumber();
         const supplyRatePerMS = BigNumber(propOr(0, 'supply_rate', data));

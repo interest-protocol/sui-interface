@@ -297,8 +297,8 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
             labels={''}
             onClick={
               isCollateralEnabled
-                ? openEnableCollateralModal
-                : openDisableCollateralModal
+                ? openDisableCollateralModal
+                : openEnableCollateralModal
             }
           />
         </Box>
