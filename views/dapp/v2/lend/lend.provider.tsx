@@ -1,5 +1,5 @@
 import { isEmpty } from 'ramda';
-import { createContext, FC, useContext } from 'react';
+import { createContext, FC, useContext, useEffect, useState } from 'react';
 
 import { useGetCoinsPrices, useGetDexIpxPrice, useNetwork } from '@/hooks';
 import { asyncNoop, ZERO_BIG_NUMBER } from '@/utils';
@@ -44,6 +44,7 @@ export const useLendProviderValue = () => useContext(LendProviderContext);
 
 const LendProvider: FC<LendProviderProps> = ({ children }) => {
   const { network } = useNetwork();
+  const [loading, setLoading] = useState(true);
 
   const {
     data: moneyMarketStorage,
@@ -70,6 +71,13 @@ const LendProvider: FC<LendProviderProps> = ({ children }) => {
     error: ipxPriceError,
   } = useGetDexIpxPrice(priceMap, { refreshInterval: 100000 });
 
+  useEffect(() => {
+    const state =
+      isLoading || priceIsLoading || ipxPriceIsLoading || moneyMarketIsLoading;
+
+    if (state !== loading) setLoading(state);
+  }, [isLoading, priceIsLoading, ipxPriceIsLoading, moneyMarketIsLoading]);
+
   // TODO render a custom message for each error type
   if (!isLoading && error)
     return <ErrorPage message="Error getting the Markets" />;
@@ -91,9 +99,6 @@ const LendProvider: FC<LendProviderProps> = ({ children }) => {
       <ErrorPage message="Error fetching the Money Market Storage Object" />
     );
 
-  const loading =
-    isLoading || priceIsLoading || ipxPriceIsLoading || moneyMarketIsLoading;
-
   const mutate = async () => {
     await mutateMarket();
   };
@@ -104,8 +109,6 @@ const LendProvider: FC<LendProviderProps> = ({ children }) => {
     ipxPrice,
     moneyMarketStorage,
   });
-
-  console.log(marketRecord);
 
   return (
     <LendProviderContext.Provider

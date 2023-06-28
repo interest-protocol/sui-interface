@@ -32,6 +32,8 @@ export const makeSupplyData = ({
 
       const isNotEngaged = market.userShares.isZero();
 
+      const coin = coinsMap[key];
+
       const data = {
         assetApy: {
           coin: {
@@ -48,10 +50,9 @@ export const makeSupplyData = ({
             ? 0
             : formatMoney(amountOfCoins * priceMap[key].price),
         },
-        wallet: FixedPointMath.toNumber(
-          coinsMap[key].totalBalance,
-          coinsMap[key].decimals
-        ),
+        wallet: coin
+          ? FixedPointMath.toNumber(coin.totalBalance, coin.decimals)
+          : 0,
         collateral: market.collateralEnabled,
         marketKey: key,
       } as SupplyRow;
@@ -96,6 +97,8 @@ export const makeBorrowData = ({
 
       const isNotEngaged = market.userPrincipal.isZero();
 
+      const coin = coinsMap[key];
+
       const data = {
         assetApy: {
           coin: {
@@ -114,11 +117,8 @@ export const makeBorrowData = ({
             ? 0
             : formatMoney(amountOfCoins * priceMap[key].price),
         },
-        wallet: coinsMap[key]
-          ? FixedPointMath.toNumber(
-              coinsMap[key].totalBalance,
-              coinsMap[key].decimals
-            )
+        wallet: coin
+          ? FixedPointMath.toNumber(coin.totalBalance, coin.decimals)
           : 0,
         cash: FixedPointMath.toNumber(market.cash, market.decimals),
         marketKey: key,
