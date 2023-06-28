@@ -14,11 +14,11 @@ import { useNetwork, useWeb3 } from '@/hooks';
 import { CopySVG } from '@/svg';
 import { capitalize } from '@/utils';
 
-import MenuItemWrapper from '../../header/menu/menu-item-wrapper';
+import MenuItemWrapper from '../../../header/menu/menu-item-wrapper';
 import {
   WalletDropdownProps,
   WalletDropdownWrapperProps,
-} from '../wallet.types';
+} from '../../wallet.types';
 import WalletItem from './wallet-item';
 
 const wrapperVariants = {

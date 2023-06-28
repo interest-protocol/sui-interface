@@ -17,3 +17,10 @@ export interface WalletConnectProps {
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
+
+export interface WalletProfileProps {
+  suiNSRecord: Record<string, string>;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+  setSuiNSRecord: Dispatch<SetStateAction<Record<string, string>>>;
+}

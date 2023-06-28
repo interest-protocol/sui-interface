@@ -4,7 +4,7 @@ import { useTranslations } from 'use-intl';
 
 import { capitalize } from '@/utils';
 
-import { WalletItemProps } from '../wallet.types';
+import { WalletItemProps } from '../../wallet.types';
 
 const WalletItem: FC<PropsWithChildren<WalletItemProps>> = ({
   name,
