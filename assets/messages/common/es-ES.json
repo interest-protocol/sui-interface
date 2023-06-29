@@ -26,7 +26,8 @@
         "pool": "pool",
         "farm": "farm",
         "createToken": "Crear token",
-        "settings": "Configuración"
+        "settings": "Configuración",
+        "faucet": "faucet"
       },
       "menu": {
         "settings": "Configuración",

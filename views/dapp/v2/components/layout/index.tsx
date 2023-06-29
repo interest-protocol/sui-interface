@@ -1,4 +1,4 @@
-import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
+import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { FC, PropsWithChildren, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
@@ -15,6 +15,7 @@ import Wallet from './wallet';
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   children,
   dashboard,
+  titlePage,
 }) => {
   const [isDesktop, setIsDesktop] = useState(false);
   const { colors, radii, breakpoints } = useTheme() as Theme;
@@ -48,11 +49,22 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
               as="header"
               display="flex"
               variant="container"
-              justifyContent="flex-end"
+              justifyContent={titlePage ? 'space-between' : 'flex-end'}
               pr={['unset', 'unset', 'unset', 'xl']}
             >
-              <Wallet />
-              <LangSwitch />
+              {titlePage && (
+                <Typography
+                  variant="displayLarge"
+                  color="onSurface"
+                  textTransform="capitalize"
+                >
+                  {titlePage}
+                </Typography>
+              )}
+              <Box display="flex" justifyContent="space-between">
+                <Wallet />
+                <LangSwitch />
+              </Box>
             </Box>
             {children}
           </Box>
