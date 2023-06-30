@@ -33,7 +33,7 @@ import LoadingModal from './loading-collateral';
 import { CollateralModalProps } from './modal.types';
 
 const DisableCollateralModal: FC<CollateralModalProps> = ({
-  assetApy,
+  asset,
   closeModal,
   resultModal,
   priceMap,
@@ -130,7 +130,7 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
       throwTXIfNotSuccessful(tx);
 
       resultModal({
-        tokenName: assetApy.coin.token.symbol,
+        tokenName: asset.coin.token.symbol,
         isEnabled: false,
         isSuccess: true,
         txLink:
@@ -143,7 +143,7 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
     } catch (e) {
       console.log(e);
       resultModal({
-        tokenName: assetApy.coin.token.symbol,
+        tokenName: asset.coin.token.symbol,
         isEnabled: false,
         isSuccess: false,
       });
@@ -179,8 +179,8 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
       transition={{ duration: 0.3 }}
     >
       <HeaderModal
-        type={assetApy.coin.token.type}
-        symbol={assetApy.coin.token.symbol}
+        type={asset.coin.token.type}
+        symbol={asset.coin.token.symbol}
         closeModal={closeModal}
       />
       <Box p="xl">

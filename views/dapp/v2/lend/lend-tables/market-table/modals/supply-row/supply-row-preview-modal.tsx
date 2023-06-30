@@ -7,8 +7,13 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
-import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
+import {
+  SUI_CLOCK_OBJECT_ID,
+  TransactionArgument,
+  TransactionBlock,
+} from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
+import { PriceServiceConnection } from '@pythnetwork/price-service-client';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
@@ -19,12 +24,20 @@ import { useNetwork, useProvider } from '@/hooks';
 import { FixedPointMath, Rebase } from '@/lib';
 import { TimesSVG } from '@/svg';
 import {
+  bnMin,
   createObjectsParameter,
   formatDollars,
   formatMoney,
   throwTXIfNotSuccessful,
   ZERO_BIG_NUMBER,
 } from '@/utils';
+import {
+  ORACLE_PRICE_COIN_NAMES,
+  PYTH_PRICE_CONNECT_URL,
+  PYTH_PRICE_FEED_ID_TO_PRICE_INFO_OBJECT,
+  PYTH_PRICE_FEED_IDS,
+  SWITCHBOARD_AGGREGATOR_IDS,
+} from '@/views/dapp/v2/lend/lend.constants';
 import { calculateNewBorrowLimitNewAmount } from '@/views/dapp/v2/lend/lend-tables/lend-table.utils';
 import BorrowLimits from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-limits';
 
@@ -45,12 +58,12 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
   coinsMap,
   userBalancesInUSD,
   isDeposit,
-  assetApy,
+  asset,
   mutate,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
-  const [FromIcon] = [getSVG(assetApy.coin.token.type)];
+  const [FromIcon] = [getSVG(asset.coin.token.type)];
 
   const [isLoading, setIsLoading] = useState(false);
   const { network } = useNetwork();
@@ -89,7 +102,12 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
           txb.makeMoveVec({
             objects: coinInList,
           }),
-          txb.pure(amount.toString()),
+          txb.pure(
+            bnMin(
+              amount,
+              coinsMap[marketKey]?.totalBalance ?? ZERO_BIG_NUMBER
+            ).toString()
+          ),
         ],
       });
 
@@ -115,7 +133,111 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
     }
   };
 
-  const handleWithdraw = async () => {};
+  const handleWithdraw = async () => {
+    setIsLoading(true);
+
+    const objects = MONEY_MARKET_OBJECTS[network];
+
+    try {
+      const txb = new TransactionBlock();
+
+      const market = marketRecord[marketKey];
+
+      const collateralRebase = new Rebase(
+        market.totalCollateralBase,
+        market.totalCollateralElastic
+      );
+
+      const amount = isMax
+        ? market.userShares
+        : collateralRebase
+            .toBase(
+              FixedPointMath.toBigNumber(
+                value,
+                coinsMap[marketKey]?.decimals
+              ).decimalPlaces(0, BigNumber.ROUND_DOWN)
+            )
+            .decimalPlaces(0, BigNumber.ROUND_DOWN);
+
+      const pythPriceFeedIds = PYTH_PRICE_FEED_IDS[network];
+
+      const pythConnection = new PriceServiceConnection(
+        PYTH_PRICE_CONNECT_URL[network],
+        {
+          priceFeedRequestConfig: {
+            binary: true,
+          },
+        }
+      );
+
+      const vaas = await pythConnection.getLatestVaas(pythPriceFeedIds);
+
+      const pythPayments = txb.splitCoins(
+        txb.gas,
+        pythPriceFeedIds.map(() => txb.pure('1'))
+      );
+
+      const pricePotato = [] as TransactionArgument[];
+
+      vaas.forEach((vaa, index) => {
+        const priceFeed = pythPriceFeedIds[index];
+
+        const price = txb.moveCall({
+          target: `${objects.ORACLE_PACKAGE_ID}::ipx_oracle::get_price`,
+          arguments: [
+            txb.object(objects.ORACLE_STORAGE),
+            txb.object(objects.WORMHOLE_STATE),
+            txb.object(objects.PYTH_STATE),
+            txb.pure([...Buffer.from(vaa, 'base64')]),
+            txb.object(
+              PYTH_PRICE_FEED_ID_TO_PRICE_INFO_OBJECT[network][priceFeed]
+            ),
+            pythPayments[index],
+            txb.object(SUI_CLOCK_OBJECT_ID),
+            txb.object(SWITCHBOARD_AGGREGATOR_IDS[network][index]),
+            txb.pure(ORACLE_PRICE_COIN_NAMES[network][index]),
+          ],
+        });
+
+        pricePotato.push(price);
+      });
+
+      txb.moveCall({
+        target: `${objects.MONEY_MARKET_PACKAGE_ID}::ipx_money_market_sdk_interface::withdraw`,
+        typeArguments: [marketKey],
+        arguments: [
+          txb.object(objects.MONEY_MARKET_STORAGE),
+          txb.object(objects.INTEREST_RATE_STORAGE),
+          txb.makeMoveVec({
+            type: `${objects.ORACLE_PACKAGE_ID}::ipx_oracle::Price`,
+            objects: pricePotato,
+          }),
+          txb.object(SUI_CLOCK_OBJECT_ID),
+          txb.pure(bnMin(amount, market.userShares).toString()),
+        ],
+      });
+
+      const { transactionBlockBytes, signature } = await signTransactionBlock({
+        transactionBlock: txb,
+      });
+
+      const tx = await provider.executeTransactionBlock({
+        transactionBlock: transactionBlockBytes,
+        signature,
+        options: {
+          showEffects: true,
+        },
+      });
+
+      throwTXIfNotSuccessful(tx);
+      openRowMarketResultModal(true, isDeposit);
+    } catch {
+      openRowMarketResultModal(false, isDeposit);
+    } finally {
+      setIsLoading(false);
+      await mutate();
+    }
+  };
 
   const handleCollateral = async () =>
     isDeposit ? handleDeposit() : handleWithdraw();
@@ -176,10 +298,10 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
         </Button>
         <Box display="flex" alignItems="center">
           <Box display="flex" alignItems="center">
-            {getSVG(assetApy.coin.token.type)}
+            {getSVG(asset.coin.token.type)}
           </Box>
           <Typography variant="title5" ml="0.5rem" color="onSurface">
-            {assetApy.coin.token.symbol}
+            {asset.coin.token.symbol}
           </Typography>
         </Box>
         <Button variant="icon" onClick={closeModal}>
@@ -197,7 +319,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
             <Box display="flex" alignItems="center" gap="xl">
               {FromIcon}
               <Typography variant="medium" color="">
-                {assetApy.coin.token.symbol}
+                {asset.coin.token.symbol}
               </Typography>
             </Box>
             <Box textAlign="right">

@@ -60,7 +60,7 @@ const BorrowLimitsWrapper: FC<BorrowLimitsWrapperProps> = ({
 };
 
 const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
-  assetApy,
+  asset,
   closeModal,
   openRowMarketPreviewModal,
   marketKey,
@@ -83,7 +83,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
   const [isDeposit, setIsDeposit] = useState(!!_isDeposit);
 
   const [FromIcon, ToIcon] = [
-    getSVG(assetApy.coin.token.type),
+    getSVG(asset.coin.token.type),
     getSVG(IPX_TOKEN.type),
   ];
 
@@ -141,8 +141,8 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
       transition={{ duration: 0.3 }}
     >
       <HeaderModal
-        type={assetApy.coin.token.type}
-        symbol={assetApy.coin.token.symbol}
+        type={asset.coin.token.type}
+        symbol={asset.coin.token.symbol}
         closeModal={closeModal}
         isCenter
       />
@@ -211,7 +211,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 {FromIcon}
                 <Typography variant="medium" color="">
-                  {assetApy.coin.token.symbol}{' '}
+                  {asset.coin.token.symbol}{' '}
                   {' ' + t('common.v2.lend.supply') + ' '} APY
                 </Typography>
               </Box>

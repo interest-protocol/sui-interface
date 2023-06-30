@@ -29,7 +29,7 @@ import { SupplyRow } from '../../lend-table.types';
 import { getSVG } from '../market-table.utils';
 
 const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
-  assetApy,
+  asset,
   supplied,
   wallet,
   collateral,
@@ -69,7 +69,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
       >
         <EnableCollateralModal
           closeModal={handleClose}
-          assetApy={assetApy}
+          asset={asset}
           resultModal={openResultModal}
           userBalancesInUSD={userBalancesInUSD}
           setCollateralSwitchState={setCollateralSwitchState}
@@ -100,7 +100,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
       >
         <DisableCollateralModal
           closeModal={handleClose}
-          assetApy={assetApy}
+          asset={asset}
           resultModal={openResultModal}
           userBalancesInUSD={userBalancesInUSD}
           setCollateralSwitchState={setCollateralSwitchState}
@@ -154,7 +154,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
       <SupplyMarketModal
         closeModal={handleClose}
         isDeposit={isDeposit}
-        assetApy={assetApy}
+        asset={asset}
         openRowMarketPreviewModal={openRowMarketPreviewModal}
         marketKey={marketKey}
         marketRecord={marketRecord}
@@ -181,7 +181,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
     setModal(
       <SupplyMarketPreviewModal
         closeModal={handleClose}
-        assetApy={assetApy}
+        asset={asset}
         isDeposit={isDeposit}
         backRowMarketModal={openRowMarketModal}
         openRowMarketResultModal={openRowMarketResultModal}
@@ -264,22 +264,22 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
         gap="m"
         display="flex"
       >
-        {getSVG(assetApy.coin.token.type)}
+        {getSVG(asset.coin.token.type)}
         <Box display="flex" flexDirection="column">
-          <Typography variant="medium">{assetApy.coin.token.symbol}</Typography>
+          <Typography variant="medium">{asset.coin.token.symbol}</Typography>
           <Typography
             variant="small"
             color={
-              assetApy.coin.color != undefined && dark
-                ? assetApy.coin.color.dark
-                : assetApy.coin.color != undefined && !dark
-                ? assetApy.coin.color.light
+              asset.coin.color != undefined && dark
+                ? asset.coin.color.dark
+                : asset.coin.color != undefined && !dark
+                ? asset.coin.color.light
                 : dark
                 ? '#77767A'
                 : '#47464A'
             }
           >
-            {assetApy.percentage}%
+            {asset.percentage}%
           </Typography>
         </Box>
       </Box>
@@ -317,7 +317,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
           <SwitchButton
             activation
             defaultValue={isCollateralEnabled}
-            name={assetApy.coin.token.symbol}
+            name={asset.coin.token.symbol}
             labels={''}
             disabled={
               !pathOr(false, [marketKey, 'canBeCollateral'], marketRecord)

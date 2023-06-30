@@ -71,6 +71,9 @@ const LendProvider: FC<LendProviderProps> = ({ children }) => {
     error: ipxPriceError,
   } = useGetDexIpxPrice(priceMap, { refreshInterval: 100000 });
 
+  console.log('IPX price', ipxPrice);
+  console.log(moneyMarketStorage.ipxPerYear.toString());
+
   useEffect(() => {
     const state =
       isLoading || priceIsLoading || ipxPriceIsLoading || moneyMarketIsLoading;

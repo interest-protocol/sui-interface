@@ -21,7 +21,7 @@ import LoadingModal from './loading-collateral';
 import { CollateralModalProps } from './modal.types';
 
 const EnableCollateralModal: FC<CollateralModalProps> = ({
-  assetApy,
+  asset,
   closeModal,
   resultModal,
   mutate,
@@ -66,7 +66,7 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
 
       throwTXIfNotSuccessful(tx);
       resultModal({
-        tokenName: assetApy.coin.token.symbol,
+        tokenName: asset.coin.token.symbol,
         isEnabled: true,
         isSuccess: true,
         txLink:
@@ -78,7 +78,7 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
       setCollateralSwitchState(true);
     } catch {
       resultModal({
-        tokenName: assetApy.coin.token.symbol,
+        tokenName: asset.coin.token.symbol,
         isEnabled: true,
         isSuccess: false,
       });
@@ -114,8 +114,8 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
       transition={{ duration: 0.3 }}
     >
       <HeaderModal
-        type={assetApy.coin.token.type}
-        symbol={assetApy.coin.token.symbol}
+        type={asset.coin.token.type}
+        symbol={asset.coin.token.symbol}
         closeModal={closeModal}
       />
       <Box p="xl">

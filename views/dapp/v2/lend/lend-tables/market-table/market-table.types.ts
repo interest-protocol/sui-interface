@@ -6,7 +6,7 @@ export interface MarketTableProps {
 }
 
 export interface MarketTableBorrowedProps {
-  assetApy: BorrowRow['assetApy'];
+  assetApy: BorrowRow['asset'];
   borrowed: BorrowRow['borrowed'];
   wallet: BorrowRow['wallet'];
   cash: BorrowRow['cash'];

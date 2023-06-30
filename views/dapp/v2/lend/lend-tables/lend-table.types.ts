@@ -17,7 +17,7 @@ export interface MakeMoneyMarketDataArgs {
   priceMap: CoinPriceRecord;
 }
 
-export interface AssetAPY {
+export interface Asset {
   coin: {
     token: CoinData;
     color: { dark: string; light: string } | null;
@@ -26,7 +26,7 @@ export interface AssetAPY {
 }
 
 export interface SupplyRow {
-  assetApy: AssetAPY;
+  asset: Asset;
   supplied: {
     amount: number;
     value: number;
@@ -37,7 +37,7 @@ export interface SupplyRow {
 }
 
 export interface BorrowRow {
-  assetApy: AssetAPY;
+  asset: Asset;
   borrowed: {
     amount: number;
     value: number;

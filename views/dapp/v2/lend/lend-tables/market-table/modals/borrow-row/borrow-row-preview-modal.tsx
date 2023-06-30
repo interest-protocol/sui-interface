@@ -20,7 +20,7 @@ import LoadingModal from '../loading-collateral';
 import { RowPreviewModalProps } from '../modal.types';
 
 const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
-  assetApy,
+  asset,
   closeModal,
   isSupplyOrBorrow,
   backRowMarketModal,
@@ -28,7 +28,7 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
-  const [FromIcon] = [getSVG(assetApy.coin.token.type)];
+  const [FromIcon] = [getSVG(asset.coin.token.type)];
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -88,10 +88,10 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
         </Button>
         <Box display="flex" alignItems="center">
           <Box display="flex" alignItems="center">
-            {getSVG(assetApy.coin.token.type)}
+            {getSVG(asset.coin.token.type)}
           </Box>
           <Typography variant="title5" ml="0.5rem" color="onSurface">
-            {assetApy.coin.token.symbol}
+            {asset.coin.token.symbol}
           </Typography>
         </Box>
         <Button variant="icon" onClick={closeModal}>
@@ -109,7 +109,7 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
             <Box display="flex" alignItems="center" gap="xl">
               {FromIcon}
               <Typography variant="medium" color="">
-                {assetApy.coin.token.symbol}
+                {asset.coin.token.symbol}
               </Typography>
             </Box>
             <Box textAlign="right">

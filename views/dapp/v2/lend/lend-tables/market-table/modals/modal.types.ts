@@ -9,7 +9,7 @@ import {
   UserBalancesInUSD,
 } from '@/views/dapp/v2/lend/lend.types';
 
-import { AssetAPY } from '../../lend-table.types';
+import { Asset } from '../../lend-table.types';
 
 export interface OpenRowMarketPreviewModalArgs {
   isDeposit: boolean;
@@ -20,7 +20,7 @@ export interface OpenRowMarketPreviewModalArgs {
 export interface RowModalProps {
   closeModal: () => void;
   isDeposit?: boolean;
-  assetApy: AssetAPY;
+  asset: Asset;
   openRowMarketPreviewModal: (x: OpenRowMarketPreviewModalArgs) => void;
   userBalancesInUSD: UserBalancesInUSD;
   marketKey: string;
@@ -43,7 +43,7 @@ export interface BorrowLimitsWrapperProps {
 export interface SupplyMarketModalProps {
   closeModal: () => void;
   isDeposit?: boolean;
-  assetApy: AssetAPY;
+  asset: Asset;
   openRowMarketPreviewModal: (x: OpenRowMarketPreviewModalArgs) => void;
   userBalancesInUSD: UserBalancesInUSD;
   marketKey: string;
@@ -55,7 +55,7 @@ export interface SupplyMarketModalProps {
 }
 
 export interface SupplyMarketModalPreviewProps {
-  assetApy: AssetAPY;
+  asset: Asset;
   closeModal: () => void;
   isDeposit: boolean;
   value: string;
@@ -72,7 +72,7 @@ export interface SupplyMarketModalPreviewProps {
 
 export interface RowPreviewModalProps {
   closeModal: () => void;
-  assetApy: AssetAPY;
+  asset: Asset;
   isDeposit: boolean;
   backRowMarketModal: (isSupplyOrBorrow: boolean) => void;
   openRowMarketResultModal: (
@@ -105,7 +105,7 @@ export interface ResultCollateralModalProps {
 
 export interface CollateralModalProps {
   closeModal: () => void;
-  assetApy: AssetAPY;
+  asset: Asset;
   resultModal: (result: ResultCollateralModalProps) => void;
   userBalancesInUSD: UserBalancesInUSD;
   mutate: () => Promise<void>;

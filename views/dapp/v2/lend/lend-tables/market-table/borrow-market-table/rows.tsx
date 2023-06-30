@@ -19,7 +19,7 @@ import { getSVG } from '../market-table.utils';
 
 const BorrowMarketTableRow: FC<
   MarketTableBorrowedProps & { isEngaged: boolean }
-> = ({ assetApy, borrowed, wallet, cash, isEngaged }) => {
+> = ({ asset, borrowed, wallet, cash, isEngaged }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const { setModal, handleClose } = useModal();
@@ -35,7 +35,7 @@ const BorrowMarketTableRow: FC<
       <BorrowMarketModal
         closeModal={handleClose}
         isSupplyOrBorrow={isSupplyOrBorrow}
-        assetApy={assetApy}
+        asset={asset}
         openRowMarketPreviewModal={openRowMarketPreviewModal}
       />,
       {
@@ -51,7 +51,7 @@ const BorrowMarketTableRow: FC<
     setModal(
       <BorrowMarketPreviewModal
         closeModal={handleClose}
-        assetApy={assetApy}
+        asset={asset}
         isSupplyOrBorrow={isSupplyOrBorrow}
         backRowMarketModal={openRowMarketModal}
         openRowMarketResultModal={openRowMarketResultModal}
@@ -130,23 +130,23 @@ const BorrowMarketTableRow: FC<
         display="flex"
       >
         <Box display="flex" alignItems="center">
-          {getSVG(assetApy.coin.token.type)}
+          {getSVG(asset.coin.token.type)}
         </Box>
         <Box display="flex" flexDirection="column">
-          <Typography variant="medium">{assetApy.coin.token.symbol}</Typography>
+          <Typography variant="medium">{asset.coin.token.symbol}</Typography>
           <Typography
             variant="small"
             color={
-              assetApy.coin.color != undefined && dark
-                ? assetApy.coin.color.dark
-                : assetApy.coin.color != undefined && !dark
-                ? assetApy.coin.color.light
+              asset.coin.color != undefined && dark
+                ? asset.coin.color.dark
+                : asset.coin.color != undefined && !dark
+                ? asset.coin.color.light
                 : dark
                 ? '#77767A'
                 : '#47464A'
             }
           >
-            {assetApy.percentage}%
+            {asset.percentage}%
           </Typography>
         </Box>
       </Box>

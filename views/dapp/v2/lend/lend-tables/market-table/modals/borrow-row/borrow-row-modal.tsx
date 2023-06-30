@@ -23,7 +23,7 @@ import LineModal from '../lines';
 import { RowModalProps } from '../modal.types';
 
 const BorrowMarketModal: FC<RowModalProps> = ({
-  assetApy,
+  asset,
   closeModal,
   openRowMarketPreviewModal,
 }) => {
@@ -32,7 +32,7 @@ const BorrowMarketModal: FC<RowModalProps> = ({
   const [isSupplyOrBorrow, setIsSupplyOrBorrow] = useState(true);
   const TO_TOKEN = COINS[Network.DEVNET].IPX;
   const [FromIcon, ToIcon] = [
-    getSVG(assetApy.coin.token.type),
+    getSVG(asset.coin.token.type),
     getSVG(TO_TOKEN.type),
   ];
 
@@ -60,8 +60,8 @@ const BorrowMarketModal: FC<RowModalProps> = ({
       transition={{ duration: 0.3 }}
     >
       <HeaderModal
-        type={assetApy.coin.token.type}
-        symbol={assetApy.coin.token.symbol}
+        type={asset.coin.token.type}
+        symbol={asset.coin.token.symbol}
         closeModal={closeModal}
         isCenter
       />
@@ -116,7 +116,7 @@ const BorrowMarketModal: FC<RowModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 {FromIcon}
                 <Typography variant="medium" color="">
-                  {assetApy.coin.token.symbol}{' '}
+                  {asset.coin.token.symbol}{' '}
                   {' ' + t('common.v2.lend.supply') + ' '} APY
                 </Typography>
               </Box>

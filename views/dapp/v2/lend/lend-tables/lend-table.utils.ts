@@ -38,7 +38,7 @@ export const makeSupplyData = ({
       const isNotEngaged = market.userShares.isZero();
 
       const data = {
-        assetApy: {
+        asset: {
           coin: {
             token: COIN_TYPE_TO_COIN[network][key],
             color: null,
@@ -102,7 +102,7 @@ export const makeBorrowData = ({
       const isNotEngaged = market.userPrincipal.isZero();
 
       const data = {
-        assetApy: {
+        asset: {
           coin: {
             token: COIN_TYPE_TO_COIN[network][key],
             color: null,
@@ -287,7 +287,7 @@ export const calculateIPXAPR = ({
     percentageOfRewards *
     FixedPointMath.toNumber(moneyMarketStorage.ipxPerYear, 9);
 
-  const ipxInUSD = ipxPerYear * ipxPrice;
+  const ipxInUSD = (ipxPerYear * ipxPrice) / 2;
 
   return isLoan
     ? safeIntDiv(
