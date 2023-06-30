@@ -6,6 +6,7 @@ import { mergeDeepRight } from 'ramda';
 import { SEO } from '@/components';
 import { NextPageWithProps } from '@/interface';
 import { Layout } from '@/views/dapp/v2/components';
+import Faucet from '@/views/dapp/v2/faucet';
 
 const FaucetPage: NextPageWithProps = ({ now, messages, pageTitle }) => {
   const t = useTranslations();
@@ -17,6 +18,7 @@ const FaucetPage: NextPageWithProps = ({ now, messages, pageTitle }) => {
   return (
     <Layout dashboard titlePage={t('faucet.metadata.title')}>
       <SEO pageTitle={pageTitle} />
+      <Faucet />
     </Layout>
   );
 };
