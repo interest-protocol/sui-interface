@@ -32,9 +32,8 @@ const BorrowMarketTable: FC = () => {
       {loading
         ? [1, 2].map(() => <MarketTableRowLoading key={v4()} />)
         : borrowData.map((BorrowMarketTable, index) => (
-            <>
+            <Box key={v4()}>
               <BorrowMarketTableGroupRow
-                key={v4()}
                 isEngaged={BorrowMarketTable.isEngaged}
                 description={BorrowMarketTable.description}
                 BorrowMarketTableData={
@@ -50,7 +49,7 @@ const BorrowMarketTable: FC = () => {
                   borderColor="outline.outlineVariant"
                 />
               )}
-            </>
+            </Box>
           ))}
     </>
   );

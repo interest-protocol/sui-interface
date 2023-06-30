@@ -31,9 +31,8 @@ const SupplyMarketTable: FC = () => {
       {loading
         ? [1, 2].map(() => <MarketTableRowLoading key={v4()} />)
         : supplyData.map((SupplyMarketTable, index) => (
-            <>
+            <Box key={v4()}>
               <SupplyMarketTableGroupRow
-                key={v4()}
                 isEngaged={SupplyMarketTable.isEngaged}
                 description={SupplyMarketTable.description}
                 SupplyMarketTableData={
@@ -50,7 +49,7 @@ const SupplyMarketTable: FC = () => {
                   borderColor="outline.outlineVariant"
                 />
               )}
-            </>
+            </Box>
           ))}
     </>
   );

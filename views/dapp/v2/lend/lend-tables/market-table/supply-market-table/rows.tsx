@@ -15,15 +15,15 @@ import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
 
 import { SupplyRow } from '../../lend-table.types';
 import { getSVG } from '../market-table.utils';
-import ConfirmCollateralModal from '../Modal/confirm-collateral';
-import DisableCollateralModal from '../Modal/disable-collateral-modal';
-import EnableCollateralModal from '../Modal/enable-collateral-modal';
-import FailCollateralModal from '../Modal/fail-collateral';
-import { ResultCollateralModalProps } from '../Modal/modal.types';
-import SupplyMarketConfirmModal from '../Modal/supply-row/supply-row-confirm-modal';
-import SupplyMarketFailModal from '../Modal/supply-row/supply-row-fail-modal';
-import SupplyMarketModal from '../Modal/supply-row/supply-row-modal';
-import SupplyMarketPreviewModal from '../Modal/supply-row/supply-row-preview-modal';
+import ConfirmCollateralModal from '../modal/confirm-collateral';
+import DisableCollateralModal from '../modal/disable-collateral-modal';
+import EnableCollateralModal from '../modal/enable-collateral-modal';
+import FailCollateralModal from '../modal/fail-collateral';
+import { ResultCollateralModalProps } from '../modal/modal.types';
+import SupplyMarketConfirmModal from '../modal/supply-row/supply-row-confirm-modal';
+import SupplyMarketFailModal from '../modal/supply-row/supply-row-fail-modal';
+import SupplyMarketModal from '../modal/supply-row/supply-row-modal';
+import SupplyMarketPreviewModal from '../modal/supply-row/supply-row-preview-modal';
 
 const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
   assetApy,
@@ -295,6 +295,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
       >
         <Box>
           <SwitchButton
+            activation
             defaultValue={isCollateralEnabled}
             name={assetApy.coin.token.symbol}
             labels={''}

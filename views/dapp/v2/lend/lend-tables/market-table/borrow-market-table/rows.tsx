@@ -12,10 +12,10 @@ import { useModal } from '@/hooks';
 
 import { MarketTableBorrowedProps } from '../market-table.types';
 import { getSVG } from '../market-table.utils';
-import BorrowMarketConfirmModal from '../Modal/borrow-row/borrow-row-confirm-modal';
-import BorrowMarketFailModal from '../Modal/borrow-row/borrow-row-fail-modal';
-import BorrowMarketModal from '../Modal/borrow-row/borrow-row-modal';
-import BorrowMarketPreviewModal from '../Modal/borrow-row/borrow-row-preview-modal';
+import BorrowMarketConfirmModal from '../modal/borrow-row/borrow-row-confirm-modal';
+import BorrowMarketFailModal from '../modal/borrow-row/borrow-row-fail-modal';
+import BorrowMarketModal from '../modal/borrow-row/borrow-row-modal';
+import BorrowMarketPreviewModal from '../modal/borrow-row/borrow-row-preview-modal';
 
 const BorrowMarketTableRow: FC<
   MarketTableBorrowedProps & { isEngaged: boolean }
