@@ -27,8 +27,8 @@ export const MONEY_MARKET_KEYS = {
   [Network.DEVNET]: [],
   [Network.TESTNET]: [
     SUI_TYPE_ARG,
-    COIN_TYPE[Network.TESTNET].SUID,
     COIN_TYPE[Network.TESTNET].ETH,
+    COIN_TYPE[Network.TESTNET].SUID,
   ],
   [Network.MAINNET]: [],
 } as Record<Network, ReadonlyArray<string>>;

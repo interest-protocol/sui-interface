@@ -7,6 +7,7 @@ import {
   useTheme,
 } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
+import { pathOr } from 'ramda';
 import { FC, useState } from 'react';
 
 import { useModal } from '@/hooks';
@@ -37,6 +38,8 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
   const [isCollateralEnabled, setCollateralSwitchState] = useState(collateral);
   const { userBalancesInUSD, mutate, marketRecord, priceMap } =
     useLendProviderValue();
+
+  console.log(marketRecord);
 
   const { dark } = useTheme() as Theme;
   const surface1 = dark
@@ -295,6 +298,9 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
             defaultValue={isCollateralEnabled}
             name={assetApy.coin.token.symbol}
             labels={''}
+            disabled={
+              !pathOr(false, [marketKey, 'canBeCollateral'], marketRecord)
+            }
             onClick={
               isCollateralEnabled
                 ? openDisableCollateralModal

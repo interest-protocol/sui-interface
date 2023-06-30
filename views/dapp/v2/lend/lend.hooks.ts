@@ -39,6 +39,7 @@ bcs.registerStructType('Market', {
   collateral_cap: BCS.U64,
   ltv: BCS.U256,
   accrued_timestamp: BCS.U64,
+  can_be_collateral: BCS.BOOL,
 });
 
 const RETURN_TYPE = 'vector<Market>';
@@ -101,6 +102,7 @@ export const useGetMoneyMarkets = (config: SWRConfiguration = {}) => {
         const timeElapsed = new Date().getTime() - accruedTimestamp.toNumber();
         const supplyRatePerMS = BigNumber(propOr(0, 'supply_rate', data));
         const borrowRatePerMS = BigNumber(propOr(0, 'borrow_rate', data));
+
         return {
           ...acc,
           [key]: {
@@ -114,6 +116,11 @@ export const useGetMoneyMarkets = (config: SWRConfiguration = {}) => {
             collateralEnabled: propOr(
               false,
               'collateral_enabled',
+              data
+            ) as boolean,
+            canBeCollateral: propOr(
+              false,
+              'can_be_collateral',
               data
             ) as boolean,
             allocationPoints: BigNumber(propOr(0, 'allocation_points', data)),

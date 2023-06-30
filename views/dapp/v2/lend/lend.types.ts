@@ -40,6 +40,7 @@ export interface MoneyMarket {
   LTV: BigNumber;
   accruedTimestamp: BigNumber;
   decimals: number;
+  canBeCollateral: boolean;
 }
 
 export interface MakeCardsDataArgs {
