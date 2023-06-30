@@ -23,5 +23,5 @@ export interface GroupBorrowRow extends GroupRowHeaderProps {
 
 export interface GroupSupplyRow extends GroupRowHeaderProps {
   isEngaged: boolean;
-  SupplyMarketTableData: ReadonlyArray<SupplyRow>;
+  supplyMarketTableData: ReadonlyArray<SupplyRow>;
 }

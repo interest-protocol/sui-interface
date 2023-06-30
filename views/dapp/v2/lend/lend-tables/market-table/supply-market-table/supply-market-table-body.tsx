@@ -3,13 +3,13 @@ import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
 import { GroupSupplyRow } from '../market-table.types';
-import SupplyMarketTableGroupRowHeader from './group-row-header';
-import SupplyMarketTableRow from './rows';
+import SupplyMarketTableBodyHeader from './supply-market-table-body-header';
+import SupplyMarketTableRow from './supply-market-table-row';
 
-const SupplyMarketTableGroupRow: FC<GroupSupplyRow> = ({
+const SupplyMarketTableBody: FC<GroupSupplyRow> = ({
   isEngaged,
   description,
-  SupplyMarketTableData,
+  supplyMarketTableData,
 }) => {
   const [toggle, setToggle] = useState({
     element1: true,
@@ -24,21 +24,17 @@ const SupplyMarketTableGroupRow: FC<GroupSupplyRow> = ({
 
   return (
     <>
-      <SupplyMarketTableGroupRowHeader
+      <SupplyMarketTableBodyHeader
+        isOpen={toggle.element1}
         description={description}
         handleButton={handleChangeElement}
-        isOpen={toggle.element1}
       />
       <Motion
-        initial={{ height: toggle.element1 ? '0' : 'auto' }}
-        animate={{ height: toggle.element1 ? 'auto' : '0' }}
-        transition={{
-          duration: 0.3,
-          ease: 'easeInOut',
-        }}
         overflow="hidden"
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        animate={{ height: toggle.element1 ? 'auto' : '0' }}
       >
-        {SupplyMarketTableData.map((item) => (
+        {supplyMarketTableData.map((item) => (
           <SupplyMarketTableRow {...item} isEngaged={isEngaged} key={v4()} />
         ))}
       </Motion>
@@ -46,4 +42,4 @@ const SupplyMarketTableGroupRow: FC<GroupSupplyRow> = ({
   );
 };
 
-export default SupplyMarketTableGroupRow;
+export default SupplyMarketTableBody;

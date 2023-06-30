@@ -48,10 +48,10 @@ export const makeSupplyData = ({
           ).toFixed(2),
         },
         supplied: {
-          amount: market.userShares.isZero() ? 0 : formatMoney(amountOfCoins),
+          amount: market.userShares.isZero() ? 0 : amountOfCoins,
           value: market.userShares.isZero()
             ? 0
-            : formatMoney(amountOfCoins * priceMap[key].price),
+            : amountOfCoins * priceMap[key].price,
         },
         wallet: FixedPointMath.toNumber(
           pathOr(ZERO_BIG_NUMBER, [key, 'totalBalance'], coinsMap),

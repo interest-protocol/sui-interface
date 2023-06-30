@@ -11,6 +11,7 @@ import { pathOr } from 'ramda';
 import { FC, useState } from 'react';
 
 import { useModal, useWeb3 } from '@/hooks';
+import { formatDollars, formatMoney } from '@/utils';
 import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
 import ConfirmCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/confirm-collateral';
 import DisableCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/disable-collateral-modal';
@@ -28,7 +29,7 @@ import SupplyMarketPreviewModal from '@/views/dapp/v2/lend/lend-tables/market-ta
 import { SupplyRow } from '../../lend-table.types';
 import { getSVG } from '../market-table.utils';
 
-const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
+const SupplyMarketTableRow: FC<SupplyRow> = ({
   asset,
   supplied,
   wallet,
@@ -291,14 +292,14 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
         justifyContent="center"
       >
         <Typography variant="medium" textAlign="center">
-          {supplied.amount}
+          {formatMoney(supplied.amount)}
         </Typography>
         <Typography
           variant="small"
           textAlign="center"
           color={dark ? '#77767A' : '#47464A'}
         >
-          ${supplied.value}
+          {formatDollars(supplied.value)}
         </Typography>
       </Box>
       <Box display="flex" alignItems="center" justifyContent="center">
@@ -316,9 +317,8 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
         <Box>
           <SwitchButton
             activation
-            defaultValue={isCollateralEnabled}
             name={asset.coin.token.symbol}
-            labels={''}
+            defaultValue={isCollateralEnabled}
             disabled={
               !pathOr(false, [marketKey, 'canBeCollateral'], marketRecord)
             }

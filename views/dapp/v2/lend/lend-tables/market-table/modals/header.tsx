@@ -15,39 +15,37 @@ const HeaderModal: FC<HeaderModalProps> = ({
   closeModal,
   isSupply,
   isCenter,
-}) => {
-  return (
-    <Box
-      p="xl"
-      display="flex"
-      alignItems="center"
-      justifyContent="space-between"
-      color="onSurface"
-    >
-      {withBack && (
-        <Button
-          variant="icon"
-          onClick={() => {
-            handleBack && handleBack(isSupply || true);
-          }}
-        >
-          <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
-        </Button>
-      )}
-      {isCenter && <Box />}
-      <Box display="flex" alignItems="center">
-        <Box display="flex" alignItems="center">
-          {getSVG(type)}
-        </Box>
-        <Typography variant="title5" ml="0.5rem" color="onSurface">
-          {symbol}
-        </Typography>
-      </Box>
-      <Button variant="icon" onClick={closeModal}>
-        <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+}) => (
+  <Box
+    p="xl"
+    display="flex"
+    alignItems="center"
+    justifyContent="space-between"
+    color="onSurface"
+  >
+    {withBack && (
+      <Button
+        variant="icon"
+        onClick={() => {
+          handleBack && handleBack(isSupply || true);
+        }}
+      >
+        <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
       </Button>
+    )}
+    {isCenter && <Box />}
+    <Box display="flex" alignItems="center">
+      <Box display="flex" alignItems="center">
+        {getSVG(type)}
+      </Box>
+      <Typography variant="title5" ml="0.5rem" color="onSurface">
+        {symbol}
+      </Typography>
     </Box>
-  );
-};
+    <Button variant="icon" onClick={closeModal}>
+      <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+    </Button>
+  </Box>
+);
 
 export default HeaderModal;

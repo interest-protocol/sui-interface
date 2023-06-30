@@ -14,7 +14,7 @@ import { CarteUpSVG } from '@/svg';
 
 import { GroupRowHeaderProps } from '../market-table.types';
 
-const SupplyMarketTableGroupRowHeader: FC<
+const SupplyMarketTableBodyHeader: FC<
   GroupRowHeaderProps & { handleButton: () => void; isOpen: boolean }
 > = ({ description, handleButton, isOpen }) => {
   const t = useTranslations();
@@ -69,4 +69,4 @@ const SupplyMarketTableGroupRowHeader: FC<
   );
 };
 
-export default SupplyMarketTableGroupRowHeader;
+export default SupplyMarketTableBodyHeader;

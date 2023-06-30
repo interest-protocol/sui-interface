@@ -34,6 +34,7 @@ export interface SupplyRow {
   wallet: number;
   collateral: boolean;
   marketKey: string;
+  isEngaged: boolean;
 }
 
 export interface BorrowRow {
