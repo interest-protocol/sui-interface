@@ -1,3 +1,4 @@
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import BigNumber from 'bignumber.js';
 import { ReactNode } from 'react';
 
@@ -52,6 +53,7 @@ export interface CalculateUserBalancesInUSDArgs {
   marketRecord: Record<string, MoneyMarket>;
   ipxPrice: number;
   moneyMarketStorage: MoneyMarketStorage;
+  network: Network;
 }
 
 export interface UserBalancesInUSD {

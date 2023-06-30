@@ -5,6 +5,7 @@ import { pathOr } from 'ramda';
 import { DOUBLE_SCALAR, MILLISECONDS_PER_YEAR } from '@/constants';
 import { FixedPointMath, Rebase } from '@/lib';
 import { safeIntDiv } from '@/utils';
+import { MONEY_MARKET_KEYS } from '@/views/dapp/v2/lend/lend.constants';
 
 import {
   CalculateUserBalancesInUSDArgs,
@@ -19,10 +20,12 @@ export const calculateUserBalancesInUSD = ({
   marketRecord,
   ipxPrice,
   moneyMarketStorage,
+  network,
 }: CalculateUserBalancesInUSDArgs): UserBalancesInUSD =>
-  moneyMarketStorage.allMarketKeys.reduce(
+  MONEY_MARKET_KEYS[network].reduce(
     (acc, key) => {
       const price = priceMap[key];
+
       if (!price) return acc;
 
       const market = marketRecord[key];
