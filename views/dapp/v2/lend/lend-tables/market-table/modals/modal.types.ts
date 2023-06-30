@@ -1,31 +1,79 @@
 import { Dispatch, SetStateAction } from 'react';
+import { UseFormReturn } from 'react-hook-form';
 
 import { CoinsMap } from '@/components/web3-manager/web3-manager.types';
 import { CoinPriceRecord } from '@/hooks';
 import {
   MoneyMarket,
+  MoneyMarketStorage,
   UserBalancesInUSD,
 } from '@/views/dapp/v2/lend/lend.types';
 
 import { AssetAPY } from '../../lend-table.types';
 
+export interface OpenRowMarketPreviewModalArgs {
+  isDeposit: boolean;
+  value: string;
+  isMax: boolean;
+}
+
 export interface RowModalProps {
   closeModal: () => void;
-  isSupplyOrBorrow?: boolean;
+  isDeposit?: boolean;
   assetApy: AssetAPY;
-  openRowMarketPreviewModal: (isSupplyOrBorrow: boolean) => void;
+  openRowMarketPreviewModal: (x: OpenRowMarketPreviewModalArgs) => void;
   userBalancesInUSD: UserBalancesInUSD;
-  mutate: () => Promise<void>;
   marketKey: string;
   marketRecord: Record<string, MoneyMarket>;
   priceMap: CoinPriceRecord;
   coinsMap: CoinsMap;
+  ipxPrice: number;
+  moneyMarketStorage: MoneyMarketStorage;
+}
+
+export interface BorrowLimitsWrapperProps {
+  supplyForm: UseFormReturn<SupplyBorrowForm>;
+  marketRecord: Record<string, MoneyMarket>;
+  marketKey: string;
+  userBalancesInUSD: UserBalancesInUSD;
+  isDeposit: boolean;
+  priceMap: CoinPriceRecord;
+}
+
+export interface SupplyMarketModalProps {
+  closeModal: () => void;
+  isDeposit?: boolean;
+  assetApy: AssetAPY;
+  openRowMarketPreviewModal: (x: OpenRowMarketPreviewModalArgs) => void;
+  userBalancesInUSD: UserBalancesInUSD;
+  marketKey: string;
+  marketRecord: Record<string, MoneyMarket>;
+  priceMap: CoinPriceRecord;
+  coinsMap: CoinsMap;
+  ipxPrice: number;
+  moneyMarketStorage: MoneyMarketStorage;
+}
+
+export interface SupplyMarketModalPreviewProps {
+  assetApy: AssetAPY;
+  closeModal: () => void;
+  isDeposit: boolean;
+  value: string;
+  isMax: boolean;
+  userBalancesInUSD: UserBalancesInUSD;
+  marketKey: string;
+  marketRecord: Record<string, MoneyMarket>;
+  priceMap: CoinPriceRecord;
+  coinsMap: CoinsMap;
+  backRowMarketModal: (isDeposit: boolean) => void;
+  openRowMarketResultModal: (isSuccess: boolean, isDeposit: boolean) => void;
+  mutate: () => Promise<void>;
 }
 
 export interface RowPreviewModalProps {
   closeModal: () => void;
   assetApy: AssetAPY;
-  isSupplyOrBorrow: boolean;
+  isDeposit: boolean;
   backRowMarketModal: (isSupplyOrBorrow: boolean) => void;
   openRowMarketResultModal: (
     isSuccess: boolean,
@@ -92,4 +140,16 @@ export interface ResultModalProps {
   closeModal: () => void;
   isEnabled: boolean;
   txLink?: string;
+}
+
+export interface SupplyBorrowForm {
+  isMax: boolean;
+  value: string;
+}
+
+export interface BorrowLimitProps {
+  currentBorrowLimit: number;
+  currentBorrowLimitPercentage: number;
+  newBorrowLimit: number;
+  newBorrowLimitPercentage: number;
 }

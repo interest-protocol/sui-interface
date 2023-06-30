@@ -1,11 +1,5 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
-import {
-  Box,
-  Button,
-  Motion,
-  ProgressIndicator,
-  Typography,
-} from '@interest-protocol/ui-kit';
+import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
 import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
@@ -21,8 +15,8 @@ import { useNetwork, useProvider } from '@/hooks';
 import { throwTXIfNotSuccessful } from '@/utils';
 
 import { calculateNewBorrowLimitEnableCollateral } from '../../lend-table.utils';
+import BorrowLimits from './borrow-limits';
 import HeaderModal from './header';
-import LineModal from './lines';
 import LoadingModal from './loading-collateral';
 import { CollateralModalProps } from './modal.types';
 
@@ -96,19 +90,6 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
     }
   };
 
-  const {
-    currentBorrowLimitPercentage,
-    newBorrowLimitPercentage,
-    currentBorrowLimit,
-    newBorrowLimit,
-  } = calculateNewBorrowLimitEnableCollateral({
-    userBalancesInUSD,
-    addCollateral: true,
-    priceMap,
-    marketKey,
-    marketRecord,
-  });
-
   return isLoading ? (
     <LoadingModal
       title={t('Lend.modal.collateral.loading.title', { isEnable: 1 })}
@@ -161,31 +142,15 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
         </Typography>
       </Box>
       <Box p="xl" bg="surface.containerLow">
-        <LineModal
-          description="common.v2.lend.firstSection.currentBorrowLimit"
-          value={`$ ${currentBorrowLimit.toFixed(2)}`}
+        <BorrowLimits
+          {...calculateNewBorrowLimitEnableCollateral({
+            userBalancesInUSD,
+            addCollateral: true,
+            priceMap,
+            marketKey,
+            marketRecord,
+          })}
         />
-        <LineModal
-          description="common.v2.lend.firstSection.borrowLimitUsed"
-          value={`${currentBorrowLimitPercentage.toFixed(2)} %`}
-        />
-        <Box p="1rem" display="flex" justifyContent="space-between">
-          <ProgressIndicator
-            value={currentBorrowLimitPercentage}
-            variant="bar"
-          />
-        </Box>
-        <LineModal
-          description="common.v2.lend.firstSection.newBorrowLimit"
-          value={`$ ${newBorrowLimit.toFixed(2)}`}
-        />
-        <LineModal
-          description="common.v2.lend.firstSection.borrowLimitUsed"
-          value={`${newBorrowLimitPercentage.toFixed(2)} %`}
-        />
-        <Box p="1rem" display="flex" justifyContent="space-between">
-          <ProgressIndicator value={newBorrowLimitPercentage} variant="bar" />
-        </Box>
       </Box>
       <Box
         p="xl"

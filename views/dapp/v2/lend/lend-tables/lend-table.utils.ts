@@ -7,7 +7,9 @@ import { formatMoney, safeIntDiv, ZERO_BIG_NUMBER } from '@/utils';
 import { BORROW_MARKETS_UI, SUPPLY_MARKETS_UI } from '../lend.constants';
 import {
   BorrowRow,
+  CalculateIPXAPRArgs,
   calculateNewBorrowLimitEnableCollateralArgs,
+  CalculateNewBorrowLimitNewAmountArgs,
   MakeMoneyMarketDataArgs,
   MoneyMarketUI,
   SupplyRow,
@@ -150,16 +152,17 @@ export const calculateNewBorrowLimitNewAmount = ({
   userBalancesInUSD,
   marketRecord,
   marketKey,
-  removing,
   newAmount,
   isLoan,
   adding,
-}) => {
+}: CalculateNewBorrowLimitNewAmountArgs) => {
   const market = marketRecord[marketKey];
+
+  const ltv = market.LTV.dividedBy(DOUBLE_SCALAR).toNumber();
 
   // IF it cannot be collateral, it has no impact on the borrow limit
   const amountInUSD = market.canBeCollateral
-    ? newAmount * priceMap[marketKey].price
+    ? newAmount * priceMap[marketKey].price * ltv
     : 0;
 
   const currentBorrowLimit =
@@ -258,4 +261,45 @@ export const calculateNewBorrowLimitEnableCollateral = ({
     currentBorrowLimitPercentage,
     newBorrowLimitPercentage,
   };
+};
+
+export const calculateIPXAPR = ({
+  ipxPrice,
+  moneyMarketStorage,
+  marketRecord,
+  marketKey,
+  isLoan,
+  priceMap,
+}: CalculateIPXAPRArgs) => {
+  const market = marketRecord[marketKey];
+
+  if (
+    market.allocationPoints.isZero() ||
+    moneyMarketStorage.totalAllocationPoints.isZero()
+  )
+    return 0;
+
+  const percentageOfRewards = market.allocationPoints
+    .dividedBy(moneyMarketStorage.totalAllocationPoints)
+    .toNumber();
+
+  const ipxPerYear =
+    percentageOfRewards *
+    FixedPointMath.toNumber(moneyMarketStorage.ipxPerYear, 9);
+
+  const ipxInUSD = ipxPerYear * ipxPrice;
+
+  return isLoan
+    ? safeIntDiv(
+        ipxInUSD,
+        FixedPointMath.toNumber(market.totalLoanElastic, market.decimals) *
+          priceMap[marketKey].price
+      )
+    : safeIntDiv(
+        ipxInUSD,
+        FixedPointMath.toNumber(
+          market.totalCollateralElastic,
+          market.decimals
+        ) * priceMap[marketKey].price
+      );
 };

@@ -1,48 +1,146 @@
+import {} from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Button,
   Motion,
-  ProgressIndicator,
   Theme,
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
+import { useWalletKit } from '@mysten/wallet-kit';
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { not } from 'ramda';
 import { FC, useState } from 'react';
 
 import { LeftArrowSVG } from '@/components/svg/v2';
+import { MONEY_MARKET_OBJECTS } from '@/constants/money-market.constants';
+import { useNetwork, useProvider } from '@/hooks';
+import { FixedPointMath, Rebase } from '@/lib';
 import { TimesSVG } from '@/svg';
+import {
+  createObjectsParameter,
+  formatDollars,
+  formatMoney,
+  throwTXIfNotSuccessful,
+  ZERO_BIG_NUMBER,
+} from '@/utils';
+import { calculateNewBorrowLimitNewAmount } from '@/views/dapp/v2/lend/lend-tables/lend-table.utils';
+import BorrowLimits from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-limits';
 
 import { getSVG } from '../../market-table.utils';
 import LineModal from '../lines';
 import LoadingModal from '../loading-collateral';
-import { RowPreviewModalProps } from '../modal.types';
+import { SupplyMarketModalPreviewProps } from '../modal.types';
 
-const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
-  assetApy,
-  closeModal,
-  isSupplyOrBorrow,
+const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
+  isMax,
   backRowMarketModal,
+  closeModal,
+  marketKey,
+  marketRecord,
   openRowMarketResultModal,
+  value,
+  priceMap,
+  coinsMap,
+  userBalancesInUSD,
+  isDeposit,
+  assetApy,
+  mutate,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const [FromIcon] = [getSVG(assetApy.coin.token.type)];
 
   const [isLoading, setIsLoading] = useState(false);
+  const { network } = useNetwork();
+  const { provider } = useProvider();
+  const { signTransactionBlock } = useWalletKit();
 
-  const handleSupply = async () => {};
+  const handleDeposit = async () => {
+    setIsLoading(true);
 
-  const handleCollateral = () => {};
+    const objects = MONEY_MARKET_OBJECTS[network];
+
+    try {
+      const txb = new TransactionBlock();
+
+      const amount = isMax
+        ? coinsMap[marketKey]?.totalBalance ?? ZERO_BIG_NUMBER
+        : FixedPointMath.toBigNumber(
+            value,
+            coinsMap[marketKey]?.decimals
+          ).decimalPlaces(0, BigNumber.ROUND_DOWN);
+
+      const coinInList = createObjectsParameter({
+        coinsMap,
+        txb,
+        type: marketKey,
+        amount: amount.toString(),
+      });
+
+      txb.moveCall({
+        target: `${objects.MONEY_MARKET_PACKAGE_ID}::ipx_money_market_sdk_interface::deposit`,
+        typeArguments: [marketKey],
+        arguments: [
+          txb.object(objects.MONEY_MARKET_STORAGE),
+          txb.object(objects.INTEREST_RATE_STORAGE),
+          txb.object(SUI_CLOCK_OBJECT_ID),
+          txb.makeMoveVec({
+            objects: coinInList,
+          }),
+          txb.pure(amount.toString()),
+        ],
+      });
+
+      const { transactionBlockBytes, signature } = await signTransactionBlock({
+        transactionBlock: txb,
+      });
+
+      const tx = await provider.executeTransactionBlock({
+        transactionBlock: transactionBlockBytes,
+        signature,
+        options: {
+          showEffects: true,
+        },
+      });
+
+      throwTXIfNotSuccessful(tx);
+      openRowMarketResultModal(true, isDeposit);
+    } catch {
+      openRowMarketResultModal(false, isDeposit);
+    } finally {
+      setIsLoading(false);
+      await mutate();
+    }
+  };
+
+  const handleWithdraw = async () => {};
+
+  const handleCollateral = async () =>
+    isDeposit ? handleDeposit() : handleWithdraw();
+
+  const market = marketRecord[marketKey];
+
+  const collateralRebase = new Rebase(
+    market.totalCollateralBase,
+    market.totalCollateralElastic
+  );
+
+  const newSupplyTokenBalance =
+    FixedPointMath.toNumber(
+      collateralRebase.toElastic(market.userShares),
+      market.decimals
+    ) + value;
+
+  const newSupplyTokenBalanceInUSD =
+    +newSupplyTokenBalance * priceMap[marketKey].price;
 
   return isLoading ? (
     <LoadingModal
-      title={t(
-        isSupplyOrBorrow ? 'common.v2.lend.supply' : 'common.v2.lend.withdraw'
-      )}
+      title={t(isDeposit ? 'common.v2.lend.supply' : 'common.v2.lend.withdraw')}
       content={t('Lend.modal.supply.loading.content', {
-        isSupply: +isSupplyOrBorrow,
+        isSupply: +isDeposit,
       })}
     />
   ) : (
@@ -104,28 +202,24 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
             </Box>
             <Box textAlign="right">
               <Typography variant="medium" color={dark ? 'white' : 'black'}>
-                0.000
+                {value}
               </Typography>
             </Box>
           </Box>
         </Box>
       </Box>
       <Box p="xl" bg="surface.containerLow">
-        <LineModal
-          description="common.v2.lend.firstSection.newBorrowLimit"
-          value="$ 1000"
+        <BorrowLimits
+          {...calculateNewBorrowLimitNewAmount({
+            marketRecord,
+            marketKey,
+            userBalancesInUSD,
+            newAmount: +value,
+            adding: isDeposit,
+            isLoan: false,
+            priceMap,
+          })}
         />
-        <LineModal
-          description="common.v2.lend.firstSection.borrowLimit"
-          value="$ 1000"
-        />
-        <LineModal
-          description="common.v2.lend.firstSection.borrowLimitUsed"
-          value="0 %"
-        />
-        <Box p="1rem" display="flex" justifyContent="space-between">
-          <ProgressIndicator value={75} variant="bar" />
-        </Box>
         <Box
           as="hr"
           mx="4xl"
@@ -140,9 +234,12 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
         />
         <LineModal
           description="Lend.modal.supply.preview.inToken"
-          value="0,0"
+          value={formatMoney(+newSupplyTokenBalance)}
         />
-        <LineModal description="Lend.modal.supply.preview.inUSD" value="0,2" />
+        <LineModal
+          description="Lend.modal.supply.preview.inUSD"
+          value={formatDollars(newSupplyTokenBalanceInUSD)}
+        />
       </Box>
       <Box
         p="xl"
@@ -158,9 +255,10 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
           display="flex"
           justifyContent="center"
           onClick={handleCollateral}
+          disabled={!+value}
         >
           {t('Lend.modal.supply.preview.button', {
-            isSupply: +isSupplyOrBorrow,
+            isSupply: +isDeposit,
           })}
         </Button>
       </Box>

@@ -3,9 +3,12 @@ import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { CoinPriceRecord } from '@/hooks';
 import { CoinData } from '@/interface';
-import { calculateNewBorrowLimitEnableCollateral } from '@/views/dapp/v2/lend/lend-tables/lend-table.utils';
 
-import { MoneyMarket, UserBalancesInUSD } from '../lend.types';
+import {
+  MoneyMarket,
+  MoneyMarketStorage,
+  UserBalancesInUSD,
+} from '../lend.types';
 
 export interface MakeMoneyMarketDataArgs {
   marketRecord: Record<string, MoneyMarket>;
@@ -56,4 +59,23 @@ export interface calculateNewBorrowLimitEnableCollateralArgs {
   marketRecord: Record<string, MoneyMarket>;
   marketKey: string;
   addCollateral: boolean;
+}
+
+export interface CalculateNewBorrowLimitNewAmountArgs {
+  priceMap: CoinPriceRecord;
+  userBalancesInUSD: UserBalancesInUSD;
+  marketRecord: Record<string, MoneyMarket>;
+  marketKey: string;
+  newAmount: number;
+  isLoan: boolean;
+  adding: boolean;
+}
+
+export interface CalculateIPXAPRArgs {
+  ipxPrice: number;
+  moneyMarketStorage: MoneyMarketStorage;
+  marketRecord: Record<string, MoneyMarket>;
+  marketKey: string;
+  isLoan: boolean;
+  priceMap: CoinPriceRecord;
 }

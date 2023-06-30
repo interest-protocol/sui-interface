@@ -16,7 +16,10 @@ import ConfirmCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-tabl
 import DisableCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/disable-collateral-modal';
 import EnableCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/enable-collateral-modal';
 import FailCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/fail-collateral';
-import { ResultCollateralModalProps } from '@/views/dapp/v2/lend/lend-tables/market-table/modals/modal.types';
+import {
+  OpenRowMarketPreviewModalArgs,
+  ResultCollateralModalProps,
+} from '@/views/dapp/v2/lend/lend-tables/market-table/modals/modal.types';
 import SupplyMarketConfirmModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/supply-row/supply-row-confirm-modal';
 import SupplyMarketFailModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/supply-row/supply-row-fail-modal';
 import SupplyMarketModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/supply-row/supply-row-modal';
@@ -36,8 +39,14 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
   const t = useTranslations();
   const { setModal, handleClose } = useModal();
   const [isCollateralEnabled, setCollateralSwitchState] = useState(collateral);
-  const { userBalancesInUSD, mutate, marketRecord, priceMap } =
-    useLendProviderValue();
+  const {
+    userBalancesInUSD,
+    mutate,
+    marketRecord,
+    priceMap,
+    moneyMarketStorage,
+    ipxPrice,
+  } = useLendProviderValue();
   const { coinsMap } = useWeb3();
 
   const { dark } = useTheme() as Theme;
@@ -140,19 +149,20 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
     );
   };
 
-  const openRowMarketModal = (isSupplyOrBorrow: boolean) => {
+  const openRowMarketModal = (isDeposit: boolean) => {
     setModal(
       <SupplyMarketModal
         closeModal={handleClose}
-        isSupplyOrBorrow={isSupplyOrBorrow}
+        isDeposit={isDeposit}
         assetApy={assetApy}
         openRowMarketPreviewModal={openRowMarketPreviewModal}
-        mutate={mutate}
         marketKey={marketKey}
         marketRecord={marketRecord}
         priceMap={priceMap}
         userBalancesInUSD={userBalancesInUSD}
         coinsMap={coinsMap}
+        moneyMarketStorage={moneyMarketStorage}
+        ipxPrice={ipxPrice}
       />,
       {
         isOpen: true,
@@ -163,14 +173,26 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
     );
   };
 
-  const openRowMarketPreviewModal = (isSupplyOrBorrow: boolean) => {
+  const openRowMarketPreviewModal = ({
+    isDeposit,
+    value,
+    isMax,
+  }: OpenRowMarketPreviewModalArgs) => {
     setModal(
       <SupplyMarketPreviewModal
         closeModal={handleClose}
         assetApy={assetApy}
-        isSupplyOrBorrow={isSupplyOrBorrow}
+        isDeposit={isDeposit}
         backRowMarketModal={openRowMarketModal}
         openRowMarketResultModal={openRowMarketResultModal}
+        marketRecord={marketRecord}
+        priceMap={priceMap}
+        userBalancesInUSD={userBalancesInUSD}
+        coinsMap={coinsMap}
+        marketKey={marketKey}
+        value={value}
+        isMax={isMax}
+        mutate={mutate}
       />,
       {
         isOpen: true,
@@ -181,21 +203,16 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
     );
   };
 
-  const openRowMarketResultModal = (
-    isSuccess: boolean,
-    isSupplyOrBorrow: boolean
-  ) => {
+  const openRowMarketResultModal = (isSuccess: boolean, isDeposit: boolean) => {
     setModal(
       isSuccess ? (
         <SupplyMarketConfirmModal
           closeModal={handleClose}
           title={t(
-            isSupplyOrBorrow
-              ? 'common.v2.lend.supply'
-              : 'common.v2.lend.withdraw'
+            isDeposit ? 'common.v2.lend.supply' : 'common.v2.lend.withdraw'
           )}
           content={t('Lend.modal.supply.confirm.content', {
-            isSupply: 1,
+            isDeposit: 1,
           })}
           additionalText={t('Lend.modal.supply.confirm.additionInfo')}
           activityLink="#"
@@ -204,12 +221,10 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
         <SupplyMarketFailModal
           closeModal={handleClose}
           title={t(
-            isSupplyOrBorrow
-              ? 'common.v2.lend.supply'
-              : 'common.v2.lend.withdraw'
+            isDeposit ? 'common.v2.lend.supply' : 'common.v2.lend.withdraw'
           )}
           content={t('Lend.modal.supply.error.content', {
-            isSupply: +isSupplyOrBorrow,
+            isDeposit: +isDeposit,
           })}
           description=""
         />
