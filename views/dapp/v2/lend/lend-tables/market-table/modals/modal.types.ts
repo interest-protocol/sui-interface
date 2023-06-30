@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
+import { CoinsMap } from '@/components/web3-manager/web3-manager.types';
 import { CoinPriceRecord } from '@/hooks';
 import {
   MoneyMarket,
@@ -13,6 +14,12 @@ export interface RowModalProps {
   isSupplyOrBorrow?: boolean;
   assetApy: AssetAPY;
   openRowMarketPreviewModal: (isSupplyOrBorrow: boolean) => void;
+  userBalancesInUSD: UserBalancesInUSD;
+  mutate: () => Promise<void>;
+  marketKey: string;
+  marketRecord: Record<string, MoneyMarket>;
+  priceMap: CoinPriceRecord;
+  coinsMap: CoinsMap;
 }
 
 export interface RowPreviewModalProps {

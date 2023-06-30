@@ -23,8 +23,7 @@ import {
 } from '@/constants';
 import { MONEY_MARKET_OBJECTS } from '@/constants/money-market.constants';
 import { useNetwork, useProvider } from '@/hooks';
-import { FixedPointMath, Rebase } from '@/lib';
-import { safeIntDiv, throwTXIfNotSuccessful } from '@/utils';
+import { throwTXIfNotSuccessful } from '@/utils';
 import {
   ORACLE_PRICE_COIN_NAMES,
   PYTH_PRICE_CONNECT_URL,
@@ -32,6 +31,7 @@ import {
   PYTH_PRICE_FEED_IDS,
   SWITCHBOARD_AGGREGATOR_IDS,
 } from '@/views/dapp/v2/lend/lend.constants';
+import { calculateNewBorrowLimitEnableCollateral } from '@/views/dapp/v2/lend/lend-tables/lend-table.utils';
 
 import HeaderModal from './header';
 import LineModal from './lines';
@@ -161,28 +161,18 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
     }
   };
 
-  const currentBorrowLimit =
-    userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;
-
-  const market = marketRecord[marketKey];
-
-  const collateralRebase = new Rebase(
-    market.totalCollateralBase,
-    market.totalCollateralElastic
-  );
-
-  const newBorrowLimit = market.userShares.isZero()
-    ? currentBorrowLimit
-    : currentBorrowLimit -
-      FixedPointMath.toNumber(
-        collateralRebase.toElastic(market.userShares),
-        market.decimals
-      ) *
-        priceMap[marketKey].price;
-
-  const currentBorrowLimitPercentage =
-    safeIntDiv(userBalancesInUSD.totalLoan, userBalancesInUSD.totalCollateral) *
-    100;
+  const {
+    currentBorrowLimitPercentage,
+    newBorrowLimitPercentage,
+    currentBorrowLimit,
+    newBorrowLimit,
+  } = calculateNewBorrowLimitEnableCollateral({
+    userBalancesInUSD,
+    addCollateral: false,
+    priceMap,
+    marketKey,
+    marketRecord,
+  });
 
   return isLoading ? (
     <LoadingModal
@@ -228,8 +218,8 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
       </Box>
       <Box p="xl" bg="surface.containerLow">
         <LineModal
-          description="common.v2.lend.firstSection.newBorrowLimit"
-          value={`$ ${newBorrowLimit.toFixed(2)}`}
+          description="common.v2.lend.firstSection.currentBorrowLimit"
+          value={`$ ${currentBorrowLimit.toFixed(2)}`}
         />
         <LineModal
           description="common.v2.lend.firstSection.borrowLimitUsed"
@@ -240,6 +230,17 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
             value={currentBorrowLimitPercentage}
             variant="bar"
           />
+        </Box>
+        <LineModal
+          description="common.v2.lend.firstSection.newBorrowLimit"
+          value={`$ ${newBorrowLimit.toFixed(2)}`}
+        />
+        <LineModal
+          description="common.v2.lend.firstSection.borrowLimitUsed"
+          value={`${newBorrowLimitPercentage.toFixed(2)} %`}
+        />
+        <Box p="1rem" display="flex" justifyContent="space-between">
+          <ProgressIndicator value={newBorrowLimitPercentage} variant="bar" />
         </Box>
       </Box>
       <Box

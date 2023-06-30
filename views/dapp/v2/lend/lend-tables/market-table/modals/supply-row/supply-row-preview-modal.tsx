@@ -32,19 +32,9 @@ const SupplyMarketPreviewModal: FC<RowPreviewModalProps> = ({
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleIsLoading = () => {
-    setIsLoading(not);
-  };
+  const handleSupply = async () => {};
 
-  const handleResult = () => {
-    const RANDOM_RESULT = Math.random() < 0.5;
-    openRowMarketResultModal(RANDOM_RESULT, isSupplyOrBorrow);
-  };
-
-  const handleCollateral = () => {
-    handleIsLoading();
-    setTimeout(handleResult, (Math.floor(Math.random() * 5) + 3) * 1000);
-  };
+  const handleCollateral = () => {};
 
   return isLoading ? (
     <LoadingModal

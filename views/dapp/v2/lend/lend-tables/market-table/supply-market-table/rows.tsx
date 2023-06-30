@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl';
 import { pathOr } from 'ramda';
 import { FC, useState } from 'react';
 
-import { useModal } from '@/hooks';
+import { useModal, useWeb3 } from '@/hooks';
 import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
 import ConfirmCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/confirm-collateral';
 import DisableCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/disable-collateral-modal';
@@ -38,8 +38,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
   const [isCollateralEnabled, setCollateralSwitchState] = useState(collateral);
   const { userBalancesInUSD, mutate, marketRecord, priceMap } =
     useLendProviderValue();
-
-  console.log(marketRecord);
+  const { coinsMap } = useWeb3();
 
   const { dark } = useTheme() as Theme;
   const surface1 = dark
@@ -148,6 +147,12 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
         isSupplyOrBorrow={isSupplyOrBorrow}
         assetApy={assetApy}
         openRowMarketPreviewModal={openRowMarketPreviewModal}
+        mutate={mutate}
+        marketKey={marketKey}
+        marketRecord={marketRecord}
+        priceMap={priceMap}
+        userBalancesInUSD={userBalancesInUSD}
+        coinsMap={coinsMap}
       />,
       {
         isOpen: true,

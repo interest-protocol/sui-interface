@@ -3,8 +3,9 @@ import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { CoinPriceRecord } from '@/hooks';
 import { CoinData } from '@/interface';
+import { calculateNewBorrowLimitEnableCollateral } from '@/views/dapp/v2/lend/lend-tables/lend-table.utils';
 
-import { MoneyMarket } from '../lend.types';
+import { MoneyMarket, UserBalancesInUSD } from '../lend.types';
 
 export interface MakeMoneyMarketDataArgs {
   marketRecord: Record<string, MoneyMarket>;
@@ -47,4 +48,12 @@ export interface MoneyMarketUI {
   isEngaged: boolean;
   description: string;
   data: ReadonlyArray<SupplyRow | BorrowRow>;
+}
+
+export interface calculateNewBorrowLimitEnableCollateralArgs {
+  priceMap: CoinPriceRecord;
+  userBalancesInUSD: UserBalancesInUSD;
+  marketRecord: Record<string, MoneyMarket>;
+  marketKey: string;
+  addCollateral: boolean;
 }

@@ -1,12 +1,13 @@
-import { pathOr } from 'ramda';
+import { add, pathOr, subtract } from 'ramda';
 
 import { COIN_TYPE_TO_COIN, DOUBLE_SCALAR } from '@/constants';
 import { FixedPointMath, Rebase } from '@/lib';
-import { formatMoney, ZERO_BIG_NUMBER } from '@/utils';
+import { formatMoney, safeIntDiv, ZERO_BIG_NUMBER } from '@/utils';
 
 import { BORROW_MARKETS_UI, SUPPLY_MARKETS_UI } from '../lend.constants';
 import {
   BorrowRow,
+  calculateNewBorrowLimitEnableCollateralArgs,
   MakeMoneyMarketDataArgs,
   MoneyMarketUI,
   SupplyRow,
@@ -143,3 +144,118 @@ export const makeBorrowData = ({
       } as MoneyMarketUI,
     ]
   );
+
+export const calculateNewBorrowLimitNewAmount = ({
+  priceMap,
+  userBalancesInUSD,
+  marketRecord,
+  marketKey,
+  removing,
+  newAmount,
+  isLoan,
+  adding,
+}) => {
+  const market = marketRecord[marketKey];
+
+  // IF it cannot be collateral, it has no impact on the borrow limit
+  const amountInUSD = market.canBeCollateral
+    ? newAmount * priceMap[marketKey].price
+    : 0;
+
+  const currentBorrowLimit =
+    userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;
+
+  const currentBorrowLimitPercentage =
+    safeIntDiv(userBalancesInUSD.totalLoan, userBalancesInUSD.totalCollateral) *
+    100;
+
+  const newBorrowLimit = isLoan
+    ? adding
+      ? currentBorrowLimit - amountInUSD
+      : currentBorrowLimit + amountInUSD
+    : adding
+    ? currentBorrowLimit + amountInUSD
+    : currentBorrowLimit - amountInUSD;
+
+  const newBorrowLimitPercentage =
+    (isLoan
+      ? adding
+        ? safeIntDiv(
+            userBalancesInUSD.totalLoan + amountInUSD,
+            userBalancesInUSD.totalCollateral
+          )
+        : safeIntDiv(
+            userBalancesInUSD.totalLoan - amountInUSD,
+            userBalancesInUSD.totalCollateral
+          )
+      : adding
+      ? safeIntDiv(
+          userBalancesInUSD.totalLoan,
+          userBalancesInUSD.totalCollateral + amountInUSD
+        )
+      : safeIntDiv(
+          userBalancesInUSD.totalLoan,
+          userBalancesInUSD.totalCollateral - amountInUSD
+        )) * 100;
+
+  return {
+    currentBorrowLimit,
+    currentBorrowLimitPercentage,
+    newBorrowLimit,
+    newBorrowLimitPercentage,
+  };
+};
+
+export const calculateNewBorrowLimitEnableCollateral = ({
+  priceMap,
+  userBalancesInUSD,
+  marketRecord,
+  marketKey,
+  addCollateral,
+}: calculateNewBorrowLimitEnableCollateralArgs) => {
+  const operation = addCollateral ? add : subtract;
+
+  const currentBorrowLimit =
+    userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;
+
+  const market = marketRecord[marketKey];
+
+  const collateralRebase = new Rebase(
+    market.totalCollateralBase,
+    market.totalCollateralElastic
+  );
+
+  const newBorrowLimit = market.userShares.isZero()
+    ? currentBorrowLimit
+    : operation(
+        currentBorrowLimit,
+        FixedPointMath.toNumber(
+          collateralRebase.toElastic(market.userShares),
+          market.decimals
+        ) * priceMap[marketKey].price
+      );
+
+  const currentBorrowLimitPercentage =
+    safeIntDiv(userBalancesInUSD.totalLoan, userBalancesInUSD.totalCollateral) *
+    100;
+
+  const newBorrowLimitPercentage = market.userShares.isZero()
+    ? currentBorrowLimitPercentage
+    : safeIntDiv(
+        userBalancesInUSD.totalLoan,
+        operation(
+          userBalancesInUSD.totalCollateral,
+          FixedPointMath.toNumber(
+            collateralRebase.toElastic(market.userShares),
+            market.decimals
+          ) * priceMap[marketKey].price
+        )
+      ) * 100;
+
+  return {
+    currentBorrowLimit,
+    newBorrowLimit,
+    currentBorrowLimitPercentage,
+    newBorrowLimitPercentage,
+  };
+};
