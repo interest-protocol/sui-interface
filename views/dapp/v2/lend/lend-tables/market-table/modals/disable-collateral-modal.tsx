@@ -141,7 +141,6 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
 
       setCollateralSwitchState(true);
     } catch (e) {
-      console.log(e);
       resultModal({
         tokenName: asset.coin.token.symbol,
         isEnabled: false,
