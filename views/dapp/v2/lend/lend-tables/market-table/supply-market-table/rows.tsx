@@ -12,18 +12,18 @@ import { FC, useState } from 'react';
 
 import { useModal } from '@/hooks';
 import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
+import ConfirmCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/confirm-collateral';
+import DisableCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/disable-collateral-modal';
+import EnableCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/enable-collateral-modal';
+import FailCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/fail-collateral';
+import { ResultCollateralModalProps } from '@/views/dapp/v2/lend/lend-tables/market-table/modals/modal.types';
+import SupplyMarketConfirmModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/supply-row/supply-row-confirm-modal';
+import SupplyMarketFailModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/supply-row/supply-row-fail-modal';
+import SupplyMarketModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/supply-row/supply-row-modal';
+import SupplyMarketPreviewModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/supply-row/supply-row-preview-modal';
 
 import { SupplyRow } from '../../lend-table.types';
 import { getSVG } from '../market-table.utils';
-import ConfirmCollateralModal from '../modal/confirm-collateral';
-import DisableCollateralModal from '../modal/disable-collateral-modal';
-import EnableCollateralModal from '../modal/enable-collateral-modal';
-import FailCollateralModal from '../modal/fail-collateral';
-import { ResultCollateralModalProps } from '../modal/modal.types';
-import SupplyMarketConfirmModal from '../modal/supply-row/supply-row-confirm-modal';
-import SupplyMarketFailModal from '../modal/supply-row/supply-row-fail-modal';
-import SupplyMarketModal from '../modal/supply-row/supply-row-modal';
-import SupplyMarketPreviewModal from '../modal/supply-row/supply-row-preview-modal';
 
 const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
   assetApy,

@@ -9,13 +9,13 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { useModal } from '@/hooks';
+import BorrowMarketConfirmModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-row/borrow-row-confirm-modal';
+import BorrowMarketFailModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-row/borrow-row-fail-modal';
+import BorrowMarketModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-row/borrow-row-modal';
+import BorrowMarketPreviewModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-row/borrow-row-preview-modal';
 
 import { MarketTableBorrowedProps } from '../market-table.types';
 import { getSVG } from '../market-table.utils';
-import BorrowMarketConfirmModal from '../modal/borrow-row/borrow-row-confirm-modal';
-import BorrowMarketFailModal from '../modal/borrow-row/borrow-row-fail-modal';
-import BorrowMarketModal from '../modal/borrow-row/borrow-row-modal';
-import BorrowMarketPreviewModal from '../modal/borrow-row/borrow-row-preview-modal';
 
 const BorrowMarketTableRow: FC<
   MarketTableBorrowedProps & { isEngaged: boolean }
