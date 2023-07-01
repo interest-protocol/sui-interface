@@ -5,11 +5,11 @@ import { pathOr } from 'ramda';
 import { DOUBLE_SCALAR, MILLISECONDS_PER_YEAR } from '@/constants';
 import { FixedPointMath, Rebase } from '@/lib';
 import { safeIntDiv } from '@/utils';
+import { APRCardProps } from '@/views/dapp/v2/lend/card/card.types';
 import { MONEY_MARKET_KEYS } from '@/views/dapp/v2/lend/lend.constants';
 
 import {
   CalculateUserBalancesInUSDArgs,
-  CardLendProps,
   MakeCardsDataArgs,
   MoneyMarketStorage,
   UserBalancesInUSD,
@@ -29,6 +29,8 @@ export const calculateUserBalancesInUSD = ({
       if (!price) return acc;
 
       const market = marketRecord[key];
+
+      if (!market) return acc;
 
       const percentageOfIPX = moneyMarketStorage.totalAllocationPoints.isZero()
         ? 0
@@ -164,7 +166,7 @@ const calculateBorrowAPY = (data: UserBalancesInUSD) => {
 
 export const makeCardsData = ({
   userBalancesInUSD,
-}: MakeCardsDataArgs): ReadonlyArray<CardLendProps> => {
+}: MakeCardsDataArgs): ReadonlyArray<APRCardProps> => {
   const netAPY = calculateNetAPY(userBalancesInUSD);
   const borrowAPY = calculateBorrowAPY(userBalancesInUSD);
 
@@ -195,15 +197,6 @@ export const makeCardsData = ({
       trendAmount: (Math.abs(borrowAPY) * 100).toString(),
       symbol: '$',
       amount: userBalancesInUSD.totalInterestRateOwned.toString(),
-    },
-    {
-      icon: 'special',
-      description: 'Lend.claimReward',
-      isTrendUp: false,
-      trendAmount: '',
-      symbol: '$',
-      amount: '1,2345 IPX',
-      disabled: false,
     },
   ];
 };
