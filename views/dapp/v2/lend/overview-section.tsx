@@ -3,7 +3,8 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import Card from './card';
+import APRCard from './card/apr-card';
+import RewardsCard from './card/rewards-card';
 import { useLendProviderValue } from './lend.provider';
 import { makeCardsData } from './lend.utils';
 
@@ -32,8 +33,9 @@ const OverviewSection: FC = () => {
         {makeCardsData({
           userBalancesInUSD,
         }).map((item) => (
-          <Card {...item} key={v4()} isLoading={loading} />
+          <APRCard {...item} key={v4()} isLoading={loading} />
         ))}
+        <RewardsCard />
       </Box>
     </>
   );

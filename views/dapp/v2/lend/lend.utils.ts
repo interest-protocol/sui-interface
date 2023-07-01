@@ -7,9 +7,9 @@ import { FixedPointMath, Rebase } from '@/lib';
 import { formatDollars, formatNumber, safeIntDiv } from '@/utils';
 import { MONEY_MARKET_KEYS } from '@/views/dapp/v2/lend/lend.constants';
 
+import { APRCardProps } from './card/card.types';
 import {
   CalculateUserBalancesInUSDArgs,
-  CardLendProps,
   MakeCardsDataArgs,
   MoneyMarketStorage,
   UserBalancesInUSD,
@@ -30,16 +30,7 @@ export const calculateUserBalancesInUSD = ({
 
       const market = marketRecord[key];
 
-      if (!market)
-        return {
-          totalSupply: 0,
-          totalLoan: 0,
-          totalEarnings: 0,
-          totalInterestRateOwned: 0,
-          totalIPXCollateralRewards: 0,
-          totalIPXLoanRewards: 0,
-          totalCollateral: 0,
-        };
+      if (!market) return acc;
 
       const percentageOfIPX = moneyMarketStorage.totalAllocationPoints.isZero()
         ? 0
@@ -175,16 +166,16 @@ const calculateBorrowAPY = (data: UserBalancesInUSD) => {
 
 export const makeCardsData = ({
   userBalancesInUSD,
-}: MakeCardsDataArgs): ReadonlyArray<CardLendProps> => {
-  const netAPR = calculateNetAPY(userBalancesInUSD);
+}: MakeCardsDataArgs): ReadonlyArray<APRCardProps> => {
+  const netAPY = calculateNetAPY(userBalancesInUSD);
   const borrowAPY = calculateBorrowAPY(userBalancesInUSD);
 
   return [
     {
       icon: 'percentage',
       description: 'common.v2.lend.firstSection.netAPR',
-      isTrendUp: netAPR >= 0,
-      trendAmount: formatNumber(netAPR * 100).toString(),
+      isTrendUp: netAPY >= 0,
+      trendAmount: formatNumber(netAPY * 100).toString(),
       amount: formatDollars(calculateNetAPYAmount(userBalancesInUSD)),
     },
     {
@@ -205,14 +196,6 @@ export const makeCardsData = ({
       isTrendUp: borrowAPY >= 0,
       trendAmount: (Math.abs(borrowAPY) * 100).toString(),
       amount: userBalancesInUSD.totalInterestRateOwned.toString(),
-    },
-    {
-      icon: 'special',
-      description: 'Lend.claimReward',
-      isTrendUp: false,
-      trendAmount: '',
-      amount: '1,2345 IPX',
-      disabled: false,
     },
   ];
 };
