@@ -12,3 +12,4 @@ export * from './provider';
 export * from './string';
 export * from './toast';
 export * from './tx';
+export * from './types';

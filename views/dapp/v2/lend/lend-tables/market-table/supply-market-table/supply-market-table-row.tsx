@@ -21,7 +21,7 @@ import DisableCollateralModal from '../modals/disable-collateral-modal';
 import EnableCollateralModal from '../modals/enable-collateral-modal';
 import FailCollateralModal from '../modals/fail-collateral';
 import {
-  OpenRowMarketPreviewModalArgs,
+  OpenSupplyMarketPreviewModalArgs,
   ResultCollateralModalProps,
 } from '../modals/modal.types';
 import SupplyMarketConfirmModal from '../modals/supply-row/supply-row-confirm-modal';
@@ -150,60 +150,6 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
     );
   };
 
-  const openRowMarketModal = (isDeposit: boolean) => {
-    setModal(
-      <SupplyMarketModal
-        closeModal={handleClose}
-        isDeposit={isDeposit}
-        asset={asset}
-        openRowMarketPreviewModal={openRowMarketPreviewModal}
-        marketKey={marketKey}
-        marketRecord={marketRecord}
-        priceMap={priceMap}
-        userBalancesInUSD={userBalancesInUSD}
-        coinsMap={coinsMap}
-        moneyMarketStorage={moneyMarketStorage}
-        ipxPrice={ipxPrice}
-      />,
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: true,
-      }
-    );
-  };
-
-  const openRowMarketPreviewModal = ({
-    value,
-    isMax,
-    isDeposit,
-  }: OpenRowMarketPreviewModalArgs) => {
-    setModal(
-      <SupplyMarketPreviewModal
-        closeModal={handleClose}
-        asset={asset}
-        isDeposit={isDeposit}
-        backRowMarketModal={openRowMarketModal}
-        openRowMarketResultModal={openRowMarketResultModal}
-        marketRecord={marketRecord}
-        priceMap={priceMap}
-        userBalancesInUSD={userBalancesInUSD}
-        coinsMap={coinsMap}
-        marketKey={marketKey}
-        value={value}
-        isMax={isMax}
-        mutate={mutate}
-      />,
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: true,
-      }
-    );
-  };
-
   const openRowMarketResultModal = (isSuccess: boolean, isDeposit: boolean) => {
     setModal(
       isSuccess ? (
@@ -239,6 +185,59 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
     );
   };
 
+  const openRowMarketPreviewModal = ({
+    value,
+    isMax,
+    isDeposit,
+  }: OpenSupplyMarketPreviewModalArgs) => {
+    setModal(
+      <SupplyMarketPreviewModal
+        closeModal={handleClose}
+        asset={asset}
+        isDeposit={isDeposit}
+        backRowMarketModal={openRowMarketModal}
+        openRowMarketResultModal={openRowMarketResultModal}
+        marketRecord={marketRecord}
+        priceMap={priceMap}
+        userBalancesInUSD={userBalancesInUSD}
+        coinsMap={coinsMap}
+        marketKey={marketKey}
+        value={value}
+        isMax={isMax}
+        mutate={mutate}
+      />,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
+  };
+
+  const openRowMarketModal = () => {
+    setModal(
+      <SupplyMarketModal
+        closeModal={handleClose}
+        asset={asset}
+        openRowMarketPreviewModal={openRowMarketPreviewModal}
+        marketKey={marketKey}
+        marketRecord={marketRecord}
+        priceMap={priceMap}
+        userBalancesInUSD={userBalancesInUSD}
+        coinsMap={coinsMap}
+        moneyMarketStorage={moneyMarketStorage}
+        ipxPrice={ipxPrice}
+      />,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
+  };
+
   return (
     <Motion
       mb="1rem"
@@ -250,7 +249,7 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
       initial={{ background: surface1 }}
       gridTemplateColumns="repeat(4, 1fr)"
       whileHover={{ background: surface2 }}
-      onClick={() => openRowMarketModal(true)}
+      onClick={() => openRowMarketModal()}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
       <Box

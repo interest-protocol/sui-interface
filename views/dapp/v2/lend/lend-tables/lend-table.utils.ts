@@ -160,10 +160,13 @@ export const calculateNewBorrowLimitNewAmount = ({
 
   const ltv = market.LTV.dividedBy(DOUBLE_SCALAR).toNumber();
 
+  const preLTVAmount =
+    market.collateralEnabled || isLoan
+      ? newAmount * priceMap[marketKey].price
+      : 0;
+
   // IF it cannot be collateral, it has no impact on the borrow limit
-  const amountInUSD = market.canBeCollateral
-    ? newAmount * priceMap[marketKey].price * ltv
-    : 0;
+  const amountInUSD = isLoan ? preLTVAmount : preLTVAmount * ltv;
 
   const currentBorrowLimit =
     userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;

@@ -5,11 +5,6 @@ export interface MarketTableProps {
   isSupply?: boolean;
 }
 
-export type MarketTableBorrowedProps = Pick<
-  BorrowRow,
-  'asset' | 'borrowed' | 'wallet' | 'cash'
->;
-
 export interface GroupRowHeaderProps {
   description: string;
 }
@@ -21,5 +16,5 @@ export interface GroupBorrowRow extends GroupRowHeaderProps {
 
 export interface GroupSupplyRow extends GroupRowHeaderProps {
   isEngaged: boolean;
-  supplyMarketTableData: ReadonlyArray<SupplyRow>;
+  SupplyMarketTableData: ReadonlyArray<SupplyRow>;
 }

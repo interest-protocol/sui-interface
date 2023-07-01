@@ -11,13 +11,13 @@ import {
   useTheme,
 } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { not } from 'ramda';
+import { not, pathOr } from 'ramda';
 import { ChangeEvent, FC, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { COINS, DOUBLE_SCALAR } from '@/constants';
 import { FixedPointMath, Rebase } from '@/lib';
-import { parseInputEventToNumberString } from '@/utils';
+import { parseInputEventToNumberString, ZERO_BIG_NUMBER } from '@/utils';
 import BorrowLimits from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-limits';
 
 import {
@@ -35,14 +35,14 @@ import {
 const IPX_TOKEN = COINS[Network.DEVNET].IPX;
 
 const BorrowLimitsWrapper: FC<BorrowLimitsWrapperProps> = ({
-  supplyForm,
+  valueForm,
   marketRecord,
   marketKey,
   userBalancesInUSD,
   isDeposit,
   priceMap,
 }) => {
-  const value = useWatch({ control: supplyForm.control, name: 'value' });
+  const value = useWatch({ control: valueForm.control, name: 'value' });
 
   return (
     <BorrowLimits
@@ -51,7 +51,7 @@ const BorrowLimitsWrapper: FC<BorrowLimitsWrapperProps> = ({
         marketKey,
         userBalancesInUSD,
         newAmount: +value,
-        adding: isDeposit,
+        adding: !!isDeposit,
         isLoan: false,
         priceMap,
       })}
@@ -64,7 +64,6 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
   closeModal,
   openRowMarketPreviewModal,
   marketKey,
-  isDeposit: _isDeposit,
   marketRecord,
   priceMap,
   userBalancesInUSD,
@@ -80,7 +79,8 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
       isMax: false,
     },
   });
-  const [isDeposit, setIsDeposit] = useState(!!_isDeposit);
+
+  const [isDeposit, setIsDeposit] = useState(true);
 
   const [FromIcon, ToIcon] = [
     getSVG(asset.coin.token.type),
@@ -117,7 +117,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
 
   const balance = isDeposit
     ? FixedPointMath.toNumber(
-        coinsMap[marketKey].totalBalance,
+        pathOr(ZERO_BIG_NUMBER, [marketKey, 'totalBalance'], coinsMap),
         marketRecord[marketKey].decimals
       )
     : FixedPointMath.toNumber(
@@ -195,7 +195,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
             marketKey={marketKey}
             marketRecord={marketRecord}
             userBalancesInUSD={userBalancesInUSD}
-            supplyForm={supplyForm}
+            valueForm={supplyForm}
             priceMap={priceMap}
             isDeposit={isDeposit}
           />

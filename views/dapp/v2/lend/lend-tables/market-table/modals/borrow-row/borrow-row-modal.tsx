@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Motion,
-  ProgressIndicator,
   Slider,
   Tabs,
   TextField,
@@ -12,36 +11,115 @@ import {
   useTheme,
 } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { not } from 'ramda';
-import { FC, useState } from 'react';
+import { not, pathOr } from 'ramda';
+import { ChangeEvent, FC, useState } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 
-import { COINS } from '@/constants';
+import { COINS, DOUBLE_SCALAR } from '@/constants';
+import { FixedPointMath, Rebase } from '@/lib';
+import { min, parseInputEventToNumberString, ZERO_BIG_NUMBER } from '@/utils';
+import {
+  calculateIPXAPR,
+  calculateNewBorrowLimitNewAmount,
+} from '@/views/dapp/v2/lend/lend-tables/lend-table.utils';
+import BorrowLimits from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-limits';
 
 import { getSVG } from '../../market-table.utils';
 import HeaderModal from '../header';
-import LineModal from '../lines';
-import { RowModalProps } from '../modal.types';
+import {
+  BorrowLimitsWrapperProps,
+  BorrowMarketModalProps,
+  SupplyBorrowForm,
+} from '../modal.types';
 
-const BorrowMarketModal: FC<RowModalProps> = ({
+const IPX_TOKEN = COINS[Network.DEVNET].IPX;
+
+const BorrowLimitsWrapper: FC<BorrowLimitsWrapperProps> = ({
+  valueForm,
+  marketRecord,
+  marketKey,
+  userBalancesInUSD,
+  isLoan,
+  priceMap,
+}) => {
+  const value = useWatch({ control: valueForm.control, name: 'value' });
+
+  return (
+    <BorrowLimits
+      {...calculateNewBorrowLimitNewAmount({
+        marketRecord,
+        marketKey,
+        userBalancesInUSD,
+        newAmount: +value,
+        adding: !!isLoan,
+        isLoan: true,
+        priceMap,
+      })}
+    />
+  );
+};
+
+const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
   asset,
   closeModal,
   openRowMarketPreviewModal,
+  marketKey,
+  marketRecord,
+  moneyMarketStorage,
+  ipxPrice,
+  priceMap,
+  coinsMap,
+  userBalancesInUSD,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
-  const [isSupplyOrBorrow, setIsSupplyOrBorrow] = useState(true);
-  const TO_TOKEN = COINS[Network.DEVNET].IPX;
+  const [isLoan, setIsLoan] = useState(true);
+
+  const borrowForm = useForm<SupplyBorrowForm>({
+    defaultValues: {
+      value: '0',
+      isMax: false,
+    },
+  });
+
   const [FromIcon, ToIcon] = [
     getSVG(asset.coin.token.type),
-    getSVG(TO_TOKEN.type),
+    getSVG(IPX_TOKEN.type),
   ];
 
+  const ipxAPR = calculateIPXAPR({
+    priceMap,
+    isLoan: true,
+    ipxPrice,
+    marketKey,
+    marketRecord,
+    moneyMarketStorage,
+  });
+
+  const market = marketRecord[marketKey];
+
+  const loanRebase = new Rebase(market.totalLoanBase, market.totalLoanElastic);
+
+  const loanBalance = FixedPointMath.toNumber(
+    loanRebase.toElastic(market.userPrincipal),
+    market.decimals
+  );
+
+  const balance = FixedPointMath.toNumber(
+    pathOr(ZERO_BIG_NUMBER, [marketKey, 'totalBalance'], coinsMap),
+    marketRecord[marketKey].decimals
+  );
+
+  const maxBorrowAmount =
+    userBalancesInUSD.totalCollateral * 0.9 - userBalancesInUSD.totalLoan;
+
   const handleTab = () => {
-    setIsSupplyOrBorrow(not);
+    borrowForm.reset();
+    setIsLoan(not);
   };
 
   const handlePreview = () => {
-    openRowMarketPreviewModal(isSupplyOrBorrow);
+    openRowMarketPreviewModal({ isLoan, ...borrowForm.getValues() });
   };
 
   return (
@@ -69,14 +147,35 @@ const BorrowMarketModal: FC<RowModalProps> = ({
         <Tabs
           items={[t('common.v2.lend.borrow'), t('common.v2.lend.repay')]}
           onChangeTab={handleTab}
-          defaultTabIndex={+!isSupplyOrBorrow}
+          defaultTabIndex={+!isLoan}
         />
       </Box>
       <Box p="xl" display="flex" flexDirection="column" pb="2rem">
         <Typography variant="extraSmall" textAlign="end" mb="2.313rem">
-          {t('common.balance')}: 0.0000
+          {t('common.balance')}: {loanBalance}
         </Typography>
         <TextField
+          disabled={
+            isLoan ? maxBorrowAmount === 0 : market.userPrincipal.isZero()
+          }
+          {...borrowForm.register('value', {
+            onChange: (v: ChangeEvent<HTMLInputElement>) => {
+              const parsedValue = parseInputEventToNumberString(v);
+              borrowForm.setValue(
+                'isMax',
+                isLoan
+                  ? +parsedValue === maxBorrowAmount
+                  : +parsedValue === balance
+              );
+
+              const value = +parseInputEventToNumberString(v);
+
+              borrowForm.setValue(
+                'value',
+                (isLoan ? min(maxBorrowAmount, value) : value).toString()
+              );
+            },
+          })}
           placeholder="0"
           fontSize="3.563rem"
           mb="1rem"
@@ -85,25 +184,29 @@ const BorrowMarketModal: FC<RowModalProps> = ({
             textAlign: 'center',
           }}
         />
-        <Slider max={100} onChange={() => 1} />
+        <Slider
+          max={100}
+          onChange={(value) => {
+            borrowForm.setValue(
+              'value',
+              isLoan
+                ? `${(value / 100) * maxBorrowAmount}`
+                : `${(value / 100) * balance}`
+            );
+            borrowForm.setValue('isMax', value === 100);
+          }}
+        />
       </Box>
       <Box overflowX="hidden" overflowY="auto">
         <Box p="xl">
-          <LineModal
-            description="common.v2.lend.firstSection.newBorrowLimit"
-            value="$ 1000"
+          <BorrowLimitsWrapper
+            marketKey={marketKey}
+            marketRecord={marketRecord}
+            priceMap={priceMap}
+            userBalancesInUSD={userBalancesInUSD}
+            valueForm={borrowForm}
+            isLoan={isLoan}
           />
-          <LineModal
-            description="common.v2.lend.firstSection.borrowLimit"
-            value="$ 1000"
-          />
-          <LineModal
-            description="common.v2.lend.firstSection.borrowLimitUsed"
-            value="0 %"
-          />
-          <Box p="1rem" display="flex" justifyContent="space-between">
-            <ProgressIndicator value={75} variant="bar" />
-          </Box>
         </Box>
         <Box mx="-0.5rem" px="xl">
           <Box bg="surface.containerLowest" borderRadius="m">
@@ -122,7 +225,12 @@ const BorrowMarketModal: FC<RowModalProps> = ({
               </Box>
               <Box textAlign="right">
                 <Typography variant="medium" color={dark ? 'white' : 'black'}>
-                  0.000
+                  %{' '}
+                  {marketRecord[marketKey].borrowRatePerYear
+                    .multipliedBy(100)
+                    .dividedBy(DOUBLE_SCALAR)
+                    .toNumber()
+                    .toFixed(2)}
                 </Typography>
               </Box>
             </Box>
@@ -142,13 +250,13 @@ const BorrowMarketModal: FC<RowModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 {ToIcon}
                 <Typography variant="medium" color="">
-                  {TO_TOKEN.symbol} {' ' + t('common.v2.lend.rewards') + ' '}
-                  APY
+                  {IPX_TOKEN.symbol} {' ' + t('common.v2.lend.rewards') + ' '}
+                  APR
                 </Typography>
               </Box>
               <Box textAlign="right">
                 <Typography variant="medium" color={dark ? 'white' : 'black'}>
-                  0.0000
+                  {ipxAPR}
                 </Typography>
               </Box>
             </Box>
@@ -168,8 +276,11 @@ const BorrowMarketModal: FC<RowModalProps> = ({
             display="flex"
             justifyContent="center"
             onClick={() => handlePreview()}
+            disabled={
+              isLoan ? maxBorrowAmount === 0 : market.userPrincipal.isZero()
+            }
           >
-            {isSupplyOrBorrow ? 'Preview Borrow' : 'Preview Repay'}
+            {isLoan ? 'Preview Borrow' : 'Preview Repay'}
           </Button>
         </Box>
       </Box>

@@ -8,8 +8,8 @@ import { BorrowRow } from '@/views/dapp/v2/lend/lend-tables/lend-table.types';
 import { makeBorrowData } from '@/views/dapp/v2/lend/lend-tables/lend-table.utils';
 
 import MarketTableRowLoading from '../rows-loading';
-import BorrowMarketTableGroupRow from './group-rows';
-import BorrowMarketTableHeader from './header-table';
+import BorrowMarketTableHeader from './borrow-market-table-header';
+import BorrowMarketTableGroupRow from './borrow-table-body';
 
 const BorrowMarketTable: FC = () => {
   const { coinsMap } = useWeb3();

@@ -1,3 +1,4 @@
+import { COIN_TYPE, ZERO_ADDRESS } from '@interest-protocol/sui-amm-sdk';
 import { pathOr } from 'ramda';
 import useSWR, { SWRConfiguration } from 'swr';
 
@@ -34,6 +35,8 @@ export const useGetCoinsPrices = (
     }
   );
 
+  const suidType = pathOr(ZERO_ADDRESS, [network, 'SUID'], COIN_TYPE) as string;
+
   const data = coinTypes.reduce(
     (acc, coinType) => ({
       ...acc,
@@ -52,7 +55,12 @@ export const useGetCoinsPrices = (
         ),
       },
     }),
-    {} as CoinPriceRecord
+    {
+      [suidType]: {
+        type: suidType,
+        price: 1,
+      },
+    } as CoinPriceRecord
   );
 
   return {

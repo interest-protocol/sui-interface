@@ -3,8 +3,8 @@ import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
 import { GroupBorrowRow } from '../market-table.types';
-import BorrowMarketTableGroupRowHeader from './group-row-header';
-import BorrowMarketTableRow from './rows';
+import BorrowMarketTableGroupRowHeader from './borrow-market-table-body-header';
+import BorrowMarketTableRow from './borrow-market-table-row';
 
 const BorrowMarketTableGroupRow: FC<GroupBorrowRow> = ({
   isEngaged,

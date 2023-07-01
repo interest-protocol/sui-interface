@@ -8,18 +8,25 @@ import {
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { useModal } from '@/hooks';
+import { useModal, useWeb3 } from '@/hooks';
+import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
+import { BorrowRow } from '@/views/dapp/v2/lend/lend-tables/lend-table.types';
 import BorrowMarketConfirmModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-row/borrow-row-confirm-modal';
 import BorrowMarketFailModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-row/borrow-row-fail-modal';
 import BorrowMarketModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-row/borrow-row-modal';
 import BorrowMarketPreviewModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-row/borrow-row-preview-modal';
+import { OpenBorrowMarketPreviewModalArgs } from '@/views/dapp/v2/lend/lend-tables/market-table/modals/modal.types';
 
-import { MarketTableBorrowedProps } from '../market-table.types';
 import { getSVG } from '../market-table.utils';
 
-const BorrowMarketTableRow: FC<
-  MarketTableBorrowedProps & { isEngaged: boolean }
-> = ({ asset, borrowed, wallet, cash, isEngaged }) => {
+const BorrowMarketTableRow: FC<BorrowRow & { isEngaged: boolean }> = ({
+  asset,
+  borrowed,
+  wallet,
+  cash,
+  isEngaged,
+  marketKey,
+}) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const { setModal, handleClose } = useModal();
@@ -30,40 +37,15 @@ const BorrowMarketTableRow: FC<
     ? 'linear-gradient(0deg, rgba(182, 196, 255, 0.08), rgba(182, 196, 255, 0.08)), #1B1B1F'
     : 'linear-gradient(0deg, rgba(0, 85, 255, 0.08), rgba(0, 85, 255, 0.08)), #F2F0F4';
 
-  const openRowMarketModal = (isSupplyOrBorrow: boolean) => {
-    setModal(
-      <BorrowMarketModal
-        closeModal={handleClose}
-        isSupplyOrBorrow={isSupplyOrBorrow}
-        asset={asset}
-        openRowMarketPreviewModal={openRowMarketPreviewModal}
-      />,
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: true,
-      }
-    );
-  };
-
-  const openRowMarketPreviewModal = (isSupplyOrBorrow: boolean) => {
-    setModal(
-      <BorrowMarketPreviewModal
-        closeModal={handleClose}
-        asset={asset}
-        isSupplyOrBorrow={isSupplyOrBorrow}
-        backRowMarketModal={openRowMarketModal}
-        openRowMarketResultModal={openRowMarketResultModal}
-      />,
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: true,
-      }
-    );
-  };
+  const {
+    userBalancesInUSD,
+    mutate,
+    marketRecord,
+    priceMap,
+    moneyMarketStorage,
+    ipxPrice,
+  } = useLendProviderValue();
+  const { coinsMap } = useWeb3();
 
   const openRowMarketResultModal = (
     isSuccess: boolean,
@@ -103,6 +85,59 @@ const BorrowMarketTableRow: FC<
     );
   };
 
+  const openRowMarketPreviewModal = ({
+    isLoan,
+    value,
+    isMax,
+  }: OpenBorrowMarketPreviewModalArgs) => {
+    setModal(
+      <BorrowMarketPreviewModal
+        closeModal={handleClose}
+        asset={asset}
+        backRowMarketModal={openRowMarketModal}
+        openRowMarketResultModal={openRowMarketResultModal}
+        marketRecord={marketRecord}
+        priceMap={priceMap}
+        userBalancesInUSD={userBalancesInUSD}
+        coinsMap={coinsMap}
+        marketKey={marketKey}
+        value={value}
+        isMax={isMax}
+        mutate={mutate}
+        isLoan={isLoan}
+      />,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
+  };
+
+  const openRowMarketModal = () => {
+    setModal(
+      <BorrowMarketModal
+        closeModal={handleClose}
+        asset={asset}
+        userBalancesInUSD={userBalancesInUSD}
+        coinsMap={coinsMap}
+        marketKey={marketKey}
+        openRowMarketPreviewModal={openRowMarketPreviewModal}
+        marketRecord={marketRecord}
+        priceMap={priceMap}
+        ipxPrice={ipxPrice}
+        moneyMarketStorage={moneyMarketStorage}
+      />,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
+  };
+
   return (
     <Motion
       width="100%"
@@ -119,7 +154,7 @@ const BorrowMarketTableRow: FC<
       pl="0.75rem"
       pr="0.5rem"
       mb="1rem"
-      onClick={() => openRowMarketModal(true)}
+      onClick={() => openRowMarketModal()}
     >
       <Box
         borderLeft="2px solid"

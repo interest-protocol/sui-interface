@@ -11,17 +11,22 @@ import {
 
 import { Asset } from '../../lend-table.types';
 
-export interface OpenRowMarketPreviewModalArgs {
+export interface OpenSupplyMarketPreviewModalArgs {
   isDeposit: boolean;
   value: string;
   isMax: boolean;
 }
 
-export interface RowModalProps {
+export interface OpenBorrowMarketPreviewModalArgs {
+  isLoan: boolean;
+  value: string;
+  isMax: boolean;
+}
+
+export interface BorrowMarketModalProps {
   closeModal: () => void;
-  isDeposit?: boolean;
   asset: Asset;
-  openRowMarketPreviewModal: (x: OpenRowMarketPreviewModalArgs) => void;
+  openRowMarketPreviewModal: (x: OpenBorrowMarketPreviewModalArgs) => void;
   userBalancesInUSD: UserBalancesInUSD;
   marketKey: string;
   marketRecord: Record<string, MoneyMarket>;
@@ -32,19 +37,19 @@ export interface RowModalProps {
 }
 
 export interface BorrowLimitsWrapperProps {
-  supplyForm: UseFormReturn<SupplyBorrowForm>;
+  valueForm: UseFormReturn<SupplyBorrowForm>;
   marketRecord: Record<string, MoneyMarket>;
   marketKey: string;
   userBalancesInUSD: UserBalancesInUSD;
-  isDeposit: boolean;
+  isDeposit?: boolean;
+  isLoan?: boolean;
   priceMap: CoinPriceRecord;
 }
 
 export interface SupplyMarketModalProps {
   closeModal: () => void;
-  isDeposit?: boolean;
   asset: Asset;
-  openRowMarketPreviewModal: (x: OpenRowMarketPreviewModalArgs) => void;
+  openRowMarketPreviewModal: (x: OpenSupplyMarketPreviewModalArgs) => void;
   userBalancesInUSD: UserBalancesInUSD;
   marketKey: string;
   marketRecord: Record<string, MoneyMarket>;
@@ -70,15 +75,23 @@ export interface SupplyMarketModalPreviewProps {
   mutate: () => Promise<void>;
 }
 
-export interface RowPreviewModalProps {
+export interface BorrowPreviewModalProps {
   closeModal: () => void;
   asset: Asset;
-  isDeposit: boolean;
+  isLoan: boolean;
   backRowMarketModal: (isSupplyOrBorrow: boolean) => void;
   openRowMarketResultModal: (
     isSuccess: boolean,
     isSupplyOrBorrow: boolean
   ) => void;
+  mutate: () => Promise<void>;
+  value: string;
+  isMax: boolean;
+  userBalancesInUSD: UserBalancesInUSD;
+  marketKey: string;
+  marketRecord: Record<string, MoneyMarket>;
+  priceMap: CoinPriceRecord;
+  coinsMap: CoinsMap;
 }
 
 export interface RowResultModalProps {
