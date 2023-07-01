@@ -12,22 +12,22 @@ import { FC, useState } from 'react';
 
 import { useModal, useWeb3 } from '@/hooks';
 import { formatDollars, formatMoney } from '@/utils';
-import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
-import ConfirmCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/confirm-collateral';
-import DisableCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/disable-collateral-modal';
-import EnableCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/enable-collateral-modal';
-import FailCollateralModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/fail-collateral';
+
+import { useLendProviderValue } from '../../../lend.provider';
+import { SupplyRow } from '../../lend-table.types';
+import { getSVG } from '../market-table.utils';
+import ConfirmCollateralModal from '../modals/confirm-collateral';
+import DisableCollateralModal from '../modals/disable-collateral-modal';
+import EnableCollateralModal from '../modals/enable-collateral-modal';
+import FailCollateralModal from '../modals/fail-collateral';
 import {
   OpenRowMarketPreviewModalArgs,
   ResultCollateralModalProps,
-} from '@/views/dapp/v2/lend/lend-tables/market-table/modals/modal.types';
-import SupplyMarketConfirmModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/supply-row/supply-row-confirm-modal';
-import SupplyMarketFailModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/supply-row/supply-row-fail-modal';
-import SupplyMarketModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/supply-row/supply-row-modal';
-import SupplyMarketPreviewModal from '@/views/dapp/v2/lend/lend-tables/market-table/modals/supply-row/supply-row-preview-modal';
-
-import { SupplyRow } from '../../lend-table.types';
-import { getSVG } from '../market-table.utils';
+} from '../modals/modal.types';
+import SupplyMarketConfirmModal from '../modals/supply-row/supply-row-confirm-modal';
+import SupplyMarketFailModal from '../modals/supply-row/supply-row-fail-modal';
+import SupplyMarketModal from '../modals/supply-row/supply-row-modal';
+import SupplyMarketPreviewModal from '../modals/supply-row/supply-row-preview-modal';
 
 const SupplyMarketTableRow: FC<SupplyRow> = ({
   asset,
@@ -121,10 +121,10 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
   };
 
   const openResultModal = ({
+    txLink,
     tokenName,
     isSuccess,
     isEnabled,
-    txLink,
   }: ResultCollateralModalProps) => {
     setModal(
       isSuccess ? (
@@ -175,9 +175,9 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
   };
 
   const openRowMarketPreviewModal = ({
-    isDeposit,
     value,
     isMax,
+    isDeposit,
   }: OpenRowMarketPreviewModalArgs) => {
     setModal(
       <SupplyMarketPreviewModal
@@ -241,21 +241,17 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
 
   return (
     <Motion
+      mb="1rem"
+      pr="0.5rem"
+      pl="0.75rem"
       width="100%"
       display="grid"
       cursor="pointer"
-      whileHover={{
-        background: surface2,
-      }}
-      initial={{
-        background: surface1,
-      }}
+      initial={{ background: surface1 }}
       gridTemplateColumns="repeat(4, 1fr)"
-      transition={{ duration: 0.3, ease: 'easeInOut' }}
-      pl="0.75rem"
-      pr="0.5rem"
-      mb="1rem"
+      whileHover={{ background: surface2 }}
       onClick={() => openRowMarketModal(true)}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
       <Box
         borderLeft="2px solid"

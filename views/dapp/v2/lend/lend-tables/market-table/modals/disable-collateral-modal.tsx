@@ -46,7 +46,7 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
   const t = useTranslations();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { signTransactionBlock } = useWalletKit();
+  const { signTransactionBlock, currentWallet } = useWalletKit();
   const { provider } = useProvider();
   const { network } = useNetwork();
 
@@ -158,7 +158,7 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
     <LoadingModal
       title={t('Lend.modal.collateral.loading.title', { isEnable: 0 })}
       content={t('Lend.modal.collateral.loading.content', {
-        walletName: '###',
+        walletName: currentWallet?.name,
         isEnable: 0,
       })}
     />

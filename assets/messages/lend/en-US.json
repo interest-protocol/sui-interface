@@ -31,7 +31,7 @@
         },
         "confirm": {
           "title": "{isEnable, plural, =1 {Enable as Collateral} other {Disabling as Collateral}}",
-          "content": "{isEnable, plural, =1 {You have enable {tokenName} as a Collateral} other {You have disable {tokenName} as a Collateral}}"
+          "content": "{isEnable, plural, =1 {You have enable {tokenName} as a Collateral} other {You have disabled {tokenName} as a Collateral}}"
         },
         "error": {
           "title": "{isEnable, plural, =1 {Enable as Collateral} other {Disabling as Collateral}}",
