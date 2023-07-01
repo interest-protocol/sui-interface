@@ -18,7 +18,6 @@ const Card: FC<CardLendProps> = ({
   description,
   isTrendUp,
   trendAmount,
-  symbol,
   amount,
   isLoading,
   disabled,
@@ -81,7 +80,6 @@ const Card: FC<CardLendProps> = ({
           description={description}
           isTrendUp={isTrendUp}
           trendAmount={trendAmount}
-          symbol={symbol}
           amount={amount}
           isLoading={isLoading}
         />

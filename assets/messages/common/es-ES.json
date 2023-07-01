@@ -41,9 +41,9 @@
         "title": "Prestar",
         "subTitle": "Principales movimientos",
         "firstSection": {
-          "netAPY": "APY Neto",
-          "supplyBalance": "Saldo de suministro",
-          "borrowBalance": "Saldo de préstamo",
+          "netAPR": "APY Neto",
+          "supplyAPR": "Saldo de suministro",
+          "borrowAPR": "Saldo de préstamo",
           "walletBalance": "Saldo de billetera",
           "newBorrowLimit": "Nuevo límite de préstamo",
           "currentBorrowLimit": "Límite de préstamo actual",

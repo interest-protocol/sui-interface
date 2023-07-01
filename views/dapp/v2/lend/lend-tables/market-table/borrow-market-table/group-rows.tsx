@@ -30,13 +30,9 @@ const BorrowMarketTableGroupRow: FC<GroupBorrowRow> = ({
         isOpen={toggle.element1}
       />
       <Motion
-        initial={{ height: toggle.element1 ? '0' : 'auto' }}
-        animate={{ height: toggle.element1 ? 'auto' : '0' }}
-        transition={{
-          duration: 0.3,
-          ease: 'easeInOut',
-        }}
         overflow="hidden"
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        animate={{ height: toggle.element1 ? 'auto' : '0' }}
       >
         {BorrowMarketTableData.map((item) => (
           <BorrowMarketTableRow {...item} isEngaged={isEngaged} key={v4()} />

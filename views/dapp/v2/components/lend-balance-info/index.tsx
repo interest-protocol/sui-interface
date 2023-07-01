@@ -30,7 +30,7 @@ const LendBalanceInfo: FC = () => {
         <Box marginLeft="auto">
           <Box display="flex" gap="m">
             <Typography variant="small" color="foreground">
-              {t('common.v2.lend.firstSection.netAPY')}
+              {t('common.v2.lend.firstSection.netAPR')}
             </Typography>
             <Box width="1rem" color="textHighlighter">
               <InfoLight maxHeight="1rem" maxWidth="1rem" />
@@ -46,7 +46,7 @@ const LendBalanceInfo: FC = () => {
         </Box>
         <Box>
           <Typography variant="small" color="foreground">
-            {t('common.v2.lend.firstSection.supplyBalance')}
+            {t('common.v2.lend.firstSection.supplyAPR')}
           </Typography>
           <Typography
             variant="title1"

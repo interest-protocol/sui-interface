@@ -22,12 +22,12 @@ const SupplyMarketTableBodyHeader: FC<
 
   return (
     <Box
-      display="grid"
-      gridTemplateColumns="3fr 1fr"
       py="1.25rem"
       pl="1.125rem"
-      onClick={handleButton}
+      display="grid"
       cursor="pointer"
+      onClick={handleButton}
+      gridTemplateColumns="3fr 1fr"
     >
       <Box px="l">
         <Typography

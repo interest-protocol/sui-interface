@@ -42,9 +42,9 @@
         "title": "Lend",
         "subTitle": "Top movers",
         "firstSection": {
-          "netAPY": "Net APY",
-          "supplyBalance": "Supply Balance",
-          "borrowBalance": "Borrow Balance",
+          "netAPR": "Net APR",
+          "supplyAPR": "Supply APR",
+          "borrowAPR": "Borrow APR",
           "walletBalance": "Wallet Balance",
           "newBorrowLimit": "New Borrow Limit",
           "currentBorrowLimit": "Current Borrow Limit",

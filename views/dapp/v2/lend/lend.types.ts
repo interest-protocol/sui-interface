@@ -9,7 +9,6 @@ export interface CardLendProps {
   description: string;
   isTrendUp: boolean;
   trendAmount: string;
-  symbol: '%' | '$' | 'USD';
   amount: string;
   isLoading?: boolean;
   disabled?: boolean;

@@ -42,9 +42,9 @@
         "title": "Emprestar",
         "subTitle": "Principais movimentos",
         "firstSection": {
-          "netAPY": "APY líquido",
-          "supplyBalance": "Saldo de suprimento",
-          "borrowBalance": "Saldo de empréstimo",
+          "netAPR": "APY líquido",
+          "supplyAPR": "Saldo de suprimento",
+          "borrowAPR": "Saldo de empréstimo",
           "walletBalance": "Saldo da carteira",
           "newBorrowLimit": "Novo limite de empréstimo",
           "currentBorrowLimit": "Limite de empréstimo atual",

@@ -10,7 +10,6 @@ const NormalCard: FC<CardLendProps> = ({
   description,
   isTrendUp,
   trendAmount,
-  symbol,
   amount,
   isLoading,
 }) => {
@@ -30,13 +29,7 @@ const NormalCard: FC<CardLendProps> = ({
           color="onSurface"
           fontSize={['0.95rem', '0.95rem', '0.95rem', '1.375rem']}
         >
-          {isLoading ? (
-            <Skeleton />
-          ) : symbol == '%' ? (
-            `${amount} ${symbol}`
-          ) : (
-            `${symbol} ${amount}`
-          )}
+          {isLoading ? <Skeleton /> : amount}
         </Typography>
       </Box>
     </>

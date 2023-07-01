@@ -4,7 +4,7 @@ import { pathOr } from 'ramda';
 
 import { DOUBLE_SCALAR, MILLISECONDS_PER_YEAR } from '@/constants';
 import { FixedPointMath, Rebase } from '@/lib';
-import { safeIntDiv } from '@/utils';
+import { formatDollars, formatNumber, safeIntDiv } from '@/utils';
 import { MONEY_MARKET_KEYS } from '@/views/dapp/v2/lend/lend.constants';
 
 import {
@@ -30,6 +30,17 @@ export const calculateUserBalancesInUSD = ({
 
       const market = marketRecord[key];
 
+      if (!market)
+        return {
+          totalSupply: 0,
+          totalLoan: 0,
+          totalEarnings: 0,
+          totalInterestRateOwned: 0,
+          totalIPXCollateralRewards: 0,
+          totalIPXLoanRewards: 0,
+          totalCollateral: 0,
+        };
+
       const percentageOfIPX = moneyMarketStorage.totalAllocationPoints.isZero()
         ? 0
         : market.allocationPoints
@@ -40,7 +51,7 @@ export const calculateUserBalancesInUSD = ({
         moneyMarketStorage.ipxPerYear.multipliedBy(percentageOfIPX)
       );
 
-      const totalIPXCollateralEarnings = market.totalCollateralBase.isZero()
+      const totalIPXCollateralEarnings = market?.totalCollateralBase.isZero()
         ? 0
         : market.userShares.div(market.totalCollateralBase).toNumber() *
           (totalIpxMintedPerYear / 2) *
@@ -165,35 +176,34 @@ const calculateBorrowAPY = (data: UserBalancesInUSD) => {
 export const makeCardsData = ({
   userBalancesInUSD,
 }: MakeCardsDataArgs): ReadonlyArray<CardLendProps> => {
-  const netAPY = calculateNetAPY(userBalancesInUSD);
+  const netAPR = calculateNetAPY(userBalancesInUSD);
   const borrowAPY = calculateBorrowAPY(userBalancesInUSD);
 
   return [
     {
       icon: 'percentage',
-      description: 'common.v2.lend.firstSection.netAPY',
-      isTrendUp: netAPY >= 0,
-      trendAmount: (netAPY * 100).toString(),
-      symbol: '$',
-      amount: calculateNetAPYAmount(userBalancesInUSD).toString(),
+      description: 'common.v2.lend.firstSection.netAPR',
+      isTrendUp: netAPR >= 0,
+      trendAmount: formatNumber(netAPR * 100).toString(),
+      amount: formatDollars(calculateNetAPYAmount(userBalancesInUSD)),
     },
     {
       icon: 'box-up',
-      description: 'common.v2.lend.firstSection.supplyBalance',
+      description: 'common.v2.lend.firstSection.supplyAPR',
       isTrendUp: true,
-      trendAmount: (calculateSupplyAPY(userBalancesInUSD) * 100).toString(),
-      symbol: '$',
-      amount: (
-        userBalancesInUSD.totalEarnings +
-        userBalancesInUSD.totalIPXCollateralRewards
+      trendAmount: formatNumber(
+        calculateSupplyAPY(userBalancesInUSD) * 100
       ).toString(),
+      amount: formatDollars(
+        userBalancesInUSD.totalEarnings +
+          userBalancesInUSD.totalIPXCollateralRewards
+      ),
     },
     {
       icon: 'box-down',
-      description: 'common.v2.lend.firstSection.borrowBalance',
+      description: 'common.v2.lend.firstSection.borrowAPR',
       isTrendUp: borrowAPY >= 0,
       trendAmount: (Math.abs(borrowAPY) * 100).toString(),
-      symbol: '$',
       amount: userBalancesInUSD.totalInterestRateOwned.toString(),
     },
     {
@@ -201,7 +211,6 @@ export const makeCardsData = ({
       description: 'Lend.claimReward',
       isTrendUp: false,
       trendAmount: '',
-      symbol: '$',
       amount: '1,2345 IPX',
       disabled: false,
     },
