@@ -1,9 +1,25 @@
 {
-  "Lend": {
+  "lend": {
     "metadata": {
       "title": "Lend"
     },
-
+    "subTitle": "Top movers",
+    "firstSection": {
+      "netAPR": "Net APY",
+      "supplyAPR": "Supply Balance",
+      "borrowAPR": "Borrow Balance",
+      "walletBalance": "Wallet Balance",
+      "newBorrowLimit": "New Borrow Limit",
+      "currentBorrowLimit": "Current Borrow Limit",
+      "borrowLimit": "Borrow Limit",
+      "borrowLimitUsed": "Borrow Limit Used"
+    },
+    "supply": "Supply",
+    "withdraw": "Withdraw",
+    "borrow": "Borrow",
+    "repay": "Repay",
+    "rewards": "Rewards",
+    "close": "Close",
     "collectTokens": "Collect your IPX Tokens",
     "supplyTableTitle": "Supply Market",
     "borrowTableTitle": "Borrow Market",
@@ -40,25 +56,25 @@
       },
       "supply": {
         "normal": {
-          "button": "{isSupply, plural, =1 {Preview Supply} other {Preview Withdraw}}"
+          "button": "{isDeposit, plural, =1 {Preview Supply} other {Preview Withdraw}}"
         },
         "preview": {
           "sectionTitle": "New Total Supply Balance",
           "inToken": "In token",
           "inUSD": "In USD",
-          "button": "{isSupply, plural, =1 {Confirm Supply} other {Confirm Withdraw}}"
+          "button": "{isDeposit, plural, =1 {Confirm Supply} other {Confirm Withdraw}}"
         },
         "loading": {
-          "content": "{isSupply, plural, =1 {Supplying Token please wait...} other {Withdrawing Token please wait...}}"
+          "content": "{isDeposit, plural, =1 {Supplying Token please wait...} other {Withdrawing Token please wait...}}"
         },
         "confirm": {
-          "content": "{isSupply, plural, =1 {Token Supplied} other {Token Withdrawed}}",
+          "content": "{isDeposit, plural, =1 {Token Supplied} other {Token Withdrawed}}",
           "additionInfo": "You can check you transaction history in the Actvity menu.",
           "secondButton": "View on activity"
         },
         "error": {
           "title": "Error",
-          "content": "{isSupply, plural, =1 {Token Suppply Failed} other {Token Withdraw Failed}}",
+          "content": "{isDeposit, plural, =1 {Token Suppply Failed} other {Token Withdraw Failed}}",
           "button": "Try again"
         }
       },

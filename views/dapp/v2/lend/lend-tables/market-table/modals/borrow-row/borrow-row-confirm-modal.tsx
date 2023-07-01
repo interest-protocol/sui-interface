@@ -60,7 +60,7 @@ const BorrowMarketConfirmModal: FC<RowResultModalProps> = ({
         justifyContent="center"
         onClick={closeModal}
       >
-        {capitalize(t('common.v2.lend.close'))}
+        {capitalize(t('lend.close'))}
       </Button>
       <a
         href={activityLink}
@@ -77,7 +77,7 @@ const BorrowMarketConfirmModal: FC<RowResultModalProps> = ({
           boxSizing="border-box"
           justifyContent="center"
         >
-          {t('Lend.modal.borrow.confirm.secondButton')}
+          {t('lend.modal.borrow.confirm.secondButton')}
         </Button>
       </a>
     </Box>

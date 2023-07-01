@@ -168,7 +168,7 @@ export const makeCardsData = ({
   return [
     {
       icon: 'percentage',
-      description: 'common.v2.lend.firstSection.netAPY',
+      description: 'lend.firstSection.netAPR',
       isTrendUp: netAPY >= 0,
       trendAmount: (netAPY * 100).toString(),
       symbol: '$',
@@ -176,7 +176,7 @@ export const makeCardsData = ({
     },
     {
       icon: 'box-up',
-      description: 'common.v2.lend.firstSection.supplyBalance',
+      description: 'lend.firstSection.supplyAPR',
       isTrendUp: true,
       trendAmount: (calculateSupplyAPY(userBalancesInUSD) * 100).toString(),
       symbol: '$',
@@ -187,7 +187,7 @@ export const makeCardsData = ({
     },
     {
       icon: 'box-down',
-      description: 'common.v2.lend.firstSection.borrowBalance',
+      description: 'lend.firstSection.borrowAPR',
       isTrendUp: borrowAPY >= 0,
       trendAmount: (Math.abs(borrowAPY) * 100).toString(),
       symbol: '$',
@@ -195,7 +195,7 @@ export const makeCardsData = ({
     },
     {
       icon: 'special',
-      description: 'Lend.claimReward',
+      description: 'lend.claimReward',
       isTrendUp: false,
       trendAmount: '',
       symbol: '$',

@@ -72,7 +72,7 @@ const Card: FC<CardLendProps> = ({
             disabled={disabled}
             bg={disabled ? 'surface.containerHighest' : 'primary'}
           >
-            {t('Lend.claim')}
+            {t('lend.claim')}
           </Button>
         </Box>
       ) : (

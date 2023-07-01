@@ -38,7 +38,7 @@ export const makeSupplyData = ({
       const isNotEngaged = market.userShares.isZero();
 
       const data = {
-        assetApy: {
+        assetData: {
           coin: {
             token: COIN_TYPE_TO_COIN[network][key],
             color: null,
@@ -68,12 +68,12 @@ export const makeSupplyData = ({
     [
       {
         isEngaged: true,
-        description: 'Lend.supplyAdded',
+        description: 'lend.supplyAdded',
         data: [] as ReadonlyArray<SupplyRow>,
       } as MoneyMarketUI,
       {
         isEngaged: false,
-        description: 'Lend.notEngaged',
+        description: 'lend.notEngaged',
         data: [] as ReadonlyArray<SupplyRow>,
       } as MoneyMarketUI,
     ]
@@ -102,7 +102,7 @@ export const makeBorrowData = ({
       const isNotEngaged = market.userPrincipal.isZero();
 
       const data = {
-        assetApy: {
+        assetData: {
           coin: {
             token: COIN_TYPE_TO_COIN[network][key],
             color: null,
@@ -136,12 +136,12 @@ export const makeBorrowData = ({
     [
       {
         isEngaged: true,
-        description: 'Lend.borrowing',
+        description: 'lend.borrowing',
         data: [] as ReadonlyArray<BorrowRow>,
       } as MoneyMarketUI,
       {
         isEngaged: false,
-        description: 'Lend.notEngaged',
+        description: 'lend.notEngaged',
         data: [] as ReadonlyArray<BorrowRow>,
       } as MoneyMarketUI,
     ]

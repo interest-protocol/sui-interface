@@ -21,7 +21,7 @@ const BorrowMarketTableHeader: FC = () => {
           whiteSpace="nowrap"
           color={dark ? '#77767A' : '#47464A'}
         >
-          {t('Lend.assetAPY')}
+          {t('lend.assetAPY')}
         </Typography>
       </Box>
       <Box>
@@ -31,7 +31,7 @@ const BorrowMarketTableHeader: FC = () => {
           textAlign="center"
           color={dark ? '#77767A' : '#47464A'}
         >
-          {t('Lend.borrowed')}
+          {t('lend.borrowed')}
         </Typography>
       </Box>
       <Box>
@@ -51,7 +51,7 @@ const BorrowMarketTableHeader: FC = () => {
           textTransform="capitalize"
           color={dark ? '#77767A' : '#47464A'}
         >
-          {t('Lend.cash')}
+          {t('lend.cash')}
         </Typography>
       </Box>
     </Box>

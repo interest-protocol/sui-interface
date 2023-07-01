@@ -16,32 +16,34 @@ import { not } from 'ramda';
 import { FC, useState } from 'react';
 
 import { COINS } from '@/constants';
+import { formatDollars, formatMoney } from '@/utils';
 
 import { getSVG } from '../../market-table.utils';
 import HeaderModal from '../header';
 import LineModal from '../lines';
-import { RowModalProps } from '../modal.types';
+import { BorrowMarketModalProps } from './borrow-modal.types';
 
-const BorrowMarketModal: FC<RowModalProps> = ({
-  assetApy,
+const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
+  assetData,
   closeModal,
-  openRowMarketPreviewModal,
+  isBorrow: _isBorrow,
+  openRowBorrowMarketPreviewModal,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
-  const [isSupplyOrBorrow, setIsSupplyOrBorrow] = useState(true);
+  const [isBorrow, setIsBorrow] = useState(!!_isBorrow);
   const TO_TOKEN = COINS[Network.DEVNET].IPX;
   const [FromIcon, ToIcon] = [
-    getSVG(assetApy.coin.token.type),
+    getSVG(assetData.coin.token.type),
     getSVG(TO_TOKEN.type),
   ];
 
   const handleTab = () => {
-    setIsSupplyOrBorrow(not);
+    setIsBorrow(not);
   };
 
   const handlePreview = () => {
-    openRowMarketPreviewModal(isSupplyOrBorrow);
+    openRowBorrowMarketPreviewModal({ isBorrow, value: '', isMax: false });
   };
 
   return (
@@ -60,21 +62,26 @@ const BorrowMarketModal: FC<RowModalProps> = ({
       transition={{ duration: 0.3 }}
     >
       <HeaderModal
-        type={assetApy.coin.token.type}
-        symbol={assetApy.coin.token.symbol}
+        type={assetData.coin.token.type}
+        symbol={assetData.coin.token.symbol}
         closeModal={closeModal}
         isCenter
       />
       <Box display="flex" justifyContent="center">
         <Tabs
-          items={[t('common.v2.lend.borrow'), t('common.v2.lend.repay')]}
+          items={[t('lend.borrow'), t('lend.repay')]}
           onChangeTab={handleTab}
-          defaultTabIndex={+!isSupplyOrBorrow}
+          defaultTabIndex={+!isBorrow}
         />
       </Box>
       <Box p="xl" display="flex" flexDirection="column" pb="2rem">
-        <Typography variant="extraSmall" textAlign="end" mb="2.313rem">
-          {t('common.balance')}: 0.0000
+        <Typography
+          variant="extraSmall"
+          textAlign="end"
+          mb="2.313rem"
+          textTransform="capitalize"
+        >
+          {t('common.balance')}: {formatMoney(0.0)}
         </Typography>
         <TextField
           placeholder="0"
@@ -90,16 +97,16 @@ const BorrowMarketModal: FC<RowModalProps> = ({
       <Box overflowX="hidden" overflowY="auto">
         <Box p="xl">
           <LineModal
-            description="common.v2.lend.firstSection.newBorrowLimit"
-            value="$ 1000"
+            description="lend.firstSection.newBorrowLimit"
+            value={formatDollars(1000)}
           />
           <LineModal
-            description="common.v2.lend.firstSection.borrowLimit"
-            value="$ 1000"
+            description="lend.firstSection.borrowLimit"
+            value={formatDollars(1000)}
           />
           <LineModal
-            description="common.v2.lend.firstSection.borrowLimitUsed"
-            value="0 %"
+            description="lend.firstSection.borrowLimitUsed"
+            value={`${formatMoney(0.0)}%`}
           />
           <Box p="1rem" display="flex" justifyContent="space-between">
             <ProgressIndicator value={75} variant="bar" />
@@ -116,13 +123,13 @@ const BorrowMarketModal: FC<RowModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 {FromIcon}
                 <Typography variant="medium" color="">
-                  {assetApy.coin.token.symbol}{' '}
-                  {' ' + t('common.v2.lend.supply') + ' '} APY
+                  {assetData.coin.token.symbol} {' ' + t('lend.supply') + ' '}{' '}
+                  APY
                 </Typography>
               </Box>
               <Box textAlign="right">
                 <Typography variant="medium" color={dark ? 'white' : 'black'}>
-                  0.000
+                  {formatMoney(0.0)}
                 </Typography>
               </Box>
             </Box>
@@ -142,13 +149,13 @@ const BorrowMarketModal: FC<RowModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 {ToIcon}
                 <Typography variant="medium" color="">
-                  {TO_TOKEN.symbol} {' ' + t('common.v2.lend.rewards') + ' '}
+                  {TO_TOKEN.symbol} {' ' + t('lend.rewards') + ' '}
                   APY
                 </Typography>
               </Box>
               <Box textAlign="right">
                 <Typography variant="medium" color={dark ? 'white' : 'black'}>
-                  0.0000
+                  {formatMoney(0.0)}
                 </Typography>
               </Box>
             </Box>
@@ -169,7 +176,7 @@ const BorrowMarketModal: FC<RowModalProps> = ({
             justifyContent="center"
             onClick={() => handlePreview()}
           >
-            {isSupplyOrBorrow ? 'Preview Borrow' : 'Preview Repay'}
+            {isBorrow ? 'Preview Borrow' : 'Preview Repay'}
           </Button>
         </Box>
       </Box>

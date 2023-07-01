@@ -61,7 +61,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
                   color="onSurface"
                   textTransform="capitalize"
                 >
-                  {t('Lend.metadata.title')}
+                  {t('lend.metadata.title')}
                 </Typography>
               )}
               <Box display="flex" justifyContent="space-between">

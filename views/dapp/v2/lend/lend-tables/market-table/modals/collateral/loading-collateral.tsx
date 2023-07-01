@@ -6,7 +6,7 @@ import {
 } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { LoadingModalProps } from './modal.types';
+import { LoadingModalProps } from './collateral-modal.types';
 
 const LoadingModal: FC<LoadingModalProps> = ({ title, content }) => {
   return (

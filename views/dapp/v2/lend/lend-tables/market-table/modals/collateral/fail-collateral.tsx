@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { TimesSVG } from '@/components/svg/v2';
 import { capitalize } from '@/utils';
 
-import { ResultModalProps } from './modal.types';
+import { ResultModalProps } from './collateral-modal.types';
 
 const FailCollateralModal: FC<ResultModalProps> = ({
   tokenName,
@@ -30,7 +30,7 @@ const FailCollateralModal: FC<ResultModalProps> = ({
     >
       <Box py="m" display="flex" alignItems="center" justifyContent="center">
         <Typography variant="medium">
-          {t('Lend.modal.collateral.error.title', { isEnable: +isEnabled })}
+          {t('lend.modal.collateral.error.title', { isEnable: +isEnabled })}
         </Typography>
       </Box>
       <Box
@@ -47,7 +47,7 @@ const FailCollateralModal: FC<ResultModalProps> = ({
           <TimesSVG filled width="100%" maxWidth="3rem" maxHeight="3rem" />
         </Box>
         <Typography my="xl" width="16rem" variant="medium" textAlign="center">
-          {t('Lend.modal.collateral.error.content', {
+          {t('lend.modal.collateral.error.content', {
             isEnable: +isEnabled,
             tokenName: tokenName,
           })}
@@ -63,7 +63,7 @@ const FailCollateralModal: FC<ResultModalProps> = ({
         boxSizing="border-box"
         justifyContent="center"
       >
-        {capitalize(t('common.v2.lend.close'))}
+        {capitalize(t('lend.close'))}
       </Button>
     </Box>
   );

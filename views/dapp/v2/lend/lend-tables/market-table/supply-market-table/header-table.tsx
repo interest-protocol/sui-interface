@@ -21,7 +21,7 @@ const SupplyMarketTableHeader: FC = () => {
           whiteSpace="nowrap"
           color={dark ? '#77767A' : '#47464A'}
         >
-          {t('Lend.assetAPY')}
+          {t('lend.assetAPY')}
         </Typography>
       </Box>
       <Box>
@@ -31,7 +31,7 @@ const SupplyMarketTableHeader: FC = () => {
           textAlign="center"
           color={dark ? '#77767A' : '#47464A'}
         >
-          {t('Lend.supplied')}
+          {t('lend.supplied')}
         </Typography>
       </Box>
       <Box>
@@ -51,7 +51,7 @@ const SupplyMarketTableHeader: FC = () => {
           textAlign="right"
           color={dark ? '#77767A' : '#47464A'}
         >
-          {t('Lend.collateral')}
+          {t('lend.collateral')}
         </Typography>
       </Box>
     </Box>

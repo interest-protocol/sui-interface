@@ -17,7 +17,7 @@ export interface MakeMoneyMarketDataArgs {
   priceMap: CoinPriceRecord;
 }
 
-export interface AssetAPY {
+export interface AssetData {
   coin: {
     token: CoinData;
     color: { dark: string; light: string } | null;
@@ -26,7 +26,7 @@ export interface AssetAPY {
 }
 
 export interface SupplyRow {
-  assetApy: AssetAPY;
+  assetData: AssetData;
   supplied: {
     amount: number;
     value: number;
@@ -37,7 +37,7 @@ export interface SupplyRow {
 }
 
 export interface BorrowRow {
-  assetApy: AssetAPY;
+  assetData: AssetData;
   borrowed: {
     amount: number;
     value: number;
@@ -78,4 +78,12 @@ export interface CalculateIPXAPRArgs {
   marketKey: string;
   isLoan: boolean;
   priceMap: CoinPriceRecord;
+}
+
+export interface MarketTableBorrowedProps {
+  assetData: BorrowRow['assetData'];
+  borrowed: BorrowRow['borrowed'];
+  wallet: BorrowRow['wallet'];
+  cash: BorrowRow['cash'];
+  isEngaged: boolean;
 }

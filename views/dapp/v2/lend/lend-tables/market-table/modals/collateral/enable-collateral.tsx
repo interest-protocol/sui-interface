@@ -1,12 +1,7 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
-import {
-  SUI_CLOCK_OBJECT_ID,
-  TransactionArgument,
-  TransactionBlock,
-} from '@mysten/sui.js';
+import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
-import { PriceServiceConnection } from '@pythnetwork/price-service-client';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
@@ -18,35 +13,28 @@ import {
 import { MONEY_MARKET_OBJECTS } from '@/constants/money-market.constants';
 import { useNetwork, useProvider } from '@/hooks';
 import { throwTXIfNotSuccessful } from '@/utils';
-import {
-  ORACLE_PRICE_COIN_NAMES,
-  PYTH_PRICE_CONNECT_URL,
-  PYTH_PRICE_FEED_ID_TO_PRICE_INFO_OBJECT,
-  PYTH_PRICE_FEED_IDS,
-  SWITCHBOARD_AGGREGATOR_IDS,
-} from '@/views/dapp/v2/lend/lend.constants';
-import { calculateNewBorrowLimitEnableCollateral } from '@/views/dapp/v2/lend/lend-tables/lend-table.utils';
 
-import BorrowLimits from './borrow-limits';
-import HeaderModal from './header';
+import { calculateNewBorrowLimitEnableCollateral } from '../../../lend-table.utils';
+import BorrowLimits from '../borrow-limits';
+import HeaderModal from '../header';
+import { CollateralModalProps } from './collateral-modal.types';
 import LoadingModal from './loading-collateral';
-import { CollateralModalProps } from './modal.types';
 
-const DisableCollateralModal: FC<CollateralModalProps> = ({
-  assetApy,
+const EnableCollateralModal: FC<CollateralModalProps> = ({
+  assetData,
   closeModal,
   resultModal,
-  priceMap,
-  marketRecord,
-  marketKey,
-  userBalancesInUSD,
   mutate,
+  userBalancesInUSD,
   setCollateralSwitchState,
+  marketRecord,
+  priceMap,
+  marketKey,
 }) => {
   const t = useTranslations();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { signTransactionBlock } = useWalletKit();
+  const { signTransactionBlock, currentWallet } = useWalletKit();
   const { provider } = useProvider();
   const { network } = useNetwork();
 
@@ -56,63 +44,12 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
     const objects = MONEY_MARKET_OBJECTS[network];
 
     try {
-      const pythPriceFeedIds = PYTH_PRICE_FEED_IDS[network];
-
-      const pythConnection = new PriceServiceConnection(
-        PYTH_PRICE_CONNECT_URL[network],
-        {
-          priceFeedRequestConfig: {
-            binary: true,
-          },
-        }
-      );
-
-      const vaas = await pythConnection.getLatestVaas(pythPriceFeedIds);
-
       const txb = new TransactionBlock();
 
-      const pythPayments = txb.splitCoins(
-        txb.gas,
-        pythPriceFeedIds.map(() => txb.pure('1'))
-      );
-
-      const pricePotato = [] as TransactionArgument[];
-
-      vaas.forEach((vaa, index) => {
-        const priceFeed = pythPriceFeedIds[index];
-
-        const price = txb.moveCall({
-          target: `${objects.ORACLE_PACKAGE_ID}::ipx_oracle::get_price`,
-          arguments: [
-            txb.object(objects.ORACLE_STORAGE),
-            txb.object(objects.WORMHOLE_STATE),
-            txb.object(objects.PYTH_STATE),
-            txb.pure([...Buffer.from(vaa, 'base64')]),
-            txb.object(
-              PYTH_PRICE_FEED_ID_TO_PRICE_INFO_OBJECT[network][priceFeed]
-            ),
-            pythPayments[index],
-            txb.object(SUI_CLOCK_OBJECT_ID),
-            txb.object(SWITCHBOARD_AGGREGATOR_IDS[network][index]),
-            txb.pure(ORACLE_PRICE_COIN_NAMES[network][index]),
-          ],
-        });
-
-        pricePotato.push(price);
-      });
-
       txb.moveCall({
-        target: `${objects.MONEY_MARKET_PACKAGE_ID}::ipx_money_market_sdk_interface::exit_market`,
+        target: `${objects.MONEY_MARKET_PACKAGE_ID}::ipx_money_market_sdk_interface::enter_market`,
         typeArguments: [marketKey],
-        arguments: [
-          txb.object(objects.MONEY_MARKET_STORAGE),
-          txb.object(objects.INTEREST_RATE_STORAGE),
-          txb.makeMoveVec({
-            type: `${objects.ORACLE_PACKAGE_ID}::ipx_oracle::Price`,
-            objects: pricePotato,
-          }),
-          txb.object(SUI_CLOCK_OBJECT_ID),
-        ],
+        arguments: [txb.object(objects.MONEY_MARKET_STORAGE)],
       });
 
       const { transactionBlockBytes, signature } = await signTransactionBlock({
@@ -128,10 +65,9 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
       });
 
       throwTXIfNotSuccessful(tx);
-
       resultModal({
-        tokenName: assetApy.coin.token.symbol,
-        isEnabled: false,
+        tokenName: assetData.coin.token.symbol,
+        isEnabled: true,
         isSuccess: true,
         txLink:
           network === Network.MAINNET
@@ -140,11 +76,10 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
       });
 
       setCollateralSwitchState(true);
-    } catch (e) {
-      console.log(e);
+    } catch {
       resultModal({
-        tokenName: assetApy.coin.token.symbol,
-        isEnabled: false,
+        tokenName: assetData.coin.token.symbol,
+        isEnabled: true,
         isSuccess: false,
       });
 
@@ -157,10 +92,10 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
 
   return isLoading ? (
     <LoadingModal
-      title={t('Lend.modal.collateral.loading.title', { isEnable: 0 })}
-      content={t('Lend.modal.collateral.loading.content', {
-        walletName: '###',
-        isEnable: 0,
+      title={t('lend.modal.collateral.loading.title', { isEnable: 1 })}
+      content={t('lend.modal.collateral.loading.content', {
+        walletName: currentWallet?.name,
+        isEnable: 1,
       })}
     />
   ) : (
@@ -179,8 +114,8 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
       transition={{ duration: 0.3 }}
     >
       <HeaderModal
-        type={assetApy.coin.token.type}
-        symbol={assetApy.coin.token.symbol}
+        type={assetData.coin.token.type}
+        symbol={assetData.coin.token.symbol}
         closeModal={closeModal}
       />
       <Box p="xl">
@@ -191,17 +126,26 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
           fontWeight="400"
           color="onSurface"
         >
-          {t('Lend.modal.collateral.preview.title', { isEnable: 0 })}
+          {t('lend.modal.collateral.preview.title', { isEnable: 1 })}
         </Typography>
         <Typography variant="small" color="onSurface" lineHeight="1.25rem">
-          {t('Lend.modal.collateral.preview.content', { isEnable: 0 })}
+          {t('lend.modal.collateral.preview.content', { isEnable: 1 }) + ' '}
+          <Typography variant="small" color="#A5F3FC" as="span">
+            <a
+              target="_blank"
+              href="https://docs.interestprotocol.com/overview/money-market"
+              rel="noreferrer"
+            >
+              {t('lend.learnMore')}...
+            </a>
+          </Typography>
         </Typography>
       </Box>
       <Box p="xl" bg="surface.containerLow">
         <BorrowLimits
           {...calculateNewBorrowLimitEnableCollateral({
             userBalancesInUSD,
-            addCollateral: false,
+            addCollateral: true,
             priceMap,
             marketKey,
             marketRecord,
@@ -219,11 +163,11 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
           {t('common.v2.cancel')}
         </Button>
         <Button variant="filled" fontSize="s" onClick={handleCollateral}>
-          {t('Lend.modal.collateral.preview.button', { isEnable: 0 })}
+          {t('lend.modal.collateral.preview.button', { isEnable: 1 })}
         </Button>
       </Box>
     </Motion>
   );
 };
 
-export default DisableCollateralModal;
+export default EnableCollateralModal;

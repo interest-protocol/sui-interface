@@ -64,7 +64,7 @@ const SupplyMarketFailModal: FC<RowFailModalProps> = ({
         boxSizing="border-box"
         justifyContent="center"
       >
-        {capitalize(t('common.v2.lend.close'))}
+        {capitalize(t('lend.close'))}
       </Button>
     </Box>
   );

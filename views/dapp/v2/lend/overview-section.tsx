@@ -15,7 +15,7 @@ const OverviewSection: FC = () => {
   return (
     <>
       <Typography variant="extraSmall" color="onSurface" my="1rem">
-        {t('common.v2.lend.subTitle')}
+        {t('lend.subTitle')}
       </Typography>
       <Box
         display={['grid', 'grid', 'grid', 'grid']}

@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 
 import { GroupSupplyRow } from '../market-table.types';
 import SupplyMarketTableGroupRowHeader from './group-row-header';
-import SupplyMarketTableRow from './rows';
+import SupplyMarketTableRow from './supply-market-table-row';
 
 const SupplyMarketTableGroupRow: FC<GroupSupplyRow> = ({
   isEngaged,

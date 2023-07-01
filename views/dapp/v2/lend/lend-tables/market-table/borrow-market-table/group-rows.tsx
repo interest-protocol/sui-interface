@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 
 import { GroupBorrowRow } from '../market-table.types';
 import BorrowMarketTableGroupRowHeader from './group-row-header';
-import BorrowMarketTableRow from './rows';
+import BorrowMarketTableRow from './borrow-market-table-rows';
 
 const BorrowMarketTableGroupRow: FC<GroupBorrowRow> = ({
   isEngaged,
@@ -30,13 +30,10 @@ const BorrowMarketTableGroupRow: FC<GroupBorrowRow> = ({
         isOpen={toggle.element1}
       />
       <Motion
+        overflow="hidden"
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
         initial={{ height: toggle.element1 ? '0' : 'auto' }}
         animate={{ height: toggle.element1 ? 'auto' : '0' }}
-        transition={{
-          duration: 0.3,
-          ease: 'easeInOut',
-        }}
-        overflow="hidden"
       >
         {BorrowMarketTableData.map((item) => (
           <BorrowMarketTableRow {...item} isEngaged={isEngaged} key={v4()} />

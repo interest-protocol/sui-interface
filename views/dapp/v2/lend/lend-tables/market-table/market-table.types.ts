@@ -5,15 +5,14 @@ export interface MarketTableProps {
   isSupply?: boolean;
 }
 
-export interface MarketTableBorrowedProps {
-  assetApy: BorrowRow['assetApy'];
-  borrowed: BorrowRow['borrowed'];
-  wallet: BorrowRow['wallet'];
-  cash: BorrowRow['cash'];
-}
-
 export interface GroupRowHeaderProps {
   description: string;
+}
+
+export interface MarketTableGroupRowHeaderProps {
+  description: string;
+  handleButton: () => void;
+  isOpen: boolean;
 }
 
 export interface GroupBorrowRow extends GroupRowHeaderProps {

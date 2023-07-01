@@ -28,7 +28,7 @@ const LendTables: FC = () => {
           bg={surface1}
           height="fit-content"
         >
-          <MarketTable title={t('Lend.supplyTableTitle')} isSupply />
+          <MarketTable title={t('lend.supplyTableTitle')} isSupply />
         </Box>
         <Box
           color="text"
@@ -36,7 +36,7 @@ const LendTables: FC = () => {
           bg={surface1}
           height="fit-content"
         >
-          <MarketTable title={t('Lend.borrowTableTitle')} />
+          <MarketTable title={t('lend.borrowTableTitle')} />
         </Box>
       </Box>
     </Box>

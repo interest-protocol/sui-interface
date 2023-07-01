@@ -4,7 +4,7 @@ import { FC } from 'react';
 
 import { CheckmarkSVG } from '@/components/svg/v2';
 
-import { ResultModalProps } from './modal.types';
+import { ResultModalProps } from '../modal.types';
 
 const ResultCollateralModal: FC<ResultModalProps> = ({
   tokenName,
@@ -35,7 +35,7 @@ const ResultCollateralModal: FC<ResultModalProps> = ({
         justifyContent="center"
       >
         <Typography variant="medium">
-          {t('Lend.modal.collateral.confirm.title', { isEnable: +isEnabled })}
+          {t('lend.modal.collateral.confirm.title', { isEnable: +isEnabled })}
         </Typography>
       </Box>
       <Box
@@ -53,7 +53,7 @@ const ResultCollateralModal: FC<ResultModalProps> = ({
           <CheckmarkSVG filled width="100%" maxWidth="3rem" maxHeight="3rem" />
         </Box>
         <Typography my="xl" width="16rem" variant="medium" textAlign="center">
-          {t('Lend.modal.collateral.confirm.content', {
+          {t('lend.modal.collateral.confirm.content', {
             isEnable: +isEnabled,
             tokenName: tokenName,
           })}
@@ -68,6 +68,7 @@ const ResultCollateralModal: FC<ResultModalProps> = ({
             variant="filled"
             boxSizing="border-box"
             justifyContent="center"
+            textTransform="capitalize"
           >
             {t('common.explorer')}
           </Button>

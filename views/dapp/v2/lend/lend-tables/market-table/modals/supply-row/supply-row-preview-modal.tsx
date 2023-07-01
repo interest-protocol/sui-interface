@@ -1,4 +1,4 @@
-import {} from '@interest-protocol/sui-amm-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Button,
@@ -14,6 +14,11 @@ import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
 import { LeftArrowSVG } from '@/components/svg/v2';
+import {
+  NETWORK_RECORD,
+  SUI_EXPLORER_URL,
+  SUI_VISION_EXPLORER_URL,
+} from '@/constants';
 import { MONEY_MARKET_OBJECTS } from '@/constants/money-market.constants';
 import { useNetwork, useProvider } from '@/hooks';
 import { FixedPointMath, Rebase } from '@/lib';
@@ -29,9 +34,9 @@ import { calculateNewBorrowLimitNewAmount } from '@/views/dapp/v2/lend/lend-tabl
 import BorrowLimits from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-limits';
 
 import { getSVG } from '../../market-table.utils';
+import LoadingModal from '../collateral/loading-collateral';
 import LineModal from '../lines';
-import LoadingModal from '../loading-collateral';
-import { SupplyMarketModalPreviewProps } from '../modal.types';
+import { SupplyMarketModalPreviewProps } from './supply-modal.types';
 
 const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
   isMax,
@@ -45,12 +50,12 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
   coinsMap,
   userBalancesInUSD,
   isDeposit,
-  assetApy,
+  assetData,
   mutate,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
-  const [FromIcon] = [getSVG(assetApy.coin.token.type)];
+  const [FromIcon] = [getSVG(assetData.coin.token.type)];
 
   const [isLoading, setIsLoading] = useState(false);
   const { network } = useNetwork();
@@ -106,9 +111,19 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
       });
 
       throwTXIfNotSuccessful(tx);
-      openRowMarketResultModal(true, isDeposit);
+      openRowMarketResultModal({
+        isDeposit: isDeposit,
+        isSuccess: true,
+        txLink:
+          network === Network.MAINNET
+            ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
+            : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`,
+      });
     } catch {
-      openRowMarketResultModal(false, isDeposit);
+      openRowMarketResultModal({
+        isDeposit: isDeposit,
+        isSuccess: false,
+      });
     } finally {
       setIsLoading(false);
       await mutate();
@@ -138,9 +153,9 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
 
   return isLoading ? (
     <LoadingModal
-      title={t(isDeposit ? 'common.v2.lend.supply' : 'common.v2.lend.withdraw')}
-      content={t('Lend.modal.supply.loading.content', {
-        isSupply: +isDeposit,
+      title={t(isDeposit ? 'lend.supply' : 'lend.withdraw')}
+      content={t('lend.modal.supply.loading.content', {
+        isDeposit: +isDeposit,
       })}
     />
   ) : (
@@ -176,10 +191,10 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
         </Button>
         <Box display="flex" alignItems="center">
           <Box display="flex" alignItems="center">
-            {getSVG(assetApy.coin.token.type)}
+            {getSVG(assetData.coin.token.type)}
           </Box>
           <Typography variant="title5" ml="0.5rem" color="onSurface">
-            {assetApy.coin.token.symbol}
+            {assetData.coin.token.symbol}
           </Typography>
         </Box>
         <Button variant="icon" onClick={closeModal}>
@@ -197,12 +212,12 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
             <Box display="flex" alignItems="center" gap="xl">
               {FromIcon}
               <Typography variant="medium" color="">
-                {assetApy.coin.token.symbol}
+                {assetData.coin.token.symbol}
               </Typography>
             </Box>
             <Box textAlign="right">
               <Typography variant="medium" color={dark ? 'white' : 'black'}>
-                {value}
+                {formatMoney(+value)}
               </Typography>
             </Box>
           </Box>
@@ -229,15 +244,15 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
           borderColor="outline.outlineVariant"
         />
         <LineModal
-          description="Lend.modal.supply.preview.sectionTitle"
+          description="lend.modal.supply.preview.sectionTitle"
           value=""
         />
         <LineModal
-          description="Lend.modal.supply.preview.inToken"
+          description="lend.modal.supply.preview.inToken"
           value={formatMoney(+newSupplyTokenBalance)}
         />
         <LineModal
-          description="Lend.modal.supply.preview.inUSD"
+          description="lend.modal.supply.preview.inUSD"
           value={formatDollars(newSupplyTokenBalanceInUSD)}
         />
       </Box>
@@ -257,8 +272,8 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
           onClick={handleCollateral}
           disabled={!+value}
         >
-          {t('Lend.modal.supply.preview.button', {
-            isSupply: +isDeposit,
+          {t('lend.modal.supply.preview.button', {
+            isDeposit: +isDeposit,
           })}
         </Button>
       </Box>

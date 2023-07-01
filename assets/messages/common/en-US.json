@@ -38,26 +38,6 @@
         "connecting": "connecting",
         "copy": "address copied to the clipboard"
       },
-      "lend": {
-        "title": "Lend",
-        "subTitle": "Top movers",
-        "firstSection": {
-          "netAPY": "Net APY",
-          "supplyBalance": "Supply Balance",
-          "borrowBalance": "Borrow Balance",
-          "walletBalance": "Wallet Balance",
-          "newBorrowLimit": "New Borrow Limit",
-          "currentBorrowLimit": "Current Borrow Limit",
-          "borrowLimit": "Borrow Limit",
-          "borrowLimitUsed": "Borrow Limit Used"
-        },
-        "supply": "Supply",
-        "withdraw": "Withdraw",
-        "borrow": "Borrow",
-        "repay": "Repay",
-        "rewards": "Rewards",
-        "close": "Close"
-      },
       "banner": {
         "liquidity": {
           "title": "20 Million IPX Tokens",

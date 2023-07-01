@@ -60,7 +60,7 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
         justifyContent="center"
         onClick={closeModal}
       >
-        {capitalize(t('common.v2.lend.close'))}
+        {capitalize(t('lend.close'))}
       </Button>
       <a
         href={activityLink}
@@ -77,7 +77,7 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
           boxSizing="border-box"
           justifyContent="center"
         >
-          {t('Lend.modal.supply.confirm.secondButton')}
+          {t('lend.modal.supply.confirm.secondButton')}
         </Button>
       </a>
     </Box>

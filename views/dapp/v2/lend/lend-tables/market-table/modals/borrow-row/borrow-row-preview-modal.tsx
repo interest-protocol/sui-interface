@@ -13,22 +13,23 @@ import { FC, useState } from 'react';
 
 import { LeftArrowSVG } from '@/components/svg/v2';
 import { TimesSVG } from '@/svg';
+import { formatDollars, formatMoney } from '@/utils';
 
 import { getSVG } from '../../market-table.utils';
+import LoadingModal from '../collateral/loading-collateral';
 import LineModal from '../lines';
-import LoadingModal from '../loading-collateral';
-import { RowPreviewModalProps } from '../modal.types';
+import { BorrowMarketModalPreviewProps } from './borrow-modal.types';
 
-const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
-  assetApy,
+const BorrowMarketPreviewModal: FC<BorrowMarketModalPreviewProps> = ({
+  assetData,
   closeModal,
-  isSupplyOrBorrow,
-  backRowMarketModal,
-  openRowMarketResultModal,
+  isBorrow,
+  backRowBorrowMarketModal,
+  openRowBorrowMarketResultModal,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
-  const [FromIcon] = [getSVG(assetApy.coin.token.type)];
+  const [FromIcon] = [getSVG(assetData.coin.token.type)];
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,7 +39,11 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
 
   const handleResult = () => {
     const RANDOM_RESULT = Math.random() < 0.5;
-    openRowMarketResultModal(RANDOM_RESULT, isSupplyOrBorrow);
+    openRowBorrowMarketResultModal({
+      isBorrow: isBorrow,
+      isSuccess: RANDOM_RESULT,
+      txLink: '',
+    });
   };
 
   const handleCollateral = () => {
@@ -48,11 +53,9 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
 
   return isLoading ? (
     <LoadingModal
-      title={t(
-        isSupplyOrBorrow ? 'common.v2.lend.borrow' : 'common.v2.lend.repay'
-      )}
-      content={t('Lend.modal.borrow.loading.content', {
-        isBorrow: +isSupplyOrBorrow,
+      title={t(isBorrow ? 'lend.borrow' : 'lend.repay')}
+      content={t('lend.modal.borrow.loading.content', {
+        isBorrow: +isBorrow,
       })}
     />
   ) : (
@@ -81,17 +84,17 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
         <Button
           variant="icon"
           onClick={() => {
-            backRowMarketModal(false);
+            backRowBorrowMarketModal(false);
           }}
         >
           <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>
         <Box display="flex" alignItems="center">
           <Box display="flex" alignItems="center">
-            {getSVG(assetApy.coin.token.type)}
+            {getSVG(assetData.coin.token.type)}
           </Box>
           <Typography variant="title5" ml="0.5rem" color="onSurface">
-            {assetApy.coin.token.symbol}
+            {assetData.coin.token.symbol}
           </Typography>
         </Box>
         <Button variant="icon" onClick={closeModal}>
@@ -109,7 +112,7 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
             <Box display="flex" alignItems="center" gap="xl">
               {FromIcon}
               <Typography variant="medium" color="">
-                {assetApy.coin.token.symbol}
+                {assetData.coin.token.symbol}
               </Typography>
             </Box>
             <Box textAlign="right">
@@ -122,16 +125,16 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
       </Box>
       <Box p="xl" bg="surface.containerLow">
         <LineModal
-          description="common.v2.lend.firstSection.newBorrowLimit"
-          value="$ 1000"
+          description="lend.firstSection.newBorrowLimit"
+          value={formatDollars(1000)}
         />
         <LineModal
-          description="common.v2.lend.firstSection.borrowLimit"
-          value="$ 1000"
+          description="lend.firstSection.borrowLimit"
+          value={formatDollars(1000)}
         />
         <LineModal
-          description="common.v2.lend.firstSection.borrowLimitUsed"
-          value="0 %"
+          description="lend.firstSection.borrowLimitUsed"
+          value={`${formatMoney(0.0)}%`}
         />
         <Box p="1rem" display="flex" justifyContent="space-between">
           <ProgressIndicator value={75} variant="bar" />
@@ -145,14 +148,17 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
           borderColor="outline.outlineVariant"
         />
         <LineModal
-          description="Lend.modal.supply.preview.sectionTitle"
+          description="lend.modal.supply.preview.sectionTitle"
           value=""
         />
         <LineModal
-          description="Lend.modal.supply.preview.inToken"
-          value="0,0"
+          description="lend.modal.supply.preview.inToken"
+          value={formatMoney(0.0)}
         />
-        <LineModal description="Lend.modal.supply.preview.inUSD" value="0,2" />
+        <LineModal
+          description="lend.modal.supply.preview.inUSD"
+          value={formatDollars(0.2)}
+        />
       </Box>
       <Box
         p="xl"
@@ -169,8 +175,8 @@ const BorrowMarketPreviewModal: FC<RowPreviewModalProps> = ({
           justifyContent="center"
           onClick={handleCollateral}
         >
-          {t('Lend.modal.borrow.preview.button', {
-            isBorrow: +isSupplyOrBorrow,
+          {t('lend.modal.borrow.preview.button', {
+            isBorrow: +isBorrow,
           })}
         </Button>
       </Box>

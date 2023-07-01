@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     props: {
       messages,
       now: Date.now(),
-      pageTitle: 'Lend.metadata.title',
+      pageTitle: 'lend.metadata.title',
     },
   };
 };

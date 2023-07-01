@@ -28,7 +28,7 @@ const LimitSection: FC = () => {
     >
       <Box>
         <Typography variant="extraSmall" maxWidth="12rem" width="max-content">
-          {t('common.v2.lend.firstSection.borrowLimit')}
+          {t('lend.firstSection.borrowLimit')}
         </Typography>
       </Box>
       {loading ? (

@@ -17,7 +17,7 @@ import { useForm, useWatch } from 'react-hook-form';
 
 import { COINS, DOUBLE_SCALAR } from '@/constants';
 import { FixedPointMath, Rebase } from '@/lib';
-import { parseInputEventToNumberString } from '@/utils';
+import { formatMoney, parseInputEventToNumberString } from '@/utils';
 import BorrowLimits from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-limits';
 
 import {
@@ -30,7 +30,7 @@ import {
   BorrowLimitsWrapperProps,
   SupplyBorrowForm,
   SupplyMarketModalProps,
-} from '../modal.types';
+} from './supply-modal.types';
 
 const IPX_TOKEN = COINS[Network.DEVNET].IPX;
 
@@ -60,7 +60,7 @@ const BorrowLimitsWrapper: FC<BorrowLimitsWrapperProps> = ({
 };
 
 const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
-  assetApy,
+  assetData,
   closeModal,
   openRowMarketPreviewModal,
   marketKey,
@@ -83,7 +83,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
   const [isDeposit, setIsDeposit] = useState(!!_isDeposit);
 
   const [FromIcon, ToIcon] = [
-    getSVG(assetApy.coin.token.type),
+    getSVG(assetData.coin.token.type),
     getSVG(IPX_TOKEN.type),
   ];
 
@@ -128,11 +128,11 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
   return (
     <Motion
       layout
-      width="24.375rem"
       display="flex"
       maxHeight="90vh"
       maxWidth="26rem"
       overflow="hidden"
+      width="24.375rem"
       color="onSurface"
       borderRadius="1rem"
       bg="surface.container"
@@ -141,21 +141,26 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
       transition={{ duration: 0.3 }}
     >
       <HeaderModal
-        type={assetApy.coin.token.type}
-        symbol={assetApy.coin.token.symbol}
+        type={assetData.coin.token.type}
+        symbol={assetData.coin.token.symbol}
         closeModal={closeModal}
         isCenter
       />
       <Box display="flex" justifyContent="center">
         <Tabs
-          items={[t('common.v2.lend.supply'), t('common.v2.lend.withdraw')]}
+          items={[t('lend.supply'), t('lend.withdraw')]}
           onChangeTab={handleTab}
           defaultTabIndex={+!isDeposit}
         />
       </Box>
       <Box p="xl" display="flex" flexDirection="column" pb="2rem">
-        <Typography variant="extraSmall" textAlign="end" mb="2.313rem">
-          {t('common.balance')} {balance}
+        <Typography
+          mb="2.313rem"
+          textAlign="end"
+          variant="extraSmall"
+          textTransform="capitalize"
+        >
+          {t('common.balance')} {formatMoney(balance)}
         </Typography>
         <TextField
           disabled={!balance}
@@ -211,18 +216,17 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 {FromIcon}
                 <Typography variant="medium" color="">
-                  {assetApy.coin.token.symbol}{' '}
-                  {' ' + t('common.v2.lend.supply') + ' '} APY
+                  {assetData.coin.token.symbol + ' ' + t('lend.supply') + ' '}
+                  APY
                 </Typography>
               </Box>
               <Box textAlign="right">
                 <Typography variant="medium" color={dark ? 'white' : 'black'}>
-                  %{' '}
                   {marketRecord[marketKey].supplyRatePerYear
                     .multipliedBy(100)
                     .dividedBy(DOUBLE_SCALAR)
                     .toNumber()
-                    .toFixed(2)}
+                    .toFixed(2) + ' %'}
                 </Typography>
               </Box>
             </Box>
@@ -242,13 +246,13 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 {ToIcon}
                 <Typography variant="medium" color="">
-                  {IPX_TOKEN.symbol} {' ' + t('common.v2.lend.rewards') + ' '}
+                  {IPX_TOKEN.symbol} {' ' + t('lend.rewards') + ' '}
                   APR
                 </Typography>
               </Box>
               <Box textAlign="right">
                 <Typography variant="medium" color={dark ? 'white' : 'black'}>
-                  % {(ipxAPR * 100).toFixed(2)}
+                  {formatMoney(ipxAPR * 100) + ' %'}
                 </Typography>
               </Box>
             </Box>
@@ -269,8 +273,8 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
             justifyContent="center"
             onClick={() => handlePreview()}
           >
-            {t('Lend.modal.supply.normal.button', {
-              isSupply: +isDeposit,
+            {t('lend.modal.supply.normal.button', {
+              isDeposit: +isDeposit,
             })}
           </Button>
         </Box>

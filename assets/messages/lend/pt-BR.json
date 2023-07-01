@@ -1,9 +1,25 @@
 {
-  "Lend": {
+  "lend": {
     "metadata": {
       "title": "Empréstimo"
     },
-
+    "subTitle": "Principais movimentos",
+    "firstSection": {
+      "netAPR": "APY líquido",
+      "supplyAPR": "Saldo de suprimento",
+      "borrowAPR": "Saldo de empréstimo",
+      "walletBalance": "Saldo da carteira",
+      "newBorrowLimit": "Novo limite de empréstimo",
+      "currentBorrowLimit": "Limite de empréstimo atual",
+      "borrowLimit": "Limite de empréstimo",
+      "borrowLimitUsed": "Limite de empréstimo utilizado"
+    },
+    "supply": "Fornecer",
+    "withdraw": "Retirar",
+    "borrow": "Emprestimo",
+    "repay": "Pagar",
+    "rewards": "Recompensas",
+    "close": "Fechar",
     "collectTokens": "Recolha os seus Tokens IPX",
     "supplyTableTitle": "Mercado de fornecimento",
     "borrowTableTitle": "Mercado de empréstimos",

@@ -24,13 +24,13 @@ const LendBalanceInfo: FC = () => {
             <ArrowLeft maxHeight="1.5rem" maxWidth="1.5rem" />
           </Box>
           <Typography variant="displayLarge">
-            {t('common.v2.lend.title')}
+            {t('lend.metadata.title')}
           </Typography>
         </Box>
         <Box marginLeft="auto">
           <Box display="flex" gap="m">
             <Typography variant="small" color="foreground">
-              {t('common.v2.lend.firstSection.netAPY')}
+              {t('lend.firstSection.netAPR')}
             </Typography>
             <Box width="1rem" color="textHighlighter">
               <InfoLight maxHeight="1rem" maxWidth="1rem" />
@@ -46,7 +46,7 @@ const LendBalanceInfo: FC = () => {
         </Box>
         <Box>
           <Typography variant="small" color="foreground">
-            {t('common.v2.lend.firstSection.supplyBalance')}
+            {t('lend.firstSection.supplyAPR')}
           </Typography>
           <Typography
             variant="title1"
@@ -57,7 +57,7 @@ const LendBalanceInfo: FC = () => {
         </Box>
         <Box>
           <Typography variant="small" color="foreground">
-            {t('common.v2.lend.firstSection.walletBalance')}
+            {t('lend.firstSection.walletBalance')}
           </Typography>
           <Typography variant="title1" textAlign="right">
             0
@@ -78,7 +78,7 @@ const LendBalanceInfo: FC = () => {
             columnGap={['9.375rem', '9.375rem', '11.25rem', '6.25rem']}
           >
             <Typography variant={'small'}>
-              {t('common.v2.lend.firstSection.borrowLimit')}
+              {t('lend.firstSection.borrowLimit')}
             </Typography>
             <Typography variant={'small'}>+100</Typography>
           </Box>
@@ -88,7 +88,7 @@ const LendBalanceInfo: FC = () => {
             columnGap={['', '', '', '21.625rem']}
           >
             <Typography variant={'small'}>
-              {t('common.v2.lend.firstSection.borrowLimitUsed')}
+              {t('lend.firstSection.borrowLimitUsed')}
             </Typography>
             <Typography variant={'small'}>+100</Typography>
           </Box>

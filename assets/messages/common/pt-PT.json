@@ -38,26 +38,6 @@
         "connecting": "conectando...",
         "copy": "Endereço copiado para a clipboard"
       },
-      "lend": {
-        "title": "Emprestar",
-        "subTitle": "Principais movimentos",
-        "firstSection": {
-          "netAPY": "APY líquido",
-          "supplyBalance": "Saldo de suprimento",
-          "borrowBalance": "Saldo de empréstimo",
-          "walletBalance": "Saldo da carteira",
-          "newBorrowLimit": "Novo limite de empréstimo",
-          "currentBorrowLimit": "Limite de empréstimo atual",
-          "borrowLimit": "Limite de empréstimo",
-          "borrowLimitUsed": "Limite de empréstimo utilizado"
-        },
-        "supply": "Fornecer",
-        "withdraw": "Retirar",
-        "borrow": "Emprestimo",
-        "repay": "Pagar",
-        "rewards": "Recompensas",
-        "close": "Fechar"
-      },
       "banner": {
         "liquidity": {
           "title": "20 Milhões de Tokens IPX",

@@ -12,11 +12,13 @@ import { FC } from 'react';
 import { TTranslatedMessage } from '@/interface';
 import { CarteUpSVG } from '@/svg';
 
-import { GroupRowHeaderProps } from '../market-table.types';
+import { MarketTableGroupRowHeaderProps } from '../market-table.types';
 
-const BorrowMarketTableGroupRowHeader: FC<
-  GroupRowHeaderProps & { handleButton: () => void; isOpen: boolean }
-> = ({ description, handleButton, isOpen }) => {
+const BorrowMarketTableGroupRowHeader: FC<MarketTableGroupRowHeaderProps> = ({
+  description,
+  handleButton,
+  isOpen,
+}) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
 

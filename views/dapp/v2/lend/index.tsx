@@ -21,7 +21,7 @@ const Lend: FC = () => {
             textTransform="capitalize"
             textAlign="center"
           >
-            {t('common.v2.lend.title')}
+            {t('lend.metadata.title')}
           </Typography>
           <OverviewSection />
           <LimitSection />
