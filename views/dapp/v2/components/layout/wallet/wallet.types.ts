@@ -4,7 +4,7 @@ export interface WalletDropdownProps {
   isOpen: boolean;
   loading: boolean;
   handleClose: () => void;
-  addressName: string | undefined;
+  suiNSRecord: Record<string, string>;
 }
 
 export type WalletDropdownWrapperProps = WalletDropdownProps;

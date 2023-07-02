@@ -13,6 +13,13 @@
         "pt-BR": "Portugués",
         "es-ES": "Español"
       },
+      "selectToken": {
+        "title": "Seleccionar token",
+        "search": "Buscar token",
+        "recommended": "Recomendado",
+        "favorite": "Favorito",
+        "wallet": "cartera"
+      },
       "navbar": {
         "swap": "Intercambio",
         "home": "Inicio",

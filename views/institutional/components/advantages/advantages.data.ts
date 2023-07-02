@@ -7,11 +7,11 @@ import {
 
 export const ADVANTAGE_LIST: ReadonlyArray<AdvantagesCardProps> = [
   {
-    name: 'profits',
+    name: 'rewards',
     Illustration: StepsIllustration,
   },
   {
-    name: 'rewards',
+    name: 'profits',
     Illustration: BlockIllustration,
   },
   {

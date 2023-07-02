@@ -13,6 +13,13 @@
         "pt-BR": "Portuguese",
         "es-ES": "Spanish"
       },
+      "selectToken": {
+        "title": "Select token",
+        "search": "Search token",
+        "recommended": "Recommended",
+        "favorite": "Favorite",
+        "wallet": "Wallet"
+      },
       "navbar": {
         "swap": "swap",
         "home": "home",
