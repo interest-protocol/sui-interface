@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Motion,
-  ProgressIndicator,
   Slider,
   Tabs,
   TextField,
@@ -12,44 +11,126 @@ import {
   useTheme,
 } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { not } from 'ramda';
-import { FC, useState } from 'react';
+import { not, pathOr } from 'ramda';
+import { ChangeEvent, FC, useState } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 
-import { COINS } from '@/constants';
-import { formatDollars, formatMoney } from '@/utils';
+import { COINS, DOUBLE_SCALAR } from '@/constants';
+import { FixedPointMath, Rebase } from '@/lib';
+import {
+  formatMoney,
+  min,
+  parseInputEventToNumberString,
+  ZERO_BIG_NUMBER,
+} from '@/utils';
+import {
+  calculateIPXAPR,
+  calculateNewBorrowLimitNewAmount,
+} from '@/views/dapp/v2/lend/lend-tables/lend-table.utils';
+import BorrowLimits from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-limits';
 
 import { getSVG } from '../../market-table.utils';
 import HeaderModal from '../header';
-import LineModal from '../lines';
-import { BorrowMarketModalProps } from './borrow-modal.types';
+import {
+  BorrowLimitsWrapperProps,
+  BorrowMarketModalProps,
+} from '../modal.types';
+import { SupplyBorrowForm } from '../supply-row/supply-modal.types';
+
+const IPX_TOKEN = COINS[Network.DEVNET].IPX;
+
+const BorrowLimitsWrapper: FC<BorrowLimitsWrapperProps> = ({
+  valueForm,
+  marketRecord,
+  marketKey,
+  userBalancesInUSD,
+  isLoan,
+  priceMap,
+}) => {
+  const value = useWatch({ control: valueForm.control, name: 'value' });
+
+  return (
+    <BorrowLimits
+      {...calculateNewBorrowLimitNewAmount({
+        marketRecord,
+        marketKey,
+        userBalancesInUSD,
+        newAmount: +value,
+        adding: !!isLoan,
+        isLoan: true,
+        priceMap,
+      })}
+    />
+  );
+};
 
 const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
-  assetData,
+  asset,
   closeModal,
-  isBorrow: _isBorrow,
-  openRowBorrowMarketPreviewModal,
+  openRowMarketPreviewModal,
+  marketKey,
+  marketRecord,
+  moneyMarketStorage,
+  ipxPrice,
+  priceMap,
+  coinsMap,
+  userBalancesInUSD,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
-  const [isBorrow, setIsBorrow] = useState(!!_isBorrow);
-  const TO_TOKEN = COINS[Network.DEVNET].IPX;
+  const [isLoan, setIsLoan] = useState(true);
+
+  const borrowForm = useForm<SupplyBorrowForm>({
+    defaultValues: {
+      value: '0',
+      isMax: false,
+    },
+  });
+
   const [FromIcon, ToIcon] = [
-    getSVG(assetData.coin.token.type),
-    getSVG(TO_TOKEN.type),
+    getSVG(asset.coin.token.type),
+    getSVG(IPX_TOKEN.type),
   ];
 
+  const ipxAPR = calculateIPXAPR({
+    priceMap,
+    isLoan: true,
+    ipxPrice,
+    marketKey,
+    marketRecord,
+    moneyMarketStorage,
+  });
+
+  const market = marketRecord[marketKey];
+
+  const loanRebase = new Rebase(market.totalLoanBase, market.totalLoanElastic);
+
+  const loanBalance = FixedPointMath.toNumber(
+    loanRebase.toElastic(market.userPrincipal),
+    market.decimals
+  );
+
+  const balance = FixedPointMath.toNumber(
+    pathOr(ZERO_BIG_NUMBER, [marketKey, 'totalBalance'], coinsMap),
+    marketRecord[marketKey].decimals
+  );
+
+  const maxBorrowAmount =
+    userBalancesInUSD.totalCollateral * 0.9 - userBalancesInUSD.totalLoan;
+
   const handleTab = () => {
-    setIsBorrow(not);
+    borrowForm.reset();
+    setIsLoan(not);
   };
 
   const handlePreview = () => {
-    openRowBorrowMarketPreviewModal({ isBorrow, value: '', isMax: false });
+    openRowMarketPreviewModal({ isLoan, ...borrowForm.getValues() });
   };
 
   return (
     <Motion
       layout
-      width="24.375rem"
+      width={['90vw', '90vw', '90vw', '24.375rem']}
       display="flex"
       maxHeight="90vh"
       maxWidth="26rem"
@@ -62,8 +143,8 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
       transition={{ duration: 0.3 }}
     >
       <HeaderModal
-        type={assetData.coin.token.type}
-        symbol={assetData.coin.token.symbol}
+        type={asset.coin.token.type}
+        symbol={asset.coin.token.symbol}
         closeModal={closeModal}
         isCenter
       />
@@ -71,7 +152,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
         <Tabs
           items={[t('lend.borrow'), t('lend.repay')]}
           onChangeTab={handleTab}
-          defaultTabIndex={+!isBorrow}
+          defaultTabIndex={+!isLoan}
         />
       </Box>
       <Box p="xl" display="flex" flexDirection="column" pb="2rem">
@@ -81,9 +162,30 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
           mb="2.313rem"
           textTransform="capitalize"
         >
-          {t('common.balance')}: {formatMoney(0.0)}
+          {t('common.balance')}: {formatMoney(loanBalance)}
         </Typography>
         <TextField
+          disabled={
+            isLoan ? maxBorrowAmount === 0 : market.userPrincipal.isZero()
+          }
+          {...borrowForm.register('value', {
+            onChange: (v: ChangeEvent<HTMLInputElement>) => {
+              const parsedValue = parseInputEventToNumberString(v);
+              borrowForm.setValue(
+                'isMax',
+                isLoan
+                  ? +parsedValue === maxBorrowAmount
+                  : +parsedValue === balance
+              );
+
+              const value = +parseInputEventToNumberString(v);
+
+              borrowForm.setValue(
+                'value',
+                (isLoan ? min(maxBorrowAmount, value) : value).toString()
+              );
+            },
+          })}
           placeholder="0"
           fontSize="3.563rem"
           mb="1rem"
@@ -92,25 +194,29 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
             textAlign: 'center',
           }}
         />
-        <Slider max={100} onChange={() => 1} />
+        <Slider
+          max={100}
+          onChange={(value) => {
+            borrowForm.setValue(
+              'value',
+              isLoan
+                ? `${(value / 100) * maxBorrowAmount}`
+                : `${(value / 100) * balance}`
+            );
+            borrowForm.setValue('isMax', value === 100);
+          }}
+        />
       </Box>
       <Box overflowX="hidden" overflowY="auto">
         <Box p="xl">
-          <LineModal
-            description="lend.firstSection.newBorrowLimit"
-            value={formatDollars(1000)}
+          <BorrowLimitsWrapper
+            marketKey={marketKey}
+            marketRecord={marketRecord}
+            priceMap={priceMap}
+            userBalancesInUSD={userBalancesInUSD}
+            valueForm={borrowForm}
+            isLoan={isLoan}
           />
-          <LineModal
-            description="lend.firstSection.borrowLimit"
-            value={formatDollars(1000)}
-          />
-          <LineModal
-            description="lend.firstSection.borrowLimitUsed"
-            value={`${formatMoney(0.0)}%`}
-          />
-          <Box p="1rem" display="flex" justifyContent="space-between">
-            <ProgressIndicator value={75} variant="bar" />
-          </Box>
         </Box>
         <Box mx="-0.5rem" px="xl">
           <Box bg="surface.containerLowest" borderRadius="m">
@@ -123,13 +229,16 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 {FromIcon}
                 <Typography variant="medium" color="">
-                  {assetData.coin.token.symbol} {' ' + t('lend.supply') + ' '}{' '}
-                  APY
+                  {asset.coin.token.symbol + ' ' + t('lend.supply') + ' '} APY
                 </Typography>
               </Box>
               <Box textAlign="right">
                 <Typography variant="medium" color={dark ? 'white' : 'black'}>
-                  {formatMoney(0.0)}
+                  {marketRecord[marketKey].borrowRatePerYear
+                    .multipliedBy(100)
+                    .dividedBy(DOUBLE_SCALAR)
+                    .toNumber()
+                    .toFixed(2) + ' %'}
                 </Typography>
               </Box>
             </Box>
@@ -149,13 +258,13 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 {ToIcon}
                 <Typography variant="medium" color="">
-                  {TO_TOKEN.symbol} {' ' + t('lend.rewards') + ' '}
-                  APY
+                  {IPX_TOKEN.symbol} {' ' + t('lend.rewards') + ' '}
+                  APR
                 </Typography>
               </Box>
               <Box textAlign="right">
                 <Typography variant="medium" color={dark ? 'white' : 'black'}>
-                  {formatMoney(0.0)}
+                  {formatMoney(ipxAPR * 100) + ' %'}
                 </Typography>
               </Box>
             </Box>
@@ -175,8 +284,13 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
             display="flex"
             justifyContent="center"
             onClick={() => handlePreview()}
+            disabled={
+              isLoan ? maxBorrowAmount === 0 : market.userPrincipal.isZero()
+            }
           >
-            {isBorrow ? 'Preview Borrow' : 'Preview Repay'}
+            {t('lend.modal.borrow.normal.button', {
+              isBorrow: +isLoan,
+            })}
           </Button>
         </Box>
       </Box>

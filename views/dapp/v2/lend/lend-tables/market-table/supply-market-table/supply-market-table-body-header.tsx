@@ -14,7 +14,7 @@ import { CarteUpSVG } from '@/svg';
 
 import { MarketTableGroupRowHeaderProps } from '../market-table.types';
 
-const SupplyMarketTableGroupRowHeader: FC<MarketTableGroupRowHeaderProps> = ({
+const SupplyMarketTableBodyHeader: FC<MarketTableGroupRowHeaderProps> = ({
   description,
   handleButton,
   isOpen,
@@ -24,12 +24,12 @@ const SupplyMarketTableGroupRowHeader: FC<MarketTableGroupRowHeaderProps> = ({
 
   return (
     <Box
-      display="grid"
-      gridTemplateColumns="3fr 1fr"
       py="1.25rem"
       pl="1.125rem"
-      onClick={handleButton}
+      display="grid"
       cursor="pointer"
+      onClick={handleButton}
+      gridTemplateColumns="3fr 1fr"
     >
       <Box px="l">
         <Typography
@@ -71,4 +71,4 @@ const SupplyMarketTableGroupRowHeader: FC<MarketTableGroupRowHeaderProps> = ({
   );
 };
 
-export default SupplyMarketTableGroupRowHeader;
+export default SupplyMarketTableBodyHeader;

@@ -11,9 +11,9 @@ import { pathOr } from 'ramda';
 import { FC, useState } from 'react';
 
 import { useModal, useWeb3 } from '@/hooks';
-import { formatMoney } from '@/utils';
-import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
+import { formatDollars, formatMoney } from '@/utils';
 
+import { useLendProviderValue } from '../../../lend.provider';
 import { SupplyRow } from '../../lend-table.types';
 import { getSVG } from '../market-table.utils';
 import {
@@ -23,19 +23,15 @@ import {
   FailCollateralModal,
 } from '../modals/collateral';
 import { ResultCollateralModalProps } from '../modals/collateral/collateral-modal.types';
-import {
-  SupplyMarketConfirmModal,
-  SupplyMarketFailModal,
-  SupplyMarketModal,
-  SupplyMarketPreviewModal,
-} from '../modals/supply-row';
-import {
-  OpenRowMarketPreviewModalArgs,
-  ResultRowModalProps,
-} from '../modals/supply-row/supply-modal.types';
+import { OpenSupplyMarketPreviewModalArgs } from '../modals/modal.types';
+import { ResultRowModalProps } from '../modals/supply-row/supply-modal.types';
+import SupplyMarketConfirmModal from '../modals/supply-row/supply-row-confirm-modal';
+import SupplyMarketFailModal from '../modals/supply-row/supply-row-fail-modal';
+import SupplyMarketModal from '../modals/supply-row/supply-row-modal';
+import SupplyMarketPreviewModal from '../modals/supply-row/supply-row-preview-modal';
 
-const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
-  assetData,
+const SupplyMarketTableRow: FC<SupplyRow> = ({
+  asset,
   supplied,
   wallet,
   collateral,
@@ -75,7 +71,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
       >
         <EnableCollateralModal
           closeModal={handleClose}
-          assetData={assetData}
+          asset={asset}
           resultModal={openResultModal}
           userBalancesInUSD={userBalancesInUSD}
           setCollateralSwitchState={setCollateralSwitchState}
@@ -106,7 +102,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
       >
         <DisableCollateralModal
           closeModal={handleClose}
-          assetData={assetData}
+          asset={asset}
           resultModal={openResultModal}
           userBalancesInUSD={userBalancesInUSD}
           setCollateralSwitchState={setCollateralSwitchState}
@@ -155,60 +151,6 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
     );
   };
 
-  const openRowMarketModal = (isDeposit: boolean) => {
-    setModal(
-      <SupplyMarketModal
-        closeModal={handleClose}
-        isDeposit={isDeposit}
-        assetData={assetData}
-        openRowMarketPreviewModal={openRowMarketPreviewModal}
-        marketKey={marketKey}
-        marketRecord={marketRecord}
-        priceMap={priceMap}
-        userBalancesInUSD={userBalancesInUSD}
-        coinsMap={coinsMap}
-        moneyMarketStorage={moneyMarketStorage}
-        ipxPrice={ipxPrice}
-      />,
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: true,
-      }
-    );
-  };
-
-  const openRowMarketPreviewModal = ({
-    value,
-    isMax,
-    isDeposit,
-  }: OpenRowMarketPreviewModalArgs) => {
-    setModal(
-      <SupplyMarketPreviewModal
-        closeModal={handleClose}
-        assetData={assetData}
-        isDeposit={isDeposit}
-        backRowMarketModal={openRowMarketModal}
-        openRowMarketResultModal={openRowMarketResultModal}
-        marketRecord={marketRecord}
-        priceMap={priceMap}
-        userBalancesInUSD={userBalancesInUSD}
-        coinsMap={coinsMap}
-        marketKey={marketKey}
-        value={value}
-        isMax={isMax}
-        mutate={mutate}
-      />,
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: true,
-      }
-    );
-  };
-
   const openRowMarketResultModal = ({
     txLink,
     isSuccess,
@@ -220,7 +162,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
           closeModal={handleClose}
           title={t(isDeposit ? 'lend.supply' : 'lend.withdraw')}
           content={t('lend.modal.supply.confirm.content', {
-            isDeposit: 1,
+            isDeposit: +isDeposit,
           })}
           additionalText={t('lend.modal.supply.confirm.additionInfo')}
           activityLink={txLink as string}
@@ -244,6 +186,59 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
     );
   };
 
+  const openRowMarketPreviewModal = ({
+    value,
+    isMax,
+    isDeposit,
+  }: OpenSupplyMarketPreviewModalArgs) => {
+    setModal(
+      <SupplyMarketPreviewModal
+        closeModal={handleClose}
+        asset={asset}
+        isDeposit={isDeposit}
+        backRowMarketModal={openRowMarketModal}
+        openRowMarketResultModal={openRowMarketResultModal}
+        marketRecord={marketRecord}
+        priceMap={priceMap}
+        userBalancesInUSD={userBalancesInUSD}
+        coinsMap={coinsMap}
+        marketKey={marketKey}
+        value={value}
+        isMax={isMax}
+        mutate={mutate}
+      />,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
+  };
+
+  const openRowMarketModal = () => {
+    setModal(
+      <SupplyMarketModal
+        closeModal={handleClose}
+        asset={asset}
+        openRowMarketPreviewModal={openRowMarketPreviewModal}
+        marketKey={marketKey}
+        marketRecord={marketRecord}
+        priceMap={priceMap}
+        userBalancesInUSD={userBalancesInUSD}
+        coinsMap={coinsMap}
+        moneyMarketStorage={moneyMarketStorage}
+        ipxPrice={ipxPrice}
+      />,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
+  };
+
   return (
     <Motion
       mb="1rem"
@@ -255,7 +250,7 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
       initial={{ background: surface1 }}
       gridTemplateColumns="repeat(4, 1fr)"
       whileHover={{ background: surface2 }}
-      onClick={() => openRowMarketModal(true)}
+      onClick={() => openRowMarketModal()}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
       <Box
@@ -266,24 +261,22 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
         borderLeft="2px solid"
         borderColor={isEngaged ? 'success' : dark ? 'black' : 'white'}
       >
-        {getSVG(assetData.coin.token.type)}
+        {getSVG(asset.coin.token.type)}
         <Box display="flex" flexDirection="column">
-          <Typography variant="medium">
-            {assetData.coin.token.symbol}
-          </Typography>
+          <Typography variant="medium">{asset.coin.token.symbol}</Typography>
           <Typography
             variant="small"
             color={
-              assetData.coin.color != undefined && dark
-                ? assetData.coin.color.dark
-                : assetData.coin.color != undefined && !dark
-                ? assetData.coin.color.light
+              asset.coin.color != undefined && dark
+                ? asset.coin.color.dark
+                : asset.coin.color != undefined && !dark
+                ? asset.coin.color.light
                 : dark
                 ? '#77767A'
                 : '#47464A'
             }
           >
-            {assetData.percentage}%
+            {asset.percentage}%
           </Typography>
         </Box>
       </Box>
@@ -295,14 +288,14 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
         justifyContent="center"
       >
         <Typography variant="medium" textAlign="center">
-          {supplied.amount}
+          {formatMoney(supplied.amount)}
         </Typography>
         <Typography
           variant="small"
           textAlign="center"
           color={dark ? '#77767A' : '#47464A'}
         >
-          ${supplied.value}
+          {formatDollars(supplied.value)}
         </Typography>
       </Box>
       <Box display="flex" alignItems="center" justifyContent="center">
@@ -320,9 +313,8 @@ const SupplyMarketTableRow: FC<SupplyRow & { isEngaged: boolean }> = ({
         <Box>
           <SwitchButton
             activation
-            labels=""
+            name={asset.coin.token.symbol}
             defaultValue={isCollateralEnabled}
-            name={assetData.coin.token.symbol}
             disabled={
               !pathOr(false, [marketKey, 'canBeCollateral'], marketRecord)
             }

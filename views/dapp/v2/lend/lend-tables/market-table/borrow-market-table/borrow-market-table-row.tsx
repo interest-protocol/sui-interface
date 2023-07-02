@@ -8,28 +8,28 @@ import {
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { useModal } from '@/hooks';
+import { useModal, useWeb3 } from '@/hooks';
 import { formatMoney } from '@/utils';
+import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
+import { BorrowRow } from '@/views/dapp/v2/lend/lend-tables/lend-table.types';
+import { OpenBorrowMarketPreviewModalArgs } from '@/views/dapp/v2/lend/lend-tables/market-table/modals/modal.types';
 
-import { MarketTableBorrowedProps } from '../../lend-table.types';
 import { getSVG } from '../market-table.utils';
 import {
   BorrowMarketConfirmModal,
   BorrowMarketFailModal,
   BorrowMarketModal,
 } from '../modals/borrow-row';
-import {
-  OpenRowBorrowMarketPreviewModalArgs,
-  ResultRowBorrowModalProps,
-} from '../modals/borrow-row/borrow-modal.types';
+import { ResultRowBorrowModalProps } from '../modals/borrow-row/borrow-modal.types';
 import BorrowMarketPreviewModal from '../modals/borrow-row/borrow-row-preview-modal';
 
-const BorrowMarketTableRow: FC<MarketTableBorrowedProps> = ({
-  assetData,
+const BorrowMarketTableRow: FC<BorrowRow> = ({
+  asset,
   borrowed,
   wallet,
   cash,
   isEngaged,
+  marketKey,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
@@ -41,59 +41,28 @@ const BorrowMarketTableRow: FC<MarketTableBorrowedProps> = ({
     ? 'linear-gradient(0deg, rgba(182, 196, 255, 0.08), rgba(182, 196, 255, 0.08)), #1B1B1F'
     : 'linear-gradient(0deg, rgba(0, 85, 255, 0.08), rgba(0, 85, 255, 0.08)), #F2F0F4';
 
-  const openRowBorrowMarketModal = (isBorrow: boolean) => {
-    setModal(
-      <BorrowMarketModal
-        closeModal={handleClose}
-        isBorrow={isBorrow}
-        assetData={assetData}
-        openRowBorrowMarketPreviewModal={openRowBorrowMarketPreviewModal}
-      />,
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: true,
-      }
-    );
-  };
-
-  const openRowBorrowMarketPreviewModal = ({
-    isBorrow,
-    value,
-    isMax,
-  }: OpenRowBorrowMarketPreviewModalArgs) => {
-    console.log(value, isMax, '>>>Use this variable');
-
-    setModal(
-      <BorrowMarketPreviewModal
-        closeModal={handleClose}
-        assetData={assetData}
-        isBorrow={isBorrow}
-        backRowBorrowMarketModal={openRowBorrowMarketModal}
-        openRowBorrowMarketResultModal={openRowBorrowMarketResultModal}
-      />,
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: true,
-      }
-    );
-  };
+  const {
+    userBalancesInUSD,
+    mutate,
+    marketRecord,
+    priceMap,
+    moneyMarketStorage,
+    ipxPrice,
+  } = useLendProviderValue();
+  const { coinsMap } = useWeb3();
 
   const openRowBorrowMarketResultModal = ({
     isSuccess,
-    isBorrow,
+    isLoan,
     txLink,
   }: ResultRowBorrowModalProps) => {
     setModal(
       isSuccess ? (
         <BorrowMarketConfirmModal
           closeModal={handleClose}
-          title={t(isBorrow ? 'lend.borrow' : 'lend.repay')}
+          title={t(isLoan ? 'lend.borrow' : 'lend.repay')}
           content={t('lend.modal.borrow.confirm.content', {
-            isBorrow: +isBorrow,
+            isBorrow: +isLoan,
           })}
           additionalText={t('lend.modal.borrow.confirm.additionInfo')}
           activityLink={txLink as string}
@@ -101,13 +70,66 @@ const BorrowMarketTableRow: FC<MarketTableBorrowedProps> = ({
       ) : (
         <BorrowMarketFailModal
           closeModal={handleClose}
-          title={t(isBorrow ? 'lend.borrow' : 'lend.repay')}
+          title={t(isLoan ? 'lend.borrow' : 'lend.repay')}
           content={t('lend.modal.borrow.error.content', {
-            isBorrow: +isBorrow,
+            isBorrow: +isLoan,
           })}
           description=""
         />
       ),
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
+  };
+
+  const openRowMarketPreviewModal = ({
+    isLoan,
+    value,
+    isMax,
+  }: OpenBorrowMarketPreviewModalArgs) => {
+    setModal(
+      <BorrowMarketPreviewModal
+        closeModal={handleClose}
+        asset={asset}
+        backRowMarketModal={openRowMarketModal}
+        openRowMarketResultModal={openRowBorrowMarketResultModal}
+        marketRecord={marketRecord}
+        priceMap={priceMap}
+        userBalancesInUSD={userBalancesInUSD}
+        coinsMap={coinsMap}
+        marketKey={marketKey}
+        value={value}
+        isMax={isMax}
+        mutate={mutate}
+        isLoan={isLoan}
+      />,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
+  };
+
+  const openRowMarketModal = () => {
+    setModal(
+      <BorrowMarketModal
+        closeModal={handleClose}
+        asset={asset}
+        userBalancesInUSD={userBalancesInUSD}
+        coinsMap={coinsMap}
+        marketKey={marketKey}
+        openRowMarketPreviewModal={openRowMarketPreviewModal}
+        marketRecord={marketRecord}
+        priceMap={priceMap}
+        ipxPrice={ipxPrice}
+        moneyMarketStorage={moneyMarketStorage}
+      />,
       {
         isOpen: true,
         custom: true,
@@ -122,14 +144,18 @@ const BorrowMarketTableRow: FC<MarketTableBorrowedProps> = ({
       width="100%"
       display="grid"
       cursor="pointer"
-      whileHover={{ background: surface2 }}
-      initial={{ background: surface1 }}
+      whileHover={{
+        background: surface2,
+      }}
+      initial={{
+        background: surface1,
+      }}
       gridTemplateColumns="repeat(4, 1fr)"
       transition={{ duration: 0.3, ease: 'easeInOut' }}
       pl="0.75rem"
       pr="0.5rem"
       mb="1rem"
-      onClick={() => openRowBorrowMarketModal(true)}
+      onClick={() => openRowMarketModal()}
     >
       <Box
         borderLeft="2px solid"
@@ -140,25 +166,23 @@ const BorrowMarketTableRow: FC<MarketTableBorrowedProps> = ({
         display="flex"
       >
         <Box display="flex" alignItems="center">
-          {getSVG(assetData.coin.token.type)}
+          {getSVG(asset.coin.token.type)}
         </Box>
         <Box display="flex" flexDirection="column">
-          <Typography variant="medium">
-            {assetData.coin.token.symbol}
-          </Typography>
+          <Typography variant="medium">{asset.coin.token.symbol}</Typography>
           <Typography
             variant="small"
             color={
-              assetData.coin.color != undefined && dark
-                ? assetData.coin.color.dark
-                : assetData.coin.color != undefined && !dark
-                ? assetData.coin.color.light
+              asset.coin.color != undefined && dark
+                ? asset.coin.color.dark
+                : asset.coin.color != undefined && !dark
+                ? asset.coin.color.light
                 : dark
                 ? '#77767A'
                 : '#47464A'
             }
           >
-            {assetData.percentage}%
+            {asset.percentage}%
           </Typography>
         </Box>
       </Box>

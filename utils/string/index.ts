@@ -116,7 +116,7 @@ export const formatNumber = (
       ? 'K'
       : '';
 
-  const toString = () => `${value} ${unit}`;
+  const toString = (unitSeparator = '') => `${value}${unitSeparator}${unit}`;
 
   return {
     value,

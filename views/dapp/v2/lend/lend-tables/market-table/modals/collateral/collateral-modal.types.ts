@@ -6,7 +6,7 @@ import {
   UserBalancesInUSD,
 } from '@/views/dapp/v2/lend/lend.types';
 
-import { AssetData } from '../../../lend-table.types';
+import { Asset } from '../../../lend-table.types';
 
 export interface ResultCollateralModalProps {
   tokenName: string;
@@ -18,7 +18,7 @@ export interface ResultCollateralModalProps {
 //000
 export interface CollateralModalProps {
   closeModal: () => void;
-  assetData: AssetData;
+  asset: Asset;
   resultModal: (result: ResultCollateralModalProps) => void;
   userBalancesInUSD: UserBalancesInUSD;
   mutate: () => Promise<void>;

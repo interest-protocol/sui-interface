@@ -108,6 +108,7 @@ const LendProvider: FC<LendProviderProps> = ({ children }) => {
     marketRecord,
     ipxPrice,
     moneyMarketStorage,
+    network,
   });
 
   return (

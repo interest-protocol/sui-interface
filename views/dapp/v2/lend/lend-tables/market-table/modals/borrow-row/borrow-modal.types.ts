@@ -1,4 +1,4 @@
-import { AssetData } from '../../../lend-table.types';
+import { Asset } from '../../../lend-table.types';
 
 export interface OpenRowBorrowMarketPreviewModalArgs {
   isBorrow: boolean;
@@ -9,7 +9,7 @@ export interface OpenRowBorrowMarketPreviewModalArgs {
 export interface BorrowMarketModalProps {
   closeModal: () => void;
   isBorrow?: boolean;
-  assetData: AssetData;
+  asset: Asset;
   openRowBorrowMarketPreviewModal: (
     x: OpenRowBorrowMarketPreviewModalArgs
   ) => void;
@@ -17,7 +17,7 @@ export interface BorrowMarketModalProps {
 
 export interface BorrowMarketModalPreviewProps {
   closeModal: () => void;
-  assetData: AssetData;
+  asset: Asset;
   isBorrow: boolean;
   backRowBorrowMarketModal: (isBorrow: boolean) => void;
   openRowBorrowMarketResultModal: (
@@ -27,6 +27,6 @@ export interface BorrowMarketModalPreviewProps {
 
 export interface ResultRowBorrowModalProps {
   isSuccess: boolean;
-  isBorrow: boolean;
+  isLoan: boolean;
   txLink?: string;
 }

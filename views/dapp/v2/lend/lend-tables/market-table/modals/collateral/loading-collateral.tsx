@@ -12,7 +12,7 @@ const LoadingModal: FC<LoadingModalProps> = ({ title, content }) => {
   return (
     <Motion
       layout
-      width="24.375rem"
+      width={['90vw', '90vw', '90vw', '24.375rem']}
       display="flex"
       maxHeight="90vh"
       maxWidth="26rem"

@@ -1,4 +1,3 @@
-import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
@@ -8,8 +7,8 @@ import { SupplyRow } from '@/views/dapp/v2/lend/lend-tables/lend-table.types';
 
 import { makeSupplyData } from '../../lend-table.utils';
 import MarketTableRowLoading from '../rows-loading';
-import SupplyMarketTableGroupRow from './group-rows';
-import SupplyMarketTableHeader from './header-table';
+import SupplyMarketTableBody from './supply-market-table-body';
+import SupplyMarketTableHeader from './suppy-market-table-header';
 
 const SupplyMarketTable: FC = () => {
   const { coinsMap } = useWeb3();
@@ -30,26 +29,15 @@ const SupplyMarketTable: FC = () => {
       <SupplyMarketTableHeader />
       {loading
         ? [1, 2].map(() => <MarketTableRowLoading key={v4()} />)
-        : supplyData.map((SupplyMarketTable, index) => (
-            <Box key={v4()}>
-              <SupplyMarketTableGroupRow
-                isEngaged={SupplyMarketTable.isEngaged}
-                description={SupplyMarketTable.description}
-                SupplyMarketTableData={
-                  SupplyMarketTable.data as ReadonlyArray<SupplyRow>
-                }
-              />
-
-              {supplyData.length != index + 1 && (
-                <Box
-                  as="hr"
-                  width="60%"
-                  mx="auto"
-                  border="1px dashed"
-                  borderColor="outline.outlineVariant"
-                />
-              )}
-            </Box>
+        : supplyData.map((supplyMarketTable) => (
+            <SupplyMarketTableBody
+              key={v4()}
+              isEngaged={supplyMarketTable.isEngaged}
+              description={supplyMarketTable.description}
+              supplyMarketTableData={
+                supplyMarketTable.data as ReadonlyArray<SupplyRow>
+              }
+            />
           ))}
     </>
   );

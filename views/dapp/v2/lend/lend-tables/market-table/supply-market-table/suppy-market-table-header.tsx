@@ -5,14 +5,15 @@ import { FC } from 'react';
 const SupplyMarketTableHeader: FC = () => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
+
   return (
     <Box
-      display="grid"
-      gridTemplateColumns="repeat(4, 1fr)"
       py="1rem"
-      borderBottom="1px solid"
-      borderColor="outline.outlineVariant"
       pl="1.125rem"
+      display="grid"
+      borderBottom="1px solid"
+      gridTemplateColumns="repeat(4, 1fr)"
+      borderColor="outline.outlineVariant"
     >
       <Box px="l">
         <Typography

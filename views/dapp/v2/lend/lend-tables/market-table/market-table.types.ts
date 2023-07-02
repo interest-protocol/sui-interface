@@ -17,10 +17,10 @@ export interface MarketTableGroupRowHeaderProps {
 
 export interface GroupBorrowRow extends GroupRowHeaderProps {
   isEngaged: boolean;
-  BorrowMarketTableData: ReadonlyArray<BorrowRow>;
+  borrowMarketTableData: ReadonlyArray<BorrowRow>;
 }
 
 export interface GroupSupplyRow extends GroupRowHeaderProps {
   isEngaged: boolean;
-  SupplyMarketTableData: ReadonlyArray<SupplyRow>;
+  supplyMarketTableData: ReadonlyArray<SupplyRow>;
 }

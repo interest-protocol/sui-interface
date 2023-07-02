@@ -38,7 +38,7 @@ export const makeSupplyData = ({
       const isNotEngaged = market.userShares.isZero();
 
       const data = {
-        assetData: {
+        asset: {
           coin: {
             token: COIN_TYPE_TO_COIN[network][key],
             color: null,
@@ -48,10 +48,10 @@ export const makeSupplyData = ({
           ).toFixed(2),
         },
         supplied: {
-          amount: market.userShares.isZero() ? 0 : formatMoney(amountOfCoins),
+          amount: market.userShares.isZero() ? 0 : amountOfCoins,
           value: market.userShares.isZero()
             ? 0
-            : formatMoney(amountOfCoins * priceMap[key].price),
+            : amountOfCoins * priceMap[key].price,
         },
         wallet: FixedPointMath.toNumber(
           pathOr(ZERO_BIG_NUMBER, [key, 'totalBalance'], coinsMap),
@@ -102,7 +102,7 @@ export const makeBorrowData = ({
       const isNotEngaged = market.userPrincipal.isZero();
 
       const data = {
-        assetData: {
+        asset: {
           coin: {
             token: COIN_TYPE_TO_COIN[network][key],
             color: null,
@@ -160,10 +160,13 @@ export const calculateNewBorrowLimitNewAmount = ({
 
   const ltv = market.LTV.dividedBy(DOUBLE_SCALAR).toNumber();
 
+  const preLTVAmount =
+    market.collateralEnabled || isLoan
+      ? newAmount * priceMap[marketKey].price
+      : 0;
+
   // IF it cannot be collateral, it has no impact on the borrow limit
-  const amountInUSD = market.canBeCollateral
-    ? newAmount * priceMap[marketKey].price * ltv
-    : 0;
+  const amountInUSD = isLoan ? preLTVAmount : preLTVAmount * ltv;
 
   const currentBorrowLimit =
     userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;
@@ -287,7 +290,7 @@ export const calculateIPXAPR = ({
     percentageOfRewards *
     FixedPointMath.toNumber(moneyMarketStorage.ipxPerYear, 9);
 
-  const ipxInUSD = ipxPerYear * ipxPrice;
+  const ipxInUSD = (ipxPerYear * ipxPrice) / 2;
 
   return isLoan
     ? safeIntDiv(

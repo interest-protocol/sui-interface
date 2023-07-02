@@ -89,16 +89,16 @@
           "button": "{isBorrow, plural, =1 {Confirmar Empréstimo} other {Confirmar o reembolso}}"
         },
         "loading": {
-          "content": "{isBorrow, plural, =1 {Borrowing Token please wait...} other {Reembolso do Token por favor aguarde...}}}"
+          "content": "{isBorrow, plural, =1 {Borrowing Token please wait...} other {Reembolso do Token por favor aguarde...}}"
         },
         "confirm": {
-          "content": "{isSupply, plural, =1 {Token Emprestado} other {Token Emprestado}}",
+          "content": "{isBorrow, plural, =1 {Token Emprestado} other {Token Emprestado}}",
           "additionInfo": "Pode consultar o seu histórico de transacções no menu Atividade.",
           "secondButton": "Ver na atividade"
         },
         "error": {
           "title": "Error",
-          "content": "{isSupply, plural, =1 {Empréstimo de token falhou} other {Reembolso de token falhou}",
+          "content": "{isBorrow, plural, =1 {Empréstimo de token falhou} other {Reembolso de token falhou}}",
           "button": "Tentar novamente"
         }
       }

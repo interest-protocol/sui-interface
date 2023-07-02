@@ -98,7 +98,7 @@
         },
         "error": {
           "title": "Error",
-          "content": "{isBorrow, plural, =1 {Empréstimo de token falhou} other {Reembolso de token falhou}",
+          "content": "{isBorrow, plural, =1 {Empréstimo de token falhou} other {Reembolso de token falhou}}",
           "button": "Tentar novamente"
         }
       }

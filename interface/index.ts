@@ -69,9 +69,9 @@ export interface Pool {
 export type DexMarket = Record<string, Record<string, string>>;
 
 export interface FormattedNumber {
-  value: number;
   unit: string;
-  toString: () => string;
+  value: number;
+  toString: (unitSeparator?: string) => string;
 }
 
 export type AppTheme<T> = T & {

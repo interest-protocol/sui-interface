@@ -11,13 +11,17 @@ import {
   useTheme,
 } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { not } from 'ramda';
+import { not, pathOr } from 'ramda';
 import { ChangeEvent, FC, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { COINS, DOUBLE_SCALAR } from '@/constants';
 import { FixedPointMath, Rebase } from '@/lib';
-import { formatMoney, parseInputEventToNumberString } from '@/utils';
+import {
+  formatMoney,
+  parseInputEventToNumberString,
+  ZERO_BIG_NUMBER,
+} from '@/utils';
 import BorrowLimits from '@/views/dapp/v2/lend/lend-tables/market-table/modals/borrow-limits';
 
 import {
@@ -35,14 +39,14 @@ import {
 const IPX_TOKEN = COINS[Network.DEVNET].IPX;
 
 const BorrowLimitsWrapper: FC<BorrowLimitsWrapperProps> = ({
-  supplyForm,
+  valueForm,
   marketRecord,
   marketKey,
   userBalancesInUSD,
   isDeposit,
   priceMap,
 }) => {
-  const value = useWatch({ control: supplyForm.control, name: 'value' });
+  const value = useWatch({ control: valueForm.control, name: 'value' });
 
   return (
     <BorrowLimits
@@ -51,7 +55,7 @@ const BorrowLimitsWrapper: FC<BorrowLimitsWrapperProps> = ({
         marketKey,
         userBalancesInUSD,
         newAmount: +value,
-        adding: isDeposit,
+        adding: !!isDeposit,
         isLoan: false,
         priceMap,
       })}
@@ -60,11 +64,10 @@ const BorrowLimitsWrapper: FC<BorrowLimitsWrapperProps> = ({
 };
 
 const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
-  assetData,
+  asset,
   closeModal,
   openRowMarketPreviewModal,
   marketKey,
-  isDeposit: _isDeposit,
   marketRecord,
   priceMap,
   userBalancesInUSD,
@@ -80,10 +83,11 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
       isMax: false,
     },
   });
-  const [isDeposit, setIsDeposit] = useState(!!_isDeposit);
+
+  const [isDeposit, setIsDeposit] = useState(true);
 
   const [FromIcon, ToIcon] = [
-    getSVG(assetData.coin.token.type),
+    getSVG(asset.coin.token.type),
     getSVG(IPX_TOKEN.type),
   ];
 
@@ -117,7 +121,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
 
   const balance = isDeposit
     ? FixedPointMath.toNumber(
-        coinsMap[marketKey].totalBalance,
+        pathOr(ZERO_BIG_NUMBER, [marketKey, 'totalBalance'], coinsMap),
         marketRecord[marketKey].decimals
       )
     : FixedPointMath.toNumber(
@@ -132,7 +136,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
       maxHeight="90vh"
       maxWidth="26rem"
       overflow="hidden"
-      width="24.375rem"
+      width={['90vw', '90vw', '90vw', '24.375rem']}
       color="onSurface"
       borderRadius="1rem"
       bg="surface.container"
@@ -141,8 +145,8 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
       transition={{ duration: 0.3 }}
     >
       <HeaderModal
-        type={assetData.coin.token.type}
-        symbol={assetData.coin.token.symbol}
+        type={asset.coin.token.type}
+        symbol={asset.coin.token.symbol}
         closeModal={closeModal}
         isCenter
       />
@@ -160,7 +164,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
           variant="extraSmall"
           textTransform="capitalize"
         >
-          {t('common.balance')} {formatMoney(balance)}
+          {t('common.balance')}: {formatMoney(balance)}
         </Typography>
         <TextField
           disabled={!balance}
@@ -200,7 +204,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
             marketKey={marketKey}
             marketRecord={marketRecord}
             userBalancesInUSD={userBalancesInUSD}
-            supplyForm={supplyForm}
+            valueForm={supplyForm}
             priceMap={priceMap}
             isDeposit={isDeposit}
           />
@@ -216,8 +220,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 {FromIcon}
                 <Typography variant="medium" color="">
-                  {assetData.coin.token.symbol + ' ' + t('lend.supply') + ' '}
-                  APY
+                  {asset.coin.token.symbol + ' ' + t('lend.supply') + ' '} APY
                 </Typography>
               </Box>
               <Box textAlign="right">

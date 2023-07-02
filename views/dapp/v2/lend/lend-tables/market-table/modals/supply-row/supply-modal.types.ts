@@ -8,7 +8,7 @@ import {
   UserBalancesInUSD,
 } from '@/views/dapp/v2/lend/lend.types';
 
-import { AssetData } from '../../../lend-table.types';
+import { Asset } from '../../../lend-table.types';
 
 export interface OpenRowMarketPreviewModalArgs {
   isDeposit: boolean;
@@ -19,7 +19,7 @@ export interface OpenRowMarketPreviewModalArgs {
 export interface SupplyMarketModalProps {
   closeModal: () => void;
   isDeposit?: boolean;
-  assetData: AssetData;
+  asset: Asset;
   openRowMarketPreviewModal: (x: OpenRowMarketPreviewModalArgs) => void;
   userBalancesInUSD: UserBalancesInUSD;
   marketKey: string;
@@ -31,7 +31,7 @@ export interface SupplyMarketModalProps {
 }
 
 export interface SupplyMarketModalPreviewProps {
-  assetData: AssetData;
+  asset: Asset;
   closeModal: () => void;
   isDeposit: boolean;
   value: string;
@@ -53,11 +53,12 @@ export interface ResultRowModalProps {
 }
 
 export interface BorrowLimitsWrapperProps {
-  supplyForm: UseFormReturn<SupplyBorrowForm>;
+  valueForm: UseFormReturn<SupplyBorrowForm>;
   marketRecord: Record<string, MoneyMarket>;
   marketKey: string;
   userBalancesInUSD: UserBalancesInUSD;
-  isDeposit: boolean;
+  isDeposit?: boolean;
+  isLoan?: boolean;
   priceMap: CoinPriceRecord;
 }
 

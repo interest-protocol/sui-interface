@@ -8,6 +8,7 @@ import { LinesModalProps } from './modal.types';
 
 const LineModal: FC<LinesModalProps> = ({ description, value }) => {
   const t = useTranslations();
+
   return (
     <Box
       p="1rem"

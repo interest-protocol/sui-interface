@@ -21,7 +21,7 @@ import { CollateralModalProps } from './collateral-modal.types';
 import LoadingModal from './loading-collateral';
 
 const EnableCollateralModal: FC<CollateralModalProps> = ({
-  assetData,
+  asset,
   closeModal,
   resultModal,
   mutate,
@@ -66,7 +66,7 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
 
       throwTXIfNotSuccessful(tx);
       resultModal({
-        tokenName: assetData.coin.token.symbol,
+        tokenName: asset.coin.token.symbol,
         isEnabled: true,
         isSuccess: true,
         txLink:
@@ -78,7 +78,7 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
       setCollateralSwitchState(true);
     } catch {
       resultModal({
-        tokenName: assetData.coin.token.symbol,
+        tokenName: asset.coin.token.symbol,
         isEnabled: true,
         isSuccess: false,
       });
@@ -101,7 +101,7 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
   ) : (
     <Motion
       layout
-      width="24.375rem"
+      width={['90vw', '90vw', '90vw', '24.375rem']}
       display="flex"
       maxHeight="90vh"
       maxWidth="26rem"
@@ -114,8 +114,8 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
       transition={{ duration: 0.3 }}
     >
       <HeaderModal
-        type={assetData.coin.token.type}
-        symbol={assetData.coin.token.symbol}
+        type={asset.coin.token.type}
+        symbol={asset.coin.token.symbol}
         closeModal={closeModal}
       />
       <Box p="xl">
