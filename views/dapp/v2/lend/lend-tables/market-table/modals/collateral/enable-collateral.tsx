@@ -106,6 +106,7 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
       maxHeight="90vh"
       maxWidth="26rem"
       overflow="hidden"
+      overflowY="auto"
       color="onSurface"
       borderRadius="1rem"
       bg="surface.container"
@@ -162,7 +163,12 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
         <Button variant="text" fontSize="s" onClick={closeModal}>
           {t('common.v2.cancel')}
         </Button>
-        <Button variant="filled" fontSize="s" onClick={handleCollateral}>
+        <Button
+          variant="filled"
+          fontSize="s"
+          onClick={handleCollateral}
+          textAlign="center"
+        >
           {t('lend.modal.collateral.preview.button', { isEnable: 1 })}
         </Button>
       </Box>

@@ -43,7 +43,7 @@
         },
         "loading": {
           "title": "{isEnable, plural, =1 {Utilizar como colateral} other {Desactivar como colateral}}",
-          "content": "{isEnable, plural, =1 {Confirmar la transacción con {walletName}} other {Confirmar la transacción con {walletName}}"
+          "content": "{isEnable, plural, =1 {Confirmar la transacción con {walletName}} other {Confirmar la transacción con {walletName}}}"
         },
         "confirm": {
           "title": "{isEnable, plural, =1 {Utilizar como colateral} other {Desactivar como colateral}}",
@@ -56,25 +56,25 @@
       },
       "supply": {
         "normal": {
-          "button": "{isSupply, plural, =1 {Vista previa de suministro} other {Vista previa de retiro}}"
+          "button": "{isDeposit, plural, =1 {Vista previa de suministro} other {Vista previa de retiro}}"
         },
         "preview": {
           "sectionTitle": "Nuevo saldo total de suministro",
           "inToken": "En token",
           "inUSD": "En USD",
-          "button": "{isSupply, plural, =1 {Confirmar suministro} other {Confirmar retiro}}"
+          "button": "{isDeposit, plural, =1 {Confirmar suministro} other {Confirmar retiro}}"
         },
         "loading": {
-          "content": "{isSupply, plural, =1 {Suministrando token, por favor espera...} other {Retirando token, por favor espera...}}"
+          "content": "{isDeposit, plural, =1 {Suministrando token, por favor espera...} other {Retirando token, por favor espera...}}"
         },
         "confirm": {
-          "content": "{isSupply, plural, =1 {Token suministrado} other {Token retirado}}",
+          "content": "{isDeposit, plural, =1 {Token suministrado} other {Token retirado}}",
           "additionInfo": "Puedes consultar tu historial de transacciones en el menú de Actividad.",
           "secondButton": "Ver en la actividad"
         },
         "error": {
           "title": "Error",
-          "content": "{isSupply, plural, =1 {Fallo en el suministro de token} other {Fallo en el retiro de token}}",
+          "content": "{isDeposit, plural, =1 {Fallo en el suministro de token} other {Fallo en el retiro de token}}",
           "button": "Intentar de nuevo"
         }
       },

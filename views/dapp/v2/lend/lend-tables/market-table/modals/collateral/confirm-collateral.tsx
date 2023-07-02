@@ -69,6 +69,7 @@ const ResultCollateralModal: FC<ResultModalProps> = ({
             boxSizing="border-box"
             justifyContent="center"
             textTransform="capitalize"
+            textAlign="center"
           >
             {t('common.explorer')}
           </Button>
