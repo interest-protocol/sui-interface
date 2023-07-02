@@ -26,7 +26,8 @@
         "pool": "pool",
         "farm": "farm",
         "createToken": "Crear token",
-        "settings": "Configuración"
+        "settings": "Configuración",
+        "bridge": "Bridge"
       },
       "menu": {
         "settings": "Configuración",

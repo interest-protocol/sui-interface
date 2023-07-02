@@ -1,4 +1,5 @@
 export { default as BNBSVG } from './bnb';
+export { default as BridgeSVG } from './bridge';
 export { default as BTCSVG } from './btc';
 export { default as CheckmarkSVG } from './checkmark';
 export { default as CogsSVG } from './cogs';

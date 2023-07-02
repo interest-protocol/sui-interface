@@ -14,12 +14,14 @@ import { v4 } from 'uuid';
 
 import { LogoSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
+import { useNetwork } from '@/hooks';
 import { AppTheme, TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
 import { SIDEBAR_ITEMS } from './sidebar.data';
 
 const Sidebar: FC = () => {
+  const { network } = useNetwork();
   const { asPath, push } = useRouter();
   const { dark, setDark } = useTheme() as AppTheme<Theme>;
   const t = useTranslations();
@@ -45,7 +47,9 @@ const Sidebar: FC = () => {
           Menu
         </Typography>
         <Box display="flex" flexDirection="column" gap="s">
-          {SIDEBAR_ITEMS.map(({ Icon, name, path, disabled }) => (
+          {SIDEBAR_ITEMS.filter(({ networks }) =>
+            networks.includes(network)
+          ).map(({ Icon, name, path, disabled }) => (
             <Box
               p="l"
               key={v4()}
