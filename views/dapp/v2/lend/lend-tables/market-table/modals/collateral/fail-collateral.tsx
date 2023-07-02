@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { TimesSVG } from '@/components/svg/v2';
 import { capitalize } from '@/utils';
 
-import { ResultModalProps } from './collateral-modal.types';
+import { ResultModalProps } from '../modal.types';
 
 const FailCollateralModal: FC<ResultModalProps> = ({
   tokenName,

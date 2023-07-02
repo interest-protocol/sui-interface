@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Motion,
-  ProgressIndicator,
   Theme,
   Typography,
   useTheme,
