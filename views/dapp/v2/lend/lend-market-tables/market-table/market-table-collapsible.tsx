@@ -12,7 +12,7 @@ import { FC } from 'react';
 import { TTranslatedMessage } from '@/interface';
 import { CarteUpSVG } from '@/svg';
 
-import { MarketTableCollapsibleProps } from './market-table-content.types';
+import { MarketTableCollapsibleProps } from './market-table.types';
 
 const MarketTableCollapsible: FC<MarketTableCollapsibleProps> = ({
   isOpen,
