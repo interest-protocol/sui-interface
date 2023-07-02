@@ -5,9 +5,9 @@
     },
     "subTitle": "Top movers",
     "firstSection": {
-      "netAPR": "Net APY",
-      "supplyAPR": "Supply Balance",
-      "borrowAPR": "Borrow Balance",
+      "netAPR": "Net APR",
+      "supplyAPR": "Supply APR",
+      "borrowAPR": "Borrow APR",
       "walletBalance": "Wallet Balance",
       "newBorrowLimit": "New Borrow Limit",
       "currentBorrowLimit": "Current Borrow Limit",

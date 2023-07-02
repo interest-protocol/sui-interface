@@ -4,23 +4,24 @@ import { pathOr } from 'ramda';
 
 import { DOUBLE_SCALAR, MILLISECONDS_PER_YEAR } from '@/constants';
 import { FixedPointMath, Rebase } from '@/lib';
-import { formatDollars, formatNumber, safeIntDiv } from '@/utils';
-import { MONEY_MARKET_KEYS } from '@/views/dapp/v2/lend/lend.constants';
+import { BoxDownSVG, BoxUpSVG, PercentageSVG } from '@/svg';
+import { formatDollars, safeIntDiv } from '@/utils';
+import { MONEY_MARKET_KEYS } from '@/views/dapp/v2/lend/lend.data';
 
-import { APRCardProps } from './card/card.types';
 import {
   CalculateUserBalancesInUSDArgs,
   MakeCardsDataArgs,
   MoneyMarketStorage,
   UserBalancesInUSD,
 } from './lend.types';
+import { APRCardProps } from './overview/apr-card/card.types';
 
 export const calculateUserBalancesInUSD = ({
+  network,
+  ipxPrice,
   priceMap,
   marketRecord,
-  ipxPrice,
   moneyMarketStorage,
-  network,
 }: CalculateUserBalancesInUSDArgs): UserBalancesInUSD =>
   MONEY_MARKET_KEYS[network].reduce(
     (acc, key) => {
@@ -172,30 +173,25 @@ export const makeCardsData = ({
 
   return [
     {
-      icon: 'percentage',
+      Icon: PercentageSVG,
       description: 'lend.firstSection.netAPR',
-      isTrendUp: netAPY >= 0,
-      trendAmount: formatNumber(netAPY * 100).toString(),
+      trend: netAPY * 100,
       amount: formatDollars(calculateNetAPYAmount(userBalancesInUSD)),
     },
     {
-      icon: 'box-up',
+      Icon: BoxUpSVG,
       description: 'lend.firstSection.supplyAPR',
-      isTrendUp: true,
-      trendAmount: formatNumber(
-        calculateSupplyAPY(userBalancesInUSD) * 100
-      ).toString(),
+      trend: calculateSupplyAPY(userBalancesInUSD) * 100,
       amount: formatDollars(
         userBalancesInUSD.totalEarnings +
           userBalancesInUSD.totalIPXCollateralRewards
       ),
     },
     {
-      icon: 'box-down',
+      Icon: BoxDownSVG,
+      trend: Math.abs(borrowAPY) * 100,
       description: 'lend.firstSection.borrowAPR',
-      isTrendUp: borrowAPY >= 0,
-      trendAmount: formatNumber(Math.abs(borrowAPY) * 100).toString(),
-      amount: userBalancesInUSD.totalInterestRateOwned.toString(),
+      amount: formatDollars(userBalancesInUSD.totalInterestRateOwned),
     },
   ];
 };

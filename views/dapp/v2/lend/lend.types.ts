@@ -1,6 +1,5 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
 import BigNumber from 'bignumber.js';
-import { ReactNode } from 'react';
 
 import { CoinPriceRecord } from '@/hooks';
 
@@ -63,10 +62,6 @@ export interface UserBalancesInUSD {
   totalInterestRateOwned: number;
   totalIPXCollateralRewards: number;
   totalIPXLoanRewards: number;
-}
-
-export interface LendProviderProps {
-  children: ReactNode;
 }
 
 export interface LendProviderState {

@@ -1,17 +1,25 @@
 import { isEmpty } from 'ramda';
-import { createContext, FC, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  FC,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import { useGetCoinsPrices, useGetDexIpxPrice, useNetwork } from '@/hooks';
+import { IEmptyObj } from '@/interface';
 import { asyncNoop, ZERO_BIG_NUMBER } from '@/utils';
 import ErrorPage from '@/views/dapp/v2/error';
-import { COIN_PRICE_KEYS } from '@/views/dapp/v2/lend/lend.constants';
+import { COIN_PRICE_KEYS } from '@/views/dapp/v2/lend/lend.data';
 import {
   useGetMoneyMarkets,
   useGetMoneyMarketStorage,
 } from '@/views/dapp/v2/lend/lend.hooks';
 import { calculateUserBalancesInUSD } from '@/views/dapp/v2/lend/lend.utils';
 
-import { LendProviderProps, LendProviderState } from './lend.types';
+import { LendProviderState } from './lend.types';
 
 const CONTEXT_DEFAULT_STATE = {
   priceMap: {},
@@ -42,7 +50,7 @@ export const LendProviderContext = createContext<LendProviderState>(
 
 export const useLendProviderValue = () => useContext(LendProviderContext);
 
-const LendProvider: FC<LendProviderProps> = ({ children }) => {
+const LendProvider: FC<PropsWithChildren<IEmptyObj>> = ({ children }) => {
   const { network } = useNetwork();
   const [loading, setLoading] = useState(true);
 

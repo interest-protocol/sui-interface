@@ -2,10 +2,10 @@ import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import BorrowLimitIndicator from './borrow-limit-indicator';
 import LendProvider from './lend.provider';
-import LendTables from './lend-tables';
-import LimitSection from './limit-section';
-import OverviewSection from './overview-section';
+import LendMarketTables from './lend-market-tables';
+import Overview from './overview';
 
 const Lend: FC = () => {
   const t = useTranslations();
@@ -23,10 +23,10 @@ const Lend: FC = () => {
           >
             {t('lend.metadata.title')}
           </Typography>
-          <OverviewSection />
-          <LimitSection />
+          <Overview />
+          <BorrowLimitIndicator />
           <Box as="hr" borderColor="outline.outlineVariant" />
-          <LendTables />
+          <LendMarketTables />
         </Box>
       </Box>
     </LendProvider>

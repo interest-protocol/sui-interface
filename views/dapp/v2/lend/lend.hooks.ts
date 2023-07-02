@@ -15,7 +15,7 @@ import { useGetObject, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { AddressZero } from '@/lib';
 import { makeSWRKey } from '@/utils';
 
-import { MONEY_MARKET_KEYS } from './lend.constants';
+import { MONEY_MARKET_KEYS } from './lend.data';
 import { MoneyMarket } from './lend.types';
 import { parseMoneyMarketStorage } from './lend.utils';
 
