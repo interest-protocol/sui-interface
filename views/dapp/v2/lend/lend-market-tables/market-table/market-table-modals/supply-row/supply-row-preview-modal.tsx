@@ -46,29 +46,28 @@ import {
 import { calculateNewBorrowLimitNewAmount } from '@/views/dapp/v2/lend/lend-market-tables/lend-table.utils';
 import BorrowLimits from '@/views/dapp/v2/lend/lend-market-tables/market-table/market-table-modals/borrow-limits';
 
-import { getSVG } from '../../market-table-token-icon';
+import { MarketTableTokenIcon } from '../../market-table-token-icon';
 import LoadingModal from '../collateral/loading-collateral';
 import LineModal from '../lines';
 import { SupplyMarketModalPreviewProps } from './supply-modal.types';
 
 const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
-  isMax,
-  backRowMarketModal,
-  closeModal,
-  marketKey,
-  marketRecord,
-  openRowMarketResultModal,
   value,
+  asset,
+  isMax,
+  mutate,
   priceMap,
   coinsMap,
-  userBalancesInUSD,
+  marketKey,
   isDeposit,
-  asset,
-  mutate,
+  closeModal,
+  marketRecord,
+  userBalancesInUSD,
+  backRowMarketModal,
+  openRowMarketResultModal,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
-  const [FromIcon] = [getSVG(asset.coin.token.type)];
 
   const [isLoading, setIsLoading] = useState(false);
   const { network } = useNetwork();
@@ -320,7 +319,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
         </Button>
         <Box display="flex" alignItems="center">
           <Box display="flex" alignItems="center">
-            {getSVG(asset.coin.token.type)}
+            <MarketTableTokenIcon type={asset.coin.token.symbol} />
           </Box>
           <Typography variant="title5" ml="0.5rem" color="onSurface">
             {asset.coin.token.symbol}
@@ -339,7 +338,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
             justifyContent="space-between"
           >
             <Box display="flex" alignItems="center" gap="xl">
-              {FromIcon}
+              <MarketTableTokenIcon type={asset.coin.token.symbol} />
               <Typography variant="medium" color="">
                 {asset.coin.token.symbol}
               </Typography>
