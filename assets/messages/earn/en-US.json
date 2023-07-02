@@ -1,0 +1,57 @@
+{
+  "earn": {
+    "metadata": {
+      "title": "Earn"
+    },
+    "infoCards": {
+      "state": "State",
+      "tvl": "TVL",
+      "apr": "APR"
+    },
+    "tabs": {
+      "pools": "Pools",
+      "myPosition": "My Position"
+    },
+    "buttons": {
+      "volatile": "Volatile",
+      "stable": "Stable",
+      "farm": "Farm",
+      "farmAIPX": "Farm aIPX",
+      "addLiquidity": "Add Liquidity",
+      "removeLiquidity": "Remove Liquidity",
+      "swap": "Swap",
+      "enter": "Enter",
+      "reset": "Reset",
+      "add": "Add",
+      "remove": "Remove",
+      "harvest": "Harvest",
+      "confirm": "Confirm",
+      "close": "Close",
+      "viewOnActivity": "View on Activity"
+    },
+    "cardInformations": {
+      "fee": "Fee",
+      "liquidity": "Liquidity",
+      "volume": "Volume",
+      "volume24h": "Volume 24h",
+      "allocationFarm": "Allocation Farm",
+      "staked": "Staked",
+      "unstaked": "UnStaked",
+      "rewards": "Rewards",
+      "ipxToken": "IPX Token",
+      "lpToken": "LP Token"
+    },
+    "previewInformations": {
+      "addLiquidity": "Add Liquidity",
+      "removeLiquidity": "Remove Liquidity",
+      "balance": "Balance"
+    },
+    "modals": {
+      "feesEarned": "Fees Earned",
+      "feeTier": "Fee Tier",
+      "waitingConfirmation": "Waiting for confirmation",
+      "confirmWallet": "Confirm this transaction in your wallet",
+      "transactionSubmitted": "Transaction submitted"
+    }
+  }
+}

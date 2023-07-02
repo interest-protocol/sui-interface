@@ -1,0 +1,57 @@
+{
+  "earn": {
+    "metadata": {
+      "title": "Ganhar"
+    },
+    "infoCards": {
+      "state": "Estado",
+      "tvl": "TVL",
+      "apr": "APR"
+    },
+    "tabs": {
+      "pools": "Piscinas",
+      "myPosition": "Minha Posição"
+    },
+    "buttons": {
+      "volatile": "Volátil",
+      "stable": "Estável",
+      "farm": "Fazenda",
+      "farmAIPX": "Fazenda aIPX",
+      "addLiquidity": "Adicionar Liquidez",
+      "removeLiquidity": "Remover Liquidez",
+      "swap": "Trocar",
+      "enter": "Entrar",
+      "reset": "Redefinir",
+      "add": "Adicionar",
+      "remove": "Remover",
+      "harvest": "Colher",
+      "confirm": "Confirmar",
+      "close": "Fechar",
+      "viewOnActivity": "Ver na Atividade"
+    },
+    "cardInformations": {
+      "fee": "Taxa",
+      "liquidity": "Liquidez",
+      "volume": "Volume",
+      "volume24h": "Volume 24h",
+      "allocationFarm": "Alocação da Fazenda",
+      "staked": "Apostado",
+      "unstaked": "Não apostado",
+      "rewards": "Recompensas",
+      "ipxToken": "Token IPX",
+      "lpToken": "Token LP"
+    },
+    "previewInformations": {
+      "addLiquidity": "Adicionar Liquidez",
+      "removeLiquidity": "Remover Liquidez",
+      "balance": "Saldo"
+    },
+    "modals": {
+      "feesEarned": "Taxas Ganhas",
+      "feeTier": "Nível de Taxa",
+      "waitingConfirmation": "Aguardando confirmação",
+      "confirmWallet": "Confirme esta transação na sua carteira",
+      "transactionSubmitted": "Transação enviada"
+    }
+  }
+}
