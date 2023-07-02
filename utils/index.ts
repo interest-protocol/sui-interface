@@ -10,6 +10,6 @@ export * from './pools';
 export * from './promise';
 export * from './provider';
 export * from './string';
+export * from './sui-types';
 export * from './toast';
 export * from './tx';
-export * from './types';
