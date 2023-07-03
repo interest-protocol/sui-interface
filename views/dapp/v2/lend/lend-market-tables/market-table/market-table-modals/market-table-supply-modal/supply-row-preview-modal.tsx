@@ -47,8 +47,8 @@ import { calculateNewBorrowLimitNewAmount } from '@/views/dapp/v2/lend/lend-mark
 import BorrowLimits from '@/views/dapp/v2/lend/lend-market-tables/market-table/market-table-modals/borrow-limits';
 
 import { MarketTableTokenIcon } from '../../market-table-token-icon';
-import LoadingModal from '../collateral/loading-collateral';
 import LineModal from '../lines';
+import LoadingModal from '../market-table-collateral-modal/loading-collateral';
 import { SupplyMarketModalPreviewProps } from './supply-modal.types';
 
 const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
@@ -377,11 +377,11 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
         />
         <LineModal
           description="lend.modal.supply.preview.inToken"
-          value={formatMoney(+newSupplyTokenBalance)}
+          value={formatMoney(+newSupplyTokenBalance)} // TODO: Need check
         />
         <LineModal
           description="lend.modal.supply.preview.inUSD"
-          value={formatDollars(newSupplyTokenBalanceInUSD)}
+          value={formatDollars(newSupplyTokenBalanceInUSD)} // TODO: Need check
         />
       </Box>
       <Box

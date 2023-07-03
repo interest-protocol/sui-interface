@@ -10,9 +10,9 @@ import {
 } from '@/views/dapp/v2/lend/lend.types';
 
 import { Asset } from '../../lend-table.types';
-import { ResultRowBorrowModalProps } from './borrow-row/borrow-modal.types';
-import { ResultCollateralModalProps } from './collateral/collateral-modal.types';
-import { SupplyBorrowForm } from './supply-row/supply-modal.types';
+import { ResultRowBorrowModalProps } from './market-table-borrow-modal/borrow-modal.types';
+import { ResultCollateralModalProps } from './market-table-collateral-modal/collateral-modal.types';
+import { SupplyBorrowForm } from './market-table-supply-modal/supply-modal.types';
 
 export interface OpenSupplyMarketPreviewModalArgs {
   isDeposit: boolean;

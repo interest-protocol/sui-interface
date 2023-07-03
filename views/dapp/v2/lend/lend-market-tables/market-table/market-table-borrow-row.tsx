@@ -17,9 +17,9 @@ import {
   BorrowMarketConfirmModal,
   BorrowMarketFailModal,
   BorrowMarketModal,
-} from './market-table-modals/borrow-row';
-import { ResultRowBorrowModalProps } from './market-table-modals/borrow-row/borrow-modal.types';
-import BorrowMarketPreviewModal from './market-table-modals/borrow-row/borrow-row-preview-modal';
+} from './market-table-modals/market-table-borrow-modal';
+import { BorrowMarketPreviewModal } from './market-table-modals/market-table-borrow-modal';
+import { ResultRowBorrowModalProps } from './market-table-modals/market-table-borrow-modal/borrow-modal.types';
 import { OpenBorrowMarketPreviewModalArgs } from './market-table-modals/modal.types';
 import { MarketTableTokenIcon } from './market-table-token-icon';
 

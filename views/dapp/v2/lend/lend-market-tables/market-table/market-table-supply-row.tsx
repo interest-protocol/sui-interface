@@ -20,14 +20,14 @@ import {
   DisableCollateralModal,
   EnableCollateralModal,
   FailCollateralModal,
-} from './market-table-modals/collateral';
-import { ResultCollateralModalProps } from './market-table-modals/collateral/collateral-modal.types';
+} from './market-table-modals/market-table-collateral-modal';
+import { ResultCollateralModalProps } from './market-table-modals/market-table-collateral-modal/collateral-modal.types';
 import { OpenSupplyMarketPreviewModalArgs } from './market-table-modals/modal.types';
-import { ResultRowModalProps } from './market-table-modals/supply-row/supply-modal.types';
-import SupplyMarketConfirmModal from './market-table-modals/supply-row/supply-row-confirm-modal';
-import SupplyMarketFailModal from './market-table-modals/supply-row/supply-row-fail-modal';
-import SupplyMarketModal from './market-table-modals/supply-row/supply-row-modal';
-import SupplyMarketPreviewModal from './market-table-modals/supply-row/supply-row-preview-modal';
+import { ResultRowModalProps } from './market-table-modals/market-table-supply-modal/supply-modal.types';
+import SupplyMarketConfirmModal from './market-table-modals/market-table-supply-modal/supply-row-confirm-modal';
+import SupplyMarketFailModal from './market-table-modals/market-table-supply-modal/supply-row-fail-modal';
+import SupplyMarketModal from './market-table-modals/market-table-supply-modal/supply-row-modal';
+import SupplyMarketPreviewModal from './market-table-modals/market-table-supply-modal/supply-row-preview-modal';
 import { MarketTableTokenIcon } from './market-table-token-icon';
 
 const SupplyMarketTableRow: FC<SupplyRow> = ({

@@ -48,8 +48,8 @@ import { calculateNewBorrowLimitNewAmount } from '@/views/dapp/v2/lend/lend-mark
 import BorrowLimits from '@/views/dapp/v2/lend/lend-market-tables/market-table/market-table-modals/borrow-limits';
 
 import { MarketTableTokenIcon } from '../../market-table-token-icon';
-import LoadingModal from '../collateral/loading-collateral';
 import LineModal from '../lines';
+import LoadingModal from '../market-table-collateral-modal/loading-collateral';
 import { BorrowPreviewModalProps } from '../modal.types';
 
 const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
@@ -357,7 +357,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
     }
   };
 
-  const handleReplay = async () => {
+  const handleRepay = async () => {
     setIsLoading(true);
 
     const objects = MONEY_MARKET_OBJECTS[network];
@@ -444,7 +444,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
         : handleBorrow()
       : isSUID
       ? handleRepaySUID()
-      : handleReplay();
+      : handleRepay();
 
   return isLoading ? (
     <LoadingModal
@@ -544,11 +544,11 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
         />
         <LineModal
           description="lend.modal.supply.preview.inToken"
-          value={formatMoney(0.0)}
+          value={formatMoney(+value)} // TODO: Need check
         />
         <LineModal
           description="lend.modal.supply.preview.inUSD"
-          value={formatDollars(0.2)}
+          value={formatDollars(0.2)} // TODO: Need check
         />
       </Box>
       <Box

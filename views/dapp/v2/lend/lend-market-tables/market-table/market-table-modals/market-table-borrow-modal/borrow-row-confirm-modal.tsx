@@ -15,6 +15,7 @@ const BorrowMarketConfirmModal: FC<RowResultModalProps> = ({
   closeModal,
 }) => {
   const t = useTranslations();
+
   return (
     <Box
       px="xl"
@@ -63,9 +64,9 @@ const BorrowMarketConfirmModal: FC<RowResultModalProps> = ({
         {capitalize(t('lend.close'))}
       </Button>
       <a
-        href={activityLink}
         target="_blank"
         rel="noreferrer"
+        href={activityLink}
         onClick={closeModal}
       >
         <Button

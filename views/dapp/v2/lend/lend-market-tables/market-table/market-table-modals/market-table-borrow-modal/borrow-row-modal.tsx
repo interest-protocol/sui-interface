@@ -5,7 +5,6 @@ import {
   Motion,
   Slider,
   Tabs,
-  TextField,
   Theme,
   Typography,
   useTheme,
@@ -31,11 +30,12 @@ import BorrowLimits from '@/views/dapp/v2/lend/lend-market-tables/market-table/m
 
 import { MarketTableTokenIcon } from '../../market-table-token-icon';
 import HeaderModal from '../header';
+import MarketTableModalField from '../market-table-modal-field';
+import { SupplyBorrowForm } from '../market-table-supply-modal/supply-modal.types';
 import {
   BorrowLimitsWrapperProps,
   BorrowMarketModalProps,
 } from '../modal.types';
-import { SupplyBorrowForm } from '../supply-row/supply-modal.types';
 
 const IPX_TOKEN = COINS[Network.DEVNET].IPX;
 
@@ -66,15 +66,15 @@ const BorrowLimitsWrapper: FC<BorrowLimitsWrapperProps> = ({
 
 const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
   asset,
-  closeModal,
-  openRowMarketPreviewModal,
-  marketKey,
-  marketRecord,
-  moneyMarketStorage,
   ipxPrice,
   priceMap,
   coinsMap,
+  marketKey,
+  closeModal,
+  marketRecord,
   userBalancesInUSD,
+  moneyMarketStorage,
+  openRowMarketPreviewModal,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
@@ -125,7 +125,6 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
   return (
     <Motion
       layout
-      width={['90vw', '90vw', '90vw', '24.375rem']}
       display="flex"
       maxHeight="90vh"
       maxWidth="26rem"
@@ -136,6 +135,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
       flexDirection="column"
       boxShadow="0 0 5px #3334"
       transition={{ duration: 0.3 }}
+      width={['90vw', '90vw', '90vw', '24.375rem']}
     >
       <HeaderModal
         type={asset.coin.token.type}
@@ -157,9 +157,11 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
           mb="2.313rem"
           textTransform="capitalize"
         >
-          {t('common.balance')}: {formatMoney(loanBalance)}
+          {t(`common.${!isLoan ? 'balance' : 'plafond'}`)}:{' '}
+          {formatMoney(!isLoan ? loanBalance : maxBorrowAmount)}
         </Typography>
-        <TextField
+        <MarketTableModalField
+          control={borrowForm.control}
           disabled={
             isLoan ? maxBorrowAmount === 0 : market.userPrincipal.isZero()
           }
@@ -181,22 +183,20 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               );
             },
           })}
-          placeholder="0"
-          fontSize="3.563rem"
-          mb="1rem"
-          fieldProps={{
-            border: 'none',
-            textAlign: 'center',
-          }}
         />
         <Slider
           max={100}
           onChange={(value) => {
             borrowForm.setValue(
               'value',
-              isLoan
-                ? `${(value / 100) * maxBorrowAmount}`
-                : `${(value / 100) * balance}`
+              String(
+                Number(
+                  (isLoan
+                    ? (value / 100) * maxBorrowAmount
+                    : (value / 100) * balance
+                  ).toFixed(6)
+                ).toPrecision()
+              )
             );
             borrowForm.setValue('isMax', value === 100);
           }}
@@ -205,12 +205,12 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
       <Box overflowX="hidden" overflowY="auto">
         <Box p="xl">
           <BorrowLimitsWrapper
-            marketKey={marketKey}
-            marketRecord={marketRecord}
-            priceMap={priceMap}
-            userBalancesInUSD={userBalancesInUSD}
-            valueForm={borrowForm}
             isLoan={isLoan}
+            priceMap={priceMap}
+            marketKey={marketKey}
+            valueForm={borrowForm}
+            marketRecord={marketRecord}
+            userBalancesInUSD={userBalancesInUSD}
           />
         </Box>
         <Box mx="-0.5rem" px="xl">
@@ -224,7 +224,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 <MarketTableTokenIcon type={asset.coin.token.type} />
                 <Typography variant="medium" color="">
-                  {asset.coin.token.symbol + ' ' + t('lend.supply') + ' '} APY
+                  {asset.coin.token.symbol} {t('lend.supply')} APY
                 </Typography>
               </Box>
               <Box textAlign="right">
@@ -253,8 +253,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 <MarketTableTokenIcon type={IPX_TOKEN.type} />
                 <Typography variant="medium" color="">
-                  {IPX_TOKEN.symbol} {' ' + t('lend.rewards') + ' '}
-                  APR
+                  {IPX_TOKEN.symbol} {t('lend.rewards')} APR
                 </Typography>
               </Box>
               <Box textAlign="right">

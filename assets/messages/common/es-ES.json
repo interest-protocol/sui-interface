@@ -74,6 +74,7 @@
     "searchTokenInputDescription": "Buscar por nombre, símbolo o tipo...",
     "swap": "{isLoading, plural, =1 {intercambiando} other {intercambiar}}",
     "balance": "Saldo",
+    "plafond": "plafond",
     "success": "éxito",
     "notFound": "no encontrado",
     "pageNotFound": "Página no encontrada",

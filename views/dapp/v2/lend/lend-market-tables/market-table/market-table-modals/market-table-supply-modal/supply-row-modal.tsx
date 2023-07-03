@@ -5,7 +5,6 @@ import {
   Motion,
   Slider,
   Tabs,
-  TextField,
   Theme,
   Typography,
   useTheme,
@@ -30,6 +29,7 @@ import {
 } from '../../../lend-table.utils';
 import { MarketTableTokenIcon } from '../../market-table-token-icon';
 import HeaderModal from '../header';
+import MarketTableModalField from '../market-table-modal-field';
 import {
   BorrowLimitsWrapperProps,
   SupplyBorrowForm,
@@ -161,8 +161,9 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
         >
           {t('common.balance')}: {formatMoney(balance)}
         </Typography>
-        <TextField
+        <MarketTableModalField
           disabled={!balance}
+          control={supplyForm.control}
           {...supplyForm.register('value', {
             onChange: (v: ChangeEvent<HTMLInputElement>) => {
               const parsedValue = parseInputEventToNumberString(v);
@@ -173,13 +174,6 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
               );
             },
           })}
-          placeholder="0"
-          fontSize="3.563rem"
-          mb="1rem"
-          fieldProps={{
-            border: 'none',
-            textAlign: 'center',
-          }}
         />
         <Slider
           disabled={!balance}
@@ -187,7 +181,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
           onChange={(value) => {
             supplyForm.setValue(
               'value',
-              (+`${(value / 100) * balance}`).toFixed(6)
+              `${Number(((value / 100) * balance).toFixed(6)).toPrecision()}`
             );
             supplyForm.setValue('isMax', value === 100);
           }}
