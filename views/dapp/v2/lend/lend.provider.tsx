@@ -82,22 +82,21 @@ const LendProvider: FC<PropsWithChildren<IEmptyObj>> = ({ children }) => {
   } = useGetDexIpxPrice(priceMap, { refreshInterval: 100000 });
 
   useEffect(() => {
-    const state =
+    const loadingState =
       isLoading || priceIsLoading || ipxPriceIsLoading || moneyMarketIsLoading;
 
-    if (state !== loading) setLoading(state);
+    if (loadingState !== loading) setLoading(loadingState);
   }, [isLoading, priceIsLoading, ipxPriceIsLoading, moneyMarketIsLoading]);
 
-  if (!isLoading && error)
-    return <ErrorPage message={t('lend.error.markets')} />;
+  if (!loading && error) return <ErrorPage message={t('lend.error.markets')} />;
 
-  if (!isLoading && (isEmpty(marketRecord) || moneyMarketError))
+  if (!loading && (isEmpty(marketRecord) || moneyMarketError))
     return <ErrorPage message={t('lend.error.moneyMarket')} />;
 
-  if (!priceIsLoading && (isEmpty(priceError) || isEmpty(priceMap)))
+  if (!loading && (priceError || isEmpty(priceMap)))
     return <ErrorPage message={t('lend.error.prices')} />;
 
-  if (!ipxPriceIsLoading && ipxPriceError)
+  if (!loading && ipxPriceError)
     return <ErrorPage message={t('lend.error.ipxPrice')} />;
 
   const mutate = async () => {

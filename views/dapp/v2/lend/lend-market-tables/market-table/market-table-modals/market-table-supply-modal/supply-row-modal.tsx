@@ -163,7 +163,10 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
             onChange: (v: ChangeEvent<HTMLInputElement>) => {
               const parsedValue = parseInputEventToNumberString(v);
               supplyForm.setValue('isMax', +parsedValue === balance);
-              supplyForm.setValue('value', parsedValue);
+              supplyForm.setValue(
+                'value',
+                String(+parsedValue > balance ? balance : parsedValue)
+              );
             },
           })}
         />
@@ -236,7 +239,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
               </Box>
               <Box textAlign="right">
                 <Typography variant="medium" color={dark ? 'white' : 'black'}>
-                  {formatMoney(ipxAPR * 100) + ' %'}
+                  {formatMoney(ipxAPR * 100)}%
                 </Typography>
               </Box>
             </Box>
