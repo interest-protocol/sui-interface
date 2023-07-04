@@ -159,7 +159,7 @@ export const makeCardsData = ({
     {
       Icon: PercentageSVG,
       description: 'lend.firstSection.net',
-      trend: netAPY * 100,
+      trend: Number((netAPY * 100).toFixed(2)),
       amount: formatDollars(
         userBalancesInUSD.totalSupply - userBalancesInUSD.totalLoan
       ),
@@ -167,12 +167,12 @@ export const makeCardsData = ({
     {
       Icon: BoxUpSVG,
       description: 'lend.firstSection.supply',
-      trend: calculateSupplyAPY(userBalancesInUSD) * 100,
+      trend: Number((calculateSupplyAPY(userBalancesInUSD) * 100).toFixed(2)),
       amount: formatDollars(userBalancesInUSD.totalSupply),
     },
     {
       Icon: BoxDownSVG,
-      trend: borrowAPY * 100,
+      trend: Number((borrowAPY * 100).toFixed(2)),
       description: 'lend.firstSection.borrow',
       amount: formatDollars(userBalancesInUSD.totalLoan),
     },
