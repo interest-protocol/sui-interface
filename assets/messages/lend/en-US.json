@@ -8,6 +8,8 @@
       "net": "Portfolio",
       "supply": "Supply",
       "borrow": "Borrow",
+      "supplyAPR": "Supply APR",
+      "borrowAPR": "Borrow APR",
       "walletBalance": "Wallet Balance",
       "newBorrowLimit": "New Borrow Limit",
       "currentBorrowLimit": "Current Borrow Limit",

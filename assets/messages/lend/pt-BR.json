@@ -8,6 +8,8 @@
       "net": "Portfólio",
       "supply": "Depósitos",
       "borrow": "Empréstimos",
+      "supplyAPR": "Saldo de suprimento",
+      "borrowAPR": "Saldo de empréstimo",
       "walletBalance": "Saldo da carteira",
       "newBorrowLimit": "Novo limite de empréstimo",
       "currentBorrowLimit": "Limite de empréstimo atual",
