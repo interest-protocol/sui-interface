@@ -5,9 +5,9 @@
     },
     "subTitle": "Principales movimientos",
     "firstSection": {
-      "netAPR": "APY Neto",
-      "supplyAPR": "Saldo de suministro",
-      "borrowAPR": "Saldo de préstamo",
+      "net": "Portafolio",
+      "supply": "Depósitos",
+      "borrow": "Préstamo",
       "walletBalance": "Saldo de billetera",
       "newBorrowLimit": "Nuevo límite de préstamo",
       "currentBorrowLimit": "Límite de préstamo actual",

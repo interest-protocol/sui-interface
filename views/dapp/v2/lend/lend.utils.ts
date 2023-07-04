@@ -129,16 +129,10 @@ const calculateNetAPY = (data: UserBalancesInUSD) => {
     data.totalIPXCollateralRewards + data.totalEarnings,
     data.totalSupply
   );
-  return collateralAPY - borrowAPY;
-};
 
-const calculateNetAPYAmount = (data: UserBalancesInUSD) => {
-  return (
-    data.totalIPXCollateralRewards +
-    data.totalIPXLoanRewards +
-    data.totalEarnings -
-    data.totalInterestRateOwned
-  );
+  return borrowAPY > 0
+    ? collateralAPY + borrowAPY
+    : collateralAPY - Math.abs(borrowAPY);
 };
 
 const calculateSupplyAPY = (data: UserBalancesInUSD) => {
@@ -164,24 +158,23 @@ export const makeCardsData = ({
   return [
     {
       Icon: PercentageSVG,
-      description: 'lend.firstSection.netAPR',
+      description: 'lend.firstSection.net',
       trend: netAPY * 100,
-      amount: formatDollars(calculateNetAPYAmount(userBalancesInUSD)),
+      amount: formatDollars(
+        userBalancesInUSD.totalSupply - userBalancesInUSD.totalLoan
+      ),
     },
     {
       Icon: BoxUpSVG,
-      description: 'lend.firstSection.supplyAPR',
+      description: 'lend.firstSection.supply',
       trend: calculateSupplyAPY(userBalancesInUSD) * 100,
-      amount: formatDollars(
-        userBalancesInUSD.totalEarnings +
-          userBalancesInUSD.totalIPXCollateralRewards
-      ),
+      amount: formatDollars(userBalancesInUSD.totalSupply),
     },
     {
       Icon: BoxDownSVG,
       trend: borrowAPY * 100,
-      description: 'lend.firstSection.borrowAPR',
-      amount: formatDollars(userBalancesInUSD.totalInterestRateOwned),
+      description: 'lend.firstSection.borrow',
+      amount: formatDollars(userBalancesInUSD.totalLoan),
     },
   ];
 };
