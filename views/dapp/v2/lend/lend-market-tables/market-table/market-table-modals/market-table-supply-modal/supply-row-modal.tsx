@@ -163,20 +163,17 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
             onChange: (v: ChangeEvent<HTMLInputElement>) => {
               const parsedValue = parseInputEventToNumberString(v);
               supplyForm.setValue('isMax', +parsedValue === balance);
-              supplyForm.setValue(
-                'value',
-                (+parseInputEventToNumberString(v)).toFixed(6)
-              );
+              supplyForm.setValue('value', parsedValue);
             },
           })}
         />
         <Slider
-          disabled={!balance}
           max={100}
+          disabled={!balance}
           onChange={(value) => {
             supplyForm.setValue(
               'value',
-              `${Number(((value / 100) * balance).toFixed(6)).toPrecision()}`
+              Number(((value / 100) * balance).toFixed(6)).toPrecision()
             );
             supplyForm.setValue('isMax', value === 100);
           }}
@@ -185,12 +182,12 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
       <Box overflowX="hidden" overflowY="auto">
         <Box p="xl">
           <BorrowLimitsWrapper
-            marketKey={marketKey}
-            marketRecord={marketRecord}
-            userBalancesInUSD={userBalancesInUSD}
-            valueForm={supplyForm}
             priceMap={priceMap}
             isDeposit={isDeposit}
+            marketKey={marketKey}
+            valueForm={supplyForm}
+            marketRecord={marketRecord}
+            userBalancesInUSD={userBalancesInUSD}
           />
         </Box>
         <Box mx="-0.5rem" px="xl">
