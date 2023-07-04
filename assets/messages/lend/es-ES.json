@@ -104,6 +104,12 @@
           "button": "Intentar de nuevo"
         }
       }
+    },
+    "error": {
+      "markets": "Error al obtener los Mercados",
+      "moneyMarket": "Error al obtener el Mercado Monetario",
+      "prices": "Error al obtener los Mercados",
+      "ipxPrice": "Error al obtener el precio de IPX"
     }
   }
 }

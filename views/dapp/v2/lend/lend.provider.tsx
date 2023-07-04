@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { isEmpty } from 'ramda';
 import {
   createContext,
@@ -51,6 +52,7 @@ export const LendProviderContext = createContext<LendProviderState>(
 export const useLendProviderValue = () => useContext(LendProviderContext);
 
 const LendProvider: FC<PropsWithChildren<IEmptyObj>> = ({ children }) => {
+  const t = useTranslations();
   const { network } = useNetwork();
   const [loading, setLoading] = useState(true);
 
@@ -86,26 +88,17 @@ const LendProvider: FC<PropsWithChildren<IEmptyObj>> = ({ children }) => {
     if (state !== loading) setLoading(state);
   }, [isLoading, priceIsLoading, ipxPriceIsLoading, moneyMarketIsLoading]);
 
-  // TODO render a custom message for each error type
   if (!isLoading && error)
-    return <ErrorPage message="Error getting the Markets" />;
+    return <ErrorPage message={t('lend.error.markets')} />;
 
-  if (!isLoading && isEmpty(marketRecord))
-    return <ErrorPage message="Error getting the Money Market" />;
+  if (!isLoading && (isEmpty(marketRecord) || moneyMarketError))
+    return <ErrorPage message={t('lend.error.moneyMarket')} />;
 
-  if (!priceIsLoading && isEmpty(priceError))
-    return <ErrorPage message="Error getting the Coins Prices" />;
-
-  if (!priceIsLoading && isEmpty(priceMap))
-    return <ErrorPage message="Error getting the Coins Prices" />;
+  if (!priceIsLoading && (isEmpty(priceError) || isEmpty(priceMap)))
+    return <ErrorPage message={t('lend.error.prices')} />;
 
   if (!ipxPriceIsLoading && ipxPriceError)
-    return <ErrorPage message="Error getting the IPX price" />;
-
-  if (!moneyMarketIsLoading && moneyMarketError)
-    return (
-      <ErrorPage message="Error fetching the Money Market Storage Object" />
-    );
+    return <ErrorPage message={t('lend.error.ipxPrice')} />;
 
   const mutate = async () => {
     await mutateMarket();

@@ -1,4 +1,5 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
+import { Box, ProgressIndicator } from '@interest-protocol/ui-kit';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
@@ -24,8 +25,19 @@ const LendPage: NextPageWithProps = ({ pageTitle }) => {
     if (network !== Network.TESTNET) setNetwork(Network.TESTNET);
   }, [network]);
 
-  // TODO FIX THIS
-  if (network !== Network.TESTNET) return <div>loading...</div>;
+  if (network !== Network.TESTNET)
+    return (
+      <Layout dashboard>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          height="calc(100% - 10rem)"
+        >
+          <ProgressIndicator variant="loading" />
+        </Box>
+      </Layout>
+    );
 
   return (
     <ModalProvider newDesign>
