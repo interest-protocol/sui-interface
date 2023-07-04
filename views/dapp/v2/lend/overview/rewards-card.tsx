@@ -13,6 +13,7 @@ import { toast } from 'react-hot-toast';
 import { useMoneyMarketSdk, useNetwork, useProvider } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import {
+  capitalize,
   formatMoney,
   showTXSuccessToast,
   throwTXIfNotSuccessful,
@@ -60,8 +61,6 @@ const RewardsCard: FC = () => {
       throwTXIfNotSuccessful(tx);
 
       showTXSuccessToast(tx, network);
-    } catch {
-      throw new Error('error translation key'); // TODO: add right error key
     } finally {
       setLoading(false);
       await mutate();
@@ -70,10 +69,9 @@ const RewardsCard: FC = () => {
 
   const onGetRewards = () =>
     toast.promise(handleGetRewards(), {
-      // TODO: add translations
-      success: 'success',
-      error: 'error',
-      loading: 'loading...',
+      success: capitalize(t('common.success')),
+      error: capitalize(t('error.generic')),
+      loading: capitalize(t('common.loading')),
     });
 
   return (
