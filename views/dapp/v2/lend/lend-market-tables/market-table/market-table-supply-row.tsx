@@ -22,11 +22,13 @@ import {
   FailCollateralModal,
 } from './market-table-modals/market-table-collateral-modal';
 import { ResultCollateralModalProps } from './market-table-modals/market-table-collateral-modal/collateral-modal.types';
+import {
+  SupplyMarketConfirmModal,
+  SupplyMarketFailModal,
+  SupplyMarketModal,
+  SupplyMarketPreviewModal,
+} from './market-table-modals/market-table-supply-modal';
 import { ResultRowModalProps } from './market-table-modals/market-table-supply-modal/supply-modal.types';
-import SupplyMarketConfirmModal from './market-table-modals/market-table-supply-modal/supply-row-confirm-modal';
-import SupplyMarketFailModal from './market-table-modals/market-table-supply-modal/supply-row-fail-modal';
-import SupplyMarketModal from './market-table-modals/market-table-supply-modal/supply-row-modal';
-import SupplyMarketPreviewModal from './market-table-modals/market-table-supply-modal/supply-row-preview-modal';
 import { OpenSupplyMarketPreviewModalArgs } from './market-table-modals/modal.types';
 import { MarketTableTokenIcon } from './market-table-token-icon';
 
@@ -279,25 +281,23 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
       <Box
         gap="2xs"
         display="flex"
+        textAlign="center"
         alignItems="center"
         flexDirection="column"
         justifyContent="center"
       >
-        <Typography variant="medium" textAlign="center">
-          {formatMoney(supplied.amount)}
-        </Typography>
-        <Typography
-          variant="small"
-          textAlign="center"
-          color={dark ? '#77767A' : '#47464A'}
-        >
+        <Typography variant="medium">{formatMoney(supplied.amount)}</Typography>
+        <Typography variant="small" color={dark ? '#77767A' : '#47464A'}>
           {formatDollars(supplied.value)}
         </Typography>
       </Box>
-      <Box display="flex" alignItems="center" justifyContent="center">
-        <Typography variant="medium" textAlign="center">
-          {formatMoney(wallet)}
-        </Typography>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        textAlign="center"
+      >
+        <Typography variant="medium">{formatMoney(wallet)}</Typography>
       </Box>
       <Box
         px="l"

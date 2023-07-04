@@ -20,13 +20,20 @@ const MarketTableHeader: FC<{ headers: ReadonlyArray<TTranslatedMessage> }> = ({
       gridTemplateColumns={`repeat(${headers.length}, 1fr)`}
       borderColor="outline.outlineVariant"
     >
-      {headers.map((name) => (
+      {headers.map((name, index) => (
         <Box px="l" key={v4()}>
           <Typography
             whiteSpace="nowrap"
             variant="extraSmall"
             textTransform="capitalize"
             color={dark ? '#77767A' : '#47464A'}
+            textAlign={
+              !index
+                ? 'left'
+                : index === headers.length - 1
+                ? 'right'
+                : 'center'
+            }
           >
             {t(name)}
           </Typography>

@@ -180,18 +180,13 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
       <Box
         gap="2xs"
         display="flex"
+        textAlign="center"
         alignItems="center"
         flexDirection="column"
         justifyContent="center"
       >
-        <Typography variant="medium" textAlign="center">
-          {formatMoney(borrowed.amount)}
-        </Typography>
-        <Typography
-          variant="small"
-          textAlign="center"
-          color={dark ? '#77767A' : '#47464A'}
-        >
+        <Typography variant="medium">{formatMoney(borrowed.amount)}</Typography>
+        <Typography variant="small" color={dark ? '#77767A' : '#47464A'}>
           {formatDollars(borrowed.value)}
         </Typography>
       </Box>
