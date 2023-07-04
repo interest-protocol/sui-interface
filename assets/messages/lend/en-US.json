@@ -102,6 +102,12 @@
           "button": "Try again"
         }
       }
+    },
+    "error": {
+      "markets": "Error getting the markets",
+      "moneyMarket": "Error getting the Money Market",
+      "prices": "Error getting the prices",
+      "ipxPrice": "Error getting the IPX price"
     }
   }
 }

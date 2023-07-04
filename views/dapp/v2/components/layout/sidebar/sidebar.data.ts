@@ -31,7 +31,7 @@ export const SIDEBAR_ITEMS = [
     name: 'lend',
     path: Routes[RoutesEnum.Lend],
     disabled: false,
-    networks: [Network.TESTNET, Network.TESTNET],
+    networks: [Network.TESTNET, Network.MAINNET],
   },
   {
     Icon: FarmSVG,

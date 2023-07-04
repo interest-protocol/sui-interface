@@ -120,7 +120,6 @@ export const TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_SOL]: WormholeSOLv1SVG,
 };
 
-// TODO WHAT IS THE NEW DEFAULT UNKNOWN COIN:??
 export const TOKENS_SVG_MAP_V2 = {
   default: UnknownCoinSVG,
   [COIN_TYPE[Network.DEVNET].BNB]: BNBSVG,
