@@ -70,10 +70,15 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
         coinsMap[marketKey]?.decimals
       ).decimalPlaces(0, BigNumber.ROUND_DOWN);
 
+      const safeAmount =
+        marketKey === moneyMarketSdk.getSUIDType()
+          ? amount
+          : bnMin(amount, marketRecord[marketKey].cash);
+
       const { transactionBlockBytes, signature } = await signTransactionBlock({
         transactionBlock: await moneyMarketSdk.borrow({
           assetType: marketKey,
-          borrowValue: bnMin(amount, marketRecord[marketKey].cash).toString(),
+          borrowValue: safeAmount.toString(),
         }),
       });
 
@@ -136,6 +141,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
           principalToRepay: principalToRepay.toString(),
           assetList: coinInList,
           assetValue: amount.toString(),
+          txb,
         }),
       });
 
@@ -166,6 +172,25 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
   };
 
   const handleAction = () => (isLoan ? handleBorrow() : handleRepay());
+
+  const market = marketRecord[marketKey];
+
+  const loanBorrowedValue = market.userPrincipal.isZero()
+    ? 0
+    : FixedPointMath.toNumber(
+        market.totalLoanRebase.toElastic(market.userPrincipal),
+        market.decimals
+      );
+
+  const totalLoanBorrowedValue =
+    (loanBorrowedValue + +value) * priceMap[marketKey].price;
+
+  const repayAmount = +value > loanBorrowedValue ? loanBorrowedValue : +value;
+
+  const repayBorrowedValue = loanBorrowedValue - repayAmount;
+
+  const totalRepayBorrowedValue =
+    repayBorrowedValue * priceMap[marketKey].price;
 
   return isLoading ? (
     <LoadingModal
@@ -245,7 +270,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
             marketRecord,
             marketKey,
             userBalancesInUSD,
-            newAmount: +value,
+            newAmount: isLoan ? +value : repayAmount,
             adding: isLoan,
             isLoan: true,
             priceMap,
@@ -265,11 +290,19 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
         />
         <LineModal
           description="lend.modal.supply.preview.inToken"
-          value={formatMoney(+value)} // TODO: Need check
+          value={
+            isLoan
+              ? formatMoney(+value + loanBorrowedValue)
+              : formatMoney(repayBorrowedValue)
+          }
         />
         <LineModal
           description="lend.modal.supply.preview.inUSD"
-          value={formatDollars(0.2)} // TODO: Need check
+          value={
+            isLoan
+              ? formatDollars(totalLoanBorrowedValue)
+              : formatDollars(totalRepayBorrowedValue)
+          }
         />
       </Box>
       <Box

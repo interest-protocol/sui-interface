@@ -80,9 +80,9 @@ export const mainNetAmmSdk = new SDK(mainNetProvider, Network.MAINNET);
 export const devNetMoneyMarketSdk = MoneymarketSDK.getDevNetSDK(devNetProvider);
 
 export const testNetMoneyMarketSdk =
-  MoneymarketSDK.getDevNetSDK(testNetProvider);
+  MoneymarketSDK.getTestNetSDK(testNetProvider);
 
 export const mainNetMoneyMarketSdk =
-  MoneymarketSDK.getDevNetSDK(mainNetProvider);
+  MoneymarketSDK.getMainNetSDK(mainNetProvider);
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());

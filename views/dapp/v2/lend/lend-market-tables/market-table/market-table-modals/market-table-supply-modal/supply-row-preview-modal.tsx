@@ -176,11 +176,14 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
 
   const market = marketRecord[marketKey];
 
-  const newSupplyTokenBalance =
-    FixedPointMath.toNumber(
-      market.totalCollateralRebase.toElastic(market.userShares),
-      market.decimals
-    ) + value;
+  const currentSupplyTokenBalance = FixedPointMath.toNumber(
+    market.totalCollateralRebase.toElastic(market.userShares),
+    market.decimals
+  );
+
+  const newSupplyTokenBalance = isDeposit
+    ? currentSupplyTokenBalance + +value
+    : currentSupplyTokenBalance - +value;
 
   const newSupplyTokenBalanceInUSD =
     +newSupplyTokenBalance * priceMap[marketKey].price;
@@ -225,7 +228,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
         </Button>
         <Box display="flex" alignItems="center">
           <Box display="flex" alignItems="center">
-            <MarketTableTokenIcon type={asset.coin.token.symbol} />
+            <MarketTableTokenIcon type={asset.coin.token.type} />
           </Box>
           <Typography variant="title5" ml="0.5rem" color="onSurface">
             {asset.coin.token.symbol}
@@ -244,7 +247,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
             justifyContent="space-between"
           >
             <Box display="flex" alignItems="center" gap="xl">
-              <MarketTableTokenIcon type={asset.coin.token.symbol} />
+              <MarketTableTokenIcon type={asset.coin.token.type} />
               <Typography variant="medium" color="">
                 {asset.coin.token.symbol}
               </Typography>
@@ -283,11 +286,11 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
         />
         <LineModal
           description="lend.modal.supply.preview.inToken"
-          value={formatMoney(+newSupplyTokenBalance)} // TODO: Need check
+          value={formatMoney(+newSupplyTokenBalance)}
         />
         <LineModal
           description="lend.modal.supply.preview.inUSD"
-          value={formatDollars(newSupplyTokenBalanceInUSD)} // TODO: Need check
+          value={formatDollars(newSupplyTokenBalanceInUSD)}
         />
       </Box>
       <Box

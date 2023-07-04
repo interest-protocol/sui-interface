@@ -179,7 +179,7 @@ export const makeCardsData = ({
     },
     {
       Icon: BoxDownSVG,
-      trend: Math.abs(borrowAPY) * 100,
+      trend: borrowAPY * 100,
       description: 'lend.firstSection.borrowAPR',
       amount: formatDollars(userBalancesInUSD.totalInterestRateOwned),
     },

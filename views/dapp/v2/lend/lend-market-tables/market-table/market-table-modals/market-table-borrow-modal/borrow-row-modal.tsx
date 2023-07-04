@@ -49,13 +49,24 @@ const BorrowLimitsWrapper: FC<BorrowLimitsWrapperProps> = ({
 }) => {
   const value = useWatch({ control: valueForm.control, name: 'value' });
 
+  const market = marketRecord[marketKey];
+
+  const currentLoan = market.userPrincipal.isZero()
+    ? 0
+    : FixedPointMath.toNumber(
+        market.totalLoanRebase.toElastic(market.userPrincipal),
+        market.decimals
+      );
+
+  const repayAmount = +value > currentLoan ? currentLoan : +value;
+
   return (
     <BorrowLimits
       {...calculateNewBorrowLimitNewAmount({
         marketRecord,
         marketKey,
         userBalancesInUSD,
-        newAmount: +value,
+        newAmount: isLoan ? +value : repayAmount,
         adding: !!isLoan,
         isLoan: true,
         priceMap,
@@ -156,7 +167,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
           textTransform="capitalize"
         >
           {t(`common.${!isLoan ? 'balance' : 'plafond'}`)}:{' '}
-          {formatMoney(!isLoan ? loanBalance : maxBorrowAmount)}
+          {formatMoney(isLoan ? maxBorrowAmount : loanBalance)}
         </Typography>
         <MarketTableModalField
           control={borrowForm.control}

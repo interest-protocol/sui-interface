@@ -10,6 +10,7 @@ import { useTranslations } from 'next-intl';
 import { pathOr } from 'ramda';
 import { FC, useState } from 'react';
 
+import { DOUBLE_SCALAR } from '@/constants';
 import { useModal, useWeb3 } from '@/hooks';
 import { formatDollars, formatMoney } from '@/utils';
 
@@ -286,9 +287,17 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
         flexDirection="column"
         justifyContent="center"
       >
-        <Typography variant="medium">{formatMoney(supplied.amount)}</Typography>
+        <Typography variant="medium">
+          {formatMoney(supplied.amount)} {asset.coin.token.symbol}
+        </Typography>
         <Typography variant="small" color={dark ? '#77767A' : '#47464A'}>
           {formatDollars(supplied.value)}
+        </Typography>
+
+        <Typography variant="small" color={dark ? '#77767A' : '#47464A'}>
+          {marketRecord[marketKey].LTV.dividedBy(DOUBLE_SCALAR).toNumber() *
+            100}
+          % LTV
         </Typography>
       </Box>
       <Box

@@ -25,10 +25,10 @@ export const makeSupplyData = ({
     ([engaged, notEngaged], key) => {
       const market = marketRecord[key];
 
-      const amountOfCoins = market.totalCollateralRebase
-        .toElastic(market.userShares)
-        .dividedBy(market.decimals)
-        .toNumber();
+      const amountOfCoins = FixedPointMath.toNumber(
+        market.totalCollateralRebase.toElastic(market.userShares),
+        market.decimals
+      );
 
       const isNotEngaged = market.userShares.isZero();
 
@@ -84,10 +84,10 @@ export const makeBorrowData = ({
     ([engaged, notEngaged], key) => {
       const market = marketRecord[key];
 
-      const amountOfCoins = market.totalLoanRebase
-        .toElastic(market.userPrincipal)
-        .dividedBy(market.decimals)
-        .toNumber();
+      const amountOfCoins = FixedPointMath.toNumber(
+        market.totalLoanRebase.toElastic(market.userPrincipal),
+        market.decimals
+      );
 
       const isNotEngaged = market.userPrincipal.isZero();
 
