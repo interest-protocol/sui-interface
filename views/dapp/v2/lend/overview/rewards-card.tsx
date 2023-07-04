@@ -5,14 +5,12 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
-import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
-import { MONEY_MARKET_OBJECTS } from '@/constants/money-market.constants';
-import { useNetwork, useProvider } from '@/hooks';
+import { useMoneyMarketSdk, useNetwork, useProvider } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import {
   formatMoney,
@@ -30,6 +28,7 @@ const RewardsCard: FC = () => {
   const { network } = useNetwork();
   const { signTransactionBlock } = useWalletKit();
   const { provider } = useProvider();
+  const moneyMarketSdk = useMoneyMarketSdk();
 
   const amount = Object.values(marketRecord).reduce((acc, market) => {
     const totalRewards = market.userCollateralPendingRewards.plus(
@@ -45,23 +44,9 @@ const RewardsCard: FC = () => {
   const handleGetRewards = async () => {
     setLoading(true);
 
-    const objects = MONEY_MARKET_OBJECTS[network];
-
     try {
-      const txb = new TransactionBlock();
-
-      txb.moveCall({
-        target: `${objects.MONEY_MARKET_PACKAGE_ID}::ipx_money_market_sdk_interface::get_all_rewards`,
-        arguments: [
-          txb.object(objects.MONEY_MARKET_STORAGE),
-          txb.object(objects.INTEREST_RATE_STORAGE),
-          txb.object(objects.IPX_STORAGE),
-          txb.object(SUI_CLOCK_OBJECT_ID),
-        ],
-      });
-
       const { transactionBlockBytes, signature } = await signTransactionBlock({
-        transactionBlock: txb,
+        transactionBlock: moneyMarketSdk.getAllRewards(),
       });
 
       const tx = await provider.executeTransactionBlock({

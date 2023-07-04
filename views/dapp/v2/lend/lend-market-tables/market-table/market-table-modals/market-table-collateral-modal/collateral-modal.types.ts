@@ -1,10 +1,8 @@
+import { MoneyMarketRecord } from '@interest-protocol/sui-money-market-sdk';
 import { Dispatch, SetStateAction } from 'react';
 
 import { CoinPriceRecord } from '@/hooks';
-import {
-  MoneyMarket,
-  UserBalancesInUSD,
-} from '@/views/dapp/v2/lend/lend.types';
+import { UserBalancesInUSD } from '@/views/dapp/v2/lend/lend.types';
 
 import { Asset } from '../../../lend-table.types';
 
@@ -24,7 +22,7 @@ export interface CollateralModalProps {
   mutate: () => Promise<void>;
   setCollateralSwitchState: Dispatch<SetStateAction<boolean>>;
   marketKey: string;
-  marketRecord: Record<string, MoneyMarket>;
+  marketRecord: MoneyMarketRecord;
   priceMap: CoinPriceRecord;
 }
 

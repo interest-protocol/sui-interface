@@ -1,6 +1,5 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
-import { TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
@@ -10,8 +9,7 @@ import {
   SUI_EXPLORER_URL,
   SUI_VISION_EXPLORER_URL,
 } from '@/constants';
-import { MONEY_MARKET_OBJECTS } from '@/constants/money-market.constants';
-import { useNetwork, useProvider } from '@/hooks';
+import { useMoneyMarketSdk, useNetwork, useProvider } from '@/hooks';
 import { throwTXIfNotSuccessful } from '@/utils';
 
 import { calculateNewBorrowLimitEnableCollateral } from '../../../lend-table.utils';
@@ -37,23 +35,14 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
   const { signTransactionBlock, currentWallet } = useWalletKit();
   const { provider } = useProvider();
   const { network } = useNetwork();
+  const moneyMarketSdk = useMoneyMarketSdk();
 
   const handleCollateral = async () => {
     setIsLoading(true);
 
-    const objects = MONEY_MARKET_OBJECTS[network];
-
     try {
-      const txb = new TransactionBlock();
-
-      txb.moveCall({
-        target: `${objects.MONEY_MARKET_PACKAGE_ID}::ipx_money_market_sdk_interface::enter_market`,
-        typeArguments: [marketKey],
-        arguments: [txb.object(objects.MONEY_MARKET_STORAGE)],
-      });
-
       const { transactionBlockBytes, signature } = await signTransactionBlock({
-        transactionBlock: txb,
+        transactionBlock: moneyMarketSdk.enterMarket({ assetType: marketKey }),
       });
 
       const tx = await provider.executeTransactionBlock({

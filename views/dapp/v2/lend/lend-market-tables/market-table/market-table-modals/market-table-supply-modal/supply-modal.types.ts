@@ -1,9 +1,9 @@
+import { MoneyMarketRecord } from '@interest-protocol/sui-money-market-sdk';
 import { UseFormReturn } from 'react-hook-form';
 
 import { CoinsMap } from '@/components/web3-manager/web3-manager.types';
 import { CoinPriceRecord } from '@/hooks';
 import {
-  MoneyMarket,
   MoneyMarketStorage,
   UserBalancesInUSD,
 } from '@/views/dapp/v2/lend/lend.types';
@@ -23,7 +23,7 @@ export interface SupplyMarketModalProps {
   openRowMarketPreviewModal: (x: OpenRowMarketPreviewModalArgs) => void;
   userBalancesInUSD: UserBalancesInUSD;
   marketKey: string;
-  marketRecord: Record<string, MoneyMarket>;
+  marketRecord: MoneyMarketRecord;
   priceMap: CoinPriceRecord;
   coinsMap: CoinsMap;
   ipxPrice: number;
@@ -38,7 +38,7 @@ export interface SupplyMarketModalPreviewProps {
   isMax: boolean;
   userBalancesInUSD: UserBalancesInUSD;
   marketKey: string;
-  marketRecord: Record<string, MoneyMarket>;
+  marketRecord: MoneyMarketRecord;
   priceMap: CoinPriceRecord;
   coinsMap: CoinsMap;
   backRowMarketModal: (isDeposit: boolean) => void;
@@ -54,7 +54,7 @@ export interface ResultRowModalProps {
 
 export interface BorrowLimitsWrapperProps {
   valueForm: UseFormReturn<SupplyBorrowForm>;
-  marketRecord: Record<string, MoneyMarket>;
+  marketRecord: MoneyMarketRecord;
   marketKey: string;
   userBalancesInUSD: UserBalancesInUSD;
   isDeposit?: boolean;

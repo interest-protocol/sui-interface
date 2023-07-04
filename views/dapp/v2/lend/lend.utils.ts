@@ -1,12 +1,12 @@
+import { MONEY_MARKET_KEYS } from '@interest-protocol/sui-money-market-sdk';
 import { SuiObjectResponse } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { pathOr } from 'ramda';
 
 import { DOUBLE_SCALAR, MILLISECONDS_PER_YEAR } from '@/constants';
-import { FixedPointMath, Rebase } from '@/lib';
+import { FixedPointMath } from '@/lib';
 import { BoxDownSVG, BoxUpSVG, PercentageSVG } from '@/svg';
 import { formatDollars, safeIntDiv } from '@/utils';
-import { MONEY_MARKET_KEYS } from '@/views/dapp/v2/lend/lend.data';
 
 import {
   CalculateUserBalancesInUSDArgs,
@@ -55,31 +55,21 @@ export const calculateUserBalancesInUSD = ({
           (totalIpxMintedPerYear / 2) *
           ipxPrice;
 
-      const rebaseCollateral = new Rebase(
-        market.totalCollateralBase,
-        market.totalCollateralElastic
-      );
-
-      const rebaseLoan = new Rebase(
-        market.totalLoanBase,
-        market.totalLoanElastic
-      );
-
       const collateralInUSD =
         FixedPointMath.toNumber(
-          rebaseCollateral.toElastic(market.userShares),
+          market.totalCollateralRebase.toElastic(market.userShares),
           market.decimals
         ) * price.price;
 
       const loanInUSD =
         FixedPointMath.toNumber(
-          rebaseLoan.toElastic(market.userPrincipal),
+          market.totalLoanRebase.toElastic(market.userPrincipal),
           market.decimals
         ) * price.price;
 
       const earningsInUSD =
         FixedPointMath.toNumber(
-          rebaseCollateral
+          market.totalCollateralRebase
             .toElastic(market.userShares)
             .multipliedBy(market.supplyRatePerYear)
             .dividedBy(DOUBLE_SCALAR),
@@ -88,7 +78,7 @@ export const calculateUserBalancesInUSD = ({
 
       const interestRateOwedInUSD =
         FixedPointMath.toNumber(
-          rebaseLoan
+          market.totalLoanRebase
             .toElastic(market.userPrincipal)
             .multipliedBy(market.borrowRatePerYear)
             .dividedBy(DOUBLE_SCALAR),

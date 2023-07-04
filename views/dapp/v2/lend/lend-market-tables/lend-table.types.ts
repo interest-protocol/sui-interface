@@ -1,17 +1,14 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
+import { MoneyMarketRecord } from '@interest-protocol/sui-money-market-sdk';
 
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import { CoinPriceRecord } from '@/hooks';
 import { CoinData } from '@/interface';
 
-import {
-  MoneyMarket,
-  MoneyMarketStorage,
-  UserBalancesInUSD,
-} from '../lend.types';
+import { MoneyMarketStorage, UserBalancesInUSD } from '../lend.types';
 
 export interface MakeMoneyMarketDataArgs {
-  marketRecord: Record<string, MoneyMarket>;
+  marketRecord: MoneyMarketRecord;
   coinsMap: Record<string, Web3ManagerSuiObject>;
   network: Network;
   priceMap: CoinPriceRecord;
@@ -58,7 +55,7 @@ export interface MoneyMarketUI {
 export interface calculateNewBorrowLimitEnableCollateralArgs {
   priceMap: CoinPriceRecord;
   userBalancesInUSD: UserBalancesInUSD;
-  marketRecord: Record<string, MoneyMarket>;
+  marketRecord: MoneyMarketRecord;
   marketKey: string;
   addCollateral: boolean;
 }
@@ -66,7 +63,7 @@ export interface calculateNewBorrowLimitEnableCollateralArgs {
 export interface CalculateNewBorrowLimitNewAmountArgs {
   priceMap: CoinPriceRecord;
   userBalancesInUSD: UserBalancesInUSD;
-  marketRecord: Record<string, MoneyMarket>;
+  marketRecord: MoneyMarketRecord;
   marketKey: string;
   newAmount: number;
   isLoan: boolean;
@@ -76,16 +73,8 @@ export interface CalculateNewBorrowLimitNewAmountArgs {
 export interface CalculateIPXAPRArgs {
   ipxPrice: number;
   moneyMarketStorage: MoneyMarketStorage;
-  marketRecord: Record<string, MoneyMarket>;
+  marketRecord: MoneyMarketRecord;
   marketKey: string;
   isLoan: boolean;
   priceMap: CoinPriceRecord;
-}
-
-export interface MarketTableBorrowedProps {
-  assetData: BorrowRow['asset'];
-  borrowed: BorrowRow['borrowed'];
-  wallet: BorrowRow['wallet'];
-  cash: BorrowRow['cash'];
-  isEngaged: boolean;
 }

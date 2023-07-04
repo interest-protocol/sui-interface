@@ -15,7 +15,7 @@ import { ChangeEvent, FC, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { COINS, DOUBLE_SCALAR } from '@/constants';
-import { FixedPointMath, Rebase } from '@/lib';
+import { FixedPointMath } from '@/lib';
 import {
   formatMoney,
   min,
@@ -98,10 +98,8 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
 
   const market = marketRecord[marketKey];
 
-  const loanRebase = new Rebase(market.totalLoanBase, market.totalLoanElastic);
-
   const loanBalance = FixedPointMath.toNumber(
-    loanRebase.toElastic(market.userPrincipal),
+    market.totalLoanRebase.toElastic(market.userPrincipal),
     market.decimals
   );
 

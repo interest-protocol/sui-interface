@@ -15,7 +15,7 @@ import { ChangeEvent, FC, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { COINS, DOUBLE_SCALAR } from '@/constants';
-import { FixedPointMath, Rebase } from '@/lib';
+import { FixedPointMath } from '@/lib';
 import {
   formatMoney,
   parseInputEventToNumberString,
@@ -109,18 +109,13 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
 
   const market = marketRecord[marketKey];
 
-  const collateralRebase = new Rebase(
-    market.totalCollateralBase,
-    market.totalCollateralElastic
-  );
-
   const balance = isDeposit
     ? FixedPointMath.toNumber(
         pathOr(ZERO_BIG_NUMBER, [marketKey, 'totalBalance'], coinsMap),
         marketRecord[marketKey].decimals
       )
     : FixedPointMath.toNumber(
-        collateralRebase.toElastic(market.userShares),
+        market.totalCollateralRebase.toElastic(market.userShares),
         market.decimals
       );
 

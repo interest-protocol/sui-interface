@@ -1,7 +1,7 @@
 import { add, pathOr, subtract } from 'ramda';
 
 import { COIN_TYPE_TO_COIN, DOUBLE_SCALAR } from '@/constants';
-import { FixedPointMath, Rebase } from '@/lib';
+import { FixedPointMath } from '@/lib';
 import { safeIntDiv, ZERO_BIG_NUMBER } from '@/utils';
 
 import { BORROW_MARKETS_UI, SUPPLY_MARKETS_UI } from '../lend.data';
@@ -25,12 +25,7 @@ export const makeSupplyData = ({
     ([engaged, notEngaged], key) => {
       const market = marketRecord[key];
 
-      const collateralRebase = new Rebase(
-        market.totalCollateralBase,
-        market.totalCollateralElastic
-      );
-
-      const amountOfCoins = collateralRebase
+      const amountOfCoins = market.totalCollateralRebase
         .toElastic(market.userShares)
         .dividedBy(market.decimals)
         .toNumber();
@@ -89,12 +84,7 @@ export const makeBorrowData = ({
     ([engaged, notEngaged], key) => {
       const market = marketRecord[key];
 
-      const loanRebase = new Rebase(
-        market.totalLoanBase,
-        market.totalLoanElastic
-      );
-
-      const amountOfCoins = loanRebase
+      const amountOfCoins = market.totalLoanRebase
         .toElastic(market.userPrincipal)
         .dividedBy(market.decimals)
         .toNumber();
@@ -224,17 +214,12 @@ export const calculateNewBorrowLimitEnableCollateral = ({
 
   const market = marketRecord[marketKey];
 
-  const collateralRebase = new Rebase(
-    market.totalCollateralBase,
-    market.totalCollateralElastic
-  );
-
   const newBorrowLimit = market.userShares.isZero()
     ? currentBorrowLimit
     : operation(
         currentBorrowLimit,
         FixedPointMath.toNumber(
-          collateralRebase.toElastic(market.userShares),
+          market.totalCollateralRebase.toElastic(market.userShares),
           market.decimals
         ) * priceMap[marketKey].price
       );
@@ -250,7 +235,7 @@ export const calculateNewBorrowLimitEnableCollateral = ({
         operation(
           userBalancesInUSD.totalCollateral,
           FixedPointMath.toNumber(
-            collateralRebase.toElastic(market.userShares),
+            market.totalCollateralRebase.toElastic(market.userShares),
             market.decimals
           ) * priceMap[marketKey].price
         )
