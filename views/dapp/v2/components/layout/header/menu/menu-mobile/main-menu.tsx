@@ -11,15 +11,17 @@ import { not } from 'ramda';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
+import { useNetwork } from '@/hooks';
 import { AppTheme, TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
 import { SIDEBAR_ITEMS } from '../../../sidebar/sidebar.data';
 
 const MainMenu: FC = () => {
+  const t = useTranslations();
+  const { network } = useNetwork();
   const { asPath, push } = useRouter();
   const { dark, setDark } = useTheme() as AppTheme<Theme>;
-  const t = useTranslations();
 
   return (
     <Box
@@ -37,7 +39,9 @@ const MainMenu: FC = () => {
           Menu
         </Typography>
         <Box display="flex" flexDirection="column" gap="s">
-          {SIDEBAR_ITEMS.map(({ Icon, name, path, disabled }) => (
+          {SIDEBAR_ITEMS.filter(({ networks }) =>
+            networks.includes(network)
+          ).map(({ Icon, name, path, disabled }) => (
             <Box
               p="l"
               key={v4()}

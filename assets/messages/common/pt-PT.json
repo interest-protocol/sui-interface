@@ -34,7 +34,8 @@
         "lend": "emprestimo",
         "farm": "farm",
         "createToken": "criar token",
-        "settings": "definições"
+        "settings": "definições",
+        "bridge": "bridge"
       },
       "wallet": {
         "name": "carteira",

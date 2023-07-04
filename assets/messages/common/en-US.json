@@ -27,7 +27,8 @@
         "lend": "lend",
         "farm": "farm",
         "createToken": "create token",
-        "settings": "settings"
+        "settings": "settings",
+        "bridge": "bridge"
       },
       "menu": {
         "settings": "settings",
