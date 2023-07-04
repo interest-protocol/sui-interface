@@ -18,6 +18,7 @@ export { default as SearchSVG } from './search';
 export { default as SUISVG } from './sui';
 export { default as TimesSVG } from './times';
 export { default as UnknownCoinSVG } from './unknown-coin';
+export { default as USDCSVG } from './usdc';
 export { default as USDTSVG } from './usdt';
 export { default as UserSVG } from './user';
 export { default as WormholeADABSCSVG } from './wormhole-ada-bsc';

@@ -3,13 +3,24 @@
     "metadata": {
       "title": "Faucet"
     },
-    "pageTitle": "Fauncet",
-    "mint": "{isLoading, plural, =1 {Minting...} other {Mint}}",
+    "pageTitle": "Faucet",
+    "mint": "Mint",
     "tokenInput": "Elige el Token",
-    "firstSectionTitle": "Tokens recomendados",
-    "secondSectionTitle": "Mis tokens",
-    "amountInput": "cantidad",
-    "notFoundToken": "Token no encontrado",
+    "modal": {
+      "loading": {
+        "content": "Minting",
+        "additionalText": "Confirme la transacción en Wallet para continuar"
+      },
+      "confirm": {
+        "content": "Minted",
+        "additionalText": "Puede consultar su historial de transacciones en el menú Actividad",
+        "button": "Volver a Faucet"
+      },
+      "fail": {
+        "content": "Mint fallido",
+        "button": "Cerrar"
+      }
+    },
     "select": "Selecciona un token"
   }
 }

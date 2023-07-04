@@ -1,9 +1,9 @@
-import { useTheme } from '@emotion/react';
 import {
   COIN_TYPE,
   Network,
   OBJECT_RECORD,
 } from '@interest-protocol/sui-amm-sdk';
+import { Button } from '@interest-protocol/ui-kit';
 import {
   isValidSuiAddress,
   SUI_TYPE_ARG,
@@ -11,21 +11,18 @@ import {
 } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
-import { pathOr, prop } from 'ramda';
-import { useState } from 'react';
+import { pathOr, propOr } from 'ramda';
 import { FC } from 'react';
 
-import { Box, Button, Typography } from '@/elements';
-import { useNetwork, useProvider, useWeb3 } from '@/hooks';
-import { LoadingSVG } from '@/svg';
 import {
-  capitalize,
-  showToast,
-  showTXSuccessToast,
-  throwTXIfNotSuccessful,
-} from '@/utils';
+  NETWORK_RECORD,
+  SUI_EXPLORER_URL,
+  SUI_VISION_EXPLORER_URL,
+} from '@/constants';
+import { useNetwork, useProvider, useWeb3 } from '@/hooks';
+import { capitalize, throwTXIfNotSuccessful } from '@/utils';
 
-import { MintButtonProps } from './faucet-form.types';
+import { MintButtonProps } from './faucet.types';
 
 // @desc The faucet is never rendered on the Mainnet so the values are {}
 const COIN_MINT_AMOUNT = {
@@ -92,10 +89,13 @@ const COIN_TYPE_TO_CORE_NAME = {
   [Network.MAINNET]: {} as Record<string, string>,
 };
 
-const MintButton: FC<MintButtonProps> = ({ getValues }) => {
+const MintButton: FC<MintButtonProps> = ({
+  getValues,
+  loadingModal,
+  failModal,
+  confirmModal,
+}) => {
   const t = useTranslations();
-  const { dark } = useTheme() as { dark: boolean };
-  const [loading, setLoading] = useState(false);
   const { signTransactionBlock } = useWalletKit();
   const { account, mutate } = useWeb3();
   const { network } = useNetwork();
@@ -104,7 +104,6 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
   const handleOnMint = async () => {
     try {
       const objects = OBJECT_RECORD[network];
-      setLoading(true);
       const type = getValues('type');
 
       if (!type) throw new Error(t('error.tokenNotFound'));
@@ -143,50 +142,34 @@ const MintButton: FC<MintButtonProps> = ({ getValues }) => {
       });
 
       throwTXIfNotSuccessful(tx);
-
-      await showTXSuccessToast(tx, network);
+      confirmModal(
+        network === Network.MAINNET
+          ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
+          : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`
+      );
+    } catch (error) {
+      failModal(propOr(t('faucet.modal.fail.content'), 'message', error));
     } finally {
-      setLoading(false);
       await mutate();
     }
   };
 
-  const onMint = () =>
-    showToast(handleOnMint(), {
-      loading: t('common.loading', { loading: Number(true) }),
-      success: capitalize(t('common.success')),
-      error: prop('message'),
-    });
+  const onMint = () => {
+    loadingModal();
+    handleOnMint();
+  };
 
   return (
     <Button
-      width="100%"
+      variant="filled"
       onClick={onMint}
-      variant="primary"
-      disabled={loading}
-      nHover={{ bg: 'accent' }}
-      bg={!loading ? 'accentActive' : 'disabled'}
-      cursor={loading ? 'not-allowed' : 'pointer'}
-      color={dark ? 'text' : 'textInverted'}
+      disabled={!useWeb3().connected}
+      py="m"
+      px="2xl"
+      fontSize="s"
+      mt="xl"
     >
-      {loading ? (
-        <Box as="span" display="flex" justifyContent="center">
-          <Box as="span" display="inline-block" width="1rem">
-            <LoadingSVG width="100%" maxHeight="1rem" maxWidth="1rem" />
-          </Box>
-          <Typography
-            as="span"
-            variant="normal"
-            ml="M"
-            fontSize="S"
-            textTransform="capitalize"
-          >
-            {capitalize(t('faucet.mint', { isLoading: +loading }))}
-          </Typography>
-        </Box>
-      ) : (
-        capitalize(t('faucet.mint', { isLoading: +loading }))
-      )}
+      {capitalize(t('faucet.mint'))}
     </Button>
   );
 };

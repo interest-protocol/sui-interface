@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { FAUCET_TOKENS } from '@/constants';
+import { FAUCET_TOKENS_V2 } from '@/constants';
 import { Box } from '@/elements';
 import { useNetwork, useWeb3 } from '@/hooks';
 import { ZERO_BIG_NUMBER } from '@/utils';
@@ -15,21 +16,20 @@ const DEFAULT_COIN = {
   id: 'Unknown',
 };
 
-const BalanceList = () => {
+const BalanceList: FC = () => {
   const { coinsMap } = useWeb3();
 
   const { network } = useNetwork();
 
-  const tokens = FAUCET_TOKENS[network];
+  const tokens = FAUCET_TOKENS_V2[network];
 
   return (
-    <Box display="grid" overflowY="auto" gridGap="0.25rem" alignItems="start">
-      {tokens.map(({ symbol, Icon, type, decimals }) => {
-        const SVG = Icon;
+    <Box>
+      {tokens.map(({ symbol, type, decimals }) => {
         const coin = coinsMap[type]?.objects ? coinsMap[type] : DEFAULT_COIN;
         return (
           <ItemBalance
-            SVG={SVG}
+            type={type}
             key={v4()}
             symbol={symbol}
             decimals={decimals}
