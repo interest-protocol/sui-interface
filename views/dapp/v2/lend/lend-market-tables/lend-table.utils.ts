@@ -2,14 +2,14 @@ import { add, pathOr, subtract } from 'ramda';
 
 import { COIN_TYPE_TO_COIN, DOUBLE_SCALAR } from '@/constants';
 import { FixedPointMath } from '@/lib';
-import { safeIntDiv, ZERO_BIG_NUMBER } from '@/utils';
+import { min, safeIntDiv, ZERO_BIG_NUMBER } from '@/utils';
 
 import { BORROW_MARKETS_UI, SUPPLY_MARKETS_UI } from '../lend.data';
 import {
   BorrowRow,
   CalculateIPXAPRArgs,
+  CalculateNewBorrowLimitArgs,
   calculateNewBorrowLimitEnableCollateralArgs,
-  CalculateNewBorrowLimitNewAmountArgs,
   MakeMoneyMarketDataArgs,
   MoneyMarketUI,
   SupplyRow,
@@ -135,68 +135,197 @@ export const makeBorrowData = ({
     ]
   );
 
-export const calculateNewBorrowLimitNewAmount = ({
-  priceMap,
+export const calculateNewDepositBorrowLimit = ({
   userBalancesInUSD,
   marketRecord,
   marketKey,
   newAmount,
-  isLoan,
-  adding,
-}: CalculateNewBorrowLimitNewAmountArgs) => {
+  priceMap,
+}: CalculateNewBorrowLimitArgs) => {
   const market = marketRecord[marketKey];
-
-  const ltv = market.LTV.dividedBy(DOUBLE_SCALAR).toNumber();
-
-  const preLTVAmount =
-    market.collateralEnabled || isLoan
-      ? newAmount * priceMap[marketKey].price
-      : 0;
-
-  // IF it cannot be collateral, it has no impact on the borrow limit
-  const amountInUSD = isLoan ? preLTVAmount : preLTVAmount * ltv;
 
   const currentBorrowLimit =
     userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;
-
   const currentBorrowLimitPercentage =
-    safeIntDiv(userBalancesInUSD.totalLoan, userBalancesInUSD.totalCollateral) *
-    100;
+    userBalancesInUSD.totalLoan > 0
+      ? userBalancesInUSD.totalLoan / userBalancesInUSD.totalCollateral
+      : userBalancesInUSD.totalLoan >= userBalancesInUSD.totalCollateral
+      ? 100
+      : 0;
 
-  const newBorrowLimit = isLoan
-    ? adding
-      ? currentBorrowLimit - amountInUSD
-      : currentBorrowLimit + amountInUSD
-    : adding
-    ? currentBorrowLimit + amountInUSD
-    : currentBorrowLimit - amountInUSD;
+  if (!market.collateralEnabled)
+    return {
+      currentBorrowLimit,
+      currentBorrowLimitPercentage: currentBorrowLimitPercentage * 100,
+      newBorrowLimit: currentBorrowLimit,
+      newBorrowLimitPercentage: currentBorrowLimitPercentage * 100,
+    };
+
+  const newAmountInUSD = newAmount * priceMap[marketKey].price;
+  const ltv = market.LTV.dividedBy(DOUBLE_SCALAR).toNumber();
+  const newTotalCollateral =
+    newAmountInUSD * ltv + userBalancesInUSD.totalCollateral;
+
+  const newBorrowLimit = newTotalCollateral - userBalancesInUSD.totalLoan;
 
   const newBorrowLimitPercentage =
-    (isLoan
-      ? adding
-        ? safeIntDiv(
-            userBalancesInUSD.totalLoan + amountInUSD,
-            userBalancesInUSD.totalCollateral
-          )
-        : safeIntDiv(
-            userBalancesInUSD.totalLoan - amountInUSD,
-            userBalancesInUSD.totalCollateral
-          )
-      : adding
-      ? safeIntDiv(
-          userBalancesInUSD.totalLoan,
-          userBalancesInUSD.totalCollateral + amountInUSD
-        )
-      : safeIntDiv(
-          userBalancesInUSD.totalLoan,
-          userBalancesInUSD.totalCollateral - amountInUSD
-        )) * 100;
+    userBalancesInUSD.totalLoan >= newTotalCollateral
+      ? 100
+      : userBalancesInUSD.totalLoan > 0
+      ? userBalancesInUSD.totalLoan / newTotalCollateral
+      : 0;
 
   return {
     currentBorrowLimit,
-    currentBorrowLimitPercentage,
+    currentBorrowLimitPercentage: currentBorrowLimitPercentage * 100,
     newBorrowLimit,
-    newBorrowLimitPercentage,
+    newBorrowLimitPercentage: newBorrowLimitPercentage * 100,
+  };
+};
+
+export const calculateNewLoanBorrowLimit = ({
+  userBalancesInUSD,
+  marketKey,
+  newAmount,
+  priceMap,
+}: CalculateNewBorrowLimitArgs) => {
+  const currentBorrowLimit =
+    userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;
+  const currentBorrowLimitPercentage =
+    userBalancesInUSD.totalLoan > 0
+      ? userBalancesInUSD.totalLoan / userBalancesInUSD.totalCollateral
+      : userBalancesInUSD.totalLoan >= userBalancesInUSD.totalCollateral
+      ? 100
+      : 0;
+
+  const newAmountInUSD = newAmount * priceMap[marketKey].price;
+  const newLoanAmount = userBalancesInUSD.totalLoan + newAmountInUSD;
+
+  const newBorrowLimit =
+    newLoanAmount >= userBalancesInUSD.totalCollateral
+      ? 0
+      : userBalancesInUSD.totalCollateral - newLoanAmount;
+
+  const newBorrowLimitPercentage =
+    newLoanAmount > userBalancesInUSD.totalCollateral
+      ? 100
+      : newLoanAmount / userBalancesInUSD.totalCollateral;
+
+  return {
+    currentBorrowLimit,
+    currentBorrowLimitPercentage: currentBorrowLimitPercentage * 100,
+    newBorrowLimit,
+    newBorrowLimitPercentage: newBorrowLimitPercentage * 100,
+  };
+};
+
+export const calculateNewWithdrawLimitNewAmount = ({
+  userBalancesInUSD,
+  marketKey,
+  newAmount,
+  priceMap,
+  marketRecord,
+}: CalculateNewBorrowLimitArgs) => {
+  const currentBorrowLimit =
+    userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;
+  const currentBorrowLimitPercentage =
+    userBalancesInUSD.totalLoan > 0
+      ? userBalancesInUSD.totalLoan / userBalancesInUSD.totalCollateral
+      : userBalancesInUSD.totalLoan >= userBalancesInUSD.totalCollateral
+      ? 100
+      : 0;
+
+  const market = marketRecord[marketKey];
+
+  if (!market.collateralEnabled)
+    return {
+      currentBorrowLimit,
+      currentBorrowLimitPercentage: currentBorrowLimitPercentage * 100,
+      newBorrowLimit: currentBorrowLimit,
+      newBorrowLimitPercentage: currentBorrowLimitPercentage * 100,
+    };
+
+  const coinPrice = priceMap[marketKey].price;
+
+  const ltv = market.LTV.dividedBy(DOUBLE_SCALAR).toNumber();
+
+  const newAmountInUSD = newAmount * coinPrice * ltv;
+
+  const extraCollateralInUSD = market.collateralEnabled
+    ? userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan
+    : 0;
+
+  const newBorrowLimit =
+    newAmountInUSD >= extraCollateralInUSD
+      ? 0
+      : extraCollateralInUSD - newAmountInUSD;
+
+  const newBorrowLimitPercentage =
+    newBorrowLimit > 0
+      ? userBalancesInUSD.totalLoan /
+        (userBalancesInUSD.totalCollateral - newAmountInUSD)
+      : 1;
+
+  return {
+    currentBorrowLimit,
+    currentBorrowLimitPercentage: currentBorrowLimitPercentage * 100,
+    newBorrowLimit,
+    newBorrowLimitPercentage: newBorrowLimitPercentage * 100,
+  };
+};
+
+export const calculateNewRepayLimitNewAmount = ({
+  userBalancesInUSD,
+  marketKey,
+  newAmount,
+  priceMap,
+  marketRecord,
+}: CalculateNewBorrowLimitArgs) => {
+  const currentBorrowLimit =
+    userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;
+  const currentBorrowLimitPercentage =
+    userBalancesInUSD.totalLoan > 0
+      ? userBalancesInUSD.totalLoan / userBalancesInUSD.totalCollateral
+      : userBalancesInUSD.totalLoan >= userBalancesInUSD.totalCollateral
+      ? 100
+      : 0;
+
+  const price = priceMap[marketKey].price;
+
+  const newAmountInUSD = newAmount * price;
+
+  const market = marketRecord[marketKey];
+
+  const maximumRepayAmount = min(
+    newAmountInUSD,
+    FixedPointMath.toNumber(
+      market.totalLoanRebase.toElastic(market.userPrincipal),
+      market.decimals
+    ) * price
+  );
+
+  const newLoanAmount =
+    maximumRepayAmount >= userBalancesInUSD.totalLoan
+      ? 0
+      : userBalancesInUSD.totalLoan - maximumRepayAmount;
+
+  const newBorrowLimit =
+    newLoanAmount >= userBalancesInUSD.totalCollateral
+      ? 0
+      : userBalancesInUSD.totalCollateral - newLoanAmount;
+
+  const newBorrowLimitPercentage =
+    newLoanAmount >= userBalancesInUSD.totalCollateral
+      ? 100
+      : newLoanAmount > 0
+      ? newLoanAmount / userBalancesInUSD.totalCollateral
+      : 0;
+
+  return {
+    currentBorrowLimit,
+    currentBorrowLimitPercentage: currentBorrowLimitPercentage * 100,
+    newBorrowLimit,
+    newBorrowLimitPercentage: newBorrowLimitPercentage * 100,
   };
 };
 

@@ -18,6 +18,7 @@ import { COINS, DOUBLE_SCALAR } from '@/constants';
 import { FixedPointMath } from '@/lib';
 import {
   formatMoney,
+  min,
   parseInputEventToNumberString,
   ZERO_BIG_NUMBER,
 } from '@/utils';
@@ -25,7 +26,8 @@ import BorrowLimits from '@/views/dapp/v2/lend/lend-market-tables/market-table/m
 
 import {
   calculateIPXAPR,
-  calculateNewBorrowLimitNewAmount,
+  calculateNewDepositBorrowLimit,
+  calculateNewWithdrawLimitNewAmount,
 } from '../../../lend-table.utils';
 import { MarketTableTokenIcon } from '../../market-table-token-icon';
 import HeaderModal from '../header';
@@ -48,15 +50,23 @@ const BorrowLimitsWrapper: FC<BorrowLimitsWrapperProps> = ({
 }) => {
   const value = useWatch({ control: valueForm.control, name: 'value' });
 
-  return (
+  return isDeposit ? (
     <BorrowLimits
-      {...calculateNewBorrowLimitNewAmount({
+      {...calculateNewDepositBorrowLimit({
         marketRecord,
         marketKey,
         userBalancesInUSD,
         newAmount: +value,
-        adding: !!isDeposit,
-        isLoan: false,
+        priceMap,
+      })}
+    />
+  ) : (
+    <BorrowLimits
+      {...calculateNewWithdrawLimitNewAmount({
+        marketRecord,
+        marketKey,
+        userBalancesInUSD,
+        newAmount: +value,
         priceMap,
       })}
     />
@@ -121,7 +131,23 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
     marketRecord[marketKey].decimals
   );
 
-  const checkValue = isDeposit ? balance : suppliedAmount;
+  const coinPrice = priceMap[marketKey].price;
+
+  const loanInUSD = userBalancesInUSD.totalLoan / 0.9;
+
+  const extraCollateralInUSD = market.collateralEnabled
+    ? userBalancesInUSD.totalCollateral - loanInUSD
+    : 0;
+
+  const ltv = market.LTV.dividedBy(DOUBLE_SCALAR).toNumber();
+
+  const safeAmountToWithdraw = market.collateralEnabled
+    ? extraCollateralInUSD / ltv / coinPrice
+    : suppliedAmount;
+
+  const checkValue = isDeposit
+    ? balance
+    : min(safeAmountToWithdraw, suppliedAmount);
 
   return (
     <Motion
@@ -217,10 +243,11 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
           max={100}
           disabled={!balance}
           onChange={(value) => {
-            supplyForm.setValue(
-              'value',
-              Number(((value / 100) * checkValue).toFixed(6)).toPrecision()
-            );
+            const parsedValue = Number(
+              ((value / 100) * checkValue).toFixed(6)
+            ).toPrecision();
+            supplyForm.setValue('value', parsedValue);
+            supplyForm.setValue('originalValue', parsedValue);
             supplyForm.setValue('isMax', value === 100);
           }}
         />

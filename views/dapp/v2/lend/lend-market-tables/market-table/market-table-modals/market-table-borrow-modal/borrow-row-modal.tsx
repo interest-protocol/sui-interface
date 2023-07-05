@@ -23,7 +23,8 @@ import {
 } from '@/utils';
 import {
   calculateIPXAPR,
-  calculateNewBorrowLimitNewAmount,
+  calculateNewLoanBorrowLimit,
+  calculateNewRepayLimitNewAmount,
 } from '@/views/dapp/v2/lend/lend-market-tables/lend-table.utils';
 import BorrowLimits from '@/views/dapp/v2/lend/lend-market-tables/market-table/market-table-modals/borrow-limits';
 
@@ -48,26 +49,23 @@ const BorrowLimitsWrapper: FC<BorrowLimitsWrapperProps> = ({
 }) => {
   const value = useWatch({ control: valueForm.control, name: 'value' });
 
-  const market = marketRecord[marketKey];
-
-  const currentLoan = market.userPrincipal.isZero()
-    ? 0
-    : FixedPointMath.toNumber(
-        market.totalLoanRebase.toElastic(market.userPrincipal),
-        market.decimals
-      );
-
-  const repayAmount = +value > currentLoan ? currentLoan : +value;
-
-  return (
+  return isLoan ? (
     <BorrowLimits
-      {...calculateNewBorrowLimitNewAmount({
+      {...calculateNewLoanBorrowLimit({
         marketRecord,
         marketKey,
         userBalancesInUSD,
-        newAmount: isLoan ? +value : repayAmount,
-        adding: !!isLoan,
-        isLoan: true,
+        newAmount: +value,
+        priceMap,
+      })}
+    />
+  ) : (
+    <BorrowLimits
+      {...calculateNewRepayLimitNewAmount({
+        marketRecord,
+        marketKey,
+        userBalancesInUSD,
+        newAmount: +value,
         priceMap,
       })}
     />
@@ -238,17 +236,14 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
         <Slider
           max={100}
           onChange={(value) => {
-            borrowForm.setValue(
-              'value',
-              String(
-                Number(
-                  (isLoan
-                    ? (value / 100) * maxBorrowInToken
-                    : (value / 100) * balance
-                  ).toFixed(6)
-                ).toPrecision()
-              )
-            );
+            const parsedValue = Number(
+              (isLoan
+                ? (value / 100) * maxBorrowInToken
+                : (value / 100) * balance
+              ).toFixed(6)
+            ).toPrecision();
+            borrowForm.setValue('value', parsedValue);
+            borrowForm.setValue('originalValue', parsedValue);
             borrowForm.setValue('isMax', value === 100);
           }}
         />

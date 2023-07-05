@@ -60,14 +60,12 @@ export interface calculateNewBorrowLimitEnableCollateralArgs {
   addCollateral: boolean;
 }
 
-export interface CalculateNewBorrowLimitNewAmountArgs {
+export interface CalculateNewBorrowLimitArgs {
   priceMap: CoinPriceRecord;
   userBalancesInUSD: UserBalancesInUSD;
   marketRecord: MoneyMarketRecord;
   marketKey: string;
   newAmount: number;
-  isLoan: boolean;
-  adding: boolean;
 }
 
 export interface CalculateIPXAPRArgs {
