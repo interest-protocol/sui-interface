@@ -122,6 +122,8 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
   const maxBorrowAmount =
     userBalancesInUSD.totalCollateral * 0.9 - userBalancesInUSD.totalLoan;
 
+  const maxBorrowInToken = maxBorrowAmount / priceMap[marketKey].price;
+
   const handleTab = () => {
     borrowForm.reset();
     setIsLoan(not);
@@ -167,12 +169,12 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
           textTransform="capitalize"
         >
           {t(`common.${!isLoan ? 'balance' : 'plafond'}`)}:{' '}
-          {formatMoney(isLoan ? maxBorrowAmount : loanBalance)}
+          {formatMoney(isLoan ? maxBorrowInToken : loanBalance)}
         </Typography>
         <MarketTableModalField
           control={borrowForm.control}
           disabled={
-            isLoan ? maxBorrowAmount === 0 : market.userPrincipal.isZero()
+            isLoan ? maxBorrowInToken === 0 : market.userPrincipal.isZero()
           }
           {...borrowForm.register('value', {
             onChange: (v: ChangeEvent<HTMLInputElement>) => {
@@ -180,7 +182,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               borrowForm.setValue(
                 'isMax',
                 isLoan
-                  ? +parsedValue === maxBorrowAmount
+                  ? +parsedValue === maxBorrowInToken
                   : +parsedValue === balance
               );
 
@@ -188,7 +190,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
 
               borrowForm.setValue(
                 'value',
-                (isLoan ? min(maxBorrowAmount, value) : value).toString()
+                (isLoan ? min(maxBorrowInToken, value) : value).toString()
               );
             },
           })}
@@ -201,7 +203,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               String(
                 Number(
                   (isLoan
-                    ? (value / 100) * maxBorrowAmount
+                    ? (value / 100) * maxBorrowInToken
                     : (value / 100) * balance
                   ).toFixed(6)
                 ).toPrecision()
@@ -288,7 +290,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
             justifyContent="center"
             onClick={() => handlePreview()}
             disabled={
-              isLoan ? maxBorrowAmount === 0 : market.userPrincipal.isZero()
+              isLoan ? maxBorrowInToken === 0 : market.userPrincipal.isZero()
             }
           >
             {t('lend.modal.borrow.normal.button', {
