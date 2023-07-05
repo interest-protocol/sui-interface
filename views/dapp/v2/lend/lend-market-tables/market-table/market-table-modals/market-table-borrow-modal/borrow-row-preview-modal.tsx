@@ -30,7 +30,10 @@ import {
   throwTXIfNotSuccessful,
   ZERO_BIG_NUMBER,
 } from '@/utils';
-import { calculateNewBorrowLimitNewAmount } from '@/views/dapp/v2/lend/lend-market-tables/lend-table.utils';
+import {
+  calculateNewLoanBorrowLimit,
+  calculateNewRepayLimitNewAmount,
+} from '@/views/dapp/v2/lend/lend-market-tables/lend-table.utils';
 import BorrowLimits from '@/views/dapp/v2/lend/lend-market-tables/market-table/market-table-modals/borrow-limits';
 
 import { MarketTableTokenIcon } from '../../market-table-token-icon';
@@ -265,17 +268,27 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
         </Box>
       </Box>
       <Box p="xl" bg="surface.containerLow">
-        <BorrowLimits
-          {...calculateNewBorrowLimitNewAmount({
-            marketRecord,
-            marketKey,
-            userBalancesInUSD,
-            newAmount: isLoan ? +value : repayAmount,
-            adding: isLoan,
-            isLoan: true,
-            priceMap,
-          })}
-        />
+        {isLoan ? (
+          <BorrowLimits
+            {...calculateNewLoanBorrowLimit({
+              marketRecord,
+              marketKey,
+              userBalancesInUSD,
+              newAmount: +value,
+              priceMap,
+            })}
+          />
+        ) : (
+          <BorrowLimits
+            {...calculateNewRepayLimitNewAmount({
+              marketRecord,
+              marketKey,
+              userBalancesInUSD,
+              newAmount: +value,
+              priceMap,
+            })}
+          />
+        )}
         <Box
           as="hr"
           mx="4xl"
