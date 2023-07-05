@@ -18,7 +18,6 @@ export interface OpenRowMarketPreviewModalArgs {
 
 export interface SupplyMarketModalProps {
   closeModal: () => void;
-  isDeposit?: boolean;
   asset: Asset;
   openRowMarketPreviewModal: (x: OpenRowMarketPreviewModalArgs) => void;
   userBalancesInUSD: UserBalancesInUSD;
@@ -28,6 +27,7 @@ export interface SupplyMarketModalProps {
   coinsMap: CoinsMap;
   ipxPrice: number;
   moneyMarketStorage: MoneyMarketStorage;
+  isDeposit: boolean;
 }
 
 export interface SupplyMarketModalPreviewProps {

@@ -86,10 +86,11 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
   userBalancesInUSD,
   moneyMarketStorage,
   openRowMarketPreviewModal,
+  isLoan: _isloan,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
-  const [isLoan, setIsLoan] = useState(true);
+  const [isLoan, setIsLoan] = useState(_isloan);
 
   const borrowForm = useForm<SupplyBorrowForm>({
     defaultValues: {

@@ -74,6 +74,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
   coinsMap,
   ipxPrice,
   moneyMarketStorage,
+  isDeposit: _isDeposit,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
@@ -84,7 +85,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
     },
   });
 
-  const [isDeposit, setIsDeposit] = useState(true);
+  const [isDeposit, setIsDeposit] = useState(_isDeposit);
 
   const ipxAPR = calculateIPXAPR({
     priceMap,

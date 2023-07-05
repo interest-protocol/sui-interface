@@ -35,6 +35,7 @@ export interface BorrowMarketModalProps {
   coinsMap: CoinsMap;
   ipxPrice: number;
   moneyMarketStorage: MoneyMarketStorage;
+  isLoan: boolean;
 }
 
 export interface BorrowLimitsWrapperProps {
@@ -51,7 +52,7 @@ export interface BorrowPreviewModalProps {
   closeModal: () => void;
   asset: Asset;
   isLoan: boolean;
-  backRowMarketModal: (isSupplyOrBorrow: boolean) => void;
+  backRowMarketModal: (isLoan: boolean) => void;
   openRowMarketResultModal: ({
     isSuccess,
     isLoan,
