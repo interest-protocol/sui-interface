@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  ProgressIndicator,
   Theme,
   Typography,
   useTheme,
@@ -110,8 +111,11 @@ const RewardsCard: FC = () => {
           justifyContent="center"
           onClick={disabled ? undefined : onGetRewards}
           bg={disabled ? 'surface.containerHighest' : 'primary'}
+          PrefixIcon={
+            loading ? <ProgressIndicator variant="loading" size={16} /> : null
+          }
         >
-          {loading ? 'loading...' : t('lend.claim')}
+          {loading ? t('common.loading') : t('lend.claim')}
         </Button>
       </Box>
     </Box>

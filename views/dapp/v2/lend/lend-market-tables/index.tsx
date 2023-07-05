@@ -10,6 +10,7 @@ const LendMarketTables: FC = () => {
   return (
     <Box mt="2rem">
       <Box
+        gap="m"
         display="grid"
         gridTemplateColumns={[
           'repeat(1, 1fr)',
@@ -17,7 +18,6 @@ const LendMarketTables: FC = () => {
           'repeat(1, 1fr)',
           'repeat(2, 1fr)',
         ]}
-        gap="m"
       >
         <MarketTable title={t('lend.supplyTableTitle')} isSupply />
         <MarketTable title={t('lend.borrowTableTitle')} />
