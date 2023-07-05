@@ -152,7 +152,7 @@ export const makeCardsData = ({
   return [
     {
       Icon: PercentageSVG,
-      description: 'lend.firstSection.net',
+      description: 'lend.overview.net',
       trend: Number((netAPY * 100).toFixed(2)),
       amount: formatDollars(
         userBalancesInUSD.totalSupply - userBalancesInUSD.totalLoan
@@ -160,14 +160,14 @@ export const makeCardsData = ({
     },
     {
       Icon: BoxUpSVG,
-      description: 'lend.firstSection.supply',
+      description: 'lend.overview.supply',
       trend: Number((calculateSupplyAPY(userBalancesInUSD) * 100).toFixed(2)),
       amount: formatDollars(userBalancesInUSD.totalSupply),
     },
     {
       Icon: BoxDownSVG,
       trend: Number((borrowAPY * 100).toFixed(2)),
-      description: 'lend.firstSection.borrow',
+      description: 'lend.overview.borrow',
       amount: formatDollars(userBalancesInUSD.totalLoan),
     },
   ];

@@ -109,15 +109,15 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
 
   const market = marketRecord[marketKey];
 
-  const balance = isDeposit
-    ? FixedPointMath.toNumber(
-        pathOr(ZERO_BIG_NUMBER, [marketKey, 'totalBalance'], coinsMap),
-        marketRecord[marketKey].decimals
-      )
-    : FixedPointMath.toNumber(
-        market.totalCollateralRebase.toElastic(market.userShares),
-        market.decimals
-      );
+  const suppliedAmount = FixedPointMath.toNumber(
+    market.totalCollateralRebase.toElastic(market.userShares),
+    market.decimals
+  );
+
+  const balance = FixedPointMath.toNumber(
+    pathOr(ZERO_BIG_NUMBER, [marketKey, 'totalBalance'], coinsMap),
+    marketRecord[marketKey].decimals
+  );
 
   return (
     <Motion
@@ -148,14 +148,49 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
         />
       </Box>
       <Box p="xl" display="flex" flexDirection="column" pb="2rem">
-        <Typography
-          mb="2.313rem"
-          textAlign="end"
-          variant="extraSmall"
-          textTransform="capitalize"
-        >
-          {t('common.balance')}: {formatMoney(balance)}
-        </Typography>
+        {isDeposit ? (
+          <>
+            <Typography
+              mb="s"
+              textAlign="end"
+              variant="extraSmall"
+              textTransform="capitalize"
+            >
+              {t('common.v2.wallet.name')}:{' '}
+              {formatMoney(Number((+balance.toFixed(6)).toPrecision()))}
+            </Typography>
+            <Typography
+              mb="2.313rem"
+              textAlign="end"
+              variant="extraSmall"
+              textTransform="capitalize"
+            >
+              {t('lend.overview.supply')}:{' '}
+              {formatMoney(Number((+suppliedAmount.toFixed(6)).toPrecision()))}
+            </Typography>
+          </>
+        ) : (
+          <>
+            <Typography
+              mb="s"
+              textAlign="end"
+              variant="extraSmall"
+              textTransform="capitalize"
+            >
+              {t('common.v2.wallet.name')}:{' '}
+              {formatMoney(Number((+balance.toFixed(6)).toPrecision()))}
+            </Typography>
+            <Typography
+              mb="2.313rem"
+              textAlign="end"
+              variant="extraSmall"
+              textTransform="capitalize"
+            >
+              {t('lend.overview.supply')}:{' '}
+              {formatMoney(Number((+suppliedAmount.toFixed(6)).toPrecision()))}
+            </Typography>
+          </>
+        )}
         <MarketTableModalField
           disabled={!balance}
           control={supplyForm.control}

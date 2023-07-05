@@ -4,7 +4,7 @@
       "title": "Lend"
     },
     "subTitle": "Overview",
-    "firstSection": {
+    "overview": {
       "net": "Portfolio",
       "supply": "Supplied",
       "borrow": "Borrowed",
@@ -16,6 +16,7 @@
       "borrowLimit": "Borrow Limit",
       "borrowLimitUsed": "Borrow Limit Used"
     },
+    "loaned": "Loaned",
     "supply": "Supply",
     "withdraw": "Withdraw",
     "borrow": "Borrow",

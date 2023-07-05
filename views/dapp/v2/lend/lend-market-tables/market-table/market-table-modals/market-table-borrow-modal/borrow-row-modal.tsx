@@ -162,15 +162,48 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
         />
       </Box>
       <Box p="xl" display="flex" flexDirection="column" pb="2rem">
-        <Typography
-          variant="extraSmall"
-          textAlign="end"
-          mb="2.313rem"
-          textTransform="capitalize"
-        >
-          {t(`common.${!isLoan ? 'balance' : 'plafond'}`)}:{' '}
-          {formatMoney(isLoan ? maxBorrowInToken : loanBalance)}
-        </Typography>
+        {isLoan ? (
+          <>
+            <Typography
+              mb="s"
+              textAlign="end"
+              variant="extraSmall"
+              textTransform="capitalize"
+            >
+              {t('common.v2.wallet.name')}: {balance}
+            </Typography>
+            <Typography
+              variant="extraSmall"
+              textAlign="end"
+              mb="2.313rem"
+              textTransform="capitalize"
+            >
+              {t('common.plafond')}:{' '}
+              {formatMoney(
+                Number((+maxBorrowInToken.toFixed(6)).toPrecision())
+              )}
+            </Typography>
+          </>
+        ) : (
+          <>
+            <Typography
+              mb="s"
+              textAlign="end"
+              variant="extraSmall"
+              textTransform="capitalize"
+            >
+              {t('common.v2.wallet.name')}: {balance}
+            </Typography>
+            <Typography
+              mb="2.313rem"
+              textAlign="end"
+              variant="extraSmall"
+              textTransform="capitalize"
+            >
+              {t('lend.borrowed')}: {loanBalance}
+            </Typography>
+          </>
+        )}
         <MarketTableModalField
           control={borrowForm.control}
           disabled={
@@ -235,7 +268,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               <Box display="flex" alignItems="center" gap="xl">
                 <MarketTableTokenIcon type={asset.coin.token.type} />
                 <Typography variant="medium" color="">
-                  {asset.coin.token.symbol} {t('lend.supply')} APY
+                  {asset.coin.token.symbol} {t('lend.borrow')} APY
                 </Typography>
               </Box>
               <Box textAlign="right">

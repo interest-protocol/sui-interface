@@ -15,22 +15,22 @@ const BorrowLimits: FC<BorrowLimitProps> = ({
   return (
     <>
       <LineModal
-        description="lend.firstSection.currentBorrowLimit"
+        description="lend.overview.currentBorrowLimit"
         value={formatDollars(currentBorrowLimit)}
       />
       <LineModal
-        description="lend.firstSection.borrowLimitUsed"
+        description="lend.overview.borrowLimitUsed"
         value={`${formatMoney(currentBorrowLimitPercentage, 6)}%`}
       />
       <Box p="1rem" display="flex" justifyContent="space-between">
         <ProgressIndicator value={currentBorrowLimitPercentage} variant="bar" />
       </Box>
       <LineModal
-        description="lend.firstSection.newBorrowLimit"
+        description="lend.overview.newBorrowLimit"
         value={formatDollars(newBorrowLimit)}
       />
       <LineModal
-        description="lend.firstSection.borrowLimitUsed"
+        description="lend.overview.borrowLimitUsed"
         value={`${formatMoney(newBorrowLimitPercentage, 6)}%`}
       />
       <Box p="1rem" display="flex" justifyContent="space-between">

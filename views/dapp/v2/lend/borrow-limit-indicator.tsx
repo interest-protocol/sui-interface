@@ -27,7 +27,7 @@ const BorrowLimitIndicator: FC = () => {
     >
       <Box>
         <Typography variant="extraSmall" maxWidth="12rem" width="max-content">
-          {t('lend.firstSection.borrowLimit')}:
+          {t('lend.overview.borrowLimit')}:
         </Typography>
       </Box>
       {loading ? (

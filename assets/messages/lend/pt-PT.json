@@ -4,7 +4,7 @@
       "title": "Empréstimo"
     },
     "subTitle": "Visão geral",
-    "firstSection": {
+    "overview": {
       "net": "Portfólio",
       "supply": "Depositado",
       "borrow": "Emprestado",
@@ -16,6 +16,7 @@
       "borrowLimit": "Limite de empréstimo",
       "borrowLimitUsed": "Limite de empréstimo utilizado"
     },
+    "loaned": "Emprestado",
     "supply": "Fornecer",
     "withdraw": "Retirar",
     "borrow": "Emprestimo",
