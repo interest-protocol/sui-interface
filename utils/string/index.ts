@@ -175,8 +175,12 @@ export const parseInputEventToNumberString = (
 
   if (x.charAt(0) == '0' && !x.startsWith('0.')) return String(Number(x));
 
-  if (value.includes('.') && value[value.length - 1] !== '.')
-    return (+(+x).toFixed(6)).toPrecision();
+  if (
+    value.includes('.') &&
+    value[value.length - 1] !== '.' &&
+    value[value.length - 1] !== '0'
+  )
+    return (+parseFloat(x).toFixed(6)).toPrecision();
 
   return x;
 };

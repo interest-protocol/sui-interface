@@ -1,17 +1,28 @@
 import { TextField, TextFieldProps } from '@interest-protocol/ui-kit';
-import { FC } from 'react';
+import { FC, forwardRef, PropsWithRef } from 'react';
 import { Control, useWatch } from 'react-hook-form';
 
+import { SupplyBorrowForm } from '../modal.types';
+
 const MarketTableModalField: FC<
-  TextFieldProps & { control: Control<{ value: string; isMax: boolean }> }
-> = ({ control, ...props }) => {
-  const value = useWatch({ control, name: 'value' });
+  PropsWithRef<TextFieldProps & { control: Control<SupplyBorrowForm> }>
+> = forwardRef((props, ref) => {
+  const originalValue = useWatch({
+    control: props.control,
+    name: 'originalValue',
+  });
+  const value = useWatch({ control: props.control, name: 'value' });
 
   return (
     <TextField
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      ref={ref}
       mb="1rem"
       placeholder="0"
-      fontSize={`calc(3.563rem * ${8 / (value.length > 8 ? value.length : 8)})`}
+      fontSize={`calc(3.563rem * ${
+        8 / (originalValue.length > 8 ? originalValue.length : 8)
+      })`}
       transition="fontSize 300ms ease-in-out"
       defaultValue={value}
       fieldProps={{
@@ -21,6 +32,7 @@ const MarketTableModalField: FC<
       {...props}
     />
   );
-};
+});
 
+MarketTableModalField.displayName = 'MarketTableModalField';
 export default MarketTableModalField;

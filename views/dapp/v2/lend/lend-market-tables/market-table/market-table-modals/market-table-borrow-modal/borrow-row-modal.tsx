@@ -18,7 +18,6 @@ import { COINS, DOUBLE_SCALAR } from '@/constants';
 import { FixedPointMath } from '@/lib';
 import {
   formatMoney,
-  min,
   parseInputEventToNumberString,
   ZERO_BIG_NUMBER,
 } from '@/utils';
@@ -31,11 +30,11 @@ import BorrowLimits from '@/views/dapp/v2/lend/lend-market-tables/market-table/m
 import { MarketTableTokenIcon } from '../../market-table-token-icon';
 import HeaderModal from '../header';
 import MarketTableModalField from '../market-table-modal-field';
-import { SupplyBorrowForm } from '../market-table-supply-modal/supply-modal.types';
 import {
   BorrowLimitsWrapperProps,
   BorrowMarketModalProps,
 } from '../modal.types';
+import { SupplyBorrowForm } from '../modal.types';
 
 const IPX_TOKEN = COINS[Network.DEVNET].IPX;
 
@@ -94,8 +93,9 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
 
   const borrowForm = useForm<SupplyBorrowForm>({
     defaultValues: {
-      value: '0',
+      value: '',
       isMax: false,
+      originalValue: '',
     },
   });
 
@@ -124,6 +124,8 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
     userBalancesInUSD.totalCollateral * 0.9 - userBalancesInUSD.totalLoan;
 
   const maxBorrowInToken = maxBorrowAmount / priceMap[marketKey].price;
+
+  const checkValue = isLoan ? maxBorrowInToken : balance;
 
   const handleTab = () => {
     borrowForm.reset();
@@ -207,6 +209,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
         )}
         <MarketTableModalField
           control={borrowForm.control}
+          max={checkValue}
           disabled={
             isLoan ? maxBorrowInToken === 0 : market.userPrincipal.isZero()
           }
@@ -220,12 +223,15 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
                   : +parsedValue === balance
               );
 
-              const value = +parseInputEventToNumberString(v);
+              const value = parseInputEventToNumberString(v);
 
               borrowForm.setValue(
                 'value',
-                (isLoan ? min(maxBorrowInToken, value) : value).toString()
+                +value > checkValue
+                  ? (+checkValue.toFixed(6)).toPrecision()
+                  : value
               );
+              borrowForm.setValue('originalValue', v.target.value);
             },
           })}
         />

@@ -10,7 +10,6 @@ import {
 
 import { Asset } from '../../lend-table.types';
 import { ResultRowBorrowModalProps } from './market-table-borrow-modal/borrow-modal.types';
-import { SupplyBorrowForm } from './market-table-supply-modal/supply-modal.types';
 
 export interface OpenSupplyMarketPreviewModalArgs {
   isDeposit: boolean;
@@ -118,4 +117,10 @@ export interface RowResultModalProps {
   content: string;
   additionalText: string;
   activityLink: string;
+}
+
+export interface SupplyBorrowForm {
+  isMax: boolean;
+  value: string;
+  originalValue: string;
 }

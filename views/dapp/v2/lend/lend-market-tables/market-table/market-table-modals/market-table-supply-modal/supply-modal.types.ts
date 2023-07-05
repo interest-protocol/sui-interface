@@ -9,6 +9,7 @@ import {
 } from '@/views/dapp/v2/lend/lend.types';
 
 import { Asset } from '../../../lend-table.types';
+import { SupplyBorrowForm } from '../modal.types';
 
 export interface OpenRowMarketPreviewModalArgs {
   isDeposit: boolean;
@@ -60,9 +61,4 @@ export interface BorrowLimitsWrapperProps {
   isDeposit?: boolean;
   isLoan?: boolean;
   priceMap: CoinPriceRecord;
-}
-
-export interface SupplyBorrowForm {
-  isMax: boolean;
-  value: string;
 }

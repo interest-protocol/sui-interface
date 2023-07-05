@@ -30,9 +30,9 @@ import {
 import { MarketTableTokenIcon } from '../../market-table-token-icon';
 import HeaderModal from '../header';
 import MarketTableModalField from '../market-table-modal-field';
+import { SupplyBorrowForm } from '../modal.types';
 import {
   BorrowLimitsWrapperProps,
-  SupplyBorrowForm,
   SupplyMarketModalProps,
 } from './supply-modal.types';
 
@@ -80,8 +80,9 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
   const { dark } = useTheme() as Theme;
   const supplyForm = useForm<SupplyBorrowForm>({
     defaultValues: {
-      value: '0',
+      value: '',
       isMax: false,
+      originalValue: '',
     },
   });
 
@@ -119,6 +120,8 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
     pathOr(ZERO_BIG_NUMBER, [marketKey, 'totalBalance'], coinsMap),
     marketRecord[marketKey].decimals
   );
+
+  const checkValue = isDeposit ? balance : suppliedAmount;
 
   return (
     <Motion
@@ -195,14 +198,18 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
         <MarketTableModalField
           disabled={!balance}
           control={supplyForm.control}
+          max={isDeposit ? balance : suppliedAmount}
           {...supplyForm.register('value', {
             onChange: (v: ChangeEvent<HTMLInputElement>) => {
               const parsedValue = parseInputEventToNumberString(v);
-              supplyForm.setValue('isMax', +parsedValue === balance);
+              supplyForm.setValue('isMax', +parsedValue === checkValue);
               supplyForm.setValue(
                 'value',
-                String(+parsedValue > balance ? balance : parsedValue)
+                +parsedValue > checkValue
+                  ? (+checkValue.toFixed(6)).toPrecision()
+                  : parsedValue
               );
+              supplyForm.setValue('originalValue', v.target.value);
             },
           })}
         />
@@ -212,7 +219,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
           onChange={(value) => {
             supplyForm.setValue(
               'value',
-              Number(((value / 100) * balance).toFixed(6)).toPrecision()
+              Number(((value / 100) * checkValue).toFixed(6)).toPrecision()
             );
             supplyForm.setValue('isMax', value === 100);
           }}
