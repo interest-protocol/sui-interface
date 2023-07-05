@@ -93,7 +93,9 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
           assetValue: bnMin(
             amount,
             coinsMap[marketKey]?.totalBalance ?? ZERO_BIG_NUMBER
-          ).toString(),
+          )
+            .decimalPlaces(0, BigNumber.ROUND_DOWN)
+            .toString(),
         }),
       });
 
@@ -145,7 +147,9 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
       const { transactionBlockBytes, signature } = await signTransactionBlock({
         transactionBlock: await moneyMarketSdk.withdraw({
           assetType: marketKey,
-          sharesToRemove: bnMin(amount, market.userShares).toString(),
+          sharesToRemove: bnMin(amount, market.userShares)
+            .decimalPlaces(0, BigNumber.ROUND_DOWN)
+            .toString(),
         }),
       });
 

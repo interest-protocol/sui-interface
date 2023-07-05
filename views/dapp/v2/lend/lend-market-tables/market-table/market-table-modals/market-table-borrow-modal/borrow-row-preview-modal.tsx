@@ -81,7 +81,9 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
       const { transactionBlockBytes, signature } = await signTransactionBlock({
         transactionBlock: await moneyMarketSdk.borrow({
           assetType: marketKey,
-          borrowValue: safeAmount.toString(),
+          borrowValue: safeAmount
+            .decimalPlaces(0, BigNumber.ROUND_DOWN)
+            .toString(),
         }),
       });
 
@@ -125,10 +127,12 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
 
       const market = marketRecord[marketKey];
 
-      const amountInPrincipal = market.totalLoanRebase.toBase(amount);
+      const amountInPrincipal = market.totalLoanRebase
+        .toBase(amount)
+        .decimalPlaces(0, BigNumber.ROUND_DOWN);
 
       const principalToRepay = amountInPrincipal.gt(market.userPrincipal)
-        ? market.userPrincipal
+        ? market.userPrincipal.decimalPlaces(0, BigNumber.ROUND_DOWN)
         : amountInPrincipal;
 
       const coinInList = createObjectsParameter({
