@@ -6,8 +6,8 @@
     "subTitle": "Principales movimientos",
     "firstSection": {
       "net": "Portafolio",
-      "supply": "Depósitos",
-      "borrow": "Préstamo",
+      "supply": "Depositado",
+      "borrow": "Prestado",
       "supplyAPR": "Saldo de suministro",
       "borrowAPR": "Saldo de préstamo",
       "walletBalance": "Saldo de billetera",
