@@ -221,7 +221,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
         <Button
           variant="icon"
           onClick={() => {
-            backRowMarketModal(false);
+            backRowMarketModal(isDeposit);
           }}
         >
           <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />

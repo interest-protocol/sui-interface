@@ -112,7 +112,7 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
     );
   };
 
-  const openRowMarketModal = () => {
+  const openRowMarketModal = (isLoan: boolean) => {
     setModal(
       <BorrowMarketModal
         asset={asset}
@@ -125,6 +125,7 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
         userBalancesInUSD={userBalancesInUSD}
         moneyMarketStorage={moneyMarketStorage}
         openRowMarketPreviewModal={openRowMarketPreviewModal}
+        isLoan={isLoan}
       />,
       {
         isOpen: true,
@@ -143,7 +144,7 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
       width="100%"
       display="grid"
       cursor="pointer"
-      onClick={openRowMarketModal}
+      onClick={() => openRowMarketModal(true)}
       gridTemplateColumns="repeat(3, 1fr)"
       whileHover={{ background: hoverColor }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}

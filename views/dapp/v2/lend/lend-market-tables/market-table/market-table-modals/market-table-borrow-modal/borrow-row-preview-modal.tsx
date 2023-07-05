@@ -225,7 +225,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
         <Button
           variant="icon"
           onClick={() => {
-            backRowMarketModal(false);
+            backRowMarketModal(isLoan);
           }}
         >
           <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />

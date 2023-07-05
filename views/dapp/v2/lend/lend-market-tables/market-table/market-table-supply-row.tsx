@@ -216,7 +216,7 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
     );
   };
 
-  const openRowMarketModal = () => {
+  const openRowMarketModal = (isDeposit: boolean) => {
     setModal(
       <SupplyMarketModal
         closeModal={handleClose}
@@ -229,6 +229,7 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
         coinsMap={coinsMap}
         moneyMarketStorage={moneyMarketStorage}
         ipxPrice={ipxPrice}
+        isDeposit={isDeposit}
       />,
       {
         isOpen: true,
@@ -247,7 +248,7 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
       width="100%"
       display="grid"
       cursor="pointer"
-      onClick={openRowMarketModal}
+      onClick={() => openRowMarketModal(true)}
       gridTemplateColumns="repeat(4, 1fr)"
       whileHover={{ background: hoverColor }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
