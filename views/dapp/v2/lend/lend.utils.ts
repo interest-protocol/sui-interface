@@ -115,24 +115,18 @@ export const calculateUserBalancesInUSD = ({
   );
 
 const calculateNetAPY = (data: UserBalancesInUSD) => {
-  const loanPercentageEarned = safeIntDiv(
-    data.totalIPXLoanRewards,
-    data.totalLoan
-  );
-  const percentageOwed = safeIntDiv(
-    data.totalInterestRateOwned,
-    data.totalLoan
-  );
+  const totalProfit =
+    data.totalEarnings +
+    data.totalIPXLoanRewards +
+    data.totalIPXCollateralRewards;
 
-  const borrowAPY = loanPercentageEarned - percentageOwed;
-  const collateralAPY = safeIntDiv(
-    data.totalIPXCollateralRewards + data.totalEarnings,
-    data.totalSupply
-  );
+  const loss = -data.totalInterestRateOwned;
 
-  return borrowAPY > 0
-    ? collateralAPY + borrowAPY
-    : collateralAPY - Math.abs(borrowAPY);
+  const net = totalProfit + loss;
+
+  const totalAmount = data.totalSupply - data.totalLoan;
+
+  return net / totalAmount;
 };
 
 const calculateSupplyAPY = (data: UserBalancesInUSD) => {
