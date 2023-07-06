@@ -12,7 +12,7 @@ const EarnContainer: FC<EarnContainerProps> = ({ columns, children }) => {
       p="0 2rem"
       display="grid"
       borderRadius=".25rem"
-      gridTemplateColumns={`repeat(${columns}, 1fr)`}
+      gridTemplateColumns={['1fr', '1fr', '1fr', `repeat(${columns}, 1fr)`]}
       gap="1rem"
     >
       {children}

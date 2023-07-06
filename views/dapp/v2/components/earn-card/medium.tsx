@@ -25,11 +25,17 @@ const MediumCard: FC<MediumCardProps> = ({ isPool, isPosition }) => {
       p="1rem"
       display="flex"
       flexDirection="column"
-      gap="2rem"
+      gap="1.5rem"
       color="onSurface"
     >
       <Box display="flex" gap=".5rem">
-        <Button variant="filled" size="small" bg="#FED7AA">
+        <Button
+          variant="filled"
+          size="small"
+          bg="#FED7AA"
+          py="0.375rem"
+          px="1rem"
+        >
           <Typography variant="small" margin="0 auto" color="#92400E">
             {t('earn.buttons.volatile')}
           </Typography>
@@ -40,22 +46,29 @@ const MediumCard: FC<MediumCardProps> = ({ isPool, isPosition }) => {
           </Typography>
         </Button>
       </Box>
-      <Box display="flex" gap=".75rem">
-        <Box bg="cyan" color="inverseOnSurface" p=".5rem" borderRadius=".25rem">
-          <SUISVG maxHeight="100%" maxWidth="100%" width="2rem" />
+      <Box display="flex">
+        <Box gap="0.75rem" display="flex">
+          <Box
+            bg="cyan"
+            color="inverseOnSurface"
+            p=".5rem"
+            borderRadius=".25rem"
+          >
+            <SUISVG maxHeight="100%" maxWidth="100%" width="2rem" />
+          </Box>
+          <Box
+            bg="primary"
+            color="inverseOnSurface"
+            p=".5rem"
+            borderRadius=".25rem"
+          >
+            <SUISVG maxHeight="100%" maxWidth="100%" width="2rem" />
+          </Box>
         </Box>
-        <Box
-          bg="primary"
-          color="inverseOnSurface"
-          p=".5rem"
-          borderRadius=".25rem"
-        >
-          <SUISVG maxHeight="100%" maxWidth="100%" width="2rem" />
-        </Box>
-        <Box marginLeft="1.5rem">
+        <Box ml="0.938rem">
           <Typography
             as="span"
-            variant="large"
+            variant="medium"
             color={dark ? 'white' : 'black'}
           >
             SUI{' '}
@@ -63,59 +76,64 @@ const MediumCard: FC<MediumCardProps> = ({ isPool, isPosition }) => {
           -
           <Typography
             as="span"
-            variant="large"
+            variant="medium"
             color={dark ? 'white' : 'black'}
           >
+            {' '}
             BTCB
           </Typography>
-          <Typography variant="medium" color="onSurfaceVariant">
+          <Typography variant="small" color="onSurfaceVariant">
             304.66% {t('earn.infoCards.apr')}
           </Typography>
         </Box>
       </Box>
       <Box display="flex" gap=".75rem" flexDirection="column">
         <Box display="flex" justifyContent="space-between">
-          <Typography variant="medium" color="onSurfaceVariant">
+          <Typography variant="small" color="onSurfaceVariant">
             {t('earn.cardInformations.fee')}
           </Typography>
-          <Typography variant="medium" color={dark ? 'white' : 'black'}>
+          <Typography variant="small" color={dark ? 'white' : 'black'}>
             0.3%
           </Typography>
         </Box>
         <Box display="flex" justifyContent="space-between">
-          <Typography variant="medium" color="onSurfaceVariant">
+          <Typography variant="small" color="onSurfaceVariant">
             {t('earn.cardInformations.liquidity')}
           </Typography>
-          <Typography variant="medium" color={dark ? 'white' : 'black'}>
+          <Typography variant="small" color={dark ? 'white' : 'black'}>
             $10,123.01
           </Typography>
         </Box>
         <Box display="flex" justifyContent="space-between">
-          <Typography variant="medium" color="onSurfaceVariant">
+          <Typography variant="small" color="onSurfaceVariant">
             {t('earn.cardInformations.volume24h')}
           </Typography>
-          <Typography variant="medium" color={dark ? 'white' : 'black'}>
+          <Typography variant="small" color={dark ? 'white' : 'black'}>
             $3,123.01
           </Typography>
         </Box>
         <Box display="flex" justifyContent="space-between">
-          <Typography variant="medium" color="onSurfaceVariant">
+          <Typography variant="small" color="onSurfaceVariant">
             {t('earn.cardInformations.allocationFarm')}
           </Typography>
-          <Typography variant="medium" color={dark ? 'white' : 'black'}>
+          <Typography variant="small" color={dark ? 'white' : 'black'}>
             $1.7 M
           </Typography>
         </Box>
       </Box>
       {isPool ? (
-        <Box display="flex" gap=".5rem">
-          <Button flex="1" size="small" width="100%" variant="outline">
-            <Typography variant="small" margin="0 auto">
+        <Box
+          display="grid"
+          gridTemplateColumns={['1fr', '1fr', '1fr', '1fr 1fr']}
+          gap="0.5rem"
+        >
+          <Button size="small" variant="outline" textAlign="center">
+            <Typography variant="small" width="100%">
               {t('earn.buttons.swap')}
             </Typography>
           </Button>
-          <Button flex="1" size="small" variant="filled">
-            <Typography variant="small" margin="0 auto">
+          <Button size="small" variant="filled" textAlign="center">
+            <Typography variant="small" width="100%">
               {t('earn.buttons.addLiquidity')}
             </Typography>
           </Button>
