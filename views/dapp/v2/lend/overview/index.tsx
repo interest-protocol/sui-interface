@@ -19,16 +19,10 @@ const Overview: FC = () => {
         {t('lend.subTitle')}
       </Typography>
       <Box
-        display={['grid', 'grid', 'grid', 'grid']}
-        gridTemplateColumns={[
-          'repeat(2, 1fr)',
-          'repeat(2, 1fr)',
-          'repeat(2, 1fr)',
-          'repeat(4, 1fr)',
-        ]}
+        gap="m"
+        display="grid"
         overflowX="auto"
-        gap="0.5rem"
-        flexWrap="wrap"
+        gridTemplateColumns="repeat(4, 1fr)"
       >
         {makeCardsData({
           userBalancesInUSD,

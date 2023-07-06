@@ -248,10 +248,10 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
       width="100%"
       display="grid"
       cursor="pointer"
-      onClick={() => openRowMarketModal(true)}
-      gridTemplateColumns="repeat(4, 1fr)"
       whileHover={{ background: hoverColor }}
+      onClick={() => openRowMarketModal(true)}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
+      gridTemplateColumns={['repeat(3, 1fr)', 'repeat(4, 1fr)']}
     >
       <Box
         gap="m"
@@ -302,10 +302,10 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
         </Typography>
       </Box>
       <Box
-        display="flex"
+        textAlign="center"
         alignItems="center"
         justifyContent="center"
-        textAlign="center"
+        display={['none', 'flex']}
       >
         <Typography variant="medium">{formatMoney(wallet)}</Typography>
       </Box>
