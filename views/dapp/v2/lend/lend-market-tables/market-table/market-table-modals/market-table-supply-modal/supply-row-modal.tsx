@@ -241,7 +241,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
         />
         <Slider
           max={100}
-          disabled={!balance}
+          disabled={!checkValue}
           onChange={(value) => {
             const parsedValue = Number(
               ((value / 100) * checkValue).toFixed(6)
