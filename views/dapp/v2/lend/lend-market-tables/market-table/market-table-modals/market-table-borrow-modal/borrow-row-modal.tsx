@@ -118,8 +118,12 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
     marketRecord[marketKey].decimals
   );
 
+  const safeCollateral = userBalancesInUSD.totalCollateral * 0.9;
+
   const maxBorrowAmount =
-    userBalancesInUSD.totalCollateral * 0.9 - userBalancesInUSD.totalLoan;
+    userBalancesInUSD.totalLoan >= safeCollateral
+      ? 0
+      : userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;
 
   const maxBorrowInToken = maxBorrowAmount / priceMap[marketKey].price;
 
@@ -234,6 +238,9 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
           })}
         />
         <Slider
+          disabled={
+            isLoan ? maxBorrowInToken === 0 : market.userPrincipal.isZero()
+          }
           max={100}
           onChange={(value) => {
             const parsedValue = Number(
