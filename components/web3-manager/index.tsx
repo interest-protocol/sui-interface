@@ -27,9 +27,9 @@ export const Web3ManagerContext = createContext<Web3ManagerState>(
 );
 
 const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
-  const { isError, currentAccount, isConnected } = useWalletKit();
-  const { provider } = useProvider();
   const { network } = useNetwork();
+  const { provider } = useProvider();
+  const { isError, currentAccount, isConnected } = useWalletKit();
 
   const { data, error, mutate, isLoading } = useSWR(
     makeSWRKey(

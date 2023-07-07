@@ -38,6 +38,7 @@ export const SIDEBAR_ITEMS = [
     path: Routes[RoutesEnum.LiquidityFarms],
     disabled: false,
     networks: [Network.MAINNET],
+    alpha: true,
   },
   {
     Icon: FarmSVG,

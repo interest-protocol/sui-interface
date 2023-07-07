@@ -78,6 +78,7 @@ const RewardsCard: FC = () => {
   return (
     <Box
       p="m"
+      width="15rem"
       display="flex"
       borderRadius="m"
       flexDirection="column"

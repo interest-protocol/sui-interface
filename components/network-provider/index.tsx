@@ -1,6 +1,6 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
 import { useRouter } from 'next/router';
-import { createContext, FC, useState } from 'react';
+import { createContext, FC, useEffect, useState } from 'react';
 
 import { useLocalStorage } from '@/hooks';
 import { noop } from '@/utils';
@@ -33,6 +33,12 @@ const NetworkProvider: FC<NetworkProviderProps> = ({ children }) => {
       ? Network.TESTNET
       : Network.MAINNET
   );
+
+  // Alpha folder is only available on Sui Testnet
+  useEffect(() => {
+    if (asPath.includes('/dapp/alpha') && network !== Network.TESTNET)
+      setNetwork(Network.TESTNET);
+  }, [network, asPath]);
 
   const handleSetNetwork = (x: Network) => {
     setLocalNetwork(x);

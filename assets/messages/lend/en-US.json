@@ -73,7 +73,7 @@
         "confirm": {
           "content": "{isDeposit, plural, =1 {Token Supplied} other {Token Withdrawed}}",
           "additionInfo": "You can check you transaction history in the Actvity menu.",
-          "secondButton": "View on activity"
+          "viewOnExplorer": "View on explorer"
         },
         "error": {
           "title": "Error",
@@ -97,7 +97,7 @@
         "confirm": {
           "content": "{isBorrow, plural, =1 {Token Borrowed} other {Token Repayed}}",
           "additionInfo": "You can check you transaction history in the Actvity menu.",
-          "secondButton": "View on activity"
+          "viewOnExplorer": "View on explorer"
         },
         "error": {
           "title": "Error",

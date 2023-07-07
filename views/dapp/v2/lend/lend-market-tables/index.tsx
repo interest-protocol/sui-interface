@@ -16,6 +16,7 @@ const LendMarketTables: FC = () => {
           'repeat(1, 1fr)',
           'repeat(1, 1fr)',
           'repeat(1, 1fr)',
+          'repeat(1, 1fr)',
           'repeat(2, 1fr)',
         ]}
       >

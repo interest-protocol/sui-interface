@@ -4,7 +4,6 @@ import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 import { mergeDeepRight } from 'ramda';
-import { useEffect } from 'react';
 import { Layout } from 'views/dapp/v2/components';
 
 import { LoadingPage, SEO } from '@/components';
@@ -20,13 +19,7 @@ const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
 
 const LendPage: NextPageWithProps = ({ pageTitle }) => {
   const t = useTranslations();
-
-  const { network, setNetwork } = useNetwork();
-
-  // Money Market is only available on Sui Testnet
-  useEffect(() => {
-    if (network !== Network.TESTNET) setNetwork(Network.TESTNET);
-  }, [network]);
+  const { network } = useNetwork();
 
   if (network !== Network.TESTNET)
     return (

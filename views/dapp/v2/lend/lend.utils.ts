@@ -159,13 +159,13 @@ export const makeCardsData = ({
       ),
     },
     {
-      Icon: BoxUpSVG,
+      Icon: BoxDownSVG,
       description: 'lend.overview.supply',
       trend: Number((calculateSupplyAPY(userBalancesInUSD) * 100).toFixed(2)),
       amount: formatDollars(userBalancesInUSD.totalSupply),
     },
     {
-      Icon: BoxDownSVG,
+      Icon: BoxUpSVG,
       trend: Number((borrowAPY * 100).toFixed(2)),
       description: 'lend.overview.borrow',
       amount: formatDollars(userBalancesInUSD.totalLoan),

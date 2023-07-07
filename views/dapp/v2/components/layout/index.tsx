@@ -10,6 +10,7 @@ import Header from './header';
 import LangSwitch from './lang-switch';
 import { LayoutProps } from './layout.types';
 import Sidebar from './sidebar';
+import ThemeSwitch from './theme-switch';
 import Wallet from './wallet';
 
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({
@@ -48,20 +49,36 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
               as="header"
               display="flex"
               variant="container"
-              justifyContent={titlePage ? 'space-between' : 'flex-end'}
               pr={['unset', 'unset', 'unset', 'xl']}
+              justifyContent={titlePage ? 'space-between' : 'flex-end'}
             >
               {titlePage && (
                 <Typography
-                  variant="displayLarge"
                   color="onSurface"
+                  variant="displayLarge"
                   textTransform="capitalize"
                 >
                   {titlePage}
                 </Typography>
               )}
-              <Box display="flex" justifyContent="space-between">
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
                 <Wallet />
+                <Box
+                  py="m"
+                  mx="m"
+                  px="l"
+                  display="flex"
+                  borderRadius="full"
+                  alignItems="center"
+                  bg="surface.container"
+                  boxShadow="inset 0 0 2px   #0002"
+                >
+                  <ThemeSwitch />
+                </Box>
                 <LangSwitch />
               </Box>
             </Box>

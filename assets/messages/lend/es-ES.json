@@ -72,8 +72,8 @@
         },
         "confirm": {
           "content": "{isDeposit, plural, =1 {Token suministrado} other {Token retirado}}",
-          "additionInfo": "Puedes consultar tu historial de transacciones en el menú de Actividad.",
-          "secondButton": "Ver en la actividad"
+          "additionInfo": "Puedes consultar tu historial de transacciones en el Explorador.",
+          "viewOnExplorer": "Ver en lo explorador"
         },
         "error": {
           "title": "Error",
@@ -96,8 +96,8 @@
         },
         "confirm": {
           "content": "{isBorrow, plural, =1 {Token prestado} other {Token reembolsado}}",
-          "additionInfo": "Puedes consultar tu historial de transacciones en el menú de Actividad.",
-          "secondButton": "Ver en la actividad"
+          "additionInfo": "Puedes consultar tu historial de transacciones en el Explorador.",
+          "viewOnExplorer": "Ver en lo explorador"
         },
         "error": {
           "title": "Error",

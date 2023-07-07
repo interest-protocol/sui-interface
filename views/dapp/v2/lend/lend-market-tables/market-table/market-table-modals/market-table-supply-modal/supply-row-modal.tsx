@@ -187,7 +187,8 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
               textTransform="capitalize"
             >
               {t('common.v2.wallet.name')}:{' '}
-              {formatMoney(Number((+balance.toFixed(6)).toPrecision()))}
+              {formatMoney(Number((+balance.toFixed(6)).toPrecision()))}{' '}
+              {asset.coin.token.symbol}
             </Typography>
             <Typography
               mb="2.313rem"
@@ -196,7 +197,8 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
               textTransform="capitalize"
             >
               {t('lend.overview.supply')}:{' '}
-              {formatMoney(Number((+suppliedAmount.toFixed(6)).toPrecision()))}
+              {formatMoney(Number((+suppliedAmount.toFixed(6)).toPrecision()))}{' '}
+              {asset.coin.token.symbol}
             </Typography>
           </>
         ) : (
@@ -222,6 +224,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
           </>
         )}
         <MarketTableModalField
+          symbol={asset.coin.token.symbol}
           disabled={!checkValue}
           control={supplyForm.control}
           max={checkValue}

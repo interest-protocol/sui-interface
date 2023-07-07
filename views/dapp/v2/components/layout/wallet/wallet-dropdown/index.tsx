@@ -1,16 +1,13 @@
-import { Network } from '@interest-protocol/sui-amm-sdk';
-import { Box, Button, Motion } from '@interest-protocol/ui-kit';
+import { Button, Motion } from '@interest-protocol/ui-kit';
 import { formatAddress } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { AnimatePresence } from 'framer-motion';
-import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import toast from 'react-hot-toast';
 
-import { Chip } from '@/components';
 import { CheckmarkSVG } from '@/components/svg/v2';
-import { useNetwork, useWeb3 } from '@/hooks';
+import { useWeb3 } from '@/hooks';
 import { CopySVG } from '@/svg';
 import { capitalize } from '@/utils';
 
@@ -50,18 +47,11 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
-  const { asPath } = useRouter();
-  const { network, setNetwork } = useNetwork();
   const { disconnect, accounts, selectAccount } = useWalletKit();
 
   const copyToClipboard = (address: string) => {
     window.navigator.clipboard.writeText(address || '');
     toast(capitalize(t('common.v2.wallet.copy')));
-  };
-
-  const handleChangeNetwork = (selectedNetwork: Network) => () => {
-    setNetwork(selectedNetwork);
-    handleClose();
   };
 
   return (
@@ -77,25 +67,6 @@ const WalletDropdown: FC<WalletDropdownProps> = ({
       animate={isOpen ? 'open' : 'closed'}
       pointerEvents={isOpen ? 'auto' : 'none'}
     >
-      <Box display="flex" p="l" gap="m" justifyContent="center">
-        {!asPath.includes('dapp/alpha') && (
-          <Chip
-            noCheckmark
-            text="Mainnet"
-            isActive={network === Network.MAINNET}
-            onClick={handleChangeNetwork(Network.MAINNET)}
-          />
-        )}
-        {(asPath.includes('dapp/alpha') ||
-          process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production') && (
-          <Chip
-            noCheckmark
-            text="Testnet"
-            isActive={network === Network.TESTNET}
-            onClick={handleChangeNetwork(Network.TESTNET)}
-          />
-        )}
-      </Box>
       {accounts.map((walletAccount) => (
         <MenuItemWrapper
           key={walletAccount.address}

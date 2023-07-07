@@ -175,7 +175,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               variant="extraSmall"
               textTransform="capitalize"
             >
-              {t('common.v2.wallet.name')}: {balance}
+              {t('common.v2.wallet.name')}: {balance} {asset.coin.token.symbol}
             </Typography>
             <Typography
               variant="extraSmall"
@@ -186,7 +186,8 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               {t('common.plafond')}:{' '}
               {formatMoney(
                 Number((+maxBorrowInToken.toFixed(6)).toPrecision())
-              )}
+              )}{' '}
+              {asset.coin.token.symbol}
             </Typography>
           </>
         ) : (
@@ -210,6 +211,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
           </>
         )}
         <MarketTableModalField
+          symbol={asset.coin.token.symbol}
           control={borrowForm.control}
           max={checkValue}
           disabled={

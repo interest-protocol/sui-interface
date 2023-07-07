@@ -23,7 +23,7 @@ const BorrowLimitIndicator: FC = () => {
       display="grid"
       color="onSurface"
       gridTemplateColumns="auto 1fr"
-      mb={['m', 'm', 'm', '2.375rem']}
+      mb={['l', 'l', 'l', '2.375rem']}
     >
       <Box>
         <Typography variant="extraSmall" maxWidth="12rem" width="max-content">
@@ -44,7 +44,7 @@ const BorrowLimitIndicator: FC = () => {
             100% (
             {formatDollars(
               userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan
-            ).toString()}
+            )}
             )
           </Typography>
         </Box>

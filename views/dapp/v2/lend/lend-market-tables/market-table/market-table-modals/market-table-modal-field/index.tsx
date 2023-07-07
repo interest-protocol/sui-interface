@@ -5,7 +5,9 @@ import { Control, useWatch } from 'react-hook-form';
 import { SupplyBorrowForm } from '../modal.types';
 
 const MarketTableModalField: FC<
-  PropsWithRef<TextFieldProps & { control: Control<SupplyBorrowForm> }>
+  PropsWithRef<
+    TextFieldProps & { symbol: string; control: Control<SupplyBorrowForm> }
+  >
 > = forwardRef((props, ref) => {
   const originalValue = useWatch({
     control: props.control,
@@ -24,6 +26,7 @@ const MarketTableModalField: FC<
         8 / (originalValue.length > 8 ? originalValue.length : 8)
       })`}
       transition="fontSize 300ms ease-in-out"
+      Suffix={props.symbol}
       defaultValue={value}
       fieldProps={{
         border: 'none',

@@ -51,17 +51,6 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
         </Typography>
       </Box>
       <Typography variant="extraSmall">{additionalText}</Typography>
-      <Button
-        mt="xl"
-        size="small"
-        width="100%"
-        variant="filled"
-        boxSizing="border-box"
-        justifyContent="center"
-        onClick={closeModal}
-      >
-        {capitalize(t('lend.close'))}
-      </Button>
       <a
         href={activityLink}
         target="_blank"
@@ -73,13 +62,24 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
           mb="2xl"
           size="small"
           width="100%"
-          variant="text"
+          variant="filled"
           boxSizing="border-box"
           justifyContent="center"
         >
-          {t('lend.modal.supply.confirm.secondButton')}
+          {t('lend.modal.supply.confirm.viewOnExplorer')}
         </Button>
       </a>
+      <Button
+        mt="xl"
+        size="small"
+        width="100%"
+        variant="text"
+        boxSizing="border-box"
+        justifyContent="center"
+        onClick={closeModal}
+      >
+        {capitalize(t('lend.close'))}
+      </Button>
     </Box>
   );
 };
