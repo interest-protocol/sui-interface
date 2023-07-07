@@ -127,7 +127,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
 
   const maxBorrowInToken = maxBorrowAmount / priceMap[marketKey].price;
 
-  const checkValue = isLoan ? maxBorrowInToken : balance;
+  const checkValue = isLoan ? maxBorrowInToken : loanBalance;
 
   const handleTab = () => {
     borrowForm.reset();
@@ -198,7 +198,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               variant="extraSmall"
               textTransform="capitalize"
             >
-              {t('common.v2.wallet.name')}: {balance}
+              {t('common.v2.wallet.name')}: {balance} {asset.coin.token.symbol}
             </Typography>
             <Typography
               mb="2.313rem"
@@ -206,7 +206,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               variant="extraSmall"
               textTransform="capitalize"
             >
-              {t('lend.borrowed')}: {loanBalance}
+              {t('lend.borrowed')}: {loanBalance} {asset.coin.token.symbol}
             </Typography>
           </>
         )}
@@ -223,8 +223,8 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               borrowForm.setValue(
                 'isMax',
                 isLoan
-                  ? +parsedValue === maxBorrowInToken
-                  : +parsedValue === balance
+                  ? +parsedValue >= maxBorrowInToken
+                  : +parsedValue >= loanBalance
               );
 
               const value = parseInputEventToNumberString(v);
@@ -248,7 +248,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
             const parsedValue = Number(
               (isLoan
                 ? (value / 100) * maxBorrowInToken
-                : (value / 100) * balance
+                : (value / 100) * loanBalance
               ).toFixed(6)
             ).toPrecision();
             borrowForm.setValue('value', parsedValue);
