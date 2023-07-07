@@ -52,17 +52,6 @@ const BorrowMarketConfirmModal: FC<RowResultModalProps> = ({
         </Typography>
       </Box>
       <Typography variant="extraSmall">{additionalText}</Typography>
-      <Button
-        mt="xl"
-        size="small"
-        width="100%"
-        variant="filled"
-        boxSizing="border-box"
-        justifyContent="center"
-        onClick={closeModal}
-      >
-        {capitalize(t('lend.close'))}
-      </Button>
       <a
         target="_blank"
         rel="noreferrer"
@@ -74,13 +63,24 @@ const BorrowMarketConfirmModal: FC<RowResultModalProps> = ({
           mb="2xl"
           size="small"
           width="100%"
-          variant="text"
+          variant="filled"
           boxSizing="border-box"
           justifyContent="center"
         >
-          {t('lend.modal.borrow.confirm.secondButton')}
+          {t('lend.modal.borrow.confirm.viewOnExplorer')}
         </Button>
       </a>
+      <Button
+        mt="xl"
+        size="small"
+        width="100%"
+        variant="text"
+        boxSizing="border-box"
+        justifyContent="center"
+        onClick={closeModal}
+      >
+        {capitalize(t('lend.close'))}
+      </Button>
     </Box>
   );
 };

@@ -12,6 +12,7 @@ import Header from './header';
 import LangSwitch from './lang-switch';
 import { LayoutProps } from './layout.types';
 import Sidebar from './sidebar';
+import ThemeSwitch from './theme-switch';
 import Wallet from './wallet';
 
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({
@@ -52,8 +53,8 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
               as="header"
               display="flex"
               variant="container"
-              justifyContent={IS_LEND_PAGE ? 'space-between' : 'flex-end'}
               pr={['unset', 'unset', 'unset', 'xl']}
+              justifyContent={IS_LEND_PAGE ? 'space-between' : 'flex-end'}
             >
               {IS_LEND_PAGE && (
                 <Typography
@@ -64,8 +65,24 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
                   {t('lend.metadata.title')}
                 </Typography>
               )}
-              <Box display="flex" justifyContent="space-between">
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
                 <Wallet />
+                <Box
+                  py="m"
+                  mx="m"
+                  px="l"
+                  display="flex"
+                  borderRadius="full"
+                  alignItems="center"
+                  bg="surface.container"
+                  boxShadow="inset 0 0 2px   #0002"
+                >
+                  <ThemeSwitch />
+                </Box>
                 <LangSwitch />
               </Box>
             </Box>

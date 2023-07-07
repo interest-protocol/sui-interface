@@ -22,6 +22,7 @@ export interface Web3ManagerState {
   coinsMap: Record<string, Web3ManagerSuiObject>;
   connected: boolean;
   error: boolean;
+  checkpoint: string;
   mutate: KeyedMutator<PaginatedCoins['data'] | undefined>;
   isFetchingCoinBalances: boolean;
   walletAccount: null | WalletAccount;
