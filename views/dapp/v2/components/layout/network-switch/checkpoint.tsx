@@ -39,7 +39,7 @@ const Checkpoint: FC = () => {
       revalidateOnFocus: false,
       revalidateOnMount: true,
       refreshWhenHidden: false,
-      refreshInterval: 3000,
+      refreshInterval: 30000,
     }
   );
 
