@@ -77,7 +77,9 @@ const NetworkSwitch: FC = () => {
             loading ? 'warning' : checkpoint && isOnline ? '#65A30D' : '#B91C1C'
           }
         />
-        {loading ? t('common.loading') : checkpoint ?? t('common.notFound')}
+        {loading
+          ? t('common.loading')
+          : checkpoint ?? t('common.v2.network.down')}
       </Typography>
     </Box>
   );
