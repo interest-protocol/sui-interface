@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import useSWR from 'swr';
 
-import { useSDK } from '@/hooks';
+import { useAmmSdk } from '@/hooks';
 import { makeSWRKey } from '@/utils';
 
 import { UseGetRemoveLiquidityAmountsArgs } from './remove-liquidity-card.types';
@@ -19,7 +19,7 @@ export const useGetRemoveLiquidityAmounts = ({
   token1Type,
   stable,
 }: UseGetRemoveLiquidityAmountsArgs) => {
-  const sdk = useSDK();
+  const sdk = useAmmSdk();
 
   const { isLoading, data, error } = useSWR(
     makeSWRKey(

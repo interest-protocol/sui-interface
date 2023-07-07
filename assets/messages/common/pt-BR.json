@@ -31,6 +31,7 @@
         "swap": "troca",
         "home": "início",
         "pool": "pool",
+        "lend": "emprestimo",
         "farm": "farm",
         "createToken": "criar token",
         "settings": "definições",
@@ -45,16 +46,6 @@
         "error": "erro ao conectar",
         "connecting": "conectando...",
         "copy": "Endereço copiado para a clipboard"
-      },
-      "lend": {
-        "title": "Emprestar",
-        "firstSection": {
-          "netAPY": "APY líquido",
-          "supplyBalance": "Saldo de suprimento",
-          "walletBalance": "Saldo da carteira",
-          "borrowLimit": "Limite de empréstimo",
-          "borrowLimitUsed": "Limite de empréstimo utilizado"
-        }
       },
       "banner": {
         "liquidity": {
@@ -85,6 +76,7 @@
     "searchTokenInputDescription": "Procurar por nome, símbolo ou tipo...",
     "swap": "{isLoading, plural, =1 {trocando...} other {trocar}}",
     "balance": "saldo",
+    "plafond": "plafond",
     "success": "sucesso",
     "notFound": "não encontrado",
     "pageNotFound": "Página não encontrada",

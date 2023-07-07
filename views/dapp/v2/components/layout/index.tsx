@@ -19,7 +19,6 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
 }) => {
   const [isDesktop, setIsDesktop] = useState(false);
   const { colors, radii, breakpoints } = useTheme() as Theme;
-
   const handleSetDesktopView = () =>
     setIsDesktop(window.matchMedia(`(min-width: ${breakpoints[2]})`).matches);
 
@@ -44,7 +43,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
         />
         <Box bg="surface" display="flex" height="100vh" overflow="hidden">
           <Sidebar />
-          <Box as="main" flex="1" minHeight="100vh" overflow="auto">
+          <Box as="main" flex="1" minHeight="100vh" overflow="auto" px="1.5rem">
             <Box
               as="header"
               display="flex"

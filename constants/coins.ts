@@ -31,6 +31,7 @@ export const COIN_TYPE_TO_STABLE = {
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT]: false,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: false,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: false,
+    [COIN_TYPE[Network.TESTNET].SUID]: true,
   },
   [Network.MAINNET]: {
     [COIN_TYPE[Network.MAINNET].SUI]: false,
@@ -100,6 +101,7 @@ export const COIN_TYPE_TO_SYMBOL = {
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDT]: TOKEN_SYMBOL.V_LP_ETH_USDT,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: TOKEN_SYMBOL.V_LP_ETH_USDC,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: TOKEN_SYMBOL.V_LP_ETH_IPX,
+    [COIN_TYPE[Network.TESTNET].SUID]: TOKEN_SYMBOL.SUID,
   },
   [Network.MAINNET]: {
     [COIN_TYPE[Network.MAINNET].SUI]: TOKEN_SYMBOL.SUI,
@@ -196,6 +198,7 @@ export const COIN_DECIMALS = {
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_USDC]: 0,
     [COIN_TYPE[Network.TESTNET].V_LP_ETH_IPX]: 0,
     [COIN_TYPE[Network.TESTNET].S_LP_USDC_USDT]: 0,
+    [COIN_TYPE[Network.TESTNET].SUID]: 9,
   },
   [Network.MAINNET]: {
     [COIN_TYPE[Network.MAINNET].SUI]: 9,
@@ -513,6 +516,11 @@ export const COINS = {
       symbol: TOKEN_SYMBOL.S_LP_USDC_USDT,
       type: COIN_TYPE[Network.TESTNET].S_LP_USDC_USDT,
     },
+    SUID: {
+      decimals: COIN_DECIMALS[Network.TESTNET][COIN_TYPE[Network.TESTNET].SUI],
+      symbol: TOKEN_SYMBOL.SUID,
+      type: COIN_TYPE[Network.TESTNET].SUID,
+    },
   },
   [Network.MAINNET]: {
     SUI: {
@@ -821,6 +829,7 @@ export const COIN_TYPE_TO_COIN = {
     [COIN_TYPE[Network.TESTNET].USDC]: COINS[Network.TESTNET].USDC,
     [COIN_TYPE[Network.TESTNET].USDT]: COINS[Network.TESTNET].USDT,
     [COIN_TYPE[Network.TESTNET].IPX]: COINS[Network.TESTNET].IPX,
+    [COIN_TYPE[Network.TESTNET].SUID]: COINS[Network.TESTNET].SUID,
   },
   [Network.MAINNET]: {
     [COIN_TYPE[Network.MAINNET].SUI]: COINS[Network.MAINNET].SUI,
