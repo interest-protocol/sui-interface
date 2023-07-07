@@ -191,7 +191,12 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
           {formatDollars(borrowed.value)}
         </Typography>
       </Box>
-      <Box px="l" display="flex" alignItems="center" justifyContent="flex-end">
+      <Box
+        px={['s', 's', 's', 'l']}
+        display="flex"
+        alignItems="center"
+        justifyContent="flex-end"
+      >
         <Typography variant="medium" textAlign="right">
           {formatMoney(cash)} {asset.coin.token.symbol}
         </Typography>

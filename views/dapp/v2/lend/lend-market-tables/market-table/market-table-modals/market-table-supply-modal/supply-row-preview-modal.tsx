@@ -303,11 +303,11 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
         />
         <LineModal
           description="lend.modal.supply.preview.inToken"
-          value={formatMoney(+newSupplyTokenBalance)}
+          value={formatMoney(+newSupplyTokenBalance || 0)}
         />
         <LineModal
           description="lend.modal.supply.preview.inUSD"
-          value={formatDollars(newSupplyTokenBalanceInUSD)}
+          value={formatDollars(newSupplyTokenBalanceInUSD || 0)}
         />
       </Box>
       <Box

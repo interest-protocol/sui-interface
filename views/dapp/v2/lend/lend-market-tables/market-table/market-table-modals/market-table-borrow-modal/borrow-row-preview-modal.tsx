@@ -309,16 +309,16 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
           description="lend.modal.supply.preview.inToken"
           value={
             isLoan
-              ? formatMoney(+value + loanBorrowedValue)
-              : formatMoney(repayBorrowedValue)
+              ? formatMoney(+value + loanBorrowedValue || 0)
+              : formatMoney(repayBorrowedValue || 0)
           }
         />
         <LineModal
           description="lend.modal.supply.preview.inUSD"
           value={
             isLoan
-              ? formatDollars(totalLoanBorrowedValue)
-              : formatDollars(totalRepayBorrowedValue)
+              ? formatDollars(totalLoanBorrowedValue || 0)
+              : formatDollars(totalRepayBorrowedValue || 0)
           }
         />
       </Box>

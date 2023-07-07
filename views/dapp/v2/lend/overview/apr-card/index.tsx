@@ -13,7 +13,7 @@ const APRCard: FC<APRCardProps> = ({ Icon, description, amount, trend }) => {
 
   return (
     <InfoCard
-      info={<APRCardTrendInfo value={trend} />}
+      info={<APRCardTrendInfo value={trend || 0} />}
       title={
         <Box as="span" display="flex" alignItems="center" gap="m">
           <Box

@@ -14,14 +14,15 @@ const MarketTableHeader: FC<{ headers: ReadonlyArray<TTranslatedMessage> }> = ({
   return (
     <Box
       py="1rem"
-      pl="1.125rem"
+      px={['s', 's', 's', '1.125rem']}
+      gap="s"
       display="grid"
       borderBottom="1px solid"
       gridTemplateColumns={`repeat(${headers.length}, 1fr)`}
       borderColor="outline.outlineVariant"
     >
       {headers.map((name, index) => (
-        <Box px="l" key={v4()}>
+        <Box key={v4()}>
           <Typography
             whiteSpace="nowrap"
             variant="extraSmall"

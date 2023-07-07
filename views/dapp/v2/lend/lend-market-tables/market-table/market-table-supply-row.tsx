@@ -243,8 +243,8 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
   return (
     <Motion
       mb="1rem"
-      pr="0.5rem"
-      pl="0.75rem"
+      pr={['xs', 'xs', 'xs', 's']}
+      pl={['s', 's', 's', 'm']}
       width="100%"
       display="grid"
       cursor="pointer"
@@ -310,7 +310,7 @@ const SupplyMarketTableRow: FC<SupplyRow> = ({
         <Typography variant="medium">{formatMoney(wallet)}</Typography>
       </Box>
       <Box
-        px="l"
+        px={['s', 's', 's', 'l']}
         display="flex"
         alignItems="center"
         justifyContent="flex-end"

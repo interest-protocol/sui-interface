@@ -10,7 +10,7 @@ import {
   SUI_VISION_EXPLORER_URL,
 } from '@/constants';
 import { useMoneyMarketSdk, useNetwork, useProvider } from '@/hooks';
-import { throwTXIfNotSuccessful } from '@/utils';
+import { capitalize, throwTXIfNotSuccessful } from '@/utils';
 import { calculateNewBorrowLimitEnableCollateral } from '@/views/dapp/v2/lend/lend-market-tables/lend-table.utils';
 
 import BorrowLimits from '../borrow-limits';
@@ -144,7 +144,7 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
         justifyContent="space-between"
       >
         <Button variant="text" fontSize="s" onClick={closeModal}>
-          {t('common.v2.cancel')}
+          {capitalize(t('common.v2.cancel'))}
         </Button>
         <Button
           variant="filled"

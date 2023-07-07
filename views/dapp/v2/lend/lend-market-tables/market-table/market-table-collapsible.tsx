@@ -25,13 +25,14 @@ const MarketTableCollapsible: FC<MarketTableCollapsibleProps> = ({
   return (
     <Box
       py="1.25rem"
-      pl="1.125rem"
+      px={['s', 's', 's', '1.125rem']}
+      gap="s"
       display="grid"
       cursor="pointer"
       onClick={handleButton}
       gridTemplateColumns="3fr 1fr"
     >
-      <Box px="l">
+      <Box>
         <Typography
           variant="extraSmall"
           whiteSpace="nowrap"
@@ -40,7 +41,7 @@ const MarketTableCollapsible: FC<MarketTableCollapsibleProps> = ({
           {t(description as TTranslatedMessage)}
         </Typography>
       </Box>
-      <Box paddingRight="l" display="flex" justifyContent="flex-end">
+      <Box display="flex" justifyContent="flex-end">
         <Motion
           transform={isOpen ? 'rotate(180deg)' : 'rotate(0deg)'}
           display="flex"
