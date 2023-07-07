@@ -13,6 +13,13 @@
         "pt-BR": "Portugués",
         "es-ES": "Español"
       },
+      "selectToken": {
+        "title": "Seleccionar token",
+        "search": "Buscar token",
+        "recommended": "Recomendado",
+        "favorite": "Favorito",
+        "wallet": "cartera"
+      },
       "navbar": {
         "swap": "Intercambio",
         "home": "Inicio",
@@ -78,6 +85,7 @@
     "balance": "Saldo",
     "success": "éxito",
     "notFound": "no encontrado",
+    "pageNotFound": "Página no encontrada",
     "loading": "cargando...",
     "load": "{isLoading, plural, =1 {cargando...} other {cargar}}",
     "back": "Volver",
@@ -131,6 +139,7 @@
     "error": "error",
     "submit": "{isLoading, plural, =1 {enviando...} other {enviar}}",
     "backHome": "Volver al inicio",
+    "goBackHome": "Volver al inicio",
     "chooseToken": "Seleccionar token",
     "chooseNetwork": "Seleccionar red",
     "wallet": "artera",

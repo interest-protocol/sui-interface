@@ -2,6 +2,8 @@ export { default as BNBSVG } from './bnb';
 export { default as BTCSVG } from './btc';
 export { default as CheckmarkSVG } from './checkmark';
 export { default as CogsSVG } from './cogs';
+export { default as ComputerEyesSVG } from './computer-eyes';
+export { default as DiedComputerSVG } from './died-computer';
 export { default as DotsSVG } from './dots';
 export { default as DownArrowSVG } from './down-arrow';
 export { default as ETHSVG } from './eth';

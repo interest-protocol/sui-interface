@@ -1,7 +1,7 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { BaseTokenModalItemProps } from '../select-token.types';
+import { BaseTokenModalItemProps } from './select-token-modal.types';
 
 const BaseTokenModalItem: FC<BaseTokenModalItemProps> = ({
   Icon,

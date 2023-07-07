@@ -8,7 +8,7 @@
       "from": "Desde",
       "balance": "Saldo",
       "selectToken": "Selecciona un token",
-      "preview": "Vista previa",
+      "preview": "Intercambio",
       "fetchMarkets": "Buscando mercados...",
       "fetchingAmounts": "Buscando cantidades...",
       "errors": {
@@ -43,14 +43,7 @@
         "minimumReceived": "Mínimo recibido después del slippage",
         "footerText": "Al aprobar esta transacción, reconoces y aceptas toda la información proporcionada anteriormente. El monto final puede cambiar debido a la actividad del mercado.",
         "confirmSwap": "Confirmar Intercambio",
-        "notEnoughBalance": "Saldo Insuficiente",
-        "selectToken": {
-          "title": "Seleccionar token",
-          "search": "Buscar token",
-          "recommended": "Recomendado",
-          "favorite": "Favorito",
-          "wallet": "cartera"
-        }
+        "notEnoughBalance": "Saldo Insuficiente"
       },
       "confirm": {
         "title": "Tokens Intercambiado",

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
+import { COIN_TYPE, Network } from '@interest-protocol/sui-amm-sdk';
 import { ConnectButton } from '@mysten/wallet-kit';
 import { FixedPointMath } from 'lib';
 import { pathOr } from 'ramda';

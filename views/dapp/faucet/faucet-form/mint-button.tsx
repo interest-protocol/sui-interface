@@ -1,5 +1,9 @@
 import { useTheme } from '@emotion/react';
-import { COIN_TYPE, Network, OBJECT_RECORD } from '@interest-protocol/sui-sdk';
+import {
+  COIN_TYPE,
+  Network,
+  OBJECT_RECORD,
+} from '@interest-protocol/sui-amm-sdk';
 import {
   isValidSuiAddress,
   SUI_TYPE_ARG,

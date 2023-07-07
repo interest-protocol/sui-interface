@@ -1,4 +1,4 @@
-import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
+import { COIN_TYPE, Network } from '@interest-protocol/sui-amm-sdk';
 import { Button, ProgressIndicator } from '@interest-protocol/ui-kit';
 import {
   fromB64,

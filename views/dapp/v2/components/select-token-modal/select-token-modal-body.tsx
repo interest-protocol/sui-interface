@@ -13,14 +13,14 @@ import { FixedPointMath } from '@/lib';
 import { getSymbolByType, isType } from '@/utils';
 import LinearLoader from '@/views/dapp/dex-pool-details/components/remove-liquidity-card/linear-loader';
 
+import FetchingToken from './fetching-token';
+import NotFound from './not-found';
 import {
   FavoriteTokensProps,
   ModalTokenBodyProps,
   SelectTokenModalBodyProps,
   TokenOrigin,
-} from '../select-token.types';
-import FetchingToken from './fetching-token';
-import NotFound from './not-found';
+} from './select-token-modal.types';
 import TokenModalItem from './token-modal-item';
 
 const ModalTokenBody: FC<ModalTokenBodyProps> = ({

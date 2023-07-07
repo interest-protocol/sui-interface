@@ -8,7 +8,7 @@
       "to": "Para",
       "balance": "Saldo",
       "selectToken": "Selecionar um token",
-      "preview": "Visualizar",
+      "preview": "Trocar",
       "fetchMarkets": "Buscando mercados...",
       "fetchingAmounts": "Buscando quantias...",
       "errors": {
@@ -43,14 +43,7 @@
         "minimumReceived": "Valor Minimo depois do slippage",
         "footerText": "Ao aprovar esta transação, você concorda com todas as informações acima. O valor final pode variar devido ao mercado.",
         "confirmSwap": "Confirmar Troca",
-        "notEnoughBalance": "Saldo Insuficiente",
-        "selectToken": {
-          "title": "Selecionar token",
-          "search": "Buscar token",
-          "recommended": "Recomendados",
-          "favorite": "Favoritos",
-          "wallet": "Carteira"
-        }
+        "notEnoughBalance": "Saldo Insuficiente"
       },
       "confirm": {
         "title": "Token trocado",

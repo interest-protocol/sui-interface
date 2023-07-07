@@ -13,6 +13,13 @@
         "pt-BR": "Português",
         "es-ES": "Espanhol"
       },
+      "selectToken": {
+        "title": "Selecionar token",
+        "search": "Buscar token",
+        "recommended": "Recomendados",
+        "favorite": "Favoritos",
+        "wallet": "Carteira"
+      },
       "menu": {
         "settings": "Definições",
         "darkMode": "Modo escuro",
@@ -78,6 +85,7 @@
     "balance": "saldo",
     "success": "sucesso",
     "notFound": "não encontrado",
+    "pageNotFound": "Página não encontrada",
     "loading": "a carregar...",
     "load": "{isLoading, plural, =1 {carregando...} other {carregar}}",
     "back": "voltar",
@@ -132,6 +140,7 @@
     "wallet": "carteira",
     "submit": "{isLoading, plural, =1 {processando...} other {processe}}",
     "backHome": "Voltar ao Início",
+    "goBackHome": "Voltar ao Início",
     "chooseToken": "Escolha o Token",
     "chooseNetwork": "Escolha a Rede",
     "recommendedToken": "Tokens Recomendados",

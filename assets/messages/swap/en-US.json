@@ -8,7 +8,7 @@
       "from": "From",
       "balance": "Balance",
       "selectToken": "Select a token",
-      "preview": "Preview",
+      "preview": "Swap",
       "fetchMarkets": "Fetching markets...",
       "fetchingAmounts": "Fetching amounts...",
       "errors": {
@@ -43,14 +43,7 @@
         "minimumReceived": "Minimum received after slippage",
         "footerText": "By approving this transaction, you agree to the provided information. Final amount subject to market changes.",
         "confirmSwap": "Confirm Swap",
-        "notEnoughBalance": "Not Enough Balance",
-        "selectToken": {
-          "title": "Select token",
-          "search": "Search token",
-          "recommended": "Recommended",
-          "favorite": "Favorite",
-          "wallet": "Wallet"
-        }
+        "notEnoughBalance": "Not Enough Balance"
       },
       "confirm": {
         "title": "Token Swapped",

@@ -1,4 +1,4 @@
-import { Network } from '@interest-protocol/sui-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import { and, find, or, pathOr } from 'ramda';
 
 import { RECOMMENDED_POOLS } from '@/constants';

@@ -1,4 +1,4 @@
-import { DexFunctions, DexMarket } from '@interest-protocol/sui-sdk';
+import { DexFunctions, DexMarket } from '@interest-protocol/sui-amm-sdk';
 import { PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { Dispatch, SetStateAction } from 'react';
 import {

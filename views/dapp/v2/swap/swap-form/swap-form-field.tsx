@@ -15,7 +15,7 @@ import {
   parseInputEventToNumberString,
   ZERO_BIG_NUMBER,
 } from '@/utils';
-import SelectToken from '@/views/dapp/v2/components/select-token';
+import SelectToken from '@/views/dapp/v2/swap/swap-select-token';
 
 import {
   SwapAmountInUSDProps,

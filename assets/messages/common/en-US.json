@@ -13,6 +13,13 @@
         "pt-BR": "Portuguese",
         "es-ES": "Spanish"
       },
+      "selectToken": {
+        "title": "Select token",
+        "search": "Search token",
+        "recommended": "Recommended",
+        "favorite": "Favorite",
+        "wallet": "Wallet"
+      },
       "navbar": {
         "swap": "swap",
         "home": "home",
@@ -78,6 +85,7 @@
     "balance": "balance",
     "success": "success",
     "notFound": "not found",
+    "pageNotFound": "page not found",
     "loading": "loading...",
     "load": "{isLoading, plural, =1 {loading...} other {load}}",
     "back": "back",
@@ -131,6 +139,7 @@
     "error": "error",
     "submit": "{isLoading, plural, =1 {submitting...} other {submit}}",
     "backHome": "Back Home",
+    "goBackHome": "Go back to Home",
     "chooseToken": "Choose token",
     "chooseNetwork": "Choose Network",
     "wallet": "wallet",

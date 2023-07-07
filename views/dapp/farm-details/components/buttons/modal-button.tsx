@@ -1,4 +1,4 @@
-import { OBJECT_RECORD } from '@interest-protocol/sui-sdk';
+import { OBJECT_RECORD } from '@interest-protocol/sui-amm-sdk';
 import { SUI_CLOCK_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';

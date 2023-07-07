@@ -3,8 +3,8 @@ import { Dispatch, SetStateAction } from 'react';
 export interface WalletDropdownProps {
   isOpen: boolean;
   loading: boolean;
-  addressName: string | undefined;
-  handleDisconnect: () => void;
+  handleClose: () => void;
+  suiNSRecord: Record<string, string>;
 }
 
 export type WalletDropdownWrapperProps = WalletDropdownProps;
