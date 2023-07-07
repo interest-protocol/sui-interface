@@ -6,6 +6,9 @@
       "cancel": "Cancelar",
       "confirm": "Confirmar",
       "confirmChanges": "Confirmar cambios",
+      "network": {
+        "down": "Sistema caído"
+      },
       "languages": {
         "title": "Idioma",
         "en-US": "Inglés",

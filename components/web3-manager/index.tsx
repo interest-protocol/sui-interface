@@ -1,5 +1,5 @@
 import { useWalletKit } from '@mysten/wallet-kit';
-import { createContext, FC, useEffect, useMemo, useState } from 'react';
+import { createContext, FC, useMemo } from 'react';
 import useSWR from 'swr';
 import { useReadLocalStorage } from 'usehooks-ts';
 
@@ -19,7 +19,6 @@ const CONTEXT_DEFAULT_STATE = {
   connected: false,
   error: false,
   mutate: noop,
-  checkpoint: '',
   isFetchingCoinBalances: false,
 };
 
@@ -30,17 +29,7 @@ export const Web3ManagerContext = createContext<Web3ManagerState>(
 const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
   const { network } = useNetwork();
   const { provider } = useProvider();
-  const [checkpoint, setCheckpoint] = useState<string>('');
   const { isError, currentAccount, isConnected } = useWalletKit();
-
-  useEffect(() => {
-    (async () => {
-      const latestCheckpoint =
-        await provider.getLatestCheckpointSequenceNumber();
-
-      setCheckpoint(latestCheckpoint);
-    })();
-  }, [provider]);
 
   const { data, error, mutate, isLoading } = useSWR(
     makeSWRKey(
@@ -79,7 +68,6 @@ const Web3Manager: FC<Web3ManagerProps> = ({ children }) => {
         coins,
         coinsMap,
         mutate,
-        checkpoint,
         isFetchingCoinBalances: isLoading,
       }}
     >

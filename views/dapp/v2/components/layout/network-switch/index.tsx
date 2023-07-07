@@ -2,22 +2,36 @@ import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { Chip } from '@/components';
-import { useNetwork, useWeb3 } from '@/hooks';
+import { useNetwork, useProvider } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
 
 const NetworkSwitch: FC = () => {
   const t = useTranslations();
   const { asPath } = useRouter();
-  const { checkpoint } = useWeb3();
+  const { provider } = useProvider();
+  const [loading, setLoading] = useState(false);
   const { network, setNetwork } = useNetwork();
   const [isOnline, setIsOnline] = useState(false);
+
+  const [checkpoint, setCheckpoint] = useState<string>('');
 
   const handleChangeNetwork = (selectedNetwork: Network) => () => {
     setNetwork(selectedNetwork);
   };
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      const latestCheckpoint =
+        await provider.getLatestCheckpointSequenceNumber();
+
+      setCheckpoint(latestCheckpoint);
+      setLoading(false);
+    })();
+  }, [provider]);
 
   useEventListener('offline', () => setIsOnline(false), true);
   useEventListener('online', () => setIsOnline(true), true);
@@ -59,9 +73,11 @@ const NetworkSwitch: FC = () => {
           height="0.8rem"
           borderRadius="full"
           display="inline-block"
-          bg={isOnline ? '#65A30D' : '#B91C1C'}
+          bg={
+            loading ? 'warning' : checkpoint && isOnline ? '#65A30D' : '#B91C1C'
+          }
         />
-        {checkpoint || t('common.notFound')}
+        {loading ? t('common.loading') : checkpoint ?? t('common.notFound')}
       </Typography>
     </Box>
   );
