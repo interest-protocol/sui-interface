@@ -38,7 +38,7 @@ const NetworkProvider: FC<NetworkProviderProps> = ({ children }) => {
   useEffect(() => {
     if (asPath.includes('/dapp/alpha') && network !== Network.TESTNET)
       setNetwork(Network.TESTNET);
-  }, [network]);
+  }, [network, asPath]);
 
   const handleSetNetwork = (x: Network) => {
     setLocalNetwork(x);

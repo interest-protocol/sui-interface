@@ -23,15 +23,17 @@ const NetworkSwitch: FC = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const latestCheckpoint =
-        await provider.getLatestCheckpointSequenceNumber();
-
-      setCheckpoint(latestCheckpoint);
-      setLoading(false);
-    })();
-  }, [provider]);
+    setLoading(true);
+    provider
+      .getLatestCheckpointSequenceNumber()
+      .then((latestCheckpoint) => {
+        setCheckpoint(latestCheckpoint);
+      })
+      .catch(() => setCheckpoint(''))
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [provider, isOnline]);
 
   useEventListener('offline', () => setIsOnline(false), true);
   useEventListener('online', () => setIsOnline(true), true);
