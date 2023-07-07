@@ -11,35 +11,22 @@ const Checkpoint: FC = () => {
   const t = useTranslations();
   const { network } = useNetwork();
   const { provider } = useProvider();
-  const [loading, setLoading] = useState(false);
   const [isOnline, setIsOnline] = useState(false);
-  const [checkpoint, setCheckpoint] = useState<string>('');
 
   useEventListener('offline', () => setIsOnline(false), true);
   useEventListener('online', () => setIsOnline(true), true);
 
-  useSWR(
+  const { isLoading, error, data } = useSWR(
     makeSWRKey(
       [network, isOnline],
       provider.getLatestCheckpointSequenceNumber.name
     ),
-    async () => {
-      !checkpoint && setLoading(true);
-      provider
-        .getLatestCheckpointSequenceNumber()
-        .then((latestCheckpoint) => {
-          setCheckpoint(latestCheckpoint);
-        })
-        .catch(() => setCheckpoint(''))
-        .finally(() => {
-          setLoading(false);
-        });
-    },
+    () => provider.getLatestCheckpointSequenceNumber(),
     {
       revalidateOnFocus: false,
       revalidateOnMount: true,
       refreshWhenHidden: false,
-      refreshInterval: 30000,
+      refreshInterval: 15000,
     }
   );
 
@@ -61,12 +48,14 @@ const Checkpoint: FC = () => {
         borderRadius="full"
         display="inline-block"
         bg={
-          loading ? 'warning' : checkpoint && isOnline ? '#65A30D' : '#B91C1C'
+          isLoading && !error
+            ? 'warning'
+            : !!data && isOnline
+            ? '#65A30D'
+            : '#B91C1C'
         }
       />
-      {loading
-        ? t('common.loading')
-        : checkpoint ?? t('common.v2.network.down')}
+      {isLoading ? t('common.loading') : data ?? t('common.v2.network.down')}
     </Typography>
   );
 };
