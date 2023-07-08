@@ -31,8 +31,8 @@ const FaucetPage: NextPageWithProps = ({ now, messages, pageTitle }) => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, faucetMessages] = await Promise.all([
-    import(`../../../../assets/messages/common/${locale}.json`),
-    import(`../../../../assets/messages/faucet/${locale}.json`),
+    import(`../../../assets/messages/common/${locale}.json`),
+    import(`../../../assets/messages/faucet/${locale}.json`),
   ]);
 
   const messages = mergeDeepRight(
