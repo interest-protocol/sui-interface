@@ -9,7 +9,7 @@ const tvlBodyAPIQuery = [
     metricsQuery: {
       query: 'tvl_by_pool',
       alias: '',
-      id: 'a',
+      id: 'tvl',
       labelSelector: {},
       aggregate: {
         op: 'SUM',
@@ -28,7 +28,7 @@ const accumulatedVolumeQuery = [
     metricsQuery: {
       query: 'vol',
       alias: '{{pair}}',
-      id: 'a',
+      id: 'volume',
       labelSelector: {},
       aggregate: {
         op: 'SUM',
@@ -62,7 +62,7 @@ const totalUsersBody = [
         type: 'EVENTS',
       },
       alias: '',
-      id: 'a',
+      id: 'users',
       aggregation: {
         countUnique: {
           duration: {
@@ -117,13 +117,36 @@ const handler: NextApiHandler = async (req, res) => {
 
   const data = await response.json();
 
-  const [volumeResponse, usersResponse, tvlResponse] = data.results;
+  const parsedData = data.results.reduce(
+    (acc: any, x: any) => {
+      if (x.id === 'volume')
+        return {
+          ...acc,
+          volume: getValue(x),
+        };
 
-  res.send({
-    tvl: getValue(tvlResponse),
-    volume: getValue(volumeResponse),
-    users: getValue(usersResponse),
-  });
+      if (x.id === 'users')
+        return {
+          ...acc,
+          users: getValue(x),
+        };
+
+      if (x.id === 'tvl')
+        return {
+          ...acc,
+          tvl: getValue(x),
+        };
+
+      return acc;
+    },
+    {
+      tvl: 0,
+      volume: 0,
+      users: 0,
+    }
+  );
+
+  res.send(parsedData);
 };
 
 export default use([getRequestOnlyMiddleware, logApiErrors])(handler);
