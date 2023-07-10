@@ -29,6 +29,9 @@ import {
 import {
   BinanceSVG,
   BitcoinSVG,
+  CelerBTCSVG,
+  CelerETHSVG,
+  CelerUSDCSVG,
   EtherSVG,
   InterestTokenSVG,
   SuiSVG,
@@ -118,6 +121,9 @@ export const TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.MAINNET].ETH_WORMHOLE_USDC]: WormholeUSDCESVG,
   [COIN_TYPE[Network.MAINNET].ETH_WORMHOLE_USDT]: WormholeUSDTESVG,
   [COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_SOL]: WormholeSOLv1SVG,
+  [COIN_TYPE[Network.MAINNET].ETH_CELER_WETH]: CelerETHSVG,
+  [COIN_TYPE[Network.MAINNET].ETH_CELER_WBTC]: CelerBTCSVG,
+  [COIN_TYPE[Network.MAINNET].ETH_CELER_USDC]: CelerUSDCSVG,
 };
 
 export const TOKENS_SVG_MAP_V2 = {

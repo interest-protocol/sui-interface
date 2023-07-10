@@ -16,7 +16,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@hookform/resolvers": "^2.8.8",
-    "@interest-protocol/sui-amm-sdk": "^1.1.0",
+    "@interest-protocol/sui-amm-sdk": "^1.3.0",
     "@interest-protocol/sui-money-market-sdk": "^1.2.0",
     "@interest-protocol/ui-kit": "^0.1.26-beta",
     "@mysten/bcs": "^0.7.2",
