@@ -18,6 +18,7 @@ import { COINS, DOUBLE_SCALAR } from '@/constants';
 import { FixedPointMath } from '@/lib';
 import {
   formatMoney,
+  min,
   parseInputEventToNumberString,
   ZERO_BIG_NUMBER,
 } from '@/utils';
@@ -127,7 +128,9 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
 
   const maxBorrowInToken = maxBorrowAmount / priceMap[marketKey].price;
 
-  const checkValue = isLoan ? maxBorrowInToken : loanBalance;
+  const cash = FixedPointMath.toNumber(market.cash, market.decimals);
+
+  const checkValue = isLoan ? min(cash, maxBorrowInToken) : loanBalance;
 
   const handleTab = () => {
     borrowForm.reset();
@@ -334,7 +337,9 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
             justifyContent="center"
             onClick={() => handlePreview()}
             disabled={
-              isLoan ? maxBorrowInToken === 0 : market.userPrincipal.isZero()
+              isLoan
+                ? maxBorrowInToken === 0
+                : market.userPrincipal.isZero() || balance === 0
             }
           >
             {t('lend.modal.borrow.normal.button', {

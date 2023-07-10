@@ -237,7 +237,7 @@ export const calculateNewWithdrawLimitNewAmount = ({
 
   const market = marketRecord[marketKey];
 
-  if (!market.collateralEnabled)
+  if (!market.collateralEnabled || userBalancesInUSD.totalLoan === 0)
     return {
       currentBorrowLimit,
       currentBorrowLimitPercentage: currentBorrowLimitPercentage * 100,
