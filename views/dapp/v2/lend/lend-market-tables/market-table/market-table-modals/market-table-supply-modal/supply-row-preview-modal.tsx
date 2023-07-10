@@ -170,7 +170,8 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
             ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
             : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`,
       });
-    } catch {
+    } catch (e) {
+      console.log(e);
       openRowMarketResultModal({ isSuccess: false, isDeposit });
     } finally {
       setIsLoading(false);
