@@ -59,8 +59,7 @@ const BorrowMarketConfirmModal: FC<RowResultModalProps> = ({
         onClick={closeModal}
       >
         <Button
-          mt="0.5rem"
-          mb="2xl"
+          mt="xl"
           size="small"
           width="100%"
           variant="filled"
@@ -71,7 +70,8 @@ const BorrowMarketConfirmModal: FC<RowResultModalProps> = ({
         </Button>
       </a>
       <Button
-        mt="xl"
+        mt="0.5rem"
+        mb="2xl"
         size="small"
         width="100%"
         variant="text"

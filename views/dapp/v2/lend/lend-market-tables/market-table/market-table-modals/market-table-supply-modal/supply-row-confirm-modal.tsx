@@ -58,8 +58,7 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
         onClick={closeModal}
       >
         <Button
-          mt="0.5rem"
-          mb="2xl"
+          mt="xl"
           size="small"
           width="100%"
           variant="filled"
@@ -70,7 +69,8 @@ const SupplyMarketConfirmModal: FC<RowResultModalProps> = ({
         </Button>
       </a>
       <Button
-        mt="xl"
+        mb="2xl"
+        mt="0.5rem"
         size="small"
         width="100%"
         variant="text"
