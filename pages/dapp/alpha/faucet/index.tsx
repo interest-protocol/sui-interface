@@ -1,6 +1,5 @@
 import { GetStaticProps } from 'next';
 import { useTranslations } from 'next-intl';
-import NotFoundPage from 'pages/404';
 import { mergeDeepRight } from 'ramda';
 
 import { SEO } from '@/components';
@@ -10,12 +9,8 @@ import { NextPageWithProps } from '@/interface';
 import { Layout } from '@/views/dapp/v2/components';
 import Faucet from '@/views/dapp/v2/faucet';
 
-const FaucetPage: NextPageWithProps = ({ now, messages, pageTitle }) => {
+const FaucetPage: NextPageWithProps = ({ pageTitle }) => {
   const t = useTranslations();
-  if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'production')
-    return (
-      <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
-    );
 
   return (
     <ModalProvider newDesign>
