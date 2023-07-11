@@ -1,5 +1,8 @@
 {
   "faucet": {
+    "metadata": {
+      "title": "Faucet"
+    },
     "pageTitle": "Fauncet",
     "mint": "{isLoading, plural, =1 {Minting...} other {Mint}}",
     "tokenInput": "Elige el Token",

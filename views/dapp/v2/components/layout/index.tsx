@@ -1,10 +1,8 @@
 import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
-import { useRouter } from 'next/router';
-import { useTranslations } from 'next-intl';
 import { FC, PropsWithChildren, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
-import { Routes, RoutesEnum, TOAST_DURATION } from '@/constants';
+import { TOAST_DURATION } from '@/constants';
 import useEventListener from '@/hooks/use-event-listener';
 
 import Footer from './footer';
@@ -12,18 +10,15 @@ import Header from './header';
 import LangSwitch from './lang-switch';
 import { LayoutProps } from './layout.types';
 import Sidebar from './sidebar';
-import ThemeSwitch from './theme-switch';
 import Wallet from './wallet';
 
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   children,
   dashboard,
+  titlePage,
 }) => {
   const [isDesktop, setIsDesktop] = useState(false);
-  const t = useTranslations();
   const { colors, radii, breakpoints } = useTheme() as Theme;
-  const { pathname } = useRouter();
-  const IS_LEND_PAGE = pathname == Routes[RoutesEnum.Lend];
   const handleSetDesktopView = () =>
     setIsDesktop(window.matchMedia(`(min-width: ${breakpoints[2]})`).matches);
 
@@ -54,35 +49,19 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
               display="flex"
               variant="container"
               pr={['unset', 'unset', 'unset', 'xl']}
-              justifyContent={IS_LEND_PAGE ? 'space-between' : 'flex-end'}
+              justifyContent={titlePage ? 'space-between' : 'flex-end'}
             >
-              {IS_LEND_PAGE && (
+              {titlePage && (
                 <Typography
                   variant="displayLarge"
                   color="onSurface"
                   textTransform="capitalize"
                 >
-                  {t('lend.metadata.title')}
+                  {titlePage}
                 </Typography>
               )}
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
+              <Box display="flex" justifyContent="space-between">
                 <Wallet />
-                <Box
-                  py="m"
-                  mx="m"
-                  px="l"
-                  display="flex"
-                  borderRadius="full"
-                  alignItems="center"
-                  bg="surface.container"
-                  boxShadow="inset 0 0 2px   #0002"
-                >
-                  <ThemeSwitch />
-                </Box>
                 <LangSwitch />
               </Box>
             </Box>
