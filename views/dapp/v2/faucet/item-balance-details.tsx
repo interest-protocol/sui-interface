@@ -1,52 +1,42 @@
-import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
+import {
+  Box,
+  Motion,
+  Theme,
+  Typography,
+  useTheme,
+} from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { FC, useRef } from 'react';
-import { animated, useSpring } from 'react-spring';
+import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { CopyToClipboard } from '@/components';
-import RefBox from '@/elements/ref-box';
 import { FixedPointMath } from '@/lib';
 import { capitalize } from '@/utils';
 
 import { ItemBalanceDetailsProps } from './faucet.types';
 
-const AnimatedBox = animated(Box);
-
 const ItemBalanceDetails: FC<ItemBalanceDetailsProps> = ({
-  objectsData,
-  openDetails,
   decimals,
+  openDetails,
+  objectsData,
 }) => {
   const t = useTranslations();
-  const { colors, space } = useTheme() as Theme;
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const style = useSpring({
-    from: { height: '0px', margin: '0rem 0' },
-    to: {
-      margin: `${openDetails ? space.s : '0rem'} 0`,
-      height: `${openDetails ? containerRef.current?.clientHeight : 0}px`,
-    },
-    config: {
-      duration: 300,
-    },
-  });
+  const { colors } = useTheme() as Theme;
 
   return (
-    <AnimatedBox style={style} overflow="hidden">
-      <RefBox
-        ref={containerRef}
-        p="M"
-        color={colors.onSurface}
-        borderRadius="M"
-      >
+    <Motion
+      overflow="hidden"
+      initial={{ height: '0rem' }}
+      animate={{ height: openDetails ? 'auto' : '0' }}
+    >
+      <Box pt="m" px="s" borderRadius="m" color={colors.onSurface}>
         {objectsData.map(({ balance, id }) => (
           <Box
-            display="flex"
-            justifyContent="space-between"
+            my="s"
             key={v4()}
+            display="flex"
             alignItems="center"
+            justifyContent="space-between"
           >
             <Typography variant="small" fontSize="S">
               {capitalize(t('common.coin'))} ...{id?.slice(-4)}:{' '}
@@ -57,8 +47,8 @@ const ItemBalanceDetails: FC<ItemBalanceDetailsProps> = ({
             </Box>
           </Box>
         ))}
-      </RefBox>
-    </AnimatedBox>
+      </Box>
+    </Motion>
   );
 };
 

@@ -25,12 +25,12 @@ import TokenModalItem from './token-modal-item';
 
 const ModalTokenBody: FC<ModalTokenBodyProps> = ({
   tokens,
-  currentTokenType,
+  isFavorite,
   askedToken,
   tokenOrigin,
-  onSelectToken,
   favoriteForm,
-  isFavorite,
+  onSelectToken,
+  currentTokenType,
 }) => {
   return tokens.length ? (
     <>
@@ -55,14 +55,14 @@ const ModalTokenBody: FC<ModalTokenBodyProps> = ({
 };
 
 const FavoriteTokens: FC<FavoriteTokensProps> = ({
-  currentTokenType,
   askedToken,
   tokenOrigin,
-  onSelectToken,
   favoriteForm,
+  onSelectToken,
+  currentTokenType,
 }) => {
   const tokenTypes = useWatch({
-    control: favoriteForm.control,
+    control: favoriteForm?.control,
     name: 'tokens',
   });
 
@@ -93,6 +93,7 @@ const FavoriteTokens: FC<FavoriteTokensProps> = ({
 };
 
 const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
+  simple,
   network,
   control,
   coinsMap,
@@ -140,13 +141,13 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
               type == debouncedSearch
           )
         : tokenOrigin === TokenOrigin.Wallet
-        ? walletTokens.filter(
+        ? walletTokens?.filter(
             ({ type, symbol }) =>
               symbol.toLowerCase().startsWith(debouncedSearch.toLowerCase()) ||
               type == debouncedSearch
           )
         : favoriteForm
-            .getValues('tokens')
+            ?.getValues('tokens')
             .map(
               (type) =>
                 coinsMap[type] ?? {
@@ -165,7 +166,7 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
                 type == debouncedSearch
             );
 
-    return array.concat(filteredTokensArray);
+    return array.concat(filteredTokensArray ?? []);
   }, [
     debouncedSearch,
     searchTokenModalState,
@@ -212,7 +213,7 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
 
   if (loading) return <FetchingToken />;
 
-  if (debouncedSearch && !askedToken) return <NotFound />;
+  if (debouncedSearch && !askedToken && !simple) return <NotFound />;
 
   return (
     <>
@@ -228,7 +229,8 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
         flexDirection="column"
         bg="surface.containerLow"
       >
-        {debouncedSearch &&
+        {!simple &&
+          debouncedSearch &&
           askedToken &&
           [askedToken].map(({ symbol, type, decimals, totalBalance }) => (
             <TokenModalItem
@@ -250,6 +252,19 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
               ).toString()}
             />
           ))}
+        {simple && debouncedSearch && (
+          <ModalTokenBody
+            tokens={recommendedTokens.filter(
+              ({ type, symbol }) =>
+                symbol.includes(debouncedSearch) || type === debouncedSearch
+            )}
+            askedToken={askedToken}
+            onSelectToken={handleSelectToken}
+            currentTokenType={currentTokenType}
+            favoriteForm={favoriteForm}
+            tokenOrigin={tokenOrigin}
+          />
+        )}
         {!debouncedSearch &&
           !askedToken &&
           tokenOrigin === TokenOrigin.Recommended && (
@@ -266,12 +281,12 @@ const SelectTokenModalBody: FC<SelectTokenModalBodyProps> = ({
           !askedToken &&
           tokenOrigin === TokenOrigin.Wallet && (
             <ModalTokenBody
-              tokens={walletTokens}
               askedToken={askedToken}
+              tokenOrigin={tokenOrigin}
+              favoriteForm={favoriteForm}
+              tokens={walletTokens ?? []}
               onSelectToken={handleSelectToken}
               currentTokenType={currentTokenType}
-              favoriteForm={favoriteForm}
-              tokenOrigin={tokenOrigin}
             />
           )}
         {!debouncedSearch &&

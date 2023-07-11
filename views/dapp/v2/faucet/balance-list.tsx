@@ -18,7 +18,6 @@ const DEFAULT_COIN = {
 
 const BalanceList: FC = () => {
   const { coinsMap } = useWeb3();
-
   const { network } = useNetwork();
 
   const tokens = FAUCET_TOKENS_V2[network];
@@ -26,17 +25,20 @@ const BalanceList: FC = () => {
   return (
     <Box>
       {tokens.map(({ symbol, type, decimals }) => {
-        const coin = coinsMap[type]?.objects ? coinsMap[type] : DEFAULT_COIN;
+        const { totalBalance, objects } = coinsMap[type]?.objects
+          ? coinsMap[type]
+          : DEFAULT_COIN;
+
         return (
           <ItemBalance
-            type={type}
             key={v4()}
+            type={type}
             symbol={symbol}
             decimals={decimals}
-            totalBalance={coin.totalBalance}
-            objectsData={coin.objects.map((elem) => ({
-              id: elem.coinObjectId,
-              balance: elem.balance.toString(),
+            totalBalance={totalBalance}
+            objectsData={objects.map(({ coinObjectId, balance }) => ({
+              id: coinObjectId,
+              balance: balance.toString(),
             }))}
           />
         );

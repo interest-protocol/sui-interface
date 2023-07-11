@@ -1,22 +1,30 @@
-import { Box, Button, TextField, Typography } from '@interest-protocol/ui-kit';
+import { Box, Motion, TextField, Typography } from '@interest-protocol/ui-kit';
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import ArrowSpecial from '@/components/svg/arrow-special';
-import { FAUCET_TOKENS_V2, TOKENS_SVG_MAP_V2 } from '@/constants';
-import { useModal, useNetwork } from '@/hooks';
+import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
+import {
+  COIN_DECIMALS,
+  COIN_TYPE_TO_SYMBOL,
+  FAUCET_TOKENS_V2,
+  TOKENS_SVG_MAP_V2,
+} from '@/constants';
+import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
+import { CoinData } from '@/interface';
 import { capitalize } from '@/utils';
 
+import SelectTokenModal from '../components/select-token-modal';
 import BalanceList from './balance-list';
 import { FaucetSearchTokenForm, GetSVGProps } from './faucet.types';
 import MintButton from './mint-button';
-import SelectTokenModal from './modal/faucet-choose-token-modal';
 import FaucetMintConfirmModal from './modal/faucet-mint-confirm-modal';
 import FaucetMintFailModal from './modal/faucet-mint-fail-modal';
 import FaucetMintLoadingModal from './modal/faucet-mint-loading-modal';
 
-const GetSVG: FC<GetSVGProps> = ({ type }) => {
+const TokenIcon: FC<GetSVGProps> = ({ type }) => {
   const SVG = TOKENS_SVG_MAP_V2[type] || TOKENS_SVG_MAP_V2.default;
   return (
     <SVG maxHeight="100%" maxWidth="2.5rem" width="1.5rem" height="1.5rem" />
@@ -24,7 +32,9 @@ const GetSVG: FC<GetSVGProps> = ({ type }) => {
 };
 
 const Faucet: FC = () => {
+  const { coinsMap } = useWeb3();
   const { network } = useNetwork();
+  const { provider } = useProvider();
 
   const t = useTranslations();
   const { setModal, handleClose } = useModal();
@@ -47,20 +57,43 @@ const Faucet: FC = () => {
     );
   }, [network]);
 
-  const onSelectCurrency = (type: string, symbol: string) => {
+  const onSelectCurrency = ({ type, symbol }: CoinData) => {
     form.setValue('type', type);
     form.setValue('symbol', symbol);
     handleClose();
   };
 
-  const openModal = () => {
+  const recommendedTokens: ReadonlyArray<Web3ManagerSuiObject> =
+    FAUCET_TOKENS_V2[network].map(
+      ({ type }) =>
+        coinsMap[type] ?? {
+          type,
+          symbol: COIN_TYPE_TO_SYMBOL[network][type],
+          decimals: COIN_DECIMALS[network][type],
+          objects: [],
+          totalBalance: BigNumber(0),
+        }
+    );
+
+  const openModal = () =>
     setModal(
-      <SelectTokenModal
-        register={form.register}
-        control={form.control}
-        onSelectCurrency={onSelectCurrency}
-        closeModal={handleClose}
-      />,
+      <Motion
+        animate={{ scale: 1 }}
+        initial={{ scale: 0.85 }}
+        transition={{ duration: 0.3 }}
+      >
+        <SelectTokenModal
+          simple
+          network={network}
+          provider={provider}
+          coinsMap={coinsMap}
+          closeModal={handleClose}
+          searchTokenModalState={null}
+          onSelectToken={onSelectCurrency}
+          recommendedTokens={recommendedTokens}
+          currentTokenType={form.getValues('symbol')}
+        />
+      </Motion>,
       {
         isOpen: true,
         custom: true,
@@ -68,7 +101,6 @@ const Faucet: FC = () => {
         allowClose: true,
       }
     );
-  };
 
   const loadingModal = () => {
     setModal(<FaucetMintLoadingModal />, {
@@ -131,49 +163,50 @@ const Faucet: FC = () => {
             <Typography variant="small" mb="l" color="onSurface">
               {capitalize(t('faucet.tokenInput'))}
             </Typography>
-            <TextField
-              Prefix={
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  bg="primary"
-                  borderRadius="m"
-                  color="inverseOnSurface"
-                  height="2.5rem"
-                  width="2.5rem"
-                  mr="l"
-                >
-                  <GetSVG type={form.getValues('type')} />
-                </Box>
-              }
-              Suffix={
-                <Button
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  borderRadius="m"
-                  color="onSurface"
-                  variant="icon"
-                  onClick={openModal}
-                >
-                  <ArrowSpecial
-                    maxHeight="100%"
-                    maxWidth="2.5rem"
-                    width="1.5rem"
-                    height="1.5rem"
-                  />
-                </Button>
-              }
-              fieldProps={{
-                bg: 'surface.containerLowest',
-                border: 'none',
-                height: '58px',
-              }}
-              fontSize="m"
-              value={form.getValues('symbol') || capitalize(t('faucet.select'))}
-              disabled
-            />
+            <Motion
+              cursor="pointer"
+              onClick={openModal}
+              transform="scale(1)"
+              whileHover={{ transform: 'scale(0.99)' }}
+            >
+              <TextField
+                Prefix={
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    bg="primary"
+                    borderRadius="m"
+                    color="inverseOnSurface"
+                    height="2.5rem"
+                    width="2.5rem"
+                    mr="l"
+                  >
+                    <TokenIcon type={form.getValues('type')} />
+                  </Box>
+                }
+                Suffix={
+                  <Box mr="l">
+                    <ArrowSpecial
+                      width="100%"
+                      height="100%"
+                      maxWidth="0.8rem"
+                      maxHeight="0.8rem"
+                    />
+                  </Box>
+                }
+                fieldProps={{
+                  bg: 'surface.containerLowest',
+                  border: 'none',
+                  height: '58px',
+                }}
+                fontSize="m"
+                value={
+                  form.getValues('symbol') || capitalize(t('faucet.select'))
+                }
+                disabled
+              />
+            </Motion>
             <MintButton
               getValues={form.getValues}
               loadingModal={loadingModal}

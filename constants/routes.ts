@@ -33,7 +33,7 @@ export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.DEXPool]: '/dapp/dex/pool',
   [RoutesEnum.DEXFindPool]: '/dapp/dex/pool/find',
   [RoutesEnum.DEXPoolDetails]: '/dapp/dex/pool/details',
-  [RoutesEnum.Faucet]: '/dapp/faucet',
+  [RoutesEnum.Faucet]: '/dapp/alpha/faucet',
   [RoutesEnum.CreateToken]: '/dapp/create-token',
   [RoutesEnum.Lend]: '/dapp/alpha/lending',
   [RoutesEnum.LiquidityCampaign]: '/campaign/liquidity',

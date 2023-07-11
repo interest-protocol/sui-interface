@@ -9,23 +9,23 @@ import ItemBalanceDetails from './item-balance-details';
 import OpenDetails from './open-details';
 
 const ItemBalance: FC<ItemBalanceProps> = ({
-  decimals,
-  totalBalance,
-  symbol,
   type,
+  symbol,
+  decimals,
   objectsData,
+  totalBalance,
 }) => {
   const { colors } = useTheme() as Theme;
-  const SVG = TOKENS_SVG_MAP_V2[type] ?? TOKENS_SVG_MAP_V2.default;
   const [openDetails, setOpenDetails] = useState(false);
+  const SVG = TOKENS_SVG_MAP_V2[type] ?? TOKENS_SVG_MAP_V2.default;
 
   return (
     <Box
-      bg={openDetails ? `${colors.primary}14` : 'unset'}
       py="s"
       mb="s"
       px="m"
       borderRadius="m"
+      bg={openDetails ? `${colors.primary}14` : 'unset'}
     >
       <Box display="flex" justifyContent="space-between">
         <Box display="flex" alignItems="center">
@@ -54,7 +54,7 @@ const ItemBalance: FC<ItemBalanceProps> = ({
         <Box
           display="grid"
           alignItems="center"
-          gridTemplateColumns="2fr 0.5rem"
+          gridTemplateColumns="auto 0.5rem"
         >
           <Typography variant="medium" color="onSurface" mr="xs">
             {symbol}
@@ -71,9 +71,9 @@ const ItemBalance: FC<ItemBalanceProps> = ({
         </Box>
       </Box>
       <ItemBalanceDetails
-        objectsData={objectsData}
         decimals={decimals}
-        openDetails
+        objectsData={objectsData}
+        openDetails={openDetails}
       />
     </Box>
   );

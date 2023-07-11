@@ -14,10 +14,10 @@ export interface TokenModalItemProps {
   balance: string;
   selected: boolean;
   onClick: () => void;
+  isFavorite?: boolean;
   recommended?: boolean;
   Icon: FC<SVGProps & { filled?: boolean }>;
-  favoriteForm: UseFormReturn<FavoriteTokensForm>;
-  isFavorite?: boolean;
+  favoriteForm?: UseFormReturn<FavoriteTokensForm>;
 }
 
 export interface BaseTokenModalItemProps {
@@ -35,16 +35,17 @@ export interface SelectTokenProps {
 }
 
 export interface SelectTokenModalProps {
-  onSelectToken: (token: CoinData) => Promise<void>;
-  currentTokenType: string | null;
-  searchTokenModalState: TokenModalMetadata | null;
-  closeModal: () => void;
-  coinsMap: Record<string, Web3ManagerSuiObject>;
-  provider: JsonRpcProvider;
+  simple?: boolean;
   network: Network;
-  walletTokens: ReadonlyArray<Web3ManagerSuiObject>;
+  closeModal: () => void;
+  provider: JsonRpcProvider;
+  currentTokenType: string | null;
+  coinsMap: Record<string, Web3ManagerSuiObject>;
+  favoriteForm?: UseFormReturn<FavoriteTokensForm>;
+  searchTokenModalState: TokenModalMetadata | null;
+  walletTokens?: ReadonlyArray<Web3ManagerSuiObject>;
   recommendedTokens: ReadonlyArray<Web3ManagerSuiObject>;
-  favoriteForm: UseFormReturn<FavoriteTokensForm>;
+  onSelectToken: (token: CoinData) => Promise<void> | void;
 }
 
 export enum TokenOrigin {
@@ -64,6 +65,7 @@ export interface SelectTokenBaseTokensProps {
 }
 
 export interface SelectTokenModalBodyProps {
+  simple: boolean;
   network: Network;
   tokenOrigin: TokenOrigin;
   fetchingMetaData: boolean;
