@@ -12,7 +12,7 @@ interface BigCardProps {
 const BigCard: FC<BigCardProps> = ({ action }) => {
   const t = useTranslations();
   return (
-    <Box bg="surface.containerLow" px="1.5rem" my="2rem">
+    <Box bg="red" px="1.5rem" width="100%" my="2rem">
       <Box
         borderBottom="1px dashed"
         borderColor="outline.outlineVariant"

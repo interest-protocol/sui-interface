@@ -11,12 +11,12 @@ import { useModal } from '@/hooks';
 import { DollarSVG } from '@/svg';
 
 import { Layout } from '../components';
+import DetailedHeader from './earn-detailed-header';
 import EarnListCard from './earn-list';
 import FilterSection from './filter-section';
 import TVLCardInfo from './tvl-card-info';
-//import DetailedHeader from '../components/earn-detailed-header';
 
-const Earn: FC = () => {
+const EarnDetails: FC<{ objectId: string }> = ({ objectId }) => {
   const { setModal, handleClose } = useModal();
   const { dark } = useTheme() as Theme;
 
@@ -29,7 +29,7 @@ const Earn: FC = () => {
     });
 
   return (
-    <Layout dashboard titlePage="EARN">
+    <Layout dashboard titlePage={<DetailedHeader />}>
       <Box variant="container">
         <Box display="grid" gridColumn="1/-1">
           <Box
@@ -108,4 +108,4 @@ const Earn: FC = () => {
   );
 };
 
-export default Earn;
+export default EarnDetails;

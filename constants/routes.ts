@@ -13,6 +13,7 @@ export enum RoutesEnum {
   DEXPoolDetails = 'dex-pool-details',
   Bridge = 'bridge',
   Faucet = 'faucet',
+  EarnDetails = 'earn-details',
   Lend = 'lend',
   LiquidityCampaign = 'liquidity-campaign',
   CreateToken = 'create-token',

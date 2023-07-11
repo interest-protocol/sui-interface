@@ -44,7 +44,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
         />
         <Box bg="surface" display="flex" height="100vh" overflow="hidden">
           <Sidebar />
-          <Box as="main" flex="1" minHeight="100vh" overflow="auto">
+          <Box as="main" flex="1" minHeight="100vh" overflow="auto" px="1.5rem">
             <Box
               as="header"
               display="flex"
