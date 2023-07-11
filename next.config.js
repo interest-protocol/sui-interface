@@ -1,13 +1,4 @@
 module.exports = {
-  async redirects() {
-    return [
-      {
-        source: '/dapp',
-        destination: '/dapp/swap',
-        permanent: true,
-      },
-    ];
-  },
   experimental: {
     newNextLinkBehavior: true,
   },

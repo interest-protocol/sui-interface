@@ -2,7 +2,6 @@ import { Box } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { Layout } from '../components';
 import CircleChartCard from '../components/charts/circle-chart/circle-chart-card';
 import LineChartCard from '../components/charts/linear-chart/linear-chart-card';
 import CollectRewardCard from '../components/collect-reward-card/card';
@@ -24,35 +23,33 @@ const Home: FC = () => {
   const t = useTranslations();
 
   return (
-    <Layout dashboard>
-      <Box variant="container">
-        <InfoCardGroup />
-        <LineChartCard
-          data={LINE_CHART_DATA}
-          visibleData={LINE_CHARTt_VISIBLE_DATA}
+    <Box variant="container">
+      <InfoCardGroup />
+      <LineChartCard
+        data={LINE_CHART_DATA}
+        visibleData={LINE_CHARTt_VISIBLE_DATA}
+      />
+      <CircleChartCard data={CIRCLE_CHART_DATA} />
+      <MidCardContainer>
+        <MidCard
+          data={ASSETS_CARD_POOL_DATA}
+          title={t('dapp.assets')}
+          withSuffix
+          hasSuffixWithDesc
         />
-        <CircleChartCard data={CIRCLE_CHART_DATA} />
-        <MidCardContainer>
-          <MidCard
-            data={ASSETS_CARD_POOL_DATA}
-            title={t('dapp.assets')}
-            withSuffix
-            hasSuffixWithDesc
-          />
-        </MidCardContainer>
-        <MidCardContainer>
-          <MidCard
-            data={ACTIVITY_CARD_POOL_DATA}
-            title={t('dapp.activity')}
-            hasPrefixWithDesc
-          />
-        </MidCardContainer>
-        <MidCardContainer>
-          <SmallCard />
-          <CollectRewardCard />
-        </MidCardContainer>
-      </Box>
-    </Layout>
+      </MidCardContainer>
+      <MidCardContainer>
+        <MidCard
+          data={ACTIVITY_CARD_POOL_DATA}
+          title={t('dapp.activity')}
+          hasPrefixWithDesc
+        />
+      </MidCardContainer>
+      <MidCardContainer>
+        <SmallCard />
+        <CollectRewardCard />
+      </MidCardContainer>
+    </Box>
   );
 };
 

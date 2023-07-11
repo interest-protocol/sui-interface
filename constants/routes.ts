@@ -26,7 +26,7 @@ export enum RoutesEnum {
  */
 export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.Home]: '/',
-  [RoutesEnum.DApp]: '/dapp',
+  [RoutesEnum.DApp]: 'dapp/',
   [RoutesEnum.Swap]: '/dapp/swap',
   [RoutesEnum.Farms]: '/dapp/farms',
   [RoutesEnum.FarmDetails]: '/dapp/farms/details',
