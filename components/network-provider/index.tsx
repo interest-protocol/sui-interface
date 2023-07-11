@@ -36,6 +36,13 @@ const NetworkProvider: FC<NetworkProviderProps> = ({ children }) => {
 
   // Alpha folder is only available on Sui Testnet
   useEffect(() => {
+    if (
+      process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' &&
+      !asPath.includes('/dapp/alpha') &&
+      network !== Network.MAINNET
+    )
+      setNetwork(Network.MAINNET);
+
     if (asPath.includes('/dapp/alpha') && network !== Network.TESTNET)
       setNetwork(Network.TESTNET);
   }, [network, asPath]);
