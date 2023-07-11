@@ -1,27 +1,20 @@
-import {
-  Box,
-  SwitchButton,
-  Theme,
-  Typography,
-  useTheme,
-} from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
-import { not } from 'ramda';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { useNetwork } from '@/hooks';
-import { AppTheme, TTranslatedMessage } from '@/interface';
+import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
+import NetworkSwitch from '../../../network-switch';
 import { SIDEBAR_ITEMS } from '../../../sidebar/sidebar.data';
 
 const MainMenu: FC = () => {
   const t = useTranslations();
   const { network } = useNetwork();
   const { asPath, push } = useRouter();
-  const { dark, setDark } = useTheme() as AppTheme<Theme>;
 
   return (
     <Box
@@ -67,18 +60,7 @@ const MainMenu: FC = () => {
         </Box>
       </Box>
       <Box display="flex" justifyContent="center" gap="l" mb="4.188rem">
-        <Typography variant="medium" color="onSurface">
-          {t('common.v2.menu.light')}
-        </Typography>
-        <SwitchButton
-          name="theme"
-          size="medium"
-          defaultValue={dark}
-          onChange={() => setDark(not)}
-        />
-        <Typography variant="medium" color="onSurface">
-          {t('common.v2.menu.dark')}
-        </Typography>
+        <NetworkSwitch />
       </Box>
     </Box>
   );
