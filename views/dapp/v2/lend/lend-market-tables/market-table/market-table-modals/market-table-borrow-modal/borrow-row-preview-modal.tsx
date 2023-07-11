@@ -176,8 +176,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
             ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
             : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`,
       });
-    } catch (e) {
-      console.log(e);
+    } catch {
       openRowMarketResultModal({ isSuccess: false, isLoan });
     } finally {
       setIsLoading(false);
