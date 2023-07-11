@@ -118,22 +118,28 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
     try {
       const txb = new TransactionBlock();
 
+      const market = marketRecord[marketKey];
+
+      const maxAmount = market.totalLoanRebase
+        .toElastic(market.userPrincipal)
+        .multipliedBy(1.03)
+        .decimalPlaces(0, BigNumber.ROUND_DOWN);
+
       const amount = isMax
-        ? coinsMap[marketKey]?.totalBalance ?? ZERO_BIG_NUMBER
+        ? maxAmount ?? ZERO_BIG_NUMBER
         : FixedPointMath.toBigNumber(
             value,
             coinsMap[marketKey]?.decimals
           ).decimalPlaces(0, BigNumber.ROUND_DOWN);
 
-      const market = marketRecord[marketKey];
-
       const amountInPrincipal = market.totalLoanRebase
         .toBase(amount)
         .decimalPlaces(0, BigNumber.ROUND_DOWN);
 
-      const principalToRepay = amountInPrincipal.gt(market.userPrincipal)
-        ? market.userPrincipal.decimalPlaces(0, BigNumber.ROUND_DOWN)
-        : amountInPrincipal;
+      const principalToRepay =
+        amountInPrincipal.gt(market.userPrincipal) || isMax
+          ? market.userPrincipal.decimalPlaces(0, BigNumber.ROUND_DOWN)
+          : amountInPrincipal;
 
       const coinInList = createObjectsParameter({
         coinsMap,
@@ -170,7 +176,8 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
             ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
             : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`,
       });
-    } catch {
+    } catch (e) {
+      console.log(e);
       openRowMarketResultModal({ isSuccess: false, isLoan });
     } finally {
       setIsLoading(false);
