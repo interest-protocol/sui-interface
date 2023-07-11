@@ -1,6 +1,10 @@
-import { Box, InfoCard, Typography } from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import { v4 } from 'uuid';
+
+import { CARD_DATA } from '../../home/cards.data';
+import APRCard from '../../lend/overview/apr-card';
 
 const InfoCardGroup: FC = () => {
   const t = useTranslations();
@@ -18,31 +22,11 @@ const InfoCardGroup: FC = () => {
         borderColor="outline.outlineVariant"
       >
         <Box display="flex" gap="m">
-          <Box width="max-content">
-            <InfoCard info="53%" title="Sol">
-              USD 6,786.99
-            </InfoCard>
-          </Box>
-          <Box width="max-content">
-            <InfoCard info="53%" title="Floki">
-              USD 6,786.99
-            </InfoCard>
-          </Box>
-          <Box width="max-content">
-            <InfoCard info="53%" title="Doge">
-              USD 6,786.99
-            </InfoCard>
-          </Box>
-          <Box width="max-content">
-            <InfoCard info="53%" title="Floki">
-              USD 6,786.99
-            </InfoCard>
-          </Box>
-          <Box width="max-content">
-            <InfoCard info="53%" title="Floki">
-              USD 6,786.99
-            </InfoCard>
-          </Box>
+          {CARD_DATA.map((item) => (
+            <Box key={v4()}>
+              <APRCard {...item} />
+            </Box>
+          ))}
         </Box>
       </Box>
     </Box>

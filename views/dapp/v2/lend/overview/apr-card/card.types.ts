@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import { SVGProps } from '@/components/svg/svg.types';
+import { TTranslatedMessage } from '@/interface';
 
 export interface APRCardProps {
   trend: number;
@@ -8,7 +9,7 @@ export interface APRCardProps {
   Icon: FC<SVGProps>;
   disabled?: boolean;
   isLoading?: boolean;
-  description: string;
+  description: TTranslatedMessage | string;
 }
 export interface APRCardTrendInfoProps {
   value: number;
