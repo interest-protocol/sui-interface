@@ -108,9 +108,12 @@ const WalletConnected: FC = () => {
     <RefBox
       id={BOX_ID}
       height="3rem"
+      display="flex"
       color={surface}
       position="relative"
       ref={connectedBoxRef}
+      flexDirection="column"
+      justifyContent="center"
     >
       <Box display="flex" gap="m" alignItems="center">
         {account && (

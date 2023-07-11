@@ -31,3 +31,25 @@ export const useGetMultiGetObjects = (
     data: data ? data : ([] as SuiObjectResponse[]),
   };
 };
+
+export const useGetObject = (id: string, config: SWRConfiguration = {}) => {
+  const { network } = useNetwork();
+  const { provider } = useProvider();
+
+  const { data, ...otherProps } = useSWR(
+    makeSWRKey([id, network], 'useGetObject'),
+    async () => provider.getObject({ id, options: { showContent: true } }),
+    {
+      revalidateOnMount: true,
+      revalidateOnFocus: false,
+      refreshWhenHidden: false,
+      refreshInterval: 15000,
+      ...config,
+    }
+  );
+
+  return {
+    ...otherProps,
+    data: data ? data : null,
+  };
+};

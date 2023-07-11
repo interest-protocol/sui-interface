@@ -54,19 +54,21 @@ export const calculateLPCoinPrice = (
   return 0;
 };
 
-export const parseSuiObjectDataToPools = (x: SuiObjectResponse[]) =>
-  x.map(({ data }) => {
-    const balanceX = pathOr('0', ['content', 'fields', 'balance_x'], data);
-    const balanceY = pathOr('0', ['content', 'fields', 'balance_y'], data);
-    const lpCoinSupply = pathOr(
-      '0',
-      ['content', 'fields', 'lp_coin_supply', 'fields', 'value'],
-      data
-    );
+export const parseSuiObjectToPool = (data: SuiObjectResponse['data']) => {
+  const balanceX = pathOr('0', ['content', 'fields', 'balance_x'], data);
+  const balanceY = pathOr('0', ['content', 'fields', 'balance_y'], data);
+  const lpCoinSupply = pathOr(
+    '0',
+    ['content', 'fields', 'lp_coin_supply', 'fields', 'value'],
+    data
+  );
 
-    return {
-      balanceX: BigNumber(balanceX),
-      balanceY: BigNumber(balanceY),
-      lpCoinSupply: BigNumber(lpCoinSupply),
-    };
-  });
+  return {
+    balanceX: BigNumber(balanceX),
+    balanceY: BigNumber(balanceY),
+    lpCoinSupply: BigNumber(lpCoinSupply),
+  };
+};
+
+export const parseSuiObjectDataToPools = (x: SuiObjectResponse[]) =>
+  x.map(({ data }) => parseSuiObjectToPool(data));

@@ -37,14 +37,12 @@ const DAPP_OLD_DESIGN_PAGES = ['/dex', '/farms', '/liquidity', '/faucet'];
 const Theme: FC<PropsWithChildren<ThemeProps>> = ({
   dark,
   setDark,
+  isRedesign,
   children,
 }) => {
   const { asPath } = useRouter();
 
   const isInstitutional = INSTITUTIONAL_PAGES.includes(asPath);
-  const isRedesign = !DAPP_OLD_DESIGN_PAGES.some((path) =>
-    asPath.includes(path)
-  );
 
   if (isInstitutional)
     return (
@@ -83,16 +81,25 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
 };
 
 const ThemeManager: FC<Omit<ThemeProviderProps, 'theme'>> = ({ children }) => {
+  const { asPath } = useRouter();
+
+  const isRedesign = !DAPP_OLD_DESIGN_PAGES.some((path) =>
+    asPath.includes(path)
+  );
   const [dark, setDark] = useLocalStorage('sui-interest-theme', false);
 
   return (
-    <Theme dark={dark} setDark={setDark}>
+    <Theme dark={dark} setDark={setDark} isRedesign={isRedesign}>
       <SkeletonTheme
         baseColor={
-          (dark ? DAppDarkTheme : DAppLightTheme).colors.bottomBackground
+          isRedesign
+            ? '#99BBFF28'
+            : (dark ? DAppDarkTheme : DAppLightTheme).colors.bottomBackground
         }
         highlightColor={
-          (dark ? DAppDarkTheme : DAppLightTheme).colors.background
+          isRedesign
+            ? '#99BBFF14'
+            : (dark ? DAppDarkTheme : DAppLightTheme).colors.background
         }
       >
         {children}

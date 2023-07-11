@@ -31,7 +31,7 @@ const UsedBy: FC = () => {
           mobileHalf
           Icon={UserSVG}
           color="#D9F99D"
-          value={formatNumber(propOr(0, 'totalUsers', data))}
+          value={formatNumber(propOr(825, 'users', data))}
           title={t('landingPage.usedBy.metrics.users.title')}
           description={t('landingPage.usedBy.metrics.users.description')}
         />
@@ -39,14 +39,14 @@ const UsedBy: FC = () => {
           mobileHalf
           color="#E9D5FF"
           Icon={TradesSVG}
-          value={formatNumber(propOr(0, 'tvl', data))}
+          value={formatNumber(propOr(51700, 'tvl', data))}
           title={t('landingPage.usedBy.metrics.tvl.title')}
           description={t('landingPage.usedBy.metrics.tvl.description')}
         />
         <UsedByCard
           color="#FED7AA"
           Icon={ChartSVG}
-          value={formatNumber(propOr(0, 'totalVolume', data))}
+          value={formatNumber(propOr(458000, 'volume', data))}
           title={t('landingPage.usedBy.metrics.volume.title')}
           description={t('landingPage.usedBy.metrics.volume.description')}
         />
