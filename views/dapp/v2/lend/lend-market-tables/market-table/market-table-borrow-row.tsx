@@ -1,3 +1,4 @@
+import { COIN_TYPE, Network } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Motion,
@@ -9,7 +10,6 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { useModal, useWeb3 } from '@/hooks';
-import { TOKEN_SYMBOL } from '@/lib';
 import { formatDollars, formatMoney } from '@/utils';
 import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
 
@@ -195,7 +195,7 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
       <Box px="l" display="flex" alignItems="center" justifyContent="flex-end">
         <Typography variant="medium" textAlign="right">
           {`${
-            asset.coin.token.symbol == TOKEN_SYMBOL.SUID
+            asset.coin.token.type == COIN_TYPE[Network.TESTNET].SUID
               ? '∞'
               : formatMoney(cash)
           }
