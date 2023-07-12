@@ -1,3 +1,4 @@
+import { COIN_TYPE, Network } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Motion,
@@ -193,7 +194,12 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
       </Box>
       <Box px="l" display="flex" alignItems="center" justifyContent="flex-end">
         <Typography variant="medium" textAlign="right">
-          {formatMoney(cash)} {asset.coin.token.symbol}
+          {`${
+            asset.coin.token.type == COIN_TYPE[Network.TESTNET].SUID
+              ? '∞'
+              : formatMoney(cash)
+          }
+          ${asset.coin.token.symbol}`}
         </Typography>
       </Box>
     </Motion>
