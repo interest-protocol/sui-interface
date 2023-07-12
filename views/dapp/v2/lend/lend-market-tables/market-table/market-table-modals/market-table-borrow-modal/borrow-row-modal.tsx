@@ -187,9 +187,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
               textTransform="capitalize"
             >
               {t('common.plafond')}:{' '}
-              {formatMoney(
-                Number((+maxBorrowInToken.toFixed(6)).toPrecision())
-              )}{' '}
+              {formatMoney(Number((+checkValue.toFixed(6)).toPrecision()))}{' '}
               {asset.coin.token.symbol}
             </Typography>
           </>
@@ -217,16 +215,14 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
           symbol={asset.coin.token.symbol}
           control={borrowForm.control}
           max={checkValue}
-          disabled={
-            isLoan ? maxBorrowInToken === 0 : market.userPrincipal.isZero()
-          }
+          disabled={isLoan ? checkValue === 0 : market.userPrincipal.isZero()}
           {...borrowForm.register('value', {
             onChange: (v: ChangeEvent<HTMLInputElement>) => {
               const parsedValue = parseInputEventToNumberString(v);
               borrowForm.setValue(
                 'isMax',
                 isLoan
-                  ? +parsedValue >= maxBorrowInToken
+                  ? +parsedValue >= checkValue
                   : +parsedValue >= loanBalance
               );
 
@@ -243,14 +239,12 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
           })}
         />
         <Slider
-          disabled={
-            isLoan ? maxBorrowInToken === 0 : market.userPrincipal.isZero()
-          }
+          disabled={isLoan ? checkValue === 0 : market.userPrincipal.isZero()}
           max={100}
           onChange={(value) => {
             const parsedValue = Number(
               (isLoan
-                ? (value / 100) * maxBorrowInToken
+                ? (value / 100) * checkValue
                 : (value / 100) * loanBalance
               ).toFixed(6)
             ).toPrecision();
@@ -338,7 +332,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
             onClick={() => handlePreview()}
             disabled={
               isLoan
-                ? maxBorrowInToken === 0
+                ? checkValue === 0
                 : market.userPrincipal.isZero() || balance === 0
             }
           >
