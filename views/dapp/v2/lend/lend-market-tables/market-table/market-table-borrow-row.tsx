@@ -1,4 +1,3 @@
-import { COIN_TYPE, Network } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Motion,
@@ -9,7 +8,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { useModal, useWeb3 } from '@/hooks';
+import { useModal, useMoneyMarketSdk, useWeb3 } from '@/hooks';
 import { formatDollars, formatMoney } from '@/utils';
 import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
 
@@ -47,6 +46,7 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
     ipxPrice,
   } = useLendProviderValue();
   const { coinsMap } = useWeb3();
+  const skd = useMoneyMarketSdk();
 
   const openRowBorrowMarketResultModal = ({
     isSuccess,
@@ -195,9 +195,7 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
       <Box px="l" display="flex" alignItems="center" justifyContent="flex-end">
         <Typography variant="medium" textAlign="right">
           {`${
-            asset.coin.token.type == COIN_TYPE[Network.TESTNET].SUID
-              ? '∞'
-              : formatMoney(cash)
+            asset.coin.token.type == skd.getSUIDType() ? '∞' : formatMoney(cash)
           }
           ${asset.coin.token.symbol}`}
         </Typography>
