@@ -71,7 +71,7 @@ export class FixedPointMath {
     significantRounding = 4,
     significant = 6
   ): number {
-    if (value.isZero()) return 0;
+    if (value?.isZero()) return 0;
 
     const result = +Fraction.from(
       value,

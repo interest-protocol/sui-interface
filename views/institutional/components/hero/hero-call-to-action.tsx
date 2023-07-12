@@ -35,16 +35,6 @@ const HeroCallToAction: FC = () => {
             {t('landingPage.hero.dappCTA')}
           </Button>
         </Link>
-        <Link href={Routes[RoutesEnum.LiquidityCampaign]}>
-          <Button
-            variant="text"
-            justifyContent="center"
-            whiteSpace="nowrap"
-            textAlign="center"
-          >
-            {t('landingPage.hero.campaignCTA')}
-          </Button>
-        </Link>
       </Box>
     </Box>
   );

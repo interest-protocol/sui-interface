@@ -1,4 +1,4 @@
-import { getReturnValuesFromInspectResults } from '@interest-protocol/sui-sdk';
+import { getReturnValuesFromInspectResults } from '@interest-protocol/sui-amm-sdk';
 import { bcs, SuiObjectResponse, TransactionBlock } from '@mysten/sui.js';
 import { AddressZero } from 'lib';
 import useSWR, { SWRConfiguration } from 'swr';

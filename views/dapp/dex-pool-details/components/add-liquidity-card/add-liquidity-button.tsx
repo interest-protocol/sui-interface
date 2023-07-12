@@ -7,7 +7,7 @@ import { isEmpty, prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import { Box, Button } from '@/elements';
-import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
+import { useAmmSdk, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import {
   capitalize,
@@ -32,7 +32,7 @@ const AddLiquidityButton: FC<AddLiquidityCardButtonProps> = ({
   const [loading, setLoading] = useState(false);
   const { network } = useNetwork();
   const { provider } = useProvider();
-  const sdk = useSDK();
+  const sdk = useAmmSdk();
   const handleAddLiquidity = async () => {
     try {
       if (tokens.length !== 2 || isEmpty(coinsMap))

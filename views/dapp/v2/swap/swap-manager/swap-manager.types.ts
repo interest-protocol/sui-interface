@@ -1,4 +1,4 @@
-import { DexMarket, SwapPathObject } from '@interest-protocol/sui-sdk';
+import { DexMarket, SwapPathObject } from '@interest-protocol/sui-amm-sdk';
 import { Dispatch, SetStateAction } from 'react';
 import {
   Control,

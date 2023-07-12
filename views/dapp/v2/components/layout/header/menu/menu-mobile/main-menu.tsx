@@ -1,25 +1,20 @@
-import {
-  Box,
-  SwitchButton,
-  Theme,
-  Typography,
-  useTheme,
-} from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
-import { not } from 'ramda';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { AppTheme, TTranslatedMessage } from '@/interface';
+import { useNetwork } from '@/hooks';
+import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
+import NetworkSwitch from '../../../network-switch';
 import { SIDEBAR_ITEMS } from '../../../sidebar/sidebar.data';
 
 const MainMenu: FC = () => {
-  const { asPath, push } = useRouter();
-  const { dark, setDark } = useTheme() as AppTheme<Theme>;
   const t = useTranslations();
+  const { network } = useNetwork();
+  const { asPath, push } = useRouter();
 
   return (
     <Box
@@ -37,7 +32,9 @@ const MainMenu: FC = () => {
           Menu
         </Typography>
         <Box display="flex" flexDirection="column" gap="s">
-          {SIDEBAR_ITEMS.map(({ Icon, name, path, disabled }) => (
+          {SIDEBAR_ITEMS.filter(({ networks }) =>
+            networks.includes(network)
+          ).map(({ Icon, name, path, disabled }) => (
             <Box
               p="l"
               key={v4()}
@@ -63,18 +60,7 @@ const MainMenu: FC = () => {
         </Box>
       </Box>
       <Box display="flex" justifyContent="center" gap="l" mb="4.188rem">
-        <Typography variant="medium" color="onSurface">
-          {t('common.v2.menu.light')}
-        </Typography>
-        <SwitchButton
-          name="theme"
-          size="medium"
-          defaultValue={dark}
-          onChange={() => setDark(not)}
-        />
-        <Typography variant="medium" color="onSurface">
-          {t('common.v2.menu.dark')}
-        </Typography>
+        <NetworkSwitch />
       </Box>
     </Box>
   );

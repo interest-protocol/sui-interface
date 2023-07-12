@@ -1,4 +1,4 @@
-import { Network } from '@interest-protocol/sui-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import { SuiTransactionBlockResponse } from '@mysten/sui.js';
 import { propOr } from 'ramda';
 import toast from 'react-hot-toast';

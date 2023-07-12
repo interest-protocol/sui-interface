@@ -12,28 +12,28 @@ const TokenModalItem: FC<TokenModalItemProps> = ({
   balance,
   onClick,
   selected,
+  isFavorite,
   recommended,
   favoriteForm,
-  isFavorite,
 }) => {
   const [isFav, setIsFav] = useState(
-    !!isFavorite || favoriteForm.getValues('tokens').includes(type)
+    !!isFavorite || favoriteForm?.getValues('tokens').includes(type)
   );
 
   const handleHeart: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const favoriteTokens = favoriteForm.getValues('tokens');
+    const favoriteTokens = favoriteForm?.getValues('tokens') ?? [];
 
     if (isFavorite) {
-      favoriteForm.setValue(
+      favoriteForm?.setValue(
         'tokens',
         favoriteTokens.filter((favAddress) => favAddress !== type)
       );
     } else {
       setIsFav(!isFav);
-      favoriteForm.setValue(
+      favoriteForm?.setValue(
         'tokens',
         isFav
           ? favoriteTokens.filter((favAddress) => favAddress !== type)
@@ -50,13 +50,11 @@ const TokenModalItem: FC<TokenModalItemProps> = ({
       cursor="pointer"
       borderRadius="m"
       alignItems="center"
+      nHover={{ bg: '#99BBFF28' }}
       justifyContent="space-between"
       bg={selected ? '#99BBFF28' : 'none'}
       onClick={selected ? undefined : onClick}
       transition="background 500ms ease-in-out"
-      nHover={{
-        bg: '#99BBFF28',
-      }}
     >
       <Box display="flex" alignItems="center">
         <Box>

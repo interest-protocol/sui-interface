@@ -1,4 +1,4 @@
-import { Network } from '@interest-protocol/sui-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import { SuiObjectResponse } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { Dispatch, SetStateAction } from 'react';

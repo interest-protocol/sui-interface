@@ -1,5 +1,5 @@
 import { useTheme } from '@emotion/react';
-import { Network } from '@interest-protocol/sui-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
@@ -36,19 +36,6 @@ const Header: FC = () => {
 
   return (
     <Box>
-      <Box bg={dark ? 'bottomBackground' : 'accentActive'} p="L">
-        <Link href={Routes[RoutesEnum.LiquidityCampaign]}>
-          <Typography
-            fontSize="S"
-            fontWeight="600"
-            variant="normal"
-            textAlign="center"
-            color={dark ? 'text' : 'textSoft'}
-          >
-            {t('common.bannerHeader')}
-          </Typography>
-        </Link>
-      </Box>
       <Box
         py="M"
         as="header"

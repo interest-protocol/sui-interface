@@ -1,4 +1,4 @@
-import { Network } from '@interest-protocol/sui-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import { JsonRpcProvider } from '@mysten/sui.js';
 import { CoinStruct, PaginatedCoins } from '@mysten/sui.js/src/types/coin';
 import { WalletAccount } from '@wallet-standard/base';

@@ -1,4 +1,4 @@
-import { COIN_TYPE, Network } from '@interest-protocol/sui-sdk';
+import { COIN_TYPE, Network } from '@interest-protocol/sui-amm-sdk';
 
 import { COIN_POOL, COINS, FarmMetadataType } from '@/constants/index';
 

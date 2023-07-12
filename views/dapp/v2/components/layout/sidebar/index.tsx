@@ -1,32 +1,28 @@
-import {
-  Box,
-  SwitchButton,
-  Theme,
-  Typography,
-  useTheme,
-} from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
-import { not } from 'ramda';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { LogoSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
-import { AppTheme, TTranslatedMessage } from '@/interface';
+import { useNetwork } from '@/hooks';
+import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
+import NetworkSwitch from '../network-switch';
 import { SIDEBAR_ITEMS } from './sidebar.data';
 
 const Sidebar: FC = () => {
-  const { asPath, push } = useRouter();
-  const { dark, setDark } = useTheme() as AppTheme<Theme>;
   const t = useTranslations();
+  const { network } = useNetwork();
+  const { asPath, push } = useRouter();
 
   return (
     <Box
       p="2xl"
+      pb="0"
       width="100%"
       display="flex"
       maxWidth="20rem"
@@ -45,7 +41,9 @@ const Sidebar: FC = () => {
           Menu
         </Typography>
         <Box display="flex" flexDirection="column" gap="s">
-          {SIDEBAR_ITEMS.map(({ Icon, name, path, disabled }) => (
+          {SIDEBAR_ITEMS.filter(({ networks }) =>
+            networks.includes(network)
+          ).map(({ Icon, name, path, disabled }) => (
             <Box
               p="l"
               key={v4()}
@@ -71,19 +69,8 @@ const Sidebar: FC = () => {
           ))}
         </Box>
       </Box>
-      <Box display="flex" justifyContent="center" gap="l">
-        <Typography variant="medium" color="onSurface">
-          {t('common.v2.menu.light')}
-        </Typography>
-        <SwitchButton
-          name="theme"
-          size="medium"
-          defaultValue={dark}
-          onChange={() => setDark(not)}
-        />
-        <Typography variant="medium" color="onSurface">
-          {t('common.v2.menu.dark')}
-        </Typography>
+      <Box my="m" display="flex" flexDirection="column" alignItems="center">
+        <NetworkSwitch />
       </Box>
     </Box>
   );
