@@ -9,6 +9,7 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { useModal, useWeb3 } from '@/hooks';
+import { TOKEN_SYMBOL } from '@/lib';
 import { formatDollars, formatMoney } from '@/utils';
 import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
 
@@ -193,7 +194,12 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
       </Box>
       <Box px="l" display="flex" alignItems="center" justifyContent="flex-end">
         <Typography variant="medium" textAlign="right">
-          {formatMoney(cash)} {asset.coin.token.symbol}
+          {`${
+            asset.coin.token.symbol == TOKEN_SYMBOL.SUID
+              ? '∞'
+              : formatMoney(cash)
+          }
+          ${asset.coin.token.symbol}`}
         </Typography>
       </Box>
     </Motion>
