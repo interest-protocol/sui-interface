@@ -21,13 +21,15 @@ const Sidebar: FC = () => {
 
   return (
     <Box
-      p="2xl"
       pb="0"
+      p="2xl"
       width="100%"
       display="flex"
+      overflowY="auto"
       maxWidth="20rem"
-      bg="surface.container"
+      maxHeight="100vh"
       flexDirection="column"
+      bg="surface.container"
       borderRadius="0 1rem 1rem 0"
       justifyContent="space-between"
     >

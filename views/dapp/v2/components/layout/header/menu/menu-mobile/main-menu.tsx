@@ -18,14 +18,15 @@ const MainMenu: FC = () => {
 
   return (
     <Box
+      pt="2.875rem"
+      m="0 1.25rem"
+      display="flex"
       variant="container"
       justifyItems="unset"
-      height="100%"
-      display="flex"
       flexDirection="column"
+      height="calc(100% - 3rem)"
+      maxHeight="calc(100% - 3rem)"
       justifyContent="space-between"
-      m="0 1.25rem"
-      pt="2.875rem"
     >
       <Box zIndex="2" gridColumn="1/-1">
         <Typography m="xl" variant="small" color="onSurfaceVariant">
@@ -59,7 +60,7 @@ const MainMenu: FC = () => {
           ))}
         </Box>
       </Box>
-      <Box display="flex" justifyContent="center" gap="l" mb="4.188rem">
+      <Box display="flex" justifyContent="center" gap="l">
         <NetworkSwitch />
       </Box>
     </Box>

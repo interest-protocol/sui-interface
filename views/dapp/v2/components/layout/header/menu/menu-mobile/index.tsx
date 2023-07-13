@@ -28,6 +28,7 @@ const MenuMobile: FC<MenuMobileProps> = ({ isOpen, isSettings }) => {
       zIndex="1"
       width="100vw"
       height="100vh"
+      overflowY="auto"
       position="fixed"
       bg="surface.container"
       display={['block', 'block', 'block', 'none']}
