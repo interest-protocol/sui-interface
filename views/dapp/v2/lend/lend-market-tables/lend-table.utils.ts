@@ -189,13 +189,21 @@ export const calculateNewLoanBorrowLimit = ({
   newAmount,
   priceMap,
 }: CalculateNewBorrowLimitArgs) => {
+  if (userBalancesInUSD.totalCollateral == 0)
+    return {
+      currentBorrowLimit: 0,
+      currentBorrowLimitPercentage: 0,
+      newBorrowLimit: 0,
+      newBorrowLimitPercentage: 0,
+    };
+
   const currentBorrowLimit =
     userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;
   const currentBorrowLimitPercentage =
     userBalancesInUSD.totalLoan > 0
       ? userBalancesInUSD.totalLoan / userBalancesInUSD.totalCollateral
       : userBalancesInUSD.totalLoan >= userBalancesInUSD.totalCollateral
-      ? 100
+      ? 1
       : 0;
 
   const newAmountInUSD = newAmount * priceMap[marketKey].price;
