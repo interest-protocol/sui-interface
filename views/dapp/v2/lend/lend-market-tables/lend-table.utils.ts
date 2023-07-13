@@ -150,7 +150,7 @@ export const calculateNewDepositBorrowLimit = ({
     userBalancesInUSD.totalLoan > 0
       ? userBalancesInUSD.totalLoan / userBalancesInUSD.totalCollateral
       : userBalancesInUSD.totalLoan >= userBalancesInUSD.totalCollateral
-      ? 100
+      ? 1
       : 0;
 
   if (!market.collateralEnabled)
@@ -170,7 +170,7 @@ export const calculateNewDepositBorrowLimit = ({
 
   const newBorrowLimitPercentage =
     userBalancesInUSD.totalLoan >= newTotalCollateral
-      ? 100
+      ? 1
       : userBalancesInUSD.totalLoan > 0
       ? userBalancesInUSD.totalLoan / newTotalCollateral
       : 0;
@@ -216,7 +216,7 @@ export const calculateNewLoanBorrowLimit = ({
 
   const newBorrowLimitPercentage =
     newLoanAmount > userBalancesInUSD.totalCollateral
-      ? 100
+      ? 1
       : newLoanAmount / userBalancesInUSD.totalCollateral;
 
   return {
@@ -240,7 +240,7 @@ export const calculateNewWithdrawLimitNewAmount = ({
     userBalancesInUSD.totalLoan > 0
       ? userBalancesInUSD.totalLoan / userBalancesInUSD.totalCollateral
       : userBalancesInUSD.totalLoan >= userBalancesInUSD.totalCollateral
-      ? 100
+      ? 1
       : 0;
 
   const market = marketRecord[marketKey];
@@ -295,7 +295,7 @@ export const calculateNewRepayLimitNewAmount = ({
     userBalancesInUSD.totalLoan > 0
       ? userBalancesInUSD.totalLoan / userBalancesInUSD.totalCollateral
       : userBalancesInUSD.totalLoan >= userBalancesInUSD.totalCollateral
-      ? 100
+      ? 1
       : 0;
 
   const price = priceMap[marketKey].price;
@@ -324,7 +324,7 @@ export const calculateNewRepayLimitNewAmount = ({
 
   const newBorrowLimitPercentage =
     newLoanAmount >= userBalancesInUSD.totalCollateral
-      ? 100
+      ? 1
       : newLoanAmount > 0
       ? newLoanAmount / userBalancesInUSD.totalCollateral
       : 0;
