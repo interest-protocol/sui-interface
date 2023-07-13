@@ -144,6 +144,17 @@ export const calculateNewDepositBorrowLimit = ({
 }: CalculateNewBorrowLimitArgs) => {
   const market = marketRecord[marketKey];
 
+  if (
+    userBalancesInUSD.totalCollateral === 0 ||
+    userBalancesInUSD.totalLoan === 0
+  )
+    return {
+      currentBorrowLimit: 0,
+      currentBorrowLimitPercentage: 0,
+      newBorrowLimit: 0,
+      newBorrowLimitPercentage: 0,
+    };
+
   const currentBorrowLimit =
     userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;
   const currentBorrowLimitPercentage =
@@ -189,7 +200,10 @@ export const calculateNewLoanBorrowLimit = ({
   newAmount,
   priceMap,
 }: CalculateNewBorrowLimitArgs) => {
-  if (userBalancesInUSD.totalCollateral == 0)
+  if (
+    userBalancesInUSD.totalCollateral === 0 ||
+    userBalancesInUSD.totalLoan + newAmount === 0
+  )
     return {
       currentBorrowLimit: 0,
       currentBorrowLimitPercentage: 0,
@@ -234,6 +248,17 @@ export const calculateNewWithdrawLimitNewAmount = ({
   priceMap,
   marketRecord,
 }: CalculateNewBorrowLimitArgs) => {
+  if (
+    userBalancesInUSD.totalCollateral === 0 ||
+    userBalancesInUSD.totalLoan === 0
+  )
+    return {
+      currentBorrowLimit: 0,
+      currentBorrowLimitPercentage: 0,
+      newBorrowLimit: 0,
+      newBorrowLimitPercentage: 0,
+    };
+
   const currentBorrowLimit =
     userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;
   const currentBorrowLimitPercentage =
@@ -289,6 +314,14 @@ export const calculateNewRepayLimitNewAmount = ({
   priceMap,
   marketRecord,
 }: CalculateNewBorrowLimitArgs) => {
+  if (userBalancesInUSD.totalCollateral == 0 || userBalancesInUSD.totalLoan)
+    return {
+      currentBorrowLimit: 0,
+      currentBorrowLimitPercentage: 0,
+      newBorrowLimit: 0,
+      newBorrowLimitPercentage: 0,
+    };
+
   const currentBorrowLimit =
     userBalancesInUSD.totalCollateral - userBalancesInUSD.totalLoan;
   const currentBorrowLimitPercentage =
