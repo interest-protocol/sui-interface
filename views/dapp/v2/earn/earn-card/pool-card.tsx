@@ -5,8 +5,11 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+
+import { Routes, RoutesEnum } from '@/constants';
 
 import { EarnPoolItemProps } from '../earn.types';
 import { EarnCardTokenIcon } from './earn-card-token-icon';
@@ -22,6 +25,7 @@ const PoolCard: FC<EarnPoolItemProps> = ({
   headerOption,
 }) => {
   const { dark } = useTheme() as Theme;
+  const { push } = useRouter();
   const t = useTranslations();
   return (
     <Box width="100%">
@@ -119,7 +123,14 @@ const PoolCard: FC<EarnPoolItemProps> = ({
               {t('earn.buttons.swap')}
             </Typography>
           </Button>
-          <Button size="small" variant="filled" textAlign="center">
+          <Button
+            size="small"
+            variant="filled"
+            textAlign="center"
+            onClick={() =>
+              push({ pathname: Routes[RoutesEnum.EarnDetails] }).then()
+            }
+          >
             <Typography variant="small" width="100%">
               {t('earn.buttons.addLiquidity')}
             </Typography>

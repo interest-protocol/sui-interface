@@ -1,109 +1,34 @@
-import {
-  Box,
-  InfoCard,
-  Theme,
-  Typography,
-  useTheme,
-} from '@interest-protocol/ui-kit';
-import { FC } from 'react';
-
-import { useModal } from '@/hooks';
-import { DollarSVG } from '@/svg';
+import { Box, Tabs } from '@interest-protocol/ui-kit';
+import { not } from 'ramda';
+import { FC, useState } from 'react';
 
 import { Layout } from '../components';
 import DetailedHeader from './earn-detailed-header';
-import EarnListCard from './earn-list';
-import FilterSection from './filter-section';
-import TVLCardInfo from './tvl-card-info';
+import EarnPoolSection from './pool-section';
 
 const EarnDetails: FC<{ objectId: string }> = ({ objectId }) => {
-  const { setModal, handleClose } = useModal();
-  const { dark } = useTheme() as Theme;
+  const [isPool, setIsPool] = useState(true);
 
-  const openModalFilters = () =>
-    setModal(<FilterSection handleClose={handleClose} />, {
-      isOpen: true,
-      custom: true,
-      opaque: false,
-      allowClose: true,
-    });
+  const handleTab = () => {
+    setIsPool(not);
+  };
+
+  console.log('>>>>>ObjectId', objectId);
 
   return (
     <Layout dashboard titlePage={<DetailedHeader />}>
-      <Box variant="container">
-        <Box display="grid" gridColumn="1/-1">
-          <Box
-            gap="8px"
-            display="grid"
-            overflowX="auto"
-            gridTemplateColumns="repeat(4, 1fr)"
-          >
-            <InfoCard
-              info={<TVLCardInfo value={0.45} />}
-              title={
-                <Box as="span" display="flex" alignItems="center" gap="m">
-                  <Box
-                    as="span"
-                    width="1.3rem"
-                    height="1.3rem"
-                    alignItems="center"
-                    borderRadius="full"
-                    bg="inverseSurface"
-                    display="inline-flex"
-                    justifyContent="center"
-                    color={dark ? 'black' : 'white'}
-                  >
-                    <DollarSVG
-                      maxWidth="0.75rem"
-                      maxHeight="0.75rem"
-                      width="100%"
-                    />
-                  </Box>
-                  TVL
-                </Box>
-              }
-            >
-              $82,123.01
-            </InfoCard>
-            <InfoCard
-              info={
-                <Typography
-                  variant="small"
-                  as="span"
-                  color="secondary.onSecondaryContainer"
-                >
-                  24h
-                </Typography>
-              }
-              title={
-                <Box as="span" display="flex" alignItems="center" gap="m">
-                  <Box
-                    as="span"
-                    width="1.3rem"
-                    height="1.3rem"
-                    alignItems="center"
-                    borderRadius="full"
-                    bg="inverseSurface"
-                    display="inline-flex"
-                    justifyContent="center"
-                    color={dark ? 'black' : 'white'}
-                  >
-                    <DollarSVG
-                      maxWidth="0.75rem"
-                      maxHeight="0.75rem"
-                      width="100%"
-                    />
-                  </Box>
-                  Volume
-                </Box>
-              }
-            >
-              $15,123.01
-            </InfoCard>
+      <Box display="flex" variant="container">
+        <Box display="grid" gridColumn="1/-1" width="100%">
+          <Box display="flex" width="100%">
+            <Tabs
+              items={['Pools', 'Farm']}
+              defaultTabIndex={+!isPool}
+              onChangeTab={handleTab}
+            />
           </Box>
         </Box>
       </Box>
-      <EarnListCard openModalFilters={openModalFilters} />
+      <EarnPoolSection />
     </Layout>
   );
 };

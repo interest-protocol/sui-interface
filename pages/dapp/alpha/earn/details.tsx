@@ -1,23 +1,29 @@
-import { GetStaticProps } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
 
 import { SEO } from '@/components';
 import { ModalProvider } from '@/context/modal';
-import { NextPageWithProps } from '@/interface';
-import Earn from '@/views/dapp/v2/earn';
+import { NextPageDefaultProps } from '@/interface';
+import EarnDetails from '@/views/dapp/v2/earn-details';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
-  loading: Earn,
 });
 
-const EarnPage: NextPageWithProps = ({ pageTitle }) => (
+interface EarnDetailsPageProps extends NextPageDefaultProps {
+  objectId: string;
+}
+
+const EarnDetailsPage: NextPage<EarnDetailsPageProps> = ({
+  objectId,
+  pageTitle,
+}) => (
   <>
     <SEO pageTitle={pageTitle} />
     <ModalProvider newDesign>
       <Web3Manager>
-        <Earn />
+        <EarnDetails objectId={objectId} />
       </Web3Manager>
     </ModalProvider>
   </>
@@ -25,8 +31,8 @@ const EarnPage: NextPageWithProps = ({ pageTitle }) => (
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, dexMessages] = await Promise.all([
-    import(`../../../assets/messages/common/${locale}.json`),
-    import(`../../../assets/messages/earn/${locale}.json`),
+    import(`../../../../assets/messages/common/${locale}.json`),
+    import(`../../../../assets/messages/earn/${locale}.json`),
   ]);
 
   const messages = mergeDeepRight(commonMessages.default, dexMessages.default);
@@ -39,4 +45,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default EarnPage;
+export default EarnDetailsPage;

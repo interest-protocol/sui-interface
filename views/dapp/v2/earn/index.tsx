@@ -30,7 +30,7 @@ const Earn: FC = () => {
 
   return (
     <Layout dashboard titlePage="EARN">
-      <Box variant="container">
+      <Box display="flex" variant="container">
         <Box display="grid" gridColumn="1/-1">
           <Box
             gap="8px"

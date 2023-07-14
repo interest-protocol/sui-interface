@@ -5,8 +5,11 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+
+import { Routes, RoutesEnum } from '@/constants';
 
 import { EarnPositionItemProps } from '../earn.types';
 import { EarnCardTokenIcon } from './earn-card-token-icon';
@@ -21,6 +24,7 @@ const PositionCard: FC<EarnPositionItemProps> = ({
   headerOption,
 }) => {
   const { dark } = useTheme() as Theme;
+  const { push } = useRouter();
   const t = useTranslations();
   return (
     <Box width="100%">
@@ -111,7 +115,14 @@ const PositionCard: FC<EarnPositionItemProps> = ({
           )}
         </Box>
         <Box mt={!farmIPX ? '2rem' : 'unset'}>
-          <Button size="small" width="calc(100% - 2.5rem)" variant="filled">
+          <Button
+            size="small"
+            width="calc(100% - 2.5rem)"
+            variant="filled"
+            onClick={() =>
+              push({ pathname: Routes[RoutesEnum.EarnDetails] }).then()
+            }
+          >
             <Typography variant="small" mx="auto">
               {t('earn.buttons.enter')}
             </Typography>

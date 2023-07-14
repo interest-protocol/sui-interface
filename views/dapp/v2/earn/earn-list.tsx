@@ -22,7 +22,7 @@ const EarnListCard: FC<EarnListCardsProps> = ({ openModalFilters }) => {
 
   return (
     <Box>
-      <Box variant="container">
+      <Box display="flex" variant="container">
         <Box display="grid" gridColumn="1/-1" width="100%">
           <Box
             display="flex"

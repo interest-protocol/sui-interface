@@ -22,6 +22,12 @@ export const SIDEBAR_ITEMS = [
     disabled: false,
   },
   {
+    Icon: PoolSVG,
+    name: 'earn',
+    path: Routes[RoutesEnum.Earn],
+    disabled: false,
+  },
+  {
     Icon: FarmSVG,
     name: 'farm',
     path: Routes[RoutesEnum.LiquidityFarms],
