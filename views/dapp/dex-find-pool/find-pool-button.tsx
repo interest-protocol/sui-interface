@@ -9,7 +9,7 @@ import { FC, useState } from 'react';
 
 import { Routes, RoutesEnum } from '@/constants';
 import { Box, Button } from '@/elements';
-import { useModal, useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
+import { useAmmSdk, useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import {
   capitalize,
   createObjectsParameter,
@@ -38,7 +38,7 @@ const FindPoolButton: FC<FindPoolButtonProps> = ({
   const { coinsMap, account } = useWeb3();
   const { network } = useNetwork();
   const { provider } = useProvider();
-  const sdk = useSDK();
+  const sdk = useAmmSdk();
 
   const enterPool = async () => {
     setLoading(true);

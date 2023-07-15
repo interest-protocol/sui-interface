@@ -20,7 +20,7 @@ import {
   SUI_VISION_EXPLORER_URL,
   TOKENS_SVG_MAP_V2,
 } from '@/constants';
-import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
+import { useAmmSdk, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import { TimesSVG } from '@/svg';
 import {
@@ -53,7 +53,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
   const { signTransactionBlock } = useWalletKit();
   const { network } = useNetwork();
   const { provider } = useProvider();
-  const sdk = useSDK();
+  const sdk = useAmmSdk();
 
   const tokenIn = formSwap.getValues('from');
   const tokenOut = formSwap.getValues('to');

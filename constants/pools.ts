@@ -172,6 +172,27 @@ export const RECOMMENDED_POOLS = {
     },
     {
       token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.ETH_CELER_WETH,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_ETH_CELER_WETH,
+      lpCoin: networkMainNetCoins.V_LP_SUI_ETH_CELER_WETH,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.ETH_CELER_WBTC,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_ETH_CELER_WBTC,
+      lpCoin: networkMainNetCoins.V_LP_SUI_ETH_CELER_WBTC,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.ETH_CELER_USDC,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_ETH_CELER_USDC,
+      lpCoin: networkMainNetCoins.V_LP_SUI_ETH_CELER_USDC,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
       token1: networkMainNetCoins.NATIVE_WORMHOLE_SOL,
       poolObjectId: networkMainNetCoinPool.V_LP_SUI_NATIVE_WORMHOLE_SOL,
       lpCoin: networkMainNetCoins.V_LP_SUI_NATIVE_WORMHOLE_SOL,

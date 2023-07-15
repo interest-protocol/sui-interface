@@ -25,3 +25,5 @@ export function isBigNumberish(value: any): value is BigNumberish {
       typeof value === 'bigint')
   );
 }
+
+export const bnMin = (x: BigNumber, y: BigNumber) => (x.gte(y) ? y : x);
