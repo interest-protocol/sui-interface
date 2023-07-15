@@ -6,7 +6,7 @@ export interface Token {
   name: string;
 }
 
-interface EarnHeaderOptionProps {
+export interface EarnHeaderOptionProps {
   isVolatile?: boolean;
   isFarm?: boolean;
   isStable?: boolean;

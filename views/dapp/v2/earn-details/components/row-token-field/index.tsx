@@ -1,35 +1,36 @@
 import { Box, Slider, TextField, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
+import { v4 } from 'uuid';
 
-import { SUISVG } from '@/components/svg/v2';
+import { RowTokenFieldProps } from '../../earn.types';
+import { getSymbolsByCoins } from '../../earn.utils';
+import TokenIcon from './token-icon';
 
-const RowTokenField: FC = () => {
+const RowTokenField: FC<RowTokenFieldProps> = ({ coins, amount, balance }) => {
   const [isInput, setIsInput] = useState(false);
   const t = useTranslations();
+
   return (
     <Box pt="1.5rem" display="flex" flexDirection="column" gap="0.5rem">
       <Typography variant="medium" color="onSurface">
-        {t('earn.previewInformations.balance')} 2.123
+        {t('earn.previewInformations.balance') + ' ' + balance}
       </Typography>
       <Box display="flex" gap="1.5rem" alignItems="center">
         <Box
-          bg="primary"
-          color="inverseOnSurface"
-          width="2.5rem"
-          height="2.5rem"
-          minWidth="2.5rem"
-          minHeight="2.5rem"
-          borderRadius=".25rem"
           display="flex"
+          gap="0.75rem"
           alignItems="center"
-          justifyContent="center"
+          width="fill-available"
+          flexWrap="wrap"
         >
-          <SUISVG maxHeight="1.5rem" maxWidth="1.5rem" width="1.5rem" />
+          {coins.map((coin) => (
+            <TokenIcon type={coin.type} key={v4()} />
+          ))}
+          <Typography variant="medium" color="white">
+            {getSymbolsByCoins(coins)}
+          </Typography>
         </Box>
-        <Typography variant="medium" color="white">
-          BTCB
-        </Typography>
         <Box
           ml="auto"
           px="1rem"
@@ -46,6 +47,7 @@ const RowTokenField: FC = () => {
               <TextField
                 fontSize="m"
                 placeholder="0.000"
+                value={amount}
                 fieldProps={{
                   border: '0px',
                   bg: 'surface.containerLowest',
@@ -57,7 +59,7 @@ const RowTokenField: FC = () => {
               />
             </Box>
           ) : (
-            <Typography variant="medium">0.00000</Typography>
+            <Typography variant="medium">{amount}</Typography>
           )}
         </Box>
       </Box>

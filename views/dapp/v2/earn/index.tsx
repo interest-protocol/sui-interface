@@ -7,6 +7,7 @@ import {
 } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
+import { VolumeSVG } from '@/components/svg/v2';
 import { useModal } from '@/hooks';
 import { DollarSVG } from '@/svg';
 
@@ -88,7 +89,7 @@ const Earn: FC = () => {
                     justifyContent="center"
                     color={dark ? 'black' : 'white'}
                   >
-                    <DollarSVG
+                    <VolumeSVG
                       maxWidth="0.75rem"
                       maxHeight="0.75rem"
                       width="100%"

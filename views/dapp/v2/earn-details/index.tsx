@@ -1,10 +1,19 @@
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box, Tabs } from '@interest-protocol/ui-kit';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 
+import { COINS } from '@/constants';
+
 import { Layout } from '../components';
 import DetailedHeader from './earn-detailed-header';
-import EarnPoolSection from './pool-section';
+import EarnFarmSection from './farm';
+import EarnPoolSection from './pool/pool-section';
+
+const HEADER_OPTION = {
+  isVolatile: true,
+  isFarm: true,
+};
 
 const EarnDetails: FC<{ objectId: string }> = ({ objectId }) => {
   const [isPool, setIsPool] = useState(true);
@@ -16,7 +25,15 @@ const EarnDetails: FC<{ objectId: string }> = ({ objectId }) => {
   console.log('>>>>>ObjectId', objectId);
 
   return (
-    <Layout dashboard titlePage={<DetailedHeader />}>
+    <Layout
+      dashboard
+      titlePage={
+        <DetailedHeader
+          coins={[COINS[Network.TESTNET].ETH, COINS[Network.TESTNET].BNB]}
+          headerOption={HEADER_OPTION}
+        />
+      }
+    >
       <Box display="flex" variant="container">
         <Box display="grid" gridColumn="1/-1" width="100%">
           <Box display="flex" width="100%">
@@ -28,7 +45,7 @@ const EarnDetails: FC<{ objectId: string }> = ({ objectId }) => {
           </Box>
         </Box>
       </Box>
-      <EarnPoolSection />
+      {isPool ? <EarnPoolSection /> : <EarnFarmSection />}
     </Layout>
   );
 };

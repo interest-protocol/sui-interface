@@ -7,10 +7,10 @@ import {
 } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { DollarSVG } from '@/svg';
+import { MiddlePaperSVG, SwapCurveSVG, VolumeSVG } from '@/components/svg/v2';
 
-import LiquidityCardAdd from './liquidity-card/add';
-import LiquidityCardRemove from './liquidity-card/remove';
+import AddLiquidityCard from './pool-card/add-liquidity';
+import RemoveLiquidityCard from './pool-card/remove-liquidity';
 
 const EarnPoolSection: FC = () => {
   const { dark } = useTheme() as Theme;
@@ -39,7 +39,7 @@ const EarnPoolSection: FC = () => {
                   justifyContent="center"
                   color={dark ? 'black' : 'white'}
                 >
-                  <DollarSVG
+                  <MiddlePaperSVG
                     maxWidth="0.75rem"
                     maxHeight="0.75rem"
                     width="100%"
@@ -66,7 +66,7 @@ const EarnPoolSection: FC = () => {
                   justifyContent="center"
                   color={dark ? 'black' : 'white'}
                 >
-                  <DollarSVG
+                  <SwapCurveSVG
                     maxWidth="0.75rem"
                     maxHeight="0.75rem"
                     width="100%"
@@ -101,7 +101,7 @@ const EarnPoolSection: FC = () => {
                   justifyContent="center"
                   color={dark ? 'black' : 'white'}
                 >
-                  <DollarSVG
+                  <VolumeSVG
                     maxWidth="0.75rem"
                     maxHeight="0.75rem"
                     width="100%"
@@ -116,12 +116,17 @@ const EarnPoolSection: FC = () => {
         </Box>
       </Box>
       <Box
-        display="flex"
-        flexDirection={['column', 'column', 'column', 'row']}
+        display="grid"
+        gridTemplateColumns={[
+          'repeat(auto-fit, 1fr)',
+          'repeat(auto-fit, 1fr)',
+          'repeat(auto-fit, 1fr)',
+          'repeat(auto-fit, minmax(17rem, 1fr))',
+        ]}
         gap={['0.5rem', '0.5rem', '0.5rem', '1.5rem']}
       >
-        <LiquidityCardAdd />
-        <LiquidityCardRemove />
+        <AddLiquidityCard />
+        <RemoveLiquidityCard />
       </Box>
     </Box>
   );
