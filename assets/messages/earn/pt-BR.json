@@ -1,57 +1,25 @@
 {
   "earn": {
     "metadata": {
-      "title": "Ganhar"
+      "title": "Earn"
+    },
+    "overview": {
+      "volume": "Volume"
+    },
+    "filters": {
+      "stakeOnly": "Apenas estaca",
+      "life": "Vida",
+      "button": "Repor filtros"
+    },
+    "cards": {
+      "fee": "Taxa",
+      "addLiquidity": "Adicionar liquidez"
     },
     "infoCards": {
-      "state": "Estado",
-      "tvl": "TVL",
-      "apr": "APR"
+      "state": "Estado"
     },
     "tabs": {
-      "pools": "Pools",
-      "myPosition": "Minha Posição"
-    },
-    "buttons": {
-      "volatile": "Volátil",
-      "stable": "Estável",
-      "farm": "Fazenda",
-      "farmAIPX": "Fazenda aIPX",
-      "addLiquidity": "Adicionar Liquidez",
-      "removeLiquidity": "Remover Liquidez",
-      "swap": "Trocar",
-      "enter": "Entrar",
-      "reset": "Redefinir",
-      "add": "Adicionar",
-      "remove": "Remover",
-      "harvest": "Colher",
-      "confirm": "Confirmar",
-      "close": "Fechar",
-      "viewOnActivity": "Ver na Atividade"
-    },
-    "cardInformations": {
-      "fee": "Taxa",
-      "liquidity": "Liquidez",
-      "volume": "Volume",
-      "volume24h": "Volume 24h",
-      "allocationFarm": "Alocação da Fazenda",
-      "staked": "Apostado",
-      "unstaked": "Não apostado",
-      "rewards": "Recompensas",
-      "ipxToken": "Token IPX",
-      "lpToken": "Token LP"
-    },
-    "previewInformations": {
-      "addLiquidity": "Adicionar Liquidez",
-      "removeLiquidity": "Remover Liquidez",
-      "balance": "Saldo"
-    },
-    "modals": {
-      "feesEarned": "Taxas Ganhas",
-      "feeTier": "Nível de Taxa",
-      "waitingConfirmation": "Aguardando confirmação",
-      "confirmWallet": "Confirme esta transação em sua carteira",
-      "transactionSubmitted": "Transação enviada"
+      "myPosition": "A minha posição"
     }
   }
 }

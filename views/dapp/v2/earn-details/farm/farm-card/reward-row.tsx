@@ -2,6 +2,8 @@ import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import { capitalize } from '@/utils';
+
 import TokenIcon from '../../components/row-token-field/token-icon';
 import { RewardRowProps } from '../../earn.types';
 
@@ -13,14 +15,14 @@ const RewardRow: FC<RewardRowProps> = ({
 }) => {
   const t = useTranslations();
   return (
-    <Box pt="1.5rem" display="flex" flexDirection="column" gap="0.5rem">
+    <Box pt="2xl" display="flex" flexDirection="column" gap="s">
       <Typography variant="medium" color="onSurface">
-        {t('earn.previewInformations.balance') + ' ' + balance}
+        {capitalize(t('common.balance')) + ' ' + balance}
       </Typography>
       <Box display="flex" justifyContent="space-between" mb="3.25rem">
         <Box
           display="flex"
-          gap="0.75rem"
+          gap="s"
           alignItems="center"
           width="fill-available"
           flexWrap="wrap"

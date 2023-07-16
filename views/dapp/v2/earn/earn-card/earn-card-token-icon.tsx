@@ -14,7 +14,7 @@ export const EarnCardTokenIcon: FC<EarnCardTokenIconProps> = ({ type }) => {
       display="flex"
       width="2.5rem"
       height="2.5rem"
-      borderRadius="4px"
+      borderRadius="m"
       alignItems="center"
       justifyContent="center"
       color="inverseOnSurface"

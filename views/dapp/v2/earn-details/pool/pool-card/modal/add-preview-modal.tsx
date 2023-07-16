@@ -1,12 +1,15 @@
 import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { LeftArrowSVG, SUISVG } from '@/components/svg/v2';
 import { TimesSVG } from '@/svg';
+import { capitalize } from '@/utils';
 
 import { AddPreviewModalProps } from '../../../earn.types';
 
 const AddPreviewModal: FC<AddPreviewModalProps> = ({ handleClose }) => {
+  const t = useTranslations();
   return (
     <Motion
       initial={{ scale: 0.85 }}
@@ -30,7 +33,7 @@ const AddPreviewModal: FC<AddPreviewModalProps> = ({ handleClose }) => {
         transition={{ duration: 0.3 }}
       >
         <Box
-          py="1.5rem"
+          py="2xl"
           px="xl"
           display="flex"
           alignItems="center"
@@ -39,22 +42,22 @@ const AddPreviewModal: FC<AddPreviewModalProps> = ({ handleClose }) => {
           <Button variant="icon" onClick={handleClose}>
             <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
           </Button>
-          <Typography variant="medium" color="text">
-            Add Liquidity
+          <Typography variant="medium" color="text" textTransform="capitalize">
+            {t('earnDetails.cards.addLiquidity')}
           </Typography>
           <Button variant="icon" onClick={handleClose}>
             <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
           </Button>
         </Box>
-        <Box px="1.25rem" py="0.5rem">
-          <Box bg="surface" borderRadius="m" mb="1.5rem">
+        <Box px="xl" py="s">
+          <Box bg="surface" borderRadius="m" mb="2xl">
             <Box
-              p="1.25rem"
+              p="xl"
               display="flex"
               alignItems="center"
               justifyContent="space-between"
             >
-              <Box display="flex" gap="1.5rem" alignItems="center">
+              <Box display="flex" gap="2xl" alignItems="center">
                 <Box
                   bg="primary"
                   color="inverseOnSurface"
@@ -62,7 +65,7 @@ const AddPreviewModal: FC<AddPreviewModalProps> = ({ handleClose }) => {
                   height="2.5rem"
                   minWidth="2.5rem"
                   minHeight="2.5rem"
-                  borderRadius=".25rem"
+                  borderRadius="m"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
@@ -90,12 +93,12 @@ const AddPreviewModal: FC<AddPreviewModalProps> = ({ handleClose }) => {
               m="0 auto"
             />
             <Box
-              p="1.25rem"
+              p="xl"
               display="flex"
               alignItems="center"
               justifyContent="space-between"
             >
-              <Box display="flex" gap="1.5rem" alignItems="center">
+              <Box display="flex" gap="2xl" alignItems="center">
                 <Box
                   bg="primary"
                   color="inverseOnSurface"
@@ -103,7 +106,7 @@ const AddPreviewModal: FC<AddPreviewModalProps> = ({ handleClose }) => {
                   height="2.5rem"
                   minWidth="2.5rem"
                   minHeight="2.5rem"
-                  borderRadius=".25rem"
+                  borderRadius="m"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
@@ -129,22 +132,25 @@ const AddPreviewModal: FC<AddPreviewModalProps> = ({ handleClose }) => {
             borderRadius="m"
             display="flex"
             justifyContent="space-between"
-            mb="1.5rem"
+            mb="2xl"
             color="#ACAAAF"
             p="1.25rem"
           >
-            <Typography variant="medium">Fee tier</Typography>
+            <Typography variant="medium" textTransform="capitalize">
+              {t('earnDetails.modal.feeTier')}
+            </Typography>
             <Typography variant="medium">0.3 %</Typography>
           </Box>
-          <Box width="100%" display="flex" mb="1.25rem">
+          <Box width="100%" display="flex" mb="xl">
             <Button
               flex="1"
               size="small"
               variant="filled"
               width="100%"
-              textAlign="center"
+              display="flex"
+              justifyContent="center"
             >
-              Confirm
+              {capitalize(t('common.v2.confirm'))}
             </Button>
           </Box>
         </Box>

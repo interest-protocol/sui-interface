@@ -5,14 +5,14 @@ import { COINS } from '@/constants';
 import { useModal } from '@/hooks';
 
 import RowTokenField from '../../../components/row-token-field';
-import RemovePreviewModal from '../modal/remove-preview-modal';
-import LiquidityCardWrapper from '../wrapper';
+import AddPreviewModal from '../modal/add-preview-modal';
+import PoolCardWrapper from '../wrapper';
 
 const AddLiquidityCard: FC = () => {
   const { setModal, handleClose } = useModal();
 
   const openPreviewModal = () => {
-    setModal(<RemovePreviewModal handleClose={handleClose} />, {
+    setModal(<AddPreviewModal handleClose={handleClose} />, {
       isOpen: true,
       custom: true,
       opaque: false,
@@ -21,8 +21,7 @@ const AddLiquidityCard: FC = () => {
   };
 
   return (
-    <LiquidityCardWrapper type="add" action={openPreviewModal}>
-      {}
+    <PoolCardWrapper type="add" action={openPreviewModal}>
       <RowTokenField
         balance="0.12345"
         amount="0.345"
@@ -33,7 +32,7 @@ const AddLiquidityCard: FC = () => {
         amount="0.345"
         coins={[COINS[Network.TESTNET].ETH]}
       />
-    </LiquidityCardWrapper>
+    </PoolCardWrapper>
   );
 };
 

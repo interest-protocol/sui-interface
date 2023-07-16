@@ -36,22 +36,37 @@ const DetailedHeader: FC<DetailedHeaderProps> = ({ coins, headerOption }) => {
       <Box display="flex" gap=".5rem">
         {headerOption.isVolatile && (
           <Button variant="filled" size="small" bg="#FED7AA">
-            <Typography variant="small" margin="0 auto" color="#92400E">
-              {t('earn.buttons.volatile')}
+            <Typography
+              variant="small"
+              margin="0 auto"
+              color="#92400E"
+              textTransform="capitalize"
+            >
+              {t('common.volatile', { count: 1 })}
             </Typography>
           </Button>
         )}
         {headerOption.isStable && (
           <Button variant="filled" size="small" bg="#A5F3FC">
-            <Typography variant="small" margin="0 auto" color="#155E75">
-              {t('earn.buttons.stable')}
+            <Typography
+              variant="small"
+              margin="0 auto"
+              color="#155E75"
+              textTransform="capitalize"
+            >
+              {t('common.stable', { count: 1 })}
             </Typography>
           </Button>
         )}
         {headerOption.isFarm && (
           <Button variant="filled" size="small" bg="#D9F99D">
-            <Typography variant="small" margin="0 auto" color="#3F6212">
-              {t('earn.buttons.farm')}
+            <Typography
+              variant="small"
+              margin="0 auto"
+              color="#3F6212"
+              textTransform="capitalize"
+            >
+              {t('common.farm')}
             </Typography>
           </Button>
         )}

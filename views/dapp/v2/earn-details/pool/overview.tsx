@@ -8,13 +8,10 @@ import {
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { PercentageSVG, UnionSVG } from '@/components/svg/v2';
-import { DollarSVG } from '@/svg';
+import { MiddlePaperSVG, SwapCurveSVG, VolumeSVG } from '@/components/svg/v2';
 import { capitalize } from '@/utils';
 
-import StateInfo from './state-info';
-
-const EarnFarmOverview: FC = () => {
+const EarnPoolSectionOverview: FC = () => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
 
@@ -27,7 +24,7 @@ const EarnFarmOverview: FC = () => {
         gridTemplateColumns="repeat(4, 1fr)"
       >
         <InfoCard
-          info={<StateInfo isUp={true} />}
+          info=""
           title={
             <Box as="span" display="flex" alignItems="center" gap="m">
               <Box
@@ -41,13 +38,17 @@ const EarnFarmOverview: FC = () => {
                 justifyContent="center"
                 color={dark ? 'black' : 'white'}
               >
-                <UnionSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+                <MiddlePaperSVG
+                  maxWidth="0.75rem"
+                  maxHeight="0.75rem"
+                  width="100%"
+                />
               </Box>
-              {capitalize(t('common.state'))}
+              {capitalize(t('earnDetails.overview.fee'))}
             </Box>
           }
         >
-          {capitalize(t('common.live'))}
+          $82,123.01
         </InfoCard>
         <InfoCard
           info=""
@@ -64,17 +65,17 @@ const EarnFarmOverview: FC = () => {
                 justifyContent="center"
                 color={dark ? 'black' : 'white'}
               >
-                <DollarSVG
-                  maxWidth="0.85rem"
-                  maxHeight="0.85rem"
+                <SwapCurveSVG
+                  maxWidth="0.75rem"
+                  maxHeight="0.75rem"
                   width="100%"
                 />
               </Box>
-              {t('common.tvl')}
+              {capitalize(t('common.liquidity'))}
             </Box>
           }
         >
-          $10,123.01
+          $82,123.01
         </InfoCard>
         <InfoCard
           info={
@@ -99,21 +100,21 @@ const EarnFarmOverview: FC = () => {
                 justifyContent="center"
                 color={dark ? 'black' : 'white'}
               >
-                <PercentageSVG
+                <VolumeSVG
                   maxWidth="0.75rem"
                   maxHeight="0.75rem"
                   width="100%"
                 />
               </Box>
-              {t('common.apr')}
+              {capitalize(t('earnDetails.overview.volume'))}
             </Box>
           }
         >
-          $3,123.01
+          $15,123.01
         </InfoCard>
       </Box>
     </Box>
   );
 };
 
-export default EarnFarmOverview;
+export default EarnPoolSectionOverview;

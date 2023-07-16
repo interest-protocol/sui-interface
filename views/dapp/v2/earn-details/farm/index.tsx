@@ -19,7 +19,7 @@ const EarnFarmSection: FC = () => {
           'repeat(auto-fit, 1fr)',
           'repeat(auto-fit, minmax(17rem, 1fr))',
         ]}
-        gap={['0.5rem', '0.5rem', '0.5rem', '1.5rem']}
+        gap={['s', 's', 's', '2xl']}
       >
         <FarmCard
           type="staked"

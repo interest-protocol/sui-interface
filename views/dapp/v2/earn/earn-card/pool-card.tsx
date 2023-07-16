@@ -13,6 +13,7 @@ import { Routes, RoutesEnum } from '@/constants';
 
 import { EarnPoolItemProps } from '../earn.types';
 import { EarnCardTokenIcon } from './earn-card-token-icon';
+import HeaderItems from './header-items';
 
 const PoolCard: FC<EarnPoolItemProps> = ({
   token1,
@@ -32,37 +33,15 @@ const PoolCard: FC<EarnPoolItemProps> = ({
       <Box
         flex="1"
         bg="surface.containerLow"
-        p="1rem"
+        p="l"
         display="flex"
         flexDirection="column"
-        gap="1.5rem"
+        gap="2xl"
         color="onSurface"
       >
-        <Box display="flex" gap=".5rem">
-          {headerOption.isVolatile && (
-            <Button variant="filled" size="small" bg="#FED7AA">
-              <Typography variant="small" margin="0 auto" color="#92400E">
-                {t('earn.buttons.volatile')}
-              </Typography>
-            </Button>
-          )}
-          {headerOption.isStable && (
-            <Button variant="filled" size="small" bg="#A5F3FC">
-              <Typography variant="small" margin="0 auto" color="#155E75">
-                {t('earn.buttons.stable')}
-              </Typography>
-            </Button>
-          )}
-          {headerOption.isFarm && (
-            <Button variant="filled" size="small" bg="#D9F99D">
-              <Typography variant="small" margin="0 auto" color="#3F6212">
-                {t('earn.buttons.farm')}
-              </Typography>
-            </Button>
-          )}
-        </Box>
-        <Box display="flex" flexWrap="wrap" gap="0.938rem">
-          <Box gap="0.75rem" display="flex">
+        <HeaderItems {...headerOption} />
+        <Box display="flex" flexWrap="wrap" gap="l">
+          <Box gap="m" display="flex">
             <EarnCardTokenIcon type={token1.type} />
             <EarnCardTokenIcon type={token2.type} />
           </Box>
@@ -75,38 +54,54 @@ const PoolCard: FC<EarnPoolItemProps> = ({
               {`${token1.symbol} - ${token2.symbol}`}
             </Typography>
             <Typography variant="small" color="onSurfaceVariant">
-              {`${apr}% ${t('earn.infoCards.apr')}`}
+              {`${apr}% ${t('common.apr')}`}
             </Typography>
           </Box>
         </Box>
-        <Box display="flex" gap=".75rem" flexDirection="column">
+        <Box display="flex" gap="m" flexDirection="column">
           <Box display="flex" justifyContent="space-between">
-            <Typography variant="small" color="onSurfaceVariant">
-              {t('earn.cardInformations.fee')}
+            <Typography
+              variant="small"
+              color="onSurfaceVariant"
+              textTransform="capitalize"
+            >
+              {t('earn.cards.fee')}
             </Typography>
             <Typography variant="small" color={dark ? 'white' : 'black'}>
               {fee}
             </Typography>
           </Box>
           <Box display="flex" justifyContent="space-between">
-            <Typography variant="small" color="onSurfaceVariant">
-              {t('earn.cardInformations.liquidity')}
+            <Typography
+              variant="small"
+              color="onSurfaceVariant"
+              textTransform="capitalize"
+            >
+              {t('common.liquidity')}
             </Typography>
             <Typography variant="small" color={dark ? 'white' : 'black'}>
               {liquidity}
             </Typography>
           </Box>
           <Box display="flex" justifyContent="space-between">
-            <Typography variant="small" color="onSurfaceVariant">
-              {t('earn.cardInformations.volume24h')}
+            <Typography
+              variant="small"
+              color="onSurfaceVariant"
+              textTransform="capitalize"
+            >
+              {t('earn.overview.volume')}
             </Typography>
             <Typography variant="small" color={dark ? 'white' : 'black'}>
               {volume}
             </Typography>
           </Box>
           <Box display="flex" justifyContent="space-between">
-            <Typography variant="small" color="onSurfaceVariant">
-              {t('earn.cardInformations.allocationFarm')}
+            <Typography
+              variant="small"
+              color="onSurfaceVariant"
+              textTransform="capitalize"
+            >
+              {t('common.allocation')}
             </Typography>
             <Typography variant="small" color={dark ? 'white' : 'black'}>
               {allocation}
@@ -116,11 +111,11 @@ const PoolCard: FC<EarnPoolItemProps> = ({
         <Box
           display="grid"
           gridTemplateColumns={['1fr', '1fr', '1fr', '1fr 1fr']}
-          gap="0.5rem"
+          gap="s"
         >
           <Button size="small" variant="outline" textAlign="center">
-            <Typography variant="small" width="100%">
-              {t('earn.buttons.swap')}
+            <Typography variant="small" width="100%" textTransform="capitalize">
+              {t('common.v2.navbar.swap')}
             </Typography>
           </Button>
           <Button
@@ -131,8 +126,8 @@ const PoolCard: FC<EarnPoolItemProps> = ({
               push({ pathname: Routes[RoutesEnum.EarnDetails] }).then()
             }
           >
-            <Typography variant="small" width="100%">
-              {t('earn.buttons.addLiquidity')}
+            <Typography variant="small" width="100%" textTransform="capitalize">
+              {t('earn.cards.addLiquidity')}
             </Typography>
           </Button>
         </Box>

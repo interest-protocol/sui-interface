@@ -14,7 +14,7 @@ const TokenIcon: FC<{ type: string }> = ({ type }) => {
       height="2.5rem"
       minWidth="2.5rem"
       minHeight="2.5rem"
-      borderRadius=".25rem"
+      borderRadius="m"
       display="flex"
       alignItems="center"
       justifyContent="center"

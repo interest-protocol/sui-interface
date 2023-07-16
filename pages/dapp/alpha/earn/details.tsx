@@ -32,7 +32,7 @@ const EarnDetailsPage: NextPage<EarnDetailsPageProps> = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, dexMessages] = await Promise.all([
     import(`../../../../assets/messages/common/${locale}.json`),
-    import(`../../../../assets/messages/earn/${locale}.json`),
+    import(`../../../../assets/messages/earn/details/${locale}.json`),
   ]);
 
   const messages = mergeDeepRight(commonMessages.default, dexMessages.default);
@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     props: {
       messages,
       now: Date.now(),
-      pageTitle: 'earn.metadata.title',
+      pageTitle: 'earnDetails.metadata.title',
     },
   };
 };

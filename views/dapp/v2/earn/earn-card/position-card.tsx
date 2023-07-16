@@ -10,9 +10,11 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { Routes, RoutesEnum } from '@/constants';
+import { capitalize } from '@/utils';
 
 import { EarnPositionItemProps } from '../earn.types';
 import { EarnCardTokenIcon } from './earn-card-token-icon';
+import HeaderItems from './header-items';
 
 const PositionCard: FC<EarnPositionItemProps> = ({
   token1,
@@ -31,37 +33,15 @@ const PositionCard: FC<EarnPositionItemProps> = ({
       <Box
         flex="1"
         bg="surface.containerLow"
-        p="1rem"
+        p="l"
         display="flex"
         flexDirection="column"
-        gap="1.5rem"
+        gap="2xl"
         color="onSurface"
       >
-        <Box display="flex" gap=".5rem">
-          {headerOption.isVolatile && (
-            <Button variant="filled" size="small" bg="#FED7AA">
-              <Typography variant="small" margin="0 auto" color="#92400E">
-                {t('earn.buttons.volatile')}
-              </Typography>
-            </Button>
-          )}
-          {headerOption.isStable && (
-            <Button variant="filled" size="small" bg="#A5F3FC">
-              <Typography variant="small" margin="0 auto" color="#155E75">
-                {t('earn.buttons.stable')}
-              </Typography>
-            </Button>
-          )}
-          {headerOption.isFarm && (
-            <Button variant="filled" size="small" bg="#D9F99D">
-              <Typography variant="small" margin="0 auto" color="#3F6212">
-                {t('earn.buttons.farm')}
-              </Typography>
-            </Button>
-          )}
-        </Box>
+        <HeaderItems {...headerOption} />
         <Box display="flex" flexWrap="wrap" gap="0.938rem">
-          <Box gap="0.75rem" display="flex">
+          <Box gap="m" display="flex">
             <EarnCardTokenIcon type={token1.type} />
             <EarnCardTokenIcon type={token2.type} />
           </Box>
@@ -74,14 +54,18 @@ const PositionCard: FC<EarnPositionItemProps> = ({
               {`${token1.symbol} - ${token2.symbol}`}
             </Typography>
             <Typography variant="small" color="onSurfaceVariant">
-              {`${apr}% ${t('earn.infoCards.apr')}`}
+              {`${apr}% ${t('common.apr')}`}
             </Typography>
           </Box>
         </Box>
-        <Box display="flex" gap=".75rem" flexDirection="column">
+        <Box display="flex" gap="m" flexDirection="column">
           <Box display="flex" justifyContent="space-between">
-            <Typography variant="small" color="onSurfaceVariant">
-              {t('earn.cardInformations.fee')}
+            <Typography
+              variant="small"
+              color="onSurfaceVariant"
+              textTransform="capitalize"
+            >
+              {t('earn.cards.fee')}
             </Typography>
             <Typography variant="small" color={dark ? 'white' : 'black'}>
               {fee}%
@@ -89,7 +73,7 @@ const PositionCard: FC<EarnPositionItemProps> = ({
           </Box>
           <Box display="flex" justifyContent="space-between">
             <Typography variant="small" color="onSurfaceVariant">
-              {`${t('earn.cardInformations.liquidity')}  ${token1.symbol}`}
+              {`${capitalize(t('common.liquidity'))}  ${token1.symbol}`}
             </Typography>
             <Typography variant="small" color={dark ? 'white' : 'black'}>
               {liquidity.token1}
@@ -97,7 +81,7 @@ const PositionCard: FC<EarnPositionItemProps> = ({
           </Box>
           <Box display="flex" justifyContent="space-between">
             <Typography variant="small" color="onSurfaceVariant">
-              {`${t('earn.cardInformations.liquidity')}  ${token2.symbol}`}
+              {`${capitalize(t('common.liquidity'))}  ${token2.symbol}`}
             </Typography>
             <Typography variant="small" color={dark ? 'white' : 'black'}>
               {liquidity.token2}
@@ -106,7 +90,7 @@ const PositionCard: FC<EarnPositionItemProps> = ({
           {farmIPX && (
             <Box display="flex" justifyContent="space-between">
               <Typography variant="small" color="onSurfaceVariant">
-                Farm aIPX
+                {capitalize(t('common.liquidity'))} aIPX
               </Typography>
               <Typography variant="small" color={dark ? 'white' : 'black'}>
                 {farmIPX}
@@ -114,7 +98,7 @@ const PositionCard: FC<EarnPositionItemProps> = ({
             </Box>
           )}
         </Box>
-        <Box mt={!farmIPX ? '2rem' : 'unset'}>
+        <Box mt={!farmIPX ? '3xl' : 'unset'}>
           <Button
             size="small"
             width="calc(100% - 2.5rem)"
@@ -123,8 +107,8 @@ const PositionCard: FC<EarnPositionItemProps> = ({
               push({ pathname: Routes[RoutesEnum.EarnDetails] }).then()
             }
           >
-            <Typography variant="small" mx="auto">
-              {t('earn.buttons.enter')}
+            <Typography variant="small" mx="auto" textTransform="capitalize">
+              {t('common.enter')}
             </Typography>
           </Button>
         </Box>

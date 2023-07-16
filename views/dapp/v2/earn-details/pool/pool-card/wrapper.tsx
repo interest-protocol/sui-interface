@@ -18,7 +18,7 @@ const PoolCardWrapper: FC<PropsWithChildren<PoolCardWrapperProps>> = ({
   return (
     <Box
       bg="surface.containerLow"
-      px="1.5rem"
+      px="2xl"
       position="relative"
       borderRadius="m"
       display="flex"
@@ -29,9 +29,9 @@ const PoolCardWrapper: FC<PropsWithChildren<PoolCardWrapperProps>> = ({
         <Box
           borderBottom="1px dashed"
           borderColor="outline.outlineVariant"
-          py="1.5rem"
+          py="2xl"
         >
-          <Box display="flex" gap="1.5rem" alignItems="center">
+          <Box display="flex" gap="2xl" alignItems="center">
             <Box
               display="flex"
               width="1.25rem"
@@ -58,8 +58,8 @@ const PoolCardWrapper: FC<PropsWithChildren<PoolCardWrapperProps>> = ({
             <Typography color="white" variant="large" textTransform="uppercase">
               {t(
                 type === 'add'
-                  ? 'earn.buttons.addLiquidity'
-                  : 'earn.buttons.removeLiquidity'
+                  ? 'earnDetails.cards.addLiquidity'
+                  : 'earnDetails.cards.removeLiquidity'
               )}
             </Typography>
           </Box>
@@ -69,20 +69,32 @@ const PoolCardWrapper: FC<PropsWithChildren<PoolCardWrapperProps>> = ({
       <Box
         ml="auto"
         pt="3rem"
-        pb="1.5rem"
-        gap=".5rem"
+        pb="2xl"
+        gap="s"
         display="flex"
         width="fit-content"
         justifyContent="space-between"
       >
         <Button flex="1" size="small" variant="outline" onClick={reset}>
-          <Typography textAlign="center" width="100%" variant="small">
-            {t('earn.buttons.reset')}
+          <Typography
+            textAlign="center"
+            width="100%"
+            variant="small"
+            textTransform="capitalize"
+          >
+            {t('common.reset')}
           </Typography>
         </Button>
         <Button flex="1" size="small" variant="filled" onClick={action}>
-          <Typography textAlign="center" width="100%" variant="small">
-            {t(type === 'add' ? 'earn.buttons.add' : 'earn.buttons.remove')}
+          <Typography
+            textAlign="center"
+            width="100%"
+            variant="small"
+            textTransform="capitalize"
+          >
+            {t(type === 'add' ? 'common.add' : 'common.remove', {
+              isLoading: +false,
+            })}
           </Typography>
         </Button>
       </Box>

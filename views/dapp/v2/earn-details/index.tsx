@@ -1,9 +1,11 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box, Tabs } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 
 import { COINS } from '@/constants';
+import { capitalize } from '@/utils';
 
 import { Layout } from '../components';
 import DetailedHeader from './earn-detailed-header';
@@ -16,6 +18,7 @@ const HEADER_OPTION = {
 };
 
 const EarnDetails: FC<{ objectId: string }> = ({ objectId }) => {
+  const t = useTranslations();
   const [isPool, setIsPool] = useState(true);
 
   const handleTab = () => {
@@ -38,7 +41,10 @@ const EarnDetails: FC<{ objectId: string }> = ({ objectId }) => {
         <Box display="grid" gridColumn="1/-1" width="100%">
           <Box display="flex" width="100%">
             <Tabs
-              items={['Pools', 'Farm']}
+              items={[
+                capitalize(t('common.pool')),
+                capitalize(t('common.farm')),
+              ]}
               defaultTabIndex={+!isPool}
               onChangeTab={handleTab}
             />

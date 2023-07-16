@@ -44,6 +44,16 @@ export interface EarnFiltersProps {
   handleClose: () => void;
 }
 
+export interface AccordionProps {
+  title: string;
+  options: ReadonlyArray<AccordionOptionProps>;
+}
+
+export interface AccordionOptionProps {
+  description: string;
+  defaultState: boolean;
+}
+
 export interface EarnListCardsProps {
   openModalFilters: () => void;
 }

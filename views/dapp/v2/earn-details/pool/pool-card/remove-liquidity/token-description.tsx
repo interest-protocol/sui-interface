@@ -13,7 +13,7 @@ const TokenDescription: FC<TokenDescriptionProps> = ({ coin, amount }) => {
       display="flex"
       alignItems="center"
       justifyContent="space-between"
-      mt="1.5rem"
+      mt="2xl"
     >
       <Box display="flex" alignItems="center">
         <Box

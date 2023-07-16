@@ -3,6 +3,8 @@ import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
+import { capitalize } from '@/utils';
+
 import { RowTokenFieldProps } from '../../earn.types';
 import { getSymbolsByCoins } from '../../earn.utils';
 import TokenIcon from './token-icon';
@@ -12,14 +14,14 @@ const RowTokenField: FC<RowTokenFieldProps> = ({ coins, amount, balance }) => {
   const t = useTranslations();
 
   return (
-    <Box pt="1.5rem" display="flex" flexDirection="column" gap="0.5rem">
+    <Box pt="2xl" display="flex" flexDirection="column" gap="s">
       <Typography variant="medium" color="onSurface">
-        {t('earn.previewInformations.balance') + ' ' + balance}
+        {capitalize(t('common.balance')) + ' ' + balance}
       </Typography>
-      <Box display="flex" gap="1.5rem" alignItems="center">
+      <Box display="flex" gap="2xl" alignItems="center">
         <Box
           display="flex"
-          gap="0.75rem"
+          gap="2xl"
           alignItems="center"
           width="fill-available"
           flexWrap="wrap"
@@ -33,7 +35,7 @@ const RowTokenField: FC<RowTokenFieldProps> = ({ coins, amount, balance }) => {
         </Box>
         <Box
           ml="auto"
-          px="1rem"
+          px="l"
           color="onSurfaceVariant"
           width="100%"
           height="3.5rem"
@@ -53,7 +55,7 @@ const RowTokenField: FC<RowTokenFieldProps> = ({ coins, amount, balance }) => {
                   bg: 'surface.containerLowest',
                   height: '3.5rem',
                   color: 'onSurfaceVariant',
-                  paddingLeft: '1rem',
+                  paddingLeft: 'l',
                   textAlign: 'end',
                 }}
               />

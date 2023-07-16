@@ -2,6 +2,8 @@ import { Box, Button, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC, PropsWithChildren } from 'react';
 
+import { TTranslatedMessage } from '@/interface';
+
 import { FarmCardWrapperProps } from '../../earn.types';
 
 const FarmCardWrapper: FC<PropsWithChildren<FarmCardWrapperProps>> = ({
@@ -17,49 +19,58 @@ const FarmCardWrapper: FC<PropsWithChildren<FarmCardWrapperProps>> = ({
       bg={
         type != 'rewards' ? 'surface.containerLow' : 'primary.primaryContainer'
       }
-      px="1.5rem"
+      px="2xl"
       position="relative"
       borderRadius="m"
     >
       <Box
         borderBottom="1px dashed"
         borderColor={type == 'rewards' ? 'white' : 'outline.outlineVariant'}
-        py="1.5rem"
+        py="2xl"
       >
-        <Box display="flex" gap="1.5rem" alignItems="center">
+        <Box display="flex" gap="2xl" alignItems="center">
           <Typography color="white" variant="large" textTransform="capitalize">
-            {type == 'staked'
-              ? 'Staked'
-              : type == 'unstaked'
-              ? 'Unstaked'
-              : 'Rewards'}
+            {t(`earnDetails.cards.${type}` as TTranslatedMessage)}
           </Typography>
         </Box>
       </Box>
       {children}
       <Box
         ml="auto"
-        my="1.5rem"
-        pt="1.5rem"
-        gap=".5rem"
+        my="2xl"
+        pt="2xl"
+        gap="s"
         display="flex"
         width="fit-content"
         justifyContent="space-between"
       >
         {type != 'rewards' && (
           <Button flex="1" size="small" variant="outline" onClick={reset}>
-            <Typography textAlign="center" width="100%" variant="small">
-              {t('earn.buttons.reset')}
+            <Typography
+              textAlign="center"
+              width="100%"
+              variant="small"
+              textTransform="capitalize"
+            >
+              {t('common.reset')}
             </Typography>
           </Button>
         )}
         <Button flex="1" size="small" variant="filled" onClick={action}>
-          <Typography textAlign="center" width="100%" variant="small">
-            {type == 'staked'
-              ? 'Add'
-              : type == 'unstaked'
-              ? 'Remove'
-              : 'Harvest'}
+          <Typography
+            textAlign="center"
+            width="100%"
+            variant="small"
+            textTransform="capitalize"
+          >
+            {t(
+              type == 'staked'
+                ? 'common.add'
+                : type == 'unstaked'
+                ? 'common.remove'
+                : 'earnDetails.cards.button.harvest',
+              { isLoading: +false }
+            )}
           </Typography>
         </Button>
       </Box>

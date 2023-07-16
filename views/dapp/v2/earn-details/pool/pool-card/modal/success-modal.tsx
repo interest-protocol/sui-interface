@@ -1,4 +1,5 @@
 import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { CheckmarkSVG } from '@/components/svg/v2';
@@ -8,6 +9,7 @@ import { capitalize } from '@/utils';
 import { AddPreviewModalProps } from '../../../earn.types';
 
 const SuccessModal: FC<AddPreviewModalProps> = ({ handleClose }) => {
+  const t = useTranslations();
   return (
     <Motion
       initial={{ scale: 0.85 }}
@@ -31,25 +33,25 @@ const SuccessModal: FC<AddPreviewModalProps> = ({ handleClose }) => {
         transition={{ duration: 0.3 }}
       >
         <Box
-          py="1.5rem"
+          py="2xl"
           px="xl"
           display="flex"
           alignItems="center"
           justifyContent="space-between"
         >
           <Box />
-          <Typography variant="medium" color="text">
-            Add Liquidity
+          <Typography variant="medium" color="text" textTransform="capitalize">
+            {t('earnDetails.cards.addLiquidity')}
           </Typography>
           <Button variant="icon" onClick={handleClose}>
             <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
           </Button>
         </Box>
-        <Box px="1.25rem" py="0.5rem">
+        <Box px="xl" py="s">
           <Box
             pb="xl"
             pt="4xl"
-            mb="2rem"
+            mb="3xl"
             display="flex"
             borderRadius="m"
             alignItems="center"
@@ -69,8 +71,9 @@ const SuccessModal: FC<AddPreviewModalProps> = ({ handleClose }) => {
               width="16rem"
               variant="medium"
               textAlign="center"
+              textTransform="capitalize"
             >
-              Transaction submitted
+              {t('earnDetails.modal.successMessage')}
             </Typography>
           </Box>
           <Box display="flex" width="100%" flexDirection="column">
@@ -88,14 +91,14 @@ const SuccessModal: FC<AddPreviewModalProps> = ({ handleClose }) => {
             <a target="_blank" rel="noreferrer" href="/" onClick={handleClose}>
               <Button
                 size="small"
-                mt="0.5rem"
+                mt="s"
                 mb="2xl"
                 width="100%"
                 variant="text"
                 boxSizing="border-box"
                 justifyContent="center"
               >
-                View on activity
+                {capitalize(t('earnDetails.modal.viewActivity'))}
               </Button>
             </a>
           </Box>

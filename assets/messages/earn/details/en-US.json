@@ -1,0 +1,32 @@
+{
+  "earnDetails": {
+    "metadata": {
+      "title": "Earn Details"
+    },
+    "overview": {
+      "fee": "Fee",
+      "volume": "Volume"
+    },
+    "cards": {
+      "addLiquidity": "Add Liquidity",
+      "removeLiquidity": "Remove Liquidity",
+      "staked": "staked",
+      "unstaked": "unstaked",
+      "rewards": "rewards",
+      "button": {
+        "harvest": "{isLoading, plural, =1 {harvesting...} other {harvest}}"
+      }
+    },
+    "modal": {
+      "feeTier": "Fee tier",
+      "feesEarned": "Fees earned",
+      "failedMessage": "Transaction failed",
+      "successMessage": "Transaction submitted",
+      "viewActivity": "View on activity",
+      "loading": {
+        "mainMessage": "Waiting for confirmation",
+        "secondaryMessage": "Confirm this transaction in your wallet"
+      }
+    }
+  }
+}

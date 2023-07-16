@@ -1,19 +1,21 @@
 import { Box, Button, Tabs } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
 import { SearchSVG } from '@/components/svg/v2';
 import { SettingsSVG } from '@/svg';
+import { capitalize } from '@/utils';
 
 import { EARN_POOL_DATA, EARN_POSITION_DATA } from './earn.data';
 import { EarnListCardsProps } from './earn.types';
 import EarnContainer from './earn-card/earn-container';
 import PoolCard from './earn-card/pool-card';
 import PositionCard from './earn-card/position-card';
-//import DetailedHeader from '../components/earn-detailed-header';
 
 const EarnListCard: FC<EarnListCardsProps> = ({ openModalFilters }) => {
+  const t = useTranslations();
   const [isPool, setIsPool] = useState(true);
 
   const handleTab = () => {
@@ -31,11 +33,14 @@ const EarnListCard: FC<EarnListCardsProps> = ({ openModalFilters }) => {
             width="100%"
           >
             <Tabs
-              items={['Pools', 'My Position']}
+              items={[
+                capitalize(t('common.pool')),
+                capitalize(t('earn.tabs.myPosition')),
+              ]}
               defaultTabIndex={+!isPool}
               onChangeTab={handleTab}
             />
-            <Box display="flex" gap="8px">
+            <Box display="flex" gap="s">
               <Button
                 variant="icon"
                 borderRadius="full"

@@ -1,25 +1,17 @@
-import {
-  Box,
-  InfoCard,
-  Theme,
-  Typography,
-  useTheme,
-} from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { VolumeSVG } from '@/components/svg/v2';
 import { useModal } from '@/hooks';
-import { DollarSVG } from '@/svg';
+import { capitalize } from '@/utils';
 
 import { Layout } from '../components';
 import EarnListCard from './earn-list';
-import FilterSection from './filter-section';
-import TVLCardInfo from './tvl-card-info';
-//import DetailedHeader from '../components/earn-detailed-header';
+import FilterSection from './filters-section';
+import EarnOverview from './overview';
 
 const Earn: FC = () => {
+  const t = useTranslations();
   const { setModal, handleClose } = useModal();
-  const { dark } = useTheme() as Theme;
 
   const openModalFilters = () =>
     setModal(<FilterSection handleClose={handleClose} />, {
@@ -30,80 +22,8 @@ const Earn: FC = () => {
     });
 
   return (
-    <Layout dashboard titlePage="EARN">
-      <Box display="flex" variant="container">
-        <Box display="grid" gridColumn="1/-1">
-          <Box
-            gap="8px"
-            display="grid"
-            overflowX="auto"
-            gridTemplateColumns="repeat(4, 1fr)"
-          >
-            <InfoCard
-              info={<TVLCardInfo value={0.45} />}
-              title={
-                <Box as="span" display="flex" alignItems="center" gap="m">
-                  <Box
-                    as="span"
-                    width="1.3rem"
-                    height="1.3rem"
-                    alignItems="center"
-                    borderRadius="full"
-                    bg="inverseSurface"
-                    display="inline-flex"
-                    justifyContent="center"
-                    color={dark ? 'black' : 'white'}
-                  >
-                    <DollarSVG
-                      maxWidth="0.75rem"
-                      maxHeight="0.75rem"
-                      width="100%"
-                    />
-                  </Box>
-                  TVL
-                </Box>
-              }
-            >
-              $82,123.01
-            </InfoCard>
-            <InfoCard
-              info={
-                <Typography
-                  variant="small"
-                  as="span"
-                  color="secondary.onSecondaryContainer"
-                >
-                  24h
-                </Typography>
-              }
-              title={
-                <Box as="span" display="flex" alignItems="center" gap="m">
-                  <Box
-                    as="span"
-                    width="1.3rem"
-                    height="1.3rem"
-                    alignItems="center"
-                    borderRadius="full"
-                    bg="inverseSurface"
-                    display="inline-flex"
-                    justifyContent="center"
-                    color={dark ? 'black' : 'white'}
-                  >
-                    <VolumeSVG
-                      maxWidth="0.75rem"
-                      maxHeight="0.75rem"
-                      width="100%"
-                    />
-                  </Box>
-                  Volume
-                </Box>
-              }
-            >
-              $15,123.01
-            </InfoCard>
-          </Box>
-        </Box>
-      </Box>
+    <Layout dashboard titlePage={capitalize(t('earn.metadata.title'))}>
+      <EarnOverview />
       <EarnListCard openModalFilters={openModalFilters} />
     </Layout>
   );
