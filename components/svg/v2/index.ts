@@ -1,4 +1,5 @@
 export { default as BNBSVG } from './bnb';
+export { default as BridgeSVG } from './bridge';
 export { default as BTCSVG } from './btc';
 export { default as CheckmarkSVG } from './checkmark';
 export { default as CogsSVG } from './cogs';
@@ -18,10 +19,12 @@ export { default as NoSearchSVG } from './no-search';
 export { default as PercentageSVG } from './percentage';
 export { default as SearchSVG } from './search';
 export { default as SUISVG } from './sui';
+export { default as SUIDSVG } from './suid';
 export { default as SwapCurveSVG } from './swap-curve';
 export { default as TimesSVG } from './times';
 export { default as UnionSVG } from './union';
 export { default as UnknownCoinSVG } from './unknown-coin';
+export { default as USDCSVG } from './usdc';
 export { default as USDTSVG } from './usdt';
 export { default as UserSVG } from './user';
 export { default as VolumeSVG } from './volume';

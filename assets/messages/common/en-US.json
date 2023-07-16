@@ -6,6 +6,9 @@
       "cancel": "cancel",
       "confirm": "confirm",
       "confirmChanges": "confirm changes",
+      "network": {
+        "down": "System down"
+      },
       "languages": {
         "title": "language",
         "en-US": "English",
@@ -25,10 +28,12 @@
         "home": "home",
         "pool": "pool",
         "earn": "earn",
+        "lend": "lend",
         "farm": "farm",
         "createToken": "create token",
         "settings": "settings",
-        "faucet": "faucet"
+        "faucet": "faucet",
+        "bridge": "bridge"
       },
       "menu": {
         "settings": "settings",
@@ -45,16 +50,6 @@
         "error": "error connecting",
         "connecting": "connecting",
         "copy": "address copied to the clipboard"
-      },
-      "lend": {
-        "title": "Lend",
-        "firstSection": {
-          "netAPY": "Net APY",
-          "supplyBalance": "Supply Balance",
-          "walletBalance": "Wallet Balance",
-          "borrowLimit": "Borrow Limit",
-          "borrowLimitUsed": "Borrow Limit Used"
-        }
       },
       "banner": {
         "liquidity": {
@@ -85,6 +80,7 @@
     "searchTokenInputDescription": "Search by name, symbol or type...",
     "swap": "{isLoading, plural, =1 {swapping} other {swap}}",
     "balance": "balance",
+    "plafond": "plafond",
     "success": "success",
     "notFound": "not found",
     "pageNotFound": "page not found",

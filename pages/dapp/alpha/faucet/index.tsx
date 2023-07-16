@@ -1,23 +1,26 @@
 import { GetStaticProps } from 'next';
 import { useTranslations } from 'next-intl';
-import NotFoundPage from 'pages/404';
 import { mergeDeepRight } from 'ramda';
 
 import { SEO } from '@/components';
+import Web3Manager from '@/components/web3-manager';
+import { ModalProvider } from '@/context/modal';
 import { NextPageWithProps } from '@/interface';
 import { Layout } from '@/views/dapp/v2/components';
+import Faucet from '@/views/dapp/v2/faucet';
 
-const FaucetPage: NextPageWithProps = ({ now, messages, pageTitle }) => {
+const FaucetPage: NextPageWithProps = ({ pageTitle }) => {
   const t = useTranslations();
-  if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'production')
-    return (
-      <NotFoundPage messages={messages} now={now} pageTitle="common.error" />
-    );
 
   return (
-    <Layout dashboard titlePage={t('faucet.metadata.title')}>
-      <SEO pageTitle={pageTitle} />
-    </Layout>
+    <ModalProvider newDesign>
+      <Web3Manager>
+        <Layout dashboard titlePage={t('faucet.metadata.title')}>
+          <SEO pageTitle={pageTitle} />
+          <Faucet />
+        </Layout>
+      </Web3Manager>
+    </ModalProvider>
   );
 };
 
@@ -36,7 +39,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     props: {
       messages,
       now: Date.now(),
-      pageTitle: 'lending.metadata.title',
+      pageTitle: 'faucet.metadata.title',
     },
   };
 };

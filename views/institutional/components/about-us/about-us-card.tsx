@@ -41,11 +41,9 @@ const AboutUsCard: FC<AboutUsCardProps> = ({ name, link, Illustration }) => {
       initial="offscreen"
       whileInView="onscreen"
       borderColor="textAccent"
-      whileHover={{
-        backgroundColor: '#ffffff08',
-      }}
       onClick={() => push(link)}
       viewport={{ once: true, amount: 0.8 }}
+      whileHover={{ backgroundColor: '#ffffff08' }}
       gridColumn={['1/-1', '1/-1', '1/-1', '2/12']}
       gridTemplateColumns={['1fr', '1fr', '1fr', '1fr 1fr']}
     >

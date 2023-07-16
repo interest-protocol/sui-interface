@@ -1,4 +1,4 @@
-import { Motion, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
+import { Motion, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -40,7 +40,6 @@ const wrapperVariants = {
 
 const SwitchLang: FC<{ isOpen: boolean }> = ({ isOpen }) => {
   const t = useTranslations();
-  const { colors } = useTheme() as Theme;
   const { currentLocale, locales, changeLocale } = useLocale();
 
   return (
@@ -53,7 +52,7 @@ const SwitchLang: FC<{ isOpen: boolean }> = ({ isOpen }) => {
       variants={wrapperVariants}
       animate={isOpen ? 'open' : 'closed'}
       pointerEvents={isOpen ? 'auto' : 'none'}
-      backgroundImage={`linear-gradient(#FFFFFF1A,#FFFFFF1A), linear-gradient(${colors.surface},${colors.surface})`}
+      bg="#292A2D"
     >
       <Typography
         m="xl"

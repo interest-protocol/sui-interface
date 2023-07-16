@@ -4,7 +4,7 @@ import { FC } from 'react';
 
 import { Routes, RoutesEnum, TOKENS_SVG_MAP } from '@/constants';
 import { Box, Button, Typography } from '@/elements';
-import { useSDK } from '@/hooks';
+import { useAmmSdk } from '@/hooks';
 import { UnknownCoinSVG } from '@/svg';
 import { formatMoney } from '@/utils';
 
@@ -20,7 +20,7 @@ const PoolRow: FC<PoolRowProps> = ({
   decimals,
   stable,
 }) => {
-  const sdk = useSDK();
+  const sdk = useAmmSdk();
   const { push } = useRouter();
   const FirstIcon = TOKENS_SVG_MAP[type0] ?? UnknownCoinSVG;
   const SecondIcon = TOKENS_SVG_MAP[type1] ?? UnknownCoinSVG;

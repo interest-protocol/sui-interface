@@ -30,6 +30,7 @@ import SelectTokenBaseTokens from './select-token-modal-base';
 import SelectTokenModalBody from './select-token-modal-body';
 
 const SelectTokenModal: FC<SelectTokenModalProps> = ({
+  simple,
   network,
   coinsMap,
   provider,
@@ -179,28 +180,32 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
           }
         />
       </Box>
-      <SelectTokenBaseTokens
-        tokens={baseTokens}
-        currentTokenType={currentTokenType}
-        onSelectToken={handleSelectCurrency}
-      />
-      <Box px="l" py="l" display="flex" gap="s" flexWrap="wrap">
-        <Chip
-          isActive={tokenOrigin === TokenOrigin.Recommended}
-          onClick={() => handleChangeTab(TokenOrigin.Recommended)}
-          text={t('common.v2.selectToken.recommended')}
+      {!simple && (
+        <SelectTokenBaseTokens
+          tokens={baseTokens}
+          currentTokenType={currentTokenType}
+          onSelectToken={handleSelectCurrency}
         />
-        <Chip
-          isActive={tokenOrigin === TokenOrigin.Favorites}
-          onClick={() => handleChangeTab(TokenOrigin.Favorites)}
-          text={t('common.v2.selectToken.favorite')}
-        />
-        <Chip
-          isActive={tokenOrigin === TokenOrigin.Wallet}
-          onClick={() => handleChangeTab(TokenOrigin.Wallet)}
-          text={t('common.v2.selectToken.wallet')}
-        />
-      </Box>
+      )}
+      {!simple && (
+        <Box px="l" py="l" display="flex" gap="s" flexWrap="wrap">
+          <Chip
+            isActive={tokenOrigin === TokenOrigin.Recommended}
+            onClick={() => handleChangeTab(TokenOrigin.Recommended)}
+            text={t('common.v2.selectToken.recommended')}
+          />
+          <Chip
+            isActive={tokenOrigin === TokenOrigin.Favorites}
+            onClick={() => handleChangeTab(TokenOrigin.Favorites)}
+            text={t('common.v2.selectToken.favorite')}
+          />
+          <Chip
+            isActive={tokenOrigin === TokenOrigin.Wallet}
+            onClick={() => handleChangeTab(TokenOrigin.Wallet)}
+            text={t('common.v2.selectToken.wallet')}
+          />
+        </Box>
+      )}
       <Motion
         overflowY="auto"
         position="relative"
@@ -208,18 +213,19 @@ const SelectTokenModal: FC<SelectTokenModalProps> = ({
         animate={{ height: 'auto' }}
       >
         <SelectTokenModalBody
+          simple={!!simple}
           control={control}
           network={network}
           provider={provider}
           coinsMap={coinsMap}
           tokenOrigin={tokenOrigin}
+          favoriteForm={favoriteForm}
+          walletTokens={walletTokens}
           fetchingMetaData={fetchingData}
           currentTokenType={currentTokenType}
           onSelectToken={handleSelectCurrency}
-          searchTokenModalState={searchTokenModalState}
           recommendedTokens={recommendedTokens}
-          favoriteForm={favoriteForm}
-          walletTokens={walletTokens}
+          searchTokenModalState={searchTokenModalState}
         />
       </Motion>
     </Motion>

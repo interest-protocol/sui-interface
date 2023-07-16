@@ -39,8 +39,8 @@ export const calculateIPXUSDPrice = ({
 }: CalculateIPXUSDPriceArgs) => {
   // V-ETH-IPX is hardcoded on index 2
 
-  const ethBalance = pool.balanceX;
-  const ipxBalance = pool.balanceY;
+  const ipxBalance = pool.balanceX;
+  const ethBalance = pool.balanceY;
 
   const ipxInEth = ethBalance.div(ipxBalance);
 
