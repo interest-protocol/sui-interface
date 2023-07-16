@@ -2,7 +2,7 @@ import { Box } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 
-import LangSwitch from '../../lang-switch';
+// import LangSwitch from '../../lang-switch';
 import Wallet from '../../wallet';
 import MenuBackButton from './menu-back-button';
 import MenuButton from './menu-button';
@@ -62,7 +62,7 @@ const Menu: FC = () => {
               justifyContent="flex-end"
             >
               <Wallet />
-              <LangSwitch />
+              {/* <LangSwitch /> */}
             </Box>
           )}
           <MenuButton

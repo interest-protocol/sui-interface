@@ -9,6 +9,7 @@ import Footer from './footer';
 import Header from './header';
 import LangSwitch from './lang-switch';
 import { LayoutProps } from './layout.types';
+import GlobalMenu from './menu';
 import Sidebar from './sidebar';
 import ThemeSwitch from './theme-switch';
 import Wallet from './wallet';
@@ -66,20 +67,8 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
                 alignItems="center"
                 justifyContent="space-between"
               >
+                <GlobalMenu />
                 <Wallet />
-                <Box
-                  py="m"
-                  mx="m"
-                  px="l"
-                  display="flex"
-                  borderRadius="full"
-                  alignItems="center"
-                  bg="surface.container"
-                  boxShadow="inset 0 0 2px   #0002"
-                >
-                  <ThemeSwitch />
-                </Box>
-                <LangSwitch />
               </Box>
             </Box>
             {children}
