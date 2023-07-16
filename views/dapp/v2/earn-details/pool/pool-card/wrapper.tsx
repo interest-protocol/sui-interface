@@ -1,4 +1,10 @@
-import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import {
+  Box,
+  Button,
+  Theme,
+  Typography,
+  useTheme,
+} from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC, PropsWithChildren } from 'react';
 
@@ -15,6 +21,7 @@ const PoolCardWrapper: FC<PropsWithChildren<PoolCardWrapperProps>> = ({
   children,
 }) => {
   const t = useTranslations();
+  const { dark } = useTheme() as Theme;
   return (
     <Box
       bg="surface.containerLow"
@@ -40,6 +47,7 @@ const PoolCardWrapper: FC<PropsWithChildren<PoolCardWrapperProps>> = ({
               bg="inverseSurface"
               alignItems="center"
               justifyContent="center"
+              color={dark ? 'black' : 'white'}
             >
               {type === 'add' ? (
                 <PlusSVG
@@ -55,7 +63,11 @@ const PoolCardWrapper: FC<PropsWithChildren<PoolCardWrapperProps>> = ({
                 />
               )}
             </Box>
-            <Typography color="white" variant="large" textTransform="uppercase">
+            <Typography
+              color={dark ? 'white' : 'black'}
+              variant="large"
+              textTransform="uppercase"
+            >
               {t(
                 type === 'add'
                   ? 'earnDetails.cards.addLiquidity'

@@ -1,4 +1,4 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { TOKENS_SVG_MAP_V2 } from '@/constants';
@@ -6,6 +6,7 @@ import { TOKENS_SVG_MAP_V2 } from '@/constants';
 import { TokenDescriptionProps } from '../../../earn.types';
 
 const TokenDescription: FC<TokenDescriptionProps> = ({ coin, amount }) => {
+  const { dark } = useTheme() as Theme;
   const SVG = TOKENS_SVG_MAP_V2[coin.type] ?? TOKENS_SVG_MAP_V2.default;
 
   return (
@@ -17,7 +18,7 @@ const TokenDescription: FC<TokenDescriptionProps> = ({ coin, amount }) => {
     >
       <Box display="flex" alignItems="center">
         <Box
-          bg="white"
+          bg="inverseSurface"
           color="inverseOnSurface"
           width="1.25rem"
           height="1.25rem"
@@ -30,11 +31,15 @@ const TokenDescription: FC<TokenDescriptionProps> = ({ coin, amount }) => {
         >
           <SVG maxHeight="1.25rem" maxWidth="1.25rem" width="0.85rem" />
         </Box>
-        <Typography ml="0.5rem" variant="medium" color="white">
+        <Typography
+          ml="0.5rem"
+          variant="medium"
+          color={!dark ? 'black' : 'white'}
+        >
           {coin.symbol}
         </Typography>
       </Box>
-      <Typography variant="medium" color="white">
+      <Typography variant="medium" color={!dark ? 'black' : 'white'}>
         {amount}
       </Typography>
     </Box>

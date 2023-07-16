@@ -1,4 +1,4 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
@@ -13,6 +13,7 @@ const RewardRow: FC<RewardRowProps> = ({
   currentAmount,
   balance,
 }) => {
+  const { dark } = useTheme() as Theme;
   const t = useTranslations();
   return (
     <Box pt="2xl" display="flex" flexDirection="column" gap="s">
@@ -28,12 +29,16 @@ const RewardRow: FC<RewardRowProps> = ({
           flexWrap="wrap"
         >
           <TokenIcon type={coin.type} />
-          <Typography variant="medium" color="white">
+          <Typography variant="medium" color={dark ? 'white' : 'dark'}>
             {coin.symbol} Token
           </Typography>
         </Box>
         <Box width="100%">
-          <Typography variant="medium" textAlign="end" color="white">
+          <Typography
+            variant="medium"
+            textAlign="end"
+            color={dark ? 'white' : 'dark'}
+          >
             {currentAmount}
           </Typography>
           <Typography variant="medium" textAlign="end" color="#ACAAAF">

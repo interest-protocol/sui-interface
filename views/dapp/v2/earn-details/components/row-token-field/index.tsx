@@ -1,4 +1,11 @@
-import { Box, Slider, TextField, Typography } from '@interest-protocol/ui-kit';
+import {
+  Box,
+  Slider,
+  TextField,
+  Theme,
+  Typography,
+  useTheme,
+} from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
@@ -11,6 +18,7 @@ import TokenIcon from './token-icon';
 
 const RowTokenField: FC<RowTokenFieldProps> = ({ coins, amount, balance }) => {
   const [isInput, setIsInput] = useState(false);
+  const { dark } = useTheme() as Theme;
   const t = useTranslations();
 
   return (
@@ -21,7 +29,7 @@ const RowTokenField: FC<RowTokenFieldProps> = ({ coins, amount, balance }) => {
       <Box display="flex" gap="2xl" alignItems="center">
         <Box
           display="flex"
-          gap="2xl"
+          gap="m"
           alignItems="center"
           width="fill-available"
           flexWrap="wrap"
@@ -29,7 +37,7 @@ const RowTokenField: FC<RowTokenFieldProps> = ({ coins, amount, balance }) => {
           {coins.map((coin) => (
             <TokenIcon type={coin.type} key={v4()} />
           ))}
-          <Typography variant="medium" color="white">
+          <Typography variant="medium" color={!dark ? 'black' : 'white'}>
             {getSymbolsByCoins(coins)}
           </Typography>
         </Box>
