@@ -5,6 +5,7 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
 import {
@@ -20,6 +21,7 @@ import { wrapperVariants } from '@/constants';
 import RefBox from '@/elements/ref-box';
 import useClickOutsideListenerRef from '@/hooks/use-click-outside-listener-ref';
 import { AppTheme } from '@/interface';
+import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../header/menu/menu-item-wrapper';
 import SwitchAccountDropdown from '../../switch-account-drodown';
@@ -29,6 +31,7 @@ const BOX_ID_PREVIOUS = 'switch-account-box-id-123';
 const BOX_ID = 'lang-switch-box-id-1234';
 
 const WalletProfileDropdown: FC<WalletProfileDropdownProps> = ({ isOpen }) => {
+  const t = useTranslations();
   const { colors } = useTheme() as AppTheme<Theme>;
   const [isOpened, setIsOpen] = useState(false);
 
@@ -79,10 +82,15 @@ const WalletProfileDropdown: FC<WalletProfileDropdownProps> = ({ isOpen }) => {
           variants={wrapperVariants}
           animate={isOpen ? 'open' : 'closed'}
           pointerEvents={isOpen ? 'auto' : 'none'}
+          textTransform="capitalize"
         >
           <Box p="xl">
-            <Typography variant="large" color="onSurface">
-              Wallet
+            <Typography
+              variant="large"
+              color="onSurface"
+              textTransform="capitalize"
+            >
+              {t('common.v2.wallet.name')}
             </Typography>
           </Box>
           <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
@@ -112,7 +120,7 @@ const WalletProfileDropdown: FC<WalletProfileDropdownProps> = ({ isOpen }) => {
               <ActivitySVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
 
               <Typography variant="small" color="onSurface">
-                Activity
+                {t('common.v2.wallet.activity')}
               </Typography>
             </Box>
           </MenuItemWrapper>
@@ -121,7 +129,7 @@ const WalletProfileDropdown: FC<WalletProfileDropdownProps> = ({ isOpen }) => {
               <AssetsSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
 
               <Typography variant="small" color="onSurface">
-                Assets
+                {t('common.v2.wallet.assets')}
               </Typography>
             </Box>
           </MenuItemWrapper>
@@ -129,7 +137,7 @@ const WalletProfileDropdown: FC<WalletProfileDropdownProps> = ({ isOpen }) => {
             <Box display="flex" alignItems="center" gap="l">
               <LinkSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
               <Typography variant="small" color="onSurface">
-                View on explorer
+                {capitalize(t('common.v2.wallet.viewInExplorer'))}
               </Typography>
             </Box>
           </MenuItemWrapper>
@@ -138,7 +146,7 @@ const WalletProfileDropdown: FC<WalletProfileDropdownProps> = ({ isOpen }) => {
               <Box display="flex" alignItems="center" gap="l">
                 <SwitchSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
                 <Typography variant="small" color="onSurface">
-                  Switch Account
+                  {t('common.v2.wallet.switch')}
                 </Typography>
               </Box>
             </MenuItemWrapper>
@@ -148,7 +156,7 @@ const WalletProfileDropdown: FC<WalletProfileDropdownProps> = ({ isOpen }) => {
               <Box display="flex" alignItems="center" gap="l">
                 <LogoutSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
                 <Typography variant="small" color="onSurface">
-                  Disconnect
+                  {t('common.v2.wallet.disconnect')}
                 </Typography>
               </Box>
             </MenuItemWrapper>

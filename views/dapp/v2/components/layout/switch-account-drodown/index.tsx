@@ -1,4 +1,5 @@
 import { Box, Motion, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC, useMemo } from 'react';
 import { v4 } from 'uuid';
 
@@ -18,6 +19,7 @@ const USERS = [
 ];
 
 const SwitchAccountDropdown: FC<SwitchAccountDropdownProps> = ({ isOpen }) => {
+  const t = useTranslations();
   const colorsArray = useMemo(
     () => ['#fde68a', '#fed7aa', '#d9f99d', '#a5f3fc', '#e9d5ff', '#fecaca'],
     []
@@ -38,7 +40,9 @@ const SwitchAccountDropdown: FC<SwitchAccountDropdownProps> = ({ isOpen }) => {
     >
       <Box p="xl" display="flex" gap="l" color="onSurface" alignItems="center">
         <ArrowLeft maxHeight="1rem" maxWidth="1rem" width="100%" />
-        <Typography variant="small">Switch Account</Typography>
+        <Typography variant="small" textTransform="capitalize">
+          {t('common.v2.wallet.switch')}
+        </Typography>
       </Box>
       {USERS.map((user) => (
         <MenuItemWrapper key={v4()}>

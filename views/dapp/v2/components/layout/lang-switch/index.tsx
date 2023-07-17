@@ -1,4 +1,5 @@
 import { Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
 import { FLAG_ICON_MAP } from '@/constants/locale';
@@ -12,6 +13,8 @@ import LangSwitchDropdown from './lang-switch-drodown';
 const BOX_ID = 'lang-switch-box-id-1234';
 
 const LangSwitch: FC = () => {
+  const t = useTranslations();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const { currentLocale, locales } = useLocale();
@@ -41,7 +44,7 @@ const LangSwitch: FC = () => {
         alignContent="center"
         justifyContent="space-between"
       >
-        <Typography variant="small">Language</Typography>
+        <Typography variant="small">{t('common.v2.menu.languages')}</Typography>
         <LangIcon maxWidth="1.125rem" maxHeight="1.125rem" width="100%" />
         <LangSwitchDropdown isOpen={isOpen} locales={locales} />
       </RefBox>
