@@ -7,12 +7,10 @@ import useEventListener from '@/hooks/use-event-listener';
 
 import Footer from './footer';
 import Header from './header';
-import LangSwitch from './lang-switch';
 import { LayoutProps } from './layout.types';
 import GlobalMenu from './menu';
 import Sidebar from './sidebar';
-import ThemeSwitch from './theme-switch';
-import Wallet from './wallet';
+import WalletProfile from './wallet-profile';
 
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   children,
@@ -63,12 +61,13 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
                 </Typography>
               )}
               <Box
+                gap="xs"
                 display="flex"
                 alignItems="center"
                 justifyContent="space-between"
               >
+                <WalletProfile />
                 <GlobalMenu />
-                <Wallet />
               </Box>
             </Box>
             {children}

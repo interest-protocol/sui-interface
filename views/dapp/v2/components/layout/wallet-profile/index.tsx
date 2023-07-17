@@ -1,15 +1,15 @@
 import { Button, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { FC, useState } from 'react';
 
-import { CogsSVG } from '@/components/svg/v2';
+import { UserSVG } from '@/components/svg/v2';
 import { RefBox } from '@/elements';
 import useClickOutsideListenerRef from '@/hooks/use-click-outside-listener-ref';
 
-import GlobalMenuDropdown from './menu-drodown';
+import WalletProfileDropdown from './wallet-profile-drodown';
 
-const BOX_ID = 'lang-switch-box-id-123';
+const BOX_ID = 'wallet-box-id-123';
 
-const GlobalMenu: FC = () => {
+const WalletProfile: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { colors } = useTheme() as Theme;
 
@@ -29,28 +29,28 @@ const GlobalMenu: FC = () => {
   return (
     <RefBox
       id={BOX_ID}
-      display="flex"
-      border="1px solid"
-      borderRadius="100%"
-      position="relative"
-      flexDirection="column"
-      ref={connectedBoxRef}
-      justifyContent="center"
-      transition="background-color .5s"
       ml={['0.5rem', '0.5rem', '0.5rem', 'unset']}
-      borderColor={colors['outline.outlineVariant']}
-      nHover={{ bg: colors['outline.outlineVariant'] }}
+      display="flex"
+      position="relative"
+      ref={connectedBoxRef}
+      flexDirection="column"
+      justifyContent="center"
+      borderRadius="100%"
+      border="1px solid"
+      transition="background-color .5s"
+      bg={colors['primary']}
     >
       <Button
         variant="icon"
+        color={colors['primary.onPrimary']}
         nHover={{ bg: 'transparent' }}
         onClick={() => setIsOpen(true)}
       >
-        <CogsSVG maxWidth="1.7rem" maxHeight="1.7rem" width="100%" />
+        <UserSVG maxWidth="2.5rem" maxHeight="2.5rem" width="100%" />
       </Button>
-      <GlobalMenuDropdown isOpen={isOpen} />
+      <WalletProfileDropdown isOpen={isOpen} />
     </RefBox>
   );
 };
 
-export default GlobalMenu;
+export default WalletProfile;

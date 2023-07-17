@@ -11,36 +11,15 @@ import { useRouter } from 'next/router';
 import { not } from 'ramda';
 import { FC } from 'react';
 
-// import { v4 } from 'uuid';
+import { wrapperVariants } from '@/constants';
 import { useNetwork } from '@/hooks';
 import { AppTheme } from '@/interface';
 
 import MenuItemWrapper from '../../header/menu/menu-item-wrapper';
 import LangSwitch from '../../lang-switch';
-import { LangSwitchDropdownProps } from '../lang-switch.types';
+import { GlobalMenuDropdownProps } from '../menu-dropdown.types';
 
-const wrapperVariants = {
-  open: {
-    clipPath: 'inset(0% 0% 0% 0% round 10px)',
-    transition: {
-      type: 'spring',
-      bounce: 0,
-      duration: 0.7,
-      delayChildren: 0.3,
-      staggerChildren: 0.1,
-    },
-  },
-  closed: {
-    clipPath: 'inset(10% 50% 90% 50% round 10px)',
-    transition: {
-      type: 'spring',
-      bounce: 0,
-      duration: 0.3,
-    },
-  },
-};
-
-const GlobalMenuDropdown: FC<LangSwitchDropdownProps> = ({ isOpen }) => {
+const GlobalMenuDropdown: FC<GlobalMenuDropdownProps> = ({ isOpen }) => {
   const { dark, setDark } = useTheme() as AppTheme<Theme>;
   const { asPath } = useRouter();
   const { network, setNetwork } = useNetwork();
@@ -52,6 +31,7 @@ const GlobalMenuDropdown: FC<LangSwitchDropdownProps> = ({ isOpen }) => {
     <Motion
       right="0"
       top="3rem"
+      overflow="visible"
       zIndex={1}
       initial="closed"
       borderRadius="m"
