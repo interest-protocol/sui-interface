@@ -37,6 +37,8 @@
       "menu": {
         "settings": "definições globais",
         "testnet": "rede de testes",
+        "dark": "escuro",
+        "light": "claro",
         "darkMode": "modo escuro",
         "languages": "idiomas",
         "selectLanguage": "selecionar idioma"

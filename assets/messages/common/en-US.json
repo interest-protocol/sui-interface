@@ -37,6 +37,8 @@
       "menu": {
         "settings": "global settings",
         "testnet": "testnet",
+        "dark": "dark",
+        "light": "light",
         "darkMode": "dark mode",
         "languages": "languages",
         "selectLanguage": "select language"
