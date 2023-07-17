@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
+import { wrapperVariants } from '@/constants';
 import { FLAG_ICON_MAP } from '@/constants/locale';
 import { useLocale } from '@/hooks';
 import { capitalize } from '@/utils';

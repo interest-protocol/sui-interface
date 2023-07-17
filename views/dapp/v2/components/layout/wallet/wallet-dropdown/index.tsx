@@ -7,6 +7,7 @@ import { FC } from 'react';
 import toast from 'react-hot-toast';
 
 import { CheckmarkSVG } from '@/components/svg/v2';
+import { wrapperVariants } from '@/constants';
 import { useWeb3 } from '@/hooks';
 import { CopySVG } from '@/svg';
 import { capitalize } from '@/utils';
