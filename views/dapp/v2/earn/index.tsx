@@ -1,28 +1,32 @@
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { Layout } from '../components';
-import EarnCard from '../components/earn-card';
-import EarnContainer from '../components/earn-card/earn-container';
-import DetailedHeader from '../components/earn-detailed-header';
+import { useModal } from '@/hooks';
+import { capitalize } from '@/utils';
 
-const EarnPage: FC = () => {
+import { Layout } from '../components';
+import EarnListCard from './earn-list';
+import FilterSection from './filters-section';
+import EarnOverview from './overview';
+
+const Earn: FC = () => {
+  const t = useTranslations();
+  const { setModal, handleClose } = useModal();
+
+  const openModalFilters = () =>
+    setModal(<FilterSection handleClose={handleClose} />, {
+      isOpen: true,
+      custom: true,
+      opaque: false,
+      allowClose: true,
+    });
+
   return (
-    // <Layout dashboard titlePage="Earn">
-    <Layout dashboard titlePage={<DetailedHeader />}>
-      <EarnContainer columns={3}>
-        <EarnCard isPool type="normal" />
-        <EarnCard isPool type="normal" />
-        <EarnCard isPool type="normal" />
-        <EarnCard isPool type="normal" />
-        <EarnCard isPool type="normal" />
-        <EarnCard isPosition type="normal" />
-      </EarnContainer>
-      <EarnContainer columns={2}>
-        <EarnCard type="preview" action="add" />
-        <EarnCard type="preview" action="remove" />
-      </EarnContainer>
+    <Layout dashboard titlePage={capitalize(t('earn.metadata.title'))}>
+      <EarnOverview />
+      <EarnListCard openModalFilters={openModalFilters} />
     </Layout>
   );
 };
 
-export default EarnPage;
+export default Earn;

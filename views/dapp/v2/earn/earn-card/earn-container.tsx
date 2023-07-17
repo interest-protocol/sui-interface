@@ -9,11 +9,15 @@ interface EarnContainerProps {
 const EarnContainer: FC<EarnContainerProps> = ({ columns, children }) => {
   return (
     <Box
-      p="0 2rem"
-      display="grid"
-      borderRadius=".25rem"
-      gridTemplateColumns={`repeat(${columns}, 1fr)`}
-      gap="1rem"
+      borderRadius="m"
+      gridTemplateColumns={[
+        '1fr',
+        '1fr',
+        `repeat(${columns - 1}, 1fr)`,
+        `repeat(${columns}, 1fr)`,
+      ]}
+      gap="l"
+      variant="container"
     >
       {children}
     </Box>

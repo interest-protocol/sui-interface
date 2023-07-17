@@ -34,6 +34,13 @@ export const SIDEBAR_ITEMS = [
     networks: [Network.TESTNET, Network.MAINNET],
   },
   {
+    Icon: PoolSVG,
+    name: 'earn',
+    path: Routes[RoutesEnum.Earn],
+    disabled: false,
+    networks: [Network.TESTNET, Network.DEVNET],
+  },
+  {
     Icon: FarmSVG,
     name: 'farm',
     path: Routes[RoutesEnum.LiquidityFarms],
