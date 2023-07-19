@@ -215,7 +215,6 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
   ) : (
     <Motion
       layout
-      width={['90vw', '90vw', '90vw', '24.375rem']}
       display="flex"
       maxHeight="90vh"
       maxWidth="26rem"
@@ -227,13 +226,14 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
       flexDirection="column"
       boxShadow="0 0 5px #3334"
       transition={{ duration: 0.3 }}
+      width={['90vw', '90vw', '90vw', '24.375rem']}
     >
       <Box
         p="xl"
         display="flex"
+        color="onSurface"
         alignItems="center"
         justifyContent="space-between"
-        color="onSurface"
       >
         <Button
           variant="icon"
@@ -244,11 +244,8 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
           <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>
         <Box display="flex" alignItems="center">
-          <Box display="flex" alignItems="center">
-            <MarketTableTokenIcon type={asset.coin.token.type} />
-          </Box>
           <Typography variant="title5" ml="0.5rem" color="onSurface">
-            {asset.coin.token.symbol}
+            {t('lend.borrow')}
           </Typography>
         </Box>
         <Button variant="icon" onClick={closeModal}>
@@ -301,7 +298,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
         )}
         <Box
           as="hr"
-          mx="4xl"
+          mx="s"
           my="1.5rem"
           border="none"
           borderBottom="1px solid"
@@ -330,6 +327,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
       </Box>
       <Box
         p="xl"
+        pt="0"
         bg="surface.containerLow"
         display="flex"
         gap="0.5rem"
@@ -337,6 +335,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
       >
         <Button
           variant="filled"
+          size="small"
           fontSize="s"
           width="100%"
           display="flex"

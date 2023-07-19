@@ -234,11 +234,8 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
           <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         </Button>
         <Box display="flex" alignItems="center">
-          <Box display="flex" alignItems="center">
-            <MarketTableTokenIcon type={asset.coin.token.type} />
-          </Box>
           <Typography variant="title5" ml="0.5rem" color="onSurface">
-            {asset.coin.token.symbol}
+            {t('lend.supply')}
           </Typography>
         </Box>
         <Button variant="icon" onClick={closeModal}>
@@ -291,7 +288,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
         )}
         <Box
           as="hr"
-          mx="4xl"
+          mx="s"
           my="1.5rem"
           border="none"
           borderBottom="1px solid"
@@ -312,6 +309,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
       </Box>
       <Box
         p="xl"
+        pt="0"
         bg="surface.containerLow"
         display="flex"
         gap="0.5rem"
@@ -320,6 +318,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
         <Button
           variant="filled"
           fontSize="s"
+          size="small"
           width="100%"
           display="flex"
           justifyContent="center"

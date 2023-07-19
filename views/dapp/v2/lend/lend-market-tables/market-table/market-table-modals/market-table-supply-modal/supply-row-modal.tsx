@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Motion,
-  Slider,
   Tabs,
   Theme,
   Typography,
@@ -14,6 +13,7 @@ import { not, pathOr } from 'ramda';
 import { ChangeEvent, FC, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
+import { Chip } from '@/components';
 import { COINS, DOUBLE_SCALAR } from '@/constants';
 import { FixedPointMath } from '@/lib';
 import {
@@ -170,60 +170,61 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
         closeModal={closeModal}
         isCenter
       />
-      <Box display="flex" justifyContent="center">
+      <Box
+        display="flex"
+        justifyContent="center"
+        borderBottom="1px solid"
+        borderColor="outline.outlineVariant"
+      >
         <Tabs
           items={[t('lend.supply'), t('lend.withdraw')]}
           onChangeTab={handleTab}
           defaultTabIndex={+!isDeposit}
         />
       </Box>
-      <Box p="xl" display="flex" flexDirection="column" pb="2rem">
+      <Box
+        pb="l"
+        p="2xl"
+        display="flex"
+        flexDirection="column"
+        bg="surface.containerLow"
+      >
         {isDeposit ? (
-          <>
-            <Typography
-              mb="s"
-              textAlign="end"
-              variant="extraSmall"
-              textTransform="capitalize"
-            >
-              {t('common.v2.wallet.name')}:{' '}
+          <Box
+            display="flex"
+            fontWeight="300"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Typography variant="extraSmall" textTransform="capitalize">
+              {t('common.balance')}:{' '}
               {formatMoney(Number((+balance.toFixed(6)).toPrecision()))}{' '}
               {asset.coin.token.symbol}
             </Typography>
-            <Typography
-              mb="2.313rem"
-              textAlign="end"
-              variant="extraSmall"
-              textTransform="capitalize"
-            >
+            <Typography variant="extraSmall" textTransform="capitalize">
               {t('lend.overview.supply')}:{' '}
               {formatMoney(Number((+suppliedAmount.toFixed(6)).toPrecision()))}{' '}
               {asset.coin.token.symbol}
             </Typography>
-          </>
+          </Box>
         ) : (
-          <>
-            <Typography
-              mb="s"
-              textAlign="end"
-              variant="extraSmall"
-              textTransform="capitalize"
-            >
+          <Box
+            display="flex"
+            fontWeight="300"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Typography variant="extraSmall" textTransform="capitalize">
               {t('common.v2.wallet.name')}:{' '}
               {formatMoney(Number((+balance.toFixed(6)).toPrecision()))}{' '}
               {asset.coin.token.symbol}
             </Typography>
-            <Typography
-              mb="2.313rem"
-              textAlign="end"
-              variant="extraSmall"
-              textTransform="capitalize"
-            >
+            <Typography variant="extraSmall" textTransform="capitalize">
               {t('lend.overview.supply')}:{' '}
               {formatMoney(Number((+suppliedAmount.toFixed(6)).toPrecision()))}{' '}
               {asset.coin.token.symbol}
             </Typography>
-          </>
+          </Box>
         )}
         <MarketTableModalField
           symbol={asset.coin.token.symbol}
@@ -244,21 +245,35 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
             },
           })}
         />
-        <Slider
-          max={100}
-          disabled={!checkValue}
-          onChange={(value) => {
-            const parsedValue = Number(
-              ((value / 100) * checkValue).toFixed(6)
-            ).toPrecision();
-            supplyForm.setValue('value', parsedValue);
-            supplyForm.setValue('originalValue', parsedValue);
-            supplyForm.setValue('isMax', value === 100);
-          }}
-        />
+        <Box display="flex" columnGap=".25rem">
+          <Chip
+            isActive={supplyForm.getValues('isMax')}
+            text="25%"
+            noCheckmark
+            onClick={() => (supplyForm.getValues('isMax') ? null : null)}
+          />
+          <Chip
+            isActive={supplyForm.getValues('isMax')}
+            text="50%"
+            noCheckmark
+            onClick={() => (supplyForm.getValues('isMax') ? null : null)}
+          />
+          <Chip
+            isActive={supplyForm.getValues('isMax')}
+            text="75%"
+            noCheckmark
+            onClick={() => (supplyForm.getValues('isMax') ? null : null)}
+          />
+          <Chip
+            isActive={supplyForm.getValues('isMax')}
+            text="Max"
+            noCheckmark
+            onClick={() => (supplyForm.getValues('isMax') ? null : null)}
+          />
+        </Box>
       </Box>
-      <Box overflowX="hidden" overflowY="auto">
-        <Box p="xl">
+      <Box overflowX="hidden" overflowY="auto" bg="surface.containerLow">
+        <Box p="xl" pt="0" pb="2xl">
           <BorrowLimitsWrapper
             priceMap={priceMap}
             isDeposit={isDeposit}
@@ -268,7 +283,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
             userBalancesInUSD={userBalancesInUSD}
           />
         </Box>
-        <Box mx="-0.5rem" px="xl">
+        <Box px="xl">
           <Box bg="surface.containerLowest" borderRadius="m">
             <Box
               p="xl"
@@ -288,7 +303,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
                     .multipliedBy(100)
                     .dividedBy(DOUBLE_SCALAR)
                     .toNumber()
-                    .toFixed(2) + ' %'}
+                    .toFixed(2) + '%'}
                 </Typography>
               </Box>
             </Box>
@@ -332,6 +347,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
             fontSize="s"
             width="100%"
             display="flex"
+            size="small"
             justifyContent="center"
             onClick={() => handlePreview()}
           >

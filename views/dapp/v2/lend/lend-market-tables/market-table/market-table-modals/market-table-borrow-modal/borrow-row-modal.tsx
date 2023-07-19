@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Motion,
-  Slider,
   Tabs,
   Theme,
   Typography,
@@ -14,6 +13,7 @@ import { not, pathOr } from 'ramda';
 import { ChangeEvent, FC, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
+import { Chip } from '@/components';
 import { COINS, DOUBLE_SCALAR } from '@/constants';
 import { useMoneyMarketSdk } from '@/hooks';
 import { FixedPointMath } from '@/lib';
@@ -167,54 +167,56 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
         closeModal={closeModal}
         isCenter
       />
-      <Box display="flex" justifyContent="center">
+      <Box
+        display="flex"
+        justifyContent="center"
+        borderBottom="1px solid"
+        borderColor="outline.outlineVariant"
+      >
         <Tabs
           items={[t('lend.borrow'), t('lend.repay')]}
           onChangeTab={handleTab}
           defaultTabIndex={+!isLoan}
         />
       </Box>
-      <Box p="xl" display="flex" flexDirection="column" pb="2rem">
+
+      <Box
+        pb="l"
+        p="2xl"
+        display="flex"
+        flexDirection="column"
+        bg="surface.containerLow"
+      >
         {isLoan ? (
-          <>
-            <Typography
-              mb="s"
-              textAlign="end"
-              variant="extraSmall"
-              textTransform="capitalize"
-            >
-              {t('common.v2.wallet.name')}: {balance} {asset.coin.token.symbol}
+          <Box
+            display="flex"
+            fontWeight="300"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Typography variant="extraSmall" textTransform="capitalize">
+              {t('common.balance')}: {balance} {asset.coin.token.symbol}
             </Typography>
-            <Typography
-              variant="extraSmall"
-              textAlign="end"
-              mb="2.313rem"
-              textTransform="capitalize"
-            >
+            <Typography variant="extraSmall" textTransform="capitalize">
               {t('common.plafond')}:{' '}
               {formatMoney(Number((+checkValue.toFixed(6)).toPrecision()))}{' '}
               {asset.coin.token.symbol}
             </Typography>
-          </>
+          </Box>
         ) : (
-          <>
-            <Typography
-              mb="s"
-              textAlign="end"
-              variant="extraSmall"
-              textTransform="capitalize"
-            >
+          <Box
+            display="flex"
+            fontWeight="300"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Typography variant="extraSmall" textTransform="capitalize">
               {t('common.v2.wallet.name')}: {balance} {asset.coin.token.symbol}
             </Typography>
-            <Typography
-              mb="2.313rem"
-              textAlign="end"
-              variant="extraSmall"
-              textTransform="capitalize"
-            >
+            <Typography variant="extraSmall" textTransform="capitalize">
               {t('lend.borrowed')}: {loanBalance} {asset.coin.token.symbol}
             </Typography>
-          </>
+          </Box>
         )}
         <MarketTableModalField
           symbol={asset.coin.token.symbol}
@@ -243,24 +245,35 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
             },
           })}
         />
-        <Slider
-          disabled={isLoan ? checkValue === 0 : market.userPrincipal.isZero()}
-          max={100}
-          onChange={(value) => {
-            const parsedValue = Number(
-              (isLoan
-                ? (value / 100) * checkValue
-                : (value / 100) * loanBalance
-              ).toFixed(6)
-            ).toPrecision();
-            borrowForm.setValue('value', parsedValue);
-            borrowForm.setValue('originalValue', parsedValue);
-            borrowForm.setValue('isMax', value === 100);
-          }}
-        />
+        <Box display="flex" columnGap=".25rem">
+          <Chip
+            isActive={borrowForm.getValues('isMax')}
+            text="25%"
+            noCheckmark
+            onClick={() => (borrowForm.getValues('isMax') ? null : null)}
+          />
+          <Chip
+            isActive={borrowForm.getValues('isMax')}
+            text="50%"
+            noCheckmark
+            onClick={() => (borrowForm.getValues('isMax') ? null : null)}
+          />
+          <Chip
+            isActive={borrowForm.getValues('isMax')}
+            text="75%"
+            noCheckmark
+            onClick={() => (borrowForm.getValues('isMax') ? null : null)}
+          />
+          <Chip
+            isActive={borrowForm.getValues('isMax')}
+            text="Max"
+            noCheckmark
+            onClick={() => (borrowForm.getValues('isMax') ? null : null)}
+          />
+        </Box>
       </Box>
-      <Box overflowX="hidden" overflowY="auto">
-        <Box p="xl">
+      <Box overflowX="hidden" overflowY="auto" bg="surface.containerLow">
+        <Box p="xl" pt="0" pb="2xl">
           <BorrowLimitsWrapper
             isLoan={isLoan}
             priceMap={priceMap}
@@ -270,7 +283,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
             userBalancesInUSD={userBalancesInUSD}
           />
         </Box>
-        <Box mx="-0.5rem" px="xl">
+        <Box px="xl">
           <Box bg="surface.containerLowest" borderRadius="m">
             <Box
               p="xl"
@@ -331,6 +344,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
           <Button
             variant="filled"
             fontSize="s"
+            size="small"
             width="100%"
             display="flex"
             justifyContent="center"
