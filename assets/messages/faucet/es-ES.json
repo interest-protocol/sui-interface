@@ -3,8 +3,8 @@
     "metadata": {
       "title": "Faucet"
     },
-    "pageTitle": "Faucet",
-    "mint": "Mint",
+    "pageTitle": "Fauncet",
+    "mint": "{isLoading, plural, =1 {Minting...} other {Mint}}",
     "tokenInput": "Elige el Token",
     "modal": {
       "loading": {

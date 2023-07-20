@@ -1,14 +1,10 @@
 import { Box, InfoCard, Theme, useTheme } from '@interest-protocol/ui-kit';
-import { useTranslations } from 'next-intl';
 import { FC } from 'react';
-
-import { TTranslatedMessage } from '@/interface';
 
 import APRCardTrendInfo from './apr-card-trend-info';
 import { APRCardProps } from './card.types';
 
 const APRCard: FC<APRCardProps> = ({ Icon, description, amount, trend }) => {
-  const t = useTranslations();
   const { dark } = useTheme() as Theme;
 
   return (
@@ -29,7 +25,7 @@ const APRCard: FC<APRCardProps> = ({ Icon, description, amount, trend }) => {
           >
             <Icon maxWidth="0.85rem" maxHeight="0.85rem" width="100%" />
           </Box>
-          {t(description as TTranslatedMessage)}
+          {description}
         </Box>
       }
     >

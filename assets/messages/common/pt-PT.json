@@ -38,8 +38,8 @@
         "farm": "farm",
         "createToken": "criar token",
         "settings": "definições",
-        "faucet": "faucet",
-        "bridge": "bridge"
+        "bridge": "bridge",
+        "faucet": "faucet"
       },
       "wallet": {
         "name": "carteira",

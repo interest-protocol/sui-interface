@@ -68,4 +68,11 @@ export const SIDEBAR_ITEMS = [
     disabled: false,
     networks: [Network.MAINNET],
   },
+  {
+    Icon: CogsSVG,
+    name: 'faucet',
+    path: Routes[RoutesEnum.Faucet],
+    disabled: false,
+    networks: [Network.MAINNET],
+  },
 ];

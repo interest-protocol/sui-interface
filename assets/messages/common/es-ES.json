@@ -31,8 +31,8 @@
         "lend": "Préstamo",
         "createToken": "Crear token",
         "settings": "Configuración",
-        "faucet": "faucet",
-        "bridge": "Bridge"
+        "bridge": "Bridge",
+        "faucet": "faucet"
       },
       "menu": {
         "settings": "Configuración",
