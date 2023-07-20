@@ -22,11 +22,10 @@ const MarketTableModalField: FC<
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       ref={ref}
+      fontSize="m"
       placeholder="0"
-      fontSize="1rem"
-      transition="fontSize 300ms ease-in-out"
-      Suffix={props.symbol}
       defaultValue={value}
+      Suffix={props.symbol}
       fieldProps={{
         px: '1rem',
         my: '.5rem',

@@ -246,10 +246,42 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
           })}
         />
         <Box display="flex" columnGap=".25rem">
-          <PercentageButton value="25%" />
-          <PercentageButton value="50%" />
-          <PercentageButton value="75%" />
-          <PercentageButton value="Max" />
+          <PercentageButton
+            value={25}
+            total={isLoan ? checkValue : loanBalance}
+            onSelect={(parsedValue) => {
+              borrowForm.setValue('value', parsedValue);
+              borrowForm.setValue('originalValue', parsedValue);
+              borrowForm.setValue('isMax', false);
+            }}
+          />
+          <PercentageButton
+            value={50}
+            total={isLoan ? checkValue : loanBalance}
+            onSelect={(parsedValue) => {
+              borrowForm.setValue('value', parsedValue);
+              borrowForm.setValue('originalValue', parsedValue);
+              borrowForm.setValue('isMax', false);
+            }}
+          />
+          <PercentageButton
+            value={75}
+            total={isLoan ? checkValue : loanBalance}
+            onSelect={(parsedValue) => {
+              borrowForm.setValue('value', parsedValue);
+              borrowForm.setValue('originalValue', parsedValue);
+              borrowForm.setValue('isMax', false);
+            }}
+          />
+          <PercentageButton
+            value={100}
+            total={isLoan ? checkValue : loanBalance}
+            onSelect={(parsedValue) => {
+              borrowForm.setValue('value', parsedValue);
+              borrowForm.setValue('originalValue', parsedValue);
+              borrowForm.setValue('isMax', true);
+            }}
+          />
         </Box>
       </Box>
       <Box overflowX="hidden" overflowY="auto" bg="surface.containerLow">
