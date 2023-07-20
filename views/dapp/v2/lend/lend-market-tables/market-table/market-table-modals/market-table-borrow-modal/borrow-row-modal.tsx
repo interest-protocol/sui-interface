@@ -195,7 +195,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
             justifyContent="space-between"
           >
             <Typography variant="extraSmall" textTransform="capitalize">
-              {t('common.balance')}: {balance} {asset.coin.token.symbol}
+              {t('common.v2.wallet.name')}: {balance} {asset.coin.token.symbol}
             </Typography>
             <Typography variant="extraSmall" textTransform="capitalize">
               {t('common.plafond')}:{' '}

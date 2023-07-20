@@ -197,7 +197,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
             justifyContent="space-between"
           >
             <Typography variant="extraSmall" textTransform="capitalize">
-              {t('common.balance')}:{' '}
+              {t('common.v2.wallet.name')}:{' '}
               {formatMoney(Number((+balance.toFixed(6)).toPrecision()))}{' '}
               {asset.coin.token.symbol}
             </Typography>
@@ -215,7 +215,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
             justifyContent="space-between"
           >
             <Typography variant="extraSmall" textTransform="capitalize">
-              {t('common.balance')}:{' '}
+              {t('common.v2.wallet.name')}:{' '}
               {formatMoney(Number((+balance.toFixed(6)).toPrecision()))}{' '}
               {asset.coin.token.symbol}
             </Typography>
