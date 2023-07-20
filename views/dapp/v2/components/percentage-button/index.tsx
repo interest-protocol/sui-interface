@@ -1,14 +1,31 @@
 import { Button, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-interface PercentageButtonProps {
-  value: '25%' | '50%' | '75%' | 'Max';
-}
-const PercentageButton: FC<PercentageButtonProps> = ({ value }) => {
+import { PercentageButtonProps } from './percentage-button.types';
+
+const PercentageButton: FC<PercentageButtonProps> = ({
+  value,
+  total,
+  onSelect,
+}) => {
+  const handleClick = () => {
+    const parsedValue = Number(
+      ((value / 100) * total).toFixed(6)
+    ).toPrecision();
+
+    onSelect(parsedValue);
+  };
+
   return (
-    <Button variant="outline" size="small" p=".125rem .75rem" bg="transparent">
+    <Button
+      size="small"
+      bg="transparent"
+      variant="outline"
+      p=".125rem .75rem"
+      onClick={handleClick}
+    >
       <Typography variant="extraSmall" color="onSurface">
-        {value}
+        {value === 100 ? 'Max' : `${value}%`}
       </Typography>
     </Button>
   );

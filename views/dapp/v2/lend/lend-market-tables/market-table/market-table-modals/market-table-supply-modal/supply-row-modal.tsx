@@ -246,10 +246,42 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
           })}
         />
         <Box display="flex" columnGap=".25rem">
-          <PercentageButton value="25%" />
-          <PercentageButton value="50%" />
-          <PercentageButton value="75%" />
-          <PercentageButton value="Max" />
+          <PercentageButton
+            value={25}
+            total={checkValue}
+            onSelect={(parsedValue) => {
+              supplyForm.setValue('value', parsedValue);
+              supplyForm.setValue('originalValue', parsedValue);
+              supplyForm.setValue('isMax', false);
+            }}
+          />
+          <PercentageButton
+            value={50}
+            total={checkValue}
+            onSelect={(parsedValue) => {
+              supplyForm.setValue('value', parsedValue);
+              supplyForm.setValue('originalValue', parsedValue);
+              supplyForm.setValue('isMax', false);
+            }}
+          />
+          <PercentageButton
+            value={75}
+            total={checkValue}
+            onSelect={(parsedValue) => {
+              supplyForm.setValue('value', parsedValue);
+              supplyForm.setValue('originalValue', parsedValue);
+              supplyForm.setValue('isMax', false);
+            }}
+          />
+          <PercentageButton
+            value={100}
+            total={checkValue}
+            onSelect={(parsedValue) => {
+              supplyForm.setValue('value', parsedValue);
+              supplyForm.setValue('originalValue', parsedValue);
+              supplyForm.setValue('isMax', true);
+            }}
+          />
         </Box>
       </Box>
       <Box overflowX="hidden" overflowY="auto" bg="surface.containerLow">
