@@ -13,7 +13,6 @@ import { not, pathOr } from 'ramda';
 import { ChangeEvent, FC, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
-import { Chip } from '@/components';
 import { COINS, DOUBLE_SCALAR } from '@/constants';
 import { FixedPointMath } from '@/lib';
 import {
@@ -22,6 +21,7 @@ import {
   parseInputEventToNumberString,
   ZERO_BIG_NUMBER,
 } from '@/utils';
+import { PercentageButton } from '@/views/dapp/v2/components';
 import BorrowLimits from '@/views/dapp/v2/lend/lend-market-tables/market-table/market-table-modals/borrow-limits';
 
 import {
@@ -215,7 +215,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
             justifyContent="space-between"
           >
             <Typography variant="extraSmall" textTransform="capitalize">
-              {t('common.v2.wallet.name')}:{' '}
+              {t('common.balance')}:{' '}
               {formatMoney(Number((+balance.toFixed(6)).toPrecision()))}{' '}
               {asset.coin.token.symbol}
             </Typography>
@@ -246,30 +246,10 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
           })}
         />
         <Box display="flex" columnGap=".25rem">
-          <Chip
-            isActive={supplyForm.getValues('isMax')}
-            text="25%"
-            noCheckmark
-            onClick={() => (supplyForm.getValues('isMax') ? null : null)}
-          />
-          <Chip
-            isActive={supplyForm.getValues('isMax')}
-            text="50%"
-            noCheckmark
-            onClick={() => (supplyForm.getValues('isMax') ? null : null)}
-          />
-          <Chip
-            isActive={supplyForm.getValues('isMax')}
-            text="75%"
-            noCheckmark
-            onClick={() => (supplyForm.getValues('isMax') ? null : null)}
-          />
-          <Chip
-            isActive={supplyForm.getValues('isMax')}
-            text="Max"
-            noCheckmark
-            onClick={() => (supplyForm.getValues('isMax') ? null : null)}
-          />
+          <PercentageButton value="25%" />
+          <PercentageButton value="50%" />
+          <PercentageButton value="75%" />
+          <PercentageButton value="Max" />
         </Box>
       </Box>
       <Box overflowX="hidden" overflowY="auto" bg="surface.containerLow">

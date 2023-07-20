@@ -13,7 +13,6 @@ import { not, pathOr } from 'ramda';
 import { ChangeEvent, FC, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
-import { Chip } from '@/components';
 import { COINS, DOUBLE_SCALAR } from '@/constants';
 import { useMoneyMarketSdk } from '@/hooks';
 import { FixedPointMath } from '@/lib';
@@ -23,6 +22,7 @@ import {
   parseInputEventToNumberString,
   ZERO_BIG_NUMBER,
 } from '@/utils';
+import { PercentageButton } from '@/views/dapp/v2/components';
 import {
   calculateIPXAPR,
   calculateNewLoanBorrowLimit,
@@ -246,30 +246,10 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
           })}
         />
         <Box display="flex" columnGap=".25rem">
-          <Chip
-            isActive={borrowForm.getValues('isMax')}
-            text="25%"
-            noCheckmark
-            onClick={() => (borrowForm.getValues('isMax') ? null : null)}
-          />
-          <Chip
-            isActive={borrowForm.getValues('isMax')}
-            text="50%"
-            noCheckmark
-            onClick={() => (borrowForm.getValues('isMax') ? null : null)}
-          />
-          <Chip
-            isActive={borrowForm.getValues('isMax')}
-            text="75%"
-            noCheckmark
-            onClick={() => (borrowForm.getValues('isMax') ? null : null)}
-          />
-          <Chip
-            isActive={borrowForm.getValues('isMax')}
-            text="Max"
-            noCheckmark
-            onClick={() => (borrowForm.getValues('isMax') ? null : null)}
-          />
+          <PercentageButton value="25%" />
+          <PercentageButton value="50%" />
+          <PercentageButton value="75%" />
+          <PercentageButton value="Max" />
         </Box>
       </Box>
       <Box overflowX="hidden" overflowY="auto" bg="surface.containerLow">
