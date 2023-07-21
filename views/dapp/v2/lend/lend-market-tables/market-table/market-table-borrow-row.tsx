@@ -193,7 +193,11 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
         </Typography>
       </Box>
       <Box px="l" display="flex" alignItems="center" justifyContent="flex-end">
-        <Typography variant="medium" textAlign="right">
+        <Typography
+          variant="medium"
+          textAlign="right"
+          wordBreak={['break-word', 'unset', 'unset', 'unset']}
+        >
           {`${
             asset.coin.token.type == skd.getSUIDType() ? '∞' : formatMoney(cash)
           }
