@@ -234,7 +234,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
         </Button>
         <Box display="flex" alignItems="center">
           <Typography variant="title5" ml="0.5rem" color="onSurface">
-            {t('lend.supply')}
+            {t(isDeposit ? 'lend.supply' : 'lend.withdraw')}
           </Typography>
         </Box>
         <Button variant="icon" onClick={closeModal}>

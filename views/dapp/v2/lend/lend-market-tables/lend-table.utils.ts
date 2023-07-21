@@ -314,7 +314,10 @@ export const calculateNewRepayLimitNewAmount = ({
   priceMap,
   marketRecord,
 }: CalculateNewBorrowLimitArgs) => {
-  if (userBalancesInUSD.totalCollateral == 0 || userBalancesInUSD.totalLoan)
+  if (
+    userBalancesInUSD.totalCollateral == 0 ||
+    userBalancesInUSD.totalLoan == 0
+  )
     return {
       currentBorrowLimit: 0,
       currentBorrowLimitPercentage: 0,

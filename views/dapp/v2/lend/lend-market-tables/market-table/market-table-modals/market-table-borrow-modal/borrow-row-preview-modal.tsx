@@ -235,7 +235,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
         </Button>
         <Box display="flex" alignItems="center">
           <Typography variant="title5" ml="0.5rem" color="onSurface">
-            {t('lend.borrow')}
+            {t(isLoan ? 'lend.borrow' : 'lend.repay')}
           </Typography>
         </Box>
         <Button variant="icon" onClick={closeModal}>
