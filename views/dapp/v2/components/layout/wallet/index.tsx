@@ -3,8 +3,8 @@ import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
+import Profile from '../header/menu/profile';
 import WalletConnect from './wallet-connect';
-import WalletConnected from './wallet-connected';
 
 const Wallet: FC = () => {
   const t = useTranslations();
@@ -32,7 +32,7 @@ const Wallet: FC = () => {
     );
 
   return isConnected && !!currentAccount?.address ? (
-    <WalletConnected />
+    <Profile />
   ) : (
     <WalletConnect isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
   );

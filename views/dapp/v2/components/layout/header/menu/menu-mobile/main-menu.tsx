@@ -1,4 +1,4 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box, Motion, Typography } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
@@ -8,10 +8,12 @@ import { useNetwork } from '@/hooks';
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
-import NetworkSwitch from '../../../network-switch';
 import { SIDEBAR_ITEMS } from '../../../sidebar/sidebar.data';
+import MenuSettingsList from '../settings/menu-settings/settings-list';
 
-const MainMenu: FC = () => {
+const MainMenu: FC<{
+  handleLanguage: () => void;
+}> = ({ handleLanguage }) => {
   const t = useTranslations();
   const { network } = useNetwork();
   const { asPath, push } = useRouter();
@@ -59,9 +61,15 @@ const MainMenu: FC = () => {
             </Box>
           ))}
         </Box>
-      </Box>
-      <Box display="flex" justifyContent="center" gap="l">
-        <NetworkSwitch />
+        <Motion
+          zIndex={1}
+          initial="open"
+          bg="surface.container"
+          textTransform="capitalize"
+          animate="open"
+        >
+          <MenuSettingsList handleLanguage={handleLanguage} />
+        </Motion>
       </Box>
     </Box>
   );

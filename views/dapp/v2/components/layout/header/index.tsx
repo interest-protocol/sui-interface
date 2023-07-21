@@ -4,7 +4,6 @@ import { FC } from 'react';
 import { LogoSVG } from '@/svg';
 
 import Menu from './menu';
-import Navbar from './navbar';
 
 const Header: FC = () => (
   <Box
@@ -28,7 +27,6 @@ const Header: FC = () => (
             maxHeight="1.875rem"
           />
         </Box>
-        <Navbar />
       </Box>
       <Menu />
     </Box>

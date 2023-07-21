@@ -1,4 +1,4 @@
-import { Box, Motion, Typography } from '@interest-protocol/ui-kit';
+import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -7,18 +7,18 @@ import { wrapperVariants } from '@/constants';
 import { useLocale } from '@/hooks';
 import { ArrowLeft } from '@/svg';
 
-import LanguageMenuItem from '../../header/menu/language-menu-item';
-import MenuItemWrapper from '../../header/menu/menu-item-wrapper';
-import { LangSwitchDropdownProps } from '../lang-switch.types';
+import LanguageMenuItem from '../../language-menu-item';
+import MenuItemWrapper from '../../menu-item-wrapper';
+import { MenuLanguageProps } from '../menu.types';
 
-const LangSwitchDropdown: FC<LangSwitchDropdownProps> = ({ isOpen }) => {
+const MenuLanguage: FC<MenuLanguageProps> = ({ isOpen, onBack }) => {
   const t = useTranslations();
   const { locales, changeLocale } = useLocale();
 
   return (
     <Motion
       right="0"
-      top="0rem"
+      top="3rem"
       zIndex={1}
       initial="closed"
       borderRadius="m"
@@ -28,8 +28,18 @@ const LangSwitchDropdown: FC<LangSwitchDropdownProps> = ({ isOpen }) => {
       animate={isOpen ? 'open' : 'closed'}
       pointerEvents={isOpen ? 'auto' : 'none'}
     >
-      <Box p="xl" display="flex" gap="l" color="onSurface" alignItems="center">
-        <ArrowLeft maxHeight="1rem" maxWidth="1rem" width="100%" />
+      <Box p="xl" display="flex" gap="xs" color="onSurface" alignItems="center">
+        <Button
+          variant="icon"
+          p="0 !important"
+          nHover={{
+            color: 'primary',
+            bg: 'transparent',
+          }}
+          onClick={onBack}
+        >
+          <ArrowLeft maxHeight="1rem" maxWidth="1rem" width="100%" />
+        </Button>
         <Typography variant="small" textTransform="capitalize">
           {t('common.v2.menu.selectLanguage')}
         </Typography>
@@ -43,4 +53,4 @@ const LangSwitchDropdown: FC<LangSwitchDropdownProps> = ({ isOpen }) => {
   );
 };
 
-export default LangSwitchDropdown;
+export default MenuLanguage;

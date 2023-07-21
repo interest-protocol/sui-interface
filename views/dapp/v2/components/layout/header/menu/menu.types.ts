@@ -20,7 +20,8 @@ export interface MenuDesktopProps {
 
 export interface MenuMobileProps {
   isOpen: boolean;
-  isSettings: boolean;
+  isLanguage: boolean;
+  handleLanguage: () => void;
 }
 
 export interface MenuButtonProps {
