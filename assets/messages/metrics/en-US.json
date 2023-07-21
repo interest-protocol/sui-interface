@@ -1,0 +1,26 @@
+{
+  "metrics": {
+    "metadata": {
+      "title": "Metrics"
+    },
+    "cards": {
+      "totalLiquidity": "total liquidity",
+      "dailyVolume": "daily volume",
+      "activeWallets": "active wallets",
+      "tvlPools": "TVL pools",
+      "allTime": "all time",
+      "daily": "daily",
+      "oneMonth": "1 month",
+      "fourTeenDays": "14 days"
+    },
+    "tables": {
+      "topPools": "top pools",
+      "topCoins": "top coins",
+      "tokenPairs": "token pairs",
+      "tvl": "TVL",
+      "dayVolume": "24H Volume",
+      "weekVolume": "7D Volume",
+      "monthVolume": "30D Volume"
+    }
+  }
+}
