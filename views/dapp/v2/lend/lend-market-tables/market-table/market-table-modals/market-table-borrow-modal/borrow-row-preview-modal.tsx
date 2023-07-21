@@ -15,9 +15,8 @@ import { FC, useState } from 'react';
 
 import { LeftArrowSVG } from '@/components/svg/v2';
 import {
-  NETWORK_RECORD,
-  SUI_EXPLORER_URL,
   SUI_VISION_EXPLORER_URL,
+  SUI_VISION_TESTNET_EXPLORER_URL,
 } from '@/constants';
 import { useMoneyMarketSdk, useNetwork, useProvider } from '@/hooks';
 import { FixedPointMath } from '@/lib';
@@ -28,7 +27,6 @@ import {
   formatDollars,
   formatMoney,
   throwTXIfNotSuccessful,
-  ZERO_BIG_NUMBER,
 } from '@/utils';
 import {
   calculateNewLoanBorrowLimit,
@@ -102,7 +100,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
         txLink:
           network === Network.MAINNET
             ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-            : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`,
+            : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`,
       });
     } catch {
       openRowMarketResultModal({ isSuccess: false, isLoan });
@@ -120,25 +118,18 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
 
       const market = marketRecord[marketKey];
 
-      const maxAmount = market.totalLoanRebase
-        .toElastic(market.userPrincipal)
-        .multipliedBy(1.03)
-        .decimalPlaces(0, BigNumber.ROUND_DOWN);
-
-      const amount = isMax
-        ? maxAmount ?? ZERO_BIG_NUMBER
-        : FixedPointMath.toBigNumber(
-            value,
-            coinsMap[marketKey]?.decimals
-          ).decimalPlaces(0, BigNumber.ROUND_DOWN);
+      const amount = FixedPointMath.toBigNumber(
+        +value * 1.03,
+        coinsMap[marketKey]?.decimals
+      ).decimalPlaces(0, BigNumber.ROUND_UP);
 
       const amountInPrincipal = market.totalLoanRebase
         .toBase(amount)
-        .decimalPlaces(0, BigNumber.ROUND_DOWN);
+        .decimalPlaces(0, BigNumber.ROUND_UP);
 
       const principalToRepay =
         amountInPrincipal.gt(market.userPrincipal) || isMax
-          ? market.userPrincipal.decimalPlaces(0, BigNumber.ROUND_DOWN)
+          ? market.userPrincipal.decimalPlaces(0, BigNumber.ROUND_UP)
           : amountInPrincipal;
 
       const coinInList = createObjectsParameter({
@@ -153,7 +144,6 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
           assetType: marketKey,
           principalToRepay: principalToRepay.toString(),
           assetList: coinInList,
-          assetValue: amount.toString(),
           txb,
         }),
       });
@@ -174,7 +164,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
         txLink:
           network === Network.MAINNET
             ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-            : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`,
+            : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`,
       });
     } catch {
       openRowMarketResultModal({ isSuccess: false, isLoan });

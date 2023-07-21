@@ -131,6 +131,8 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
     marketRecord[marketKey].decimals
   );
 
+  const cash = FixedPointMath.toNumber(market.cash, market.decimals);
+
   const coinPrice = priceMap[marketKey].price;
 
   const loanInUSD = userBalancesInUSD.totalLoan / 0.9;
@@ -147,7 +149,7 @@ const SupplyMarketModal: FC<SupplyMarketModalProps> = ({
 
   const checkValue = isDeposit
     ? balance
-    : min(safeAmountToWithdraw, suppliedAmount);
+    : min(cash, min(safeAmountToWithdraw, suppliedAmount));
 
   return (
     <Motion

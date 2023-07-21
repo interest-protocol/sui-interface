@@ -82,9 +82,9 @@ export enum StakeState {
   Unstake,
 }
 
-export const SUI_EXPLORER_URL = 'https://explorer.sui.io';
-
 export const SUI_VISION_EXPLORER_URL = 'https://suivision.xyz';
+
+export const SUI_VISION_TESTNET_EXPLORER_URL = 'https://testnet.suivision.xyz';
 
 export const TOKENS_SVG_MAP = {
   default: UnknownCoinV1SVG,

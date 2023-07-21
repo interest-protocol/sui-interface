@@ -15,9 +15,8 @@ import { FC, useState } from 'react';
 
 import { LeftArrowSVG } from '@/components/svg/v2';
 import {
-  NETWORK_RECORD,
-  SUI_EXPLORER_URL,
   SUI_VISION_EXPLORER_URL,
+  SUI_VISION_TESTNET_EXPLORER_URL,
 } from '@/constants';
 import { useMoneyMarketSdk, useNetwork, useProvider } from '@/hooks';
 import { FixedPointMath } from '@/lib';
@@ -114,7 +113,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
         txLink:
           network === Network.MAINNET
             ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-            : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`,
+            : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`,
       });
     } catch {
       openRowMarketResultModal({
@@ -168,7 +167,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
         txLink:
           network === Network.MAINNET
             ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-            : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`,
+            : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`,
       });
     } catch {
       openRowMarketResultModal({ isSuccess: false, isDeposit });
