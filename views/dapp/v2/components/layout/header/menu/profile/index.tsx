@@ -172,7 +172,7 @@ const Profile: FC = () => {
       />
       <MenuSwitchAccount
         isOpen={isOpenAccount}
-        onBack={handleCloseAccount}
+        onBack={handleOpenProfile}
         loading={loading}
         suiNSRecord={suiNSRecord}
       />
