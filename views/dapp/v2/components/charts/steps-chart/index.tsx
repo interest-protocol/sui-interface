@@ -7,24 +7,11 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  XAxisProps,
 } from 'recharts';
 
 import { ChartsProps } from '../charts.types';
 import CustomTooltip from './tooltip';
-
-const CustomXAxisTick: FC<XAxisProps> = (props) => {
-  const { dark } = useTheme() as Theme;
-  const { x, y, payload } = props;
-
-  return (
-    <g transform={`translate(${x},${y})`}>
-      <text x={0} y={0} dy={16} textAnchor="middle" fill="#666">
-        <tspan fill={dark ? 'white' : 'black'}>{payload.value}</tspan>
-      </text>
-    </g>
-  );
-};
+import CustomXAxisTick from './x-axis-tick';
 
 const StepsChart: FC<ChartsProps> = ({ data }) => {
   const { colors } = useTheme() as Theme;

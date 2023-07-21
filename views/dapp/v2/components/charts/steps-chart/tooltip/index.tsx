@@ -7,7 +7,7 @@ const CustomTooltip: FC<CustomTooltipProps> = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
       <Box p="s" bg="inverseSurface" borderRadius="m">
-        {payload.map(({ value, dataKey }) => (
+        {payload.map(({ value, dataKey }: any) => (
           <Typography
             variant="extraSmall"
             color="inverseOnSurface"
