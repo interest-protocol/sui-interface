@@ -14,7 +14,7 @@ import MenuProfile from './menu-profile';
 import MenuSwitchAccount from './menu-switch-account';
 import { getName } from './profile.utils';
 
-const BOX_ID = 'wallet-box-id-123';
+const BOX_ID = 'wallet-box';
 
 const Profile: FC = () => {
   const { query } = useRouter();

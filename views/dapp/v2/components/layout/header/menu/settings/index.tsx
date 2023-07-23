@@ -10,7 +10,7 @@ import useClickOutsideListenerRef from '@/hooks/use-click-outside-listener-ref';
 import MenuLanguage from './menu-language';
 import MenuSettings from './menu-settings';
 
-const BOX_ID = 'lang-switch-box-id-123';
+const BOX_ID = 'settings-dropdown';
 
 const Settings: FC = () => {
   const { query } = useRouter();

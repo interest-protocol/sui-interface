@@ -1,12 +1,20 @@
-import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
+import {
+  Box,
+  Button,
+  Motion,
+  Theme,
+  Typography,
+  useTheme,
+} from '@interest-protocol/ui-kit';
 import { formatAddress } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { toast } from 'react-hot-toast';
+import { useLocalStorage } from 'usehooks-ts';
 
 import { CopySVG, UserSVG } from '@/components/svg/v2';
-import { wrapperVariants } from '@/constants';
+import { SEMANTIC_COLORS, wrapperVariants } from '@/constants';
 import { useWeb3 } from '@/hooks';
 import { ArrowLeft } from '@/svg';
 import { capitalize } from '@/utils';
@@ -21,6 +29,7 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
   onBack,
 }) => {
   const t = useTranslations();
+  const { dark } = useTheme() as Theme;
   const { account } = useWeb3();
   const { accounts, selectAccount } = useWalletKit();
 
@@ -28,12 +37,12 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
     window.navigator.clipboard.writeText(address || '');
     toast(capitalize(t('common.v2.wallet.copy')));
   };
-  const colorsArray = useMemo(
-    () =>
-      ['#fde68a', '#fed7aa', '#d9f99d', '#a5f3fc', '#e9d5ff', '#fecaca'].sort(
-        () => Math.random() - 0.5
-      ),
-    []
+
+  const [randomColor] = useLocalStorage<
+    ReadonlyArray<{ dark: string; light: string }>
+  >(
+    'sui-interest-account-colors',
+    SEMANTIC_COLORS.sort(() => Math.random() - 0.5)
   );
 
   return (
@@ -76,7 +85,11 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
         >
           <Box display="flex" alignItems="center" gap="l">
             <Box
-              bg={colorsArray[index]}
+              bg={
+                dark
+                  ? randomColor[index % randomColor.length].dark
+                  : randomColor[index % randomColor.length].light
+              }
               color="rgba(0,0,0,0.4)"
               width="1.5rem"
               height="1.5rem"
