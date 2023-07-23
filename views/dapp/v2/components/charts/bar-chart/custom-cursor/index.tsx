@@ -7,9 +7,9 @@ const CustomCursor: FC = ({ x, y, height }: any) => {
   return (
     <g>
       <line
-        x1={x + 6}
+        x1={x + 10}
         y1={y}
-        x2={x + 6}
+        x2={x + 10}
         y2={height}
         stroke={colors['outline']}
         strokeWidth={0.5}

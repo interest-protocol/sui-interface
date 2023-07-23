@@ -48,7 +48,7 @@ const BarChartComponent: FC<BaseChartProps> = ({ data, dataKey, xAxis }) => {
           animationEasing="ease-in-out"
           cursor={<CustomCursor />}
         />
-        <Bar dataKey={dataKey} fill={colors['primary']} />
+        <Bar dataKey={dataKey} barSize={8} fill={colors['primary']} />
       </BarChart>
     </ResponsiveContainer>
   );
