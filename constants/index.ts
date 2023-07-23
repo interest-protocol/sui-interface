@@ -66,6 +66,7 @@ export * from './farms';
 export * from './faucet';
 export * from './pools';
 export * from './routes';
+export * from './semantic-colors';
 export * from './social-media';
 export * from './social-media-alternatives';
 
