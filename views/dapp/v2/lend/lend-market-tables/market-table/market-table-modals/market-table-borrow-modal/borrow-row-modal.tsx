@@ -139,7 +139,7 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
       : FixedPointMath.toNumber(market.cash, market.decimals);
 
   const checkValue = isLoan
-    ? min(Math.floor(Math.abs(cash)), maxBorrowInToken)
+    ? min(Math.floor(Math.max(0, cash)), maxBorrowInToken)
     : loanBalance;
 
   const handleTab = () => {
