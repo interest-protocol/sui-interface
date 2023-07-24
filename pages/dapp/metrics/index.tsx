@@ -1,5 +1,6 @@
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
+import { useTranslations } from 'next-intl';
 import { mergeDeepRight } from 'ramda';
 import { Layout } from 'views/dapp/v2/components';
 
@@ -14,11 +15,12 @@ const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
 });
 
 const MetricsPage: NextPageWithProps = ({ pageTitle }) => {
+  const t = useTranslations();
   return (
     <ModalProvider newDesign>
       <Web3Manager>
         <SEO pageTitle={pageTitle} />
-        <Layout dashboard>
+        <Layout dashboard titlePage={t('metrics.metadata.title')}>
           <Metrics />
         </Layout>
       </Web3Manager>
