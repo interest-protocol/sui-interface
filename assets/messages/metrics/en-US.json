@@ -1,0 +1,39 @@
+{
+  "metrics": {
+    "metadata": {
+      "title": "Metrics"
+    },
+    "tabs": {
+      "dex": "Dex",
+      "moneyMarket": "Money Market"
+    },
+    "infoCards": {
+      "tvl": "TVL",
+      "liquidityAdd": "Liquidity Add",
+      "liquidityRemove": "Liquidity Remove",
+      "dailyTradingVolume": "Daily Trading Volume"
+    },
+    "cards": {
+      "totalLiquidity": "total liquidity",
+      "dailyVolume": "daily volume",
+      "activeWallets": "active wallets",
+      "tvlPools": "TVL pools",
+      "allTime": "all time",
+      "daily": "daily",
+      "oneMonth": "1 month",
+      "fourTeenDays": "14 days"
+    },
+    "tables": {
+      "topPools": "top pools",
+      "topCoins": "top coins",
+      "tokenPairs": "token pair",
+      "tvl": "TVL",
+      "dayVolume": "24H Volume",
+      "oneDayVolume": "1D Volume",
+      "weekVolume": "7D Volume",
+      "monthVolume": "30D Volume",
+      "volatile": "Volatile",
+      "stable": "Stable"
+    }
+  }
+}

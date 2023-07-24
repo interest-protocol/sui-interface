@@ -40,9 +40,9 @@ const CircleChart: FC<CircleChartProps> = ({ data, label, dataKey }) => {
       <PieChart>
         <Pie
           data={data}
-          cy={140}
+          cy={80}
           innerRadius={60}
-          outerRadius={80}
+          outerRadius={75}
           fill="#8884d8"
           dataKey={dataKey}
           stroke=""
@@ -69,7 +69,7 @@ const CircleChart: FC<CircleChartProps> = ({ data, label, dataKey }) => {
               as="span"
               marginLeft="0.25rem"
               variant="small"
-              color="#79767A"
+              color="#6B7280"
             >
               {value}
             </Typography>
