@@ -71,6 +71,8 @@ export * from './social-media-alternatives';
 
 export const MAX_NUMBER_INPUT_VALUE = 9000000000000000;
 
+export const MAX_U64 = BigNumber(2).pow(64).minus(1);
+
 export const GAS_COST = {
   [Network.TESTNET]: 3_00_000_000,
   [Network.DEVNET]: 3_00_000_000,

@@ -132,10 +132,15 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
 
   const cash =
     marketKey === sdk.getSUIDType()
-      ? maxBorrowInToken
+      ? FixedPointMath.toNumber(
+          market.borrowCap.minus(market.totalLoanElastic),
+          market.decimals
+        ) - 1
       : FixedPointMath.toNumber(market.cash, market.decimals);
 
-  const checkValue = isLoan ? min(cash, maxBorrowInToken) : loanBalance;
+  const checkValue = isLoan
+    ? min(Math.floor(Math.abs(cash)), maxBorrowInToken)
+    : loanBalance;
 
   const handleTab = () => {
     borrowForm.reset();

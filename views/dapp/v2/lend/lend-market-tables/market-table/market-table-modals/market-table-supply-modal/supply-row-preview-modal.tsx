@@ -15,6 +15,7 @@ import { FC, useState } from 'react';
 
 import { LeftArrowSVG } from '@/components/svg/v2';
 import {
+  MAX_U64,
   SUI_VISION_EXPLORER_URL,
   SUI_VISION_TESTNET_EXPLORER_URL,
 } from '@/constants';
@@ -133,7 +134,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
       const market = marketRecord[marketKey];
 
       const amount = isMax
-        ? market.userShares
+        ? MAX_U64
         : market.totalCollateralRebase
             .toBase(
               FixedPointMath.toBigNumber(
@@ -146,7 +147,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
       const { transactionBlockBytes, signature } = await signTransactionBlock({
         transactionBlock: await moneyMarketSdk.withdraw({
           assetType: marketKey,
-          sharesToRemove: bnMin(amount, market.userShares)
+          sharesToRemove: amount
             .decimalPlaces(0, BigNumber.ROUND_DOWN)
             .toString(),
         }),

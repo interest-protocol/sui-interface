@@ -15,6 +15,7 @@ import { FC, useState } from 'react';
 
 import { LeftArrowSVG } from '@/components/svg/v2';
 import {
+  MAX_U64,
   SUI_VISION_EXPLORER_URL,
   SUI_VISION_TESTNET_EXPLORER_URL,
 } from '@/constants';
@@ -119,7 +120,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
       const market = marketRecord[marketKey];
 
       const amount = FixedPointMath.toBigNumber(
-        +value * 1.03,
+        value,
         coinsMap[marketKey]?.decimals
       ).decimalPlaces(0, BigNumber.ROUND_UP);
 
@@ -129,14 +130,14 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
 
       const principalToRepay =
         amountInPrincipal.gt(market.userPrincipal) || isMax
-          ? market.userPrincipal.decimalPlaces(0, BigNumber.ROUND_UP)
+          ? MAX_U64
           : amountInPrincipal;
 
       const coinInList = createObjectsParameter({
         coinsMap,
         txb,
         type: marketKey,
-        amount: amount.toString(),
+        amount: amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
       });
 
       const { transactionBlockBytes, signature } = await signTransactionBlock({
