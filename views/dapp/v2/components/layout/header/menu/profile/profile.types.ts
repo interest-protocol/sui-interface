@@ -15,6 +15,7 @@ export interface ProfileMenuItemProps {
   description: string;
   Icon: FC<SVGProps>;
   hasBorder: boolean;
+  disabled?: boolean;
 }
 
 export interface MenuSwitchAccountProps {

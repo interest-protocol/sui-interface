@@ -1,4 +1,4 @@
-import { Button, Theme, useTheme } from '@interest-protocol/ui-kit';
+import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useRouter } from 'next/router';
 import { pathOr, prop } from 'ramda';
@@ -146,11 +146,16 @@ const Profile: FC = () => {
       transition="background-color .5s"
       bg={colors['primary']}
     >
-      <Button
-        variant="icon"
-        color={colors['primary.onPrimary']}
-        nHover={{ bg: 'transparent' }}
+      <Box
+        display="flex"
+        width="2.5rem"
+        height="2.5rem"
+        cursor="pointer"
+        alignItems="center"
+        justifyContent="center"
         onClick={handleOpenProfile}
+        nHover={{ bg: 'transparent' }}
+        color={colors['primary.onPrimary']}
       >
         {account && avatarUrlRecord[account] ? (
           <img
@@ -162,7 +167,7 @@ const Profile: FC = () => {
         ) : (
           <UserSVG maxWidth="2.5rem" maxHeight="2.5rem" width="100%" />
         )}
-      </Button>
+      </Box>
       <MenuProfile
         isOpen={isOpenProfile}
         handleOpen={handleOpenAccount}

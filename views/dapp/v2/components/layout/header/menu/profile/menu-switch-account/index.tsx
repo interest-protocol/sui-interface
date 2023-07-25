@@ -13,7 +13,7 @@ import { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useLocalStorage } from 'usehooks-ts';
 
-import { CopySVG, UserSVG } from '@/components/svg/v2';
+import { CheckmarkSVG, CopySVG, UserSVG } from '@/components/svg/v2';
 import { SEMANTIC_COLORS, wrapperVariants } from '@/constants';
 import { useWeb3 } from '@/hooks';
 import { ArrowLeft } from '@/svg';
@@ -57,6 +57,7 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
       variants={wrapperVariants}
       animate={isOpen ? 'open' : 'closed'}
       pointerEvents={isOpen ? 'auto' : 'none'}
+      width="14.5rem"
     >
       <Box p="xl" display="flex" gap="xs" color="onSurface" alignItems="center">
         <Button
@@ -77,13 +78,33 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
       {accounts.map((walletAccount, index) => (
         <MenuItemWrapper
           key={walletAccount.address}
+          disabled={walletAccount.address === account}
           onClick={() => {
             if (!(walletAccount.address === account)) {
               selectAccount(walletAccount);
             }
           }}
         >
-          <Box display="flex" alignItems="center" gap="l">
+          <Box display="flex" alignItems="center" gap="s">
+            {walletAccount.address === account && (
+              <Box
+                width="1rem"
+                height="1rem"
+                borderRadius="50%"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                border="1px solid"
+                borderColor="success"
+                color="success"
+              >
+                <CheckmarkSVG
+                  maxHeight="0.438rem"
+                  maxWidth="0.438rem"
+                  width="100%"
+                />
+              </Box>
+            )}
             <Box
               bg={
                 dark
@@ -100,7 +121,11 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
             >
               <UserSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
             </Box>
-            <Typography variant="small" color="onSurface">
+            <Typography
+              variant="small"
+              color="onSurface"
+              opacity={walletAccount.address === account ? 0.7 : 1}
+            >
               {loading || suiNSRecord[walletAccount.address]
                 ? suiNSRecord[walletAccount.address]
                 : formatAddress(walletAccount.address)}

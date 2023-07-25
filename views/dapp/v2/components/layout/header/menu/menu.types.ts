@@ -37,4 +37,5 @@ export interface MenuBackButtonProps {
 
 export interface MenuItemWrapperProps {
   onClick?: () => void;
+  disabled?: boolean;
 }

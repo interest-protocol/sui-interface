@@ -55,6 +55,7 @@ const MenuProfile: FC<MenuProfileProps> = ({
       animate={isOpen ? 'open' : 'closed'}
       pointerEvents={isOpen ? 'auto' : 'none'}
       textTransform="capitalize"
+      width="14.5rem"
     >
       {loading ? (
         <Box width="14rem" py="l">
@@ -73,26 +74,33 @@ const MenuProfile: FC<MenuProfileProps> = ({
             avatarUrlRecord={avatarUrlRecord}
             suiNSRecord={suiNSRecord}
           />
-          {MenuProfileData.map(({ name, description, Icon, hasBorder }) => (
-            <Box
-              key={v4()}
-              borderTop={hasBorder ? '1px solid' : 'unset'}
-              borderColor="outline.outlineVariant"
-            >
-              <MenuItemWrapper
-                onClick={() => {
-                  handleAction(name);
-                }}
+          {MenuProfileData.map(
+            ({ name, description, Icon, hasBorder, disabled }) => (
+              <Box
+                key={v4()}
+                borderTop={hasBorder ? '1px solid' : 'unset'}
+                borderColor="outline.outlineVariant"
               >
-                <Box display="flex" alignItems="center" gap="l">
-                  <Icon maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
-                  <Typography variant="small" color="onSurface">
-                    {capitalize(t(description as TTranslatedMessage))}
-                  </Typography>
-                </Box>
-              </MenuItemWrapper>
-            </Box>
-          ))}
+                <MenuItemWrapper
+                  onClick={() => {
+                    !disabled && handleAction(name);
+                  }}
+                  disabled={disabled}
+                >
+                  <Box display="flex" alignItems="center" gap="l">
+                    <Icon maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+                    <Typography
+                      variant="small"
+                      color="onSurface"
+                      opacity={disabled ? 0.7 : 1}
+                    >
+                      {capitalize(t(description as TTranslatedMessage))}
+                    </Typography>
+                  </Box>
+                </MenuItemWrapper>
+              </Box>
+            )
+          )}
         </>
       )}
     </Motion>
