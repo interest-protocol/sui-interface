@@ -10,7 +10,6 @@ import { ModalProvider } from '@/context/modal';
 import { useLocalStorage } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import { TokenModalMetadata } from '@/interface';
-import ConnectWallet from '@/views/dapp/v2/components/connect-wallet';
 import Swap from '@/views/dapp/v2/swap';
 import {
   ISwapSettingsForm,
@@ -47,7 +46,6 @@ const SwapPage: NextPageWithProps = ({ pageTitle }) => {
       <Web3Manager>
         <SEO pageTitle={pageTitle} />
         <Layout dashboard>
-          <ConnectWallet />
           <Swap
             formSwap={formSwap}
             openModalState={{ isOpen, setIsOpen }}

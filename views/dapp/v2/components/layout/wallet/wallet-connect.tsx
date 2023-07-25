@@ -19,6 +19,7 @@ const WalletConnect: FC<WalletConnectProps> = ({
           onClose={() => setIsModalOpen(false)}
         />
       )}
+      asdasdas
       <Box
         bg="textSoft"
         height="3rem"

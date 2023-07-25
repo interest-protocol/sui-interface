@@ -24,8 +24,8 @@ const ConnectIllustration: FC = () => {
         }}
         transition={{ duration: 1.5, delay: 3.4 }}
         position="absolute"
-        left="21%"
-        top="-17%"
+        left="23%"
+        top="-11%"
       >
         <HeroBlock scale=".44" />
       </Motion>
