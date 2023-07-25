@@ -8,7 +8,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { useModal, useMoneyMarketSdk, useWeb3 } from '@/hooks';
+import { useModal, useWeb3 } from '@/hooks';
 import { formatDollars, formatMoney } from '@/utils';
 import { useLendProviderValue } from '@/views/dapp/v2/lend/lend.provider';
 
@@ -46,7 +46,6 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
     ipxPrice,
   } = useLendProviderValue();
   const { coinsMap } = useWeb3();
-  const skd = useMoneyMarketSdk();
 
   const openRowBorrowMarketResultModal = ({
     isSuccess,
@@ -198,9 +197,7 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
           textAlign="right"
           wordBreak={['break-word', 'unset', 'unset', 'unset']}
         >
-          {`${
-            asset.coin.token.type == skd.getSUIDType() ? '∞' : formatMoney(cash)
-          }
+          {`${formatMoney(cash)}
           ${asset.coin.token.symbol}`}
         </Typography>
       </Box>

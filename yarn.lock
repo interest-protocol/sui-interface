@@ -705,10 +705,10 @@
     ramda "^0.28.0"
     tiny-invariant "^1.3.1"
 
-"@interest-protocol/sui-money-market-sdk@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@interest-protocol/sui-money-market-sdk/-/sui-money-market-sdk-3.0.0.tgz#24f64f25f1f5a82014550ed8efe126abcaffde08"
-  integrity sha512-jJaBSEWOD66f1u0BuW3Jh3jiRhtD5li+39mc/mLScMn61FnlO9nnRL22Zwsv8A5saNjC4MzQuB0tLp4M7vGb7Q==
+"@interest-protocol/sui-money-market-sdk@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@interest-protocol/sui-money-market-sdk/-/sui-money-market-sdk-3.2.0.tgz#19f8515bcc003164811d5faac87b3104262a3d77"
+  integrity sha512-4d8Cm7lkdTqoeUMOIwYY5l/uGuLGM7IS4UOqll/B1RVcn1FOxlPdIh5kd84TJfPP6yIU+KY5GKQczDYGoSCbQw==
   dependencies:
     "@mysten/bcs" "^0.7.2"
     "@mysten/sui.js" "^0.36.0"

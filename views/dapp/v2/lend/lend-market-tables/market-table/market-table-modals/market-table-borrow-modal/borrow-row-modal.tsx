@@ -14,7 +14,6 @@ import { ChangeEvent, FC, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { COINS, DOUBLE_SCALAR } from '@/constants';
-import { useMoneyMarketSdk } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import {
   formatMoney,
@@ -90,7 +89,6 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const [isLoan, setIsLoan] = useState(_isloan);
-  const sdk = useMoneyMarketSdk();
 
   const borrowForm = useForm<SupplyBorrowForm>({
     defaultValues: {
@@ -130,16 +128,10 @@ const BorrowMarketModal: FC<BorrowMarketModalProps> = ({
 
   const maxBorrowInToken = maxBorrowAmount / priceMap[marketKey].price;
 
-  const cash =
-    marketKey === sdk.getSUIDType()
-      ? FixedPointMath.toNumber(
-          market.borrowCap.minus(market.totalLoanElastic),
-          market.decimals
-        ) - 1
-      : FixedPointMath.toNumber(market.cash, market.decimals);
+  const cash = FixedPointMath.toNumber(market.availableCash, market.decimals);
 
   const checkValue = isLoan
-    ? min(Math.floor(Math.max(0, cash)), maxBorrowInToken)
+    ? min(Math.floor(cash), maxBorrowInToken)
     : loanBalance;
 
   const handleTab = () => {
