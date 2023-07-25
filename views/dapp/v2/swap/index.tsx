@@ -1,8 +1,9 @@
-import { Box } from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 import { mutate } from 'swr';
 
+import BoxWithTooltip from '../components/tooltip';
 import { useGetDexMarkets } from './swap.hooks';
 import {
   SwapBodyProps,
@@ -91,6 +92,18 @@ const Swap: FC<SwapProps> = ({
       formSettings={formSettings}
       searchTokenModalState={searchTokenModalState}
     />
+    <BoxWithTooltip
+      inverseBackground
+      content={
+        <>
+          <Typography variant="small">Tootltip</Typography>
+          <Typography variant="small">Tootltip</Typography>
+          <Typography variant="small">Tootltip</Typography>
+        </>
+      }
+    >
+      <Typography variant="medium">Hover me</Typography>
+    </BoxWithTooltip>
   </Box>
 );
 
