@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 
 export interface TooltipProps {
-  content: string | ReactNode;
-  inverseBackground?: boolean;
+  tooltipContent: string | ReactNode;
+  arrowPosition?: 'top' | 'bottom' | 'left' | 'right';
+  tooltipPosition: 'top' | 'bottom' | 'left' | 'right';
 }
