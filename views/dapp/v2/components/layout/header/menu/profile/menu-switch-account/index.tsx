@@ -107,11 +107,13 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
             )}
             <Box
               bg={
-                dark
+                walletAccount.address === account
+                  ? 'primary'
+                  : dark
                   ? randomColor[index % randomColor.length].dark
                   : randomColor[index % randomColor.length].light
               }
-              color="rgba(0,0,0,0.4)"
+              color="primary.onPrimary"
               width="1.5rem"
               height="1.5rem"
               borderRadius="50%"

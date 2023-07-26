@@ -155,7 +155,7 @@ const Profile: FC = () => {
         justifyContent="center"
         onClick={handleOpenProfile}
         nHover={{ bg: 'transparent' }}
-        color={colors['primary.onPrimary']}
+        color="primary.onPrimary"
       >
         {account && avatarUrlRecord[account] ? (
           <img
