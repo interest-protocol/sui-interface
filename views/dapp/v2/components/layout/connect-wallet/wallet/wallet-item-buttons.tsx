@@ -11,7 +11,7 @@ import { FC } from 'react';
 
 import { DownloadSVG, LoginSVG } from '@/components/svg/v2';
 
-import TooltipWrapper from '../../tooltip';
+import TooltipWrapper from '../../../tooltip';
 import { WalletItemButtonProps } from '../connect-wallet.types';
 
 const WalletItemButtons: FC<WalletItemButtonProps> = ({

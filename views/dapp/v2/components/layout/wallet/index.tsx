@@ -1,7 +1,7 @@
 import { useWalletKit } from '@mysten/wallet-kit';
 import { FC, useState } from 'react';
 
-import ConnectWallet from '../../connect-wallet';
+import ConnectWallet from '../connect-wallet';
 import WalletConnect from './wallet-connect';
 import WalletConnected from './wallet-connected';
 

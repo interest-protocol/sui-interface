@@ -11,7 +11,7 @@ import { Box, Button, Typography } from '@/elements';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { LoadingSVG, SuiSVG } from '@/svg';
 import { noop, ZERO_BIG_NUMBER } from '@/utils';
-import ConnectWallet from '@/views/dapp/v2/components/connect-wallet';
+import ConnectWallet from '@/views/dapp/v2/components/layout/connect-wallet';
 
 import { ConnectWalletProps } from './header.types';
 
