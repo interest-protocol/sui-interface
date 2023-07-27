@@ -1,4 +1,4 @@
-import { Network } from '@interest-protocol/sui-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 

@@ -45,7 +45,12 @@ export const ModalProvider: FC<PropsWithChildren<{ newDesign?: boolean }>> = ({
       {newDesign ? (
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        <IUIModal {...modalProps} isOpen={!!component} onClose={handleClose}>
+        <IUIModal
+          {...modalProps}
+          isOpen={!!component}
+          onClose={handleClose}
+          appElement={document.getElementById('__next') as HTMLElement}
+        >
           {component}
         </IUIModal>
       ) : (

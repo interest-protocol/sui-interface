@@ -1,4 +1,4 @@
-import { DEX_BASE_TOKEN_ARRAY, Network } from '@interest-protocol/sui-sdk';
+import { DEX_BASE_TOKEN_ARRAY, Network } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Button,
@@ -15,12 +15,11 @@ import { FC, useEffect, useState } from 'react';
 
 import { DownArrowSVG, LeftArrowSVG } from '@/components/svg/v2';
 import {
-  NETWORK_RECORD,
-  SUI_EXPLORER_URL,
   SUI_VISION_EXPLORER_URL,
+  SUI_VISION_TESTNET_EXPLORER_URL,
   TOKENS_SVG_MAP_V2,
 } from '@/constants';
-import { useNetwork, useProvider, useSDK, useWeb3 } from '@/hooks';
+import { useAmmSdk, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import { TimesSVG } from '@/svg';
 import {
@@ -53,7 +52,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
   const { signTransactionBlock } = useWalletKit();
   const { network } = useNetwork();
   const { provider } = useProvider();
-  const sdk = useSDK();
+  const sdk = useAmmSdk();
 
   const tokenIn = formSwap.getValues('from');
   const tokenOut = formSwap.getValues('to');
@@ -196,7 +195,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
       openConfirmModal(
         network === Network.MAINNET
           ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-          : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`
+          : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`
       );
     } catch {
       openFailModal(t('swap.error.failedToSwap'));

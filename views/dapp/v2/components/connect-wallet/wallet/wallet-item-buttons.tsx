@@ -1,9 +1,17 @@
-import { Box, Button, lightTheme } from '@interest-protocol/ui-kit';
+import {
+  Box,
+  Button,
+  darkTheme,
+  lightTheme,
+  Typography,
+} from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { DownloadSVG, LoginSVG } from '@/components/svg/v2';
 
+import TooltipWrapper from '../../tooltip';
 import { WalletItemButtonProps } from '../connect-wallet.types';
 
 const WalletItemButtons: FC<WalletItemButtonProps> = ({
@@ -11,6 +19,7 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
   hasInstalled,
   openWalletModal,
 }) => {
+  const t = useTranslations();
   const { connect } = useWalletKit();
 
   return (
@@ -28,49 +37,75 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
       borderColor={lightTheme.colors['outline.outlineVariant']}
     >
       {hasInstalled ? (
-        <Button
-          variant="icon"
-          width={hasInstalled ? '100%' : '50%'}
-          height="80%"
-          nHover={{
-            backgroundColor: lightTheme.colors['surface.container'],
-          }}
-          color="#000"
-          onClick={() => {
-            openWalletModal && openWalletModal(name);
-            connect(name);
-          }}
+        <TooltipWrapper
+          bg={darkTheme.colors['surface']}
+          tooltipPosition="top"
+          width="fit-content"
+          tooltipContent={
+            <Typography
+              variant="extraSmall"
+              color={darkTheme.colors['onSurface']}
+            >
+              {t('connectWallet.tooltip.connect')}
+            </Typography>
+          }
         >
-          <LoginSVG
-            maxHeight="2.5rem"
-            maxWidth="2.5rem"
-            height="100%"
-            width="100%"
-          />
-        </Button>
-      ) : (
-        <Button
-          variant="icon"
-          width={hasInstalled ? '50%' : '100%'}
-          height="80%"
-          nHover={{
-            backgroundColor: lightTheme.colors['surface.container'],
-          }}
-          color="#000"
-        >
-          <a
-            href="https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Button
+            variant="icon"
+            height="80%"
+            nHover={{
+              backgroundColor: lightTheme.colors['surface.container'],
+            }}
+            color="#000"
+            onClick={() => {
+              openWalletModal && openWalletModal(name);
+              connect(name);
+            }}
           >
-            <DownloadSVG
-              width="100%"
-              height="100%"
-              maxWidth="2.5rem"
+            <LoginSVG
               maxHeight="2.5rem"
+              maxWidth="2.5rem"
+              height="100%"
+              width="100%"
             />
-          </a>
-        </Button>
+          </Button>
+        </TooltipWrapper>
+      ) : (
+        <TooltipWrapper
+          bg={darkTheme.colors['surface']}
+          tooltipPosition="top"
+          width="fit-content"
+          tooltipContent={
+            <Typography
+              variant="extraSmall"
+              color={darkTheme.colors['onSurface']}
+            >
+              {t('connectWallet.tooltip.install')}
+            </Typography>
+          }
+        >
+          <Button
+            variant="icon"
+            height="80%"
+            nHover={{
+              backgroundColor: lightTheme.colors['surface.container'],
+            }}
+            color="#000"
+          >
+            <a
+              href="https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <DownloadSVG
+                width="100%"
+                height="100%"
+                maxWidth="2.5rem"
+                maxHeight="2.5rem"
+              />
+            </a>
+          </Button>
+        </TooltipWrapper>
       )}
     </Box>
   );

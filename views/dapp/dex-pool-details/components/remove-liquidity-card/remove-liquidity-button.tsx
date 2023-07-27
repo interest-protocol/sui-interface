@@ -6,7 +6,7 @@ import { prop } from 'ramda';
 import { FC, useState } from 'react';
 
 import { Box, Button } from '@/elements';
-import { useNetwork, useProvider, useSDK } from '@/hooks';
+import { useAmmSdk, useNetwork, useProvider } from '@/hooks';
 import { LoadingSVG } from '@/svg';
 import {
   noop,
@@ -35,7 +35,7 @@ const RemoveLiquidityButton: FC<RemoveLiquidityButtonProps> = ({
   const { signTransactionBlock } = useWalletKit();
   const { network } = useNetwork();
   const { provider } = useProvider();
-  const sdk = useSDK();
+  const sdk = useAmmSdk();
 
   const [loading, setLoading] = useState(false);
 

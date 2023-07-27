@@ -1,12 +1,26 @@
 {
   "faucet": {
+    "metadata": {
+      "title": "Faucet"
+    },
     "pageTitle": "Faucet",
-    "mint": "{isLoading, plural, =1 {minting...} other {mint}}",
+    "mint": "Mint",
     "tokenInput": "Choose Token",
-    "firstSectionTitle": "Recommended tokens",
-    "secondSectionTitle": "My tokens",
-    "amountInput": "Type amount",
-    "notFoundToken": "Not found token",
-    "select": "Select a token"
+    "modal": {
+      "loading": {
+        "content": "Minting",
+        "additionalText": "Confirm transaction in Wallet to proceed"
+      },
+      "confirm": {
+        "content": "Minted",
+        "additionalText": "You can check you transaction history in the Actvity menu",
+        "button": "Back to Faucet"
+      },
+      "fail": {
+        "content": "Mint failed",
+        "button": "Close"
+      }
+    },
+    "select": "Search token"
   }
 }

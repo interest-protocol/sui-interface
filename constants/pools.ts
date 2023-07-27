@@ -1,4 +1,4 @@
-import { Network } from '@interest-protocol/sui-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 
 import { COIN_POOL, COINS } from './coins';
 
@@ -168,6 +168,27 @@ export const RECOMMENDED_POOLS = {
       token1: networkMainNetCoins.BSC_WORMHOLE_USDT,
       poolObjectId: networkMainNetCoinPool.V_LP_SUI_BSC_WORMHOLE_USDT,
       lpCoin: networkMainNetCoins.V_LP_SUI_BSC_WORMHOLE_USDT,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.ETH_CELER_WETH,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_ETH_CELER_WETH,
+      lpCoin: networkMainNetCoins.V_LP_SUI_ETH_CELER_WETH,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.ETH_CELER_WBTC,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_ETH_CELER_WBTC,
+      lpCoin: networkMainNetCoins.V_LP_SUI_ETH_CELER_WBTC,
+      stable: false,
+    },
+    {
+      token0: networkMainNetCoins.SUI,
+      token1: networkMainNetCoins.ETH_CELER_USDC,
+      poolObjectId: networkMainNetCoinPool.V_LP_SUI_ETH_CELER_USDC,
+      lpCoin: networkMainNetCoins.V_LP_SUI_ETH_CELER_USDC,
       stable: false,
     },
     {
