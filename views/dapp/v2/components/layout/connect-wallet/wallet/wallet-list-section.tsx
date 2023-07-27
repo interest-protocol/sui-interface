@@ -11,7 +11,6 @@ import { FC, ReactNode } from 'react';
 import { v4 } from 'uuid';
 
 import { TimesSVG } from '@/components/svg/v2';
-import { SUI_IMAGE } from '@/constants';
 
 import { WalletListSectionProps } from '../connect-wallet.types';
 import WalletItem from './wallet-item';
@@ -103,7 +102,7 @@ const WalletListSection: FC<WalletListSectionProps> = ({
               </Typography>
               <Box>
                 {wallets.length === 0 ? (
-                  <WalletItem key={v4()} icon={SUI_IMAGE} name="Sui Wallet" />
+                  <WalletItem key={v4()} name="Sui Wallet" />
                 ) : (
                   wallets.map((wallet) => (
                     <WalletItem
