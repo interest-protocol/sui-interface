@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import { mergeDeepRight } from 'ramda';
+import { mergeAll } from 'ramda';
 import { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
@@ -59,15 +59,18 @@ const DEXFindPoolPage: NextPage<{ pageTitle: string }> = ({ pageTitle }) => {
   );
 };
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, dexPoolFindMessages] = await Promise.all([
-    import(`../../../../assets/messages/common/${locale}.json`),
-    import(`../../../../assets/messages/dex/pool/find/${locale}.json`),
-  ]);
+  const [commonMessages, dexPoolFindMessages, connectWalletMessages] =
+    await Promise.all([
+      import(`../../../../assets/messages/common/${locale}.json`),
+      import(`../../../../assets/messages/dex/pool/find/${locale}.json`),
+      import(`../../../../assets/messages/connect-wallet/${locale}.json`),
+    ]);
 
-  const messages = mergeDeepRight(
+  const messages = mergeAll([
     commonMessages.default,
-    dexPoolFindMessages.default
-  );
+    dexPoolFindMessages.default,
+    connectWalletMessages.default,
+  ]);
 
   return {
     props: {

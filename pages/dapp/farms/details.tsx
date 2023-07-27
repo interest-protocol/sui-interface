@@ -3,7 +3,7 @@ import type { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import Error from 'next/error';
 import { useTranslations } from 'next-intl';
-import { mergeDeepRight, pathOr } from 'ramda';
+import { mergeAll, pathOr } from 'ramda';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -97,15 +97,18 @@ const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, farmDetailsMessages] = await Promise.all([
-    import(`../../../assets/messages/common/${locale}.json`),
-    import(`../../../assets/messages/farms/details/${locale}.json`),
-  ]);
+  const [commonMessages, farmDetailsMessages, connectWalletMessages] =
+    await Promise.all([
+      import(`../../../assets/messages/common/${locale}.json`),
+      import(`../../../assets/messages/farms/details/${locale}.json`),
+      import(`../../../assets/messages/connect-wallet/${locale}.json`),
+    ]);
 
-  const messages = mergeDeepRight(
+  const messages = mergeAll([
     commonMessages.default,
-    farmDetailsMessages.default
-  );
+    farmDetailsMessages.default,
+    connectWalletMessages.default,
+  ]);
   return {
     props: {
       messages,

@@ -19,6 +19,8 @@ type LandingPageMessages =
 type LiquidityCampaignMessages =
   typeof import('../assets/messages/liquidity-campaign/en-US.json');
 type SwapMessages = typeof import('../assets/messages/swap/en-US.json');
+type ConnectWalletMessages =
+  typeof import('../assets/messages/connect-wallet/en-US.json');
 
 declare interface IntlMessages
   extends CommonMessages,
@@ -31,5 +33,6 @@ declare interface IntlMessages
     FarmDetailsMessages,
     LandingPageMessages,
     LiquidityCampaignMessages,
+    ConnectWalletMessages,
     SwapMessages,
     DexPoolMessages {}

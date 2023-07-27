@@ -1,75 +1,32 @@
 import { Box, Button, lightTheme } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 import { DownloadSVG, LoginSVG } from '@/components/svg/v2';
-import { useModal } from '@/hooks';
 
-import WalletConnectConfirmModal from './modal/confirm';
-import WalletConnectFailModal from './modal/fail';
-import WalletConnectLoadingModal from './modal/loading';
-import { WalletItemButtonProps } from './wallet.types';
+import { WalletItemButtonProps } from '../connect-wallet.types';
 
 const WalletItemButtons: FC<WalletItemButtonProps> = ({
   name,
   hasInstalled,
+  openWalletModal,
 }) => {
-  const { connect, isConnecting, isError } = useWalletKit();
-  const { setModal, handleClose } = useModal();
-
-  const openWalletModal = () =>
-    setModal(<WalletConnectLoadingModal walletName={name} />, {
-      isOpen: true,
-      custom: true,
-      opaque: false,
-      allowClose: false,
-    });
-
-  const openModalConnectedResult = (isSuccess: boolean) =>
-    setModal(
-      isSuccess ? (
-        <WalletConnectConfirmModal
-          handleClose={handleClose}
-          walletName={name}
-        />
-      ) : (
-        <WalletConnectFailModal handleClose={handleClose} walletName={name} />
-      ),
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: true,
-      }
-    );
-
-  useEffect(() => {
-    if (isConnecting)
-      if (isError) openModalConnectedResult(false);
-      else openWalletModal();
-    else {
-      isError
-        ? openModalConnectedResult(false)
-        : openModalConnectedResult(true);
-    }
-  }, [isConnecting, isError]);
+  const { connect } = useWalletKit();
 
   return (
     <Box
-      className="showButton"
-      display="flex"
+      gap="s"
+      p="s 3xs"
       height="3rem"
-      borderRadius="0.5rem"
-      alignItems="center"
-      justifyContent="space-between"
+      display="flex"
       border="1px solid"
-      p="0.5rem 0.125rem"
-      gap="0.5rem"
+      alignItems="center"
+      className="showButton"
+      borderRadius="0.5rem"
+      justifyContent="space-between"
       transition="display 250ms ease-in-out"
       borderColor={lightTheme.colors['outline.outlineVariant']}
     >
-      {isConnecting ? '1' : '0'}
-      {isError ? 'A' : 'B'}
       {hasInstalled ? (
         <Button
           variant="icon"
@@ -80,7 +37,7 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
           }}
           color="#000"
           onClick={() => {
-            openWalletModal();
+            openWalletModal && openWalletModal(name);
             connect(name);
           }}
         >
@@ -100,7 +57,6 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
             backgroundColor: lightTheme.colors['surface.container'],
           }}
           color="#000"
-          onClick={() => openModalConnectedResult(true)}
         >
           <a
             href="https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil"
@@ -108,10 +64,10 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
             rel="noopener noreferrer"
           >
             <DownloadSVG
-              maxHeight="2.5rem"
-              maxWidth="2.5rem"
-              height="100%"
               width="100%"
+              height="100%"
+              maxWidth="2.5rem"
+              maxHeight="2.5rem"
             />
           </a>
         </Button>

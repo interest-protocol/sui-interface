@@ -1,11 +1,13 @@
 import { Box, darkTheme, Motion } from '@interest-protocol/ui-kit';
+import { not } from 'ramda';
 import { FC } from 'react';
 
 import { TimesSVG } from '@/components/svg/v2';
 
+import { IllustrationProps } from '../connect-wallet.types';
 import ConnectIllustration from './illustration';
 
-const IllustrationSection: FC = () => {
+const IllustrationSection: FC<IllustrationProps> = ({ setOpenWallet }) => {
   const menuVariants = {
     open: {
       rotate: '0deg',
@@ -28,19 +30,21 @@ const IllustrationSection: FC = () => {
     >
       <Box display="flex" flexDirection="column" width="100%" height="100%">
         <Motion
+          p="m"
           as="span"
+          color="white"
           display="flex"
+          cursor="pointer"
           borderRadius="50%"
-          p=".8rem"
           border="1px solid"
-          width="fit-content"
-          margin="1.5rem 1.5rem 0 auto"
           alignItems="center"
+          width="fit-content"
           justifyContent="center"
+          margin="1.5rem 1.5rem 0 auto"
           animate={menuVariants.open}
           initial={menuVariants.closed}
+          onClick={() => setOpenWallet(not)}
           borderColor={darkTheme.colors['outline.outlineVariant']}
-          color="white"
         >
           <TimesSVG
             width="100%"

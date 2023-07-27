@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
-import { mergeDeepRight } from 'ramda';
+import { mergeAll } from 'ramda';
 
 import { LoadingPage } from '@/components';
 import { ModalProvider } from '@/context/modal';
@@ -28,15 +28,18 @@ const DEXPoolPage: NextPageWithProps = ({ pageTitle }) => (
 );
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, dexPoolMessages] = await Promise.all([
-    import(`../../../../assets/messages/common/${locale}.json`),
-    import(`../../../../assets/messages/dex/pool/${locale}.json`),
-  ]);
+  const [commonMessages, dexPoolMessages, connectWalletMessages] =
+    await Promise.all([
+      import(`../../../../assets/messages/common/${locale}.json`),
+      import(`../../../../assets/messages/dex/pool/${locale}.json`),
+      import(`../../../../assets/messages/connect-wallet/${locale}.json`),
+    ]);
 
-  const messages = mergeDeepRight(
+  const messages = mergeAll([
     commonMessages.default,
-    dexPoolMessages.default
-  );
+    dexPoolMessages.default,
+    connectWalletMessages.default,
+  ]);
 
   return {
     props: {

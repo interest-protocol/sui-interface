@@ -2,7 +2,7 @@ import { Network } from '@interest-protocol/sui-sdk';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Error from 'next/error';
-import { mergeDeepRight } from 'ramda';
+import { mergeAll } from 'ramda';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -57,15 +57,18 @@ const FaucetPage: NextPageWithProps = ({ pageTitle }) => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, faucetMessages] = await Promise.all([
-    import(`../../assets/messages/common/${locale}.json`),
-    import(`../../assets/messages/faucet/${locale}.json`),
-  ]);
+  const [commonMessages, faucetMessages, connectWalletMessages] =
+    await Promise.all([
+      import(`../../assets/messages/common/${locale}.json`),
+      import(`../../assets/messages/faucet/${locale}.json`),
+      import(`../../assets/messages/connect-wallet/${locale}.json`),
+    ]);
 
-  const messages = mergeDeepRight(
+  const messages = mergeAll([
     commonMessages.default,
-    faucetMessages.default
-  );
+    faucetMessages.default,
+    connectWalletMessages.default,
+  ]);
   return {
     props: {
       messages,

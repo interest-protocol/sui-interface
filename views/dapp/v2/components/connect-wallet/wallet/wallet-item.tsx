@@ -1,10 +1,15 @@
 import { Box, lightTheme, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { WalletItemProps } from './wallet.types';
+import { WalletItemProps } from '../connect-wallet.types';
 import WalletItemButtons from './wallet-item-buttons';
 
-const WalletItem: FC<WalletItemProps> = ({ icon, name, hasInstalled }) => {
+const WalletItem: FC<WalletItemProps> = ({
+  icon,
+  name,
+  hasInstalled,
+  openWalletModal,
+}) => {
   return (
     <Box
       p="m"
@@ -22,7 +27,7 @@ const WalletItem: FC<WalletItemProps> = ({ icon, name, hasInstalled }) => {
       }}
     >
       <Box
-        py="0.25rem"
+        py="2xs"
         display="flex"
         alignItems="center"
         gap={['m', 'm', 'm', 'xl']}
@@ -39,7 +44,11 @@ const WalletItem: FC<WalletItemProps> = ({ icon, name, hasInstalled }) => {
           {name}
         </Typography>
       </Box>
-      <WalletItemButtons name={name} hasInstalled={hasInstalled} />
+      <WalletItemButtons
+        openWalletModal={openWalletModal}
+        name={name}
+        hasInstalled={hasInstalled}
+      />
     </Box>
   );
 };

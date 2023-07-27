@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import { mergeDeepRight } from 'ramda';
+import { mergeAll } from 'ramda';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
@@ -59,15 +59,18 @@ const DEXPoolDetailsPage: NextPage<DEXPoolDetailsPageProps> = ({
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, dexPoolPairMessages] = await Promise.all([
-    import(`../../../../assets/messages/common/${locale}.json`),
-    import(`../../../../assets/messages/dex/pool/details/${locale}.json`),
-  ]);
+  const [commonMessages, dexPoolPairMessages, connectWalletMessages] =
+    await Promise.all([
+      import(`../../../../assets/messages/common/${locale}.json`),
+      import(`../../../../assets/messages/dex/pool/details/${locale}.json`),
+      import(`../../../../assets/messages/connect-wallet/${locale}.json`),
+    ]);
 
-  const messages = mergeDeepRight(
+  const messages = mergeAll([
     commonMessages.default,
-    dexPoolPairMessages.default
-  );
+    dexPoolPairMessages.default,
+    connectWalletMessages.default,
+  ]);
 
   return {
     props: {

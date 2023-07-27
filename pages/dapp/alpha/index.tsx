@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import NotFoundPage from 'pages/404';
-import { mergeDeepRight } from 'ramda';
+import { mergeAll } from 'ramda';
 
 import { SEO } from '@/components';
 import { NextPageWithProps } from '@/interface';
@@ -21,15 +21,18 @@ const DAppPage: NextPageWithProps = ({ now, messages, pageTitle }) => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, lendingMessages] = await Promise.all([
-    import(`../../../assets/messages/common/${locale}.json`),
-    import(`../../../assets/messages/dapp/${locale}.json`),
-  ]);
+  const [commonMessages, lendingMessages, connectWalletMessages] =
+    await Promise.all([
+      import(`../../../assets/messages/common/${locale}.json`),
+      import(`../../../assets/messages/dapp/${locale}.json`),
+      import(`../../../assets/messages/connect-wallet/${locale}.json`),
+    ]);
 
-  const messages = mergeDeepRight(
+  const messages = mergeAll([
     commonMessages.default,
-    lendingMessages.default
-  );
+    lendingMessages.default,
+    connectWalletMessages.default,
+  ]);
   return {
     props: {
       messages,

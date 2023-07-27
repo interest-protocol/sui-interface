@@ -2,11 +2,12 @@ import { Network } from '@interest-protocol/sui-sdk';
 import type { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Error from 'next/error';
-import { mergeDeepRight } from 'ramda';
+import { mergeAll } from 'ramda';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
+import { ModalProvider } from '@/context/modal';
 import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import Farms from '@/views/dapp/farms';
@@ -41,35 +42,42 @@ const FarmsPage: NextPageWithProps = ({ pageTitle }) => {
 
   if (network === Network.MAINNET)
     return (
-      <Web3Manager>
-        <Layout pageTitle="common.error">
-          <Error statusCode={404} />
-        </Layout>
-      </Web3Manager>
+      <ModalProvider newDesign>
+        <Web3Manager>
+          <Layout pageTitle="common.error">
+            <Error statusCode={404} />
+          </Layout>
+        </Web3Manager>
+      </ModalProvider>
     );
 
   return (
-    <Web3Manager>
-      <Layout pageTitle={pageTitle}>
-        <Farms
-          form={form}
-          desktopState={{ isDesktop: isDesktop, setDesktop: setDesktop }}
-        />
-      </Layout>
-    </Web3Manager>
+    <ModalProvider newDesign>
+      <Web3Manager>
+        <Layout pageTitle={pageTitle}>
+          <Farms
+            form={form}
+            desktopState={{ isDesktop: isDesktop, setDesktop: setDesktop }}
+          />
+        </Layout>
+      </Web3Manager>
+    </ModalProvider>
   );
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, farmsMessages] = await Promise.all([
-    import(`../../../assets/messages/common/${locale}.json`),
-    import(`../../../assets/messages/farms/${locale}.json`),
-  ]);
+  const [commonMessages, farmsMessages, connectWalletMessages] =
+    await Promise.all([
+      import(`../../../assets/messages/common/${locale}.json`),
+      import(`../../../assets/messages/farms/${locale}.json`),
+      import(`../../../assets/messages/connect-wallet/${locale}.json`),
+    ]);
 
-  const messages = mergeDeepRight(
+  const messages = mergeAll([
     commonMessages.default,
-    farmsMessages.default
-  );
+    farmsMessages.default,
+    connectWalletMessages.default,
+  ]);
   return {
     props: {
       messages,

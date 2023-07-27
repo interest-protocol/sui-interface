@@ -4,5 +4,5 @@ export interface WalletConnectLoadingProps {
 
 export interface WalletConnectResultProps {
   handleClose: () => void;
-  walletName?: string;
+  walletName: string;
 }
