@@ -11,7 +11,6 @@ import { useNetwork } from '@/hooks';
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
-import NetworkSwitch from '../network-switch';
 import { SIDEBAR_ITEMS } from './sidebar.data';
 
 const Sidebar: FC = () => {
@@ -70,9 +69,6 @@ const Sidebar: FC = () => {
             </Box>
           ))}
         </Box>
-      </Box>
-      <Box my="m" display="flex" flexDirection="column" alignItems="center">
-        <NetworkSwitch />
       </Box>
     </Box>
   );
