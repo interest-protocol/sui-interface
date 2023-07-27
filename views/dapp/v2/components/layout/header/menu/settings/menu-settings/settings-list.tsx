@@ -60,18 +60,21 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ openLanguageMenu }) => {
         <Typography variant="small" color="onSurface">
           {t('common.v2.menu.testnet')}
         </Typography>
-        {(asPath.includes('dapp/alpha') ||
-          process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production') && (
-          <SwitchButton
-            activation
-            name="network"
-            size="medium"
-            defaultValue={network === Network.TESTNET}
-            onChange={handleChangeNetwork(
-              network === Network.TESTNET ? Network.MAINNET : Network.TESTNET
-            )}
-          />
-        )}
+        <SwitchButton
+          activation
+          name="network"
+          size="medium"
+          disabled={
+            !(
+              asPath.includes('dapp/alpha') ||
+              process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'
+            )
+          }
+          defaultValue={network === Network.TESTNET}
+          onChange={handleChangeNetwork(
+            network === Network.TESTNET ? Network.MAINNET : Network.TESTNET
+          )}
+        />
       </MenuItemWrapper>
       <MenuItemWrapper onClick={openLanguageMenu}>
         <Typography variant="small">{t('common.v2.menu.languages')}</Typography>
