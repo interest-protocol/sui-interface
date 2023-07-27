@@ -9,11 +9,10 @@ import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
 import { SIDEBAR_ITEMS } from '../../../sidebar/sidebar.data';
+import { MainMenuProps } from '../menu.types';
 import MenuSettingsList from '../settings/menu-settings/settings-list';
 
-const MainMenu: FC<{
-  handleLanguage: () => void;
-}> = ({ handleLanguage }) => {
+const MainMenu: FC<MainMenuProps> = ({ openLanguageMenu }) => {
   const t = useTranslations();
   const { network } = useNetwork();
   const { asPath, push } = useRouter();
@@ -68,7 +67,7 @@ const MainMenu: FC<{
           textTransform="capitalize"
           animate="open"
         >
-          <MenuSettingsList handleLanguage={handleLanguage} />
+          <MenuSettingsList openLanguageMenu={openLanguageMenu} />
         </Motion>
       </Box>
     </Box>

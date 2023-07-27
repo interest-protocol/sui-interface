@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
-// import LangSwitch from '../../lang-switch';
 import Wallet from '../../wallet';
 import MenuBackButton from './menu-back-button';
 import MenuButton from './menu-button';
@@ -22,7 +21,7 @@ const Menu: FC = () => {
     setIsLanguage(false);
   };
 
-  const handleLanguage = () => {
+  const openLanguageMenu = () => {
     const url = new URL(window.location.href);
     url.searchParams.set('language', 'true');
     window.history.pushState('', '', url.toString());
@@ -90,7 +89,7 @@ const Menu: FC = () => {
       <MenuMobile
         isOpen={isOpen}
         isLanguage={isLanguage}
-        handleLanguage={handleLanguage}
+        openLanguageMenu={openLanguageMenu}
       />
     </Box>
   );

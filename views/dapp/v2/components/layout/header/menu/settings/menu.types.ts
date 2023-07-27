@@ -7,11 +7,11 @@ export interface GlobalMenuProps {
 
 export interface MenuSettingsProps {
   isOpen: boolean;
-  handleLanguage: () => void;
+  openLanguageMenu: () => void;
 }
 
 export interface MenuSettingsListProps {
-  handleLanguage: () => void;
+  openLanguageMenu: () => void;
 }
 
 export interface MenuLanguageProps {

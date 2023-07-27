@@ -88,7 +88,7 @@ const Settings: FC = () => {
       </Button>
       <MenuSettings
         isOpen={isOpenSettings}
-        handleLanguage={handleOpenLanguage}
+        openLanguageMenu={handleOpenLanguage}
       />
       <MenuLanguage
         isOpen={isOpenLanguage}

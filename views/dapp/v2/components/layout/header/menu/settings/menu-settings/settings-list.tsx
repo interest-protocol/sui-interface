@@ -19,7 +19,7 @@ import { capitalize } from '@/utils';
 import MenuItemWrapper from '../../menu-item-wrapper';
 import { MenuSettingsListProps } from '../menu.types';
 
-const MenuSettingsList: FC<MenuSettingsListProps> = ({ handleLanguage }) => {
+const MenuSettingsList: FC<MenuSettingsListProps> = ({ openLanguageMenu }) => {
   const t = useTranslations();
 
   const { dark, setDark } = useTheme() as AppTheme<Theme>;
@@ -73,7 +73,7 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ handleLanguage }) => {
           />
         )}
       </MenuItemWrapper>
-      <MenuItemWrapper onClick={handleLanguage}>
+      <MenuItemWrapper onClick={openLanguageMenu}>
         <Typography variant="small">{t('common.v2.menu.languages')}</Typography>
         <LangIcon maxWidth="1.125rem" maxHeight="1.125rem" width="100%" />
       </MenuItemWrapper>

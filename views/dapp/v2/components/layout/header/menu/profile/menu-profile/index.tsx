@@ -29,17 +29,9 @@ const MenuProfile: FC<MenuProfileProps> = ({
   const { disconnect } = useWalletKit();
 
   const handleAction = async (action: string) => {
-    switch (action) {
-      case 'switch':
-        handleOpen();
-        break;
-      case 'disconnect':
-        await disconnect();
-        break;
-
-      default:
-        break;
-    }
+    action === 'switch'
+      ? handleOpen()
+      : action === 'disconnect' && (await disconnect());
   };
   return (
     <Motion
