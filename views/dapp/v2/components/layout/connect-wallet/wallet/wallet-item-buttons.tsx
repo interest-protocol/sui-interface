@@ -33,9 +33,11 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
           color={darkTheme.colors['onSurface']}
           textTransform="capitalize"
         >
-          {hasInstalled
-            ? t('connectWallet.tooltip.connect')
-            : t('connectWallet.tooltip.install')}
+          {t(
+            hasInstalled
+              ? 'connectWallet.tooltip.connect'
+              : 'connectWallet.tooltip.install'
+          )}
         </Typography>
       }
     >
