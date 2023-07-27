@@ -92,13 +92,13 @@ const WalletListSection: FC<WalletListSectionProps> = ({
               <Typography
                 variant="displaySmall"
                 fontSize={['5xl', '5xl', '5xl', '7xl']}
-                color="#000"
+                color="black"
               >
                 {t('connectWallet.title')}
               </Typography>
               <Typography
                 variant="small"
-                color="#000"
+                color="black"
                 mb={['2xl', '2xl', '2xl', '3.5rem']}
               >
                 {t('connectWallet.subtitle')}

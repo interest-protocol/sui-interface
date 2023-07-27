@@ -12,7 +12,7 @@ const WalletItem: FC<WalletItemProps> = ({
 }) => {
   return (
     <Box
-      p="m"
+      p="xl"
       display="flex"
       cursor="pointer"
       alignItems="center"
@@ -35,7 +35,7 @@ const WalletItem: FC<WalletItemProps> = ({
         <Box
           width="2.5rem"
           height="2.5rem"
-          borderRadius="4px"
+          borderRadius="m"
           backgroundSize="cover"
           backgroundRepeat="no-repeat"
           backgroundImage={`url(${icon})`}

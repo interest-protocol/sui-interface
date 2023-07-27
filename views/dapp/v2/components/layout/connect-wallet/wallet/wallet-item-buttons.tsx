@@ -3,6 +3,7 @@ import {
   Button,
   darkTheme,
   lightTheme,
+  TooltipWrapper,
   Typography,
 } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
@@ -11,7 +12,6 @@ import { FC } from 'react';
 
 import { DownloadSVG, LoginSVG } from '@/components/svg/v2';
 
-import TooltipWrapper from '../../../tooltip';
 import { WalletItemButtonProps } from '../connect-wallet.types';
 
 const WalletItemButtons: FC<WalletItemButtonProps> = ({
@@ -25,7 +25,7 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
   return (
     <Box
       gap="s"
-      p="s 3xs"
+      p="1rem 0.25rem"
       height="3rem"
       display="flex"
       border="1px solid"
@@ -40,11 +40,12 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
         <TooltipWrapper
           bg={darkTheme.colors['surface']}
           tooltipPosition="top"
-          width="fit-content"
+          width="max-content"
           tooltipContent={
             <Typography
               variant="extraSmall"
               color={darkTheme.colors['onSurface']}
+              textTransform="capitalize"
             >
               {t('connectWallet.tooltip.connect')}
             </Typography>
@@ -74,11 +75,12 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
         <TooltipWrapper
           bg={darkTheme.colors['surface']}
           tooltipPosition="top"
-          width="fit-content"
+          width="max-content"
           tooltipContent={
             <Typography
               variant="extraSmall"
               color={darkTheme.colors['onSurface']}
+              textTransform="capitalize"
             >
               {t('connectWallet.tooltip.install')}
             </Typography>

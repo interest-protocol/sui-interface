@@ -74,7 +74,7 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
       left="0"
       background="surface"
       color="text"
-      display={!openConnectWallet ? 'none' : 'block'}
+      display={openConnectWallet ? 'none' : 'block'}
     >
       <Box display="flex" background={[darkTheme.colors.surface]}>
         <WalletListSection
