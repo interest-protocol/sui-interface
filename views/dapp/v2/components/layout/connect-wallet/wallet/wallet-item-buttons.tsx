@@ -23,37 +23,37 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
   const { connect } = useWalletKit();
 
   return (
-    <Box
-      gap="s"
-      p="1rem 0.25rem"
-      height="3rem"
-      display="flex"
-      border="1px solid"
-      alignItems="center"
-      className="showButton"
-      borderRadius="0.5rem"
-      justifyContent="space-between"
-      transition="display 250ms ease-in-out"
-      borderColor={lightTheme.colors['outline.outlineVariant']}
-    >
-      {hasInstalled ? (
-        <TooltipWrapper
-          bg={darkTheme.colors['surface']}
-          tooltipPosition="top"
-          width="max-content"
-          tooltipContent={
-            <Typography
-              variant="extraSmall"
-              color={darkTheme.colors['onSurface']}
-              textTransform="capitalize"
-            >
-              {t('connectWallet.tooltip.connect')}
-            </Typography>
-          }
+    <TooltipWrapper
+      bg={darkTheme.colors['surface']}
+      tooltipPosition="top"
+      width="max-content"
+      tooltipContent={
+        <Typography
+          variant="extraSmall"
+          color={darkTheme.colors['onSurface']}
+          textTransform="capitalize"
         >
+          {hasInstalled
+            ? t('connectWallet.tooltip.connect')
+            : t('connectWallet.tooltip.install')}
+        </Typography>
+      }
+    >
+      <Box
+        p="0.25rem"
+        height="3rem"
+        display="flex"
+        border="1px solid"
+        alignItems="center"
+        className="showButton"
+        borderRadius="0.5rem"
+        justifyContent="space-between"
+        transition="display 250ms ease-in-out"
+        borderColor={lightTheme.colors['outline.outlineVariant']}
+      >
+        {hasInstalled ? (
           <Button
             variant="icon"
-            height="80%"
             nHover={{
               backgroundColor: lightTheme.colors['surface.container'],
             }}
@@ -70,25 +70,9 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
               width="100%"
             />
           </Button>
-        </TooltipWrapper>
-      ) : (
-        <TooltipWrapper
-          bg={darkTheme.colors['surface']}
-          tooltipPosition="top"
-          width="max-content"
-          tooltipContent={
-            <Typography
-              variant="extraSmall"
-              color={darkTheme.colors['onSurface']}
-              textTransform="capitalize"
-            >
-              {t('connectWallet.tooltip.install')}
-            </Typography>
-          }
-        >
+        ) : (
           <Button
             variant="icon"
-            height="80%"
             nHover={{
               backgroundColor: lightTheme.colors['surface.container'],
             }}
@@ -107,9 +91,9 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
               />
             </a>
           </Button>
-        </TooltipWrapper>
-      )}
-    </Box>
+        )}
+      </Box>
+    </TooltipWrapper>
   );
 };
 
