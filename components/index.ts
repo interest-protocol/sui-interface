@@ -1,7 +1,7 @@
 export { default as Chip } from './chip';
 export { default as Container } from './container';
 export { default as CopyToClipboard } from './copy-to-clipboard';
-export { ConnectWallet } from './layout/header/wallet';
+export { ConnectWalletButton as ConnectWallet } from './layout/header/wallet';
 export { default as LoadingPage } from './loading-page';
 export { default as Message } from './message';
 export { default as NetworkProvider } from './network-provider';
