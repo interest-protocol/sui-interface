@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import { useTranslations } from 'next-intl';
-import { mergeAll, mergeDeepRight } from 'ramda';
+import { mergeAll } from 'ramda';
 
 import { SEO } from '@/components';
 import Web3Manager from '@/components/web3-manager';
