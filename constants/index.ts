@@ -72,6 +72,8 @@ export * from './wrapper-variants';
 
 export const MAX_NUMBER_INPUT_VALUE = 9000000000000000;
 
+export const MAX_U64 = BigNumber(2).pow(64).minus(1);
+
 export const GAS_COST = {
   [Network.TESTNET]: 3_00_000_000,
   [Network.DEVNET]: 3_00_000_000,
@@ -83,9 +85,9 @@ export enum StakeState {
   Unstake,
 }
 
-export const SUI_EXPLORER_URL = 'https://explorer.sui.io';
-
 export const SUI_VISION_EXPLORER_URL = 'https://suivision.xyz';
+
+export const SUI_VISION_TESTNET_EXPLORER_URL = 'https://testnet.suivision.xyz';
 
 export const TOKENS_SVG_MAP = {
   default: UnknownCoinV1SVG,

@@ -5,9 +5,8 @@ import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
 import {
-  NETWORK_RECORD,
-  SUI_EXPLORER_URL,
   SUI_VISION_EXPLORER_URL,
+  SUI_VISION_TESTNET_EXPLORER_URL,
 } from '@/constants';
 import { useMoneyMarketSdk, useNetwork, useProvider } from '@/hooks';
 import { throwTXIfNotSuccessful } from '@/utils';
@@ -64,7 +63,7 @@ const DisableCollateralModal: FC<CollateralModalProps> = ({
         txLink:
           network === Network.MAINNET
             ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-            : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`,
+            : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`,
       });
 
       setCollateralSwitchState(true);

@@ -15,9 +15,8 @@ import { pathOr, propOr } from 'ramda';
 import { FC } from 'react';
 
 import {
-  NETWORK_RECORD,
-  SUI_EXPLORER_URL,
   SUI_VISION_EXPLORER_URL,
+  SUI_VISION_TESTNET_EXPLORER_URL,
 } from '@/constants';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { capitalize, throwTXIfNotSuccessful } from '@/utils';
@@ -145,7 +144,7 @@ const MintButton: FC<MintButtonProps> = ({
       confirmModal(
         network === Network.MAINNET
           ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-          : `${SUI_EXPLORER_URL}/transaction/${tx.digest}?network=${NETWORK_RECORD[network]}`
+          : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`
       );
     } catch (error) {
       failModal(propOr(t('faucet.modal.fail.content'), 'message', error));

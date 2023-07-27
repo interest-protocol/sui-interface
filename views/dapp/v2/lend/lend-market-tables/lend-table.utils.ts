@@ -113,7 +113,7 @@ export const makeBorrowData = ({
               pathOr(1, [key, 'decimals'], coinsMap)
             )
           : 0,
-        cash: FixedPointMath.toNumber(market.cash, market.decimals),
+        cash: FixedPointMath.toNumber(market.availableCash, market.decimals),
         marketKey: key,
       } as BorrowRow;
 
@@ -314,7 +314,10 @@ export const calculateNewRepayLimitNewAmount = ({
   priceMap,
   marketRecord,
 }: CalculateNewBorrowLimitArgs) => {
-  if (userBalancesInUSD.totalCollateral == 0 || userBalancesInUSD.totalLoan)
+  if (
+    userBalancesInUSD.totalCollateral == 0 ||
+    userBalancesInUSD.totalLoan == 0
+  )
     return {
       currentBorrowLimit: 0,
       currentBorrowLimitPercentage: 0,
