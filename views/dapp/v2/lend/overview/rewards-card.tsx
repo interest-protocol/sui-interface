@@ -101,7 +101,7 @@ const RewardsCard: FC = () => {
           fontSize={['xs', 'xs', 'xs', 'xl']}
           textAlign="center"
         >
-          {formatMoney(amount)} IPX
+          {formatMoney(amount, 3)} IPX
         </Typography>
         <Button
           py="s"
