@@ -141,11 +141,15 @@ const Profile: FC = () => {
       ref={connectedBoxRef}
       flexDirection="column"
       justifyContent="center"
-      onClick={handleOpenProfile}
       ml={['0.5rem', '0.5rem', '0.5rem', 'unset']}
     >
       {account && (
-        <Box display="flex" gap="m" alignItems="center">
+        <Box
+          gap="m"
+          display="flex"
+          alignItems="center"
+          onClick={handleOpenProfile}
+        >
           <Typography variant="medium" color="primary">
             {getName(account, suiNSRecord)}
           </Typography>
@@ -179,8 +183,8 @@ const Profile: FC = () => {
         loading={loading}
         isOpen={isOpenProfile}
         suiNSRecord={suiNSRecord}
-        handleOpen={handleOpenAccount}
         avatarUrlRecord={avatarUrlRecord}
+        handleOpenSwitch={handleOpenAccount}
       />
       <MenuSwitchAccount
         loading={loading}

@@ -31,7 +31,7 @@ export const MENU_PROFILE_DATA: ReadonlyArray<ProfileMenuItemProps> = [
     disabled: false,
   },
   {
-    name: 'switch',
+    name: 'switchAccounts',
     description: 'common.v2.wallet.switch',
     Icon: SwitchSVG,
     hasBorder: false,

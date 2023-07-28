@@ -17,7 +17,7 @@ import UserInfo from './user-info';
 const MenuProfile: FC<MenuProfileProps> = ({
   isOpen,
   loading,
-  handleOpen,
+  handleOpenSwitch,
   suiNSRecord,
   avatarUrlRecord,
 }) => {
@@ -28,7 +28,7 @@ const MenuProfile: FC<MenuProfileProps> = ({
 
   const handleAction: Record<string, () => void | Promise<void>> = {
     disconnect,
-    switch: handleOpen,
+    switchAccounts: handleOpenSwitch,
     viewInExplorer: () => {
       window.open(`${EXPLORER_URL[network]}/account/${account}`, '_blank');
     },

@@ -64,11 +64,11 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
         <Button
           variant="icon"
           p="0 !important"
+          onClick={onBack}
           nHover={{
             color: 'primary',
             bg: 'transparent',
           }}
-          onClick={onBack}
         >
           <ArrowLeft maxHeight="1rem" maxWidth="1rem" width="100%" />
         </Button>
