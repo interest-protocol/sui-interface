@@ -8,6 +8,7 @@ import { useNetwork } from '@/hooks';
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
+import NetworkSwitch from '../../../network-switch';
 import { SIDEBAR_ITEMS } from '../../../sidebar/sidebar.data';
 import { MainMenuProps } from '../menu.types';
 import MenuSettingsList from '../settings/menu-settings/settings-list';
@@ -25,8 +26,7 @@ const MainMenu: FC<MainMenuProps> = ({ openLanguageMenu }) => {
       variant="container"
       justifyItems="unset"
       flexDirection="column"
-      height="calc(100% - 3rem)"
-      maxHeight="calc(100% - 3rem)"
+      minHeight="100%"
       justifyContent="space-between"
     >
       <Box zIndex="2" gridColumn="1/-1">
@@ -69,6 +69,15 @@ const MainMenu: FC<MainMenuProps> = ({ openLanguageMenu }) => {
         >
           <MenuSettingsList openLanguageMenu={openLanguageMenu} />
         </Motion>
+      </Box>
+      <Box
+        mt="m"
+        pb="l"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
+        <NetworkSwitch />
       </Box>
     </Box>
   );

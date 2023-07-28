@@ -13,7 +13,7 @@ const MenuBackButton: FC<MenuBackButtonProps> = ({
 
   return (
     <Button
-      color="text"
+      color="onSurface"
       variant="icon"
       onClick={handleBack}
       display={['block', 'block', 'block', 'none']}

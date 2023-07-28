@@ -25,7 +25,6 @@ const LanguageMenu: FC = () => {
             <LanguageMenuItem name={locale} />
           </MenuItemWrapper>
         ))}
-        ;
       </Box>
     </Motion>
   );

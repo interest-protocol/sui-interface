@@ -53,7 +53,7 @@ const Menu: FC = () => {
         position="relative"
         flexDirection="row-reverse"
         justifyContent="space-between"
-        bg={isOpen ? 'surface.container' : 'unset'}
+        bg={isOpen ? 'transparent' : 'unset'}
       >
         <Box display="flex" alignItems="center">
           {!isOpen && (

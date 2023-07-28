@@ -19,3 +19,8 @@ export interface MenuLanguageProps {
   onBack?: () => void;
   locales: ReadonlyArray<Locales>;
 }
+
+export interface MenuSettingsListHeaderProps {
+  handleButton: () => void;
+  isOpen: boolean;
+}
