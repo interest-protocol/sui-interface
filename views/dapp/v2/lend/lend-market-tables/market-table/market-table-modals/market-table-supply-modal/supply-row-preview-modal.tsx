@@ -1,4 +1,3 @@
-import { Network } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Button,
@@ -14,11 +13,7 @@ import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
 import { LeftArrowSVG } from '@/components/svg/v2';
-import {
-  MAX_U64,
-  SUI_VISION_EXPLORER_URL,
-  SUI_VISION_TESTNET_EXPLORER_URL,
-} from '@/constants';
+import { EXPLORER_URL, MAX_U64 } from '@/constants';
 import { useMoneyMarketSdk, useNetwork, useProvider } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import { TimesSVG } from '@/svg';
@@ -111,10 +106,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
       openRowMarketResultModal({
         isDeposit: isDeposit,
         isSuccess: true,
-        txLink:
-          network === Network.MAINNET
-            ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-            : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`,
+        txLink: `${EXPLORER_URL[network]}/txblock/${tx.digest}`,
       });
     } catch {
       openRowMarketResultModal({
@@ -165,10 +157,7 @@ const SupplyMarketPreviewModal: FC<SupplyMarketModalPreviewProps> = ({
       openRowMarketResultModal({
         isDeposit: isDeposit,
         isSuccess: true,
-        txLink:
-          network === Network.MAINNET
-            ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-            : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`,
+        txLink: `${EXPLORER_URL[network]}/txblock/${tx.digest}`,
       });
     } catch {
       openRowMarketResultModal({ isSuccess: false, isDeposit });

@@ -4,8 +4,8 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { SUI_VISION_EXPLORER_URL, wrapperVariants } from '@/constants';
-import { useWeb3 } from '@/hooks';
+import { EXPLORER_URL, wrapperVariants } from '@/constants';
+import { useNetwork, useWeb3 } from '@/hooks';
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
@@ -23,13 +23,14 @@ const MenuProfile: FC<MenuProfileProps> = ({
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
+  const { network } = useNetwork();
   const { disconnect } = useWalletKit();
 
   const handleAction: Record<string, () => void | Promise<void>> = {
     disconnect,
     switch: handleOpen,
     viewInExplorer: () => {
-      window.open(`${SUI_VISION_EXPLORER_URL}/account/${account}`, '_blank');
+      window.open(`${EXPLORER_URL[network]}/account/${account}`, '_blank');
     },
   };
 
