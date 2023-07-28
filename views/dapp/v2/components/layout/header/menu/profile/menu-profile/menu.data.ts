@@ -8,7 +8,7 @@ import {
 
 import { ProfileMenuItemProps } from '../profile.types';
 
-export const MenuProfileData: ReadonlyArray<ProfileMenuItemProps> = [
+export const MENU_PROFILE_DATA: ReadonlyArray<ProfileMenuItemProps> = [
   {
     name: 'activity',
     description: 'common.v2.wallet.activity',

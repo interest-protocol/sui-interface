@@ -11,7 +11,6 @@ import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useLocalStorage } from 'usehooks-ts';
 
 import { CheckmarkSVG, CopySVG, UserSVG } from '@/components/svg/v2';
 import { SEMANTIC_COLORS, wrapperVariants } from '@/constants';
@@ -21,12 +20,14 @@ import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../menu-item-wrapper';
 import { MenuSwitchAccountProps } from '../profile.types';
+import { getName } from '../profile.utils';
 
 const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
   isOpen,
+  onBack,
   loading,
   suiNSRecord,
-  onBack,
+  avatarUrlRecord,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
@@ -38,12 +39,12 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
     toast(capitalize(t('common.v2.wallet.copy')));
   };
 
-  const [randomColor] = useLocalStorage<
-    ReadonlyArray<{ dark: string; light: string }>
-  >(
-    'sui-interest-account-colors',
-    SEMANTIC_COLORS.sort(() => Math.random() - 0.5)
-  );
+  const getIconBg = (index: number, address: string) =>
+    address === account
+      ? 'primary'
+      : SEMANTIC_COLORS[index % SEMANTIC_COLORS.length][
+          dark ? 'dark' : 'light'
+        ];
 
   return (
     <Motion
@@ -82,6 +83,7 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
           onClick={() => {
             if (!(walletAccount.address === account)) {
               selectAccount(walletAccount);
+              onBack();
             }
           }}
         >
@@ -106,22 +108,25 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
               </Box>
             )}
             <Box
-              bg={
-                walletAccount.address === account
-                  ? 'primary'
-                  : dark
-                  ? randomColor[index % randomColor.length].dark
-                  : randomColor[index % randomColor.length].light
-              }
-              color="primary.onPrimary"
               width="1.5rem"
               height="1.5rem"
-              borderRadius="50%"
               display="flex"
+              borderRadius="50%"
               alignItems="center"
               justifyContent="center"
+              color="primary.onPrimary"
+              bg={getIconBg(index, walletAccount.address)}
             >
-              <UserSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+              {account && avatarUrlRecord[account] ? (
+                <img
+                  width="100%"
+                  height="100%"
+                  src={avatarUrlRecord[account]}
+                  alt={`${getName(account, suiNSRecord)} NFT`}
+                />
+              ) : (
+                <UserSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+              )}
             </Box>
             <Typography
               variant="small"

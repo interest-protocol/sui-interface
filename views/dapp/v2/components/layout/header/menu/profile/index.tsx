@@ -1,11 +1,10 @@
-import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useRouter } from 'next/router';
 import { pathOr, prop } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 
 import { UserSVG } from '@/components/svg/v2';
-import { RefBox } from '@/elements';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import useClickOutsideListenerRef from '@/hooks/use-click-outside-listener-ref';
 import { noop } from '@/utils';
@@ -20,11 +19,10 @@ const Profile: FC = () => {
   const { query } = useRouter();
   const [isOpenProfile, setIsOpenProfile] = useState(Boolean(query.profile));
   const [isOpenAccount, setIsOpenAccount] = useState(Boolean(query.account));
-  const { colors } = useTheme() as Theme;
 
+  const { account } = useWeb3();
   const { network } = useNetwork();
   const { suiNSProvider } = useProvider();
-  const { account } = useWeb3();
   const [loading, setLoading] = useState(false);
   const [suiNSRecord, setSuiNSRecord] = useState<Record<string, string>>({});
   const [avatarUrlRecord, setAvatarUrlRecord] = useState<
@@ -133,55 +131,65 @@ const Profile: FC = () => {
   };
 
   return (
-    <RefBox
+    <Box
       id={BOX_ID}
-      ml={['0.5rem', '0.5rem', '0.5rem', 'unset']}
       display="flex"
+      cursor="pointer"
       position="relative"
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       ref={connectedBoxRef}
       flexDirection="column"
       justifyContent="center"
-      borderRadius="100%"
-      border="1px solid"
-      transition="background-color .5s"
-      bg={colors['primary']}
+      onClick={handleOpenProfile}
+      ml={['0.5rem', '0.5rem', '0.5rem', 'unset']}
     >
-      <Box
-        display="flex"
-        width="2.5rem"
-        height="2.5rem"
-        cursor="pointer"
-        alignItems="center"
-        justifyContent="center"
-        onClick={handleOpenProfile}
-        nHover={{ bg: 'transparent' }}
-        color="primary.onPrimary"
-      >
-        {account && avatarUrlRecord[account] ? (
-          <img
-            width="100%"
-            height="100%"
-            src={avatarUrlRecord[account]}
-            alt={`${getName(account, suiNSRecord)} NFT`}
-          />
-        ) : (
-          <UserSVG maxWidth="2.5rem" maxHeight="2.5rem" width="100%" />
-        )}
-      </Box>
+      {account && (
+        <Box display="flex" gap="m" alignItems="center">
+          <Typography variant="medium" color="primary">
+            {getName(account, suiNSRecord)}
+          </Typography>
+          <Box
+            display="flex"
+            width="2.5rem"
+            height="2.5rem"
+            cursor="pointer"
+            overflow="hidden"
+            alignItems="center"
+            borderRadius="full"
+            background="primary"
+            justifyContent="center"
+            color="primary.onPrimary"
+            transition="background-color .5s"
+          >
+            {avatarUrlRecord[account] ? (
+              <img
+                width="100%"
+                height="100%"
+                src={avatarUrlRecord[account]}
+                alt={`${getName(account, suiNSRecord)} NFT`}
+              />
+            ) : (
+              <UserSVG maxWidth="2.5rem" maxHeight="2.5rem" width="100%" />
+            )}
+          </Box>
+        </Box>
+      )}
       <MenuProfile
+        loading={loading}
         isOpen={isOpenProfile}
+        suiNSRecord={suiNSRecord}
         handleOpen={handleOpenAccount}
         avatarUrlRecord={avatarUrlRecord}
-        suiNSRecord={suiNSRecord}
-        loading={loading}
       />
       <MenuSwitchAccount
-        isOpen={isOpenAccount}
-        onBack={handleOpenProfile}
         loading={loading}
+        isOpen={isOpenAccount}
         suiNSRecord={suiNSRecord}
+        onBack={handleOpenProfile}
+        avatarUrlRecord={avatarUrlRecord}
       />
-    </RefBox>
+    </Box>
   );
 };
 

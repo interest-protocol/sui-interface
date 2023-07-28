@@ -1,38 +1,38 @@
-import {
-  Box,
-  Motion,
-  ProgressIndicator,
-  Typography,
-} from '@interest-protocol/ui-kit';
+import { Box, Motion, Typography } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { wrapperVariants } from '@/constants';
+import { SUI_VISION_EXPLORER_URL, wrapperVariants } from '@/constants';
+import { useWeb3 } from '@/hooks';
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../menu-item-wrapper';
 import { MenuProfileProps } from '../profile.types';
-import { MenuProfileData } from './menu.data';
+import { MENU_PROFILE_DATA } from './menu.data';
 import UserInfo from './user-info';
 
 const MenuProfile: FC<MenuProfileProps> = ({
   isOpen,
-  avatarUrlRecord,
-  suiNSRecord,
-  handleOpen,
   loading,
+  handleOpen,
+  suiNSRecord,
+  avatarUrlRecord,
 }) => {
   const t = useTranslations();
+  const { account } = useWeb3();
   const { disconnect } = useWalletKit();
 
-  const handleAction = async (action: string) => {
-    action === 'switch'
-      ? handleOpen()
-      : action === 'disconnect' && (await disconnect());
+  const handleAction: Record<string, () => void | Promise<void>> = {
+    disconnect,
+    switch: handleOpen,
+    viewInExplorer: () => {
+      window.open(`${SUI_VISION_EXPLORER_URL}/account/${account}`, '_blank');
+    },
   };
+
   return (
     <Motion
       right="0"
@@ -49,51 +49,37 @@ const MenuProfile: FC<MenuProfileProps> = ({
       textTransform="capitalize"
       width="14.5rem"
     >
-      {loading ? (
-        <Box width="14rem" py="l">
+      <UserInfo
+        loading={loading}
+        suiNSRecord={suiNSRecord}
+        avatarUrlRecord={avatarUrlRecord}
+      />
+      {MENU_PROFILE_DATA.map(
+        ({ name, description, Icon, hasBorder, disabled }) => (
           <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            height="4rem"
+            key={v4()}
+            borderTop={hasBorder ? '1px solid' : 'unset'}
+            borderColor="outline.outlineVariant"
           >
-            <ProgressIndicator variant="loading" />
-          </Box>
-        </Box>
-      ) : (
-        <>
-          <UserInfo
-            avatarUrlRecord={avatarUrlRecord}
-            suiNSRecord={suiNSRecord}
-          />
-          {MenuProfileData.map(
-            ({ name, description, Icon, hasBorder, disabled }) => (
-              <Box
-                key={v4()}
-                borderTop={hasBorder ? '1px solid' : 'unset'}
-                borderColor="outline.outlineVariant"
-              >
-                <MenuItemWrapper
-                  onClick={() => {
-                    !disabled && handleAction(name);
-                  }}
-                  disabled={disabled}
+            <MenuItemWrapper
+              disabled={disabled}
+              onClick={() => {
+                if (!disabled) handleAction[name]?.();
+              }}
+            >
+              <Box display="flex" alignItems="center" gap="l">
+                <Icon maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+                <Typography
+                  variant="small"
+                  color="onSurface"
+                  opacity={disabled ? 0.7 : 1}
                 >
-                  <Box display="flex" alignItems="center" gap="l">
-                    <Icon maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
-                    <Typography
-                      variant="small"
-                      color="onSurface"
-                      opacity={disabled ? 0.7 : 1}
-                    >
-                      {capitalize(t(description as TTranslatedMessage))}
-                    </Typography>
-                  </Box>
-                </MenuItemWrapper>
+                  {capitalize(t(description as TTranslatedMessage))}
+                </Typography>
               </Box>
-            )
-          )}
-        </>
+            </MenuItemWrapper>
+          </Box>
+        )
       )}
     </Motion>
   );

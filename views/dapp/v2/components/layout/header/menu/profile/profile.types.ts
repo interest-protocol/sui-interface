@@ -20,12 +20,14 @@ export interface ProfileMenuItemProps {
 
 export interface MenuSwitchAccountProps {
   isOpen: boolean;
-  onBack: () => void;
   loading: boolean;
+  onBack: () => void;
   suiNSRecord: Record<string, string>;
+  avatarUrlRecord: Record<string, string>;
 }
 
 export interface UserInfoProps {
-  avatarUrlRecord: Record<string, string>;
+  loading: boolean;
   suiNSRecord: Record<string, string>;
+  avatarUrlRecord: Record<string, string>;
 }
