@@ -53,7 +53,8 @@
         "viewInExplorer": "ver en el explorador",
         "error": "Error de conexión",
         "connecting": "Conectando",
-        "copy": "dirección copiada al portapapeles"
+        "copy": "dirección copiada al portapapeles",
+        "account": "{count, plural, =1 {cuenta} other {cuentas}}"
       },
       "banner": {
         "liquidity": {

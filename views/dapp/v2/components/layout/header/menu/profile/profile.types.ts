@@ -17,6 +17,7 @@ export interface ProfileMenuItemProps {
   Icon: FC<SVGProps>;
   hasBorder: boolean;
   disabled?: boolean;
+  handleAction?: Record<string, () => void | Promise<void>>;
 }
 
 export interface MenuSwitchAccountProps {
@@ -31,6 +32,7 @@ export interface MenuSwitchAccountProps {
 export interface MenuSwitchAccountHeaderProps {
   onBack: () => void;
   handleCloseProfile: () => void;
+  size: number;
 }
 
 export interface UserInfoProps {

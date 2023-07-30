@@ -53,7 +53,8 @@
         "viewInExplorer": "ver no explorador",
         "error": "erro na conexão",
         "connecting": "conectando",
-        "copy": "endereço copiado para a área de transferência"
+        "copy": "endereço copiado para a área de transferência",
+        "account": "{count, plural, =1 {conta} other {contas}}"
       },
       "banner": {
         "liquidity": {

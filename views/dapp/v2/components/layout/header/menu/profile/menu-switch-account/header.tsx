@@ -10,6 +10,7 @@ import { MenuSwitchAccountHeaderProps } from '../profile.types';
 const MenuSwitchAccountHeader: FC<MenuSwitchAccountHeaderProps> = ({
   onBack,
   handleCloseProfile,
+  size,
 }) => {
   const t = useTranslations();
 
@@ -56,7 +57,9 @@ const MenuSwitchAccountHeader: FC<MenuSwitchAccountHeaderProps> = ({
           color="onSurface"
           textTransform="capitalize"
         >
-          {t('common.v2.wallet.name')}
+          {t('common.v2.wallet.account', {
+            count: size,
+          })}
         </Typography>
       </Box>
     </>

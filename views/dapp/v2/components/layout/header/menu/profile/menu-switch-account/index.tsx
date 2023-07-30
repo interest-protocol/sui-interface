@@ -71,6 +71,7 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
       <MenuSwitchAccountHeader
         handleCloseProfile={handleCloseProfile}
         onBack={onBack}
+        size={accounts.length}
       />
       {accounts.map((walletAccount, index) => (
         <MenuItemWrapper
