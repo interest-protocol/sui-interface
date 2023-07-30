@@ -33,14 +33,17 @@ const UserInfo: FC<UserInfoProps> = ({
     <>
       <Box p="xl">
         <Typography
-          variant="large"
+          variant="small"
           color="onSurface"
           textTransform="capitalize"
         >
           {t('common.v2.wallet.name')}
         </Typography>
       </Box>
-      <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
+      <Box
+        borderBottom={['unset', 'unset', 'unset', '1px solid']}
+        borderColor="outline.outlineVariant"
+      >
         <MenuItemWrapper>
           <Box display="flex" alignItems="center" gap="l">
             {loading ? (

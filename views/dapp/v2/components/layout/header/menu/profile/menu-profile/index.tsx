@@ -9,6 +9,7 @@ import { useNetwork, useWeb3 } from '@/hooks';
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
+import MenuButton from '../../menu-button';
 import MenuItemWrapper from '../../menu-item-wrapper';
 import { MenuProfileProps } from '../profile.types';
 import { MENU_PROFILE_DATA } from './menu.data';
@@ -20,6 +21,7 @@ const MenuProfile: FC<MenuProfileProps> = ({
   handleOpenSwitch,
   suiNSRecord,
   avatarUrlRecord,
+  handleCloseProfile,
 }) => {
   const t = useTranslations();
   const { account } = useWeb3();
@@ -37,19 +39,28 @@ const MenuProfile: FC<MenuProfileProps> = ({
   return (
     <Motion
       right="0"
-      top="3rem"
+      top={['0', '0', '0', '3rem']}
       overflow="visible"
       zIndex={1}
       initial="closed"
-      borderRadius="m"
-      position="absolute"
+      borderRadius="unset"
+      position={['fixed', 'fixed', 'fixed', 'absolute']}
       bg="surface.container"
       variants={wrapperVariants}
       animate={isOpen ? 'open' : 'closed'}
       pointerEvents={isOpen ? 'auto' : 'none'}
       textTransform="capitalize"
-      width="14.5rem"
+      width={['100vw', '100vw', '100vw', '14.5rem']}
+      height={['100vh', '100vh', '100vh', 'unset']}
+      p={['xl', 'xl', 'xl', 'unset']}
     >
+      <Box
+        display={['flex', 'flex', 'flex', 'none']}
+        flexDirection="row-reverse"
+        py="l"
+      >
+        <MenuButton isOpen={true} handleClose={handleCloseProfile} />
+      </Box>
       <UserInfo
         loading={loading}
         suiNSRecord={suiNSRecord}
@@ -59,7 +70,12 @@ const MenuProfile: FC<MenuProfileProps> = ({
         ({ name, description, Icon, hasBorder, disabled }) => (
           <Box
             key={v4()}
-            borderTop={hasBorder ? '1px solid' : 'unset'}
+            borderTop={[
+              'unset',
+              'unset',
+              'unset',
+              hasBorder ? '1px solid' : 'unset',
+            ]}
             borderColor="outline.outlineVariant"
           >
             <MenuItemWrapper

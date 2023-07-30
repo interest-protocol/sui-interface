@@ -8,6 +8,7 @@ export interface MenuProfileProps {
   handleOpenSwitch: () => void;
   suiNSRecord: Record<string, string>;
   avatarUrlRecord: Record<string, string>;
+  handleCloseProfile: () => void;
 }
 
 export interface ProfileMenuItemProps {
@@ -24,6 +25,12 @@ export interface MenuSwitchAccountProps {
   onBack: () => void;
   suiNSRecord: Record<string, string>;
   avatarUrlRecord: Record<string, string>;
+  handleCloseProfile: () => void;
+}
+
+export interface MenuSwitchAccountHeaderProps {
+  onBack: () => void;
+  handleCloseProfile: () => void;
 }
 
 export interface UserInfoProps {

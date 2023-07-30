@@ -19,7 +19,9 @@ const Profile: FC = () => {
   const { query } = useRouter();
   const [isOpenProfile, setIsOpenProfile] = useState(Boolean(query.profile));
   const [isOpenAccount, setIsOpenAccount] = useState(Boolean(query.account));
-
+  const [menuIsDropdown, setMenuIsDropdown] = useState(
+    isOpenProfile || isOpenAccount
+  );
   const { account } = useWeb3();
   const { network } = useNetwork();
   const { suiNSProvider } = useProvider();
@@ -30,6 +32,10 @@ const Profile: FC = () => {
   >({});
   const { accounts } = useWalletKit();
   const { provider } = useProvider();
+
+  useEffect(() => {
+    setMenuIsDropdown(isOpenProfile || isOpenAccount);
+  }, [isOpenAccount, isOpenProfile]);
 
   useEffect(() => {
     if (accounts.length) {
@@ -135,22 +141,49 @@ const Profile: FC = () => {
       id={BOX_ID}
       display="flex"
       cursor="pointer"
-      position="relative"
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       ref={connectedBoxRef}
       flexDirection="column"
       justifyContent="center"
       ml={['0.5rem', '0.5rem', '0.5rem', 'unset']}
+      top={menuIsDropdown ? ['-2rem', '-2rem', '-2rem', 'unset'] : 'unset'}
+      left={menuIsDropdown ? ['-2rem', '-2rem', '-2rem', 'unset'] : 'unset'}
+      width={menuIsDropdown ? ['100vw', '100vw', '100vw', 'unset'] : 'unset'}
+      height={menuIsDropdown ? ['100vh', '100vh', '100vh', 'unset'] : 'unset'}
+      position={
+        menuIsDropdown
+          ? ['absolute', 'absolute', 'absolute', 'relative']
+          : 'relative'
+      }
+      bg={
+        menuIsDropdown
+          ? [
+              'surface.container',
+              'surface.container',
+              'surface.container',
+              'unset',
+            ]
+          : 'unset'
+      }
     >
       {account && (
         <Box
           gap="m"
-          display="flex"
+          display={[
+            menuIsDropdown ? 'none' : 'flex',
+            menuIsDropdown ? 'none' : 'flex',
+            menuIsDropdown ? 'none' : 'flex',
+            'flex',
+          ]}
           alignItems="center"
           onClick={handleOpenProfile}
         >
-          <Typography variant="medium" color="primary">
+          <Typography
+            variant="medium"
+            display={['none', 'none', 'none', 'block']}
+            color="primary"
+          >
             {getName(account, suiNSRecord)}
           </Typography>
           <Box
@@ -185,6 +218,7 @@ const Profile: FC = () => {
         suiNSRecord={suiNSRecord}
         avatarUrlRecord={avatarUrlRecord}
         handleOpenSwitch={handleOpenAccount}
+        handleCloseProfile={handleCloseProfile}
       />
       <MenuSwitchAccount
         loading={loading}
@@ -192,6 +226,7 @@ const Profile: FC = () => {
         suiNSRecord={suiNSRecord}
         onBack={handleOpenProfile}
         avatarUrlRecord={avatarUrlRecord}
+        handleCloseProfile={handleCloseProfile}
       />
     </Box>
   );

@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Motion,
+  ProgressIndicator,
   Theme,
   Typography,
   useTheme,
@@ -15,12 +16,12 @@ import { toast } from 'react-hot-toast';
 import { CheckmarkSVG, CopySVG, UserSVG } from '@/components/svg/v2';
 import { SEMANTIC_COLORS, wrapperVariants } from '@/constants';
 import { useWeb3 } from '@/hooks';
-import { ArrowLeft } from '@/svg';
 import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../menu-item-wrapper';
 import { MenuSwitchAccountProps } from '../profile.types';
 import { getName } from '../profile.utils';
+import MenuSwitchAccountHeader from './header';
 
 const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
   isOpen,
@@ -28,6 +29,7 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
   loading,
   suiNSRecord,
   avatarUrlRecord,
+  handleCloseProfile,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
@@ -40,7 +42,9 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
   };
 
   const getIconBg = (index: number, address: string) =>
-    address === account
+    loading
+      ? 'transparent'
+      : address === account
       ? 'primary'
       : SEMANTIC_COLORS[index % SEMANTIC_COLORS.length][
           dark ? 'dark' : 'light'
@@ -49,33 +53,25 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
   return (
     <Motion
       right="0"
-      top="3rem"
+      top={['0', '0', '0', '3rem']}
+      overflow="visible"
       zIndex={1}
       initial="closed"
       borderRadius="m"
-      position="absolute"
+      position={['fixed', 'fixed', 'fixed', 'absolute']}
       bg="surface.container"
       variants={wrapperVariants}
       animate={isOpen ? 'open' : 'closed'}
       pointerEvents={isOpen ? 'auto' : 'none'}
-      width="14.5rem"
+      textTransform="capitalize"
+      width={['100vw', '100vw', '100vw', '14.5rem']}
+      height={['100vh', '100vh', '100vh', 'unset']}
+      p={['xl', 'xl', 'xl', 'unset']}
     >
-      <Box p="xl" display="flex" gap="xs" color="onSurface" alignItems="center">
-        <Button
-          variant="icon"
-          p="0 !important"
-          onClick={onBack}
-          nHover={{
-            color: 'primary',
-            bg: 'transparent',
-          }}
-        >
-          <ArrowLeft maxHeight="1rem" maxWidth="1rem" width="100%" />
-        </Button>
-        <Typography variant="small" textTransform="capitalize">
-          {t('common.v2.wallet.switch')}
-        </Typography>
-      </Box>
+      <MenuSwitchAccountHeader
+        handleCloseProfile={handleCloseProfile}
+        onBack={onBack}
+      />
       {accounts.map((walletAccount, index) => (
         <MenuItemWrapper
           key={walletAccount.address}
@@ -117,7 +113,9 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
               color="primary.onPrimary"
               bg={getIconBg(index, walletAccount.address)}
             >
-              {account && avatarUrlRecord[account] ? (
+              {loading ? (
+                <ProgressIndicator variant="loading" size={24} />
+              ) : account && avatarUrlRecord[account] ? (
                 <img
                   width="100%"
                   height="100%"

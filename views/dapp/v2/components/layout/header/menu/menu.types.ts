@@ -23,13 +23,17 @@ export interface MenuMobileProps extends MainMenuProps {
   isLanguage: boolean;
 }
 
+export interface MenuProfileMobileProps {
+  isOpen: boolean;
+}
+
 export interface MainMenuProps {
   openLanguageMenu: () => void;
 }
 
 export interface MenuButtonProps {
   isOpen: boolean;
-  handleOpen: () => void;
+  handleOpen?: () => void;
   handleClose: () => void;
 }
 
