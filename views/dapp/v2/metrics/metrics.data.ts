@@ -18,27 +18,18 @@ export const TOP_INFO_CARDS_DATA = [
   {
     Icon: TVLSVG,
     description: 'metrics.infoCards.tvl',
-    amount: 340000,
   },
   {
     Icon: LiquiditySVG,
     description: 'metrics.infoCards.liquidityAdd',
-    amount: 0,
   },
   {
     Icon: BorrowSVG,
     description: 'metrics.infoCards.liquidityRemove',
-    amount: 1234,
   },
   {
     Icon: VolumeSVG,
     description: 'metrics.infoCards.dailyTradingVolume',
-    amount: 1234,
-  },
-  {
-    Icon: TVLSVG,
-    description: 'metrics.infoCards.tvl',
-    amount: 340000,
   },
 ];
 

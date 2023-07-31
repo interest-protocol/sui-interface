@@ -7,7 +7,7 @@ import DailyVolume from './daily-volume';
 import { TOTAL_LIQUIDITY_DATA } from './metrics.data';
 import TopCoinsTable from './tables/top-coins-table';
 import TopPoolsTable from './tables/top-pools-table';
-import TopInfoCardsList from './top-info-cards/top-info-cards-list';
+import TopInfoCards from './top-info-cards';
 import TotalLiquidity from './total-liquidity';
 import TVLPools from './tvl-pools';
 
@@ -24,7 +24,7 @@ const Metrics: FC = () => {
       >
         <Tabs items={[t('metrics.tabs.dex'), t('metrics.tabs.moneyMarket')]} />
       </Box>
-      <TopInfoCardsList />
+      <TopInfoCards />
       <TotalLiquidity data={TOTAL_LIQUIDITY_DATA} />
       <DailyVolume data={TOTAL_LIQUIDITY_DATA} />
       <ActiveWallets data={TOTAL_LIQUIDITY_DATA} />

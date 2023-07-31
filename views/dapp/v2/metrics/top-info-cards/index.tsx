@@ -1,35 +1,47 @@
-import { Box, InfoCard } from '@interest-protocol/ui-kit';
-import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { Box } from '@interest-protocol/ui-kit';
+import { FC, useEffect, useState } from 'react';
+import { v4 } from 'uuid';
 
-import { TTranslatedMessage } from '@/interface';
+import {
+  getAccumulatedVolume,
+  getDailyTradingVolume,
+  getLiquidityAdded,
+  getLiquidityRemoved,
+  getTVL,
+} from '@/api/metrics';
 
-import { TopInfoCardsProps } from './top-info-cards.types';
+import { TOP_INFO_CARDS_DATA } from '../metrics.data';
+import TopInfoCards from './top-info-card';
 
-const TopInfoCards: FC<TopInfoCardsProps> = ({ Icon, description, amount }) => {
-  const t = useTranslations();
+const TopInfoCardsList: FC = () => {
+  const [data, setData] = useState<any[] | null>(null);
+
+  useEffect(() => {
+    Promise.all([
+      getTVL(),
+      getLiquidityAdded(),
+      getLiquidityRemoved(),
+      getDailyTradingVolume(),
+      getAccumulatedVolume(),
+    ]).then(setData);
+  }, []);
+
+  useEffect(() => {
+    console.log('>> data :: ', data);
+  }, [data]);
 
   return (
-    <InfoCard
-      title={
-        <Box display="flex" alignItems="center" gap="m">
-          <Box
-            display="flex"
-            width="1.3rem"
-            height="1.3rem"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Icon maxWidth="1.3rem" maxHeight="1.3rem" width="100%" />
-          </Box>
-          {t(description as TTranslatedMessage)}
-        </Box>
-      }
-      info={<></>}
-    >
-      ${amount}
-    </InfoCard>
+    <Box gridColumn="1/-1" width="100%" display="flex" gap="s">
+      {TOP_INFO_CARDS_DATA.map(({ Icon, description }, index) => (
+        <TopInfoCards
+          key={v4()}
+          Icon={Icon}
+          description={description}
+          amount={data?.[index] ?? 0}
+        />
+      ))}
+    </Box>
   );
 };
 
-export default TopInfoCards;
+export default TopInfoCardsList;
