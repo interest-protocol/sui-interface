@@ -108,6 +108,7 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
               width="1.5rem"
               height="1.5rem"
               display="flex"
+              overflow="hidden"
               borderRadius="50%"
               alignItems="center"
               justifyContent="center"
@@ -116,12 +117,12 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
             >
               {loading ? (
                 <ProgressIndicator variant="loading" size={24} />
-              ) : account && avatarUrlRecord[account] ? (
+              ) : account && avatarUrlRecord[walletAccount.address] ? (
                 <img
                   width="100%"
                   height="100%"
-                  src={avatarUrlRecord[account]}
-                  alt={`${getName(account, suiNSRecord)} NFT`}
+                  src={avatarUrlRecord[walletAccount.address]}
+                  alt={`${getName(walletAccount.address, suiNSRecord)} NFT`}
                 />
               ) : (
                 <UserSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
