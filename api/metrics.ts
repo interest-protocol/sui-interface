@@ -150,6 +150,7 @@ export const getDailyTradingVolume = () =>
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log('>> fetch data :: ', data);
       const samples: Array<any> = Array.from(
         data.results[0].matrix.samples.values()
       );
@@ -186,8 +187,6 @@ export const getAccumulatedVolume = () =>
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log('>> fetch data :: ', data);
-
       const samples: Array<any> = Array.from(
         data.results[0].matrix.samples.values()
       );

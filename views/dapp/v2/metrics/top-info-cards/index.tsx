@@ -26,10 +26,6 @@ const TopInfoCardsList: FC = () => {
     ]).then(setData);
   }, []);
 
-  useEffect(() => {
-    console.log('>> data :: ', data);
-  }, [data]);
-
   return (
     <Box gridColumn="1/-1" width="100%" display="flex" gap="s">
       {TOP_INFO_CARDS_DATA.map(({ Icon, description }, index) => (
