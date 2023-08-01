@@ -68,6 +68,7 @@ export * from './pools';
 export * from './routes';
 export * from './social-media';
 export * from './social-media-alternatives';
+export * from './wrapper-variants';
 
 export const MAX_NUMBER_INPUT_VALUE = 9000000000000000;
 
@@ -84,9 +85,11 @@ export enum StakeState {
   Unstake,
 }
 
-export const SUI_VISION_EXPLORER_URL = 'https://suivision.xyz';
-
-export const SUI_VISION_TESTNET_EXPLORER_URL = 'https://testnet.suivision.xyz';
+export const EXPLORER_URL = {
+  [Network.MAINNET]: 'https://suivision.xyz',
+  [Network.TESTNET]: 'https://testnet.suivision.xyz',
+  [Network.DEVNET]: '',
+};
 
 export const TOKENS_SVG_MAP = {
   default: UnknownCoinV1SVG,
@@ -177,6 +180,17 @@ export const NETWORK_RECORD = {
   [Network.TESTNET]: 'testnet',
   [Network.MAINNET]: 'mainnet',
 };
+
+//UI-KIT will provide this object
+export const SEMANTIC_COLORS = [
+  { dark: '#BEF264', light: '#84CC16' },
+  { dark: '#FCA5A5', light: '#EF4444' },
+  { dark: '#FDBA74', light: '#F97316' },
+  { dark: '#67E8F9', light: '#06B6D4' },
+  { dark: '#FDBA74', light: '#F59E0B' },
+  { dark: '#D8B4FE', light: '#A855F7' },
+  { dark: '#F9A8D4', light: '#EC4899' },
+];
 
 export const SCALAR = BigNumber(1e9);
 export const DOUBLE_SCALAR = BigNumber(1e18);

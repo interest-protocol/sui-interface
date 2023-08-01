@@ -3,8 +3,8 @@ import { FC, useState } from 'react';
 
 import ConnectWallet from '@/components/web3-manager/connect-wallet';
 
+import Profile from '../header/menu/profile';
 import WalletConnect from './wallet-connect';
-import WalletConnected from './wallet-connected';
 
 const Wallet: FC = () => {
   const { currentAccount, isConnected } = useWalletKit();
@@ -17,7 +17,7 @@ const Wallet: FC = () => {
         setOpenConnectWallet={setOpenConnectWallet}
       />
       {isConnected && !!currentAccount?.address ? (
-        <WalletConnected />
+        <Profile />
       ) : (
         <WalletConnect setOpenConnectWallet={setOpenConnectWallet} />
       )}

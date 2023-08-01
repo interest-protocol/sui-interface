@@ -35,20 +35,26 @@
         "bridge": "Bridge"
       },
       "menu": {
-        "settings": "Configuración",
-        "darkMode": "Modo oscuro",
-        "dark": "Oscuro",
-        "light": "Claro",
-        "languages": "Idiomas"
+        "settings": "ajustes globales",
+        "testnet": "testnet",
+        "dark": "oscuro",
+        "light": "claro",
+        "darkMode": "modo oscuro",
+        "languages": "idiomas",
+        "selectLanguage": "seleccionar idioma"
       },
       "wallet": {
         "name": "cartera",
         "connect": "Conectar",
         "disconnect": "Desconectar",
-        "switch": "Cambiar red",
+        "activity": "actividad",
+        "assets": "activos",
+        "switch": "cambiar cuenta",
+        "viewInExplorer": "ver en el explorador",
         "error": "Error de conexión",
         "connecting": "Conectando",
-        "copy": "Dirección copiada"
+        "copy": "dirección copiada al portapapeles",
+        "account": "{count, plural, =1 {cuenta} other {cuentas}}"
       },
       "banner": {
         "liquidity": {

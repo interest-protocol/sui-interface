@@ -1,4 +1,4 @@
-import { DEX_BASE_TOKEN_ARRAY, Network } from '@interest-protocol/sui-amm-sdk';
+import { DEX_BASE_TOKEN_ARRAY } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Button,
@@ -14,11 +14,7 @@ import { useTranslations } from 'next-intl';
 import { FC, useEffect, useState } from 'react';
 
 import { DownArrowSVG, LeftArrowSVG } from '@/components/svg/v2';
-import {
-  SUI_VISION_EXPLORER_URL,
-  SUI_VISION_TESTNET_EXPLORER_URL,
-  TOKENS_SVG_MAP_V2,
-} from '@/constants';
+import { EXPLORER_URL, TOKENS_SVG_MAP_V2 } from '@/constants';
 import { useAmmSdk, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import { TimesSVG } from '@/svg';
@@ -192,11 +188,7 @@ const SwapFormPreviewModal: FC<SwapFormPreviewModalProps> = ({
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
-      openConfirmModal(
-        network === Network.MAINNET
-          ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-          : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`
-      );
+      openConfirmModal(`${EXPLORER_URL[network]}/txblock/${tx.digest}`);
     } catch {
       openFailModal(t('swap.error.failedToSwap'));
     } finally {

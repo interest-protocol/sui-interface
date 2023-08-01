@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
+import { wrapperVariants } from '@/constants';
 import { FLAG_ICON_MAP } from '@/constants/locale';
 import { useLocale } from '@/hooks';
 import { capitalize } from '@/utils';
@@ -16,26 +17,6 @@ const itemVariants = {
     transition: { type: 'spring', stiffness: 300, damping: 24 },
   },
   closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
-};
-const wrapperVariants = {
-  open: {
-    clipPath: 'inset(0% 0% 0% 0% round 10px)',
-    transition: {
-      type: 'spring',
-      bounce: 0,
-      duration: 0.7,
-      delayChildren: 0.3,
-      staggerChildren: 0.1,
-    },
-  },
-  closed: {
-    clipPath: 'inset(10% 50% 90% 50% round 10px)',
-    transition: {
-      type: 'spring',
-      bounce: 0,
-      duration: 0.3,
-    },
-  },
 };
 
 const SwitchLang: FC<{ isOpen: boolean }> = ({ isOpen }) => {

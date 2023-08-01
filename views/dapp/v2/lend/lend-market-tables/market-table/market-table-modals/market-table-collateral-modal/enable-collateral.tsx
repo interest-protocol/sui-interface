@@ -1,13 +1,9 @@
-import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box, Button, Motion, Typography } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
-import {
-  SUI_VISION_EXPLORER_URL,
-  SUI_VISION_TESTNET_EXPLORER_URL,
-} from '@/constants';
+import { EXPLORER_URL } from '@/constants';
 import { useMoneyMarketSdk, useNetwork, useProvider } from '@/hooks';
 import { throwTXIfNotSuccessful } from '@/utils';
 
@@ -57,10 +53,7 @@ const EnableCollateralModal: FC<CollateralModalProps> = ({
         tokenName: asset.coin.token.symbol,
         isEnabled: true,
         isSuccess: true,
-        txLink:
-          network === Network.MAINNET
-            ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-            : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`,
+        txLink: `${EXPLORER_URL[network]}/txblock/${tx.digest}`,
       });
 
       setCollateralSwitchState(true);

@@ -23,13 +23,6 @@
         "favorite": "Favoritos",
         "wallet": "Carteira"
       },
-      "menu": {
-        "settings": "Definições",
-        "darkMode": "Modo escuro",
-        "dark": "Escuro",
-        "light": "Claro",
-        "languages": "Idiomas"
-      },
       "navbar": {
         "swap": "troca",
         "home": "início",
@@ -41,14 +34,27 @@
         "faucet": "faucet",
         "bridge": "bridge"
       },
+      "menu": {
+        "settings": "definições globais",
+        "testnet": "rede de testes",
+        "dark": "escuro",
+        "light": "claro",
+        "darkMode": "modo escuro",
+        "languages": "idiomas",
+        "selectLanguage": "selecionar idioma"
+      },
       "wallet": {
         "name": "carteira",
-        "connect": "conetar",
+        "activity": "atividade",
+        "connect": "conectar carteira",
         "disconnect": "desconectar",
-        "switch": "trocar rede",
-        "error": "erro ao conectar",
-        "connecting": "conectando...",
-        "copy": "Endereço copiado para a clipboard"
+        "assets": "ativos",
+        "switch": "trocar conta",
+        "viewInExplorer": "ver no explorador",
+        "error": "erro na conexão",
+        "connecting": "conectando",
+        "copy": "endereço copiado para a área de transferência",
+        "account": "{count, plural, =1 {conta} other {contas}}"
       },
       "banner": {
         "liquidity": {
