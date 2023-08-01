@@ -7,7 +7,6 @@ import { mergeAll } from 'ramda';
 import { Layout } from 'views/dapp/v2/components';
 
 import { LoadingPage, SEO } from '@/components';
-import { ModalProvider } from '@/context/modal';
 import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import Lend from '@/views/dapp/v2/lend';
@@ -36,30 +35,22 @@ const LendPage: NextPageWithProps = ({ pageTitle }) => {
     );
 
   return (
-    <ModalProvider newDesign>
-      <Web3Manager>
-        <SEO pageTitle={pageTitle} />
-        <Layout dashboard titlePage={t('lend.metadata.title')}>
-          <Lend />
-        </Layout>
-      </Web3Manager>
-    </ModalProvider>
+    <Web3Manager>
+      <SEO pageTitle={pageTitle} />
+      <Layout dashboard titlePage={t('lend.metadata.title')}>
+        <Lend />
+      </Layout>
+    </Web3Manager>
   );
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, lendingMessages, connectWalletMessages] =
-    await Promise.all([
-      import(`../../../../assets/messages/common/${locale}.json`),
-      import(`../../../../assets/messages/lend/${locale}.json`),
-      import(`../../../../assets/messages/connect-wallet/${locale}.json`),
-    ]);
-
-  const messages = mergeAll([
-    commonMessages.default,
-    lendingMessages.default,
-    connectWalletMessages.default,
+  const [commonMessages, lendingMessages] = await Promise.all([
+    import(`../../../../assets/messages/common/${locale}.json`),
+    import(`../../../../assets/messages/lend/${locale}.json`),
   ]);
+
+  const messages = mergeAll([commonMessages.default, lendingMessages.default]);
 
   return {
     props: {

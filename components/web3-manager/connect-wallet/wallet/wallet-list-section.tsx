@@ -91,14 +91,14 @@ const WalletListSection: FC<WalletListSectionProps> = ({
                 fontSize={['5xl', '5xl', '5xl', '7xl']}
                 color="black"
               >
-                {t('connectWallet.title')}
+                {t('common.v2.connectWallet.title')}
               </Typography>
               <Typography
                 variant="small"
                 color="black"
                 mb={['2xl', '2xl', '2xl', '3.5rem']}
               >
-                {t('connectWallet.subtitle')}
+                {t('common.v2.connectWallet.subtitle')}
               </Typography>
               <Box>
                 {wallets.length === 0 ? (
@@ -126,7 +126,7 @@ const WalletListSection: FC<WalletListSectionProps> = ({
         borderBottomRightRadius={[0, 0, 0, 32]}
       >
         <Typography variant="extraSmall" textAlign="center">
-          {t.rich('connectWallet.footer', {
+          {t.rich('common.v2.connectWallet.footer', {
             termsAndService: (chunks: ReactNode) => (
               <a href="/" target="_blank" rel="noopener noreferrer">
                 <Typography

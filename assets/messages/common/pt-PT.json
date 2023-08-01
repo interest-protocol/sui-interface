@@ -69,6 +69,32 @@
           "description": "Troque para obter o AirDrop",
           "buttons": { "main": "Trocar Agora", "secondary": "Saber mais" }
         }
+      },
+      "connectWallet": {
+        "metadata": {
+          "title": "Conectar carteira"
+        },
+        "title": "Escolha a carteira",
+        "subtitle": "Conecte sua carteira com segurança para iniciar sua jornada na Web3",
+        "footer": "Ao conectar sua carteira, você concorda com nossos <termsAndService>Termos de Serviço </termsAndService> e nossa <privacyPolicy>Política de Privacidade</privacyPolicy>.",
+        "modal": {
+          "error": {
+            "title": "Falha na conexão",
+            "description": "Falha ao conectar a carteira"
+          },
+          "loading": {
+            "title": "Aprovar conexão",
+            "description": "Conectando-se a {walletName}"
+          },
+          "success": {
+            "title": "Conectado",
+            "description": "Você se conectou com sucesso a {walletName}"
+          }
+        },
+        "tooltip": {
+          "connect": "Conectar carteira",
+          "install": "Instalar carteira"
+        }
       }
     },
     "dex": "dex",

@@ -28,18 +28,12 @@ const DEXPoolPage: NextPageWithProps = ({ pageTitle }) => (
 );
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, dexPoolMessages, connectWalletMessages] =
-    await Promise.all([
-      import(`../../../../assets/messages/common/${locale}.json`),
-      import(`../../../../assets/messages/dex/pool/${locale}.json`),
-      import(`../../../../assets/messages/connect-wallet/${locale}.json`),
-    ]);
-
-  const messages = mergeAll([
-    commonMessages.default,
-    dexPoolMessages.default,
-    connectWalletMessages.default,
+  const [commonMessages, dexPoolMessages] = await Promise.all([
+    import(`../../../../assets/messages/common/${locale}.json`),
+    import(`../../../../assets/messages/dex/pool/${locale}.json`),
   ]);
+
+  const messages = mergeAll([commonMessages.default, dexPoolMessages.default]);
 
   return {
     props: {

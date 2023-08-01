@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { Layout } from 'views/dapp/v2/components';
 
 import { LoadingPage, SEO } from '@/components';
-import { ModalProvider } from '@/context/modal';
 import { useLocalStorage } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import { TokenModalMetadata } from '@/interface';
@@ -42,36 +41,28 @@ const SwapPage: NextPageWithProps = ({ pageTitle }) => {
   }, [localSettings]);
 
   return (
-    <ModalProvider newDesign>
-      <Web3Manager>
-        <SEO pageTitle={pageTitle} />
-        <Layout dashboard>
-          <Swap
-            formSwap={formSwap}
-            openModalState={{ isOpen, setIsOpen }}
-            setLocalSettings={setLocalSettings}
-            formSettings={formSettings}
-            searchTokenModalState={searchedToken}
-          />
-        </Layout>
-      </Web3Manager>
-    </ModalProvider>
+    <Web3Manager>
+      <SEO pageTitle={pageTitle} />
+      <Layout dashboard>
+        <Swap
+          formSwap={formSwap}
+          openModalState={{ isOpen, setIsOpen }}
+          setLocalSettings={setLocalSettings}
+          formSettings={formSettings}
+          searchTokenModalState={searchedToken}
+        />
+      </Layout>
+    </Web3Manager>
   );
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, swapMessages, connectWalletMessages] =
-    await Promise.all([
-      import(`../../../assets/messages/common/${locale}.json`),
-      import(`../../../assets/messages/swap/${locale}.json`),
-      import(`../../../assets/messages/connect-wallet/${locale}.json`),
-    ]);
-
-  const messages = mergeAll([
-    commonMessages.default,
-    swapMessages.default,
-    connectWalletMessages.default,
+  const [commonMessages, swapMessages] = await Promise.all([
+    import(`../../../assets/messages/common/${locale}.json`),
+    import(`../../../assets/messages/swap/${locale}.json`),
   ]);
+
+  const messages = mergeAll([commonMessages.default, swapMessages.default]);
   return {
     props: {
       messages,

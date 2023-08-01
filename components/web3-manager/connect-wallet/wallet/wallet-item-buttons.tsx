@@ -35,8 +35,8 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
         >
           {t(
             hasInstalled
-              ? 'connectWallet.tooltip.connect'
-              : 'connectWallet.tooltip.install'
+              ? 'common.v2.connectWallet.tooltip.connect'
+              : 'common.v2.connectWallet.tooltip.install'
           )}
         </Typography>
       }

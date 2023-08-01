@@ -24,7 +24,7 @@ const WalletConnectLoadingModal: FC<WalletConnectLoadingProps> = ({
     >
       <Box py="xl" display="flex" alignItems="center" justifyContent="center">
         <Typography variant="title6">
-          {t('connectWallet.modal.loading.title')}
+          {t('common.v2.connectWallet.modal.loading.title')}
         </Typography>
       </Box>
       <Box
@@ -39,7 +39,7 @@ const WalletConnectLoadingModal: FC<WalletConnectLoadingProps> = ({
       >
         <ProgressIndicator variant="loading" />
         <Typography mt="2xl" width="16rem" variant="medium" textAlign="center">
-          {t('connectWallet.modal.loading.description', {
+          {t('common.v2.connectWallet.modal.loading.description', {
             walletName: walletName,
           })}
           ...

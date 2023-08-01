@@ -97,17 +97,14 @@ const FarmDetailsPage: NextPage<FarmDetailsPageProps> = ({
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, farmDetailsMessages, connectWalletMessages] =
-    await Promise.all([
-      import(`../../../assets/messages/common/${locale}.json`),
-      import(`../../../assets/messages/farms/details/${locale}.json`),
-      import(`../../../assets/messages/connect-wallet/${locale}.json`),
-    ]);
+  const [commonMessages, farmDetailsMessages] = await Promise.all([
+    import(`../../../assets/messages/common/${locale}.json`),
+    import(`../../../assets/messages/farms/details/${locale}.json`),
+  ]);
 
   const messages = mergeAll([
     commonMessages.default,
     farmDetailsMessages.default,
-    connectWalletMessages.default,
   ]);
   return {
     props: {

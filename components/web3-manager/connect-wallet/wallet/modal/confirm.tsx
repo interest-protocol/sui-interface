@@ -34,7 +34,7 @@ const WalletConnectConfirmModal: FC<WalletConnectResultProps> = ({
       >
         <Box display="flex" justifyContent="center" width="100%">
           <Typography variant="title6">
-            {t('connectWallet.modal.success.title')}
+            {t('common.v2.connectWallet.modal.success.title')}
           </Typography>
         </Box>
         <Button variant="icon" onClick={handleClose}>
@@ -56,7 +56,7 @@ const WalletConnectConfirmModal: FC<WalletConnectResultProps> = ({
           <CheckmarkSVG filled width="100%" maxWidth="3rem" maxHeight="3rem" />
         </Box>
         <Typography mt="ml" width="16rem" variant="medium" textAlign="center">
-          {t('connectWallet.modal.success.description', {
+          {t('common.v2.connectWallet.modal.success.description', {
             walletName: walletName,
           })}
           ...

@@ -33,7 +33,7 @@ const WalletConnectFailModal: FC<
       >
         <Box display="flex" justifyContent="center" width="100%">
           <Typography variant="title6">
-            {t('connectWallet.modal.error.title')}
+            {t('common.v2.connectWallet.modal.error.title')}
           </Typography>
         </Box>
         <Button variant="icon" onClick={handleClose}>
@@ -55,7 +55,7 @@ const WalletConnectFailModal: FC<
           <TimesSVG filled width="100%" maxWidth="3rem" maxHeight="3rem" />
         </Box>
         <Typography mt="ml" width="16rem" variant="medium" textAlign="center">
-          {t('connectWallet.modal.error.description')}
+          {t('common.v2.connectWallet.modal.error.description')}
         </Typography>
       </Box>
     </Box>

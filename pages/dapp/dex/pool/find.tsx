@@ -59,17 +59,14 @@ const DEXFindPoolPage: NextPage<{ pageTitle: string }> = ({ pageTitle }) => {
   );
 };
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, dexPoolFindMessages, connectWalletMessages] =
-    await Promise.all([
-      import(`../../../../assets/messages/common/${locale}.json`),
-      import(`../../../../assets/messages/dex/pool/find/${locale}.json`),
-      import(`../../../../assets/messages/connect-wallet/${locale}.json`),
-    ]);
+  const [commonMessages, dexPoolFindMessages] = await Promise.all([
+    import(`../../../../assets/messages/common/${locale}.json`),
+    import(`../../../../assets/messages/dex/pool/find/${locale}.json`),
+  ]);
 
   const messages = mergeAll([
     commonMessages.default,
     dexPoolFindMessages.default,
-    connectWalletMessages.default,
   ]);
 
   return {
