@@ -15,22 +15,23 @@ import { TimesSVG } from '@/components/svg/v2';
 import { WalletListSectionProps } from '../connect-wallet.types';
 import WalletItem from './wallet-item';
 
+const menuVariants = {
+  open: {
+    rotate: '0deg',
+    scaleY: 1,
+  },
+  closed: {
+    rotate: '180deg',
+    scaleY: 0,
+  },
+};
+
 const WalletListSection: FC<WalletListSectionProps> = ({
   setOpenWallet,
   openWalletModal,
 }) => {
   const t = useTranslations();
   const { wallets } = useWalletKit();
-  const menuVariants = {
-    open: {
-      rotate: '0deg',
-      scaleY: 1,
-    },
-    closed: {
-      rotate: '180deg',
-      scaleY: 0,
-    },
-  };
 
   return (
     <Box

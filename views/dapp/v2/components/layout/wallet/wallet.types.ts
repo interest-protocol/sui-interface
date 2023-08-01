@@ -16,5 +16,3 @@ export interface WalletItemProps {
 export interface WalletProps {
   setOpenConnectWallet: Dispatch<SetStateAction<boolean>>;
 }
-
-export type WalletConnectProps = WalletProps;

@@ -2,9 +2,9 @@ import { Box, Button } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { WalletConnectProps } from './wallet.types';
+import { WalletProps } from './wallet.types';
 
-const WalletConnect: FC<WalletConnectProps> = ({ setOpenConnectWallet }) => {
+const WalletConnect: FC<WalletProps> = ({ setOpenConnectWallet }) => {
   const t = useTranslations();
 
   return (
