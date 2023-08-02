@@ -23,13 +23,6 @@
         "favorite": "Favoritos",
         "wallet": "Carteira"
       },
-      "menu": {
-        "settings": "Definições",
-        "darkMode": "Modo escuro",
-        "dark": "Escuro",
-        "light": "Claro",
-        "languages": "Idiomas"
-      },
       "navbar": {
         "swap": "troca",
         "home": "início",
@@ -41,14 +34,27 @@
         "faucet": "faucet",
         "bridge": "bridge"
       },
+      "menu": {
+        "settings": "definições globais",
+        "testnet": "rede de testes",
+        "dark": "escuro",
+        "light": "claro",
+        "darkMode": "modo escuro",
+        "languages": "idiomas",
+        "selectLanguage": "selecionar idioma"
+      },
       "wallet": {
         "name": "carteira",
-        "connect": "conetar",
+        "activity": "atividade",
         "disconnect": "desconectar",
-        "switch": "trocar rede",
-        "error": "erro ao conectar",
-        "connecting": "conectando...",
-        "copy": "Endereço copiado para a clipboard"
+        "assets": "ativos",
+        "switch": "trocar conta",
+        "viewInExplorer": "ver no explorador",
+        "error": "erro na conexão",
+        "connect": "conectar",
+        "connecting": "conectando",
+        "copy": "endereço copiado para a área de transferência",
+        "account": "{count, plural, =1 {conta} other {contas}}"
       },
       "banner": {
         "liquidity": {
@@ -68,6 +74,32 @@
           "label": "Disponíveis",
           "description": "Troque para obter o AirDrop",
           "buttons": { "main": "Trocar Agora", "secondary": "Saber mais" }
+        }
+      },
+      "connectWallet": {
+        "metadata": {
+          "title": "Conectar carteira"
+        },
+        "title": "Escolha a carteira",
+        "subtitle": "Conecte sua carteira com segurança para iniciar sua jornada na Web3",
+        "footer": "Ao conectar sua carteira, você concorda com nossos <termsAndService>Termos de Serviço </termsAndService> e nossa <privacyPolicy>Política de Privacidade</privacyPolicy>.",
+        "modal": {
+          "error": {
+            "title": "Falha na conexão",
+            "description": "Falha ao conectar a carteira"
+          },
+          "loading": {
+            "title": "Aprovar conexão",
+            "description": "Conectando-se a {walletName}"
+          },
+          "success": {
+            "title": "Conectado",
+            "description": "Você se conectou com sucesso a {walletName}"
+          }
+        },
+        "tooltip": {
+          "connect": "Conectar carteira",
+          "install": "Instalar carteira"
         }
       }
     },

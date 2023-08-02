@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
-import { mergeDeepRight } from 'ramda';
+import { mergeAll } from 'ramda';
 
 import { SEO } from '@/components';
 import { NextPageWithProps } from '@/interface';
@@ -26,7 +26,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     import(`../../../assets/messages/create-token/${locale}.json`),
   ]);
 
-  const messages = mergeDeepRight(commonMessages.default, dexMessages.default);
+  const messages = mergeAll([commonMessages.default, dexMessages.default]);
   return {
     props: {
       messages,

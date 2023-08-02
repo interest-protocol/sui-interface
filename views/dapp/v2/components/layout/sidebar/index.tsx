@@ -1,3 +1,4 @@
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -21,20 +22,33 @@ const Sidebar: FC = () => {
 
   return (
     <Box
-      p="2xl"
       pb="0"
+      p="2xl"
       width="100%"
       display="flex"
+      overflowY="auto"
       maxWidth="20rem"
-      bg="surface.container"
+      maxHeight="100vh"
       flexDirection="column"
+      bg="surface.container"
       borderRadius="0 1rem 1rem 0"
       justifyContent="space-between"
     >
       <Box>
         <Link href={Routes[RoutesEnum.Home]}>
-          <Box textAlign="center">
+          <Box textAlign="center" position="relative">
             <LogoSVG full maxWidth="100%" maxHeight="2.6rem" height="100%" />
+            {network === Network.TESTNET && (
+              <Typography
+                left="4.5rem"
+                bottom="0"
+                color="primary"
+                variant="extraSmall"
+                position="absolute"
+              >
+                Testnet
+              </Typography>
+            )}
           </Box>
         </Link>
         <Typography m="xl" variant="small" color="onSurfaceVariant">

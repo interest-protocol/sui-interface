@@ -77,6 +77,7 @@ const Swap: FC<SwapProps> = ({
   ...rest
 }) => (
   <Box
+    display="flex"
     variant="container"
     alignItems="center"
     justifyItems="unset"

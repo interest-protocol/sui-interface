@@ -1,4 +1,4 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box, Motion, Typography } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
@@ -10,22 +10,24 @@ import { capitalize } from '@/utils';
 
 import NetworkSwitch from '../../../network-switch';
 import { SIDEBAR_ITEMS } from '../../../sidebar/sidebar.data';
+import { MainMenuProps } from '../menu.types';
+import MenuSettingsList from '../settings/menu-settings/settings-list';
 
-const MainMenu: FC = () => {
+const MainMenu: FC<MainMenuProps> = ({ openLanguageMenu }) => {
   const t = useTranslations();
   const { network } = useNetwork();
   const { asPath, push } = useRouter();
 
   return (
     <Box
+      pt="2.875rem"
+      m="0 1.25rem"
+      display="flex"
       variant="container"
       justifyItems="unset"
-      height="100%"
-      display="flex"
       flexDirection="column"
+      minHeight="100%"
       justifyContent="space-between"
-      m="0 1.25rem"
-      pt="2.875rem"
     >
       <Box zIndex="2" gridColumn="1/-1">
         <Typography m="xl" variant="small" color="onSurfaceVariant">
@@ -58,8 +60,23 @@ const MainMenu: FC = () => {
             </Box>
           ))}
         </Box>
+        <Motion
+          zIndex={1}
+          initial="open"
+          bg="surface.container"
+          textTransform="capitalize"
+          animate="open"
+        >
+          <MenuSettingsList openLanguageMenu={openLanguageMenu} />
+        </Motion>
       </Box>
-      <Box display="flex" justifyContent="center" gap="l" mb="4.188rem">
+      <Box
+        mt="m"
+        pb="l"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
         <NetworkSwitch />
       </Box>
     </Box>

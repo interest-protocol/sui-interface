@@ -11,6 +11,7 @@ export interface CubeWrapperProps {
   withTopShadow?: boolean;
   withBottomShadow?: boolean;
   specialShadow?: boolean;
+  withFixedTopShadow?: boolean;
 }
 
 export interface HeroStarWrapperProps extends CubeWrapperProps {

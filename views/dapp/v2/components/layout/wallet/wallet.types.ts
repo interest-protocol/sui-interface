@@ -13,7 +13,6 @@ export interface WalletItemProps {
   name?: 'disconnect';
 }
 
-export interface WalletConnectProps {
-  isModalOpen: boolean;
-  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+export interface WalletProps {
+  setOpenConnectWallet: Dispatch<SetStateAction<boolean>>;
 }

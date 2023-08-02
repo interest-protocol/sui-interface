@@ -3,7 +3,7 @@ import type { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import Error from 'next/error';
 import { useTranslations } from 'next-intl';
-import { mergeDeepRight, pathOr } from 'ramda';
+import { mergeAll, pathOr } from 'ramda';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -103,10 +103,10 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     import(`../../../assets/messages/farms/details/${locale}.json`),
   ]);
 
-  const messages = mergeDeepRight(
+  const messages = mergeAll([
     commonMessages.default,
-    farmDetailsMessages.default
-  );
+    farmDetailsMessages.default,
+  ]);
   return {
     props: {
       messages,

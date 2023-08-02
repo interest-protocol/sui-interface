@@ -44,6 +44,7 @@ const SwapHeader: FC<SwapHeaderProps> = ({
       display="flex"
       gridColumn="1/-1"
       alignItems="center"
+      width="100%"
       color={dark ? 'white' : 'black'}
     >
       <Button

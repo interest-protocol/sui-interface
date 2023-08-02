@@ -3,11 +3,10 @@ import { Box, ProgressIndicator } from '@interest-protocol/ui-kit';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
-import { mergeDeepRight } from 'ramda';
+import { mergeAll } from 'ramda';
 import { Layout } from 'views/dapp/v2/components';
 
 import { LoadingPage, SEO } from '@/components';
-import { ModalProvider } from '@/context/modal';
 import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import Lend from '@/views/dapp/v2/lend';
@@ -36,14 +35,12 @@ const LendPage: NextPageWithProps = ({ pageTitle }) => {
     );
 
   return (
-    <ModalProvider newDesign>
-      <Web3Manager>
-        <SEO pageTitle={pageTitle} />
-        <Layout dashboard titlePage={t('lend.metadata.title')}>
-          <Lend />
-        </Layout>
-      </Web3Manager>
-    </ModalProvider>
+    <Web3Manager>
+      <SEO pageTitle={pageTitle} />
+      <Layout dashboard titlePage={t('lend.metadata.title')}>
+        <Lend />
+      </Layout>
+    </Web3Manager>
   );
 };
 
@@ -53,10 +50,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     import(`../../../../assets/messages/lend/${locale}.json`),
   ]);
 
-  const messages = mergeDeepRight(
-    commonMessages.default,
-    lendingMessages.default
-  );
+  const messages = mergeAll([commonMessages.default, lendingMessages.default]);
+
   return {
     props: {
       messages,

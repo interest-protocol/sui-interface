@@ -35,20 +35,26 @@
         "bridge": "bridge"
       },
       "menu": {
-        "settings": "settings",
+        "settings": "global settings",
+        "testnet": "testnet",
+        "dark": "dark",
+        "light": "light",
         "darkMode": "dark mode",
-        "dark": "Dark",
-        "light": "Light",
-        "languages": "languages"
+        "languages": "languages",
+        "selectLanguage": "select language"
       },
       "wallet": {
         "name": "wallet",
-        "connect": "connect wallet",
+        "activity": "activity",
         "disconnect": "disconnect",
-        "switch": "switch network",
+        "connect": "connect wallet",
+        "assets": "assets",
+        "switch": "switch account",
+        "viewInExplorer": "view in explorer",
         "error": "error connecting",
         "connecting": "connecting",
-        "copy": "address copied to the clipboard"
+        "copy": "address copied to the clipboard",
+        "account": "{count, plural, =1 {account} other {accounts}}"
       },
       "banner": {
         "liquidity": {
@@ -68,6 +74,32 @@
           "label": "For grabs",
           "description": "Swap to get Airdrop",
           "buttons": { "main": "Swap Now", "secondary": "Learn More" }
+        }
+      },
+      "connectWallet": {
+        "metadata": {
+          "title": "Connect Wallet"
+        },
+        "title": "Choose the wallet",
+        "subtitle": "Securely connect your wallet to start your Web3 journey.",
+        "footer": "By connecting your wallet, you agree to our <termsAndService>Terms of Service </termsAndService> and our <privacyPolicy>Privacy Policy</privacyPolicy>.",
+        "modal": {
+          "error": {
+            "title": "Connected Failed",
+            "description": "Fail to connect the wallet"
+          },
+          "loading": {
+            "title": "Approve Connection",
+            "description": "Connecting to {walletName}"
+          },
+          "success": {
+            "title": "Connected",
+            "description": "You have successfully connected to {walletName}"
+          }
+        },
+        "tooltip": {
+          "connect": "Connect Wallet",
+          "install": "Install Wallet"
         }
       }
     },

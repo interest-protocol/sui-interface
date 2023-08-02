@@ -40,7 +40,7 @@ const accumulatedVolumeQuery = [
           arguments: [
             {
               durationValue: {
-                value: 57,
+                value: 120,
                 unit: 'w',
               },
             },
@@ -87,6 +87,7 @@ const getValue = (x: any) => {
   if (!samples.length) return 0;
   const sampleValues = samples[0].values;
   if (!sampleValues.length) return;
+
   return propOr(0, 'value', sampleValues[sampleValues.length - 1]);
 };
 

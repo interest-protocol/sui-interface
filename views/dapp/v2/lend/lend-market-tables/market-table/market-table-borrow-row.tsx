@@ -192,8 +192,13 @@ const BorrowMarketTableRow: FC<BorrowRow> = ({
         </Typography>
       </Box>
       <Box px="l" display="flex" alignItems="center" justifyContent="flex-end">
-        <Typography variant="medium" textAlign="right">
-          {formatMoney(cash)} {asset.coin.token.symbol}
+        <Typography
+          variant="medium"
+          textAlign="right"
+          wordBreak={['break-word', 'unset', 'unset', 'unset']}
+        >
+          {`${formatMoney(cash)}
+          ${asset.coin.token.symbol}`}
         </Typography>
       </Box>
     </Motion>

@@ -126,6 +126,8 @@ const calculateNetAPY = (data: UserBalancesInUSD) => {
 
   const totalAmount = data.totalSupply - data.totalLoan;
 
+  if (!totalAmount) return 0;
+
   return net / totalAmount;
 };
 

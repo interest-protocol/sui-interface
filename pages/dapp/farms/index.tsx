@@ -2,7 +2,7 @@ import { Network } from '@interest-protocol/sui-amm-sdk';
 import type { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Error from 'next/error';
-import { mergeDeepRight } from 'ramda';
+import { mergeAll } from 'ramda';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -66,10 +66,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     import(`../../../assets/messages/farms/${locale}.json`),
   ]);
 
-  const messages = mergeDeepRight(
-    commonMessages.default,
-    farmsMessages.default
-  );
+  const messages = mergeAll([commonMessages.default, farmsMessages.default]);
   return {
     props: {
       messages,

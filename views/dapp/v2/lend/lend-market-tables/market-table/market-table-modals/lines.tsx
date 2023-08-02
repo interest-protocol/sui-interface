@@ -11,7 +11,8 @@ const LineModal: FC<LinesModalProps> = ({ description, value }) => {
 
   return (
     <Box
-      p="1rem"
+      px="xs"
+      py="s"
       display="flex"
       justifyContent="space-between"
       color="onSurface"

@@ -35,20 +35,26 @@
         "bridge": "Bridge"
       },
       "menu": {
-        "settings": "Configuración",
-        "darkMode": "Modo oscuro",
-        "dark": "Oscuro",
-        "light": "Claro",
-        "languages": "Idiomas"
+        "settings": "ajustes globales",
+        "testnet": "testnet",
+        "dark": "oscuro",
+        "light": "claro",
+        "darkMode": "modo oscuro",
+        "languages": "idiomas",
+        "selectLanguage": "seleccionar idioma"
       },
       "wallet": {
         "name": "cartera",
         "connect": "Conectar",
         "disconnect": "Desconectar",
-        "switch": "Cambiar red",
+        "activity": "actividad",
+        "assets": "activos",
+        "switch": "cambiar cuenta",
+        "viewInExplorer": "ver en el explorador",
         "error": "Error de conexión",
         "connecting": "Conectando",
-        "copy": "Dirección copiada"
+        "copy": "dirección copiada al portapapeles",
+        "account": "{count, plural, =1 {cuenta} other {cuentas}}"
       },
       "banner": {
         "liquidity": {
@@ -68,6 +74,32 @@
           "label": "Disponibles",
           "description": "Intercambia para obtener el Airdrop",
           "buttons": { "main": "Intercambiar ahora", "secondary": "Saber más" }
+        }
+      },
+      "connectWallet": {
+        "metadata": {
+          "title": "Conectar Cartera"
+        },
+        "title": "Elegir la cartera",
+        "subtitle": "Conecta tu monedero de forma segura para comenzar tu viaje Web3",
+        "footer": "Al conectar tu monedero, aceptas nuestros <termsAndService>Condiciones del servicio </termsAndService> y nuestra <privacyPolicy>Política de privacidad</privacyPolicy>.",
+        "modal": {
+          "error": {
+            "title": "Error de conexión",
+            "description": "Fallo al conectar el monedero"
+          },
+          "loading": {
+            "title": "Aprobar conexión",
+            "description": "Conectando a {walletName}"
+          },
+          "success": {
+            "title": "Conectado",
+            "description": "Se ha conectado con éxito a {walletName}"
+          }
+        },
+        "tooltip": {
+          "connect": "conectar cartera",
+          "install": "Instalar Cartera"
         }
       }
     },
