@@ -20,12 +20,12 @@ const menuVariants = {
 
 const IllustrationSection: FC<IllustrationProps> = ({ setOpenWallet }) => (
   <Box
-    display={['none', 'none', 'none', 'flex']}
+    width="50%"
     color="text"
+    height="100vh"
     overflowY="auto"
     maxHeight="100vh"
-    height="100vh"
-    width="50%"
+    display={['none', 'none', 'none', 'flex']}
   >
     <Box display="flex" flexDirection="column" width="100%" height="100%">
       <Motion

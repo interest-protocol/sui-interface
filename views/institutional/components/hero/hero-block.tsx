@@ -1,4 +1,4 @@
-import { Box, Motion } from '@interest-protocol/ui-kit';
+import { Box, darkTheme, Motion } from '@interest-protocol/ui-kit';
 import { AnimatePresence, easeInOut } from 'framer-motion';
 import { FC } from 'react';
 
@@ -20,16 +20,18 @@ import {
   cubeVariant,
   cubeWrapperVariant,
   shadowBottomVariant,
+  shadowFixedTopVariant,
   shadowTopVariant,
   starDelayMap,
   starTranslateYMap,
 } from './hero-block.animation';
 
-const CubeWrapper: FC<CubeWrapperProps> = ({
+export const CubeWrapper: FC<CubeWrapperProps> = ({
   Icon,
   withTopShadow,
   specialShadow,
   withBottomShadow,
+  withFixedTopShadow,
   ...props
 }) => (
   <Motion
@@ -42,6 +44,7 @@ const CubeWrapper: FC<CubeWrapperProps> = ({
     {withBottomShadow && (
       <Motion
         display="flex"
+        color="#1B1B1F"
         position="absolute"
         justifyContent="center"
         variants={shadowBottomVariant}
@@ -72,6 +75,7 @@ const CubeWrapper: FC<CubeWrapperProps> = ({
             <Motion
               top="0"
               display="flex"
+              color="#1B1B1F"
               position="absolute"
               justifyContent="center"
               variants={shadowTopVariant}
@@ -81,19 +85,44 @@ const CubeWrapper: FC<CubeWrapperProps> = ({
             </Motion>
           </Motion>
         )}
+        {withFixedTopShadow && (
+          <Motion
+            initial={{ opacity: 1 }}
+            variants={{
+              hover: { opacity: 1, transition: { duration: 0 } },
+            }}
+            transition={{ duration: 0.05 }}
+          >
+            <Motion
+              top="0"
+              display="flex"
+              color={darkTheme.colors.surface}
+              position="absolute"
+              justifyContent="center"
+              variants={shadowFixedTopVariant}
+              transition={{ duration: 0.8 }}
+            >
+              <HeroCubeShadow width="85%" maxWidth="100%" maxHeight="100%" />
+            </Motion>
+          </Motion>
+        )}
       </AnimatePresence>
     </Motion>
   </Motion>
 );
 
-const StarWrapper: FC<HeroStarWrapperProps> = ({ Icon, size, ...props }) => {
+export const StarWrapper: FC<HeroStarWrapperProps> = ({
+  Icon,
+  size,
+  ...props
+}) => {
   const translateY = starTranslateYMap[size];
   const delay = starDelayMap[size];
 
   return (
     <Motion
-      width={`calc(${size} / 2)`}
       position="absolute"
+      width={`calc(${size} / 2)`}
       filter="drop-shadow(0 0 .0625rem #fff)"
       animate={{
         translateY,

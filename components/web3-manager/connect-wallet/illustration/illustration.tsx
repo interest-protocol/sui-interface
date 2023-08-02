@@ -6,7 +6,8 @@ import {
   ConnectConnectorFragSVG,
   ConnectStructureSVG,
 } from '@/components/svg/v2';
-import HeroBlock from '@/views/institutional/components/hero/hero-block';
+
+import BlockIllustration from './blocks-illustration';
 
 const ConnectIllustration: FC = () => (
   <Box width="100%" display="flex" justifyContent="center" position="relative">
@@ -17,49 +18,54 @@ const ConnectIllustration: FC = () => (
         translateY: '0%',
       }}
       transition={{ duration: 1.5, delay: 3.4 }}
+      left="36%"
+      top="1.2%"
+      width="25%"
+      height="25%"
       position="absolute"
-      left="23%"
-      top="-11%"
     >
-      <HeroBlock scale=".44" />
+      <BlockIllustration />
     </Motion>
     <Box position="absolute" width="6%" top="35%" left="79%">
-      <Motion
-        position="absolute"
-        transform="rotate(210deg)"
-        initial={{ rotate: 210, scaleX: 1, width: '10px' }}
-        top="68.5%"
-        left="105%"
-        zIndex="3"
-        transformOrigin="bottom left"
-        bg="white"
-        borderRadius="24px"
-        width="10px"
-        height="2px"
-        animate={{
-          width: '78px',
-          rotate: 210,
-        }}
-        transition={{ duration: 1.5, delay: 2 }}
-      ></Motion>
       <Motion
         initial={{ translate: '0, 0' }}
         position="relative"
         transformOrigin="bottom left"
         animate={{
-          translateX: '-58px',
-          translateY: '-32px',
+          translateX: '-205%',
+          translateY: '-110%',
         }}
         transition={{ duration: 1.5, delay: 2 }}
         zIndex="2"
       >
         <BodyConnectorSVG maxHeight="100%" maxWidth="100%" width="100%" />
       </Motion>
+      <Motion
+        position="absolute"
+        transform="rotate(210deg)"
+        initial={{
+          rotate: 210,
+          width: '32%',
+        }}
+        right="0"
+        top="65.69%"
+        left="101%"
+        zIndex="3"
+        bg="white"
+        transformOrigin="bottom left"
+        borderRadius="24px"
+        height="5.7%"
+        animate={{
+          width: '272%',
+          rotate: 210,
+        }}
+        transition={{ duration: 1.5, delay: 2 }}
+      ></Motion>
     </Box>
     <Box
       position="absolute"
-      width="72px"
-      height="12px"
+      width="14%"
+      height="2%"
       transform="skewY(30deg) rotate(180deg)"
       top="33.2%"
       display="flex"
@@ -113,13 +119,13 @@ const ConnectIllustration: FC = () => (
       transformOrigin="bottom left"
       position="absolute"
       zIndex="1"
+      top="34.1%"
       width="3%"
-      top="34%"
       left="77.4%"
       transition={{ duration: 1, delay: 2 }}
       animate={{
-        translateX: '-43px',
-        translateY: '-24px',
+        translateX: '-287%',
+        translateY: '-113.7%',
       }}
     >
       <ConnectConnectorFragSVG maxHeight="100%" maxWidth="100%" width="100%" />

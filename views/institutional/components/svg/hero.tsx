@@ -378,7 +378,7 @@ export const HeroCubeShadow: FC<SVGProps> = ({
   >
     <path
       d="M48.2499 5.12935e-05L0.855469 27.3608L48.1997 54.6926L95.5941 27.3318L48.2499 5.12935e-05Z"
-      fill="#1B1B1F"
+      fill="currentColor"
     />
   </svg>
 );
