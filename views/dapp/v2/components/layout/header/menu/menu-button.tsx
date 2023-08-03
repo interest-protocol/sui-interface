@@ -49,6 +49,7 @@ const MenuButton: FC<MenuButtonProps> = ({
           justifyContent="center"
           animate={menuVariants.open}
           initial={menuVariants.closed}
+          color="onSurface"
         >
           <TimesSVG
             width="100%"
@@ -66,7 +67,11 @@ const MenuButton: FC<MenuButtonProps> = ({
           animate={closeVariants.open}
           initial={closeVariants.closed}
         >
-          <Box as="span" display={['none', 'none', 'none', 'inline-block']}>
+          <Box
+            as="span"
+            color="onSurface"
+            display={['none', 'none', 'none', 'inline-block']}
+          >
             <DotsSVG
               width="100%"
               height="100%"
@@ -76,6 +81,7 @@ const MenuButton: FC<MenuButtonProps> = ({
           </Box>
           <Box
             as="span"
+            color="onSurface"
             display={['inline-block', 'inline-block', 'inline-block', 'none']}
           >
             <MenuSVG

@@ -16,6 +16,7 @@ const itemVariants = {
 
 const MenuItemWrapper: FC<PropsWithChildren<MenuItemWrapperProps>> = ({
   onClick,
+  disabled,
   children,
 }) => {
   const { dark } = useTheme() as AppTheme<Theme>;
@@ -26,7 +27,6 @@ const MenuItemWrapper: FC<PropsWithChildren<MenuItemWrapperProps>> = ({
       gap="l"
       px="xl"
       display="flex"
-      cursor="pointer"
       minWidth="14rem"
       color="onSurface"
       onClick={onClick}
@@ -35,7 +35,10 @@ const MenuItemWrapper: FC<PropsWithChildren<MenuItemWrapperProps>> = ({
       variants={itemVariants}
       initial={itemVariants.closed}
       justifyContent="space-between"
-      nHover={{ bg: dark ? '#FFFFFF1A' : '#86868614' }}
+      nHover={{
+        bg: disabled ? 'unset' : dark ? '#FFFFFF1A' : '#86868614',
+      }}
+      cursor={disabled ? 'not-allowed' : 'pointer'}
     >
       {children}
     </Motion>

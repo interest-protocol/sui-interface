@@ -1,4 +1,3 @@
-import { Network } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
   Button,
@@ -14,10 +13,7 @@ import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
 import { LeftArrowSVG } from '@/components/svg/v2';
-import {
-  SUI_VISION_EXPLORER_URL,
-  SUI_VISION_TESTNET_EXPLORER_URL,
-} from '@/constants';
+import { EXPLORER_URL, MAX_U64 } from '@/constants';
 import { useMoneyMarketSdk, useNetwork, useProvider } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import { TimesSVG } from '@/svg';
@@ -97,10 +93,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
       openRowMarketResultModal({
         isLoan,
         isSuccess: true,
-        txLink:
-          network === Network.MAINNET
-            ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-            : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`,
+        txLink: `${EXPLORER_URL[network]}/txblock/${tx.digest}`,
       });
     } catch {
       openRowMarketResultModal({ isSuccess: false, isLoan });
@@ -119,7 +112,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
       const market = marketRecord[marketKey];
 
       const amount = FixedPointMath.toBigNumber(
-        +value * 1.03,
+        value,
         coinsMap[marketKey]?.decimals
       ).decimalPlaces(0, BigNumber.ROUND_UP);
 
@@ -129,14 +122,14 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
 
       const principalToRepay =
         amountInPrincipal.gt(market.userPrincipal) || isMax
-          ? market.userPrincipal.decimalPlaces(0, BigNumber.ROUND_UP)
+          ? MAX_U64
           : amountInPrincipal;
 
       const coinInList = createObjectsParameter({
         coinsMap,
         txb,
         type: marketKey,
-        amount: amount.toString(),
+        amount: amount.decimalPlaces(0, BigNumber.ROUND_DOWN).toString(),
       });
 
       const { transactionBlockBytes, signature } = await signTransactionBlock({
@@ -161,10 +154,7 @@ const BorrowMarketPreviewModal: FC<BorrowPreviewModalProps> = ({
       openRowMarketResultModal({
         isLoan,
         isSuccess: true,
-        txLink:
-          network === Network.MAINNET
-            ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-            : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`,
+        txLink: `${EXPLORER_URL[network]}/txblock/${tx.digest}`,
       });
     } catch {
       openRowMarketResultModal({ isSuccess: false, isLoan });

@@ -113,7 +113,7 @@ export const makeBorrowData = ({
               pathOr(1, [key, 'decimals'], coinsMap)
             )
           : 0,
-        cash: FixedPointMath.toNumber(market.cash, market.decimals),
+        cash: FixedPointMath.toNumber(market.availableCash, market.decimals),
         marketKey: key,
       } as BorrowRow;
 

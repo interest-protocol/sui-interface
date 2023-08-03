@@ -14,10 +14,7 @@ import { useTranslations } from 'next-intl';
 import { pathOr, propOr } from 'ramda';
 import { FC } from 'react';
 
-import {
-  SUI_VISION_EXPLORER_URL,
-  SUI_VISION_TESTNET_EXPLORER_URL,
-} from '@/constants';
+import { EXPLORER_URL } from '@/constants';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { capitalize, throwTXIfNotSuccessful } from '@/utils';
 
@@ -141,11 +138,7 @@ const MintButton: FC<MintButtonProps> = ({
       });
 
       throwTXIfNotSuccessful(tx);
-      confirmModal(
-        network === Network.MAINNET
-          ? `${SUI_VISION_EXPLORER_URL}/txblock/${tx.digest}`
-          : `${SUI_VISION_TESTNET_EXPLORER_URL}/txblock/${tx.digest}`
-      );
+      confirmModal(`${EXPLORER_URL[network]}/txblock/${tx.digest}`);
     } catch (error) {
       failModal(propOr(t('faucet.modal.fail.content'), 'message', error));
     } finally {

@@ -13,14 +13,15 @@ const MenuBackButton: FC<MenuBackButtonProps> = ({
 
   return (
     <Button
-      left="-2.5rem"
-      color="text"
+      color="onSurface"
       variant="icon"
-      border="1px solid"
-      position="absolute"
       onClick={handleBack}
-      borderColor="#FFFFFF1A"
-      display={['block', 'none']}
+      display={['block', 'block', 'block', 'none']}
+      p="0 !important"
+      nHover={{
+        color: 'primary',
+        bg: 'transparent',
+      }}
     >
       <ArrowLeft maxWidth="1rem" maxHeight="1rem" width="100%" />
     </Button>
