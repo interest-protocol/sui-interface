@@ -1,4 +1,4 @@
-import { Box } from '@interest-protocol/ui-kit';
+import { Box, Motion } from '@interest-protocol/ui-kit';
 import { FC, useState } from 'react';
 
 import { useLocalStorage } from '@/hooks';
@@ -11,12 +11,12 @@ const Sidebar: FC = () => {
   const [isMenuCollapse] = useLocalStorage('sui-interest-menu-collapse', true);
   const [isCollapsed, setIsCollapsed] = useState(isMenuCollapse);
   return (
-    <Box
+    <Motion
       pb="0"
       p="2xl"
       display="flex"
-      width={isCollapsed ? '5.5rem' : '20rem'}
-      maxWidth={isCollapsed ? '5.5rem' : '20rem'}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
+      animate={{ width: isCollapsed ? '5.5rem' : '20rem' }}
       maxHeight="100vh"
       flexDirection="column"
       bg="surface.container"
@@ -31,7 +31,7 @@ const Sidebar: FC = () => {
         />
       </Box>
       <SidebarFooter isCollapsed={isCollapsed} />
-    </Box>
+    </Motion>
   );
 };
 

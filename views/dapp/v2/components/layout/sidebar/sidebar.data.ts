@@ -69,7 +69,7 @@ export const SIDEBAR_ITEMS: ReadonlyArray<
   {
     Icon: BridgeSVG,
     name: 'bridge',
-    path: Routes[RoutesEnum.Bridge],
+    path: '#',
     disabled: false,
     networks: [Network.MAINNET, Network.TESTNET],
     accordionList: [

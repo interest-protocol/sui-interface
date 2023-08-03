@@ -91,14 +91,16 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
                 : asPath === path
                 ? 'surface.containerHighest'
                 : undefined
+              : asPath === path
+              ? 'surface.containerHighest'
               : undefined
           }
-          onClick={disabled ? undefined : () => push(path)}
+          onClick={disabled ? undefined : () => !accordionList && push(path)}
           nHover={{
             bg: !disabled && 'surface.containerHighest',
           }}
           justifyContent={isCollapsed ? 'center' : 'space-between'}
-          alignItems={isCollapsed ? 'center' : 'unset'}
+          alignItems="center"
           mx="auto"
         >
           <Box display="flex">
