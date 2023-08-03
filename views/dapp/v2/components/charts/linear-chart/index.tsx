@@ -40,7 +40,7 @@ const LinearChart: FC<BaseChartProps> = ({ data, xAxis, dataKey }) => {
         />
         <XAxis
           tickCount={6}
-          type="number"
+          type="category"
           dataKey={xAxis}
           axisLine={false}
           tickLine={false}

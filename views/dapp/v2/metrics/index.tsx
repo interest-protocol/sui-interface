@@ -4,7 +4,6 @@ import { FC } from 'react';
 
 import ActiveWallets from './active-wallets';
 import DailyVolume from './daily-volume';
-import { TOTAL_LIQUIDITY_DATA } from './metrics.data';
 import TopCoinsTable from './tables/top-coins-table';
 import TopPoolsTable from './tables/top-pools-table';
 import TopInfoCards from './top-info-cards';
@@ -25,10 +24,10 @@ const Metrics: FC = () => {
         <Tabs items={[t('metrics.tabs.dex'), t('metrics.tabs.moneyMarket')]} />
       </Box>
       <TopInfoCards />
-      <TotalLiquidity data={TOTAL_LIQUIDITY_DATA} />
-      <DailyVolume data={TOTAL_LIQUIDITY_DATA} />
+      <TotalLiquidity />
+      {/* <DailyVolume data={TOTAL_LIQUIDITY_DATA} />
       <ActiveWallets data={TOTAL_LIQUIDITY_DATA} />
-      <TVLPools data={TOTAL_LIQUIDITY_DATA} />
+      <TVLPools data={TOTAL_LIQUIDITY_DATA} /> */}
       <TopPoolsTable />
       <TopCoinsTable />
     </Box>

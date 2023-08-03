@@ -5,8 +5,6 @@ import { v4 } from 'uuid';
 import {
   getAccumulatedVolume,
   getDailyTradingVolume,
-  getLiquidityAdded,
-  getLiquidityRemoved,
   getTVL,
 } from '@/api/metrics';
 
@@ -19,8 +17,6 @@ const TopInfoCardsList: FC = () => {
   useEffect(() => {
     Promise.all([
       getTVL(),
-      getLiquidityAdded(),
-      getLiquidityRemoved(),
       getDailyTradingVolume(),
       getAccumulatedVolume(),
     ]).then(setData);

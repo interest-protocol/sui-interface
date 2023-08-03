@@ -8,10 +8,10 @@ import { CardHeaderProps } from './card-header.types';
 
 const CardHeader: FC<CardHeaderProps> = ({
   title,
-  hasAllTime,
   hasDaily,
-  hasFourteenDays,
+  hasAllTime,
   hasOneMonth,
+  hasFourteenDays,
 }) => {
   const t = useTranslations();
   return (

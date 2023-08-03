@@ -9,8 +9,7 @@
     },
     "infoCards": {
       "tvl": "TVL",
-      "liquidityAdd": "Añadir Liquidez",
-      "liquidityRemove": "Retirar Liquidez",
+      "accumulatedVolume": "Volumen acumulado",
       "dailyTradingVolume": "Volumen Diario de Operaciones"
     },
     "cards": {

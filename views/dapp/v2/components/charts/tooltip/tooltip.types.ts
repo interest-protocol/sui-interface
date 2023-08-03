@@ -1,5 +1,9 @@
 export interface CustomTooltipProps {
   active?: boolean;
   description?: string;
-  payload?: any;
+  payload?: Array<{
+    value: number;
+    dataKey: string;
+    payload: { description: string };
+  }>;
 }

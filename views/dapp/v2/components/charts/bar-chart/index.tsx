@@ -35,7 +35,7 @@ const BarChartComponent: FC<BaseChartProps> = ({ data, dataKey, xAxis }) => {
         />
         <XAxis
           tickCount={6}
-          type="number"
+          type="category"
           tickMargin={2}
           dataKey={xAxis}
           tickLine={false}

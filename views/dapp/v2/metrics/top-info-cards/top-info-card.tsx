@@ -15,13 +15,16 @@ const TopInfoCards: FC<TopInfoCardsProps> = ({ Icon, description, amount }) => {
       title={
         <Box display="flex" alignItems="center" gap="m">
           <Box
+            color="surface"
             display="flex"
             width="1.3rem"
             height="1.3rem"
+            borderRadius="50%"
+            bg="inverseSurface"
             alignItems="center"
             justifyContent="center"
           >
-            <Icon maxWidth="1.3rem" maxHeight="1.3rem" width="100%" />
+            <Icon maxWidth="0.8rem" maxHeight="0.8rem" width="100%" />
           </Box>
           {t(description as TTranslatedMessage)}
         </Box>

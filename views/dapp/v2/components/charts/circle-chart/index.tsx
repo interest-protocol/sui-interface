@@ -63,8 +63,7 @@ const CircleChart: FC<CircleChartProps> = ({ data, label, dataKey }) => {
         </Pie>
         <Legend
           iconSize={8}
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          formatter={(value, _entry) => (
+          formatter={(value) => (
             <Typography
               as="span"
               marginLeft="0.25rem"

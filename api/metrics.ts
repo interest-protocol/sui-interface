@@ -27,42 +27,6 @@ const getMetrics = (metricsQuery: any) =>
     }
   );
 
-export const getLiquidityAdded = () =>
-  getMetrics({
-    query: 'add_liquidity',
-    alias: '',
-    id: 'a',
-    labelSelector: {},
-    aggregate: {
-      op: 'SUM',
-      grouping: [],
-    },
-    functions: [
-      {
-        name: 'sum_over_time',
-        arguments: [
-          {
-            durationValue: {
-              value: 58,
-              unit: 'w',
-            },
-          },
-        ],
-      },
-    ],
-    disabled: false,
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      const samples: Array<any> = Array.from(
-        data.results[0].matrix.samples.values()
-      );
-
-      const value = samples[0].values.reverse()[0].value;
-
-      return value;
-    });
-
 export const getTVL = (): Promise<number> =>
   getMetrics({
     query: 'tvl_by_pool',
@@ -74,42 +38,6 @@ export const getTVL = (): Promise<number> =>
       grouping: [],
     },
     functions: [],
-    disabled: false,
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      const samples: Array<any> = Array.from(
-        data.results[0].matrix.samples.values()
-      );
-
-      const value = samples[0].values.reverse()[0].value;
-
-      return value;
-    });
-
-export const getLiquidityRemoved = (): Promise<number> =>
-  getMetrics({
-    query: 'remove_liquidity',
-    alias: '',
-    id: 'a',
-    labelSelector: {},
-    aggregate: {
-      op: 'SUM',
-      grouping: [],
-    },
-    functions: [
-      {
-        name: 'rollup_sum',
-        arguments: [
-          {
-            durationValue: {
-              value: 57,
-              unit: 'w',
-            },
-          },
-        ],
-      },
-    ],
     disabled: false,
   })
     .then((res) => res.json())
@@ -150,7 +78,6 @@ export const getDailyTradingVolume = () =>
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log('>> fetch data :: ', data);
       const samples: Array<any> = Array.from(
         data.results[0].matrix.samples.values()
       );
@@ -194,4 +121,30 @@ export const getAccumulatedVolume = () =>
       const value = samples[0].values.reverse()[0].value;
 
       return value;
+    });
+
+export const getTotalLiquidity = (): Promise<
+  Array<{ timestamp: number; value: number }>
+> =>
+  getMetrics({
+    query: 'tvl_by_pool',
+    alias: '',
+    id: 'a',
+    labelSelector: {},
+    aggregate: {
+      op: 'SUM',
+      grouping: [],
+    },
+    functions: [],
+    disabled: false,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      const samples: Array<any> = Array.from(
+        data.results[0].matrix.samples.values()
+      );
+
+      const values = samples[0].values;
+
+      return values;
     });
