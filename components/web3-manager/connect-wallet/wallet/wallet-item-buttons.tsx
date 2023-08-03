@@ -16,7 +16,7 @@ import { WalletItemButtonProps } from '../connect-wallet.types';
 
 const WalletItemButtons: FC<WalletItemButtonProps> = ({
   name,
-  hasInstalled,
+  installLink,
   openWalletModal,
 }) => {
   const t = useTranslations();
@@ -34,7 +34,7 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
           textTransform="capitalize"
         >
           {t(
-            hasInstalled
+            !installLink
               ? 'common.v2.connectWallet.tooltip.connect'
               : 'common.v2.connectWallet.tooltip.install'
           )}
@@ -53,7 +53,7 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
         transition="display 250ms ease-in-out"
         borderColor={lightTheme.colors['outline.outlineVariant']}
       >
-        {hasInstalled ? (
+        {!installLink ? (
           <Button
             variant="icon"
             nHover={{
@@ -80,11 +80,7 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
             }}
             color="#000"
           >
-            <a
-              href="https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a target="_blank" href={installLink} rel="noopener noreferrer">
               <DownloadSVG
                 width="100%"
                 height="100%"

@@ -1,12 +1,18 @@
 import { Dispatch, SetStateAction } from 'react';
 
+export interface IWalletItem {
+  name: string;
+  icon?: string;
+  installLink?: string;
+}
+
 export interface WalletItemProps extends WalletItemButtonProps {
   icon?: string;
 }
 
 export interface WalletItemButtonProps {
   name: string;
-  hasInstalled?: boolean;
+  installLink?: string;
   openWalletModal?: (walletName: string) => void;
 }
 

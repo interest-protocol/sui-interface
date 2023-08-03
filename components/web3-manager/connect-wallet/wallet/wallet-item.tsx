@@ -9,7 +9,7 @@ import WalletItemButtons from './wallet-item-buttons';
 const WalletItem: FC<WalletItemProps> = ({
   icon,
   name,
-  hasInstalled,
+  installLink,
   openWalletModal,
 }) => (
   <Box
@@ -67,9 +67,9 @@ const WalletItem: FC<WalletItemProps> = ({
       </Typography>
     </Box>
     <WalletItemButtons
-      openWalletModal={openWalletModal}
       name={name}
-      hasInstalled={hasInstalled}
+      installLink={installLink}
+      openWalletModal={openWalletModal}
     />
   </Box>
 );

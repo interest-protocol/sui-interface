@@ -6,10 +6,10 @@ import { useModal } from '@/hooks';
 
 import { ConnectWalletProps } from './connect-wallet.types';
 import IllustrationSection from './illustration/illustration-section';
+import WalletList from './wallet';
 import WalletConnectConfirmModal from './wallet/modal/confirm';
 import WalletConnectFailModal from './wallet/modal/fail';
 import WalletConnectLoadingModal from './wallet/modal/loading';
-import WalletListSection from './wallet/wallet-list-section';
 
 const ConnectWallet: FC<ConnectWalletProps> = ({
   openConnectWallet,
@@ -66,18 +66,18 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
 
   return (
     <Box
-      width="100vw"
-      height="100vh"
-      zIndex="5"
-      position="fixed"
       top="0"
       left="0"
-      background="surface"
+      zIndex="5"
       color="text"
+      width="100vw"
+      height="100vh"
+      position="fixed"
+      background="surface"
       display={!openConnectWallet ? 'none' : 'block'}
     >
-      <Box display="flex" background={[darkTheme.colors.surface]}>
-        <WalletListSection
+      <Box display="flex" background={darkTheme.colors.surface}>
+        <WalletList
           setOpenWallet={setOpenConnectWallet}
           openWalletModal={openWalletModal}
         />
