@@ -1,5 +1,5 @@
 import { Box } from '@interest-protocol/ui-kit';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { useLocalStorage } from '@/hooks';
 
@@ -8,8 +8,8 @@ import SidebarHeader from './header';
 import SidebarMenuList from './menu-list';
 
 const Sidebar: FC = () => {
-  const [isCollapsed] = useLocalStorage('sui-interest-menu-collapse', true);
-
+  const [isMenuCollapse] = useLocalStorage('sui-interest-menu-collapse', true);
+  const [isCollapsed, setIsCollapsed] = useState(isMenuCollapse);
   return (
     <Box
       pb="0"
@@ -24,10 +24,13 @@ const Sidebar: FC = () => {
       justifyContent="space-between"
     >
       <Box>
-        <SidebarHeader />
-        <SidebarMenuList />
+        <SidebarHeader isCollapsed={isCollapsed} />
+        <SidebarMenuList
+          setIsCollapsed={setIsCollapsed}
+          isCollapsed={isCollapsed}
+        />
       </Box>
-      <SidebarFooter />
+      <SidebarFooter isCollapsed={isCollapsed} />
     </Box>
   );
 };

@@ -5,11 +5,12 @@ import { FC } from 'react';
 
 import { LogoSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
-import { useLocalStorage, useNetwork } from '@/hooks';
+import { useNetwork } from '@/hooks';
 
-const SidebarHeader: FC = () => {
+import { SideBarHeaderProps } from './sidebar.types';
+
+const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
   const { network } = useNetwork();
-  const [isCollapsed] = useLocalStorage('sui-interest-menu-collapse', true);
 
   return (
     <Link href={Routes[RoutesEnum.Home]}>
@@ -47,4 +48,4 @@ const SidebarHeader: FC = () => {
   );
 };
 
-export default SidebarHeader;
+export default SideBarHeader;

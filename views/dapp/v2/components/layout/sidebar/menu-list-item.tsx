@@ -24,10 +24,12 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
   path,
   disabled,
   accordionList,
+  setIsCollapsed,
+  isCollapsed,
 }) => {
   const t = useTranslations();
   const { asPath, push } = useRouter();
-  const [isCollapsed] = useLocalStorage('sui-interest-menu-collapse', true);
+  const [isMenuCollapsed] = useLocalStorage('sui-interest-menu-collapse', true);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
   const getSuffixIcon = () =>
@@ -50,9 +52,11 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
   return (
     <Box
       onMouseEnter={() => {
+        accordionList && setIsCollapsed(false);
         setIsAccordionOpen(true);
       }}
       onMouseLeave={() => {
+        accordionList && setIsCollapsed(isMenuCollapsed);
         setIsAccordionOpen(false);
       }}
     >

@@ -1,5 +1,5 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 
 import { SVGProps } from '@/components/svg/svg.types';
 
@@ -11,9 +11,24 @@ export interface MenuListItemProps {
   networks: ReadonlyArray<Network>;
   alpha?: boolean;
   accordionList?: ReadonlyArray<AccordionItemProps>;
+  setIsCollapsed: Dispatch<SetStateAction<boolean>>;
+  isCollapsed: boolean;
 }
 
 export interface AccordionItemProps {
   name: string;
   path: string;
+}
+
+export interface MenuListProps {
+  setIsCollapsed: Dispatch<SetStateAction<boolean>>;
+  isCollapsed: boolean;
+}
+
+export interface SideBarHeaderProps {
+  isCollapsed: boolean;
+}
+
+export interface SideBarFooterProps {
+  isCollapsed: boolean;
 }

@@ -2,14 +2,17 @@ import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { useLocalStorage, useNetwork } from '@/hooks';
+import { useNetwork } from '@/hooks';
 
-import SidebarMenuListItem from './menu-list-item';
+import SideBarMenuListItem from './menu-list-item';
 import { SIDEBAR_ITEMS } from './sidebar.data';
+import { MenuListProps } from './sidebar.types';
 
-const SidebarMenuList: FC = () => {
+const SidebarMenuList: FC<MenuListProps> = ({
+  setIsCollapsed,
+  isCollapsed,
+}) => {
   const { network } = useNetwork();
-  const [isCollapsed] = useLocalStorage('sui-interest-menu-collapse', true);
 
   return (
     <>
@@ -26,7 +29,12 @@ const SidebarMenuList: FC = () => {
       >
         {SIDEBAR_ITEMS.filter(({ networks }) => networks.includes(network)).map(
           (item) => (
-            <SidebarMenuListItem key={v4()} {...item} />
+            <SideBarMenuListItem
+              key={v4()}
+              {...item}
+              setIsCollapsed={setIsCollapsed}
+              isCollapsed={isCollapsed}
+            />
           )
         )}
       </Box>

@@ -1,19 +1,16 @@
 import { Box, Button, Motion } from '@interest-protocol/ui-kit';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 
 import { DoubleArrowSVG } from '@/components/svg/v2';
 import { useLocalStorage } from '@/hooks';
 
-const SidebarFooter: FC = () => {
-  const [isCollapsed, setIsCollapse] = useLocalStorage(
+import { SideBarFooterProps } from './sidebar.types';
+
+const SidebarFooter: FC<SideBarFooterProps> = ({ isCollapsed }) => {
+  const [isMenuCollapsed, setIsMenuCollapsed] = useLocalStorage(
     'sui-interest-menu-collapse',
     true
   );
-  const [isOpen, setIsOpen] = useState(isCollapsed);
-
-  useEffect(() => {
-    setIsOpen(isCollapsed);
-  }, [isCollapsed]);
 
   return (
     <Box my="m" display="flex" flexDirection="column">
@@ -21,7 +18,7 @@ const SidebarFooter: FC = () => {
         variant="icon"
         width="2.5rem"
         height="2.5rem"
-        onClick={() => setIsCollapse(!isCollapsed)}
+        onClick={() => setIsMenuCollapsed(!isMenuCollapsed)}
         display="flex"
         justifyContent="center"
         alignItems="center"
@@ -31,7 +28,7 @@ const SidebarFooter: FC = () => {
         mx={isCollapsed ? 'auto' : 'unset'}
       >
         <Motion
-          transform={isOpen ? 'rotate(180deg)' : 'rotate(0deg)'}
+          transform={isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)'}
           transition={{ duration: 0.5 }}
           display="flex"
         >
