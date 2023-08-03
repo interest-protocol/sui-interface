@@ -3,7 +3,10 @@ import { Network } from '@interest-protocol/sui-amm-sdk';
 import { BridgeSVG, FarmSVG, NewTokenSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
 import { FaucetSVG, HomeSVG, LendSVG, PoolSVG, SwapSVG } from '@/svg';
-export const SIDEBAR_ITEMS = [
+
+import { MenuListItemProps } from './sidebar.types';
+
+export const SIDEBAR_ITEMS: ReadonlyArray<MenuListItemProps> = [
   {
     Icon: HomeSVG,
     name: 'home',
@@ -66,6 +69,16 @@ export const SIDEBAR_ITEMS = [
     name: 'bridge',
     path: Routes[RoutesEnum.Bridge],
     disabled: false,
-    networks: [Network.MAINNET],
+    networks: [Network.MAINNET, Network.TESTNET],
+    accordionList: [
+      {
+        name: 'wormhole',
+        path: Routes[RoutesEnum.Bridge],
+      },
+      {
+        name: 'celer',
+        path: Routes[RoutesEnum.Bridge],
+      },
+    ],
   },
 ];
