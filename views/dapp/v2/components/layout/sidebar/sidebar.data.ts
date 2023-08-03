@@ -6,7 +6,9 @@ import { FaucetSVG, HomeSVG, LendSVG, PoolSVG, SwapSVG } from '@/svg';
 
 import { MenuListItemProps } from './sidebar.types';
 
-export const SIDEBAR_ITEMS: ReadonlyArray<MenuListItemProps> = [
+export const SIDEBAR_ITEMS: ReadonlyArray<
+  Omit<MenuListItemProps, 'setIsCollapsed' | 'isCollapsed'>
+> = [
   {
     Icon: HomeSVG,
     name: 'home',
