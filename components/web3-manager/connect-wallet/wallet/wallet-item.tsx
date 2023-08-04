@@ -1,8 +1,6 @@
 import { Box, lightTheme, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { SuiSVG } from '@/svg';
-
 import { WalletItemProps } from '../connect-wallet.types';
 import WalletItemButtons from './wallet-item-buttons';
 
@@ -33,35 +31,14 @@ const WalletItem: FC<WalletItemProps> = ({
       alignItems="center"
       gap={['m', 'm', 'm', 'xl']}
     >
-      {icon ? (
-        <Box
-          width="2.5rem"
-          height="2.5rem"
-          borderRadius="m"
-          backgroundSize="cover"
-          backgroundRepeat="no-repeat"
-          backgroundImage={`url(${icon})`}
-        />
-      ) : (
-        <Box
-          width="2.5rem"
-          height="2.5rem"
-          borderRadius="m"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          bg="#6FBCF0"
-          color="white"
-        >
-          <SuiSVG
-            filled
-            maxWidth="1.5rem"
-            maxHeight="1.5rem"
-            width="100%"
-            height="100%"
-          />
-        </Box>
-      )}
+      <Box
+        width="2.5rem"
+        height="2.5rem"
+        borderRadius="m"
+        backgroundSize="cover"
+        backgroundRepeat="no-repeat"
+        backgroundImage={`url(${icon})`}
+      />
       <Typography variant="medium" fontWeight="400">
         {name}
       </Typography>
