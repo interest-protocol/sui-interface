@@ -14,25 +14,25 @@ const AccordionItem: FC<AccordionItemProps> = ({ name, path }) => {
 
   return (
     <Box
-      display="flex"
-      borderRadius="m"
-      color="onSurface"
-      transition="all 350ms ease-in-out"
-      cursor={'pointer'}
-      onClick={() => push(path)}
+      mx="auto"
+      width="100%"
       nHover={{
         color: 'primary',
       }}
-      width="100%"
-      mx="auto"
+      display="flex"
+      cursor="pointer"
+      borderRadius="m"
+      color="onSurface"
+      onClick={() => push(path)}
+      transition="all 350ms ease-in-out"
     >
       <Typography
-        variant="small"
-        borderLeft="1px solid"
-        borderColor="outline.outlineVariant"
         ml="1rem"
         pl="1.5rem"
         py="0.5rem"
+        variant="small"
+        borderLeft="1px solid"
+        borderColor="outline.outlineVariant"
       >
         {capitalize(t(`common.v2.navbar.${name}` as TTranslatedMessage))}
       </Typography>

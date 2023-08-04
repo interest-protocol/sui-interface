@@ -15,27 +15,27 @@ const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
   return (
     <Link href={Routes[RoutesEnum.Home]}>
       <Box
+        borderRadius="m"
         textAlign="center"
         position="relative"
-        width={isCollapsed ? '2.5rem' : '100%'}
-        height={isCollapsed ? '2.5rem' : 'unset'}
-        bg={isCollapsed ? lightTheme.colors.primary : 'unset'}
-        display={isCollapsed ? 'flex' : 'block'}
-        borderRadius="m"
         alignItems="center"
         justifyContent="center"
+        width={isCollapsed ? '2.5rem' : '100%'}
+        display={isCollapsed ? 'flex' : 'block'}
+        height={isCollapsed ? '2.5rem' : 'unset'}
+        bg={isCollapsed ? lightTheme.colors.primary : 'unset'}
       >
         <LogoSVG
+          height="100%"
           full={!isCollapsed}
+          fill={isCollapsed ? 'white' : undefined}
           maxWidth={isCollapsed ? '1.5rem' : '100%'}
           maxHeight={isCollapsed ? '1.5rem' : '2.6rem'}
-          height="100%"
-          fill={isCollapsed ? 'white' : undefined}
         />
         {network === Network.TESTNET && !isCollapsed && (
           <Typography
-            left="4.5rem"
             bottom="0"
+            left="4.5rem"
             color="primary"
             variant="extraSmall"
             position="absolute"

@@ -84,6 +84,8 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
           opacity={disabled ? 0.7 : 1}
           transition="all 350ms ease-in-out"
           cursor={disabled ? 'not-allowed' : 'pointer'}
+          width={isCollapsed ? '2.5rem' : '100%'}
+          height="2.5rem"
           bg={
             accordionList
               ? isAccordionOpen
@@ -103,8 +105,8 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
           alignItems="center"
           mx="auto"
         >
-          <Box display="flex">
-            <Icon maxHeight="1.5rem" maxWidth="1.5rem" width="1.5rem" />
+          <Box display="flex" alignItems="center" justifyContent="center">
+            <Icon maxHeight="1.5rem" maxWidth="1.5rem" width="1.2rem" />
             {!isCollapsed && (
               <Typography variant="small" ml="l">
                 {capitalize(

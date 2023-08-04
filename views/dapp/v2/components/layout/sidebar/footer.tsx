@@ -1,4 +1,4 @@
-import { Box, Button, Motion } from '@interest-protocol/ui-kit';
+import { Box, Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { DoubleArrowSVG } from '@/components/svg/v2';
@@ -7,6 +7,7 @@ import { useLocalStorage } from '@/hooks';
 import { SideBarFooterProps } from './sidebar.types';
 
 const SidebarFooter: FC<SideBarFooterProps> = ({ isCollapsed }) => {
+  const { colors } = useTheme() as Theme;
   const [isMenuCollapsed, setIsMenuCollapsed] = useLocalStorage(
     'sui-interest-menu-collapse',
     true
@@ -14,32 +15,37 @@ const SidebarFooter: FC<SideBarFooterProps> = ({ isCollapsed }) => {
 
   return (
     <Box my="m" display="flex" flexDirection="column">
-      <Button
-        variant="icon"
+      <Box
         width="2.5rem"
-        height="2.5rem"
-        onClick={() => setIsMenuCollapsed(!isMenuCollapsed)}
         display="flex"
-        justifyContent="center"
+        height="2.5rem"
+        borderRadius="m"
+        cursor="pointer"
+        color="onSurface"
+        border="1px solid"
         alignItems="center"
-        border="1px solid !important"
-        borderColor="surface.container"
-        p="0 !important"
+        justifyContent="center"
         mx={isCollapsed ? 'auto' : 'unset'}
+        borderColor="outline.outlineVariant"
+        nHover={{
+          transition: 'all 300ms ease-in-out',
+          backgroundColor: `${colors.primary}14`,
+        }}
+        onClick={() => setIsMenuCollapsed(!isMenuCollapsed)}
       >
         <Motion
-          transform={isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)'}
-          transition={{ duration: 0.5 }}
           display="flex"
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
+          transform={isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)'}
         >
           <DoubleArrowSVG
-            maxHeight="0.625rem"
-            maxWidth="0.625rem"
-            height="100%"
             width="100%"
+            height="100%"
+            maxWidth="0.625rem"
+            maxHeight="0.625rem"
           />
         </Motion>
-      </Button>
+      </Box>
     </Box>
   );
 };
