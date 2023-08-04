@@ -1,6 +1,8 @@
 import { Box, lightTheme, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
+import CopyToClipboard from '@/components/copy-to-clipboard';
+
 import { WalletItemProps } from '../connect-wallet.types';
 import WalletItemButtons from './wallet-item-buttons';
 
@@ -43,6 +45,7 @@ const WalletItem: FC<WalletItemProps> = ({
         {name}
       </Typography>
     </Box>
+    <CopyToClipboard data={icon!} />
     <WalletItemButtons
       name={name}
       installLink={installLink}
