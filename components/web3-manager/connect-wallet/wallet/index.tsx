@@ -38,7 +38,7 @@ const WalletListSection: FC<WalletListSectionProps> = ({
       (acc, { icon, name }) => [
         {
           icon,
-          name: icon ? WALLET_NAME_MAP[icon] : name,
+          name: icon ? WALLET_NAME_MAP[icon] ?? name : name,
         },
         ...acc.filter((item) => item.icon !== icon),
       ],
