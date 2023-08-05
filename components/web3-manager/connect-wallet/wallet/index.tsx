@@ -33,7 +33,7 @@ const WalletListSection: FC<WalletListSectionProps> = ({
   const t = useTranslations();
   const { wallets } = useWalletKit();
 
-  const mixedWallets: Array<IWalletItem> = wallets
+  const mixedWallets: Array<IWalletItem> = (wallets ?? [])
     .reduce(
       (acc, { icon, name }) => [
         {
