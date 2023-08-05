@@ -1,0 +1,9 @@
+{
+  "earnFindPool": {
+    "metadata": {
+      "title": "Encontrar Pool"
+    },
+    "pairExist": "Este pool no existe. Por favor, cree una ahora",
+    "find": "Buscar"
+  }
+}

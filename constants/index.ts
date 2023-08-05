@@ -62,6 +62,7 @@ import {
 export * from './coin-market-cap';
 export * from './coins';
 export * from './dex';
+export * from './earn';
 export * from './farms';
 export * from './faucet';
 export * from './pools';

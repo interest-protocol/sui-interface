@@ -1,11 +1,13 @@
-import { Box, Button, Tabs } from '@interest-protocol/ui-kit';
+import { Box, Button, Tabs, TextField } from '@interest-protocol/ui-kit';
+import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
 import { SearchSVG } from '@/components/svg/v2';
-import { SettingsSVG } from '@/svg';
+import { Routes, RoutesEnum } from '@/constants';
+import { PlusSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
 import { EARN_POOL_DATA, EARN_POSITION_DATA } from './earn.data';
@@ -16,6 +18,7 @@ import PositionCard from './earn-card/position-card';
 
 const EarnListCard: FC<EarnListCardsProps> = ({ openModalFilters }) => {
   const t = useTranslations();
+  const { push } = useRouter();
   const [isPool, setIsPool] = useState(true);
 
   const handleTab = () => {
@@ -29,6 +32,8 @@ const EarnListCard: FC<EarnListCardsProps> = ({ openModalFilters }) => {
           <Box
             display="flex"
             justifyContent="space-between"
+            flexDirection={['column', 'column', 'column', 'row']}
+            gap="m"
             alignItems="center"
             width="100%"
           >
@@ -40,37 +45,44 @@ const EarnListCard: FC<EarnListCardsProps> = ({ openModalFilters }) => {
               defaultTabIndex={+!isPool}
               onChangeTab={handleTab}
             />
-            <Box display="flex" gap="s">
+            <Box display="flex" gap="s" alignItems="center">
+              <TextField
+                Prefix={
+                  <Button
+                    variant="icon"
+                    borderRadius="full"
+                    height="1rem"
+                    width="1rem"
+                    onClick={openModalFilters}
+                  >
+                    <SearchSVG
+                      maxHeight="1rem"
+                      maxWidth="1rem"
+                      height="1rem"
+                      width="1rem"
+                    />
+                  </Button>
+                }
+                placeholder={capitalize(t('common.search'))}
+                fontSize="0.875rem"
+                fieldProps={{
+                  borderRadius: 'full',
+                  fontSize: '0.875rem',
+                }}
+              />
               <Button
-                variant="icon"
+                variant="outline"
                 borderRadius="full"
-                border="1px solid"
-                borderColor="outline.outlineVariant"
-                height="1rem"
-                width="1rem"
+                px="l"
+                py="0.95rem"
+                width="max-content"
+                fontSize={['0.6rem', '0.6rem', '0.6rem', '0.875rem']}
+                onClick={() =>
+                  push({ pathname: Routes[RoutesEnum.EarnCreatePool] }).then()
+                }
               >
-                <SearchSVG
-                  maxHeight="1rem"
-                  maxWidth="1rem"
-                  height="1rem"
-                  width="1rem"
-                />
-              </Button>
-              <Button
-                variant="icon"
-                borderRadius="full"
-                border="1px solid"
-                borderColor="outline.outlineVariant"
-                height="1rem"
-                width="1rem"
-                onClick={openModalFilters}
-              >
-                <SettingsSVG
-                  maxHeight="1rem"
-                  maxWidth="1rem"
-                  height="1rem"
-                  width="1rem"
-                />
+                <PlusSVG maxWidth="1rem" maxHeight="1rem" width="1rem" />
+                {t('common.v2.earnPool.createPool')}
               </Button>
             </Box>
           </Box>
