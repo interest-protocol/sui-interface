@@ -3,7 +3,7 @@ import { easeInOut } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { CarteUpSVG } from '@/svg';
+import { CaretUpSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
 import { MenuSettingsListHeaderProps } from '../menu.types';
@@ -46,7 +46,7 @@ const MenuSettingsListHeaderMobile: FC<MenuSettingsListHeaderProps> = ({
           justifyContent="center"
           transition={{ duration: 0.5 }}
         >
-          <CarteUpSVG
+          <CaretUpSVG
             width="0.469rem"
             height="0.469rem"
             maxWidth="1.25rem"
