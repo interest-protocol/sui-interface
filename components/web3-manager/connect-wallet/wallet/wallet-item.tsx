@@ -15,7 +15,7 @@ const WalletItem: FC<WalletItemProps> = ({
   const { connect } = useWalletKit();
 
   const handleConnect = () => {
-    if (installLink) return;
+    if (installLink) return window.open(installLink, '_blank');
 
     connect(name);
     openWalletModal(name);
