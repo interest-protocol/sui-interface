@@ -25,6 +25,13 @@ export const shadowTopVariant = {
   },
 };
 
+export const shadowFixedTopVariant = {
+  hover: {
+    originY: 0,
+    scale: 0.8,
+  },
+};
+
 export const starTranslateYMap = {
   '30%': -7,
   '20%': -5,

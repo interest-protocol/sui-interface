@@ -1,4 +1,9 @@
-import { TextField, TextFieldProps } from '@interest-protocol/ui-kit';
+import {
+  TextField,
+  TextFieldProps,
+  Theme,
+  useTheme,
+} from '@interest-protocol/ui-kit';
 import { FC, forwardRef, PropsWithRef } from 'react';
 import { Control, useWatch } from 'react-hook-form';
 
@@ -9,28 +14,24 @@ const MarketTableModalField: FC<
     TextFieldProps & { symbol: string; control: Control<SupplyBorrowForm> }
   >
 > = forwardRef((props, ref) => {
-  const originalValue = useWatch({
-    control: props.control,
-    name: 'originalValue',
-  });
   const value = useWatch({ control: props.control, name: 'value' });
+  const { colors } = useTheme() as Theme;
 
   return (
     <TextField
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       ref={ref}
-      mb="1rem"
+      fontSize="m"
       placeholder="0"
-      fontSize={`calc(3.563rem * ${
-        8 / (originalValue.length > 8 ? originalValue.length : 8)
-      })`}
-      transition="fontSize 300ms ease-in-out"
-      Suffix={props.symbol}
       defaultValue={value}
+      Suffix={props.symbol}
       fieldProps={{
+        px: '1rem',
+        my: '.5rem',
         border: 'none',
-        textAlign: 'center',
+        height: '3.5rem',
+        bg: colors['surface.containerLowest'],
       }}
       {...props}
     />

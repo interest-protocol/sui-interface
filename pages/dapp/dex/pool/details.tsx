@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import { mergeDeepRight } from 'ramda';
+import { mergeAll } from 'ramda';
 import { useForm } from 'react-hook-form';
 
 import { LoadingPage } from '@/components';
@@ -64,10 +64,10 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     import(`../../../../assets/messages/dex/pool/details/${locale}.json`),
   ]);
 
-  const messages = mergeDeepRight(
+  const messages = mergeAll([
     commonMessages.default,
-    dexPoolPairMessages.default
-  );
+    dexPoolPairMessages.default,
+  ]);
 
   return {
     props: {

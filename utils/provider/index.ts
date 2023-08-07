@@ -1,5 +1,5 @@
 import { Network, SDK } from '@interest-protocol/sui-amm-sdk';
-import { SDK as MoneymarketSDK } from '@interest-protocol/sui-money-market-sdk';
+import { SDK as MoneyMarketSDK } from '@interest-protocol/sui-money-market-sdk';
 import { Connection, devnetConnection, JsonRpcProvider } from '@mysten/sui.js';
 import { SuinsClient } from '@mysten/suins-toolkit';
 
@@ -77,12 +77,12 @@ export const testNetAmmSdk = new SDK(testNetProvider, Network.TESTNET);
 
 export const mainNetAmmSdk = new SDK(mainNetProvider, Network.MAINNET);
 
-export const devNetMoneyMarketSdk = MoneymarketSDK.getDevNetSDK(devNetProvider);
+export const devNetMoneyMarketSdk = MoneyMarketSDK.getDevNetSDK(devNetProvider);
 
 export const testNetMoneyMarketSdk =
-  MoneymarketSDK.getTestNetSDK(testNetProvider);
+  MoneyMarketSDK.getTestNetSDK(testNetProvider);
 
 export const mainNetMoneyMarketSdk =
-  MoneymarketSDK.getMainNetSDK(mainNetProvider);
+  MoneyMarketSDK.getMainNetSDK(mainNetProvider);
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());

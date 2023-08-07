@@ -8,8 +8,8 @@ import MarketTableContent from './market-table-content';
 
 const MarketTable: FC<MarketTableProps> = ({ title, isSupply }) => (
   <Box
-    width="100%"
     color="text"
+    width="100%"
     borderRadius="s"
     height="fit-content"
     bg="surface.container"
