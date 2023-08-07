@@ -40,7 +40,11 @@ const SuccessModal: FC<AddPreviewModalProps> = ({ handleClose }) => {
           justifyContent="space-between"
         >
           <Box />
-          <Typography variant="medium" color="text" textTransform="capitalize">
+          <Typography
+            variant="medium"
+            color="onSurface"
+            textTransform="capitalize"
+          >
             {t('earnDetails.cards.addLiquidity')}
           </Typography>
           <Button variant="icon" onClick={handleClose}>

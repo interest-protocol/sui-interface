@@ -38,7 +38,11 @@ const LoadingModal: FC = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <Typography variant="medium" color="text" textTransform="capitalize">
+          <Typography
+            variant="medium"
+            color="onSurface"
+            textTransform="capitalize"
+          >
             {t('common.v2.earnPool.modal.loading.title')}
           </Typography>
         </Box>

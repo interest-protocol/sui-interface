@@ -50,7 +50,11 @@ const RemovePreviewModal: FC<AddPreviewModalProps> = ({ handleClose }) => {
           <Button variant="icon" onClick={handleClose}>
             <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
           </Button>
-          <Typography variant="medium" color="text" textTransform="capitalize">
+          <Typography
+            variant="medium"
+            color="onSurface"
+            textTransform="capitalize"
+          >
             {t('earnDetails.cards.removeLiquidity')}
           </Typography>
           <Button variant="icon" onClick={handleClose}>

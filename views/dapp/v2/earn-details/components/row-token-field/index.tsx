@@ -56,8 +56,7 @@ const RowTokenField: FC<RowTokenFieldProps> = ({ coins, amount, balance }) => {
             <Box width="100%">
               <TextField
                 fontSize="m"
-                placeholder="0.000"
-                value={amount}
+                placeholder={amount}
                 fieldProps={{
                   border: '0px',
                   bg: 'surface.containerLowest',

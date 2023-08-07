@@ -39,7 +39,11 @@ const AdviceModal: FC<EarnCreatePoolModalProps> = ({ handleClose }) => {
           justifyContent="space-between"
         >
           <Box />
-          <Typography variant="medium" color="text" textTransform="capitalize">
+          <Typography
+            variant="medium"
+            color="onSurface"
+            textTransform="capitalize"
+          >
             {capitalize(t('common.v2.earnPool.modal.advice.title'))}
           </Typography>
           <Button variant="icon" onClick={handleClose}>

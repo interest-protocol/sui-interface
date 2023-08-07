@@ -39,7 +39,11 @@ const WarningModal: FC<EarnCreatePoolModalProps> = ({ handleClose }) => {
           justifyContent="space-between"
         >
           <Box />
-          <Typography variant="medium" color="text" textTransform="capitalize">
+          <Typography
+            variant="medium"
+            color="onSurface"
+            textTransform="capitalize"
+          >
             {t('common.v2.earnPool.modal.warning.title')}
           </Typography>
           <Button variant="icon" onClick={handleClose}>

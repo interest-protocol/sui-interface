@@ -40,7 +40,11 @@ const LoadingModal: FC = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <Typography variant="medium" color="text" textTransform="capitalize">
+          <Typography
+            variant="medium"
+            color="onSurface"
+            textTransform="capitalize"
+          >
             {t('earnDetails.cards.addLiquidity')}
           </Typography>
         </Box>
