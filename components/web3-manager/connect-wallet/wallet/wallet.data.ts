@@ -21,35 +21,41 @@ export const WALLET_NAME_MAP: Record<string, string> = {
 export const DEFAULT_WALLETS: Array<IWalletItem> = [
   {
     name: WALLET_NAME_MAP[WalletIconUrl.SuiWallet],
+    displayName: WALLET_NAME_MAP[WalletIconUrl.SuiWallet],
     installLink:
       'https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil',
     icon: WalletIconUrl.SuiWallet,
   },
   {
     name: WALLET_NAME_MAP[WalletIconUrl.MartianWallet],
+    displayName: WALLET_NAME_MAP[WalletIconUrl.MartianWallet],
     installLink:
       'https://chrome.google.com/webstore/detail/martian-wallet-for-sui-ap/efbglgofoippbgcjepnhiblaibcnclgk',
     icon: WalletIconUrl.MartianWallet,
   },
   {
     name: WALLET_NAME_MAP[WalletIconUrl.EthosWallet],
+    displayName: WALLET_NAME_MAP[WalletIconUrl.EthosWallet],
     installLink:
       'https://chrome.google.com/webstore/detail/ethos-sui-wallet/mcbigmjiafegjnnogedioegffbooigli',
     icon: WalletIconUrl.EthosWallet,
   },
   {
     name: WALLET_NAME_MAP[WalletIconUrl.NightlyWallet],
+    displayName: WALLET_NAME_MAP[WalletIconUrl.NightlyWallet],
     installLink: 'https://linktr.ee/nightlyapp',
     icon: WalletIconUrl.NightlyWallet,
   },
   {
     name: WALLET_NAME_MAP[WalletIconUrl.SpacecyWallet],
+    displayName: WALLET_NAME_MAP[WalletIconUrl.SpacecyWallet],
     installLink:
       'https://chrome.google.com/webstore/detail/spacecy-wallet/mkchoaaiifodcflmbaphdgeidocajadp',
     icon: WalletIconUrl.SpacecyWallet,
   },
   {
     name: WALLET_NAME_MAP[WalletIconUrl.FoxWallet],
+    displayName: WALLET_NAME_MAP[WalletIconUrl.FoxWallet],
     installLink: 'https://foxwallet.com/download',
     icon: WalletIconUrl.FoxWallet,
   },
