@@ -77,6 +77,32 @@
           "description": "Intercambia para obtener el Airdrop",
           "buttons": { "main": "Intercambiar ahora", "secondary": "Saber más" }
         }
+      },
+      "connectWallet": {
+        "metadata": {
+          "title": "Conectar Cartera"
+        },
+        "title": "Elegir la cartera",
+        "subtitle": "Conecta tu monedero de forma segura para comenzar tu viaje Web3",
+        "footer": "Al conectar tu monedero, aceptas nuestros <termsAndService>Condiciones del servicio </termsAndService> y nuestra <privacyPolicy>Política de privacidad</privacyPolicy>.",
+        "modal": {
+          "error": {
+            "title": "Error de conexión",
+            "description": "Fallo al conectar el monedero"
+          },
+          "loading": {
+            "title": "Aprobar conexión",
+            "description": "Conectando a {walletName}"
+          },
+          "success": {
+            "title": "Conectado",
+            "description": "Se ha conectado con éxito a {walletName}"
+          }
+        },
+        "tooltip": {
+          "connect": "conectar cartera",
+          "install": "Instalar Cartera"
+        }
       }
     },
     "dex": "dex",

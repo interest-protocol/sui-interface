@@ -179,11 +179,7 @@ const Profile: FC = () => {
           alignItems="center"
           onClick={handleOpenProfile}
         >
-          <Typography
-            variant="medium"
-            display={['none', 'none', 'none', 'block']}
-            color="primary"
-          >
+          <Typography color="primary" variant="medium">
             {getName(account, suiNSRecord)}
           </Typography>
           <Box

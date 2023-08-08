@@ -1,12 +1,11 @@
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
-import { mergeDeepRight } from 'ramda';
+import { mergeAll } from 'ramda';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Layout } from 'views/dapp/v2/components';
 
 import { LoadingPage, SEO } from '@/components';
-import { ModalProvider } from '@/context/modal';
 import { useLocalStorage } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import { TokenModalMetadata } from '@/interface';
@@ -42,33 +41,28 @@ const SwapPage: NextPageWithProps = ({ pageTitle }) => {
   }, [localSettings]);
 
   return (
-    <ModalProvider newDesign>
-      <Web3Manager>
-        <SEO pageTitle={pageTitle} />
-        <Layout dashboard>
-          <Swap
-            formSwap={formSwap}
-            openModalState={{ isOpen, setIsOpen }}
-            setLocalSettings={setLocalSettings}
-            formSettings={formSettings}
-            searchTokenModalState={searchedToken}
-          />
-        </Layout>
-      </Web3Manager>
-    </ModalProvider>
+    <Web3Manager>
+      <SEO pageTitle={pageTitle} />
+      <Layout dashboard>
+        <Swap
+          formSwap={formSwap}
+          openModalState={{ isOpen, setIsOpen }}
+          setLocalSettings={setLocalSettings}
+          formSettings={formSettings}
+          searchTokenModalState={searchedToken}
+        />
+      </Layout>
+    </Web3Manager>
   );
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const [commonMessages, lendingMessages] = await Promise.all([
+  const [commonMessages, swapMessages] = await Promise.all([
     import(`../../../assets/messages/common/${locale}.json`),
     import(`../../../assets/messages/swap/${locale}.json`),
   ]);
 
-  const messages = mergeDeepRight(
-    commonMessages.default,
-    lendingMessages.default
-  );
+  const messages = mergeAll([commonMessages.default, swapMessages.default]);
   return {
     props: {
       messages,

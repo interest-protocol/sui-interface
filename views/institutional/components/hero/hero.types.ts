@@ -11,8 +11,13 @@ export interface CubeWrapperProps {
   withTopShadow?: boolean;
   withBottomShadow?: boolean;
   specialShadow?: boolean;
+  withFixedTopShadow?: boolean;
 }
 
 export interface HeroStarWrapperProps extends CubeWrapperProps {
   size: '15%' | '20%' | '30%';
+}
+
+export interface HeroBlockProps {
+  scale?: number | string;
 }
