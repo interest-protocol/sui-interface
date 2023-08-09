@@ -34,7 +34,8 @@
         "faucet": "faucet",
         "bridge": "Bridge",
         "wormhole": "wormhole",
-        "celer": "celer"
+        "celer": "celer",
+        "more": "más"
       },
       "menu": {
         "settings": "ajustes globales",

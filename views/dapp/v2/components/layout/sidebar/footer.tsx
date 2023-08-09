@@ -25,7 +25,6 @@ const SidebarFooter: FC<SideBarFooterProps> = ({ isCollapsed }) => {
         border="1px solid"
         alignItems="center"
         justifyContent="center"
-        mx={isCollapsed ? 'auto' : 'unset'}
         borderColor="outline.outlineVariant"
         nHover={{
           transition: 'all 300ms ease-in-out',
@@ -36,7 +35,7 @@ const SidebarFooter: FC<SideBarFooterProps> = ({ isCollapsed }) => {
         <Motion
           display="flex"
           transition={{ duration: 0.5, ease: 'easeInOut' }}
-          transform={isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)'}
+          transform={!isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)'}
         >
           <DoubleArrowSVG
             width="100%"

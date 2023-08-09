@@ -7,6 +7,17 @@ import SidebarFooter from './footer';
 import SidebarHeader from './header';
 import SidebarMenuList from './menu-list';
 
+const itemVariants = {
+  open: {
+    width: ['5.5rem', '20rem'],
+    transition: { duration: 0.5, delayChildren: 10.3, staggerChildren: 0.1 },
+  },
+  closed: {
+    width: ['20rem', '5.5rem'],
+    transition: { duration: 0.5, delayChildren: 10.3, staggerChildren: 0.1 },
+  },
+};
+
 const Sidebar: FC = () => {
   const [isMenuCollapse] = useLocalStorage('sui-interest-menu-collapse', true);
   const [isCollapsed, setIsCollapsed] = useState(isMenuCollapse);
@@ -26,8 +37,8 @@ const Sidebar: FC = () => {
       bg="surface.container"
       borderRadius="0 1rem 1rem 0"
       justifyContent="space-between"
-      transition={{ duration: 0.3, ease: 'easeInOut' }}
-      animate={{ width: isCollapsed ? '5.5rem' : '20rem' }}
+      variants={itemVariants}
+      animate={isCollapsed ? itemVariants.closed : itemVariants.open}
     >
       <Box>
         <SidebarHeader isCollapsed={isCollapsed} />

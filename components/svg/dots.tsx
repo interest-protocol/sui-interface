@@ -3,12 +3,7 @@ import { FC } from 'react';
 import { SVGProps } from './svg.types';
 
 const Dots: FC<SVGProps> = ({ maxHeight, maxWidth, ...props }) => (
-  <svg
-    style={{ maxHeight, maxWidth }}
-    viewBox="0 0 24 24"
-    fill="none"
-    {...props}
-  >
+  <svg style={{ maxHeight, maxWidth }} viewBox="0 0 24 24" {...props}>
     <rect
       x="11.185"
       y="5.185"

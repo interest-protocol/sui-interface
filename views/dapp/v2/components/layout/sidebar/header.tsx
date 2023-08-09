@@ -15,33 +15,47 @@ const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
   return (
     <Link href={Routes[RoutesEnum.Home]}>
       <Box
-        borderRadius="m"
         textAlign="center"
         position="relative"
         alignItems="center"
-        justifyContent="center"
-        width={isCollapsed ? '2.5rem' : '100%'}
-        display={isCollapsed ? 'flex' : 'block'}
-        height={isCollapsed ? '2.5rem' : 'unset'}
-        bg={isCollapsed ? lightTheme.colors.primary : 'unset'}
+        display="flex"
+        mb="3.75rem"
       >
-        <LogoSVG
-          height="100%"
-          full={!isCollapsed}
-          fill={isCollapsed ? 'white' : undefined}
-          maxWidth={isCollapsed ? '1.5rem' : '100%'}
-          maxHeight={isCollapsed ? '1.5rem' : '2.6rem'}
-        />
-        {network === Network.TESTNET && !isCollapsed && (
-          <Typography
-            bottom="0"
-            left="4.5rem"
-            color="primary"
-            variant="extraSmall"
-            position="absolute"
-          >
-            Testnet
-          </Typography>
+        <Box
+          alignItems="center"
+          justifyContent="center"
+          display="flex"
+          borderRadius="m"
+          width="2.5rem"
+          height="2.5rem"
+          minWidth="2.5rem"
+          minHeight="2.5rem"
+          bg={lightTheme.colors.primary}
+        >
+          <LogoSVG
+            height="1.5rem"
+            fill="white"
+            maxWidth="1.5rem"
+            maxHeight="1.5rem"
+            width="1.5rem"
+          />
+        </Box>
+        {!isCollapsed && (
+          <Box ml="0.75rem">
+            <Typography
+              variant="medium"
+              width="max-content"
+              fontWeight="500"
+              color="onSurface"
+            >
+              Interest Protocol
+            </Typography>
+            {network === Network.TESTNET && (
+              <Typography textAlign="left" color="primary" variant="extraSmall">
+                Testnet
+              </Typography>
+            )}
+          </Box>
         )}
       </Box>
     </Link>

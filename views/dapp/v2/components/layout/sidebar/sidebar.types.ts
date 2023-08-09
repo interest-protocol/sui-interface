@@ -13,11 +13,13 @@ export interface MenuListItemProps {
   accordionList?: ReadonlyArray<AccordionItemProps>;
   setIsCollapsed: Dispatch<SetStateAction<boolean>>;
   isCollapsed: boolean;
+  index?: number;
 }
 
 export interface AccordionItemProps {
   name: string;
   path: string;
+  networks: ReadonlyArray<Network>;
 }
 
 export interface MenuListProps {
