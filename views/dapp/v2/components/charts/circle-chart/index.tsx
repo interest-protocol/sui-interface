@@ -16,24 +16,21 @@ import { CircleChartProps } from './circle-chart.types';
 const CircleChart: FC<CircleChartProps> = ({ data, label, dataKey }) => {
   const { dark } = useTheme() as Theme;
 
-  const renderCustomLabel = (props: any) => {
-    const { cx, cy } = props;
-    return (
-      <g>
-        <text
-          x={cx}
-          y={cy}
-          dy="38%"
-          dx="50%"
-          textAnchor="middle"
-          fill={dark ? 'white' : 'black'}
-          fontSize={18}
-        >
-          {label}
-        </text>
-      </g>
-    );
-  };
+  const renderCustomLabel = ({ cx, cy }: any) => (
+    <g>
+      <text
+        x={cx}
+        y={cy}
+        dy="38%"
+        dx="50%"
+        textAnchor="middle"
+        fill={dark ? 'white' : 'black'}
+        fontSize={18}
+      >
+        {label}
+      </text>
+    </g>
+  );
 
   return (
     <ResponsiveContainer>
@@ -45,6 +42,7 @@ const CircleChart: FC<CircleChartProps> = ({ data, label, dataKey }) => {
           outerRadius={75}
           fill="#8884d8"
           dataKey={dataKey}
+          nameKey="label"
           stroke=""
           onClick={undefined}
           legendType="circle"
@@ -53,9 +51,9 @@ const CircleChart: FC<CircleChartProps> = ({ data, label, dataKey }) => {
             <Cell
               key={`cell-${index}`}
               fill={
-                dark
-                  ? SEMANTIC_COLORS[index % SEMANTIC_COLORS.length].dark
-                  : SEMANTIC_COLORS[index % SEMANTIC_COLORS.length].light
+                SEMANTIC_COLORS[index % SEMANTIC_COLORS.length][
+                  dark ? 'dark' : 'light'
+                ]
               }
             />
           ))}
@@ -63,16 +61,20 @@ const CircleChart: FC<CircleChartProps> = ({ data, label, dataKey }) => {
         </Pie>
         <Legend
           iconSize={8}
-          formatter={(value) => (
-            <Typography
-              as="span"
-              marginLeft="0.25rem"
-              variant="small"
-              color="#6B7280"
-            >
-              {value}
-            </Typography>
-          )}
+          formatter={(value) => {
+            console.log('>> value :: ', value);
+
+            return (
+              <Typography
+                as="span"
+                color="#6B7280"
+                variant="small"
+                marginLeft="0.25rem"
+              >
+                {value}
+              </Typography>
+            );
+          }}
         />
       </PieChart>
     </ResponsiveContainer>

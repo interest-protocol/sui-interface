@@ -1,7 +1,10 @@
+import { Dispatch, SetStateAction } from 'react';
+
+export type TFilter = 'all' | 'month' | 'halfMonth' | 'daily';
+
 export interface CardHeaderProps {
   title: string;
-  hasAllTime?: boolean;
-  hasOneMonth?: boolean;
-  hasFourteenDays?: boolean;
-  hasDaily?: boolean;
+  activeFilter?: TFilter;
+  filters?: Array<TFilter>;
+  setFilter?: Dispatch<SetStateAction<TFilter>>;
 }

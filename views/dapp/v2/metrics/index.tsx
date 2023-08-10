@@ -25,9 +25,9 @@ const Metrics: FC = () => {
       </Box>
       <TopInfoCards />
       <TotalLiquidity />
-      {/* <DailyVolume data={TOTAL_LIQUIDITY_DATA} />
-      <ActiveWallets data={TOTAL_LIQUIDITY_DATA} />
-      <TVLPools data={TOTAL_LIQUIDITY_DATA} /> */}
+      <DailyVolume />
+      <ActiveWallets />
+      <TVLPools />
       <TopPoolsTable />
       <TopCoinsTable />
     </Box>

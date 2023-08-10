@@ -6,13 +6,6 @@ import {
   VolumeSVG,
 } from '@/components/svg/v2';
 
-export interface DataPoint {
-  date: Date;
-  day: string;
-  amount: number;
-  description: string;
-}
-
 export const TOP_INFO_CARDS_DATA = [
   {
     Icon: TVLSVG,

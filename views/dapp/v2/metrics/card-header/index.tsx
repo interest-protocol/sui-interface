@@ -1,19 +1,21 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import { v4 } from 'uuid';
 
 import { TTranslatedMessage } from '@/interface';
 
+import { TRANSLATION_KEYS } from './card-header.data';
 import { CardHeaderProps } from './card-header.types';
 
 const CardHeader: FC<CardHeaderProps> = ({
   title,
-  hasDaily,
-  hasAllTime,
-  hasOneMonth,
-  hasFourteenDays,
+  filters,
+  activeFilter,
+  setFilter,
 }) => {
   const t = useTranslations();
+
   return (
     <Box
       p="l"
@@ -26,22 +28,19 @@ const CardHeader: FC<CardHeaderProps> = ({
     >
       <Typography variant="large">{t(title as TTranslatedMessage)}</Typography>
       <Box display="flex" gap=".875rem">
-        <Typography
-          color="onSurface"
-          variant="extraSmall"
-          textDecoration="underline"
-        >
-          {hasAllTime && t('metrics.cards.allTime')}
-        </Typography>
-        <Typography variant="extraSmall" opacity={0.25} color="onSurface">
-          {hasOneMonth && t('metrics.cards.oneMonth')}
-        </Typography>
-        <Typography variant="extraSmall" opacity={0.25} color="onSurface">
-          {hasFourteenDays && t('metrics.cards.fourTeenDays')}
-        </Typography>
-        <Typography variant="extraSmall" opacity={0.25} color="onSurface">
-          {hasDaily && t('metrics.cards.daily')}
-        </Typography>
+        {filters?.map((filter) => (
+          <Typography
+            key={v4()}
+            cursor="pointer"
+            color="onSurface"
+            variant="extraSmall"
+            onClick={() => setFilter?.(filter)}
+            opacity={filter === activeFilter ? 1 : 0.25}
+            textDecoration={filter === activeFilter ? 'underline' : 'unset'}
+          >
+            {t(`metrics.cards.${TRANSLATION_KEYS[filter]}`)}
+          </Typography>
+        ))}
       </Box>
     </Box>
   );
