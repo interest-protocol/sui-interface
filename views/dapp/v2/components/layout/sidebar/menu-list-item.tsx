@@ -19,6 +19,7 @@ import { MinusSVG, PlusSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
 import AccordionItem from './accordion-item';
+import { MenuItemVariants } from './sidebar.data';
 import { MenuListItemProps } from './sidebar.types';
 
 const BOX_ID = 'Menu-List-Item-';
@@ -38,6 +39,7 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
   const { asPath, push } = useRouter();
   const [isMenuCollapsed] = useLocalStorage('sui-interest-menu-collapse', true);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const closeAccordion = (event: any) => {
     if (
@@ -100,10 +102,11 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
           </Typography>
         }
       >
-        <Box
+        <Motion
           p="s"
-          pl="0.60rem"
           key={v4()}
+          zIndex="1"
+          pl="0.60rem"
           display="flex"
           borderRadius="m"
           color="onSurface"
@@ -122,25 +125,50 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
               : undefined
           }
           onClick={disabled ? undefined : () => !accordionList && push(path)}
-          nHover={{
-            bg: !disabled && 'surface.containerHighest',
-          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          position="relative"
           justifyContent="space-between"
           alignItems="center"
           mx="auto"
         >
+          <Motion
+            width="0"
+            left="50%"
+            zIndex="-1"
+            height="100%"
+            borderRadius="m"
+            position="absolute"
+            initial={{ width: 0 }}
+            transform="translate(-50%)"
+            bg="surface.containerHighest"
+            animate={
+              isHovered
+                ? { width: '100%', transition: { duration: 0.3 } }
+                : { width: '0' }
+            }
+          />
           <Box display="flex" alignItems="center" justifyContent="center">
             <Icon maxHeight="1.5rem" maxWidth="1.5rem" width="1.2rem" />
-            {!isCollapsed && (
+
+            <Motion
+              initial={isCollapsed ? 'closed' : 'open'}
+              variants={MenuItemVariants}
+              animate={
+                isCollapsed
+                  ? MenuItemVariants.collased
+                  : MenuItemVariants.unCollapsed
+              }
+            >
               <Typography variant="small" ml="l" width="max-content">
                 {capitalize(
                   t(`common.v2.navbar.${name}` as TTranslatedMessage)
                 )}
               </Typography>
-            )}
+            </Motion>
           </Box>
           {getSuffixIcon()}
-        </Box>
+        </Motion>
       </TooltipWrapper>
       {accordionList && (
         <AnimatePresence>

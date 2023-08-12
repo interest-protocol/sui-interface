@@ -10,11 +10,11 @@ import SidebarMenuList from './menu-list';
 const itemVariants = {
   open: {
     width: ['5.5rem', '20rem'],
-    transition: { duration: 0.5, delayChildren: 10.3, staggerChildren: 0.1 },
+    transition: { duration: 0.5 },
   },
   closed: {
     width: ['20rem', '5.5rem'],
-    transition: { duration: 0.5, delayChildren: 10.3, staggerChildren: 0.1 },
+    transition: { duration: 0.5 },
   },
 };
 

@@ -16,6 +16,15 @@ export interface MenuListItemProps {
   index?: number;
 }
 
+export interface MenuListItemTextProps {
+  Icon: FC<SVGProps>;
+  name: string;
+  path: string;
+  disabled: boolean;
+  accordionList?: ReadonlyArray<AccordionItemProps>;
+  isCollapsed: boolean;
+}
+
 export interface AccordionItemProps {
   name: string;
   path: string;

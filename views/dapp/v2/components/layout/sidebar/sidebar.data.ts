@@ -6,6 +6,17 @@ import { DotsSVG, SwapSVG } from '@/svg';
 
 import { MenuListItemProps } from './sidebar.types';
 
+export const MenuItemVariants = {
+  unCollapsed: {
+    opacity: [0, 1],
+    transition: { duration: 0.5 },
+  },
+  collased: {
+    opacity: [1, 0],
+    transition: { duration: 0.5 },
+  },
+};
+
 export const SIDEBAR_ITEMS: ReadonlyArray<
   Omit<MenuListItemProps, 'setIsCollapsed' | 'isCollapsed'>
 > = [

@@ -1,5 +1,5 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
-import { Box, lightTheme, Typography } from '@interest-protocol/ui-kit';
+import { Box, lightTheme, Motion, Typography } from '@interest-protocol/ui-kit';
 import Link from 'next/link';
 import { FC } from 'react';
 
@@ -7,6 +7,7 @@ import { LogoSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
 import { useNetwork } from '@/hooks';
 
+import { MenuItemVariants } from './sidebar.data';
 import { SideBarHeaderProps } from './sidebar.types';
 
 const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
@@ -40,7 +41,14 @@ const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
             width="1.5rem"
           />
         </Box>
-        {!isCollapsed && (
+        <Motion
+          variants={MenuItemVariants}
+          animate={
+            isCollapsed
+              ? MenuItemVariants.unCollapsed
+              : MenuItemVariants.collased
+          }
+        >
           <Box ml="0.75rem">
             <Typography
               variant="medium"
@@ -56,7 +64,7 @@ const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
               </Typography>
             )}
           </Box>
-        )}
+        </Motion>
       </Box>
     </Link>
   );
