@@ -48,7 +48,7 @@ const getMetrics = (
     'https://app.sentio.xyz/api/v1/insights/josemvcerqueira/interest-protocol-amm/query',
     {
       headers: {
-        'Api-Key': process.env.SENTIO_API_KEY || '',
+        'Api-Key': process.env.SENTIO_API || '',
         'Content-Type': 'application/json',
       },
       method: 'POST',
