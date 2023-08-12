@@ -17,10 +17,11 @@ import CustomXAxisTick from './x-axis-tick';
 const BarChartComponent: FC<BaseChartProps> = ({ data, dataKey, xAxis }) => {
   const { colors } = useTheme() as Theme;
 
+  const resultantData = data.length > 15 ? data.slice(data.length - 15) : data;
   return (
     <ResponsiveContainer>
       <BarChart
-        data={data}
+        data={resultantData}
         margin={{
           top: 5,
           left: 20,
