@@ -45,8 +45,8 @@ const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
           variants={MenuItemVariants}
           animate={
             isCollapsed
-              ? MenuItemVariants.unCollapsed
-              : MenuItemVariants.collased
+              ? MenuItemVariants.collapsed
+              : MenuItemVariants.unCollapsed
           }
         >
           <Box ml="0.75rem">

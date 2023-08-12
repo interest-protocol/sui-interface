@@ -156,7 +156,7 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
               variants={MenuItemVariants}
               animate={
                 isCollapsed
-                  ? MenuItemVariants.collased
+                  ? MenuItemVariants.collapsed
                   : MenuItemVariants.unCollapsed
               }
             >
