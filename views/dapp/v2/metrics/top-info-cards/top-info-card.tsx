@@ -3,7 +3,6 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { TTranslatedMessage } from '@/interface';
-import { formatDollars } from '@/utils';
 
 import { TopInfoCardsProps } from './top-info-cards.types';
 
@@ -31,7 +30,7 @@ const TopInfoCards: FC<TopInfoCardsProps> = ({ Icon, description, amount }) => {
       }
       info={null}
     >
-      {formatDollars(amount)}
+      {amount}
     </InfoCard>
   );
 };

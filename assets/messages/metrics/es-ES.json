@@ -9,6 +9,8 @@
     },
     "infoCards": {
       "tvl": "TVL",
+      "pools": "Pools",
+      "swaps": "Intercambia",
       "accumulatedVolume": "Volumen acumulado",
       "dailyTradingVolume": "Volumen Diario de Operaciones"
     },
@@ -27,6 +29,7 @@
       "topCoins": "monedas principales",
       "tokenPairs": "par de tokens",
       "tvl": "TVL",
+      "apr": "APR",
       "dayVolume": "Volumen 24H",
       "oneDayVolume": "Volumen 1D",
       "weekVolume": "Volumen 7D",

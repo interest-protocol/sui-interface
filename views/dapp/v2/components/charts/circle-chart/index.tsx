@@ -61,20 +61,16 @@ const CircleChart: FC<CircleChartProps> = ({ data, label, dataKey }) => {
         </Pie>
         <Legend
           iconSize={8}
-          formatter={(value) => {
-            console.log('>> value :: ', value);
-
-            return (
-              <Typography
-                as="span"
-                color="#6B7280"
-                variant="small"
-                marginLeft="0.25rem"
-              >
-                {value}
-              </Typography>
-            );
-          }}
+          formatter={(value) => (
+            <Typography
+              as="span"
+              color="#6B7280"
+              variant="small"
+              marginLeft="0.25rem"
+            >
+              {value}
+            </Typography>
+          )}
         />
       </PieChart>
     </ResponsiveContainer>

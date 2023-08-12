@@ -9,7 +9,7 @@ const TopPoolsTableHead: FC<TableHeadProps> = ({ title }) => {
   const t = useTranslations();
   return (
     <>
-      <TableRow numCols={6} title={title} isTableHead>
+      <TableRow numCols={7} title={title} isTableHead>
         <Typography variant="small" textAlign="center">
           #
         </Typography>
@@ -21,6 +21,9 @@ const TopPoolsTableHead: FC<TableHeadProps> = ({ title }) => {
         </Typography>
         <Typography variant="small" textAlign="center">
           {t('metrics.tables.dayVolume')}
+        </Typography>
+        <Typography variant="small" textAlign="center">
+          {t('metrics.tables.apr')}
         </Typography>
         <Typography variant="small" textAlign="center">
           {t('metrics.tables.weekVolume')}

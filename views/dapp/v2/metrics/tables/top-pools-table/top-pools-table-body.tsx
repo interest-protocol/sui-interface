@@ -1,79 +1,143 @@
+import { Network } from '@interest-protocol/sui-money-market-sdk';
 import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { toPairs } from 'ramda';
+import { FC, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 
-import { SEMANTIC_COLORS } from '@/constants';
+import { getTopPools } from '@/api/metrics';
+import { COINS, SEMANTIC_COLORS, TOKENS_SVG_MAP_V2 } from '@/constants';
+import { formatDollars } from '@/utils';
 
-import { TOP_POOLS_DATA } from '../../metrics.data';
+import { getPoolFromMetricLabel } from '../../metrics.utils';
+import { TopPoolsTableItem } from '../table.types';
 import TableRow from '../table-row';
 
 const TopPoolsTableBody: FC = () => {
   const { dark } = useTheme() as Theme;
   const t = useTranslations();
+
+  const [data, setData] = useState<ReadonlyArray<TopPoolsTableItem>>([]);
+
+  useEffect(() => {
+    getTopPools().then((topPools) =>
+      setData(
+        toPairs(topPools).map(
+          ([pair, info]) =>
+            ({
+              ...info,
+              pool: getPoolFromMetricLabel(pair),
+            } as TopPoolsTableItem)
+        )
+      )
+    );
+  }, []);
+
   return (
     <>
-      {TOP_POOLS_DATA.map((pool, index) => (
-        <Box key={v4()} pt={index === 0 ? '0' : 'xl'}>
-          <TableRow numCols={6}>
-            <Typography variant="small" textAlign="center">
-              {index + 1}
-            </Typography>
-            <Box display="flex" gap="m" alignItems="center">
-              <Box display="flex" gap=".25rem">
-                <pool.firstPairIcon
-                  maxHeight="2.5rem"
-                  maxWidth="2.5rem"
-                  width="100%"
-                />
-                <pool.secondPairIcon
-                  maxHeight="2.5rem"
-                  maxWidth="2.5rem"
-                  width="100%"
-                />
-              </Box>
-              <Box>
+      {data.map(({ pool, a, b, c, d }, index) => {
+        const FirstIcon = TOKENS_SVG_MAP_V2[pool?.token0.type ?? 'default'];
+
+        const SecondIcon = TOKENS_SVG_MAP_V2[pool?.token1.type ?? 'default'];
+
+        return (
+          <Box key={v4()} pt={index === 0 ? '0' : 'xl'}>
+            <TableRow numCols={7}>
+              <Typography variant="small" textAlign="center">
+                {index + 1}
+              </Typography>
+              <Box display="flex" gap="m" alignItems="center">
                 <Box display="flex">
-                  <Typography variant="small">{pool.firstPair}</Typography>
-                  <Typography variant="medium">•</Typography>
-                  <Typography variant="small">{pool.secondPair}</Typography>
+                  <Box
+                    width="3rem"
+                    pt={
+                      pool?.token0.type === COINS[Network.MAINNET].SUI.type
+                        ? '0.35rem'
+                        : '0'
+                    }
+                  >
+                    <FirstIcon
+                      filled
+                      maxWidth="3rem"
+                      maxHeight="3rem"
+                      height={
+                        pool?.token0.type === COINS[Network.MAINNET].SUI.type
+                          ? '2.3rem'
+                          : '3rem'
+                      }
+                    />
+                  </Box>
+                  <Box
+                    width="3rem"
+                    pt={
+                      pool?.token1.type === COINS[Network.MAINNET].SUI.type
+                        ? '0.35rem'
+                        : '0'
+                    }
+                  >
+                    <SecondIcon
+                      height={
+                        pool?.token1.type === COINS[Network.MAINNET].SUI.type
+                          ? '2rem'
+                          : '3rem'
+                      }
+                      filled
+                      maxWidth="3rem"
+                      maxHeight="3rem"
+                    />
+                  </Box>
                 </Box>
-                {pool.stable ? (
-                  <Typography
-                    variant="small"
-                    color={
-                      dark ? SEMANTIC_COLORS[3].dark : SEMANTIC_COLORS[3].light
-                    }
-                  >
-                    {t('metrics.tables.stable')}
-                  </Typography>
-                ) : (
-                  <Typography
-                    variant="small"
-                    color={
-                      dark ? SEMANTIC_COLORS[2].dark : SEMANTIC_COLORS[2].light
-                    }
-                  >
-                    {t('metrics.tables.volatile')}
-                  </Typography>
-                )}
+                <Box>
+                  <Box display="flex">
+                    <Typography variant="small">
+                      {pool?.token0.symbol}
+                    </Typography>
+                    <Typography variant="medium">•</Typography>
+                    <Typography variant="small">
+                      {pool?.token1.symbol}
+                    </Typography>
+                  </Box>
+                  {pool?.stable ? (
+                    <Typography
+                      variant="small"
+                      color={SEMANTIC_COLORS[3][dark ? 'dark' : 'light']}
+                    >
+                      {t('metrics.tables.stable')}
+                    </Typography>
+                  ) : (
+                    <Typography
+                      variant="small"
+                      color={SEMANTIC_COLORS[2][dark ? 'dark' : 'light']}
+                    >
+                      {t('metrics.tables.volatile')}
+                    </Typography>
+                  )}
+                </Box>
               </Box>
-            </Box>
-            <Typography variant="small" textAlign="center">
-              {pool.TVL}
-            </Typography>
-            <Typography variant="small" textAlign="center">
-              {pool.dayVolume}
-            </Typography>
-            <Typography variant="small" textAlign="center">
-              {pool.weekVolume}
-            </Typography>
-            <Typography variant="small" textAlign="center">
-              {pool.monthVolume}
-            </Typography>
-          </TableRow>
-        </Box>
-      ))}
+              <Typography variant="small" textAlign="center">
+                {formatDollars(a ?? 0)}
+              </Typography>
+              <Typography variant="small" textAlign="center">
+                {formatDollars(b ?? 0)}
+              </Typography>
+              <Typography variant="small" textAlign="center">
+                {Number(
+                  (a && b
+                    ? (365 * ((b * (pool?.stable ? 0.05 : 0.3)) / 100)) / a
+                    : 0
+                  ).toFixed(4)
+                ).toPrecision()}
+              </Typography>
+              <Typography variant="small" textAlign="center">
+                {formatDollars(c ?? 0)}
+              </Typography>
+              <Typography variant="small" textAlign="center">
+                {formatDollars(d ?? 0)}
+              </Typography>
+            </TableRow>
+          </Box>
+        );
+      })}
     </>
   );
 };

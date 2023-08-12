@@ -8,7 +8,7 @@ import Chart from '../../components/charts';
 import CardHeader from '../card-header';
 import { TFilter } from '../card-header/card-header.types';
 import { DataPie } from '../metrics.types';
-import { getCoinDataFromMetricLabel } from '../metrics.utils';
+import { getPoolFromMetricLabel } from '../metrics.utils';
 import MetricsCardContainer from '../metrics-card-container';
 
 const TVLPools: FC = () => {
@@ -27,10 +27,17 @@ const TVLPools: FC = () => {
 
           return true;
         })
-        .map((pool) => {
-          console.log('>> pool :: ', getCoinDataFromMetricLabel(pool.label));
+        .map(({ label, ...info }) => {
+          const pool = getPoolFromMetricLabel(label);
 
-          return pool;
+          if (!pool) return { ...info, label };
+
+          const {
+            token0: { symbol: symbolA },
+            token1: { symbol: symbolB },
+          } = pool;
+
+          return { ...info, label: `${symbolA}•${symbolB}` };
         });
 
       setData(newData);

@@ -3,10 +3,12 @@ import { FC, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 
 import {
-  getAccumulatedVolume,
   getDailyTradingVolume,
+  getPools,
+  getSwaps,
   getTVL,
 } from '@/api/metrics';
+import { formatDollars, formatNumber } from '@/utils';
 
 import { TOP_INFO_CARDS_DATA } from '../metrics.data';
 import TopInfoCards from './top-info-card';
@@ -17,19 +19,22 @@ const TopInfoCardsList: FC = () => {
   useEffect(() => {
     Promise.all([
       getTVL(),
+      getPools(),
+      getSwaps(),
       getDailyTradingVolume(),
-      getAccumulatedVolume(),
     ]).then(setData);
   }, []);
 
   return (
     <Box gridColumn="1/-1" width="100%" display="flex" gap="s">
-      {TOP_INFO_CARDS_DATA.map(({ Icon, description }, index) => (
+      {TOP_INFO_CARDS_DATA.map(({ Icon, description, money }, index) => (
         <TopInfoCards
           key={v4()}
           Icon={Icon}
           description={description}
-          amount={data?.[index] ?? 0}
+          amount={(money ? formatDollars : formatNumber)(
+            data?.[index] ?? 0
+          ).toString()}
         />
       ))}
     </Box>

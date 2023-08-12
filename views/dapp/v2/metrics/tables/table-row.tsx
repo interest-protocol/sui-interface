@@ -22,12 +22,12 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
         borderBottom={isTableHead ? '.0625rem solid' : '0'}
         borderColor="outline.outlineVariant"
         display="grid"
-        columnGap={numCols === 6 ? 'xl' : numCols === 5 ? '4xl' : '0'}
+        columnGap={numCols === 7 ? 'xl' : numCols === 5 ? '4xl' : '0'}
         alignItems="center"
         textTransform="capitalize"
         gridTemplateColumns={
-          numCols === 6
-            ? '1fr 3fr repeat(4, 2fr)'
+          numCols === 7
+            ? '1fr 3fr repeat(5, 2fr)'
             : numCols === 5
             ? '1fr 3fr repeat(3, 2fr)'
             : '0'
