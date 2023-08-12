@@ -8,6 +8,29 @@ const DEFAULT_LIMIT = 20;
 const DEFAULT_START_TIME = '-30d';
 const DEFAULT_STEP = A_HOUR_IN_MILLISECONDS / 1000;
 
+type PoolResults = Array<{
+  id: string;
+  matrix: {
+    samples: Array<{
+      values: Array<{ value: number }>;
+      metric: { labels: { pair: string } };
+    }>;
+  };
+}>;
+
+type CoinResults = Array<{
+  id: string;
+  matrix: {
+    samples: Array<{
+      values: Array<{ value: number }>;
+      metric: { labels: { coin: string } };
+    }>;
+  };
+}>;
+
+type PoolReturn = Record<string, Record<string, number>>;
+type CoinReturn = PoolReturn;
+
 const getMetrics = (
   queries: any,
   { step, limit, start }: { step?: number; limit?: number; start?: string } = {
@@ -388,9 +411,7 @@ export const getPools = (): Promise<number> =>
       return value;
     });
 
-export const getTopPools = (): Promise<
-  Record<string, Record<string, number>>
-> =>
+export const getTopPools = (): Promise<PoolReturn> =>
   getMetrics(
     [
       {
@@ -531,10 +552,10 @@ export const getTopPools = (): Promise<
   )
     .then((res) => res.json())
     .then((data) =>
-      data.results.reduce((acc, { id, matrix }) => {
+      (data.results as PoolResults).reduce((acc, { id, matrix }) => {
         const info = matrix.samples.reduce(
           (
-            accu,
+            accumulator,
             {
               values,
               metric: {
@@ -542,7 +563,7 @@ export const getTopPools = (): Promise<
               },
             }
           ) => ({
-            ...accu,
+            ...accumulator,
             [pair]: {
               ...acc[pair],
               [id]: values.reverse()[0].value,
@@ -555,12 +576,10 @@ export const getTopPools = (): Promise<
           ...acc,
           ...info,
         };
-      }, {})
+      }, {} as PoolReturn)
     );
 
-export const getTopCoins = (): Promise<
-  Record<string, Record<string, number>>
-> =>
+export const getTopCoins = (): Promise<CoinReturn> =>
   getMetrics(
     [
       {
@@ -665,10 +684,10 @@ export const getTopCoins = (): Promise<
   )
     .then((res) => res.json())
     .then((data) =>
-      data.results.reduce((acc, { id, matrix }) => {
+      (data.results as CoinResults).reduce((acc, { id, matrix }) => {
         const info = matrix.samples.reduce(
           (
-            accu,
+            accumulator,
             {
               values,
               metric: {
@@ -676,7 +695,7 @@ export const getTopCoins = (): Promise<
               },
             }
           ) => ({
-            ...accu,
+            ...accumulator,
             [coin]: {
               ...acc[coin],
               [id]: values.reverse()[0].value,
@@ -689,5 +708,5 @@ export const getTopCoins = (): Promise<
           ...acc,
           ...info,
         };
-      }, {})
+      }, {} as CoinReturn)
     );
