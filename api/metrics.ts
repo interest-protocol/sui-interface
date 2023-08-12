@@ -28,8 +28,13 @@ type CoinResults = Array<{
   };
 }>;
 
-type PoolReturn = Record<string, Record<string, number>>;
-type CoinReturn = PoolReturn;
+export type ValuesInTimestamp = ReadonlyArray<{
+  timestamp: number;
+  value: number;
+}>;
+
+export type PoolReturn = Record<string, Record<string, number>>;
+export type CoinReturn = PoolReturn;
 
 const getMetrics = (
   queries: any,
@@ -43,7 +48,7 @@ const getMetrics = (
     'https://app.sentio.xyz/api/v1/insights/josemvcerqueira/interest-protocol-amm/query',
     {
       headers: {
-        'Api-Key': process.env.NEXT_PUBLIC_SENTIO_API_KEY || '',
+        'Api-Key': process.env.SENTIO_API_KEY || '',
         'Content-Type': 'application/json',
       },
       method: 'POST',
@@ -133,7 +138,7 @@ export const getDailyTradingVolume = () =>
       return value;
     });
 
-export const getAccumulatedVolume = () =>
+export const getAccumulatedVolume = (): Promise<number> =>
   getMetrics([
     {
       metricsQuery: {
@@ -175,9 +180,7 @@ export const getAccumulatedVolume = () =>
       return value;
     });
 
-export const getTotalLiquidity = (
-  from: TFilter
-): Promise<Array<{ timestamp: number; value: number }>> =>
+export const getTotalLiquidity = (from: TFilter): Promise<ValuesInTimestamp> =>
   getMetrics(
     [
       {
@@ -218,9 +221,7 @@ export const getTotalLiquidity = (
       return values;
     });
 
-export const getDailyVolume = (): Promise<
-  Array<{ timestamp: number; value: number }>
-> =>
+export const getDailyVolume = (): Promise<ValuesInTimestamp> =>
   getMetrics(
     [
       {
@@ -311,36 +312,41 @@ export const getTotalActiveWallets = (
       return values;
     });
 
-export const getTVLByPool = (): Promise<
-  Array<{ amount: number; label: string; timestamp: number }>
-> =>
-  getMetrics([
-    {
-      metricsQuery: {
-        query: 'tvl_by_pool',
-        alias: '{{pair}}',
-        id: 'a',
-        labelSelector: {},
-        aggregate: {
-          op: 'SUM',
-          grouping: ['pair'],
-        },
-        functions: [
-          {
-            name: 'topk',
-            arguments: [
-              {
-                intValue: 9,
-              },
-            ],
+export const getTVLByPool = (
+  from: TFilter
+): Promise<Array<{ amount: number; label: string; timestamp: number }>> =>
+  getMetrics(
+    [
+      {
+        metricsQuery: {
+          query: 'tvl_by_pool',
+          alias: '{{pair}}',
+          id: 'a',
+          labelSelector: {},
+          aggregate: {
+            op: 'SUM',
+            grouping: ['pair'],
           },
-        ],
-        disabled: false,
+          functions: [
+            {
+              name: 'topk',
+              arguments: [
+                {
+                  intValue: 9,
+                },
+              ],
+            },
+          ],
+          disabled: false,
+        },
+        dataSource: 'METRICS',
+        sourceName: '',
       },
-      dataSource: 'METRICS',
-      sourceName: '',
-    },
-  ])
+    ],
+    {
+      start: from === 'all' ? '1683923848' : '-1d',
+    }
+  )
     .then((res) => res.json())
     .then((data) => {
       const samples: Array<any> = Array.from(
@@ -710,3 +716,26 @@ export const getTopCoins = (): Promise<CoinReturn> =>
         };
       }, {} as CoinReturn)
     );
+
+type TMetricEndpoints =
+  | 'get-accumulated-volume'
+  | 'get-daily-trading-volume'
+  | 'get-daily-volume'
+  | 'get-pools'
+  | 'get-swaps'
+  | 'get-top-coins'
+  | 'get-top-pools'
+  | 'get-total-active-wallets'
+  | 'get-total-liquidity'
+  | 'get-tvl-by-pool'
+  | 'get-tvl';
+
+export const getMetric = (endpoint: TMetricEndpoints, params?: string) =>
+  fetch(`/api/v1/metrics/${endpoint}?${params ?? ''}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .catch(console.error);

@@ -2,12 +2,7 @@ import { Box } from '@interest-protocol/ui-kit';
 import { FC, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 
-import {
-  getDailyTradingVolume,
-  getPools,
-  getSwaps,
-  getTVL,
-} from '@/api/metrics';
+import { getMetric } from '@/api/metrics';
 import { formatDollars, formatNumber } from '@/utils';
 
 import { TOP_INFO_CARDS_DATA } from '../metrics.data';
@@ -18,10 +13,10 @@ const TopInfoCardsList: FC = () => {
 
   useEffect(() => {
     Promise.all([
-      getTVL(),
-      getPools(),
-      getSwaps(),
-      getDailyTradingVolume(),
+      getMetric('get-tvl'),
+      getMetric('get-pools'),
+      getMetric('get-swaps'),
+      getMetric('get-daily-trading-volume'),
     ]).then(setData);
   }, []);
 

@@ -1,8 +1,7 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC, useEffect, useState } from 'react';
 
-import { getTVLByPool } from '@/api/metrics';
-import { A_DAY_IN_MILLISECONDS } from '@/constants/date';
+import { getMetric } from '@/api/metrics';
 
 import Chart from '../../components/charts';
 import CardHeader from '../card-header';
@@ -17,17 +16,16 @@ const TVLPools: FC = () => {
   const [filter, setFilter] = useState<TFilter>('all');
 
   useEffect(() => {
-    getTVLByPool().then((total) => {
-      const newData = total
-        .filter(({ timestamp }) => {
-          const now = Date.now();
-          const date = timestamp * 1000;
-
-          if (filter === 'daily') return now - A_DAY_IN_MILLISECONDS <= date;
-
-          return true;
-        })
-        .map(({ label, ...info }) => {
+    getMetric('get-tvl-by-pool').then((total) => {
+      const newData = total.map(
+        ({
+          label,
+          ...info
+        }: {
+          label: string;
+          timestamp: number;
+          amount: number;
+        }) => {
           const pool = getPoolFromMetricLabel(label);
 
           if (!pool) return { ...info, label };
@@ -38,7 +36,8 @@ const TVLPools: FC = () => {
           } = pool;
 
           return { ...info, label: `${symbolA}•${symbolB}` };
-        });
+        }
+      );
 
       setData(newData);
     });

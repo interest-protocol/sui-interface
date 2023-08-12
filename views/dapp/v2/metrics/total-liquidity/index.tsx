@@ -1,7 +1,7 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC, useEffect, useState } from 'react';
 
-import { getTotalLiquidity } from '@/api/metrics';
+import { getMetric, ValuesInTimestamp } from '@/api/metrics';
 import { formatDollars } from '@/utils';
 
 import Chart from '../../components/charts';
@@ -16,20 +16,22 @@ const TotalLiquidity: FC = () => {
   const [filter, setFilter] = useState<TFilter>('all');
 
   useEffect(() => {
-    getTotalLiquidity(filter).then((total) => {
-      const newData = total.map(({ timestamp, value }) => {
-        const date = new Date(timestamp * 1000);
+    getMetric('get-total-liquidity', `filter=${filter}`).then(
+      (total: ValuesInTimestamp) => {
+        const newData = total.map(({ timestamp, value }) => {
+          const date = new Date(timestamp * 1000);
 
-        return {
-          date,
-          amount: value,
-          description: date.toUTCString(),
-          day: `${date.getDate()}/${date.getMonth() + 1}`,
-        };
-      });
+          return {
+            date,
+            amount: value,
+            description: date.toUTCString(),
+            day: `${date.getDate()}/${date.getMonth() + 1}`,
+          };
+        });
 
-      setData(newData);
-    });
+        setData(newData);
+      }
+    );
   }, [filter]);
 
   const maxAmount = Math.max(...data.map(({ amount }) => amount));

@@ -4,7 +4,7 @@ import { toPairs } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 
-import { getTopCoins } from '@/api/metrics';
+import { getMetric } from '@/api/metrics';
 import { COINS, TOKENS_SVG_MAP_V2 } from '@/constants';
 import { formatDollars } from '@/utils';
 
@@ -16,7 +16,7 @@ const TopCoinsTableBody: FC = () => {
   const [data, setData] = useState<ReadonlyArray<TopCoinTableItem>>([]);
 
   useEffect(() => {
-    getTopCoins().then((topCoins) =>
+    getMetric('get-top-coins').then((topCoins) =>
       setData(
         toPairs(topCoins).map(
           ([coin, info]) =>

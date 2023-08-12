@@ -5,7 +5,7 @@ import { toPairs } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 
-import { getTopPools } from '@/api/metrics';
+import { getMetric } from '@/api/metrics';
 import { COINS, SEMANTIC_COLORS, TOKENS_SVG_MAP_V2 } from '@/constants';
 import { formatDollars } from '@/utils';
 
@@ -20,7 +20,7 @@ const TopPoolsTableBody: FC = () => {
   const [data, setData] = useState<ReadonlyArray<TopPoolsTableItem>>([]);
 
   useEffect(() => {
-    getTopPools().then((topPools) =>
+    getMetric('get-top-pools').then((topPools) =>
       setData(
         toPairs(topPools).map(
           ([pair, info]) =>

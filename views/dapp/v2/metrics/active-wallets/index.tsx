@@ -2,8 +2,7 @@ import { Box, Typography } from '@interest-protocol/ui-kit';
 import { last } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 
-import { getTotalActiveWallets } from '@/api/metrics';
-import { A_DAY_IN_MILLISECONDS } from '@/constants/date';
+import { getMetric, ValuesInTimestamp } from '@/api/metrics';
 
 import Chart from '../../components/charts';
 import CardHeader from '../card-header';
@@ -17,26 +16,20 @@ const ActiveWallets: FC = () => {
   const [filter, setFilter] = useState<TFilter>('all');
 
   useEffect(() => {
-    getTotalActiveWallets(filter === 'daily').then((total) => {
-      const newData = total
-        .map(({ timestamp, value }) => {
-          const date = new Date(timestamp * 1000);
+    getMetric(
+      'get-total-active-wallets',
+      `filter=${String(filter === 'daily')}`
+    ).then((total: ValuesInTimestamp) => {
+      const newData = total.map(({ timestamp, value }) => {
+        const date = new Date(timestamp * 1000);
 
-          return {
-            date,
-            amount: value,
-            description: date.toUTCString(),
-            day: `${date.getDate()}/${date.getMonth() + 1}`,
-          };
-        })
-        .filter(({ date }) => {
-          const now = Date.now();
-
-          if (filter === 'daily')
-            return now - A_DAY_IN_MILLISECONDS <= date.getTime();
-
-          return true;
-        });
+        return {
+          date,
+          amount: value,
+          description: date.toUTCString(),
+          day: `${date.getDate()}/${date.getMonth() + 1}`,
+        };
+      });
 
       setData(newData);
     });

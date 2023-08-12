@@ -2,7 +2,7 @@ import { Box, Typography } from '@interest-protocol/ui-kit';
 import { last } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 
-import { getDailyVolume } from '@/api/metrics';
+import { getMetric, ValuesInTimestamp } from '@/api/metrics';
 import { formatDollars } from '@/utils';
 
 import Chart from '../../components/charts';
@@ -14,7 +14,7 @@ const DailyVolume: FC = () => {
   const [data, setData] = useState<Array<DataPoint>>([]);
 
   useEffect(() => {
-    getDailyVolume().then((total) => {
+    getMetric('get-daily-volume').then((total: ValuesInTimestamp) => {
       const newData = total.map(({ timestamp, value }) => {
         const date = new Date(timestamp * 1000);
 
