@@ -123,10 +123,11 @@ const TopPoolsTableBody: FC = () => {
               <Typography variant="small" textAlign="center">
                 {Number(
                   (a && b
-                    ? (365 * ((b * (pool?.stable ? 0.05 : 0.3)) / 100)) / a
+                    ? (365 * (b * (pool?.stable ? 0.05 : 0.3))) / a
                     : 0
                   ).toFixed(4)
                 ).toPrecision()}
+                %
               </Typography>
               <Typography variant="small" textAlign="center">
                 {formatDollars(c ?? 0)}
