@@ -25,7 +25,7 @@ const TotalLiquidity: FC = () => {
             date,
             amount: value,
             description: date.toUTCString(),
-            day: `${date.getDate()}/${date.getMonth() + 1}`,
+            day: String(date.getDate()),
           };
         });
 

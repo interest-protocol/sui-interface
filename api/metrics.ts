@@ -38,6 +38,7 @@ export type CoinReturn = PoolReturn;
 
 const getMetrics = (
   queries: any,
+  timezone: string,
   { step, limit, start }: { step?: number; limit?: number; start?: string } = {
     step: DEFAULT_STEP,
     limit: DEFAULT_LIMIT,
@@ -57,7 +58,7 @@ const getMetrics = (
           start: start ?? DEFAULT_START_TIME,
           end: 'now',
           step: step ?? DEFAULT_STEP,
-          timezone: 'Africa/Luanda',
+          timezone,
         },
         limit: limit ?? DEFAULT_LIMIT,
         queries,
@@ -66,109 +67,28 @@ const getMetrics = (
     }
   );
 
-export const getTVL = (): Promise<number> =>
-  getMetrics([
-    {
-      metricsQuery: {
-        query: 'tvl_by_pool',
-        alias: '',
-        id: 'a',
-        labelSelector: {},
-        aggregate: {
-          op: 'SUM',
-          grouping: [],
-        },
-        functions: [],
-        disabled: false,
-      },
-      dataSource: 'METRICS',
-      sourceName: '',
-    },
-  ])
-    .then((res) => res.json())
-    .then((data) => {
-      const samples: Array<any> = Array.from(
-        data.results[0].matrix.samples.values()
-      );
-
-      const value = samples[0].values.reverse()[0].value;
-
-      return value;
-    });
-
-export const getDailyTradingVolume = () =>
-  getMetrics([
-    {
-      metricsQuery: {
-        query: 'vol_sum',
-        alias: '',
-        id: 'a',
-        labelSelector: {},
-        aggregate: {
-          op: 'SUM',
-          grouping: [],
-        },
-        functions: [
-          {
-            name: 'sum_over_time',
-            arguments: [
-              {
-                durationValue: {
-                  value: 1,
-                  unit: 'd',
-                },
-              },
-            ],
+export const getTVL = (TZ: string): Promise<number> =>
+  getMetrics(
+    [
+      {
+        metricsQuery: {
+          query: 'tvl_by_pool',
+          alias: '',
+          id: 'a',
+          labelSelector: {},
+          aggregate: {
+            op: 'SUM',
+            grouping: [],
           },
-        ],
-        disabled: false,
-      },
-      dataSource: 'METRICS',
-      sourceName: '',
-    },
-  ])
-    .then((res) => res.json())
-    .then((data) => {
-      const samples: Array<any> = Array.from(
-        data.results[0].matrix.samples.values()
-      );
-
-      const value = samples[0].values.reverse()[0].value;
-
-      return value;
-    });
-
-export const getAccumulatedVolume = (): Promise<number> =>
-  getMetrics([
-    {
-      metricsQuery: {
-        query: 'vol',
-        alias: '{{pair}}',
-        id: 'a',
-        labelSelector: {},
-        aggregate: {
-          op: 'SUM',
-          grouping: [],
+          functions: [],
+          disabled: false,
         },
-        functions: [
-          {
-            name: 'rollup_sum',
-            arguments: [
-              {
-                durationValue: {
-                  value: 57,
-                  unit: 'w',
-                },
-              },
-            ],
-          },
-        ],
-        disabled: false,
+        dataSource: 'METRICS',
+        sourceName: '',
       },
-      dataSource: 'METRICS',
-      sourceName: '',
-    },
-  ])
+    ],
+    TZ
+  )
     .then((res) => res.json())
     .then((data) => {
       const samples: Array<any> = Array.from(
@@ -180,7 +100,100 @@ export const getAccumulatedVolume = (): Promise<number> =>
       return value;
     });
 
-export const getTotalLiquidity = (from: TFilter): Promise<ValuesInTimestamp> =>
+export const getDailyTradingVolume = (TZ: string) =>
+  getMetrics(
+    [
+      {
+        metricsQuery: {
+          query: 'vol_sum',
+          alias: '',
+          id: 'a',
+          labelSelector: {},
+          aggregate: {
+            op: 'SUM',
+            grouping: [],
+          },
+          functions: [
+            {
+              name: 'sum_over_time',
+              arguments: [
+                {
+                  durationValue: {
+                    value: 1,
+                    unit: 'd',
+                  },
+                },
+              ],
+            },
+          ],
+          disabled: false,
+        },
+        dataSource: 'METRICS',
+        sourceName: '',
+      },
+    ],
+    TZ
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      const samples: Array<any> = Array.from(
+        data.results[0].matrix.samples.values()
+      );
+
+      const value = samples[0].values.reverse()[0].value;
+
+      return value;
+    });
+
+export const getAccumulatedVolume = (TZ: string): Promise<number> =>
+  getMetrics(
+    [
+      {
+        metricsQuery: {
+          query: 'vol',
+          alias: '{{pair}}',
+          id: 'a',
+          labelSelector: {},
+          aggregate: {
+            op: 'SUM',
+            grouping: [],
+          },
+          functions: [
+            {
+              name: 'rollup_sum',
+              arguments: [
+                {
+                  durationValue: {
+                    value: 57,
+                    unit: 'w',
+                  },
+                },
+              ],
+            },
+          ],
+          disabled: false,
+        },
+        dataSource: 'METRICS',
+        sourceName: '',
+      },
+    ],
+    TZ
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      const samples: Array<any> = Array.from(
+        data.results[0].matrix.samples.values()
+      );
+
+      const value = samples[0].values.reverse()[0].value;
+
+      return value;
+    });
+
+export const getTotalLiquidity = (
+  TZ: string,
+  from: TFilter
+): Promise<ValuesInTimestamp> =>
   getMetrics(
     [
       {
@@ -201,6 +214,7 @@ export const getTotalLiquidity = (from: TFilter): Promise<ValuesInTimestamp> =>
         sourceName: '',
       },
     ],
+    TZ,
     {
       start:
         from === 'all'
@@ -221,7 +235,7 @@ export const getTotalLiquidity = (from: TFilter): Promise<ValuesInTimestamp> =>
       return values;
     });
 
-export const getDailyVolume = (): Promise<ValuesInTimestamp> =>
+export const getDailyVolume = (TZ: string): Promise<ValuesInTimestamp> =>
   getMetrics(
     [
       {
@@ -253,6 +267,7 @@ export const getDailyVolume = (): Promise<ValuesInTimestamp> =>
         sourceName: '',
       },
     ],
+    TZ,
     { step: A_DAY_IN_MILLISECONDS / 1000 }
   )
     .then((res) => res.json())
@@ -267,6 +282,7 @@ export const getDailyVolume = (): Promise<ValuesInTimestamp> =>
     });
 
 export const getTotalActiveWallets = (
+  TZ: string,
   daily = false
 ): Promise<Array<{ timestamp: number; value: number }>> =>
   getMetrics(
@@ -297,6 +313,7 @@ export const getTotalActiveWallets = (
         sourceName: '',
       },
     ],
+    TZ,
     {
       step: (daily ? A_HOUR_IN_MILLISECONDS : A_DAY_IN_MILLISECONDS) / 1000,
     }
@@ -313,6 +330,7 @@ export const getTotalActiveWallets = (
     });
 
 export const getTVLByPool = (
+  TZ: string,
   from: TFilter
 ): Promise<Array<{ amount: number; label: string; timestamp: number }>> =>
   getMetrics(
@@ -343,6 +361,7 @@ export const getTVLByPool = (
         sourceName: '',
       },
     ],
+    TZ,
     {
       start: from === 'all' ? '1683923848' : '-1d',
     }
@@ -362,22 +381,25 @@ export const getTVLByPool = (
       return values;
     });
 
-export const getSwaps = (): Promise<number> =>
-  getMetrics([
-    {
-      metricsQuery: {
-        query: 'event_swap',
-        alias: '',
-        id: 'a',
-        labelSelector: {},
-        aggregate: null,
-        functions: [],
-        disabled: false,
+export const getSwaps = (TZ: string): Promise<number> =>
+  getMetrics(
+    [
+      {
+        metricsQuery: {
+          query: 'event_swap',
+          alias: '',
+          id: 'a',
+          labelSelector: {},
+          aggregate: null,
+          functions: [],
+          disabled: false,
+        },
+        dataSource: 'METRICS',
+        sourceName: '',
       },
-      dataSource: 'METRICS',
-      sourceName: '',
-    },
-  ])
+    ],
+    TZ
+  )
     .then((res) => res.json())
     .then((data) => {
       const samples: Array<any> = Array.from(
@@ -389,23 +411,26 @@ export const getSwaps = (): Promise<number> =>
       return value;
     });
 
-export const getPools = (): Promise<number> =>
-  getMetrics([
-    {
-      metricsQuery: {
-        query: 'num_pools',
-        alias: '',
-        id: 'a',
-        labelSelector: {},
-        aggregate: null,
-        functions: [],
-        disabled: false,
-      },
+export const getPools = (TZ: string): Promise<number> =>
+  getMetrics(
+    [
+      {
+        metricsQuery: {
+          query: 'num_pools',
+          alias: '',
+          id: 'a',
+          labelSelector: {},
+          aggregate: null,
+          functions: [],
+          disabled: false,
+        },
 
-      dataSource: 'METRICS',
-      sourceName: '',
-    },
-  ])
+        dataSource: 'METRICS',
+        sourceName: '',
+      },
+    ],
+    TZ
+  )
     .then((res) => res.json())
     .then((data) => {
       const samples: Array<any> = Array.from(
@@ -417,7 +442,7 @@ export const getPools = (): Promise<number> =>
       return value;
     });
 
-export const getTopPools = (): Promise<PoolReturn> =>
+export const getTopPools = (TZ: string): Promise<PoolReturn> =>
   getMetrics(
     [
       {
@@ -554,6 +579,7 @@ export const getTopPools = (): Promise<PoolReturn> =>
         sourceName: '',
       },
     ],
+    TZ,
     { limit: 200 }
   )
     .then((res) => res.json())
@@ -585,7 +611,7 @@ export const getTopPools = (): Promise<PoolReturn> =>
       }, {} as PoolReturn)
     );
 
-export const getTopCoins = (): Promise<CoinReturn> =>
+export const getTopCoins = (TZ: string): Promise<CoinReturn> =>
   getMetrics(
     [
       {
@@ -686,6 +712,7 @@ export const getTopCoins = (): Promise<CoinReturn> =>
         sourceName: '',
       },
     ],
+    TZ,
     { limit: 200 }
   )
     .then((res) => res.json())
@@ -731,11 +758,16 @@ type TMetricEndpoints =
   | 'get-tvl';
 
 export const getMetric = (endpoint: TMetricEndpoints, params?: string) =>
-  fetch(`/api/v1/metrics/${endpoint}?${params ?? ''}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  fetch(
+    `/api/v1/metrics/${endpoint}?TZ=${
+      Intl.DateTimeFormat().resolvedOptions().timeZone
+    }${params ? `&${params}` : ''}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  )
     .then((res) => res.json())
     .catch(console.error);

@@ -4,8 +4,8 @@ import { use } from 'next-api-middleware';
 import { getSwaps } from '@/api/metrics';
 import { getRequestOnlyMiddleware, logApiErrors } from '@/utils';
 
-const handler: NextApiHandler = async (_, res) => {
-  const data = await getSwaps();
+const handler: NextApiHandler = async (req, res) => {
+  const data = await getSwaps(req.query.TZ as string);
 
   res.status(200);
   res.send(data);
