@@ -22,8 +22,8 @@ const SidebarMenuList: FC<MenuListProps> = ({
             key={v4()}
             index={index}
             {...item}
-            setIsCollapsed={setIsCollapsed}
             isCollapsed={isCollapsed}
+            setIsCollapsed={setIsCollapsed}
           />
         )
       )}

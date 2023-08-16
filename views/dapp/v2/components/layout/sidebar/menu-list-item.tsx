@@ -37,9 +37,9 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
   const t = useTranslations();
   const { network } = useNetwork();
   const { asPath, push } = useRouter();
+  const [isHovered, setIsHovered] = useState(false);
   const [isMenuCollapsed] = useLocalStorage('sui-interest-menu-collapse', true);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   const closeAccordion = (event: any) => {
     if (
@@ -51,6 +51,7 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
       return;
 
     setIsAccordionOpen(false);
+    setIsHovered(false);
   };
 
   const connectedBoxRef =
@@ -79,12 +80,11 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
       ref={connectedBoxRef}
       onClick={() => {
         accordionList && setIsAccordionOpen(not);
-      }}
-      onMouseEnter={() => {
         accordionList && setIsCollapsed(false);
       }}
       onMouseLeave={() => {
         accordionList && setIsCollapsed(isMenuCollapsed);
+        !isAccordionOpen && setIsHovered(false);
       }}
     >
       <TooltipWrapper
@@ -126,7 +126,6 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
           }
           onClick={disabled ? undefined : () => !accordionList && push(path)}
           onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
           position="relative"
           justifyContent="space-between"
           alignItems="center"
@@ -152,13 +151,9 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
             <Icon maxHeight="1.5rem" maxWidth="1.5rem" width="1.2rem" />
 
             <Motion
-              initial={isCollapsed ? 'closed' : 'open'}
+              initial={isCollapsed ? 'collapsed' : 'unCollapsed'}
               variants={MenuItemVariants}
-              animate={
-                isCollapsed
-                  ? MenuItemVariants.collapsed
-                  : MenuItemVariants.unCollapsed
-              }
+              animate={isCollapsed ? 'collapsed' : 'unCollapsed'}
             >
               <Typography variant="small" ml="l" width="max-content">
                 {capitalize(
@@ -170,24 +165,21 @@ const SidebarMenuListItem: FC<MenuListItemProps> = ({
           {getSuffixIcon()}
         </Motion>
       </TooltipWrapper>
-      {accordionList && (
-        <AnimatePresence>
-          {isAccordionOpen && (
-            <Motion
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {accordionList
+      <AnimatePresence>
+        {isAccordionOpen && (
+          <Motion
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, opacity: { delay: 0.25 } }}
+          >
+            {accordionList &&
+              accordionList
                 .filter(({ networks }) => networks.includes(network))
-                .map((item) => (
-                  <AccordionItem key={v4()} {...item} />
-                ))}
-            </Motion>
-          )}
-        </AnimatePresence>
-      )}
+                .map((item) => <AccordionItem key={v4()} {...item} />)}
+          </Motion>
+        )}
+      </AnimatePresence>
     </RefBox>
   );
 };

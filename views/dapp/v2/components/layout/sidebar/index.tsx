@@ -35,10 +35,10 @@ const Sidebar: FC = () => {
       maxHeight="100vh"
       flexDirection="column"
       bg="surface.container"
+      variants={itemVariants}
       borderRadius="0 1rem 1rem 0"
       justifyContent="space-between"
-      variants={itemVariants}
-      animate={isCollapsed ? itemVariants.closed : itemVariants.open}
+      animate={isCollapsed ? 'closed' : 'open'}
     >
       <Box>
         <SidebarHeader isCollapsed={isCollapsed} />
