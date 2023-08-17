@@ -13,13 +13,13 @@ import { TTranslatedMessage } from '@/interface';
 import { CarteUpSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
-import { MenuListItemProps } from '../../../sidebar/sidebar.types';
+import { MenuMobileItemProps } from '../../../sidebar/sidebar.types';
 import AccordionItem from './accordion-item';
 
 const BOX_ID = 'Mobile-Menu-List-Item-';
 
 const MobileMenuListItem: FC<
-  Omit<MenuListItemProps, 'setIsCollapsed' | 'isCollapsed'>
+  Omit<MenuMobileItemProps, 'setIsCollapsed' | 'isCollapsed'>
 > = ({ Icon, name, path, disabled, accordionList, index }) => {
   const t = useTranslations();
   const { network } = useNetwork();

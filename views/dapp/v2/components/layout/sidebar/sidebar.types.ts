@@ -20,6 +20,10 @@ export interface MenuItemProps extends MenuItemTitleContentProps {
   setIsCollapsed: (value: boolean) => void;
   setTemporarilyOpen: Dispatch<SetStateAction<boolean>>;
 }
+export interface MenuMobileItemProps
+  extends Omit<MenuItemProps, 'setTemporarilyOpen'> {
+  index: number;
+}
 
 export interface MenuListItemTextProps {
   name: string;
