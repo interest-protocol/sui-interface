@@ -1,5 +1,5 @@
 import { Box, Motion } from '@interest-protocol/ui-kit';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { useLocalStorage } from '@/hooks';
 
@@ -9,28 +9,29 @@ import SidebarMenuList from './menu-list';
 
 const itemVariants = {
   open: {
-    width: ['5.5rem', '20rem'],
-    transition: { duration: 0.5 },
+    width: '20rem',
+    transition: { type: 'spring', stiffness: 100 },
   },
   closed: {
-    width: ['20rem', '5.5rem'],
-    transition: { duration: 0.5 },
+    width: '5.5rem',
+    transition: { type: 'spring', stiffness: 100 },
   },
 };
 
 const Sidebar: FC = () => {
-  const [isMenuCollapse] = useLocalStorage('sui-interest-menu-collapse', true);
-  const [isCollapsed, setIsCollapsed] = useState(isMenuCollapse);
+  const [isCollapsed, setIsCollapsed] = useLocalStorage(
+    'sui-interest-menu-collapse',
+    true
+  );
 
-  useEffect(() => {
-    setIsCollapsed(isMenuCollapse);
-  }, [isMenuCollapse]);
+  const [isOpen, setTemporarilyOpen] = useState(false);
 
   return (
     <Motion
       pb="0"
       p="2xl"
       display="flex"
+      maxWidth="20rem"
       minWidth="5.5rem"
       maxHeight="100vh"
       flexDirection="column"
@@ -38,13 +39,14 @@ const Sidebar: FC = () => {
       variants={itemVariants}
       borderRadius="0 1rem 1rem 0"
       justifyContent="space-between"
-      animate={isCollapsed ? 'closed' : 'open'}
+      animate={isOpen || !isCollapsed ? 'open' : 'closed'}
     >
       <Box>
-        <SidebarHeader isCollapsed={isCollapsed} />
+        <SidebarHeader isCollapsed={!isOpen && isCollapsed} />
         <SidebarMenuList
           setIsCollapsed={setIsCollapsed}
-          isCollapsed={isCollapsed}
+          isCollapsed={!isOpen && isCollapsed}
+          setTemporarilyOpen={setTemporarilyOpen}
         />
       </Box>
       <SidebarFooter isCollapsed={isCollapsed} />

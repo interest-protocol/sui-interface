@@ -4,26 +4,27 @@ import { v4 } from 'uuid';
 
 import { useNetwork } from '@/hooks';
 
-import SideBarMenuListItem from './menu-list-item';
+import SideBarMenuItem from './menu-item';
 import { SIDEBAR_ITEMS } from './sidebar.data';
 import { MenuListProps } from './sidebar.types';
 
 const SidebarMenuList: FC<MenuListProps> = ({
-  setIsCollapsed,
   isCollapsed,
+  setIsCollapsed,
+  setTemporarilyOpen,
 }) => {
   const { network } = useNetwork();
 
   return (
-    <Box display="flex" flexDirection="column" gap="s">
+    <Box display="flex" flexDirection="column">
       {SIDEBAR_ITEMS.filter(({ networks }) => networks.includes(network)).map(
-        (item, index) => (
-          <SideBarMenuListItem
-            key={v4()}
-            index={index}
+        (item) => (
+          <SideBarMenuItem
             {...item}
+            key={v4()}
             isCollapsed={isCollapsed}
             setIsCollapsed={setIsCollapsed}
+            setTemporarilyOpen={setTemporarilyOpen}
           />
         )
       )}

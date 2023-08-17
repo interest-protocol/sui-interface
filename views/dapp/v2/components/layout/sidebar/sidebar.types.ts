@@ -2,27 +2,32 @@ import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Dispatch, FC, SetStateAction } from 'react';
 
 import { SVGProps } from '@/components/svg/svg.types';
+export interface MenuItemCollapsibleProps {
+  accordionList?: ReadonlyArray<AccordionItemProps>;
+}
 
-export interface MenuListItemProps {
-  Icon: FC<SVGProps>;
+export interface MenuItemTitleContentProps extends MenuItemCollapsibleProps {
   name: string;
   path: string;
   disabled: boolean;
-  networks: ReadonlyArray<Network>;
-  alpha?: boolean;
-  accordionList?: ReadonlyArray<AccordionItemProps>;
-  setIsCollapsed: Dispatch<SetStateAction<boolean>>;
+  Icon: FC<SVGProps>;
   isCollapsed: boolean;
-  index?: number;
+}
+
+export interface MenuItemProps extends MenuItemTitleContentProps {
+  alpha?: boolean;
+  networks: ReadonlyArray<Network>;
+  setIsCollapsed: (value: boolean) => void;
+  setTemporarilyOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface MenuListItemTextProps {
-  Icon: FC<SVGProps>;
   name: string;
   path: string;
   disabled: boolean;
-  accordionList?: ReadonlyArray<AccordionItemProps>;
+  Icon: FC<SVGProps>;
   isCollapsed: boolean;
+  accordionList?: ReadonlyArray<AccordionItemProps>;
 }
 
 export interface AccordionItemProps {
@@ -31,8 +36,8 @@ export interface AccordionItemProps {
   networks: ReadonlyArray<Network>;
 }
 
-export interface MenuListProps {
-  setIsCollapsed: Dispatch<SetStateAction<boolean>>;
+export interface MenuListProps
+  extends Pick<MenuItemProps, 'setIsCollapsed' | 'setTemporarilyOpen'> {
   isCollapsed: boolean;
 }
 

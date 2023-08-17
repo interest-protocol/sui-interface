@@ -4,21 +4,13 @@ import { BridgeSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
 import { DotsSVG, SwapSVG } from '@/svg';
 
-import { MenuListItemProps } from './sidebar.types';
-
-export const MenuItemVariants = {
-  unCollapsed: {
-    opacity: 1,
-    transition: { duration: 0.5 },
-  },
-  collapsed: {
-    opacity: 0,
-    transition: { duration: 0.5 },
-  },
-};
+import { MenuItemProps } from './sidebar.types';
 
 export const SIDEBAR_ITEMS: ReadonlyArray<
-  Omit<MenuListItemProps, 'setIsCollapsed' | 'isCollapsed'>
+  Omit<
+    MenuItemProps,
+    'setIsCollapsed' | 'isCollapsed' | 'setTemporarilyOpen' | 'temporarilyOpen'
+  >
 > = [
   {
     Icon: SwapSVG,

@@ -1,5 +1,5 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
-import { Box, lightTheme, Motion, Typography } from '@interest-protocol/ui-kit';
+import { Box, lightTheme, Typography } from '@interest-protocol/ui-kit';
 import Link from 'next/link';
 import { FC } from 'react';
 
@@ -7,7 +7,6 @@ import { LogoSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
 import { useNetwork } from '@/hooks';
 
-import { MenuItemVariants } from './sidebar.data';
 import { SideBarHeaderProps } from './sidebar.types';
 
 const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
@@ -16,11 +15,13 @@ const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
   return (
     <Link href={Routes[RoutesEnum.Home]}>
       <Box
-        textAlign="center"
-        position="relative"
-        alignItems="center"
-        display="flex"
         mb="3.75rem"
+        display="flex"
+        overflow="hidden"
+        textAlign="center"
+        alignItems="center"
+        position="relative"
+        width={isCollapsed ? '2.5rem' : 'auto'}
       >
         <Box
           alignItems="center"
@@ -41,30 +42,21 @@ const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
             width="1.5rem"
           />
         </Box>
-        <Motion
-          variants={MenuItemVariants}
-          animate={
-            isCollapsed
-              ? MenuItemVariants.collapsed
-              : MenuItemVariants.unCollapsed
-          }
-        >
-          <Box ml="0.75rem">
-            <Typography
-              variant="medium"
-              width="max-content"
-              fontWeight="500"
-              color="onSurface"
-            >
-              Interest Protocol
+        <Box ml="0.75rem">
+          <Typography
+            variant="medium"
+            width="max-content"
+            fontWeight="500"
+            color="onSurface"
+          >
+            Interest Protocol
+          </Typography>
+          {network === Network.TESTNET && (
+            <Typography textAlign="left" color="primary" variant="extraSmall">
+              Testnet
             </Typography>
-            {network === Network.TESTNET && (
-              <Typography textAlign="left" color="primary" variant="extraSmall">
-                Testnet
-              </Typography>
-            )}
-          </Box>
-        </Motion>
+          )}
+        </Box>
       </Box>
     </Link>
   );
