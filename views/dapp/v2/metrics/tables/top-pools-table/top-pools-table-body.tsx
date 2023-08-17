@@ -115,25 +115,25 @@ const TopPoolsTableBody: FC = () => {
                 </Box>
               </Box>
               <Typography variant="small" textAlign="center">
-                {formatDollars(a ?? 0)}
+                {formatDollars(a ?? 0, 2)}
               </Typography>
               <Typography variant="small" textAlign="center">
-                {formatDollars(b ?? 0)}
+                {formatDollars(b ?? 0, 2)}
               </Typography>
               <Typography variant="small" textAlign="center">
                 {Number(
                   (a && b
                     ? (365 * (b * (pool?.stable ? 0.05 : 0.3))) / a
                     : 0
-                  ).toFixed(4)
+                  ).toFixed(2)
                 ).toPrecision()}
                 %
               </Typography>
               <Typography variant="small" textAlign="center">
-                {formatDollars(c ?? 0)}
+                {formatDollars(c ?? 0, 2)}
               </Typography>
               <Typography variant="small" textAlign="center">
-                {formatDollars(d ?? 0)}
+                {formatDollars(d ?? 0, 2)}
               </Typography>
             </TableRow>
           </Box>

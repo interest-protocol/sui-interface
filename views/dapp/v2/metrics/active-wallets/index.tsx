@@ -1,5 +1,5 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
-import { last } from 'ramda';
+import { last, values } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 
 import { getMetric, ValuesInTimestamp } from '@/api/metrics';
@@ -20,7 +20,21 @@ const ActiveWallets: FC = () => {
       'get-total-active-wallets',
       `filter=${String(filter === 'daily')}`
     ).then((total: ValuesInTimestamp) => {
-      const newData = total.map(({ timestamp, value }) => {
+      const newData = values(
+        total.reduce(
+          (acc, info) => ({
+            ...acc,
+            [info.timestamp]: info,
+          }),
+          {} as Record<
+            number,
+            {
+              timestamp: number;
+              value: number;
+            }
+          >
+        )
+      ).map(({ timestamp, value }) => {
         const date = new Date(timestamp * 1000);
 
         return {
@@ -45,12 +59,8 @@ const ActiveWallets: FC = () => {
       />
       <Box p="l">
         <Box p="l">
-          <Typography variant="large">{`${Math.max(
-            ...data.map(({ amount }) => amount)
-          )}`}</Typography>
-          <Typography variant="small">{`${
-            last(data)?.description
-          }`}</Typography>
+          <Typography variant="large">{last(data)?.amount}</Typography>
+          <Typography variant="small">{last(data)?.description}</Typography>
         </Box>
       </Box>
       <Box height="14.1875rem" pb="l">

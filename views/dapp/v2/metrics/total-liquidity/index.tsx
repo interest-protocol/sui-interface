@@ -1,4 +1,5 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
+import { last } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 
 import { getMetric, ValuesInTimestamp } from '@/api/metrics';
@@ -25,7 +26,7 @@ const TotalLiquidity: FC = () => {
             date,
             amount: value,
             description: date.toUTCString(),
-            day: String(date.getDate()),
+            day: `${date.getDate()}/${date.getMonth() + 1}`,
           };
         });
 
@@ -33,10 +34,6 @@ const TotalLiquidity: FC = () => {
       }
     );
   }, [filter]);
-
-  const maxAmount = Math.max(...data.map(({ amount }) => amount));
-
-  const maxLiquidityItem = data.find(({ amount }) => amount === maxAmount);
 
   return (
     <MetricsCardContainer>
@@ -47,11 +44,19 @@ const TotalLiquidity: FC = () => {
         filters={['all', 'month', 'halfMonth']}
       />
       <Box p="l">
-        <Typography variant="large">{`${formatDollars(maxAmount)}`}</Typography>
-        <Typography variant="small">{`${maxLiquidityItem?.description}`}</Typography>
+        <Typography variant="large">{`${formatDollars(
+          last(data)?.amount ?? 0
+        )}`}</Typography>
+        <Typography variant="small">{`${last(data)?.description}`}</Typography>
       </Box>
       <Box height="14.1875rem" pb="l">
-        <Chart dataKey="amount" xAxis="day" data={data} type="steps" />
+        <Chart
+          dataKey="amount"
+          xAxis="day"
+          data={data}
+          type="steps"
+          inDollars
+        />
       </Box>
     </MetricsCardContainer>
   );

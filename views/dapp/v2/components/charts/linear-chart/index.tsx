@@ -15,7 +15,12 @@ import CustomTooltip from '../tooltip';
 import CustomizedAxisTick from './customized-axis-tick';
 import CustomizedLabel from './customized-label';
 
-const LinearChart: FC<BaseChartProps> = ({ data, xAxis, dataKey }) => {
+const LinearChart: FC<BaseChartProps> = ({
+  data,
+  xAxis,
+  dataKey,
+  inDollars,
+}) => {
   const { colors } = useTheme() as Theme;
 
   return (
@@ -30,7 +35,7 @@ const LinearChart: FC<BaseChartProps> = ({ data, xAxis, dataKey }) => {
         </defs>
         <Tooltip
           animationDuration={600}
-          content={<CustomTooltip />}
+          content={<CustomTooltip inDollars={inDollars} />}
           animationEasing="ease-in-out"
           cursor={{
             strokeWidth: 0.5,

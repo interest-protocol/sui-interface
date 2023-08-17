@@ -52,7 +52,7 @@ const TVLPools: FC = () => {
         setFilter={setFilter}
       />
       <Box height="16.25rem" width="80%" pb="l" mx="auto">
-        <Chart dataKey="amount" data={data} label="Pool" type="pie" />
+        <Chart dataKey="amount" data={data} label="Pool" type="pie" inDollars />
       </Box>
     </MetricsCardContainer>
   );

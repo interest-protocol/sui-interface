@@ -14,7 +14,12 @@ import CustomTooltip from '../tooltip';
 import CustomCursor from './custom-cursor';
 import CustomXAxisTick from './x-axis-tick';
 
-const BarChartComponent: FC<BaseChartProps> = ({ data, dataKey, xAxis }) => {
+const BarChartComponent: FC<BaseChartProps> = ({
+  data,
+  xAxis,
+  dataKey,
+  inDollars,
+}) => {
   const { colors } = useTheme() as Theme;
 
   return (
@@ -34,20 +39,21 @@ const BarChartComponent: FC<BaseChartProps> = ({ data, dataKey, xAxis }) => {
           stroke={colors['outline.outlineVariant']}
         />
         <XAxis
-          tickCount={6}
-          type="category"
           tickMargin={2}
+          type="category"
+          minTickGap={15}
           dataKey={xAxis}
           tickLine={false}
           tick={<CustomXAxisTick />}
           interval="preserveStartEnd"
-          domain={['dataMin', 'dataMax']}
+          allowDuplicatedCategory={false}
         />
-        <Tooltip
-          content={<CustomTooltip />}
-          animationEasing="ease-in-out"
+        <Tooltip />
+        {/* <Tooltip
           cursor={<CustomCursor />}
-        />
+          animationEasing="ease-in-out"
+          content={<CustomTooltip inDollars={inDollars} />}
+        /> */}
         <Bar dataKey={dataKey} barSize={8} fill={colors['primary']} />
       </BarChart>
     </ResponsiveContainer>

@@ -21,7 +21,7 @@ const Metrics: FC = () => {
         borderBottom=".0625rem solid"
         borderColor="outline.outlineVariant"
       >
-        <Tabs items={[t('metrics.tabs.dex'), t('metrics.tabs.moneyMarket')]} />
+        <Tabs items={[t('metrics.tabs.dex')]} />
       </Box>
       <TopInfoCards />
       <TotalLiquidity />

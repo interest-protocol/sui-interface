@@ -44,13 +44,13 @@ const TopCoinsTableBody: FC = () => {
                 <Box display="flex">
                   <CoinIcon
                     filled
+                    maxWidth="2.5rem"
+                    maxHeight="2.5rem"
                     height={
                       coin?.type === COINS[Network.MAINNET].SUI.type
                         ? '2.2rem'
                         : '3rem'
                     }
-                    maxHeight="2.5rem"
-                    maxWidth="2.5rem"
                   />
                 </Box>
                 <Box>
@@ -60,13 +60,13 @@ const TopCoinsTableBody: FC = () => {
                 </Box>
               </Box>
               <Typography variant="small" textAlign="center">
-                {formatDollars(a ?? 0)}
+                {formatDollars(a ?? 0, 2)}
               </Typography>
               <Typography variant="small" textAlign="center">
-                {formatDollars(b ?? 0)}
+                {formatDollars(b ?? 0, 2)}
               </Typography>
               <Typography variant="small" textAlign="center">
-                {formatDollars(c ?? 0)}
+                {formatDollars(c ?? 0, 2)}
               </Typography>
             </TableRow>
           </Box>

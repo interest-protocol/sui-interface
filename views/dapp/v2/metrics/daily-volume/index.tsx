@@ -1,5 +1,5 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
-import { last } from 'ramda';
+import { last, values } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 
 import { getMetric, ValuesInTimestamp } from '@/api/metrics';
@@ -15,7 +15,21 @@ const DailyVolume: FC = () => {
 
   useEffect(() => {
     getMetric('get-daily-volume').then((total: ValuesInTimestamp) => {
-      const newData = total.map(({ timestamp, value }) => {
+      const newData = values(
+        total.reduce(
+          (acc, info) => ({
+            ...acc,
+            [info.timestamp]: info,
+          }),
+          {} as Record<
+            number,
+            {
+              timestamp: number;
+              value: number;
+            }
+          >
+        )
+      ).map(({ timestamp, value }) => {
         const date = new Date(timestamp * 1000);
 
         return {
@@ -35,12 +49,12 @@ const DailyVolume: FC = () => {
       <CardHeader title="metrics.cards.dailyVolume" />
       <Box p="l">
         <Typography variant="large">{`${formatDollars(
-          Math.max(...data.map(({ amount }) => amount))
+          last(data)?.amount ?? 0
         )}`}</Typography>
-        <Typography variant="small">{`${last(data)?.description}`}</Typography>
+        <Typography variant="small">{last(data)?.description}</Typography>
       </Box>
       <Box height="14.1875rem" pb="l">
-        <Chart dataKey="amount" xAxis="day" data={data} type="bar" />
+        <Chart dataKey="amount" xAxis="day" data={data} type="bar" inDollars />
       </Box>
     </MetricsCardContainer>
   );
