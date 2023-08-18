@@ -15,7 +15,7 @@ export { default as BRFlagSVG } from './br-flag';
 export { default as BridgeSVG } from './bridge';
 export { default as CarteLeftSVG } from './caret-left';
 export { default as CaretRightSVG } from './caret-right';
-export { default as CarteUpSVG } from './caret-up';
+export { default as CaretUpSVG } from './caret-up';
 export { default as CelerBTCSVG } from './celer-btc';
 export { default as CelerETHSVG } from './celer-eth';
 export { default as CelerUSDCSVG } from './celer-usdc';
