@@ -45,10 +45,11 @@ export interface MenuListProps
   isCollapsed: boolean;
 }
 
-export interface SideBarHeaderProps {
+export interface SidebarLogoProps {
   isCollapsed: boolean;
 }
 
-export interface SideBarFooterProps {
+export interface SidebarCollapseButtonProps {
   isCollapsed: boolean;
+  setIsCollapsed: (value: boolean) => void;
 }

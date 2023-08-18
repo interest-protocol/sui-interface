@@ -2,16 +2,24 @@ import { Box, Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { DoubleArrowSVG } from '@/components/svg/v2';
-import { useLocalStorage } from '@/hooks';
+import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 
-import { SideBarFooterProps } from './sidebar.types';
+import { SidebarCollapseButtonProps } from './sidebar.types';
 
-const SidebarFooter: FC<SideBarFooterProps> = ({ isCollapsed }) => {
+const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
+  isCollapsed,
+  setIsCollapsed,
+}) => {
   const { colors } = useTheme() as Theme;
-  const [isMenuCollapsed, setIsMenuCollapsed] = useLocalStorage(
-    'sui-interest-menu-collapse',
-    true
-  );
+
+  const handleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+
+    window.localStorage.setItem(
+      `${LOCAL_STORAGE_VERSION}-sui-interest-menu-collapse`,
+      String(!isCollapsed)
+    );
+  };
 
   return (
     <Box my="m" display="flex" flexDirection="column">
@@ -26,11 +34,11 @@ const SidebarFooter: FC<SideBarFooterProps> = ({ isCollapsed }) => {
         alignItems="center"
         justifyContent="center"
         borderColor="outline.outlineVariant"
+        onClick={handleCollapse}
         nHover={{
           transition: 'all 300ms ease-in-out',
           backgroundColor: `${colors.primary}14`,
         }}
-        onClick={() => setIsMenuCollapsed(!isMenuCollapsed)}
       >
         <Motion
           display="flex"
@@ -49,4 +57,4 @@ const SidebarFooter: FC<SideBarFooterProps> = ({ isCollapsed }) => {
   );
 };
 
-export default SidebarFooter;
+export default SidebarCollapseButton;

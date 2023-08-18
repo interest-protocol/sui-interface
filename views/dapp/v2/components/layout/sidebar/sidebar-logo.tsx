@@ -7,9 +7,9 @@ import { LogoSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
 import { useNetwork } from '@/hooks';
 
-import { SideBarHeaderProps } from './sidebar.types';
+import { SidebarLogoProps } from './sidebar.types';
 
-const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
+const SidebarLogo: FC<SidebarLogoProps> = ({ isCollapsed }) => {
   const { network } = useNetwork();
 
   return (
@@ -69,4 +69,4 @@ const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
   );
 };
 
-export default SideBarHeader;
+export default SidebarLogo;

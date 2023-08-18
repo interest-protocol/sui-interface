@@ -1,11 +1,12 @@
 import { Box, Motion } from '@interest-protocol/ui-kit';
 import { FC, useState } from 'react';
+import { useIsMounted, useReadLocalStorage } from 'usehooks-ts';
 
-import { useLocalStorage } from '@/hooks';
+import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 
-import SidebarFooter from './footer';
-import SidebarHeader from './header';
 import SidebarMenuList from './menu-list';
+import SidebarCollapseButton from './sidebar-collapse-button';
+import SidebarHeader from './sidebar-logo';
 
 const itemVariants = {
   open: {
@@ -17,12 +18,13 @@ const itemVariants = {
 };
 
 const Sidebar: FC = () => {
-  const [isCollapsed, setIsCollapsed] = useLocalStorage(
-    'sui-interest-menu-collapse',
-    true
+  const isMounted = useIsMounted();
+  const isLocalCollapsed = useReadLocalStorage<boolean>(
+    `${LOCAL_STORAGE_VERSION}-sui-interest-menu-collapse`
   );
 
   const [isOpen, setTemporarilyOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(isLocalCollapsed ?? false);
 
   return (
     <Motion
@@ -37,7 +39,17 @@ const Sidebar: FC = () => {
       justifyContent="space-between"
       transition={{ duration: 0.5 }}
       animate={isOpen || !isCollapsed ? 'open' : 'closed'}
-      initial={itemVariants[isOpen || !isCollapsed ? 'closed' : 'open']}
+      initial={
+        itemVariants[
+          isOpen || !isCollapsed
+            ? isMounted()
+              ? 'closed'
+              : 'open'
+            : isMounted()
+            ? 'open'
+            : 'closed'
+        ]
+      }
     >
       <Box>
         <SidebarHeader isCollapsed={!isOpen && isCollapsed} />
@@ -47,7 +59,10 @@ const Sidebar: FC = () => {
           setTemporarilyOpen={setTemporarilyOpen}
         />
       </Box>
-      <SidebarFooter isCollapsed={isCollapsed} />
+      <SidebarCollapseButton
+        isCollapsed={isCollapsed}
+        setIsCollapsed={setIsCollapsed}
+      />
     </Motion>
   );
 };
