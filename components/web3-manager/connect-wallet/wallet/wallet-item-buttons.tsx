@@ -6,7 +6,6 @@ import {
   TooltipWrapper,
   Typography,
 } from '@interest-protocol/ui-kit';
-import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
@@ -15,12 +14,10 @@ import { DownloadSVG, LoginSVG } from '@/components/svg/v2';
 import { WalletItemButtonProps } from '../connect-wallet.types';
 
 const WalletItemButtons: FC<WalletItemButtonProps> = ({
-  name,
   installLink,
-  openWalletModal,
+  handleConnect,
 }) => {
   const t = useTranslations();
-  const { connect } = useWalletKit();
 
   return (
     <TooltipWrapper
@@ -60,9 +57,9 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
               backgroundColor: lightTheme.colors['surface.container'],
             }}
             color="#000"
-            onClick={() => {
-              openWalletModal && openWalletModal(name);
-              connect(name);
+            onClick={(e) => {
+              e.stopPropagation();
+              handleConnect();
             }}
           >
             <LoginSVG

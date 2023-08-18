@@ -3,17 +3,16 @@ import { Dispatch, SetStateAction } from 'react';
 export interface IWalletItem {
   name: string;
   icon?: string;
+  displayName: string;
   installLink?: string;
 }
-
-export interface WalletItemProps extends WalletItemButtonProps {
-  icon?: string;
+export interface WalletItemButtonProps
+  extends Pick<IWalletItem, 'installLink'> {
+  handleConnect: () => void;
 }
 
-export interface WalletItemButtonProps {
-  name: string;
-  installLink?: string;
-  openWalletModal?: (walletName: string) => void;
+export interface WalletItemProps extends IWalletItem {
+  openWalletModal: (walletName: string) => void;
 }
 
 export interface ConnectWalletProps {

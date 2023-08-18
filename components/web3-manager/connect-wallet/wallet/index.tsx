@@ -38,7 +38,8 @@ const WalletListSection: FC<WalletListSectionProps> = ({
       (acc, { icon, name }) => [
         {
           icon,
-          name: icon ? WALLET_NAME_MAP[icon] ?? name : name,
+          name,
+          displayName: icon ? WALLET_NAME_MAP[icon] ?? name : name,
         },
         ...acc.filter((item) => item.icon !== icon),
       ],
@@ -115,15 +116,18 @@ const WalletListSection: FC<WalletListSectionProps> = ({
                 {t('common.v2.connectWallet.subtitle')}
               </Typography>
               <Box>
-                {mixedWallets.map(({ icon, name, installLink }) => (
-                  <WalletItem
-                    key={v4()}
-                    icon={icon}
-                    name={name}
-                    installLink={installLink}
-                    openWalletModal={openWalletModal}
-                  />
-                ))}
+                {mixedWallets.map(
+                  ({ icon, name, displayName, installLink }) => (
+                    <WalletItem
+                      key={v4()}
+                      icon={icon}
+                      name={name}
+                      displayName={displayName}
+                      installLink={installLink}
+                      openWalletModal={openWalletModal}
+                    />
+                  )
+                )}
               </Box>
             </Box>
           </Box>
