@@ -1,5 +1,5 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
-import { Box, lightTheme, Typography } from '@interest-protocol/ui-kit';
+import { Box, lightTheme, Motion, Typography } from '@interest-protocol/ui-kit';
 import Link from 'next/link';
 import { FC } from 'react';
 
@@ -14,24 +14,31 @@ const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
 
   return (
     <Link href={Routes[RoutesEnum.Home]}>
-      <Box
+      <Motion
         mb="3.75rem"
         display="flex"
         overflow="hidden"
         textAlign="center"
         alignItems="center"
         position="relative"
-        width={isCollapsed ? '2.5rem' : 'auto'}
+        animation={isCollapsed ? '2.5rem' : 'auto'}
+        transition={{
+          duration: 0.5,
+        }}
+        variants={{
+          collapsed: { width: '2.5rem ' },
+          unCollapsed: { width: 'auto' },
+        }}
       >
         <Box
-          alignItems="center"
-          justifyContent="center"
           display="flex"
-          borderRadius="m"
           width="2.5rem"
           height="2.5rem"
+          borderRadius="m"
           minWidth="2.5rem"
           minHeight="2.5rem"
+          alignItems="center"
+          justifyContent="center"
           bg={lightTheme.colors.primary}
         >
           <LogoSVG
@@ -57,7 +64,7 @@ const SideBarHeader: FC<SideBarHeaderProps> = ({ isCollapsed }) => {
             </Typography>
           )}
         </Box>
-      </Box>
+      </Motion>
     </Link>
   );
 };

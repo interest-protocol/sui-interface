@@ -12,17 +12,22 @@ const AccordionItem: FC<AccordionItemProps> = ({ name, path }) => {
   const t = useTranslations();
   const { push, asPath } = useRouter();
 
+  const goToPath = () => {
+    if (path.startsWith('https://'))
+      return window.open(path, '_blank')?.focus();
+
+    push(path);
+  };
+
   return (
     <Box
       mx="auto"
       width="100%"
-      nHover={{
-        color: 'primary',
-      }}
       display="flex"
       cursor="pointer"
       borderRadius="m"
-      onClick={() => push(path)}
+      onClick={goToPath}
+      nHover={{ color: 'primary' }}
       transition="all 350ms ease-in-out"
       color={asPath === path ? 'primary' : 'onSurface'}
     >

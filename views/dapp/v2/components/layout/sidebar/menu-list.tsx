@@ -16,7 +16,7 @@ const SidebarMenuList: FC<MenuListProps> = ({
   const { network } = useNetwork();
 
   return (
-    <Box display="flex" flexDirection="column">
+    <Box display="flex" flexDirection="column" gap="s">
       {SIDEBAR_ITEMS.filter(({ networks }) => networks.includes(network)).map(
         (item) => (
           <SideBarMenuItem

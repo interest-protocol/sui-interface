@@ -10,11 +10,9 @@ import SidebarMenuList from './menu-list';
 const itemVariants = {
   open: {
     width: '20rem',
-    transition: { type: 'spring', stiffness: 100 },
   },
   closed: {
     width: '5.5rem',
-    transition: { type: 'spring', stiffness: 100 },
   },
 };
 
@@ -31,15 +29,15 @@ const Sidebar: FC = () => {
       pb="0"
       p="2xl"
       display="flex"
-      maxWidth="20rem"
-      minWidth="5.5rem"
       maxHeight="100vh"
       flexDirection="column"
       bg="surface.container"
       variants={itemVariants}
       borderRadius="0 1rem 1rem 0"
       justifyContent="space-between"
+      transition={{ duration: 0.5 }}
       animate={isOpen || !isCollapsed ? 'open' : 'closed'}
+      initial={itemVariants[isOpen || !isCollapsed ? 'closed' : 'open']}
     >
       <Box>
         <SidebarHeader isCollapsed={!isOpen && isCollapsed} />

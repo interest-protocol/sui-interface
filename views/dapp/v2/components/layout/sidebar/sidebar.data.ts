@@ -28,12 +28,12 @@ export const SIDEBAR_ITEMS: ReadonlyArray<
     accordionList: [
       {
         name: 'wormhole',
-        path: Routes[RoutesEnum.Bridge],
+        path: Routes[RoutesEnum.Wormhole],
         networks: [Network.MAINNET, Network.TESTNET],
       },
       {
         name: 'celer',
-        path: Routes[RoutesEnum.Bridge],
+        path: Routes[RoutesEnum.Celer],
         networks: [Network.MAINNET, Network.TESTNET],
       },
     ],

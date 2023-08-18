@@ -3,12 +3,12 @@ import { FC } from 'react';
 import { SVGProps } from './svg.types';
 
 const Swap: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
-  <svg style={{ maxWidth, maxHeight }} viewBox="0 0 24 24" {...props}>
+  <svg style={{ maxWidth, maxHeight }} viewBox="0 0 18 14" {...props}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M13.0061 12.5644L19.5706 18.3083L20.5583 17.1794L14.639 12L20.5583 6.82052L19.5706 5.69165L13.0061 11.4355V12.5644ZM10.9939 11.4355L4.42947 5.69166L3.44171 6.82053L9.36108 12L3.44171 17.1794L4.42947 18.3083L10.9939 12.5644V11.4355Z"
-      fill="currentColor"
+      d="M10.0061 7.56464L16.5705 13.3085L17.5583 12.1797L11.6389 7.00021L17.5583 1.82076L16.5705 0.691895L10.0061 6.43577V7.56464ZM7.99384 6.43579L1.42941 0.691908L0.44165 1.82077L6.36102 7.00022L0.44165 12.1797L1.42941 13.3085L7.99384 7.56465V6.43579Z"
+      fill="#C7C6CA"
     />
   </svg>
 );

@@ -26,7 +26,7 @@ const SidebarMenuItem: FC<MenuItemProps> = ({
   };
 
   return (
-    <Box onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} p="2xs">
+    <Box onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <Motion initial="rest" whileHover="hover">
         <MenuItemTitle
           {...props}

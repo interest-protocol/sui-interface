@@ -53,9 +53,7 @@ const MenuItemTitleContent: FC<MenuItemTitleContentProps> = ({
       mx="auto"
       key={v4()}
       zIndex="1"
-      pl="0.60rem"
       display="flex"
-      height="2.2rem"
       borderRadius="m"
       color="onSurface"
       overflow="hidden"
@@ -64,7 +62,6 @@ const MenuItemTitleContent: FC<MenuItemTitleContentProps> = ({
       alignItems="center"
       opacity={disabled ? 0.7 : 1}
       justifyContent="space-between"
-      width={isCollapsed ? '2.2rem' : 'auto'}
       cursor={disabled ? 'not-allowed' : 'pointer'}
       bg={
         asPath === path || accordionList?.some(({ path }) => path === asPath)
@@ -73,8 +70,10 @@ const MenuItemTitleContent: FC<MenuItemTitleContentProps> = ({
       }
     >
       <MenuItemTitleBackground />
-      <Box display="flex" alignItems="center" justifyContent="center">
-        <Icon maxHeight="1.5rem" maxWidth="1.5rem" width="1.2rem" />
+      <Box display="flex" alignItems="center">
+        <Box width="1.2rem" height="1.2rem" m="2xs">
+          <Icon maxHeight="1.2rem" maxWidth="1.2rem" width="100%" />
+        </Box>
         <Typography variant="small" ml="l" width="max-content">
           {capitalize(t(`common.v2.navbar.${name}` as TTranslatedMessage))}
         </Typography>
