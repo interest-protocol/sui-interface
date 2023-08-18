@@ -51,6 +51,7 @@ export { default as LogoSVG } from './logo';
 export { default as MediumSVG } from './medium';
 export { default as MenuSVG } from './menu';
 export { default as MessageSVG } from './message';
+export { default as MinusSVG } from './minus';
 export { default as MoonSVG } from './moon';
 export { default as PauseSVG } from './pause';
 export { default as PercentageSVG } from './percentage';

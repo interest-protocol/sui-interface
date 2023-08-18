@@ -36,7 +36,10 @@
         "createToken": "criar token",
         "settings": "definições",
         "faucet": "faucet",
-        "bridge": "bridge"
+        "bridge": "bridge",
+        "wormhole": "wormhole",
+        "celer": "celer",
+        "more": "outros"
       },
       "menu": {
         "settings": "definições globais",
