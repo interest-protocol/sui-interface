@@ -9,8 +9,8 @@ import { capitalize } from '@/utils';
 import { MenuSettingsListHeaderProps } from '../menu.types';
 
 const MenuSettingsListHeaderMobile: FC<MenuSettingsListHeaderProps> = ({
-  handleButton,
   isOpen,
+  handleButton,
 }) => {
   const t = useTranslations();
 
@@ -18,11 +18,11 @@ const MenuSettingsListHeaderMobile: FC<MenuSettingsListHeaderProps> = ({
     <Box
       p="xl"
       mt="2xs"
-      borderTop={['1px solid', '1px solid', '1px solid', 'unset']}
-      borderTopColor="outline.outlineVariant"
+      borderTop="1px solid"
       onClick={handleButton}
-      display={['flex', 'flex', 'flex', 'none']}
       justifyContent="space-between"
+      display={['flex', 'flex', 'flex', 'none']}
+      borderTopColor="outline.outlineVariant"
     >
       <Typography variant="small" color="onSurface">
         {capitalize(t('common.v2.menu.settings'))}
