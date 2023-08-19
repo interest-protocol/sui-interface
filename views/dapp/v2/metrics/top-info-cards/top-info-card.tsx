@@ -1,12 +1,18 @@
 import { Box, InfoCard } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 import { TTranslatedMessage } from '@/interface';
 
 import { TopInfoCardsProps } from './top-info-cards.types';
 
-const TopInfoCards: FC<TopInfoCardsProps> = ({ Icon, description, amount }) => {
+const TopInfoCards: FC<TopInfoCardsProps> = ({
+  Icon,
+  description,
+  amount,
+  loading,
+}) => {
   const t = useTranslations();
 
   return (
@@ -30,7 +36,7 @@ const TopInfoCards: FC<TopInfoCardsProps> = ({ Icon, description, amount }) => {
       }
       info={null}
     >
-      {amount}
+      {loading ? <Skeleton width="40%" /> : amount}
     </InfoCard>
   );
 };

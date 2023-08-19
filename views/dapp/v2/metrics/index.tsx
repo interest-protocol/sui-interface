@@ -13,7 +13,12 @@ import TVLPools from './tvl-pools';
 const Metrics: FC = () => {
   const t = useTranslations();
   return (
-    <Box width="100%" variant="container">
+    <Box
+      variant="container"
+      display="flex"
+      flexWrap="wrap"
+      justifyContent="space-between"
+    >
       <Box
         pb="l"
         width="100%"

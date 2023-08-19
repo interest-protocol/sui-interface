@@ -6,4 +6,5 @@ export interface TopInfoCardsProps {
   amount: string;
   Icon: FC<SVGProps>;
   description: string;
+  loading: boolean;
 }

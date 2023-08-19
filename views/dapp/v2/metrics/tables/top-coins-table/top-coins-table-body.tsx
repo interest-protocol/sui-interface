@@ -2,6 +2,7 @@ import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { toPairs } from 'ramda';
 import { FC, useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
 
 import { getMetric } from '@/api/metrics';
@@ -29,7 +30,7 @@ const TopCoinsTableBody: FC = () => {
     );
   }, []);
 
-  return (
+  return data.length ? (
     <>
       {data.map(({ coin, a, b, c }, index) => {
         const CoinIcon = TOKENS_SVG_MAP_V2[coin?.type ?? 'default'];
@@ -72,6 +73,11 @@ const TopCoinsTableBody: FC = () => {
           </Box>
         );
       })}
+    </>
+  ) : (
+    <>
+      <Skeleton height="2rem" width="100%" />
+      <Skeleton height="2rem" width="100%" style={{ marginTop: '1rem' }} />
     </>
   );
 };

@@ -1,21 +1,22 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
 import { last } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 
 import { getMetric, ValuesInTimestamp } from '@/api/metrics';
 
-import Chart from '../../components/charts';
 import CardHeader from '../card-header';
 import { TFilter } from '../card-header/card-header.types';
-import { DataPoint } from '../metrics.types';
+import ChartContainer from '../chart-container';
+import { DataPoint, HeaderChartContainerProps } from '../metrics.types';
 import MetricsCardContainer from '../metrics-card-container';
 
 const ActiveWallets: FC = () => {
   const [data, setData] = useState<Array<DataPoint>>([]);
+  const [isLoading, setIsLoading] = useState(!data.length);
 
   const [filter, setFilter] = useState<TFilter>('all');
 
   useEffect(() => {
+    setIsLoading(true);
     getMetric(
       'get-total-active-wallets',
       `filter=${String(filter === 'daily')}`
@@ -32,8 +33,14 @@ const ActiveWallets: FC = () => {
       });
 
       setData(newData);
+      setIsLoading(false);
     });
   }, [filter]);
+
+  const headerChartContainer: HeaderChartContainerProps = {
+    amount: `${Math.max(...data.map(({ amount }) => amount))}`,
+    description: `${last(data)?.description}`,
+  };
 
   return (
     <MetricsCardContainer>
@@ -43,19 +50,14 @@ const ActiveWallets: FC = () => {
         filters={['all', 'daily']}
         title="metrics.cards.activeWallets"
       />
-      <Box p="l">
-        <Box p="l">
-          <Typography variant="large">{`${Math.max(
-            ...data.map(({ amount }) => amount)
-          )}`}</Typography>
-          <Typography variant="small">{`${
-            last(data)?.description
-          }`}</Typography>
-        </Box>
-      </Box>
-      <Box height="14.1875rem" pb="l">
-        <Chart dataKey="amount" xAxis="day" data={data} type="bar" />
-      </Box>
+      <ChartContainer
+        header={headerChartContainer}
+        dataKey="amount"
+        xAxis="day"
+        data={data}
+        type="bar"
+        isLoading={isLoading}
+      />
     </MetricsCardContainer>
   );
 };

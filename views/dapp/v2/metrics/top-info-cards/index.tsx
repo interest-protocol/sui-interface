@@ -21,7 +21,14 @@ const TopInfoCardsList: FC = () => {
   }, []);
 
   return (
-    <Box gridColumn="1/-1" width="100%" display="flex" gap="s">
+    <Box
+      gridColumn="1/-1"
+      width="100%"
+      gap="s"
+      display="grid"
+      overflowX="auto"
+      gridTemplateColumns="repeat(4, 1fr)"
+    >
       {TOP_INFO_CARDS_DATA.map(({ Icon, description, money }, index) => (
         <TopInfoCards
           key={v4()}
@@ -30,6 +37,7 @@ const TopInfoCardsList: FC = () => {
           amount={(money ? formatDollars : formatNumber)(
             data?.[index] ?? 0
           ).toString()}
+          loading={!data?.length}
         />
       ))}
     </Box>
