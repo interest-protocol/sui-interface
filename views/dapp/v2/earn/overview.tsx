@@ -6,9 +6,10 @@ import {
   useTheme,
 } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
-import { VolumeSVG } from '@/components/svg/v2';
+import { getMetric } from '@/api/metrics';
+import { VolumeLastSVG } from '@/components/svg/v2';
 import { DollarSVG } from '@/svg';
 import { formatDollars } from '@/utils';
 
@@ -17,6 +18,15 @@ import TVLCardInfo from './tvl-card-info';
 const EarnOverview: FC = () => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
+
+  const [data, setData] = useState<[number, number]>([0, 0]);
+
+  useEffect(() => {
+    Promise.all([
+      getMetric('get-tvl'),
+      getMetric('get-daily-trading-volume'),
+    ]).then(setData);
+  }, []);
 
   return (
     <Box display="flex" variant="container">
@@ -52,13 +62,13 @@ const EarnOverview: FC = () => {
               </Box>
             }
           >
-            {formatDollars(82123.01)}
+            {formatDollars(data[0] ?? 0)}
           </InfoCard>
           <InfoCard
             info={
               <Typography
-                variant="small"
                 as="span"
+                variant="small"
                 color="secondary.onSecondaryContainer"
               >
                 24h
@@ -77,7 +87,7 @@ const EarnOverview: FC = () => {
                   justifyContent="center"
                   color={dark ? 'black' : 'white'}
                 >
-                  <VolumeSVG
+                  <VolumeLastSVG
                     maxWidth="0.75rem"
                     maxHeight="0.75rem"
                     width="100%"
@@ -87,7 +97,7 @@ const EarnOverview: FC = () => {
               </Box>
             }
           >
-            {formatDollars(32423432.01)}
+            {formatDollars(data[1] ?? 0)}
           </InfoCard>
         </Box>
       </Box>

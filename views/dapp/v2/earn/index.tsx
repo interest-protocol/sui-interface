@@ -24,7 +24,7 @@ const Earn: FC = () => {
   return (
     <Layout dashboard titlePage={capitalize(t('earn.metadata.title'))}>
       <EarnOverview />
-      <EarnListCard openModalFilters={openModalFilters} />
+      {/* <EarnListCard openModalFilters={openModalFilters} /> */}
     </Layout>
   );
 };
