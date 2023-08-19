@@ -4,12 +4,12 @@ import {
   DribbleSVG,
   GithubSVG,
   LinkedInSVG,
-  TwitterSVG,
+  XSVG,
 } from '@/svg';
 
 export const SOCIAL_SVG = {
   github: GithubSVG,
-  twitter: TwitterSVG,
+  x: XSVG,
   discord: DiscordSVG,
   behance: BehanceSVG,
   dribbble: DribbleSVG,
@@ -24,7 +24,7 @@ export const TEAM_MEMBERS = [
     social: {
       github: 'https://github.com/josemvcerqueira',
       linkedin: 'https://www.linkedin.com/in/josemvcerqueira/',
-      twitter: 'https://twitter.com/josemvcerqueira',
+      x: 'https://x.com/josemvcerqueira',
     },
   },
   {
@@ -34,7 +34,7 @@ export const TEAM_MEMBERS = [
     social: {
       linkedin:
         'https://www.linkedin.com/in/jos%C3%A9-pedro-cerqueira-nelumba/',
-      twitter: 'https://twitter.com/Pedro102792',
+      x: 'https://x.com/Pedro102792',
     },
   },
   {
@@ -44,7 +44,7 @@ export const TEAM_MEMBERS = [
     social: {
       github: 'https://github.com/git-marcopitra',
       linkedin: 'https://www.linkedin.com/in/marco-pitra/',
-      twitter: 'https://twitter.com/marcopitra',
+      x: 'https://x.com/marcopitra',
     },
   },
   {
@@ -54,7 +54,7 @@ export const TEAM_MEMBERS = [
     social: {
       github: 'https://github.com/KipandaJr',
       linkedin: 'https://www.linkedin.com/in/kipanda-cardoso/',
-      twitter: 'https://twitter.com/kipaskipasJr',
+      x: 'https://x.com/kipaskipasJr',
     },
   },
   {
@@ -64,7 +64,7 @@ export const TEAM_MEMBERS = [
     social: {
       discord: 'http://discordapp.com/users/851547717163024437',
       linkedin: 'https://www.linkedin.com/in/nilam-jjaiswal/',
-      twitter: 'https://twitter.com/crypto_wife1',
+      x: 'https://x.com/crypto_wife1',
     },
   },
   {

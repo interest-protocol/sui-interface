@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { FC, PropsWithChildren } from 'react';
 import { SkeletonTheme } from 'react-loading-skeleton';
 
+import { ModalProvider } from '@/context/modal';
 import { DAppDarkTheme, DAppLightTheme } from '@/design-system/dapp-theme';
 import {
   DappGlobalStyles,
@@ -59,8 +60,10 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
           <InterestThemeProvider
             theme={{ setDark, ...(dark ? darkTheme : lightTheme) }}
           >
-            <Global styles={LandingGlobalStyles} />
-            {children}
+            <ModalProvider newDesign>
+              <Global styles={LandingGlobalStyles} />
+              {children}
+            </ModalProvider>
           </InterestThemeProvider>
         </WalletKitProvider>
       </NetworkProvider>

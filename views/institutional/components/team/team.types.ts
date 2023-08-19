@@ -4,7 +4,7 @@ export interface TeamCardProps {
   image: string;
   social: {
     github?: string;
-    twitter?: string;
+    x?: string;
     discord?: string;
     behance?: string;
     dribbble?: string;

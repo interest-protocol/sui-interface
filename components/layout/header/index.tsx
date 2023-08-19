@@ -159,7 +159,7 @@ const Header: FC = () => {
           {network === Network.MAINNET && (
             <a
               target="_blank"
-              href={Routes[RoutesEnum.Bridge]}
+              href={Routes[RoutesEnum.Wormhole]}
               rel="noreferrer"
             >
               <Typography

@@ -204,7 +204,7 @@ const Footer: FC = () => {
           {network === Network.MAINNET && (
             <a
               target="_blank"
-              href={Routes[RoutesEnum.Bridge]}
+              href={Routes[RoutesEnum.Wormhole]}
               rel="noreferrer"
             >
               <Button
@@ -218,14 +218,14 @@ const Footer: FC = () => {
                 flexDirection="column"
                 justifyContent="space-between"
                 bg={
-                  pathname.includes(Routes[RoutesEnum.Bridge])
+                  pathname.includes(Routes[RoutesEnum.Wormhole])
                     ? 'accentActive'
                     : 'transparent'
                 }
                 nHover={{ bg: 'accent', color: 'text' }}
                 nActive={{ bg: 'accentActive', color: 'text' }}
                 color={
-                  pathname.includes(Routes[RoutesEnum.Bridge])
+                  pathname.includes(Routes[RoutesEnum.Wormhole])
                     ? 'textSoft'
                     : 'text'
                 }
