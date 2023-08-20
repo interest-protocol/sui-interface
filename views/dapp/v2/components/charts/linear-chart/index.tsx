@@ -52,6 +52,7 @@ const LinearChart: FC<BaseChartProps> = ({
           interval="preserveStartEnd"
           tick={<CustomizedAxisTick />}
           domain={['dataMin', 'dataMax']}
+          angle={40}
         />
         <LabelList content={<CustomizedLabel />} />
         <YAxis hide={true} />

@@ -9,7 +9,14 @@ const CustomXAxisTick: FC<CustomXAxisTickProps> = (props) => {
 
   return (
     <g transform={`translate(${x},${y})`}>
-      <text x={0} y={0} dy={16} textAnchor="middle" fill="#666">
+      <text
+        x={0}
+        y={0}
+        dy={16}
+        textAnchor="middle"
+        fill="#666"
+        transform="rotate(-25)"
+      >
         <tspan fill={dark ? 'white' : 'black'}>{payload?.value}</tspan>
       </text>
     </g>
