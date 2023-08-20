@@ -48,12 +48,11 @@ const BarChartComponent: FC<BaseChartProps> = ({
           interval="preserveStartEnd"
           allowDuplicatedCategory={false}
         />
-        <Tooltip />
-        {/* <Tooltip
+        <Tooltip
           cursor={<CustomCursor />}
           animationEasing="ease-in-out"
           content={<CustomTooltip inDollars={inDollars} />}
-        /> */}
+        />
         <Bar dataKey={dataKey} barSize={8} fill={colors['primary']} />
       </BarChart>
     </ResponsiveContainer>
