@@ -1,16 +1,17 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
 
-import { BridgeSVG, FarmSVG, NewTokenSVG } from '@/components/svg/v2';
+import { BridgeSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
-import { FaucetSVG, HomeSVG, LendSVG, PoolSVG, SwapSVG } from '@/svg';
-export const SIDEBAR_ITEMS = [
-  {
-    Icon: HomeSVG,
-    name: 'home',
-    path: Routes[RoutesEnum.DApp],
-    disabled: true,
-    networks: [Network.MAINNET, Network.TESTNET],
-  },
+import { DotsSVG, SwapSVG, TrendUpSVG } from '@/svg';
+
+import { MenuItemProps } from './sidebar.types';
+
+export const SIDEBAR_ITEMS: ReadonlyArray<
+  Omit<
+    MenuItemProps,
+    'setIsCollapsed' | 'isCollapsed' | 'setTemporarilyOpen' | 'temporarilyOpen'
+  >
+> = [
   {
     Icon: SwapSVG,
     name: 'swap',
@@ -19,53 +20,68 @@ export const SIDEBAR_ITEMS = [
     networks: [Network.MAINNET, Network.TESTNET],
   },
   {
-    Icon: PoolSVG,
-    name: 'pool',
-    path: Routes[RoutesEnum.DEXPool],
+    Icon: TrendUpSVG,
+    name: 'metrics',
+    path: Routes[RoutesEnum.Metrics],
     disabled: false,
     networks: [Network.MAINNET, Network.TESTNET],
-  },
-  {
-    Icon: LendSVG,
-    name: 'lend',
-    path: Routes[RoutesEnum.Lend],
-    disabled: false,
-    networks: [Network.TESTNET, Network.MAINNET],
-  },
-  {
-    Icon: FarmSVG,
-    name: 'farm',
-    path: Routes[RoutesEnum.LiquidityFarms],
-    disabled: false,
-    networks: [Network.MAINNET],
-    alpha: true,
-  },
-  {
-    Icon: FarmSVG,
-    name: 'farm',
-    path: Routes[RoutesEnum.Farms],
-    disabled: false,
-    networks: [Network.TESTNET],
-  },
-  {
-    Icon: NewTokenSVG,
-    name: 'createToken',
-    path: Routes[RoutesEnum.CreateToken],
-    disabled: false,
-    networks: [Network.MAINNET, Network.TESTNET],
-  },
-  {
-    Icon: FaucetSVG,
-    name: 'faucet',
-    path: Routes[RoutesEnum.Faucet],
-    disabled: false,
-    networks: [Network.TESTNET],
   },
   {
     Icon: BridgeSVG,
     name: 'bridge',
-    path: Routes[RoutesEnum.Bridge],
+    path: '#',
     disabled: false,
-    networks: [Network.MAINNET],
+    networks: [Network.MAINNET, Network.TESTNET],
+    accordionList: [
+      {
+        name: 'wormhole',
+        path: Routes[RoutesEnum.Wormhole],
+        networks: [Network.MAINNET, Network.TESTNET],
+      },
+      {
+        name: 'celer',
+        path: Routes[RoutesEnum.Celer],
+        networks: [Network.MAINNET, Network.TESTNET],
+      },
+    ],
+  },
+  {
+    Icon: DotsSVG,
+    name: 'more',
+    path: '#',
+    disabled: false,
+    networks: [Network.MAINNET, Network.TESTNET],
+    accordionList: [
+      {
+        name: 'pool',
+        path: Routes[RoutesEnum.DEXPool],
+        networks: [Network.MAINNET, Network.TESTNET],
+      },
+      {
+        name: 'lend',
+        path: Routes[RoutesEnum.Lend],
+        networks: [Network.TESTNET, Network.MAINNET],
+      },
+      {
+        name: 'farm',
+        path: Routes[RoutesEnum.LiquidityFarms],
+        networks: [Network.MAINNET],
+      },
+      {
+        name: 'farm',
+        path: Routes[RoutesEnum.Farms],
+        networks: [Network.TESTNET],
+      },
+      {
+        name: 'createToken',
+        path: Routes[RoutesEnum.CreateToken],
+        networks: [Network.MAINNET, Network.TESTNET],
+      },
+      {
+        name: 'faucet',
+        path: Routes[RoutesEnum.Faucet],
+        networks: [Network.TESTNET],
+      },
+    ],
   },
 ];

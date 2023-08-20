@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
-import { mergeDeepRight } from 'ramda';
+import { mergeAll } from 'ramda';
 
 import { LoadingPage } from '@/components';
 import { ModalProvider } from '@/context/modal';
@@ -33,10 +33,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     import(`../../../../assets/messages/dex/pool/${locale}.json`),
   ]);
 
-  const messages = mergeDeepRight(
-    commonMessages.default,
-    dexPoolMessages.default
-  );
+  const messages = mergeAll([commonMessages.default, dexPoolMessages.default]);
 
   return {
     props: {

@@ -3,15 +3,14 @@ import { FC, PropsWithChildren } from 'react';
 
 const MetricsCardContainer: FC<PropsWithChildren> = ({ children }) => (
   <Box
-    width="100%"
+    width={['100%', '100%', '100%', '48%']}
     display="flex"
     borderRadius="m"
     color="onSurface"
-    height="23.1875rem"
+    minHeight="23.1875rem"
     flexDirection="column"
     bg="surface.containerLow"
     justifyContent="space-between"
-    gridColumn={['1/-1', '1/-1', '1/-1', 'span 6']}
   >
     {children}
   </Box>

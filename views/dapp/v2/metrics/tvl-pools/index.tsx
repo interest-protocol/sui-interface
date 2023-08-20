@@ -1,5 +1,6 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC, useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 import { getMetric } from '@/api/metrics';
 
@@ -12,10 +13,12 @@ import MetricsCardContainer from '../metrics-card-container';
 
 const TVLPools: FC = () => {
   const [data, setData] = useState<Array<DataPie>>([]);
+  const [isLoading, setIsLoading] = useState(!data.length);
 
   const [filter, setFilter] = useState<TFilter>('all');
 
   useEffect(() => {
+    setIsLoading(true);
     getMetric('get-tvl-by-pool').then((total) => {
       const newData = total.map(
         ({
@@ -40,6 +43,7 @@ const TVLPools: FC = () => {
       );
 
       setData(newData);
+      setIsLoading(false);
     });
   }, [filter]);
 
@@ -52,7 +56,27 @@ const TVLPools: FC = () => {
         setFilter={setFilter}
       />
       <Box height="16.25rem" width="80%" pb="l" mx="auto">
-        <Chart dataKey="amount" data={data} label="Pool" type="pie" inDollars />
+        {isLoading ? (
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            gap="1rem"
+            width="80%"
+            mx="auto"
+          >
+            <Skeleton height="10rem" width="10rem" borderRadius="10rem" />
+            <Skeleton height="1.5rem" width="15rem" />
+          </Box>
+        ) : (
+          <Chart
+            inDollars
+            type="pie"
+            label="Pool"
+            data={data}
+            dataKey="amount"
+          />
+        )}
       </Box>
     </MetricsCardContainer>
   );

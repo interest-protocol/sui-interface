@@ -4,7 +4,7 @@ import {
   InstagramAlternativeSVG,
   MediumSVG,
   TelegramAlternativeSVG,
-  TwitterSVG,
+  XSVG,
   YoutubeAlternativeSVG,
 } from '@/svg';
 
@@ -25,9 +25,9 @@ export const SOCIAL_MEDIAS_ALTERNATIVE = [
     Logo: YoutubeAlternativeSVG,
   },
   {
-    title: 'Twitter',
-    link: 'https://twitter.com/interest_dinero',
-    Logo: TwitterSVG,
+    title: 'X',
+    link: 'https://x.com/interest_dinero',
+    Logo: XSVG,
   },
   {
     title: 'Telegram',

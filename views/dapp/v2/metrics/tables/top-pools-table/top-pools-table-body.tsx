@@ -3,6 +3,7 @@ import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { toPairs } from 'ramda';
 import { FC, useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
 
 import { getMetric } from '@/api/metrics';
@@ -33,7 +34,7 @@ const TopPoolsTableBody: FC = () => {
     );
   }, []);
 
-  return (
+  return data.length ? (
     <>
       {data.map(({ pool, a, b, c, d }, index) => {
         const FirstIcon = TOKENS_SVG_MAP_V2[pool?.token0.type ?? 'default'];
@@ -139,6 +140,11 @@ const TopPoolsTableBody: FC = () => {
           </Box>
         );
       })}
+    </>
+  ) : (
+    <>
+      <Skeleton height="2rem" width="100%" />
+      <Skeleton height="2rem" width="100%" style={{ marginTop: '1rem' }} />
     </>
   );
 };
