@@ -5,16 +5,19 @@ import {
   Typography,
 } from '@interest-protocol/ui-kit';
 import { AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
 import { MinusSVG } from '@/components/svg/v2';
+import { TTranslatedMessage } from '@/interface';
 import { PlusSVG, SingleDotsSVG } from '@/svg';
 
 import { AccordionProps } from '../earn.types';
 
 const Accordion: FC<AccordionProps> = ({ title, options }) => {
+  const t = useTranslations();
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -92,7 +95,10 @@ const Accordion: FC<AccordionProps> = ({ title, options }) => {
                     />
                   </Box>
                   <Typography variant="small" textTransform="capitalize">
-                    {option.description}
+                    {t(
+                      option.description as TTranslatedMessage,
+                      option.descriptionConfig
+                    )}
                   </Typography>
                 </Box>
                 <SwitchButton

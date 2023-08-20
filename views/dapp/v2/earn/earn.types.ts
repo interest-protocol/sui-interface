@@ -52,8 +52,10 @@ export interface AccordionProps {
 export interface AccordionOptionProps {
   description: string;
   defaultState: boolean;
+  descriptionConfig?: { count: number };
 }
 
-export interface EarnListCardsProps {
-  openModalFilters: () => void;
+export interface EarnHeaderProps {
+  isPool: boolean;
+  handleTab: () => void;
 }

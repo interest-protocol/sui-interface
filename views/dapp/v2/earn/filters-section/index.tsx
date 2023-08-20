@@ -9,42 +9,44 @@ import { AccordionOptionProps, EarnFiltersProps } from '../earn.types';
 import Accordion from './accordion';
 import OptionFilter from './option';
 
+const OPTION_TYPE_LIST = [
+  {
+    defaultState: true,
+    description: 'common.all',
+  },
+  {
+    defaultState: true,
+    description: 'common.stable',
+    descriptionConfig: { count: 1 },
+  },
+  {
+    defaultState: true,
+    description: 'common.volatile',
+    descriptionConfig: { count: 1 },
+  },
+] as ReadonlyArray<AccordionOptionProps>;
+
+const OPTION_SORT_LIST = [
+  {
+    description: 'ID',
+    defaultState: true,
+  },
+  {
+    description: 'common.tvl',
+    defaultState: true,
+  },
+  {
+    description: 'common.apr',
+    defaultState: true,
+  },
+  {
+    description: 'common.allocation',
+    defaultState: true,
+  },
+] as ReadonlyArray<AccordionOptionProps>;
+
 const FilterSection: FC<EarnFiltersProps> = ({ handleClose }) => {
   const t = useTranslations();
-
-  const OPTION_TYPE_LIST = [
-    {
-      description: t('common.all'),
-      defaultState: true,
-    },
-    {
-      description: t('common.stable', { count: 1 }),
-      defaultState: true,
-    },
-    {
-      description: t('common.volatile', { count: 1 }),
-      defaultState: true,
-    },
-  ] as ReadonlyArray<AccordionOptionProps>;
-
-  const OPTION_SORT_LIST = [
-    {
-      description: 'ID',
-      defaultState: true,
-    },
-    {
-      description: t('common.tvl'),
-      defaultState: true,
-    },
-    {
-      description: t('common.apr'),
-      defaultState: true,
-    },
-    {
-      description: t('common.allocation'),
-      defaultState: true,
-    },
-  ] as ReadonlyArray<AccordionOptionProps>;
 
   return (
     <Box
