@@ -12,13 +12,10 @@ const TopInfoCardsList: FC = () => {
   const [data, setData] = useState<any[] | null>(null);
 
   useEffect(() => {
-    Promise.all([
-      getMetric('get-tvl'),
-      getMetric('get-pools'),
-      getMetric('get-swaps'),
-      getMetric('get-daily-trading-volume'),
-    ]).then(setData);
+    getMetric('get-overview').then(setData);
   }, []);
+
+  // console.log('>> data :: ', data);
 
   return (
     <Box
