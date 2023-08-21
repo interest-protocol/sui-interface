@@ -1,6 +1,6 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box, Typography } from '@interest-protocol/ui-kit';
-import { toPairs } from 'ramda';
+import { sort, toPairs } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
@@ -32,47 +32,49 @@ const TopCoinsTableBody: FC = () => {
 
   return data.length ? (
     <>
-      {data.map(({ coin, a, b, c }, index) => {
-        const CoinIcon = TOKENS_SVG_MAP_V2[coin?.type ?? 'default'];
+      {sort((item1, item2) => (+item1.a > +item2.a ? -1 : 1), data).map(
+        ({ coin, a, b, c }, index) => {
+          const CoinIcon = TOKENS_SVG_MAP_V2[coin?.type ?? 'default'];
 
-        return (
-          <Box key={v4()} pt={index === 0 ? '0' : 'xl'}>
-            <TableRow numCols={5}>
-              <Typography variant="small" textAlign="center">
-                {index + 1}
-              </Typography>
-              <Box display="flex" gap="m" alignItems="center">
-                <Box display="flex">
-                  <CoinIcon
-                    filled
-                    maxWidth="2.5rem"
-                    maxHeight="2.5rem"
-                    height={
-                      coin?.type === COINS[Network.MAINNET].SUI.type
-                        ? '2.2rem'
-                        : '3rem'
-                    }
-                  />
-                </Box>
-                <Box>
+          return (
+            <Box key={v4()} pt={index === 0 ? '0' : 'xl'}>
+              <TableRow numCols={5}>
+                <Typography variant="small" textAlign="center">
+                  {index + 1}
+                </Typography>
+                <Box display="flex" gap="m" alignItems="center">
                   <Box display="flex">
-                    <Typography variant="small">{coin?.symbol}</Typography>
+                    <CoinIcon
+                      filled
+                      maxWidth="2.5rem"
+                      maxHeight="2.5rem"
+                      height={
+                        coin?.type === COINS[Network.MAINNET].SUI.type
+                          ? '2.2rem'
+                          : '3rem'
+                      }
+                    />
+                  </Box>
+                  <Box>
+                    <Box display="flex">
+                      <Typography variant="small">{coin?.symbol}</Typography>
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
-              <Typography variant="small" textAlign="center">
-                {formatDollars(a ?? 0, 2)}
-              </Typography>
-              <Typography variant="small" textAlign="center">
-                {formatDollars(b ?? 0, 2)}
-              </Typography>
-              <Typography variant="small" textAlign="center">
-                {formatDollars(c ?? 0, 2)}
-              </Typography>
-            </TableRow>
-          </Box>
-        );
-      })}
+                <Typography variant="small" textAlign="center">
+                  {formatDollars(a ?? 0, 2)}
+                </Typography>
+                <Typography variant="small" textAlign="center">
+                  {formatDollars(b ?? 0, 2)}
+                </Typography>
+                <Typography variant="small" textAlign="center">
+                  {formatDollars(c ?? 0, 2)}
+                </Typography>
+              </TableRow>
+            </Box>
+          );
+        }
+      )}
     </>
   ) : (
     <>

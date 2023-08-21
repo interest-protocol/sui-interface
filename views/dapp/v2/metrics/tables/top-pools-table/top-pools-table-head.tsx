@@ -20,10 +20,10 @@ const TopPoolsTableHead: FC<TableHeadProps> = ({ title }) => {
           {t('metrics.tables.tvl')}
         </Typography>
         <Typography variant="small" textAlign="center">
-          {t('metrics.tables.dayVolume')}
+          {t('metrics.tables.apr')}
         </Typography>
         <Typography variant="small" textAlign="center">
-          {t('metrics.tables.apr')}
+          {t('metrics.tables.dayVolume')}
         </Typography>
         <Typography variant="small" textAlign="center">
           {t('metrics.tables.weekVolume')}
