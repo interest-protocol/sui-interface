@@ -13,7 +13,7 @@ const itemVariants = {
     width: '20rem',
   },
   closed: {
-    width: '5.5rem',
+    width: '6rem',
   },
 };
 
@@ -39,6 +39,7 @@ const Sidebar: FC = () => {
       justifyContent="space-between"
       transition={{ duration: 0.5 }}
       animate={isOpen || !isCollapsed ? 'open' : 'closed'}
+      position="relative"
       initial={
         itemVariants[
           isOpen || !isCollapsed
@@ -59,10 +60,13 @@ const Sidebar: FC = () => {
           setTemporarilyOpen={setTemporarilyOpen}
         />
       </Box>
-      <SidebarCollapseButton
-        isCollapsed={isCollapsed}
-        setIsCollapsed={setIsCollapsed}
-      />
+      <Box position="absolute" bottom="0" width="100%">
+        <SidebarCollapseButton
+          isOpen={isOpen}
+          isCollapsed={isCollapsed}
+          setIsCollapsed={setIsCollapsed}
+        />
+      </Box>
     </Motion>
   );
 };

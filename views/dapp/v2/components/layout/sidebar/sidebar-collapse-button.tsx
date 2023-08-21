@@ -1,13 +1,22 @@
-import { Box, Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
+import {
+  Box,
+  Motion,
+  Theme,
+  TooltipWrapper,
+  Typography,
+  useTheme,
+} from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { DoubleArrowSVG } from '@/components/svg/v2';
 import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 
-import NetworkSwitch from '../network-switch';
+import Checkpoint from '../network-switch/checkpoint';
+import CheckpointNumber from '../network-switch/checkpoint-number';
 import { SidebarCollapseButtonProps } from './sidebar.types';
 
 const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
+  isOpen,
   isCollapsed,
   setIsCollapsed,
 }) => {
@@ -27,7 +36,6 @@ const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
       my="m"
       display="flex"
       overflow="hidden"
-      position="relative"
       animation={isCollapsed ? '2.5rem' : 'auto'}
       transition={{
         duration: 0.5,
@@ -36,7 +44,9 @@ const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
         collapsed: { width: '2.5rem ' },
         unCollapsed: { width: 'auto' },
       }}
-      gap="0.75rem"
+      gap="m"
+      pb="s"
+      pt="m"
     >
       <Box
         display="flex"
@@ -56,6 +66,7 @@ const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
           transition: 'all 300ms ease-in-out',
           backgroundColor: `${colors.primary}14`,
         }}
+        position="relative"
       >
         <Motion
           display="flex"
@@ -69,10 +80,37 @@ const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
             maxHeight="0.625rem"
           />
         </Motion>
+        {isCollapsed && !isOpen && (
+          <Box
+            position="absolute"
+            mt="-0.5rem"
+            bottom="-0.3rem"
+            right="-0.3rem"
+          >
+            <TooltipWrapper
+              bg="inverseSurface"
+              width="max-content"
+              tooltipPosition="top"
+              tooltipContent={
+                <Typography
+                  variant="extraSmall"
+                  color="inverseOnSurface"
+                  textTransform="capitalize"
+                >
+                  <CheckpointNumber />
+                </Typography>
+              }
+            >
+              <Checkpoint withoutInfo />
+            </TooltipWrapper>
+          </Box>
+        )}
       </Box>
-      <Box mx="auto">
-        <NetworkSwitch />
-      </Box>
+      {(!isCollapsed || isOpen) && (
+        <Box mx="auto">
+          <Checkpoint />
+        </Box>
+      )}
     </Motion>
   );
 };
