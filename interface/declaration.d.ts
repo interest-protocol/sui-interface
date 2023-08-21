@@ -14,8 +14,6 @@ type FarmDetailsMessages =
   typeof import('../assets/messages/farms/details/en-US.json');
 type LandingPageMessages =
   typeof import('../assets/messages/landing-page/en-US.json');
-type LandingPageMessages =
-  typeof import('../assets/messages/lending/en-US.json');
 type LiquidityCampaignMessages =
   typeof import('../assets/messages/liquidity-campaign/en-US.json');
 type SwapMessages = typeof import('../assets/messages/swap/en-US.json');
