@@ -1,4 +1,4 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useRouter } from 'next/router';
 import { pathOr, prop } from 'ramda';
@@ -179,9 +179,6 @@ const Profile: FC = () => {
           alignItems="center"
           onClick={handleOpenProfile}
         >
-          <Typography color="primary" variant="medium">
-            {getName(account, suiNSRecord)}
-          </Typography>
           <Box
             display="flex"
             width="2.5rem"

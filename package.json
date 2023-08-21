@@ -47,6 +47,7 @@
     "react-spring": "^9.5.0",
     "react-switch": "^6.0.0",
     "react-tooltip": "^5.3.4",
+    "recharts": "^2.7.2",
     "swr": "^2.0.0",
     "toformat": "^2.0.0",
     "use-debounce": "^8.0.4",
