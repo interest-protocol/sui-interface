@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { DoubleArrowSVG } from '@/components/svg/v2';
 import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 
+import NetworkSwitch from '../network-switch';
 import { SidebarCollapseButtonProps } from './sidebar.types';
 
 const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
@@ -22,11 +23,27 @@ const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
   };
 
   return (
-    <Box my="m" display="flex" flexDirection="column">
+    <Motion
+      my="m"
+      display="flex"
+      overflow="hidden"
+      position="relative"
+      animation={isCollapsed ? '2.5rem' : 'auto'}
+      transition={{
+        duration: 0.5,
+      }}
+      variants={{
+        collapsed: { width: '2.5rem ' },
+        unCollapsed: { width: 'auto' },
+      }}
+      gap="0.75rem"
+    >
       <Box
-        width="2.5rem"
         display="flex"
+        width="2.5rem"
         height="2.5rem"
+        minWidth="2.5rem"
+        minHeight="2.5rem"
         borderRadius="m"
         cursor="pointer"
         color="onSurface"
@@ -53,7 +70,10 @@ const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
           />
         </Motion>
       </Box>
-    </Box>
+      <Box mx="auto">
+        <NetworkSwitch />
+      </Box>
+    </Motion>
   );
 };
 
