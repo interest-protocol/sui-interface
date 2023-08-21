@@ -46,7 +46,7 @@ const BarChartComponent: FC<BaseChartProps> = ({
           tickLine={false}
           tick={<CustomXAxisTick />}
           interval="preserveStartEnd"
-          allowDuplicatedCategory={false}
+          allowDuplicatedCategory={true}
         />
         <Tooltip
           cursor={<CustomCursor />}

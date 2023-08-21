@@ -60,6 +60,7 @@ const DailyVolume: FC = () => {
         data={data}
         type="bar"
         isLoading={isLoading}
+        inDollars
       />
     </MetricsCardContainer>
   );
