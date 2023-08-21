@@ -10,8 +10,6 @@ const CustomTooltip: FC<CustomTooltipProps> = ({
   payload,
   inDollars,
 }) => {
-  console.log('>> payload :: ', payload);
-
   if (!(active && payload && payload.length)) return null;
 
   return (
