@@ -1,4 +1,11 @@
+import { Network, Pool } from '@interest-protocol/sui-amm-sdk';
+import BigNumber from 'bignumber.js';
+
+import { CoinPriceRecord } from '@/hooks';
+import { Farm } from '@/interface';
 import { TOKEN_SYMBOL } from '@/lib';
+
+import { IPXStorage } from '../../liquidity-farms-details/liquidity-farms-details.hooks';
 
 export interface Token {
   symbol: TOKEN_SYMBOL.SUI;
@@ -12,10 +19,14 @@ export interface EarnHeaderOptionProps {
   isStable?: boolean;
 }
 
+export interface EarnContainerProps {
+  columns: number;
+}
+
 export interface EarnPoolItemProps {
-  token1: Token;
-  token2: Token;
-  apr: string;
+  coin0: Token;
+  coin1: Token;
+  apr: BigNumber;
   fee: string;
   liquidity: string;
   volume: string;
@@ -58,4 +69,12 @@ export interface AccordionOptionProps {
 export interface EarnHeaderProps {
   isPool: boolean;
   handleTab: () => void;
+}
+
+export interface ParseDataArgs {
+  farms: ReadonlyArray<Farm>;
+  pools: ReadonlyArray<Pool>;
+  prices: CoinPriceRecord;
+  ipxStorage: IPXStorage;
+  network: Network;
 }

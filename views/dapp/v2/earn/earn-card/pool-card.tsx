@@ -16,18 +16,19 @@ import { EarnCardTokenIcon } from './earn-card-token-icon';
 import HeaderItems from './header-items';
 
 const PoolCard: FC<EarnPoolItemProps> = ({
-  token1,
-  token2,
   apr,
   fee,
-  liquidity,
+  coin0,
+  coin1,
   volume,
+  liquidity,
   allocation,
   headerOption,
 }) => {
-  const { dark } = useTheme() as Theme;
-  const { push } = useRouter();
   const t = useTranslations();
+  const { push } = useRouter();
+  const { dark } = useTheme() as Theme;
+
   return (
     <Box width="100%">
       <Box
@@ -42,8 +43,8 @@ const PoolCard: FC<EarnPoolItemProps> = ({
         <HeaderItems {...headerOption} />
         <Box display="flex" flexWrap="wrap" gap="l">
           <Box gap="m" display="flex">
-            <EarnCardTokenIcon type={token1.type} />
-            <EarnCardTokenIcon type={token2.type} />
+            <EarnCardTokenIcon type={coin0.type} />
+            <EarnCardTokenIcon type={coin1.type} />
           </Box>
           <Box>
             <Typography
@@ -51,14 +52,14 @@ const PoolCard: FC<EarnPoolItemProps> = ({
               variant="medium"
               color={dark ? 'white' : 'black'}
             >
-              {`${token1.symbol} - ${token2.symbol}`}
+              {`${coin0.symbol} - ${coin1.symbol}`}
             </Typography>
             <Typography variant="small" color="onSurfaceVariant">
-              {`${apr}% ${t('common.apr')}`}
+              {`${apr.decimalPlaces(2).toString()}% ${t('common.apr')}`}
             </Typography>
           </Box>
         </Box>
-        <Box display="flex" gap="m" flexDirection="column">
+        {/* <Box display="flex" gap="m" flexDirection="column">
           <Box display="flex" justifyContent="space-between">
             <Typography
               variant="small"
@@ -130,7 +131,7 @@ const PoolCard: FC<EarnPoolItemProps> = ({
               {t('earn.cards.addLiquidity')}
             </Typography>
           </Button>
-        </Box>
+        </Box>*/}
       </Box>
     </Box>
   );
