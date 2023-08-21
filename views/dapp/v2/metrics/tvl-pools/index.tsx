@@ -55,7 +55,12 @@ const TVLPools: FC = () => {
         activeFilter={filter}
         setFilter={setFilter}
       />
-      <Box height="16.25rem" width="80%" pb="l" mx="auto">
+      <Box
+        height="16.25rem"
+        width={['95%', '90%', '80%', '80%']}
+        pb="l"
+        mx="auto"
+      >
         {isLoading ? (
           <Box
             display="flex"
