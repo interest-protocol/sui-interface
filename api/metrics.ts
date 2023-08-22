@@ -1,3 +1,5 @@
+import { sort, toPairs } from 'ramda';
+
 import {
   A_DAY_IN_MILLISECONDS,
   A_HOUR_IN_MILLISECONDS,
@@ -90,7 +92,7 @@ export const getOverview = (TZ: string): Promise<ReadonlyArray<number>> =>
         metricsQuery: {
           query: 'num_pools',
           alias: '',
-          id: 'a',
+          id: 'b',
           labelSelector: {},
           aggregate: null,
           functions: [],
@@ -104,7 +106,7 @@ export const getOverview = (TZ: string): Promise<ReadonlyArray<number>> =>
         metricsQuery: {
           query: 'event_swap',
           alias: '',
-          id: 'a',
+          id: 'c',
           labelSelector: {},
           aggregate: null,
           functions: [],
@@ -117,7 +119,7 @@ export const getOverview = (TZ: string): Promise<ReadonlyArray<number>> =>
         metricsQuery: {
           query: 'vol_sum',
           alias: '',
-          id: 'a',
+          id: 'd',
           labelSelector: {},
           aggregate: {
             op: 'SUM',
@@ -146,14 +148,19 @@ export const getOverview = (TZ: string): Promise<ReadonlyArray<number>> =>
   )
     .then((res) => res.json())
     .then((data) => {
-      const samples: Array<Array<any>> = data.results.map(
-        (result: any) =>
-          (Array.from(result.matrix.samples.values())[0] as any).values
+      const samples: Record<string, number> = data.results.reduce(
+        (acc, result: any) => ({
+          ...acc,
+          [result.id]: (
+            Array.from(result.matrix.samples.values())[0] as any
+          ).values.reverse()[0].value,
+        }),
+        {}
       );
 
-      const values = samples.map(
-        (sample) => sample.reverse()[0].value as number
-      );
+      const values = toPairs(samples)
+        .sort(([idA], [idB]) => (idA > idB ? 1 : -1))
+        .map(([, value]) => value);
 
       return values;
     });
