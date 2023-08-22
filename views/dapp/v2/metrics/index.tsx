@@ -4,14 +4,15 @@ import { FC } from 'react';
 
 import ActiveWallets from './active-wallets';
 import DailyVolume from './daily-volume';
-import TopCoinsTable from './tables/top-coins-table';
-import TopPoolsTable from './tables/top-pools-table';
 import TopInfoCards from './top-info-cards';
+import TopCoinsTable from './top-tables/top-coins-table';
+import TopPoolsTable from './top-tables/top-pools-table';
 import TotalLiquidity from './total-liquidity';
 import TVLPools from './tvl-pools';
 
 const Metrics: FC = () => {
   const t = useTranslations();
+
   return (
     <Box
       variant="container"
