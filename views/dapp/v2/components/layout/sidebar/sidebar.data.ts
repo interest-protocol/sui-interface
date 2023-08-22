@@ -24,7 +24,7 @@ export const SIDEBAR_ITEMS: ReadonlyArray<
     name: 'metrics',
     path: Routes[RoutesEnum.Metrics],
     disabled: false,
-    networks: [Network.MAINNET, Network.TESTNET],
+    networks: [Network.MAINNET],
   },
   {
     Icon: BridgeSVG,
