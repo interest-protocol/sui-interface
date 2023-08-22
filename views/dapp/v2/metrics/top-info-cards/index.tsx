@@ -15,8 +15,6 @@ const TopInfoCardsList: FC = () => {
     getMetric('get-overview').then(setData);
   }, []);
 
-  // console.log('>> data :: ', data);
-
   return (
     <Box
       gridColumn="1/-1"
