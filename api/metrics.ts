@@ -1,4 +1,4 @@
-import { sort, toPairs } from 'ramda';
+import { toPairs } from 'ramda';
 
 import {
   A_DAY_IN_MILLISECONDS,
