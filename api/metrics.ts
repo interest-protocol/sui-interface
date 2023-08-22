@@ -149,7 +149,7 @@ export const getOverview = (TZ: string): Promise<ReadonlyArray<number>> =>
     .then((res) => res.json())
     .then((data) => {
       const samples: Record<string, number> = data.results.reduce(
-        (acc, result: any) => ({
+        (acc: Record<string, number>, result: any) => ({
           ...acc,
           [result.id]: (
             Array.from(result.matrix.samples.values())[0] as any
