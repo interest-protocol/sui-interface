@@ -7,7 +7,9 @@ import { useNetwork, useProvider } from '@/hooks';
 import useEventListener from '@/hooks/use-event-listener';
 import { makeSWRKey } from '@/utils';
 
-const Checkpoint: FC = () => {
+import { NetworkSwitchProps } from '../layout.types';
+
+const Checkpoint: FC<NetworkSwitchProps> = ({ withoutInfo }) => {
   const t = useTranslations();
   const { network } = useNetwork();
   const { provider } = useProvider();
@@ -55,7 +57,8 @@ const Checkpoint: FC = () => {
             : '#B91C1C'
         }
       />
-      {isLoading ? t('common.loading') : data ?? t('common.v2.network.down')}
+      {!withoutInfo &&
+        (isLoading ? t('common.loading') : data ?? t('common.v2.network.down'))}
     </Typography>
   );
 };
