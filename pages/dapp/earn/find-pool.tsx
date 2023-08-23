@@ -24,8 +24,8 @@ const EarnDetailsPage: NextPageWithProps = ({ pageTitle }) => (
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, earnFindMessages] = await Promise.all([
-    import(`../../../../assets/messages/common/${locale}.json`),
-    import(`../../../../assets/messages/earn/find/${locale}.json`),
+    import(`../../../assets/messages/common/${locale}.json`),
+    import(`../../../assets/messages/earn/find/${locale}.json`),
   ]);
 
   const messages = mergeDeepRight(
