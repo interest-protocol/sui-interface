@@ -1,18 +1,11 @@
 import { WalletAdapter } from '@mysten/wallet-adapter-base';
 import { WalletStandardAdapterProvider } from '@mysten/wallet-adapter-wallet-standard';
+import { WalletKitProvider } from '@mysten/wallet-kit';
 import { NightlyConnectSuiAdapter } from '@nightlylabs/wallet-selector-sui';
 import dynamic from 'next/dynamic';
 import { FC, PropsWithChildren } from 'react';
 
 import LoadingPage from '../loading-page';
-
-const WalletKitProvider = dynamic(
-  () => import('@mysten/wallet-kit').then((mod) => mod.WalletKitProvider),
-  {
-    ssr: false,
-    loading: LoadingPage,
-  }
-);
 
 const WalletSuiProvider: FC<PropsWithChildren> = ({ children }) => (
   <WalletKitProvider
@@ -37,4 +30,5 @@ const WalletSuiProvider: FC<PropsWithChildren> = ({ children }) => (
 
 export default dynamic(() => Promise.resolve(WalletSuiProvider), {
   ssr: false,
+  loading: LoadingPage,
 });
