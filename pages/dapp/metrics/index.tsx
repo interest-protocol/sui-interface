@@ -16,6 +16,7 @@ const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
 
 const MetricsPage: NextPageWithProps = ({ pageTitle }) => {
   const t = useTranslations();
+
   return (
     <ModalProvider newDesign>
       <Web3Manager>

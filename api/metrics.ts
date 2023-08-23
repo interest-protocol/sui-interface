@@ -1,3 +1,5 @@
+import { toPairs } from 'ramda';
+
 import {
   A_DAY_IN_MILLISECONDS,
   A_HOUR_IN_MILLISECONDS,
@@ -67,7 +69,7 @@ const getMetrics = (
     }
   );
 
-export const getTVL = (TZ: string): Promise<number> =>
+export const getOverview = (TZ: string): Promise<ReadonlyArray<number>> =>
   getMetrics(
     [
       {
@@ -86,28 +88,38 @@ export const getTVL = (TZ: string): Promise<number> =>
         dataSource: 'METRICS',
         sourceName: '',
       },
-    ],
-    TZ
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      const samples: Array<any> = Array.from(
-        data.results[0].matrix.samples.values()
-      );
+      {
+        metricsQuery: {
+          query: 'num_pools',
+          alias: '',
+          id: 'b',
+          labelSelector: {},
+          aggregate: null,
+          functions: [],
+          disabled: false,
+        },
 
-      const value = samples[0].values.reverse()[0].value;
-
-      return value;
-    });
-
-export const getDailyTradingVolume = (TZ: string) =>
-  getMetrics(
-    [
+        dataSource: 'METRICS',
+        sourceName: '',
+      },
+      {
+        metricsQuery: {
+          query: 'event_swap',
+          alias: '',
+          id: 'c',
+          labelSelector: {},
+          aggregate: null,
+          functions: [],
+          disabled: false,
+        },
+        dataSource: 'METRICS',
+        sourceName: '',
+      },
       {
         metricsQuery: {
           query: 'vol_sum',
           alias: '',
-          id: 'a',
+          id: 'd',
           labelSelector: {},
           aggregate: {
             op: 'SUM',
@@ -136,58 +148,21 @@ export const getDailyTradingVolume = (TZ: string) =>
   )
     .then((res) => res.json())
     .then((data) => {
-      const samples: Array<any> = Array.from(
-        data.results[0].matrix.samples.values()
+      const samples: Record<string, number> = data.results.reduce(
+        (acc: Record<string, number>, result: any) => ({
+          ...acc,
+          [result.id]: (
+            Array.from(result.matrix.samples.values())[0] as any
+          ).values.reverse()[0].value,
+        }),
+        {}
       );
 
-      const value = samples[0].values.reverse()[0].value;
+      const values = toPairs(samples)
+        .sort(([idA], [idB]) => (idA > idB ? 1 : -1))
+        .map(([, value]) => value);
 
-      return value;
-    });
-
-export const getAccumulatedVolume = (TZ: string): Promise<number> =>
-  getMetrics(
-    [
-      {
-        metricsQuery: {
-          query: 'vol',
-          alias: '{{pair}}',
-          id: 'a',
-          labelSelector: {},
-          aggregate: {
-            op: 'SUM',
-            grouping: [],
-          },
-          functions: [
-            {
-              name: 'rollup_sum',
-              arguments: [
-                {
-                  durationValue: {
-                    value: 57,
-                    unit: 'w',
-                  },
-                },
-              ],
-            },
-          ],
-          disabled: false,
-        },
-        dataSource: 'METRICS',
-        sourceName: '',
-      },
-    ],
-    TZ
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      const samples: Array<any> = Array.from(
-        data.results[0].matrix.samples.values()
-      );
-
-      const value = samples[0].values.reverse()[0].value;
-
-      return value;
+      return values;
     });
 
 export const getTotalLiquidity = (
@@ -394,37 +369,6 @@ export const getSwaps = (TZ: string): Promise<number> =>
           functions: [],
           disabled: false,
         },
-        dataSource: 'METRICS',
-        sourceName: '',
-      },
-    ],
-    TZ
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      const samples: Array<any> = Array.from(
-        data.results[0].matrix.samples.values()
-      );
-
-      const value = samples[0].values.reverse()[0].value;
-
-      return value;
-    });
-
-export const getPools = (TZ: string): Promise<number> =>
-  getMetrics(
-    [
-      {
-        metricsQuery: {
-          query: 'num_pools',
-          alias: '',
-          id: 'a',
-          labelSelector: {},
-          aggregate: null,
-          functions: [],
-          disabled: false,
-        },
-
         dataSource: 'METRICS',
         sourceName: '',
       },
@@ -745,17 +689,13 @@ export const getTopCoins = (TZ: string): Promise<CoinReturn> =>
     );
 
 type TMetricEndpoints =
-  | 'get-accumulated-volume'
-  | 'get-daily-trading-volume'
+  | 'get-overview'
   | 'get-daily-volume'
-  | 'get-pools'
-  | 'get-swaps'
   | 'get-top-coins'
   | 'get-top-pools'
   | 'get-total-active-wallets'
   | 'get-total-liquidity'
-  | 'get-tvl-by-pool'
-  | 'get-tvl';
+  | 'get-tvl-by-pool';
 
 export const getMetric = (endpoint: TMetricEndpoints, params?: string) =>
   fetch(

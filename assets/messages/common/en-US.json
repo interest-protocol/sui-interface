@@ -36,6 +36,7 @@
         "createToken": "create token",
         "settings": "settings",
         "faucet": "faucet",
+        "metrics": "metrics",
         "bridge": "bridge",
         "wormhole": "wormhole",
         "celer": "celer",

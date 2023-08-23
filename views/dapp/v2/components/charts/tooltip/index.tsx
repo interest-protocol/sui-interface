@@ -5,7 +5,11 @@ import { formatDollars } from '@/utils';
 
 import { CustomTooltipProps } from './tooltip.types';
 
-const CustomTooltip: FC<CustomTooltipProps> = ({ active, payload }) => {
+const CustomTooltip: FC<CustomTooltipProps> = ({
+  active,
+  payload,
+  inDollars,
+}) => {
   if (!(active && payload && payload.length)) return null;
 
   return (
@@ -15,18 +19,16 @@ const CustomTooltip: FC<CustomTooltipProps> = ({ active, payload }) => {
       bg="inverseSurface"
       boxShadow="0px 4px 4px rgba(0, 0, 0, 0.30)"
     >
-      {payload.map(({ value, dataKey }) => (
-        <Typography
-          variant="extraSmall"
-          color="inverseOnSurface"
-          key={`tooltip-${dataKey}`}
-        >
-          {formatDollars(value)}
-        </Typography>
+      {payload.map(({ value, dataKey, payload }) => (
+        <Box key={`tooltip-${dataKey}`}>
+          <Typography variant="extraSmall" color="inverseOnSurface">
+            {inDollars ? formatDollars(value) : value}
+          </Typography>
+          <Typography color="outline" variant="extraSmall">
+            {payload.label ?? payload.description}
+          </Typography>
+        </Box>
       ))}
-      <Typography color="outline" variant="extraSmall">
-        {payload[0].payload.description}
-      </Typography>
     </Box>
   );
 };

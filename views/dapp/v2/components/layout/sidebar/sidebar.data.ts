@@ -2,7 +2,7 @@ import { Network } from '@interest-protocol/sui-amm-sdk';
 
 import { BridgeSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
-import { DotsSVG, PoolSVG, SwapSVG } from '@/svg';
+import { DotsSVG, PoolSVG, SwapSVG, TrendUpSVG } from '@/svg';
 
 export const SIDEBAR_ITEMS = [
   {
@@ -16,6 +16,12 @@ export const SIDEBAR_ITEMS = [
     Icon: PoolSVG,
     name: 'earn',
     path: Routes[RoutesEnum.Earn],
+    networks: [Network.MAINNET, Network.TESTNET],
+  },
+  {
+    name: 'metrics',
+    Icon: TrendUpSVG,
+    path: Routes[RoutesEnum.Metrics],
     disabled: false,
     networks: [Network.MAINNET, Network.TESTNET],
   },

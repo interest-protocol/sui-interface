@@ -7,13 +7,20 @@ import {
   Pie,
   PieChart,
   ResponsiveContainer,
+  Tooltip,
 } from 'recharts';
 
 import { SEMANTIC_COLORS } from '@/constants';
 
+import CustomTooltip from '../tooltip';
 import { CircleChartProps } from './circle-chart.types';
 
-const CircleChart: FC<CircleChartProps> = ({ data, label, dataKey }) => {
+const CircleChart: FC<CircleChartProps> = ({
+  data,
+  label,
+  dataKey,
+  inDollars,
+}) => {
   const { dark } = useTheme() as Theme;
 
   const renderCustomLabel = ({ cx, cy }: any) => (
@@ -72,6 +79,7 @@ const CircleChart: FC<CircleChartProps> = ({ data, label, dataKey }) => {
             </Typography>
           )}
         />
+        <Tooltip content={<CustomTooltip inDollars={inDollars} />} />
       </PieChart>
     </ResponsiveContainer>
   );

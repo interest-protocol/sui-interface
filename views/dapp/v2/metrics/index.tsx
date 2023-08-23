@@ -4,16 +4,22 @@ import { FC } from 'react';
 
 import ActiveWallets from './active-wallets';
 import DailyVolume from './daily-volume';
-import TopCoinsTable from './tables/top-coins-table';
-import TopPoolsTable from './tables/top-pools-table';
 import TopInfoCards from './top-info-cards';
+import TopCoinsTable from './top-tables/top-coins-table';
+import TopPoolsTable from './top-tables/top-pools-table';
 import TotalLiquidity from './total-liquidity';
 import TVLPools from './tvl-pools';
 
 const Metrics: FC = () => {
   const t = useTranslations();
+
   return (
-    <Box width="100%" variant="container">
+    <Box
+      variant="container"
+      display="flex"
+      flexWrap="wrap"
+      justifyContent="space-between"
+    >
       <Box
         pb="l"
         width="100%"
@@ -21,7 +27,7 @@ const Metrics: FC = () => {
         borderBottom=".0625rem solid"
         borderColor="outline.outlineVariant"
       >
-        <Tabs items={[t('metrics.tabs.dex'), t('metrics.tabs.moneyMarket')]} />
+        <Tabs items={[t('metrics.tabs.dex')]} />
       </Box>
       <TopInfoCards />
       <TotalLiquidity />

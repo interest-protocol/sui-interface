@@ -13,7 +13,12 @@ import { BaseChartProps } from '../base-chart.types';
 import CustomTooltip from '../tooltip';
 import CustomXAxisTick from './x-axis-tick';
 
-const StepsChart: FC<BaseChartProps> = ({ data, dataKey, xAxis }) => {
+const StepsChart: FC<BaseChartProps> = ({
+  data,
+  xAxis,
+  dataKey,
+  inDollars,
+}) => {
   const { colors } = useTheme() as Theme;
 
   return (
@@ -33,19 +38,19 @@ const StepsChart: FC<BaseChartProps> = ({ data, dataKey, xAxis }) => {
           stroke={colors['outline.outlineVariant']}
         />
         <XAxis
-          tickCount={6}
-          type="category"
           tickMargin={2}
+          type="category"
+          minTickGap={15}
           dataKey={xAxis}
           tickLine={false}
           tick={<CustomXAxisTick />}
           interval="preserveStartEnd"
-          domain={['dataMin', 'dataMax']}
+          allowDuplicatedCategory={false}
         />
         <Tooltip
           animationDuration={600}
-          content={<CustomTooltip />}
           animationEasing="ease-in-out"
+          content={<CustomTooltip inDollars={inDollars} />}
           cursor={{
             strokeWidth: 0.5,
             strokeDasharray: '3 3',

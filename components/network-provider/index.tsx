@@ -2,6 +2,7 @@ import { Network } from '@interest-protocol/sui-amm-sdk';
 import { useRouter } from 'next/router';
 import { createContext, FC, useEffect, useState } from 'react';
 
+import { NETWORK_RESTRICTION } from '@/constants';
 import { useLocalStorage } from '@/hooks';
 import { noop } from '@/utils';
 
@@ -44,6 +45,18 @@ const NetworkProvider: FC<NetworkProviderProps> = ({ children }) => {
       setNetwork(Network.MAINNET);
 
     if (asPath.includes('/dapp/alpha') && network !== Network.TESTNET)
+      setNetwork(Network.TESTNET);
+
+    if (
+      NETWORK_RESTRICTION[Network.MAINNET].includes(asPath) &&
+      network !== Network.MAINNET
+    )
+      setNetwork(Network.MAINNET);
+
+    if (
+      NETWORK_RESTRICTION[Network.TESTNET].includes(asPath) &&
+      network !== Network.TESTNET
+    )
       setNetwork(Network.TESTNET);
   }, [network, asPath]);
 

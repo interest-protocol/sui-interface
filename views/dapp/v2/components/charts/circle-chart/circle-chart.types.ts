@@ -4,4 +4,4 @@ interface Props {
   label?: string;
 }
 
-export type CircleChartProps = Omit<BaseChartProps, 'xAxis'> & Props;
+export type CircleChartProps = BaseChartProps & Props;

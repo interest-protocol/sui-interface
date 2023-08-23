@@ -32,6 +32,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     commonMessages.default,
     earnCreateMessages.default
   );
+
   return {
     props: {
       messages,
