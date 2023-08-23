@@ -22,6 +22,7 @@
     "@mysten/sui.js": "^0.36.0",
     "@mysten/suins-toolkit": "^0.2.1",
     "@mysten/wallet-kit": "^0.4.10",
+    "@nightlylabs/wallet-selector-sui": "^0.1.5",
     "@pythnetwork/price-service-client": "^1.5.0",
     "@stylin.js/react": "^1.0.1",
     "@vercel/analytics": "^0.1.5",
