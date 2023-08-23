@@ -18,14 +18,17 @@ const WalletSuiProvider: FC<PropsWithChildren> = ({ children }) => (
   <WalletKitProvider
     adapters={[
       new WalletStandardAdapterProvider(),
-      new NightlyConnectSuiAdapter({
-        appMetadata: {
-          name: 'Interest Protocol',
-          description: 'AMM DEX on Sui. Swap your tokens!',
-          icon: '/android-chrome-256x256.png',
-          url: 'https://interestprotocol.com/',
+      NightlyConnectSuiAdapter.buildLazy(
+        {
+          appMetadata: {
+            name: 'NCTestSui',
+            description: 'Nightly Connect Test',
+            icon: 'https://docs.nightly.app/img/logo.png',
+            additionalInfo: 'Courtesy of Nightly Connect team',
+          },
         },
-      }) as unknown as WalletAdapter,
+        true
+      ) as unknown as WalletAdapter,
     ]}
   >
     {children}
