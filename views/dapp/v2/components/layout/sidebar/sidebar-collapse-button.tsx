@@ -1,12 +1,22 @@
-import { Box, Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
+import {
+  Box,
+  Motion,
+  Theme,
+  TooltipWrapper,
+  Typography,
+  useTheme,
+} from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { DoubleArrowSVG } from '@/components/svg/v2';
 import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 
+import Checkpoint from '../network-switch/checkpoint';
+import CheckpointNumber from '../network-switch/checkpoint-number';
 import { SidebarCollapseButtonProps } from './sidebar.types';
 
 const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
+  isOpen,
   isCollapsed,
   setIsCollapsed,
 }) => {
@@ -22,11 +32,28 @@ const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
   };
 
   return (
-    <Box my="m" display="flex" flexDirection="column">
+    <Motion
+      my="m"
+      display="flex"
+      overflow="hidden"
+      animation={isCollapsed ? '2.5rem' : 'auto'}
+      transition={{
+        duration: 0.5,
+      }}
+      variants={{
+        collapsed: { width: '2.5rem ' },
+        unCollapsed: { width: 'auto' },
+      }}
+      gap="m"
+      pb="s"
+      pt="m"
+    >
       <Box
-        width="2.5rem"
         display="flex"
+        width="2.5rem"
         height="2.5rem"
+        minWidth="2.5rem"
+        minHeight="2.5rem"
         borderRadius="m"
         cursor="pointer"
         color="onSurface"
@@ -39,6 +66,7 @@ const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
           transition: 'all 300ms ease-in-out',
           backgroundColor: `${colors.primary}14`,
         }}
+        position="relative"
       >
         <Motion
           display="flex"
@@ -52,8 +80,38 @@ const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
             maxHeight="0.625rem"
           />
         </Motion>
+        {isCollapsed && !isOpen && (
+          <Box
+            position="absolute"
+            mt="-0.5rem"
+            bottom="-0.3rem"
+            right="-0.3rem"
+          >
+            <TooltipWrapper
+              bg="inverseSurface"
+              width="max-content"
+              tooltipPosition="top"
+              tooltipContent={
+                <Typography
+                  variant="extraSmall"
+                  color="inverseOnSurface"
+                  textTransform="capitalize"
+                >
+                  <CheckpointNumber />
+                </Typography>
+              }
+            >
+              <Checkpoint withoutInfo />
+            </TooltipWrapper>
+          </Box>
+        )}
       </Box>
-    </Box>
+      {(!isCollapsed || isOpen) && (
+        <Box mx="auto">
+          <Checkpoint />
+        </Box>
+      )}
+    </Motion>
   );
 };
 

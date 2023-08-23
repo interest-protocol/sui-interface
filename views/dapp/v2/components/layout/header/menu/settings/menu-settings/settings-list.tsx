@@ -12,6 +12,7 @@ import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 
+import { NETWORK_RESTRICTION } from '@/constants';
 import { FLAG_ICON_MAP } from '@/constants/locale';
 import { useLocale, useNetwork } from '@/hooks';
 import { AppTheme } from '@/interface';
@@ -83,6 +84,7 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ openLanguageMenu }) => {
             name="network"
             size="medium"
             disabled={
+              NETWORK_RESTRICTION[network].includes(asPath) ||
               !(
                 asPath.includes('dapp/alpha') ||
                 process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'

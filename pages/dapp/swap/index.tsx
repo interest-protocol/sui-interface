@@ -3,10 +3,11 @@ import dynamic from 'next/dynamic';
 import { mergeAll } from 'ramda';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useReadLocalStorage } from 'usehooks-ts';
 import { Layout } from 'views/dapp/v2/components';
 
 import { LoadingPage, SEO } from '@/components';
-import { useLocalStorage } from '@/hooks';
+import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 import { NextPageWithProps } from '@/interface';
 import { TokenModalMetadata } from '@/interface';
 import Swap from '@/views/dapp/v2/swap';
@@ -25,10 +26,15 @@ const SwapPage: NextPageWithProps = ({ pageTitle }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchedToken] = useState<null | TokenModalMetadata>(null);
 
-  const [localSettings, setLocalSettings] = useLocalStorage<LocalSwapSettings>(
-    'sui-interest-swap-settings',
-    { slippage: '1', deadline: '30', autoFetch: true }
-  );
+  const localSettings = useReadLocalStorage<LocalSwapSettings>(
+    `${LOCAL_STORAGE_VERSION}-sui-interest-swap-settings`
+  ) ?? { slippage: '1', deadline: '30', autoFetch: true };
+
+  const setLocalSettings = (settings: LocalSwapSettings) =>
+    window.localStorage.setItem(
+      `${LOCAL_STORAGE_VERSION}-sui-interest-swap-settings`,
+      JSON.stringify(settings)
+    );
 
   const formSwap = useForm<SwapForm>();
 
