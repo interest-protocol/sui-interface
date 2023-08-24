@@ -7,7 +7,8 @@ import useEventListener from '@/hooks/use-event-listener';
 
 import Footer from './footer';
 import Header from './header';
-import Settings from './header/menu/settings';
+import NetworkOptions from './header/menu/network-options';
+// import Settings from './header/menu/settings';
 import { LayoutProps } from './layout.types';
 import Sidebar from './sidebar';
 import Wallet from './wallet';
@@ -19,6 +20,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
 }) => {
   const [isDesktop, setIsDesktop] = useState(false);
   const { colors, radii, breakpoints } = useTheme() as Theme;
+
   const handleSetDesktopView = () =>
     setIsDesktop(window.matchMedia(`(min-width: ${breakpoints[2]})`).matches);
 
@@ -66,8 +68,8 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
                 alignItems="center"
                 justifyContent="space-between"
               >
+                <NetworkOptions />
                 <Wallet />
-                <Settings />
               </Box>
             </Box>
             {children}

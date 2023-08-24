@@ -5,7 +5,6 @@ import { FC, useEffect } from 'react';
 import { useModal } from '@/hooks';
 
 import { ConnectWalletProps } from './connect-wallet.types';
-import IllustrationSection from './illustration/illustration-section';
 import WalletList from './wallet';
 import WalletConnectConfirmModal from './wallet/modal/confirm';
 import WalletConnectFailModal from './wallet/modal/fail';
@@ -67,10 +66,10 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
   return (
     <Box
       top="0"
-      left="0"
+      right="0"
       zIndex="5"
-      color="text"
-      width="100vw"
+      color="onSurface"
+      width="20rem"
       height="100vh"
       position="fixed"
       background="surface"
@@ -81,7 +80,7 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
           setOpenWallet={setOpenConnectWallet}
           openWalletModal={openWalletModal}
         />
-        <IllustrationSection setOpenWallet={setOpenConnectWallet} />
+        {/* <IllustrationSection setOpenWallet={setOpenConnectWallet} /> */}
       </Box>
     </Box>
   );

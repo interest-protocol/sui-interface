@@ -81,7 +81,7 @@
       },
       "connectWallet": {
         "metadata": {
-          "title": "Conectar Cartera"
+          "title": "Conectar"
         },
         "title": "Elegir la cartera",
         "subtitle": "Conecta tu monedero de forma segura para comenzar tu viaje Web3",

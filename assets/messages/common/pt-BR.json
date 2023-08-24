@@ -49,7 +49,7 @@
       "wallet": {
         "name": "carteira",
         "activity": "atividade",
-        "connect": "conectar carteira",
+        "connect": "conectar",
         "disconnect": "desconectar",
         "assets": "ativos",
         "switch": "trocar conta",

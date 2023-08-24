@@ -49,14 +49,15 @@ const WalletListSection: FC<WalletListSectionProps> = ({
 
   return (
     <Box
-      color="text"
+      color="onSurface"
+      width="100%"
       height="100vh"
       overflowY="auto"
       maxHeight="100vh"
-      borderTopRightRadius={[0, 0, 0, 32]}
-      background={lightTheme.colors.surface}
-      borderBottomRightRadius={[0, 0, 0, 32]}
-      width={['100%', '100%', '100%', '50%']}
+      background="surface"
+      borderLeft="1px solid"
+      onClick={() => setOpenWallet(false)}
+      borderLeftColor="outline.outlineVariant"
     >
       <Box
         display="flex"
@@ -88,7 +89,7 @@ const WalletListSection: FC<WalletListSectionProps> = ({
                 justifyContent="center"
                 animate={menuVariants.open}
                 initial={menuVariants.closed}
-                color={['black', 'black', 'black', 'white']}
+                color="onSurface"
                 display={['flex', 'flex', 'flex', 'none']}
                 borderColor={darkTheme.colors['outline.outlineVariant']}
                 cursor="pointer"
@@ -102,18 +103,11 @@ const WalletListSection: FC<WalletListSectionProps> = ({
                 />
               </Motion>
               <Typography
-                variant="displaySmall"
-                fontSize={['5xl', '5xl', '5xl', '7xl']}
-                color="black"
+                variant="medium"
+                textTransform="uppercase"
+                color="onSurface"
               >
                 {t('common.v2.connectWallet.title')}
-              </Typography>
-              <Typography
-                variant="small"
-                color="black"
-                mb={['2xl', '2xl', '2xl', '3.5rem']}
-              >
-                {t('common.v2.connectWallet.subtitle')}
               </Typography>
               <Box>
                 {mixedWallets.map(
