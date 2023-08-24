@@ -12,7 +12,7 @@ const NIGHTLY_DATA = {
     name: 'Interest Protocol',
     description: 'Swap, lend and borrow on Sui Network',
     icon: 'https://www.interestprotocol.com/android-chrome-256x256.png',
-    additionalInfo: 'Courtesy of Interest Labs',
+    additionalInfo: 'Courtesy of the Nightly Connect team',
   },
 };
 
