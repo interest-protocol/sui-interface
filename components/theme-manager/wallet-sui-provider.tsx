@@ -7,19 +7,21 @@ import { FC, PropsWithChildren } from 'react';
 
 import LoadingPage from '../loading-page';
 
+const NIGHTLY_DATA = {
+  appMetadata: {
+    name: 'NCSui',
+    description: 'Nightly Connect',
+    icon: 'https://docs.nightly.app/img/logo.png',
+    additionalInfo: 'Courtesy of Nightly Connect team',
+  },
+};
+
 const WalletSuiProvider: FC<PropsWithChildren> = ({ children }) => (
   <WalletKitProvider
     adapters={[
       new WalletStandardAdapterProvider(),
       NightlyConnectSuiAdapter.buildLazy(
-        {
-          appMetadata: {
-            name: 'NCTestSui',
-            description: 'Nightly Connect Test',
-            icon: 'https://docs.nightly.app/img/logo.png',
-            additionalInfo: 'Courtesy of Nightly Connect team',
-          },
-        },
+        NIGHTLY_DATA,
         true
       ) as unknown as WalletAdapter,
     ]}
