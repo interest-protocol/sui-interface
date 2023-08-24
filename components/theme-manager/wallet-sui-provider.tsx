@@ -9,10 +9,10 @@ import LoadingPage from '../loading-page';
 
 const NIGHTLY_DATA = {
   appMetadata: {
-    name: 'NCSui',
-    description: 'Nightly Connect',
-    icon: 'https://docs.nightly.app/img/logo.png',
-    additionalInfo: 'Courtesy of Nightly Connect team',
+    name: 'Interest Protocol',
+    description: 'Swap, lend and borrow on Sui Network',
+    icon: 'https://www.interestprotocol.com/android-chrome-256x256.png',
+    additionalInfo: 'Courtesy of Interest Labs',
   },
 };
 
