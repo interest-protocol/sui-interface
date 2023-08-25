@@ -69,6 +69,87 @@ const getMetrics = (
     }
   );
 
+export const getTVL = (TZ: string): Promise<[number, number]> =>
+  getMetrics(
+    [
+      {
+        metricsQuery: {
+          query: 'tvl_by_pool',
+          alias: '',
+          id: 'a',
+          labelSelector: {},
+          aggregate: {
+            op: 'SUM',
+            grouping: [],
+          },
+          functions: [],
+          disabled: false,
+        },
+        dataSource: 'METRICS',
+        sourceName: '',
+      },
+    ],
+    TZ
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      const samples: Array<any> = Array.from(
+        data.results[0].matrix.samples.values()
+      );
+
+      const values = samples[0].values
+        .reverse()
+        .slice(0, 2)
+        .map(({ value }: { value: number }) => value);
+
+      return values;
+    });
+
+export const getDailyTradingVolume = (TZ: string): Promise<number> =>
+  getMetrics(
+    [
+      {
+        metricsQuery: {
+          query: 'vol_sum',
+          alias: '',
+          id: 'd',
+          labelSelector: {},
+          aggregate: {
+            op: 'SUM',
+            grouping: [],
+          },
+          functions: [
+            {
+              name: 'sum_over_time',
+              arguments: [
+                {
+                  durationValue: {
+                    value: 1,
+                    unit: 'd',
+                  },
+                },
+              ],
+            },
+          ],
+          disabled: false,
+        },
+        dataSource: 'METRICS',
+        sourceName: '',
+      },
+    ],
+    TZ
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      const samples: Array<any> = Array.from(
+        data.results[0].matrix.samples.values()
+      );
+
+      const value = samples[0].values.reverse()[0].value;
+
+      return value;
+    });
+
 export const getOverview = (TZ: string): Promise<ReadonlyArray<number>> =>
   getMetrics(
     [
@@ -689,6 +770,8 @@ export const getTopCoins = (TZ: string): Promise<CoinReturn> =>
     );
 
 type TMetricEndpoints =
+  | 'get-tvl'
+  | 'get-daily-trading-volume'
   | 'get-overview'
   | 'get-daily-volume'
   | 'get-top-coins'

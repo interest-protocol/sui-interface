@@ -1,7 +1,7 @@
 import { Box, Button, Tabs, TextField } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 import { SearchSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
@@ -25,10 +25,6 @@ const EarnHeader: FC<EarnHeaderProps> = ({ isPool, handleTab }) => {
       opaque: false,
       allowClose: true,
     });
-
-  useEffect(() => {
-    console.log('>> rerender ');
-  }, []);
 
   return (
     <Box

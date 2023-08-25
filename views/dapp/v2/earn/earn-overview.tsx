@@ -19,7 +19,7 @@ const EarnOverview: FC = () => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
 
-  const [data, setData] = useState<[number, number]>([0, 0]);
+  const [data, setData] = useState<[[number, number], number]>([[0, 0], 0]);
 
   useEffect(() => {
     Promise.all([
@@ -38,7 +38,9 @@ const EarnOverview: FC = () => {
           gridTemplateColumns="repeat(4, 1fr)"
         >
           <InfoCard
-            info={<TVLCardInfo value={0.45} />}
+            info={
+              <TVLCardInfo value={(data[0][0] - data[0][1] - 1) / data[0][0]} />
+            }
             title={
               <Box as="span" display="flex" alignItems="center" gap="m">
                 <Box
@@ -62,7 +64,7 @@ const EarnOverview: FC = () => {
               </Box>
             }
           >
-            {formatDollars(data[0] ?? 0)}
+            {formatDollars(data[0][0] ?? 0)}
           </InfoCard>
           <InfoCard
             info={
