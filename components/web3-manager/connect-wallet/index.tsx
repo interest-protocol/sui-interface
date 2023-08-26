@@ -1,4 +1,4 @@
-import { Box, darkTheme } from '@interest-protocol/ui-kit';
+import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { FC, useEffect } from 'react';
 
@@ -16,6 +16,7 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
 }) => {
   const { isConnected, currentWallet, isError } = useWalletKit();
   const { setModal, handleClose } = useModal();
+  const { colors } = useTheme() as Theme;
 
   const openModalConnected = () => {
     setModal(
@@ -68,19 +69,18 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
       top="0"
       right="0"
       zIndex="5"
-      color="onSurface"
-      width="20rem"
       height="100vh"
       position="fixed"
+      color="onSurface"
       background="surface"
+      width={['100%', '100%', '100%', '25rem']}
       display={!openConnectWallet ? 'none' : 'block'}
     >
-      <Box display="flex" background={darkTheme.colors.surface}>
+      <Box display="flex" background={colors.surface}>
         <WalletList
           setOpenWallet={setOpenConnectWallet}
           openWalletModal={openWalletModal}
         />
-        {/* <IllustrationSection setOpenWallet={setOpenConnectWallet} /> */}
       </Box>
     </Box>
   );

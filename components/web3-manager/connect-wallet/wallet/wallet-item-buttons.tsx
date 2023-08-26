@@ -1,33 +1,31 @@
 import {
   Box,
   Button,
-  darkTheme,
-  lightTheme,
+  Theme,
   TooltipWrapper,
   Typography,
+  useTheme,
 } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { DownloadSVG, LoginSVG } from '@/components/svg/v2';
+import { DownloadSVG } from '@/components/svg/v2';
 
 import { WalletItemButtonProps } from '../connect-wallet.types';
 
-const WalletItemButtons: FC<WalletItemButtonProps> = ({
-  installLink,
-  handleConnect,
-}) => {
+const WalletItemButtons: FC<WalletItemButtonProps> = ({ installLink }) => {
   const t = useTranslations();
+  const { colors } = useTheme() as Theme;
 
   return (
     <TooltipWrapper
-      bg={darkTheme.colors['surface']}
+      bg={colors['surface']}
       tooltipPosition="top"
       width="max-content"
       tooltipContent={
         <Typography
           variant="extraSmall"
-          color={darkTheme.colors['onSurface']}
+          color={colors['onSurface']}
           textTransform="capitalize"
         >
           {t(
@@ -42,38 +40,19 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({
         p="0.25rem"
         height="3rem"
         display="flex"
-        border="1px solid"
         alignItems="center"
         className="showButton"
         borderRadius="0.5rem"
         justifyContent="space-between"
         transition="display 250ms ease-in-out"
-        borderColor={lightTheme.colors['outline.outlineVariant']}
+        border={installLink ? '1px solid' : 'none'}
+        borderColor={colors['outline.outlineVariant']}
       >
-        {!installLink ? (
+        {installLink && (
           <Button
             variant="icon"
             nHover={{
-              backgroundColor: lightTheme.colors['surface.container'],
-            }}
-            color="#000"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleConnect();
-            }}
-          >
-            <LoginSVG
-              maxHeight="2.5rem"
-              maxWidth="2.5rem"
-              height="100%"
-              width="100%"
-            />
-          </Button>
-        ) : (
-          <Button
-            variant="icon"
-            nHover={{
-              backgroundColor: lightTheme.colors['surface.container'],
+              backgroundColor: colors['surface.container'],
             }}
             color="#000"
           >

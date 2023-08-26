@@ -46,30 +46,30 @@ const MenuProfile: FC<MenuProfileProps> = ({
   return (
     <Motion
       right="0"
-      top={['0', '0', '0', '3rem']}
-      overflow="auto"
       zIndex={1}
+      display="flex"
+      overflow="auto"
       initial="closed"
       borderRadius="unset"
-      position={['fixed', 'fixed', 'fixed', 'absolute']}
-      bg="surface.container"
-      variants={wrapperVariants}
-      animate={isOpen ? 'open' : 'closed'}
-      pointerEvents={isOpen ? 'auto' : 'none'}
-      textTransform="capitalize"
-      width={['100vw', '100vw', '100vw', '14.5rem']}
-      height={['100vh', '100vh', '100vh', 'unset']}
-      p={['xl', 'xl', 'xl', 'unset']}
-      pb={['7rem', '7rem', '7rem', 'unset']}
-      display="flex"
       flexDirection="column"
+      bg="surface.container"
+      textTransform="capitalize"
+      variants={wrapperVariants}
+      top={['0', '0', '0', '3rem']}
       justifyContent="space-between"
+      p={['xl', 'xl', 'xl', 'unset']}
+      animate={isOpen ? 'open' : 'closed'}
+      pb={['7rem', '7rem', '7rem', 'unset']}
+      pointerEvents={isOpen ? 'auto' : 'none'}
+      height={['100vh', '100vh', '100vh', 'unset']}
+      width={['100vw', '100vw', '100vw', '14.5rem']}
+      position={['fixed', 'fixed', 'fixed', 'absolute']}
     >
       <Box display="flex" flexDirection="column" justifyContent="space-between">
         <Box
-          display={['flex', 'flex', 'flex', 'none']}
-          flexDirection="row-reverse"
           py="l"
+          flexDirection="row-reverse"
+          display={['flex', 'flex', 'flex', 'none']}
         >
           <MenuButton isOpen={true} handleClose={handleCloseProfile} />
         </Box>
