@@ -73,7 +73,7 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
       position="fixed"
       color="onSurface"
       background="surface"
-      width={['100%', '100%', '100%', '25rem']}
+      width={['100%', '100%', '100%', '22rem']}
       display={!openConnectWallet ? 'none' : 'block'}
     >
       <Box display="flex" background={colors.surface}>

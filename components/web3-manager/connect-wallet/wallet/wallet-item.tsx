@@ -24,15 +24,15 @@ const WalletItem: FC<WalletItemProps> = ({
 
   return (
     <Box
-      p="xl"
+      p="xs"
       display="flex"
       borderRadius="m"
       cursor="pointer"
       alignItems="center"
       onClick={handleConnect}
+      bg="surface.containerLow"
       justifyContent="space-between"
       transition="background 250ms ease-in-out"
-      bg="surface.containerLow"
       nHover={{
         backgroundColor: colors['surface.containerHigh'],
         '& .showButton': {

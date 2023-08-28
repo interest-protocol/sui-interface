@@ -50,11 +50,11 @@ const NetworkOptions: FC = () => {
         <Button
           size="small"
           display="flex"
-          justifyContent="space-between"
           variant="filled"
           color="onSurface"
           borderRadius="full"
           bg="surface.container"
+          justifyContent="space-between"
           onClick={() => setIsOptionsOpen(!isOptionsOpen)}
         >
           <Box
