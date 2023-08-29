@@ -15,13 +15,15 @@ import { FC, useState } from 'react';
 import { FLAG_ICON_MAP } from '@/constants/locale';
 import { useLocale, useNetwork } from '@/hooks';
 import { AppTheme } from '@/interface';
+import { ArrowLeft } from '@/svg';
 import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../menu-item-wrapper';
-import { MenuSettingsListProps } from '../menu.types';
+import { MenuSettingsListProps } from './settings-list.types';
+// import { MenuSettingsListProps } from '../menu.types';
 import MenuSettingsListHeaderMobile from './settings-list-header-mobile';
 
-const MenuSettingsList: FC<MenuSettingsListProps> = ({ openLanguageMenu }) => {
+const MenuSettingsList: FC<MenuSettingsListProps> = ({ setSettingsClosed }) => {
   const t = useTranslations();
 
   const { dark, setDark } = useTheme() as AppTheme<Theme>;
@@ -45,11 +47,24 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ openLanguageMenu }) => {
       <Box
         p="xl"
         mt="2xs"
-        borderTop={['1px solid', '1px solid', '1px solid', 'unset']}
         borderTopColor="outline.outlineVariant"
         display={['none', 'none', 'none', 'flex']}
+        borderTop={['1px solid', '1px solid', '1px solid', 'unset']}
       >
-        <Typography variant="small" color="onSurface">
+        <Box cursor="pointer">
+          <ArrowLeft
+            width="100%"
+            maxWidth="1.25rem"
+            maxHeight="1.25rem"
+            onClick={setSettingsClosed}
+          />
+        </Box>
+        <Typography
+          variant="small"
+          color="onSurface"
+          textAlign="center"
+          mx="auto"
+        >
           {capitalize(t('common.v2.menu.settings'))}
         </Typography>
       </Box>
@@ -94,7 +109,7 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ openLanguageMenu }) => {
             )}
           />
         </MenuItemWrapper>
-        <MenuItemWrapper onClick={openLanguageMenu}>
+        <MenuItemWrapper>
           <Typography variant="small">
             {t('common.v2.menu.languages')}
           </Typography>

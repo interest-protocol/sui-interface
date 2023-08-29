@@ -20,10 +20,7 @@ import WalletItem from './wallet-item';
 //     scaleY: 0,
 //   },
 // };
-const WalletListSection: FC<WalletListSectionProps> = ({
-  setOpenWallet,
-  openWalletModal,
-}) => {
+const WalletListSection: FC<WalletListSectionProps> = ({ openWalletModal }) => {
   const t = useTranslations();
   const { wallets } = useWalletKit();
 
@@ -51,7 +48,6 @@ const WalletListSection: FC<WalletListSectionProps> = ({
       maxHeight="100vh"
       background="surface"
       borderLeft="1px solid"
-      onClick={() => setOpenWallet(false)}
       borderLeftColor="outline.outlineVariant"
     >
       <Box
@@ -67,35 +63,7 @@ const WalletListSection: FC<WalletListSectionProps> = ({
             flexDirection="column"
             justifyContent="space-between"
           >
-            <Box
-              width="100%"
-              // px={['unset', 'unset', 'unset', '15%']}
-              // pt={['0rem', '0rem', '0rem', '8.125rem']}
-            >
-              {/* <Motion
-                p=".8rem"
-                as="span"
-                cursor="pointer"
-                color="onSurface"
-                border="1px solid"
-                borderRadius="50%"
-                width="fit-content"
-                alignItems="center"
-                justifyContent="center"
-                animate={menuVariants.open}
-                margin="1.5rem 0 1.5rem auto"
-                initial={menuVariants.closed}
-                onClick={() => setOpenWallet(false)}
-                display={['flex', 'flex', 'flex', 'none']}
-                borderColor={darkTheme.colors['outline.outlineVariant']}
-              >
-                <TimesSVG
-                  width="100%"
-                  height="100%"
-                  maxWidth=".9rem"
-                  maxHeight=".9rem"
-                />
-              </Motion> */}
+            <Box width="100%">
               <Box
                 mb="4xl"
                 display="flex"
@@ -129,39 +97,6 @@ const WalletListSection: FC<WalletListSectionProps> = ({
           </Box>
         </Box>
       </Box>
-      {/* <Box
-        mt="xl"
-        p="3xl"
-        bg={lightTheme.colors['surface.container']}
-        borderBottomRightRadius={[0, 0, 0, 32]}
-      >
-        <Typography variant="extraSmall" textAlign="center">
-          {t.rich('common.v2.connectWallet.footer', {
-            termsAndService: (chunks: ReactNode) => (
-              <a href="/" target="_blank" rel="noopener noreferrer">
-                <Typography
-                  variant="extraSmall"
-                  as="span"
-                  color={lightTheme.colors.primary}
-                >
-                  {chunks}
-                </Typography>
-              </a>
-            ),
-            privacyPolicy: (chunks: ReactNode) => (
-              <a href="/" target="_blank" rel="noopener noreferrer">
-                <Typography
-                  variant="extraSmall"
-                  as="span"
-                  color={lightTheme.colors.primary}
-                >
-                  {chunks}
-                </Typography>
-              </a>
-            ),
-          })}
-        </Typography>
-      </Box> */}
     </Box>
   );
 };

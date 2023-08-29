@@ -1,14 +1,16 @@
-import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
+import { Box, Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { FC, useEffect } from 'react';
 
 import { useModal } from '@/hooks';
 
 import { ConnectWalletProps } from './connect-wallet.types';
+import RightSidebarFooter from './footer';
 import WalletList from './wallet';
 import WalletConnectConfirmModal from './wallet/modal/confirm';
 import WalletConnectFailModal from './wallet/modal/fail';
 import WalletConnectLoadingModal from './wallet/modal/loading';
+import { RightMenuVariants } from './wallet/wallet-variants';
 
 const ConnectWallet: FC<ConnectWalletProps> = ({
   openConnectWallet,
@@ -65,15 +67,18 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
   }, [isConnected, isError, openConnectWallet]);
 
   return (
-    <Box
+    <Motion
       top="0"
       right="0"
       zIndex="5"
       height="100vh"
       position="fixed"
+      initial="closed"
       color="onSurface"
       background="surface"
+      variants={RightMenuVariants}
       width={['100%', '100%', '100%', '22rem']}
+      animate={openConnectWallet ? 'open' : 'closed'}
       display={!openConnectWallet ? 'none' : 'block'}
     >
       <Box display="flex" background={colors.surface}>
@@ -82,7 +87,11 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
           openWalletModal={openWalletModal}
         />
       </Box>
-    </Box>
+      <RightSidebarFooter
+        isOpen={openConnectWallet}
+        setIsOpen={setOpenConnectWallet}
+      />
+    </Motion>
   );
 };
 

@@ -5,10 +5,10 @@ import { SVGProps } from '@/components/svg/svg.types';
 export interface MenuProfileProps {
   isOpen: boolean;
   loading: boolean;
-  handleOpenSwitch: () => void;
+  handleOpenSwitch?: () => void;
   suiNSRecord: Record<string, string>;
   avatarUrlRecord: Record<string, string>;
-  handleCloseProfile: () => void;
+  handleCloseProfile?: () => void;
 }
 
 export interface ProfileMenuItemProps {

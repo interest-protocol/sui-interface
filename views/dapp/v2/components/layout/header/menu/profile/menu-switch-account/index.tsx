@@ -53,20 +53,20 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
   return (
     <Motion
       right="0"
-      top={['0', '0', '0', '3rem']}
-      overflow="visible"
       zIndex={1}
       initial="closed"
       borderRadius="m"
-      position={['fixed', 'fixed', 'fixed', 'absolute']}
+      overflow="visible"
       bg="surface.container"
       variants={wrapperVariants}
+      textTransform="capitalize"
+      top={['0', '0', '0', '3rem']}
+      p={['xl', 'xl', 'xl', 'unset']}
       animate={isOpen ? 'open' : 'closed'}
       pointerEvents={isOpen ? 'auto' : 'none'}
-      textTransform="capitalize"
-      width={['100vw', '100vw', '100vw', '14.5rem']}
       height={['100vh', '100vh', '100vh', 'unset']}
-      p={['xl', 'xl', 'xl', 'unset']}
+      width={['100vw', '100vw', '100vw', '100%']}
+      position={['fixed', 'fixed', 'fixed', 'absolute']}
     >
       <MenuSwitchAccountHeader
         handleCloseProfile={handleCloseProfile}
@@ -88,26 +88,26 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
             {walletAccount.address === account && (
               <Box
                 width="1rem"
-                height="1rem"
-                borderRadius="50%"
                 display="flex"
+                height="1rem"
+                color="success"
+                borderRadius="50%"
+                border="1px solid"
                 alignItems="center"
                 justifyContent="center"
-                border="1px solid"
                 borderColor="success"
-                color="success"
               >
                 <CheckmarkSVG
-                  maxHeight="0.438rem"
-                  maxWidth="0.438rem"
                   width="100%"
+                  maxWidth="0.438rem"
+                  maxHeight="0.438rem"
                 />
               </Box>
             )}
             <Box
+              display="flex"
               width="1.5rem"
               height="1.5rem"
-              display="flex"
               overflow="hidden"
               borderRadius="50%"
               alignItems="center"

@@ -27,3 +27,8 @@ export interface IllustrationProps {
 export interface WalletListSectionProps extends IllustrationProps {
   openWalletModal: (walletName: string) => void;
 }
+
+export interface RightSidebarCloseButtonProps {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
