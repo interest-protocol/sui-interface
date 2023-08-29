@@ -21,12 +21,12 @@ const Menu: FC = () => {
     setIsLanguage(false);
   };
 
-  const openLanguageMenu = () => {
-    const url = new URL(window.location.href);
-    url.searchParams.set('language', 'true');
-    window.history.pushState('', '', url.toString());
-    setIsLanguage(true);
-  };
+  // const openLanguageMenu = () => {
+  //   const url = new URL(window.location.href);
+  //   url.searchParams.set('language', 'true');
+  //   window.history.pushState('', '', url.toString());
+  //   setIsLanguage(true);
+  // };
 
   const handleOpen = () => {
     const url = new URL(window.location.href);
@@ -89,7 +89,7 @@ const Menu: FC = () => {
       <MenuMobile
         isOpen={isOpen}
         isLanguage={isLanguage}
-        openLanguageMenu={openLanguageMenu}
+        /*openLanguageMenu={openLanguageMenu}*/
       />
     </Box>
   );
