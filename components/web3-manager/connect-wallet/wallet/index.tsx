@@ -10,16 +10,6 @@ import { IWalletItem, WalletListSectionProps } from '../connect-wallet.types';
 import { DEFAULT_WALLETS, WALLET_NAME_MAP } from './wallet.data';
 import WalletItem from './wallet-item';
 
-// const menuVariants = {
-//   open: {
-//     rotate: '0deg',
-//     scaleY: 1,
-//   },
-//   closed: {
-//     rotate: '180deg',
-//     scaleY: 0,
-//   },
-// };
 const WalletListSection: FC<WalletListSectionProps> = ({ openWalletModal }) => {
   const t = useTranslations();
   const { wallets } = useWalletKit();

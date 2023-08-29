@@ -6,7 +6,6 @@ import { FC, useState } from 'react';
 import Wallet from '../../wallet';
 import MenuBackButton from './menu-back-button';
 import MenuButton from './menu-button';
-import MenuMobile from './menu-mobile';
 
 const Menu: FC = () => {
   const t = useTranslations();
@@ -20,13 +19,6 @@ const Menu: FC = () => {
     window.history.pushState('', '', url.toString());
     setIsLanguage(false);
   };
-
-  // const openLanguageMenu = () => {
-  //   const url = new URL(window.location.href);
-  //   url.searchParams.set('language', 'true');
-  //   window.history.pushState('', '', url.toString());
-  //   setIsLanguage(true);
-  // };
 
   const handleOpen = () => {
     const url = new URL(window.location.href);
@@ -86,11 +78,6 @@ const Menu: FC = () => {
           showButton={isOpen && isLanguage}
         />
       </Box>
-      <MenuMobile
-        isOpen={isOpen}
-        isLanguage={isLanguage}
-        /*openLanguageMenu={openLanguageMenu}*/
-      />
     </Box>
   );
 };

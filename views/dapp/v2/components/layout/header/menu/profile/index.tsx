@@ -1,4 +1,3 @@
-// import { Box, Motion, Typography } from '@interest-protocol/ui-kit';
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useRouter } from 'next/router';
@@ -6,15 +5,11 @@ import { pathOr, prop } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 
 import { UserSVG } from '@/components/svg/v2';
-// import RightSidebarFooter from '@/components/web3-manager/connect-wallet/footer';
-// import { RightMenuVariants } from '@/components/web3-manager/connect-wallet/wallet/wallet-variants';
 import RefBox from '@/elements/ref-box';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
-import useClickOutsideListenerRef from '@/hooks/use-click-outside-listener-ref';
 import { noop } from '@/utils';
 
 import MenuProfile from './menu-profile';
-// import MenuSwitchAccount from './menu-switch-account';
 import { getName } from './profile.utils';
 
 const BOX_ID = 'wallet-box';
@@ -26,6 +21,7 @@ const Profile: FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isOpenAccount, setIsOpenAccount] = useState(Boolean(query.account));
   const [isOpen, setIsOpen] = useState(false);
+  const [isSwitchAccountOpen, setIsSwitchAccountOpen] = useState(false);
 
   const { account } = useWeb3();
   const { network } = useNetwork();
@@ -93,27 +89,6 @@ const Profile: FC = () => {
     }
   }, [account, network, suiNSRecord]);
 
-  const closeDropdown = (event: any) => {
-    if (
-      event?.path?.some((node: any) => node?.id == BOX_ID) ||
-      event?.composedPath()?.some((node: any) => node?.id == BOX_ID)
-    )
-      return;
-
-    handleCloseProfile();
-  };
-
-  const connectedBoxRef =
-    useClickOutsideListenerRef<HTMLDivElement>(closeDropdown);
-
-  const handleOpenProfile = () => {
-    handleCloseAccount();
-    const url = new URL(window.location.href);
-    url.searchParams.set('profile', 'true');
-    window.history.pushState('', '', url.toString());
-    setIsOpenProfile(true);
-  };
-
   const handleCloseProfile = () => {
     handleCloseAccount();
     const url = new URL(window.location.href);
@@ -122,19 +97,25 @@ const Profile: FC = () => {
     setIsOpenProfile(false);
   };
 
-  // const handleOpenAccount = () => {
-  //   handleCloseProfile();
-  //   const url = new URL(window.location.href);
-  //   url.searchParams.set('account', 'true');
-  //   window.history.pushState('', '', url.toString());
-  //   setIsOpenAccount(true);
-  // };
-
   const handleCloseAccount = () => {
     const url = new URL(window.location.href);
     url.searchParams.delete('account');
     window.history.pushState('', '', url.toString());
     setIsOpenAccount(false);
+  };
+
+  const handleOpenSwitchAccount = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('accounts-menu', 'true');
+    window.history.pushState('', '', url.toString());
+    setIsSwitchAccountOpen(true);
+  };
+
+  const handleCloseSwitchAccount = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('accounts-menu', 'false');
+    window.history.pushState('', '', url.toString());
+    setIsSwitchAccountOpen(false);
   };
 
   return (
@@ -143,7 +124,6 @@ const Profile: FC = () => {
         id={BOX_ID}
         display="flex"
         cursor="pointer"
-        ref={connectedBoxRef}
         flexDirection="column"
         justifyContent="center"
         ml={['0.5rem', '0.5rem', '0.5rem', 'unset']}
@@ -189,10 +169,12 @@ const Profile: FC = () => {
         isOpen={isOpen}
         loading={loading}
         setIsOpen={setIsOpen}
-        onBack={handleOpenProfile}
         suiNSRecord={suiNSRecord}
         avatarUrlRecord={avatarUrlRecord}
         handleCloseProfile={handleCloseProfile}
+        isSwitchAccountOpen={isSwitchAccountOpen}
+        handleOpenSwitchAccount={handleOpenSwitchAccount}
+        handleCloseSwitchAccount={handleCloseSwitchAccount}
       />
     </>
   );

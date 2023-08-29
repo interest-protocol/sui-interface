@@ -11,13 +11,15 @@ import UserInfo from './user-info';
 const MenuProfile: FC<
   MenuSwitchAccountProps & RightSidebarCloseButtonProps
 > = ({
-  avatarUrlRecord,
-  handleCloseProfile,
   isOpen,
   loading,
-  onBack,
   setIsOpen,
   suiNSRecord,
+  avatarUrlRecord,
+  handleCloseProfile,
+  isSwitchAccountOpen,
+  handleOpenSwitchAccount,
+  handleCloseSwitchAccount,
 }) => {
   return (
     <Motion
@@ -25,29 +27,33 @@ const MenuProfile: FC<
       right="0"
       zIndex="6"
       bg="surface"
+      width="100%"
       display="flex"
       height="100vh"
       initial="closed"
       overflow="hidden"
       flexDirection="column"
+      borderLeft="1px solid"
       textTransform="capitalize"
       variants={RightMenuVariants}
       justifyContent="space-between"
       p={['xl', 'xl', 'xl', 'unset']}
       animate={isOpen ? 'open' : 'closed'}
       pb={['7rem', '7rem', '7rem', 'unset']}
-      width={['100vw', '100vw', '100vw', '22rem']}
+      borderLeftColor="outline.outlineVariant"
+      maxWidth={['100%', '100%', '100%', '22rem']}
       position={['fixed', 'fixed', 'fixed', 'absolute']}
     >
       <Box display="flex" flexDirection="column" justifyContent="space-between">
         <UserInfo
-          loading={loading}
-          handleCloseProfile={handleCloseProfile}
           isOpen={isOpen}
-          onBack={onBack}
-          setIsOpen={setIsOpen}
+          loading={loading}
           suiNSRecord={suiNSRecord}
           avatarUrlRecord={avatarUrlRecord}
+          handleCloseProfile={handleCloseProfile}
+          isSwitchAccountOpen={isSwitchAccountOpen}
+          handleOpenSwitchAccount={handleOpenSwitchAccount}
+          handleCloseSwitchAccount={handleCloseSwitchAccount}
         />
       </Box>
       <RightSidebarFooter isOpen={isOpen} setIsOpen={setIsOpen} />

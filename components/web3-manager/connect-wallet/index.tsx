@@ -1,6 +1,7 @@
 import { Box, Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
-import { FC, useEffect } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
+import { useEventListener } from 'usehooks-ts';
 
 import { useModal } from '@/hooks';
 
@@ -10,7 +11,10 @@ import WalletList from './wallet';
 import WalletConnectConfirmModal from './wallet/modal/confirm';
 import WalletConnectFailModal from './wallet/modal/fail';
 import WalletConnectLoadingModal from './wallet/modal/loading';
-import { RightMenuVariants } from './wallet/wallet-variants';
+import {
+  RightMenuVariants,
+  RightMenuVariantsMobile,
+} from './wallet/wallet-variants';
 
 const NIGHTLY_CONNECT = 'Nightly Connect';
 
@@ -74,15 +78,18 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
       top="0"
       right="0"
       zIndex="5"
+      width="100%"
       height="100vh"
       position="fixed"
       initial="closed"
       color="onSurface"
       background="surface"
+      borderLeft="1px solid"
       variants={RightMenuVariants}
-      width={['100%', '100%', '100%', '22rem']}
-      animate={openConnectWallet ? 'open' : 'closed'}
+      borderLeftColor="outline.outlineVariant"
+      maxWidth={['100%', '100%', '100%', '22rem']}
       display={!openConnectWallet ? 'none' : 'block'}
+      animate={openConnectWallet ? 'open' : 'closed'}
     >
       <Box display="flex" background={colors.surface}>
         <WalletList

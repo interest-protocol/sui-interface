@@ -13,15 +13,13 @@ import { not } from 'ramda';
 import { FC, useState } from 'react';
 
 import { NETWORK_RESTRICTION } from '@/constants';
-import { FLAG_ICON_MAP } from '@/constants/locale';
-import { useLocale, useNetwork } from '@/hooks';
+import { useNetwork } from '@/hooks';
 import { AppTheme } from '@/interface';
 import { ArrowLeft } from '@/svg';
 import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../menu-item-wrapper';
 import { MenuSettingsListProps } from './settings-list.types';
-// import { MenuSettingsListProps } from '../menu.types';
 import MenuSettingsListHeaderMobile from './settings-list-header-mobile';
 
 const MenuSettingsList: FC<MenuSettingsListProps> = ({ setSettingsClosed }) => {
@@ -31,9 +29,6 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ setSettingsClosed }) => {
   const { asPath } = useRouter();
   const { network, setNetwork } = useNetwork();
 
-  const { currentLocale } = useLocale();
-
-  const LangIcon = FLAG_ICON_MAP[currentLocale];
   const handleChangeNetwork = (selectedNetwork: Network) => () => {
     setNetwork(selectedNetwork);
   };
@@ -69,6 +64,15 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ setSettingsClosed }) => {
           {capitalize(t('common.v2.menu.settings'))}
         </Typography>
       </Box>
+      <Typography
+        p="l"
+        mt="4xl"
+        variant="small"
+        fontWeight="500"
+        color="onSurface"
+      >
+        {capitalize(t('common.v2.menu.preferences'))}
+      </Typography>
       <MenuSettingsListHeaderMobile
         handleButton={closeDropdownSettingsMenu}
         isOpen={toggle}
@@ -92,7 +96,7 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ setSettingsClosed }) => {
         </MenuItemWrapper>
         <MenuItemWrapper>
           <Typography variant="small" color="onSurface">
-            {t('common.v2.menu.testnet')}
+            {t('common.v2.menu.showTestnets')}
           </Typography>
           <SwitchButton
             activation
@@ -111,11 +115,18 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ setSettingsClosed }) => {
             )}
           />
         </MenuItemWrapper>
+        <Box
+          p="l"
+          mb="2xl"
+          mx="auto"
+          width="calc(100% - 3rem)"
+          borderBottom="1px solid"
+          borderBottomColor="outline.outlineVariant"
+        />
         <MenuItemWrapper>
-          <Typography variant="small">
-            {t('common.v2.menu.languages')}
+          <Typography variant="small" fontWeight="500" color="onSurface">
+            {capitalize(t('common.v2.menu.language'))}
           </Typography>
-          <LangIcon maxWidth="1.125rem" maxHeight="1.125rem" width="100%" />
         </MenuItemWrapper>
       </Motion>
     </>

@@ -22,16 +22,17 @@ export interface ProfileMenuItemProps {
 
 export interface MenuSwitchAccountProps {
   isOpen: boolean;
-  setIsOpen?: (isOpen: boolean) => void;
   loading: boolean;
-  onBack: () => void;
-  suiNSRecord: Record<string, string>;
-  avatarUrlRecord: Record<string, string>;
+  isSwitchAccountOpen: boolean;
   handleCloseProfile: () => void;
+  suiNSRecord: Record<string, string>;
+  handleOpenSwitchAccount: () => void;
+  handleCloseSwitchAccount: () => void;
+  avatarUrlRecord: Record<string, string>;
 }
 
 export interface MenuSwitchAccountHeaderProps {
-  onBack: () => void;
+  handleCloseSwitchAccount: () => void;
   handleCloseProfile: () => void;
   size: number;
 }

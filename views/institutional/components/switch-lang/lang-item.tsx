@@ -1,20 +1,10 @@
 import { Box, RadioButton } from '@interest-protocol/ui-kit';
-// import { Variants } from 'framer-motion';
 import { FC } from 'react';
 import { useTranslations } from 'use-intl';
 
 import { SVGProps } from '@/components/svg/svg.types';
 import { Locales } from '@/constants/locale';
 import { useLocale } from '@/hooks';
-
-// const itemVariants: Variants = {
-//   open: {
-//     opacity: 1,
-//     y: 0,
-//     transition: { type: 'spring', stiffness: 300, damping: 24 },
-//   },
-//   closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
-// };
 
 const LangItem: FC<{
   locale: Locales;

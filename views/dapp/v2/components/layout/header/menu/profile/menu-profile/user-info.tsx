@@ -8,13 +8,14 @@ import UserInfoHeader from './user-info-header';
 import WalletTabs from './wallet-tabs';
 
 const UserInfo: FC<MenuSwitchAccountProps> = ({
+  isOpen,
   loading,
   suiNSRecord,
   avatarUrlRecord,
   handleCloseProfile,
-  isOpen,
-  onBack,
-  setIsOpen,
+  isSwitchAccountOpen,
+  handleOpenSwitchAccount,
+  handleCloseSwitchAccount,
 }) => {
   return (
     <>
@@ -29,13 +30,14 @@ const UserInfo: FC<MenuSwitchAccountProps> = ({
         <DisconnectWallet />
       </Box>
       <UserInfoHeader
-        avatarUrlRecord={avatarUrlRecord}
+        isOpen={isOpen}
         loading={loading}
         suiNSRecord={suiNSRecord}
+        avatarUrlRecord={avatarUrlRecord}
         handleCloseProfile={handleCloseProfile}
-        isOpen={isOpen}
-        onBack={onBack}
-        setIsOpen={setIsOpen}
+        isSwitchAccountOpen={isSwitchAccountOpen}
+        handleOpenSwitchAccount={handleOpenSwitchAccount}
+        handleCloseSwitchAccount={handleCloseSwitchAccount}
       />
       <Box p="xl" overflow="auto">
         <WalletTabs />

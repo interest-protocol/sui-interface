@@ -1,8 +1,8 @@
 import {
   Box,
-  Button,
   Motion,
   ProgressIndicator,
+  RadioButton,
   Theme,
   Typography,
   useTheme,
@@ -11,35 +11,31 @@ import { formatAddress } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
-import { toast } from 'react-hot-toast';
 
-import { CheckmarkSVG, CopySVG, UserSVG } from '@/components/svg/v2';
-import { SEMANTIC_COLORS, wrapperVariants } from '@/constants';
+import { UserSVG } from '@/components/svg/v2';
+import { RightMenuVariants } from '@/components/web3-manager/connect-wallet/wallet/wallet-variants';
+import { SEMANTIC_COLORS } from '@/constants';
 import { useWeb3 } from '@/hooks';
 import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../menu-item-wrapper';
+import ChangeAccountHeader from '../menu-profile/change-account-header';
 import { MenuSwitchAccountProps } from '../profile.types';
 import { getName } from '../profile.utils';
 import MenuSwitchAccountHeader from './header';
 
 const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
-  isOpen,
-  onBack,
   loading,
   suiNSRecord,
   avatarUrlRecord,
   handleCloseProfile,
+  isSwitchAccountOpen,
+  handleCloseSwitchAccount,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const { account } = useWeb3();
   const { accounts, selectAccount } = useWalletKit();
-
-  const copyToClipboard = (address: string) => {
-    window.navigator.clipboard.writeText(address || '');
-    toast(capitalize(t('common.v2.wallet.copy')));
-  };
 
   const getIconBg = (index: number, address: string) =>
     loading
@@ -52,27 +48,38 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
 
   return (
     <Motion
+      top="0"
       right="0"
       zIndex={1}
+      bg="surface"
+      width="100%"
+      height="100vh"
       initial="closed"
       borderRadius="m"
       overflow="visible"
-      bg="surface.container"
-      variants={wrapperVariants}
       textTransform="capitalize"
-      top={['0', '0', '0', '3rem']}
+      variants={RightMenuVariants}
       p={['xl', 'xl', 'xl', 'unset']}
-      animate={isOpen ? 'open' : 'closed'}
-      pointerEvents={isOpen ? 'auto' : 'none'}
-      height={['100vh', '100vh', '100vh', 'unset']}
-      width={['100vw', '100vw', '100vw', '100%']}
+      maxWidth={['100vw', '100vw', '100vw', '100%']}
       position={['fixed', 'fixed', 'fixed', 'absolute']}
+      animate={isSwitchAccountOpen ? 'open' : 'closed'}
+      pointerEvents={isSwitchAccountOpen ? 'auto' : 'none'}
     >
       <MenuSwitchAccountHeader
-        handleCloseProfile={handleCloseProfile}
-        onBack={onBack}
         size={accounts.length}
+        handleCloseProfile={handleCloseProfile}
+        handleCloseSwitchAccount={handleCloseSwitchAccount}
       />
+      <ChangeAccountHeader
+        loading={loading}
+        suiNSRecord={suiNSRecord}
+        avatarUrlRecord={avatarUrlRecord}
+      />
+      <Typography variant="small" color="outline" p="l" mt="4xl">
+        {capitalize(
+          t('common.v2.wallet.account', { count: accounts.length > 1 ? 0 : 1 })
+        )}
+      </Typography>
       {accounts.map((walletAccount, index) => (
         <MenuItemWrapper
           key={walletAccount.address}
@@ -80,30 +87,11 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
           onClick={() => {
             if (!(walletAccount.address === account)) {
               selectAccount(walletAccount);
-              onBack();
+              handleCloseSwitchAccount();
             }
           }}
         >
-          <Box display="flex" alignItems="center" gap="s">
-            {walletAccount.address === account && (
-              <Box
-                width="1rem"
-                display="flex"
-                height="1rem"
-                color="success"
-                borderRadius="50%"
-                border="1px solid"
-                alignItems="center"
-                justifyContent="center"
-                borderColor="success"
-              >
-                <CheckmarkSVG
-                  width="100%"
-                  maxWidth="0.438rem"
-                  maxHeight="0.438rem"
-                />
-              </Box>
-            )}
+          <Box display="flex" alignItems="center" gap="s" width="100%">
             <Box
               display="flex"
               width="1.5rem"
@@ -137,22 +125,17 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
                 ? suiNSRecord[walletAccount.address]
                 : formatAddress(walletAccount.address)}
             </Typography>
+            <Box marginLeft="auto">
+              {walletAccount.address === account ? (
+                <RadioButton
+                  name={walletAccount.address}
+                  checked={walletAccount.address}
+                />
+              ) : (
+                <RadioButton name={walletAccount.address} checked={false} />
+              )}
+            </Box>
           </Box>
-          <Button
-            size="small"
-            variant="icon"
-            p="0 !important"
-            nHover={{
-              color: 'primary',
-              bg: 'transparent',
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              copyToClipboard(walletAccount.address);
-            }}
-          >
-            <CopySVG maxHeight="1rem" maxWidth="1rem" width="100%" />
-          </Button>
         </MenuItemWrapper>
       ))}
     </Motion>

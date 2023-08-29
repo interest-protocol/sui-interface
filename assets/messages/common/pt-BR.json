@@ -41,10 +41,12 @@
       "menu": {
         "settings": "definições",
         "testnet": "rede de testes",
+        "showTestnets": "ver testnets",
         "dark": "escuro",
         "light": "claro",
         "darkMode": "modo escuro",
-        "languages": "idiomas",
+        "language": "idioma",
+        "preferences": "preferências",
         "selectLanguage": "selecionar idioma"
       },
       "wallet": {
@@ -54,6 +56,7 @@
         "disconnect": "desconectar",
         "assets": "ativos",
         "switch": "trocar conta",
+        "manage": "gerenciar",
         "viewInExplorer": "ver no explorador",
         "error": "erro na conexão",
         "connecting": "conectando",

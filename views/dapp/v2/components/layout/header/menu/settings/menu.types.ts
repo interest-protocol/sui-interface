@@ -5,18 +5,7 @@ export interface GlobalMenuProps {
   lang: boolean;
 }
 
-// export interface MenuSettingsProps {
-// isOpen: boolean;
-// openLanguageMenu: () => void;
-// }
-
-// export interface MenuSettingsListProps {
-//   openLanguageMenu: () => void;
-// }
-
 export interface MenuLanguageProps {
-  // isOpen: boolean;
-  // onBack?: () => void;
   locales: ReadonlyArray<Locales>;
 }
 

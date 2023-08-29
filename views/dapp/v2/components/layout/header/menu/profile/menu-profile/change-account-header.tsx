@@ -12,19 +12,13 @@ import { CopySVG, UserSVG } from '@/components/svg/v2';
 import { useWeb3 } from '@/hooks';
 import { capitalize } from '@/utils';
 
-import { MenuSwitchAccountProps, UserInfoProps } from '../profile.types';
+import { UserInfoProps } from '../profile.types';
 import { getName } from '../profile.utils';
-import ChangeAccount from './change-account';
 
-const UserInfoHeader: FC<UserInfoProps & MenuSwitchAccountProps> = ({
-  isOpen,
+const ChangeAccountHeader: FC<UserInfoProps> = ({
+  avatarUrlRecord,
   loading,
   suiNSRecord,
-  avatarUrlRecord,
-  handleCloseProfile,
-  isSwitchAccountOpen,
-  handleOpenSwitchAccount,
-  handleCloseSwitchAccount,
 }) => {
   const { account } = useWeb3();
   const t = useTranslations();
@@ -99,16 +93,6 @@ const UserInfoHeader: FC<UserInfoProps & MenuSwitchAccountProps> = ({
                 </Button>
               </Box>
             </Box>
-            <ChangeAccount
-              isOpen={isOpen}
-              loading={loading}
-              suiNSRecord={suiNSRecord}
-              avatarUrlRecord={avatarUrlRecord}
-              handleCloseProfile={handleCloseProfile}
-              isSwitchAccountOpen={isSwitchAccountOpen}
-              handleOpenSwitchAccount={handleOpenSwitchAccount}
-              handleCloseSwitchAccount={handleCloseSwitchAccount}
-            />
           </Box>
         )}
       </Box>
@@ -119,4 +103,4 @@ const UserInfoHeader: FC<UserInfoProps & MenuSwitchAccountProps> = ({
   );
 };
 
-export default UserInfoHeader;
+export default ChangeAccountHeader;

@@ -41,10 +41,12 @@
       "menu": {
         "settings": "settings",
         "testnet": "testnet",
+        "showTestnets": "show testnets",
         "dark": "dark",
         "light": "light",
         "darkMode": "dark mode",
-        "languages": "languages",
+        "language": "language",
+        "preferences": "preferences",
         "selectLanguage": "select language"
       },
       "wallet": {
@@ -54,6 +56,7 @@
         "connect": "connect",
         "assets": "assets",
         "switch": "switch account",
+        "manage": "manage",
         "viewInExplorer": "view in explorer",
         "error": "error connecting",
         "connecting": "connecting",

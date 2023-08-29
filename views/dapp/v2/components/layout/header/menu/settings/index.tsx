@@ -72,7 +72,7 @@ const Settings: FC = () => {
         top="0"
         right="0"
         zIndex="6"
-        width="22rem"
+        width="100%"
         height="100vh"
         initial="closed"
         position="absolute"
@@ -81,6 +81,7 @@ const Settings: FC = () => {
         variants={RightMenuVariants}
         borderLeftColor="outline.outlineVariant"
         animate={isOpenSettings ? 'open' : 'closed'}
+        maxWidth={['100vw', '100vw', '100vw', '22rem']}
       >
         <MenuSettings setSettingsClosed={handleCloseSettings} />
         <MenuLanguage locales={locales} />

@@ -8,7 +8,6 @@ import useEventListener from '@/hooks/use-event-listener';
 import Footer from './footer';
 import Header from './header';
 import NetworkOptions from './header/menu/network-options';
-// import Settings from './header/menu/settings';
 import { LayoutProps } from './layout.types';
 import Sidebar from './sidebar';
 import Wallet from './wallet';

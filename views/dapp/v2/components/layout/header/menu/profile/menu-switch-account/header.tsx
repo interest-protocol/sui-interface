@@ -8,7 +8,7 @@ import MenuButton from '../../menu-button';
 import { MenuSwitchAccountHeaderProps } from '../profile.types';
 
 const MenuSwitchAccountHeader: FC<MenuSwitchAccountHeaderProps> = ({
-  onBack,
+  handleCloseSwitchAccount,
   handleCloseProfile,
   size,
 }) => {
@@ -33,7 +33,7 @@ const MenuSwitchAccountHeader: FC<MenuSwitchAccountHeaderProps> = ({
         <Button
           variant="icon"
           p="0 !important"
-          onClick={onBack}
+          onClick={handleCloseSwitchAccount}
           nHover={{
             color: 'primary',
             bg: 'transparent',
@@ -41,9 +41,15 @@ const MenuSwitchAccountHeader: FC<MenuSwitchAccountHeaderProps> = ({
         >
           <ArrowLeft maxHeight="1rem" maxWidth="1rem" width="100%" />
         </Button>
-        <Typography variant="small" textTransform="capitalize">
-          {t('common.v2.wallet.switch')}
-        </Typography>
+        <Box width="100%" display="flex" justifyContent="center">
+          <Typography
+            variant="small"
+            textAlign="center"
+            textTransform="uppercase"
+          >
+            {t('common.v2.wallet.manage')}
+          </Typography>
+        </Box>
         <Box
           display={['flex', 'flex', 'flex', 'none']}
           flexDirection="row-reverse"

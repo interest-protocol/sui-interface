@@ -1,3 +1,4 @@
+import { Button, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { DotsSVG } from '@/components/svg';
@@ -10,30 +11,49 @@ const BOX_ID = 'wallet-accounts';
 
 const ChangeAccount: FC<MenuSwitchAccountProps> = ({
   isOpen,
+  loading,
+  suiNSRecord,
   avatarUrlRecord,
   handleCloseProfile,
-  loading,
-  onBack,
-  setIsOpen,
-  suiNSRecord,
+  isSwitchAccountOpen,
+  handleOpenSwitchAccount,
+  handleCloseSwitchAccount,
 }) => {
+  const { colors } = useTheme() as Theme;
+
   return (
     <>
       <RefBox
         id={BOX_ID}
+        ml="auto"
+        display="flex"
+        cursor="pointer"
         marginLeft="6rem"
-        onClick={() => (setIsOpen ? setIsOpen(isOpen) : undefined)}
+        borderRadius="100%"
+        position="relative"
+        flexDirection="column"
+        justifyContent="center"
+        transition="background-color .5s"
+        nHover={{ bg: colors['outline.outlineVariant'] }}
       >
-        <DotsSVG width="100%" maxWidth="1.5rem" maxHeight="1.5rem" />
+        <Button
+          variant="icon"
+          nHover={{ bg: 'transparent' }}
+          onClick={handleOpenSwitchAccount}
+        >
+          <DotsSVG width="100%" maxWidth="1.5rem" maxHeight="1.5rem" />
+        </Button>
       </RefBox>
-      {isOpen && (
+      {isSwitchAccountOpen && (
         <MenuSwitchAccount
-          loading={loading}
           isOpen={isOpen}
+          loading={loading}
           suiNSRecord={suiNSRecord}
-          onBack={onBack}
           avatarUrlRecord={avatarUrlRecord}
           handleCloseProfile={handleCloseProfile}
+          isSwitchAccountOpen={isSwitchAccountOpen}
+          handleOpenSwitchAccount={handleOpenSwitchAccount}
+          handleCloseSwitchAccount={handleCloseSwitchAccount}
         />
       )}
     </>
