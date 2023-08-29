@@ -5,7 +5,6 @@ import {
   lightTheme,
   ThemeProvider as InterestThemeProvider,
 } from '@interest-protocol/ui-kit';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FC, PropsWithChildren } from 'react';
 import { SkeletonTheme } from 'react-loading-skeleton';
@@ -19,17 +18,9 @@ import {
 import institutionalTheme from '@/design-system/insitutional-theme/dark';
 import { useLocalStorage } from '@/hooks';
 
-import LoadingPage from '../loading-page';
 import NetworkProvider from '../network-provider';
 import { ThemeProps } from './theme-manager.types';
-
-const WalletKitProvider = dynamic(
-  () => import('@mysten/wallet-kit').then((mod) => mod.WalletKitProvider),
-  {
-    ssr: false,
-    loading: LoadingPage,
-  }
-);
+import WalletSuiProvider from './wallet-sui-provider';
 
 // TODO: REMOVE THESE CONSTANTS
 const INSTITUTIONAL_PAGES = ['/', '/team', '/campaign/liquidity'];
@@ -56,7 +47,7 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
   if (isRedesign)
     return (
       <NetworkProvider>
-        <WalletKitProvider>
+        <WalletSuiProvider>
           <InterestThemeProvider
             theme={{ setDark, ...(dark ? darkTheme : lightTheme) }}
           >
@@ -65,20 +56,20 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
               {children}
             </ModalProvider>
           </InterestThemeProvider>
-        </WalletKitProvider>
+        </WalletSuiProvider>
       </NetworkProvider>
     );
 
   return (
     <NetworkProvider>
-      <WalletKitProvider>
+      <WalletSuiProvider>
         <ThemeProvider
           theme={{ setDark, ...(dark ? DAppDarkTheme : DAppLightTheme) }}
         >
           <Global styles={DappGlobalStyles} />
           {children}
         </ThemeProvider>
-      </WalletKitProvider>
+      </WalletSuiProvider>
     </NetworkProvider>
   );
 };

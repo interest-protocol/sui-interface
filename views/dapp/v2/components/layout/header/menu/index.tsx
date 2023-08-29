@@ -46,7 +46,7 @@ const Menu: FC = () => {
   return (
     <Box position="relative" width="100%">
       <Box
-        zIndex="2"
+        zIndex="5"
         ml="-2.5rem"
         display="flex"
         alignItems="center"

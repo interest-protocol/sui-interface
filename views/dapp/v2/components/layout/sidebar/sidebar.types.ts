@@ -50,6 +50,7 @@ export interface SidebarLogoProps {
 }
 
 export interface SidebarCollapseButtonProps {
+  isOpen: boolean;
   isCollapsed: boolean;
   setIsCollapsed: (value: boolean) => void;
 }
