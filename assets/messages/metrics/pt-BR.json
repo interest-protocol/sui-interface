@@ -1,0 +1,41 @@
+{
+  "metrics": {
+    "metadata": {
+      "title": "Métricas"
+    },
+    "tabs": {
+      "dex": "DEX",
+      "moneyMarket": "Mercado Monetário"
+    },
+    "infoCards": {
+      "tvl": "TVL",
+      "pools": "Pools",
+      "swaps": "Trocas",
+      "accumulatedVolume": "Volume acumulado",
+      "dailyTradingVolume": "Volume Diário de Negociação"
+    },
+    "cards": {
+      "totalLiquidity": "liquidez total",
+      "dailyVolume": "volume diário",
+      "activeWallets": "carteiras ativas",
+      "tvlPools": "Pools de TVL",
+      "allTime": "todo o tempo",
+      "daily": "diário",
+      "oneMonth": "1 mês",
+      "fourTeenDays": "14 dias"
+    },
+    "tables": {
+      "topPools": "pools principais",
+      "topCoins": "moedas principais",
+      "tokenPairs": "par de tokens",
+      "tvl": "TVL",
+      "apr": "APR",
+      "dayVolume": "Volume 24H",
+      "oneDayVolume": "Volume 1D",
+      "weekVolume": "Volume 7D",
+      "monthVolume": "Volume 30D",
+      "volatile": "Volátil",
+      "stable": "Estável"
+    }
+  }
+}

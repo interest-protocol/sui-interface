@@ -155,8 +155,8 @@ export const formatMoney = (money: number, maxFractionDigits = 20): string => {
   }`.slice(1);
 };
 
-export const formatDollars = (money: number): string =>
-  '$' + formatMoney(money, 6);
+export const formatDollars = (money: number, max = 6): string =>
+  '$' + formatMoney(money, max);
 
 export const parseInputEventToNumberString = (
   event: ChangeEvent<HTMLInputElement>,

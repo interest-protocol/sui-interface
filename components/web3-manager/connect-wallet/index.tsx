@@ -12,6 +12,8 @@ import WalletConnectFailModal from './wallet/modal/fail';
 import WalletConnectLoadingModal from './wallet/modal/loading';
 import { RightMenuVariants } from './wallet/wallet-variants';
 
+const NIGHTLY_CONNECT = 'Nightly Connect';
+
 const ConnectWallet: FC<ConnectWalletProps> = ({
   openConnectWallet,
   setOpenConnectWallet,
@@ -51,6 +53,7 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
     });
 
   const openWalletModal = (walletName: string) =>
+    walletName != NIGHTLY_CONNECT &&
     setModal(<WalletConnectLoadingModal walletName={walletName} />, {
       isOpen: true,
       custom: true,

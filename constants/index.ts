@@ -4,6 +4,9 @@ import BigNumber from 'bignumber.js';
 import {
   BNBSVG,
   BTCSVG,
+  CelerBTCETHSVG,
+  CelerETHSVG,
+  CelerUSDCETHSVG,
   ETHSVG,
   SUIDSVG,
   SUISVG,
@@ -30,9 +33,9 @@ import {
 import {
   BinanceSVG,
   BitcoinSVG,
-  CelerBTCSVG,
-  CelerETHSVG,
-  CelerUSDCSVG,
+  CelerBTCSVG as CelerBTCv1SVG,
+  CelerETHSVG as CelerETHv1SVG,
+  CelerUSDCSVG as CelerUSDCv1SVG,
   EtherSVG,
   InterestTokenSVG,
   SuiSVG,
@@ -66,6 +69,7 @@ export * from './farms';
 export * from './faucet';
 export * from './pools';
 export * from './routes';
+export * from './semantic-colors';
 export * from './social-media';
 export * from './social-media-alternatives';
 export * from './wrapper-variants';
@@ -127,9 +131,9 @@ export const TOKENS_SVG_MAP = {
   [COIN_TYPE[Network.MAINNET].ETH_WORMHOLE_USDC]: WormholeUSDCESVG,
   [COIN_TYPE[Network.MAINNET].ETH_WORMHOLE_USDT]: WormholeUSDTESVG,
   [COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_SOL]: WormholeSOLv1SVG,
-  [COIN_TYPE[Network.MAINNET].ETH_CELER_WETH]: CelerETHSVG,
-  [COIN_TYPE[Network.MAINNET].ETH_CELER_WBTC]: CelerBTCSVG,
-  [COIN_TYPE[Network.MAINNET].ETH_CELER_USDC]: CelerUSDCSVG,
+  [COIN_TYPE[Network.MAINNET].ETH_CELER_WETH]: CelerETHv1SVG,
+  [COIN_TYPE[Network.MAINNET].ETH_CELER_WBTC]: CelerBTCv1SVG,
+  [COIN_TYPE[Network.MAINNET].ETH_CELER_USDC]: CelerUSDCv1SVG,
 };
 
 export const TOKENS_SVG_MAP_V2 = {
@@ -166,6 +170,9 @@ export const TOKENS_SVG_MAP_V2 = {
   [COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_WFTM]: WormholeFTMSVG,
   [COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_WMATIC]: WormholeMATICSVG,
   [COIN_TYPE[Network.MAINNET].NATIVE_WORMHOLE_SOL]: WormholeSOLSVG,
+  [COIN_TYPE[Network.MAINNET].ETH_CELER_WETH]: CelerETHSVG,
+  [COIN_TYPE[Network.MAINNET].ETH_CELER_WBTC]: CelerBTCETHSVG,
+  [COIN_TYPE[Network.MAINNET].ETH_CELER_USDC]: CelerUSDCETHSVG,
 };
 
 export const MILLISECONDS_PER_YEAR = 31540000000;
