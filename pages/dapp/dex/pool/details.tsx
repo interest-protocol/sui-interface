@@ -3,10 +3,10 @@ import dynamic from 'next/dynamic';
 import { mergeAll } from 'ramda';
 import { useForm } from 'react-hook-form';
 
-import { LoadingPage } from '@/components';
 import { ModalProvider } from '@/context/modal';
 import { withObjectIdGuard } from '@/HOC';
 import { NextPageDefaultProps } from '@/interface';
+import LoadingPage from '@/views/dapp/components/loading-page';
 import DEXPoolDetailsView from '@/views/dapp/dex-pool-details';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {

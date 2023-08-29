@@ -6,9 +6,9 @@ import { mergeAll } from 'ramda';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { LoadingPage } from '@/components';
 import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
+import LoadingPage from '@/views/dapp/components/loading-page';
 import Farms from '@/views/dapp/farms';
 import {
   FarmSortByFilter,
