@@ -82,7 +82,7 @@ const Settings: FC = () => {
         borderLeftColor="outline.outlineVariant"
         animate={isOpenSettings ? 'open' : 'closed'}
       >
-        <MenuSettings /*setSettingsClosed={handleCloseSettings}*/ />
+        <MenuSettings setSettingsClosed={handleCloseSettings} />
         <MenuLanguage locales={locales} />
       </Motion>
     </>
