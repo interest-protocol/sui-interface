@@ -8,7 +8,7 @@ import LanguageMenu from './menu-mobile-language';
 const MenuMobile: FC<MenuMobileProps> = ({
   isOpen,
   isLanguage,
-  openLanguageMenu,
+  // openLanguageMenu,
 }) => {
   if (!isOpen) return null;
 
@@ -28,7 +28,7 @@ const MenuMobile: FC<MenuMobileProps> = ({
       {isLanguage ? (
         <LanguageMenu />
       ) : (
-        <MainMenu openLanguageMenu={openLanguageMenu} />
+        <MainMenu /*openLanguageMenu={openLanguageMenu}*/ />
       )}
     </Box>
   );
