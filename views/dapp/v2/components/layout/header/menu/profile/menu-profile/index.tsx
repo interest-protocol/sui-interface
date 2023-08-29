@@ -5,27 +5,31 @@ import { RightSidebarCloseButtonProps } from '@/components/web3-manager/connect-
 import RightSidebarFooter from '@/components/web3-manager/connect-wallet/footer';
 import { RightMenuVariants } from '@/components/web3-manager/connect-wallet/wallet/wallet-variants';
 
-import { MenuProfileProps } from '../profile.types';
+import { MenuSwitchAccountProps } from '../profile.types';
 import UserInfo from './user-info';
 
-const MenuProfile: FC<MenuProfileProps & RightSidebarCloseButtonProps> = ({
-  loading,
-  suiNSRecord,
+const MenuProfile: FC<
+  MenuSwitchAccountProps & RightSidebarCloseButtonProps
+> = ({
   avatarUrlRecord,
+  handleCloseProfile,
   isOpen,
+  loading,
+  onBack,
   setIsOpen,
+  suiNSRecord,
 }) => {
   return (
     <Motion
       top="0"
       right="0"
       zIndex="6"
+      bg="surface"
       display="flex"
       height="100vh"
-      overflow="auto"
       initial="closed"
+      overflow="hidden"
       flexDirection="column"
-      bg="surface.container"
       textTransform="capitalize"
       variants={RightMenuVariants}
       justifyContent="space-between"
@@ -38,6 +42,10 @@ const MenuProfile: FC<MenuProfileProps & RightSidebarCloseButtonProps> = ({
       <Box display="flex" flexDirection="column" justifyContent="space-between">
         <UserInfo
           loading={loading}
+          handleCloseProfile={handleCloseProfile}
+          isOpen={isOpen}
+          onBack={onBack}
+          setIsOpen={setIsOpen}
           suiNSRecord={suiNSRecord}
           avatarUrlRecord={avatarUrlRecord}
         />

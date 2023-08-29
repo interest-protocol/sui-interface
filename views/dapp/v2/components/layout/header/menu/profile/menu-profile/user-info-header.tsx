@@ -10,15 +10,19 @@ import { toast } from 'react-hot-toast';
 
 import { CopySVG, UserSVG } from '@/components/svg/v2';
 import { useWeb3 } from '@/hooks';
-import { DotsSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
-import { UserInfoProps } from '../profile.types';
+import { MenuSwitchAccountProps, UserInfoProps } from '../profile.types';
 import { getName } from '../profile.utils';
+import ChangeAccount from './change-account';
 
-const UserInfoHeader: FC<UserInfoProps> = ({
+const UserInfoHeader: FC<UserInfoProps & MenuSwitchAccountProps> = ({
+  isOpen,
   avatarUrlRecord,
+  handleCloseProfile,
   loading,
+  onBack,
+  setIsOpen,
   suiNSRecord,
 }) => {
   const { account } = useWeb3();
@@ -94,9 +98,23 @@ const UserInfoHeader: FC<UserInfoProps> = ({
                 </Button>
               </Box>
             </Box>
-            <Box marginLeft="6rem">
-              <DotsSVG width="100%" maxWidth="1.5rem" maxHeight="1.5rem" />
-            </Box>
+            {/* <MenuSwitchAccount
+              loading={loading}
+              isOpen={isOpenAccount}
+              suiNSRecord={suiNSRecord}
+              onBack={handleOpenProfile}
+              avatarUrlRecord={avatarUrlRecord}
+              handleCloseProfile={handleCloseProfile}
+            /> */}
+            <ChangeAccount
+              loading={loading}
+              isOpen={isOpen}
+              suiNSRecord={suiNSRecord}
+              onBack={onBack}
+              avatarUrlRecord={avatarUrlRecord}
+              handleCloseProfile={handleCloseProfile}
+              setIsOpen={setIsOpen}
+            />
           </Box>
         )}
       </Box>

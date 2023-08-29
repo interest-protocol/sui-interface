@@ -10,10 +10,15 @@ const RightSidebarFooter: FC<RightSidebarCloseButtonProps> = ({
 }) => {
   return (
     <Box
+      left="0"
       zIndex="6"
+      bottom="0"
+      bg="surface"
       width="100%"
-      left="1.25rem"
-      bottom=".875rem"
+      px="1.25rem"
+      py=".875rem"
+      display="flex"
+      alignItems="center"
       position="absolute"
     >
       <RightSidebarCloseButton isOpen={isOpen} setIsOpen={setIsOpen} />

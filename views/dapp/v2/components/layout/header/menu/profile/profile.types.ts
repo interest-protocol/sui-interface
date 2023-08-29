@@ -22,6 +22,7 @@ export interface ProfileMenuItemProps {
 
 export interface MenuSwitchAccountProps {
   isOpen: boolean;
+  setIsOpen?: (isOpen: boolean) => void;
   loading: boolean;
   onBack: () => void;
   suiNSRecord: Record<string, string>;

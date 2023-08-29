@@ -54,7 +54,7 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({ installLink }) => {
             nHover={{
               backgroundColor: colors['surface.container'],
             }}
-            color="#000"
+            color="onSurface"
           >
             <a target="_blank" href={installLink} rel="noopener noreferrer">
               <DownloadSVG

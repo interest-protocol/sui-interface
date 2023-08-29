@@ -44,7 +44,6 @@ export const TRANSACTIONS_DATA = [
     id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
     description: 'Random Action',
   },
-
   {
     date: 'May • 2023',
     Icon: BTCSVG,
@@ -62,5 +61,77 @@ export const TRANSACTIONS_DATA = [
     Icon: BTCSVG,
     id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
     description: 'Random Action',
+  },
+  {
+    date: 'May • 2023',
+    Icon: BTCSVG,
+    id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
+    description: 'Random Action',
+  },
+  {
+    date: 'May • 2023',
+    Icon: BTCSVG,
+    id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
+    description: 'Random Action',
+  },
+  {
+    date: 'May • 2023',
+    Icon: BTCSVG,
+    id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
+    description: 'Random Action',
+  },
+  {
+    date: 'May • 2023',
+    Icon: BTCSVG,
+    id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
+    description: 'Random Action',
+  },
+  {
+    date: 'May • 2023',
+    Icon: BTCSVG,
+    id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
+    description: 'Random Action',
+  },
+  {
+    date: 'May • 2023',
+    Icon: BTCSVG,
+    id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
+    description: 'Random Action',
+  },
+  {
+    date: 'May • 2023',
+    Icon: BTCSVG,
+    id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
+    description: 'Random Action',
+  },
+  {
+    date: 'May • 2023',
+    Icon: BTCSVG,
+    id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
+    description: 'Random Action',
+  },
+  {
+    date: 'May • 2023',
+    Icon: BTCSVG,
+    id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
+    description: 'Random Action',
+  },
+  {
+    date: 'May • 2023',
+    Icon: BTCSVG,
+    id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
+    description: 'Random Action',
+  },
+  {
+    date: 'May • 2023',
+    Icon: BTCSVG,
+    id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
+    description: 'Random Action',
+  },
+  {
+    date: 'May • 2023',
+    Icon: BTCSVG,
+    id: '5e9111ae8eb78fe1cc3bb8915d5d461f3ef9a9',
+    description: 'Last Action',
   },
 ];

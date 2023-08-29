@@ -45,13 +45,21 @@ const WalletTabs: FC = () => {
         </Box>
       </Box>
       {toggle ? (
-        <Box>
-          {TRANSACTIONS_DATA.map((transaction) => (
-            <WalletTabItem {...transaction} key={v4()} />
-          ))}
+        <Box overflow="auto" height="28.5%" mt="4xl">
+          <Box display="flex" flexDirection="column" gap="m">
+            {TRANSACTIONS_DATA.map((transaction) => (
+              <WalletTabItem {...transaction} key={v4()} />
+            ))}
+          </Box>
         </Box>
       ) : (
-        <Box>Token</Box>
+        <Box overflow="auto" height="28.5%" mt="4xl">
+          <Box display="flex" flexDirection="column" gap="m">
+            {TRANSACTIONS_DATA.map((transaction) => (
+              <WalletTabItem {...transaction} key={v4()} />
+            ))}
+          </Box>
+        </Box>
       )}
     </>
   );

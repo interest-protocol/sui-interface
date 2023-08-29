@@ -38,10 +38,6 @@ const Profile: FC = () => {
   const { accounts } = useWalletKit();
   const { provider } = useProvider();
 
-  // useEffect(() => {
-  //   setMenuIsDropdown(isOpenProfile || isOpenAccount);
-  // }, [isOpenAccount, isOpenProfile]);
-
   useEffect(() => {
     if (accounts.length) {
       setLoading(true);
@@ -110,13 +106,13 @@ const Profile: FC = () => {
   const connectedBoxRef =
     useClickOutsideListenerRef<HTMLDivElement>(closeDropdown);
 
-  // const handleOpenProfile = () => {
-  //   handleCloseAccount();
-  //   const url = new URL(window.location.href);
-  //   url.searchParams.set('profile', 'true');
-  //   window.history.pushState('', '', url.toString());
-  //   setIsOpenProfile(true);
-  // };
+  const handleOpenProfile = () => {
+    handleCloseAccount();
+    const url = new URL(window.location.href);
+    url.searchParams.set('profile', 'true');
+    window.history.pushState('', '', url.toString());
+    setIsOpenProfile(true);
+  };
 
   const handleCloseProfile = () => {
     handleCloseAccount();
@@ -193,15 +189,11 @@ const Profile: FC = () => {
         isOpen={isOpen}
         loading={loading}
         setIsOpen={setIsOpen}
+        onBack={handleOpenProfile}
         suiNSRecord={suiNSRecord}
         avatarUrlRecord={avatarUrlRecord}
+        handleCloseProfile={handleCloseProfile}
       />
-      {/* <MenuSwitchAccount
-        loading={loading}
-        isOpen={isOpenAccount}
-        suiNSRecord={suiNSRecord}
-        onBack={handleOpenProfile}
-      /> */}
     </>
   );
 };

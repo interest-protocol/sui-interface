@@ -1,35 +1,43 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
-import { useTranslations } from 'next-intl';
+import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { UserInfoProps } from '../profile.types';
+import Settings from '../../settings';
+import { MenuSwitchAccountProps } from '../profile.types';
+import DisconnectWallet from './disconnect';
 import UserInfoHeader from './user-info-header';
 import WalletTabs from './wallet-tabs';
 
-const UserInfo: FC<UserInfoProps> = ({
+const UserInfo: FC<MenuSwitchAccountProps> = ({
   loading,
   suiNSRecord,
   avatarUrlRecord,
+  handleCloseProfile,
+  isOpen,
+  onBack,
+  setIsOpen,
 }) => {
-  const t = useTranslations();
-
   return (
     <>
-      <Box p="xl">
-        <Typography
-          variant="small"
-          color="onSurface"
-          textTransform="capitalize"
-        >
-          {t('common.v2.wallet.name')}
-        </Typography>
+      <Box
+        p="xl"
+        gap="s"
+        display="flex"
+        color="onSurface"
+        justifyContent="flex-end"
+      >
+        <Settings />
+        <DisconnectWallet />
       </Box>
       <UserInfoHeader
         avatarUrlRecord={avatarUrlRecord}
         loading={loading}
         suiNSRecord={suiNSRecord}
+        handleCloseProfile={handleCloseProfile}
+        isOpen={isOpen}
+        onBack={onBack}
+        setIsOpen={setIsOpen}
       />
-      <Box p="xl">
+      <Box p="xl" overflow="auto">
         <WalletTabs />
       </Box>
     </>
