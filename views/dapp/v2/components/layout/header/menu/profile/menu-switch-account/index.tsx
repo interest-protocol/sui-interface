@@ -129,7 +129,7 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
               {walletAccount.address === account ? (
                 <RadioButton
                   name={walletAccount.address}
-                  checked={walletAccount.address}
+                  checked={!!walletAccount.address}
                 />
               ) : (
                 <RadioButton name={walletAccount.address} checked={false} />
