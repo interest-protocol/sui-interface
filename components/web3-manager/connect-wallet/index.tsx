@@ -1,7 +1,6 @@
 import { Box, Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
-import { FC, useCallback, useEffect, useState } from 'react';
-import { useEventListener } from 'usehooks-ts';
+import { FC, useEffect } from 'react';
 
 import { useModal } from '@/hooks';
 
@@ -11,10 +10,7 @@ import WalletList from './wallet';
 import WalletConnectConfirmModal from './wallet/modal/confirm';
 import WalletConnectFailModal from './wallet/modal/fail';
 import WalletConnectLoadingModal from './wallet/modal/loading';
-import {
-  RightMenuVariants,
-  RightMenuVariantsMobile,
-} from './wallet/wallet-variants';
+import { RightMenuVariants } from './wallet/wallet-variants';
 
 const NIGHTLY_CONNECT = 'Nightly Connect';
 
