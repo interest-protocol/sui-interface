@@ -19,11 +19,10 @@ import { ArrowLeft } from '@/svg';
 import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../menu-item-wrapper';
-import { MenuSettingsListProps } from './settings-list.types';
 // import { MenuSettingsListProps } from '../menu.types';
 import MenuSettingsListHeaderMobile from './settings-list-header-mobile';
 
-const MenuSettingsList: FC<MenuSettingsListProps> = ({ setSettingsClosed }) => {
+const MenuSettingsList: FC = () => {
   const t = useTranslations();
 
   const { dark, setDark } = useTheme() as AppTheme<Theme>;
@@ -56,7 +55,7 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ setSettingsClosed }) => {
             width="100%"
             maxWidth="1.25rem"
             maxHeight="1.25rem"
-            onClick={setSettingsClosed}
+            // onClick={setSettingsClosed}
           />
         </Box>
         <Typography
