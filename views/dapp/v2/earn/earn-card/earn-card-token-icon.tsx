@@ -5,21 +5,70 @@ import { TOKENS_SVG_MAP_V2 } from '@/constants';
 
 import { EarnCardTokenIconProps } from '../earn.types';
 
-export const EarnCardTokenIcon: FC<EarnCardTokenIconProps> = ({ type }) => {
-  const SVG = TOKENS_SVG_MAP_V2[type] ?? TOKENS_SVG_MAP_V2.default;
+export const EarnCardTokenIcon: FC<EarnCardTokenIconProps> = ({
+  types,
+  isSingleCoin,
+}) => {
+  const Icon1 = TOKENS_SVG_MAP_V2[types[0]] ?? TOKENS_SVG_MAP_V2.default;
+  const Icon2 = TOKENS_SVG_MAP_V2[types[1]] ?? TOKENS_SVG_MAP_V2.default;
+
+  if (isSingleCoin)
+    return (
+      <Box
+        display="flex"
+        width="2.5rem"
+        height="2.5rem"
+        borderRadius="m"
+        alignItems="center"
+        justifyContent="center"
+        color="inverseOnSurface"
+      >
+        <Icon2
+          filled
+          width="100%"
+          height="100%"
+          maxWidth="2.5rem"
+          maxHeight="2.5rem"
+        />
+      </Box>
+    );
 
   return (
-    <Box
-      bg="primary"
-      display="flex"
-      width="2.5rem"
-      height="2.5rem"
-      borderRadius="m"
-      alignItems="center"
-      justifyContent="center"
-      color="inverseOnSurface"
-    >
-      <SVG maxHeight="100%" maxWidth="2.5rem" width="1.5rem" height="1.5rem" />
-    </Box>
+    <>
+      <Box
+        display="flex"
+        width="2.5rem"
+        height="2.5rem"
+        borderRadius="m"
+        alignItems="center"
+        justifyContent="center"
+        color="inverseOnSurface"
+      >
+        <Icon1
+          filled
+          width="100%"
+          height="100%"
+          maxWidth="2.5rem"
+          maxHeight="2.5rem"
+        />
+      </Box>
+      <Box
+        display="flex"
+        width="2.5rem"
+        height="2.5rem"
+        borderRadius="m"
+        alignItems="center"
+        justifyContent="center"
+        color="inverseOnSurface"
+      >
+        <Icon2
+          filled
+          width="100%"
+          height="100%"
+          maxWidth="2.5rem"
+          maxHeight="2.5rem"
+        />
+      </Box>
+    </>
   );
 };

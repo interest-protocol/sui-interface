@@ -4,11 +4,12 @@ import { FC } from 'react';
 
 import { EarnHeaderOptionProps } from '../earn.types';
 
-const HeaderItems: FC<EarnHeaderOptionProps> = (headerItems) => {
+const HeaderItems: FC<EarnHeaderOptionProps> = ({ isStable, isFarm }) => {
   const t = useTranslations();
+
   return (
     <Box display="flex" gap="m">
-      {headerItems.isVolatile && (
+      {!isStable ? (
         <Button variant="filled" size="small" bg="#FED7AA">
           <Typography
             variant="small"
@@ -19,8 +20,7 @@ const HeaderItems: FC<EarnHeaderOptionProps> = (headerItems) => {
             {t('common.volatile', { count: 1 })}
           </Typography>
         </Button>
-      )}
-      {headerItems.isStable && (
+      ) : (
         <Button variant="filled" size="small" bg="#A5F3FC">
           <Typography
             variant="small"
@@ -32,7 +32,7 @@ const HeaderItems: FC<EarnHeaderOptionProps> = (headerItems) => {
           </Typography>
         </Button>
       )}
-      {headerItems.isFarm && (
+      {isFarm && (
         <Button variant="filled" size="small" bg="#D9F99D">
           <Typography
             variant="small"

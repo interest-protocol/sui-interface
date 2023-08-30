@@ -10,8 +10,8 @@ const EarnContainer: FC<PropsWithChildren<EarnContainerProps>> = ({
   <Box
     gap="l"
     width="100%"
+    display="grid"
     borderRadius="m"
-    variant="container"
     gridTemplateColumns={[
       '1fr',
       '1fr',

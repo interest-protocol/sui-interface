@@ -1,17 +1,144 @@
+import { Network, STABLE } from '@interest-protocol/sui-amm-sdk';
 import BigNumber from 'bignumber.js';
+import { propOr, toPairs } from 'ramda';
 
-import { calculateIPXUSDPrice, ZERO_BIG_NUMBER } from '@/utils';
+import { PoolReturn } from '@/api/metrics';
+import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
+import {
+  COIN_TYPE_ARRAY_UI,
+  COIN_TYPE_TO_COIN,
+  DEX_LP_COIN_TYPE,
+  FARMS_RECORD,
+  RECOMMENDED_POOLS,
+} from '@/constants';
+import { CoinData } from '@/interface';
+import {
+  calculateAPR,
+  calculateIPXUSDPrice,
+  calculateTVL,
+  getCoinsFromLpCoinType,
+  getSymbolByType,
+  ZERO_BIG_NUMBER,
+} from '@/utils';
 
-import { parseFarmData } from '../../farm-details/farm-details.utils';
-import { COIN_TYPE_ARRAY_UI } from '../../farms/farms.constants';
-import { ParseDataArgs } from './earn.types';
+import { FormatLpCoinToPoolArgs } from '../../dex-pool/pool.types';
+import { getPoolFromMetricLabel } from '../metrics/metrics.utils';
+import {
+  IPools,
+  ParseDataArgs,
+  ParseFarmDataArgs,
+  SafeFarmData,
+} from './earn.types';
 
-export const parseData = ({
-  prices,
-  farms,
-  ipxStorage,
-  pools,
+export const filterPools = (
+  network: Network,
+  coinsMap: Record<string, Web3ManagerSuiObject>
+): IPools =>
+  RECOMMENDED_POOLS[network].map((pool) => ({
+    ...pool,
+    decimals: coinsMap[pool.lpCoin.type]?.decimals ?? 0,
+    balance: coinsMap[pool.lpCoin.type]?.totalBalance ?? ZERO_BIG_NUMBER,
+  }));
+
+export const isIPXLPCoin = (x: string, network: Network) =>
+  x.startsWith(DEX_LP_COIN_TYPE[network]);
+
+export const formatLpCoinToPool = ({
+  tokensMetadataRecord,
   network,
+  object,
+}: FormatLpCoinToPoolArgs) => {
+  const { coinXType, coinYType } = getCoinsFromLpCoinType(object.type);
+
+  const coins = COIN_TYPE_TO_COIN[network];
+
+  const coinXMetadata =
+    coins[coinXType] ||
+    (propOr(null, coinXType, tokensMetadataRecord) as null | CoinData);
+
+  const coinYMetadata =
+    coins[coinYType] ||
+    (propOr(null, coinYType, tokensMetadataRecord) as null | CoinData);
+
+  const stable = object.type.includes(STABLE[network]);
+
+  return {
+    stable,
+    token0: coinXMetadata
+      ? coinXMetadata
+      : {
+          type: coinXType,
+          decimals: 0,
+          symbol: getSymbolByType(coinXType),
+        },
+    token1: coinYMetadata
+      ? coinYMetadata
+      : {
+          type: coinYType,
+          decimals: 0,
+          symbol: getSymbolByType(coinYType),
+        },
+    decimals: 0,
+    balance: object.totalBalance,
+    poolObjectId: null,
+  };
+};
+
+export const parseFarmData = ({
+  type,
+  index,
+  pools,
+  farms,
+  prices,
+  network,
+  ipxStorage,
+  ipxUSDPrice,
+}: ParseFarmDataArgs): SafeFarmData => {
+  // First farm IPX has no pool
+  const farm = farms[index];
+  const pool = index > 0 ? pools[index - 1] : pools[index];
+  const farmMetadata = FARMS_RECORD[network][type];
+
+  const tvl = calculateTVL({
+    farm,
+    pool,
+    prices,
+    ipxUSDPrice,
+    farmMetadata,
+  });
+
+  const accountBalance = farm.accountBalance;
+  const allocationPoints = farm.allocationPoints;
+  const totalStakedAmount = farm.totalStakedAmount;
+
+  const apr = calculateAPR({
+    tvl,
+    ipxStorage,
+    ipxUSDPrice,
+    allocationPoints: allocationPoints.div(ipxStorage.totalAllocation),
+  });
+
+  return {
+    ...farmMetadata,
+    tvl,
+    apr,
+    accountBalance,
+    allocationPoints,
+    totalStakedAmount,
+    totalAllocationPoints: new BigNumber(ipxStorage.totalAllocation),
+  };
+};
+
+export const parseMainnetData = (data: PoolReturn) => {
+  return;
+};
+
+export const parseTestnetData = ({
+  farms,
+  pools,
+  prices,
+  network,
+  ipxStorage,
 }: ParseDataArgs) => {
   if (
     !farms ||
@@ -21,10 +148,7 @@ export const parseData = ({
     !farms.length ||
     !pools.length
   )
-    return {
-      farms: [],
-      totalAllocationPoints: ZERO_BIG_NUMBER,
-    };
+    return [];
 
   const ipxUSDPrice = calculateIPXUSDPrice({
     pool: pools[0],
@@ -32,19 +156,16 @@ export const parseData = ({
     network,
   });
 
-  return {
-    farms: COIN_TYPE_ARRAY_UI[network].map((x, index) =>
-      parseFarmData({
-        ipxStorage,
-        farms,
-        pools,
-        prices,
-        ipxUSDPrice,
-        type: x,
-        index,
-        network,
-      })
-    ),
-    totalAllocationPoints: new BigNumber(ipxStorage.totalAllocation),
-  };
+  return COIN_TYPE_ARRAY_UI[network].map((type, index) =>
+    parseFarmData({
+      ipxStorage,
+      farms,
+      pools,
+      prices,
+      ipxUSDPrice,
+      type,
+      index,
+      network,
+    })
+  );
 };

@@ -5,46 +5,46 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
-import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { Routes, RoutesEnum } from '@/constants';
+import { formatDollars } from '@/utils';
 
-import { EarnPoolItemProps } from '../earn.types';
+import { PoolCardProps } from '../earn.types';
 import { EarnCardTokenIcon } from './earn-card-token-icon';
 import HeaderItems from './header-items';
 
-const PoolCard: FC<EarnPoolItemProps> = ({
+const PoolCard: FC<PoolCardProps> = ({
   apr,
-  fee,
+  tvl,
   coin0,
   coin1,
-  volume,
-  liquidity,
-  allocation,
-  headerOption,
+  stable,
+  isSingleCoin,
+  allocationPoints,
+  totalAllocationPoints,
 }) => {
   const t = useTranslations();
-  const { push } = useRouter();
   const { dark } = useTheme() as Theme;
 
   return (
     <Box width="100%">
       <Box
-        flex="1"
-        bg="surface.containerLow"
         p="l"
-        display="flex"
-        flexDirection="column"
+        flex="1"
         gap="2xl"
+        display="flex"
         color="onSurface"
+        flexDirection="column"
+        bg="surface.containerLow"
       >
-        <HeaderItems {...headerOption} />
+        <HeaderItems isStable={stable} />
         <Box display="flex" flexWrap="wrap" gap="l">
           <Box gap="m" display="flex">
-            <EarnCardTokenIcon type={coin0.type} />
-            <EarnCardTokenIcon type={coin1.type} />
+            <EarnCardTokenIcon
+              isSingleCoin={isSingleCoin}
+              types={[coin0.type, coin1.type]}
+            />
           </Box>
           <Box>
             <Typography
@@ -52,14 +52,14 @@ const PoolCard: FC<EarnPoolItemProps> = ({
               variant="medium"
               color={dark ? 'white' : 'black'}
             >
-              {`${coin0.symbol} - ${coin1.symbol}`}
+              {`${isSingleCoin ? '' : `${coin0.symbol} - `}${coin1.symbol}`}
             </Typography>
             <Typography variant="small" color="onSurfaceVariant">
               {`${apr.decimalPlaces(2).toString()}% ${t('common.apr')}`}
             </Typography>
           </Box>
         </Box>
-        {/* <Box display="flex" gap="m" flexDirection="column">
+        <Box display="flex" gap="m" flexDirection="column">
           <Box display="flex" justifyContent="space-between">
             <Typography
               variant="small"
@@ -69,7 +69,7 @@ const PoolCard: FC<EarnPoolItemProps> = ({
               {t('earn.cards.fee')}
             </Typography>
             <Typography variant="small" color={dark ? 'white' : 'black'}>
-              {fee}
+              {stable ? 0.05 : 0.3}%
             </Typography>
           </Box>
           <Box display="flex" justifyContent="space-between">
@@ -78,10 +78,10 @@ const PoolCard: FC<EarnPoolItemProps> = ({
               color="onSurfaceVariant"
               textTransform="capitalize"
             >
-              {t('common.liquidity')}
+              {t('common.tvl')}
             </Typography>
             <Typography variant="small" color={dark ? 'white' : 'black'}>
-              {liquidity}
+              {formatDollars(tvl)}
             </Typography>
           </Box>
           <Box display="flex" justifyContent="space-between">
@@ -93,7 +93,7 @@ const PoolCard: FC<EarnPoolItemProps> = ({
               {t('earn.overview.volume')}
             </Typography>
             <Typography variant="small" color={dark ? 'white' : 'black'}>
-              {volume}
+              {0}
             </Typography>
           </Box>
           <Box display="flex" justifyContent="space-between">
@@ -105,33 +105,46 @@ const PoolCard: FC<EarnPoolItemProps> = ({
               {t('common.allocation')}
             </Typography>
             <Typography variant="small" color={dark ? 'white' : 'black'}>
-              {allocation}
+              {allocationPoints
+                .dividedBy(totalAllocationPoints)
+                .multipliedBy(100)
+                .decimalPlaces(2)
+                .toString()}
+              %
             </Typography>
           </Box>
         </Box>
-        <Box
-          display="grid"
-          gridTemplateColumns={['1fr', '1fr', '1fr', '1fr 1fr']}
-          gap="s"
-        >
-          <Button size="small" variant="outline" textAlign="center">
+        <Box gap="s" display="flex" flexDirection={['column', 'column', 'row']}>
+          <Button
+            size="small"
+            variant="outline"
+            textAlign="center"
+            width={['auto', 'auto', '100%']}
+          >
             <Typography variant="small" width="100%" textTransform="capitalize">
               {t('common.v2.navbar.swap')}
             </Typography>
           </Button>
-          <Button
-            size="small"
-            variant="filled"
-            textAlign="center"
-            onClick={() =>
-              push({ pathname: Routes[RoutesEnum.EarnDetails] }).then()
-            }
-          >
-            <Typography variant="small" width="100%" textTransform="capitalize">
-              {t('earn.cards.addLiquidity')}
-            </Typography>
-          </Button>
-        </Box>*/}
+          {!isSingleCoin && (
+            <Button
+              size="small"
+              variant="filled"
+              textAlign="center"
+              width={['auto', 'auto', '100%']}
+              // onClick={() =>
+              //   push({ pathname: Routes[RoutesEnum.EarnDetails] }).then()
+              // }
+            >
+              <Typography
+                variant="small"
+                width="100%"
+                textTransform="capitalize"
+              >
+                {t('earn.cards.addLiquidity')}
+              </Typography>
+            </Button>
+          )}
+        </Box>
       </Box>
     </Box>
   );

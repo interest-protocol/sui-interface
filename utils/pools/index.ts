@@ -70,5 +70,6 @@ export const parseSuiObjectToPool = (data: SuiObjectResponse['data']) => {
   };
 };
 
-export const parseSuiObjectDataToPools = (x: SuiObjectResponse[]) =>
-  x.map(({ data }) => parseSuiObjectToPool(data));
+export const parseSuiObjectDataToPools = (
+  x: SuiObjectResponse[]
+): ReadonlyArray<Pool> => x.map(({ data }) => parseSuiObjectToPool(data));

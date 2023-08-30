@@ -1,11 +1,19 @@
-import { Network, Pool } from '@interest-protocol/sui-amm-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import BigNumber from 'bignumber.js';
+import { useReadLocalStorage } from 'usehooks-ts';
 
+import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
+import { FarmMetadataType } from '@/constants';
 import { CoinPriceRecord } from '@/hooks';
-import { Farm } from '@/interface';
+import { CoinData, Farm, Pool } from '@/interface';
 import { TOKEN_SYMBOL } from '@/lib';
 
-import { IPXStorage } from '../../liquidity-farms-details/liquidity-farms-details.hooks';
+export interface IPXStorage {
+  ipxPerMS: string;
+  ipxSupply: string;
+  startTimestamp: string;
+  totalAllocation: string;
+}
 
 export interface Token {
   symbol: TOKEN_SYMBOL.SUI;
@@ -14,24 +22,12 @@ export interface Token {
 }
 
 export interface EarnHeaderOptionProps {
-  isVolatile?: boolean;
   isFarm?: boolean;
-  isStable?: boolean;
+  isStable: boolean;
 }
 
 export interface EarnContainerProps {
   columns: number;
-}
-
-export interface EarnPoolItemProps {
-  coin0: Token;
-  coin1: Token;
-  apr: BigNumber;
-  fee: string;
-  liquidity: string;
-  volume: string;
-  allocation: string;
-  headerOption: EarnHeaderOptionProps;
 }
 
 export interface EarnPositionItemProps {
@@ -48,7 +44,8 @@ export interface EarnPositionItemProps {
 }
 
 export interface EarnCardTokenIconProps {
-  type: string;
+  types: [string, string];
+  isSingleCoin: boolean;
 }
 
 export interface EarnFiltersProps {
@@ -71,10 +68,57 @@ export interface EarnHeaderProps {
   handleTab: () => void;
 }
 
+export interface IPool {
+  stable: boolean;
+  token0: CoinData;
+  token1: CoinData;
+  decimals: number;
+  balance: BigNumber;
+  poolObjectId: string | null;
+}
+
+export type IPools = ReadonlyArray<IPool>;
+
+export interface FormatLpCoinToPoolArgs {
+  object: Web3ManagerSuiObject;
+  tokensMetadataRecord: ReturnType<typeof useReadLocalStorage>;
+  network: Network;
+}
+
 export interface ParseDataArgs {
   farms: ReadonlyArray<Farm>;
   pools: ReadonlyArray<Pool>;
   prices: CoinPriceRecord;
   ipxStorage: IPXStorage;
   network: Network;
+}
+
+export interface SafeFarmData extends FarmMetadataType {
+  tvl: number;
+  apr: BigNumber;
+  loading?: boolean;
+  accountBalance: BigNumber;
+  allocationPoints: BigNumber;
+  totalStakedAmount: BigNumber;
+  totalAllocationPoints: BigNumber;
+}
+
+export interface PoolCardProps extends SafeFarmData {
+  isPool: boolean;
+}
+
+export interface ParseFarmDataArgs {
+  prices: CoinPriceRecord;
+  ipxUSDPrice: number;
+  ipxStorage: IPXStorage;
+  pools: ReadonlyArray<Pool>;
+  farms: ReadonlyArray<Farm>;
+  type: string;
+  index: number;
+  network: Network;
+}
+
+export interface ParseFarmDataReturn {
+  farms: ReadonlyArray<SafeFarmData>;
+  totalAllocationPoints: BigNumber;
 }

@@ -65,20 +65,20 @@ export const calculateTVL = ({
       farmBalance.multipliedBy(ipxUSDPrice),
       farmMetadata.lpCoin.decimals
     );
-  } else {
-    const lpCoinSupply = pool.lpCoinSupply;
-
-    if (lpCoinSupply.isZero()) return 0;
-
-    const lpCoinPrice = calculateLPCoinPrice(
-      prices,
-      farmMetadata.coin0,
-      farmMetadata.coin1,
-      pool
-    );
-
-    return farm.totalStakedAmount.multipliedBy(lpCoinPrice).toNumber();
   }
+
+  const lpCoinSupply = pool.lpCoinSupply;
+
+  if (lpCoinSupply.isZero()) return 0;
+
+  const lpCoinPrice = calculateLPCoinPrice(
+    prices,
+    farmMetadata.coin0,
+    farmMetadata.coin1,
+    pool
+  );
+
+  return farm.totalStakedAmount.multipliedBy(lpCoinPrice).toNumber();
 };
 
 export const parseSuiRawDataToFarms = (

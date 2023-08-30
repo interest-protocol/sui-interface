@@ -1,205 +1,53 @@
-import { COIN_TYPE, Network } from '@interest-protocol/sui-amm-sdk';
+import { Network } from '@interest-protocol/sui-amm-sdk';
 
-import { TOKEN_SYMBOL } from '@/lib';
+import { COIN_POOL, COINS } from '@/constants';
 
-import { EarnPoolItemProps, EarnPositionItemProps } from './earn.types';
+export const COIN_PRICES = {
+  [Network.DEVNET]: [
+    COINS[Network.DEVNET].ETH.type,
+    COINS[Network.DEVNET].BTC.type,
+    COINS[Network.DEVNET].BNB.type,
+    COINS[Network.DEVNET].USDT.type,
+    COINS[Network.DEVNET].USDC.type,
+    COINS[Network.DEVNET].SUI.type,
+  ],
+  [Network.TESTNET]: [
+    COINS[Network.TESTNET].ETH.type,
+    COINS[Network.TESTNET].BTC.type,
+    COINS[Network.TESTNET].BNB.type,
+    COINS[Network.TESTNET].USDT.type,
+    COINS[Network.TESTNET].USDC.type,
+    COINS[Network.TESTNET].SUI.type,
+  ],
+  [Network.MAINNET]: [
+    COINS[Network.MAINNET].ETH_WORMHOLE_USDT.type,
+    COINS[Network.MAINNET].ETH_WORMHOLE_USDC.type,
+    COINS[Network.MAINNET].BSC_WORMHOLE_USDT.type,
+    COINS[Network.MAINNET].BSC_WORMHOLE_USDC.type,
+    COINS[Network.MAINNET].SUI.type,
+  ],
+};
 
-export const EARN_POOL_DATA: ReadonlyArray<EarnPoolItemProps> = [
-  {
-    token1: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    token2: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    apr: '123',
-    fee: '123',
-    liquidity: '123',
-    volume: '12h',
-    allocation: '123',
-    headerOption: {
-      isVolatile: true,
-      isFarm: true,
-    },
-  },
-  {
-    token1: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    token2: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    apr: '123',
-    fee: '123',
-    liquidity: '123',
-    volume: '12h',
-    allocation: '123',
-    headerOption: {
-      isVolatile: true,
-      isFarm: true,
-    },
-  },
-  {
-    token1: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    token2: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    apr: '123',
-    fee: '123',
-    liquidity: '123',
-    volume: '12h',
-    allocation: '123',
-    headerOption: {
-      isVolatile: true,
-      isFarm: true,
-    },
-  },
-  {
-    token1: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    token2: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    apr: '123',
-    fee: '123',
-    liquidity: '123',
-    volume: '12h',
-    allocation: '123',
-    headerOption: {
-      isVolatile: true,
-      isFarm: true,
-    },
-  },
-  {
-    token1: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    token2: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    apr: '123',
-    fee: '123',
-    liquidity: '123',
-    volume: '12h',
-    allocation: '123',
-    headerOption: {
-      isVolatile: true,
-      isFarm: true,
-    },
-  },
-  {
-    token1: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    token2: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    apr: '123',
-    fee: '123',
-    liquidity: '123',
-    volume: '12h',
-    allocation: '123',
-    headerOption: {
-      isStable: true,
-      isFarm: true,
-    },
-  },
-];
+// The order has to remain the same
 
-export const EARN_POSITION_DATA: ReadonlyArray<EarnPositionItemProps> = [
-  {
-    token1: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    token2: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    apr: '123',
-    fee: '123',
-    liquidity: {
-      token1: '123',
-      token2: '123',
-    },
-    farmIPX: '123',
-    headerOption: {
-      isVolatile: true,
-      isFarm: true,
-    },
-  },
-  {
-    token1: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    token2: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    apr: '123',
-    fee: '123',
-    liquidity: {
-      token1: '123',
-      token2: '123',
-    },
-    headerOption: {
-      isVolatile: true,
-      isFarm: true,
-    },
-  },
-  {
-    token1: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    token2: {
-      symbol: TOKEN_SYMBOL.SUI,
-      type: COIN_TYPE[Network.DEVNET].SUI,
-      name: 'SUI',
-    },
-    apr: '123',
-    fee: '123',
-    liquidity: {
-      token1: '123',
-      token2: '123',
-    },
-    farmIPX: '123',
-    headerOption: {
-      isVolatile: true,
-      isFarm: true,
-    },
-  },
-];
+export const POOL_IDS_RECORD = {
+  [Network.DEVNET]: [
+    COIN_POOL[Network.DEVNET].V_LP_ETH_IPX,
+    COIN_POOL[Network.DEVNET].V_LP_SUI_ETH,
+    COIN_POOL[Network.DEVNET].V_LP_BTC_ETH,
+    COIN_POOL[Network.DEVNET].V_LP_BNB_ETH,
+    COIN_POOL[Network.DEVNET].V_LP_ETH_USDC,
+    COIN_POOL[Network.DEVNET].V_LP_ETH_USDT,
+    COIN_POOL[Network.DEVNET].S_LP_USDC_USDT,
+  ],
+  [Network.TESTNET]: [
+    COIN_POOL[Network.TESTNET].V_LP_ETH_IPX,
+    COIN_POOL[Network.TESTNET].V_LP_SUI_ETH,
+    COIN_POOL[Network.TESTNET].V_LP_BTC_ETH,
+    COIN_POOL[Network.TESTNET].V_LP_BNB_ETH,
+    COIN_POOL[Network.TESTNET].V_LP_ETH_USDC,
+    COIN_POOL[Network.TESTNET].V_LP_ETH_USDT,
+    COIN_POOL[Network.TESTNET].S_LP_USDC_USDT,
+  ],
+  [Network.MAINNET]: [],
+};
