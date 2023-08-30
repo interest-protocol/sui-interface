@@ -57,7 +57,7 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
     setIsMobile(mediaIsMobile);
   }, []);
 
-  useEventListener('resize', handleSetDesktop, true);
+  useEventListener('resize', handleSetDesktop);
 
   const Variants = !isMobile ? RightMenuVariants : RightMenuVariantsMobile;
 

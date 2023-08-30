@@ -32,7 +32,7 @@ const MenuProfile: FC<
     setIsMobile(mediaIsMobile);
   }, []);
 
-  useEventListener('resize', handleSetDesktop, true);
+  useEventListener('resize', handleSetDesktop);
 
   const Variants = !isMobile ? RightMenuVariants : RightMenuVariantsMobile;
   return (

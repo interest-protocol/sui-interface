@@ -33,7 +33,7 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
     setIsMobile(mediaIsMobile);
   }, []);
 
-  useEventListener('resize', handleSetDesktop, true);
+  useEventListener('resize', handleSetDesktop);
 
   const Variants = !isMobile ? RightMenuVariants : RightMenuVariantsMobile;
 
