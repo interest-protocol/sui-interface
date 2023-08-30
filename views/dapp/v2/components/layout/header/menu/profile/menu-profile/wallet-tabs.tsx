@@ -9,7 +9,7 @@ const WalletTabs: FC = () => {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <>
+    <Box pb="50px">
       <Box
         p=".125rem"
         width="100%"
@@ -61,7 +61,7 @@ const WalletTabs: FC = () => {
           </Box>
         </Box>
       )}
-    </>
+    </Box>
   );
 };
 

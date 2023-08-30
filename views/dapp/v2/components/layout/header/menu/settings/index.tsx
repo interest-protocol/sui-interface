@@ -9,10 +9,8 @@ import {
   RightMenuVariantsMobile,
 } from '@/components/web3-manager/connect-wallet/wallet/wallet-variants';
 import { RefBox } from '@/elements';
-import { useLocale } from '@/hooks';
 import useClickOutsideListenerRef from '@/hooks/use-click-outside-listener-ref';
 
-import MenuLanguage from './menu-language';
 import MenuSettings from './menu-settings';
 
 const BOX_ID = 'settings-dropdown';
@@ -21,7 +19,6 @@ const Settings: FC = () => {
   const { query } = useRouter();
   const [isOpenSettings, setIsOpenSettings] = useState(Boolean(query.settings));
   const { colors } = useTheme() as Theme;
-  const { locales } = useLocale();
 
   const closeDropdown = (event: any) => {
     if (
@@ -87,7 +84,9 @@ const Settings: FC = () => {
         top="0"
         right="0"
         zIndex="6"
+        pb="6.25rem"
         height="100vh"
+        overflow="auto"
         initial="closed"
         position="absolute"
         variants={Variants}
@@ -97,7 +96,6 @@ const Settings: FC = () => {
         animate={isOpenSettings ? 'open' : 'closed'}
       >
         <MenuSettings setSettingsClosed={handleCloseSettings} />
-        <MenuLanguage locales={locales} />
       </Motion>
     </>
   );
