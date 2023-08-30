@@ -1,7 +1,6 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
 import {
   Box,
-  Motion,
   SwitchButton,
   Theme,
   Typography,
@@ -10,15 +9,16 @@ import {
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { NETWORK_RESTRICTION } from '@/constants';
-import { useNetwork } from '@/hooks';
+import { useLocale, useNetwork } from '@/hooks';
 import { AppTheme } from '@/interface';
 import { ArrowLeft } from '@/svg';
 import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../menu-item-wrapper';
+import MenuLanguage from '../menu-language';
 import { MenuSettingsListProps } from './settings-list.types';
 import MenuSettingsListHeaderMobile from './settings-list-header-mobile';
 
@@ -32,21 +32,12 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ setSettingsClosed }) => {
   const handleChangeNetwork = (selectedNetwork: Network) => () => {
     setNetwork(selectedNetwork);
   };
-  const [toggle, setToggle] = useState(true);
 
-  const closeDropdownSettingsMenu = () => {
-    setToggle(not);
-  };
+  const { locales } = useLocale();
 
   return (
     <>
-      <Box
-        p="xl"
-        mt="2xs"
-        borderTopColor="outline.outlineVariant"
-        display={['none', 'none', 'none', 'flex']}
-        borderTop={['1px solid', '1px solid', '1px solid', 'unset']}
-      >
+      <Box p="xl" mt="2xs" display="flex" overflow="auto">
         <Box cursor="pointer">
           <ArrowLeft
             width="100%"
@@ -66,22 +57,15 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ setSettingsClosed }) => {
       </Box>
       <Typography
         p="l"
-        mt="4xl"
+        mt={['unset', 'unset', 'unset', '4xl']}
         variant="small"
         fontWeight="500"
         color="onSurface"
       >
         {capitalize(t('common.v2.menu.preferences'))}
       </Typography>
-      <MenuSettingsListHeaderMobile
-        handleButton={closeDropdownSettingsMenu}
-        isOpen={toggle}
-      />
-      <Motion
-        overflow="hidden"
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        animate={{ height: toggle ? 'auto' : '0' }}
-      >
+      <MenuSettingsListHeaderMobile />
+      <Box overflow="hidden" height="auto">
         <MenuItemWrapper>
           <Typography variant="small" color="onSurface">
             {capitalize(t('common.v2.menu.darkMode'))}
@@ -119,16 +103,15 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ setSettingsClosed }) => {
           p="l"
           mb="2xl"
           mx="auto"
-          width="calc(100% - 3rem)"
           borderBottom="1px solid"
+          width="calc(100% - 3rem)"
           borderBottomColor="outline.outlineVariant"
         />
-        <MenuItemWrapper>
-          <Typography variant="small" fontWeight="500" color="onSurface">
-            {capitalize(t('common.v2.menu.language'))}
-          </Typography>
-        </MenuItemWrapper>
-      </Motion>
+        <Typography variant="small" fontWeight="500" color="onSurface" p="l">
+          {capitalize(t('common.v2.menu.language'))}
+        </Typography>
+        <MenuLanguage locales={locales} />
+      </Box>
     </>
   );
 };

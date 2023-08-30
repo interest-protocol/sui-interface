@@ -14,6 +14,7 @@ const DisconnectWallet: FC = () => {
 
   return (
     <Box
+      ml="unset"
       display="flex"
       border="1px solid"
       borderRadius="100%"
@@ -21,7 +22,6 @@ const DisconnectWallet: FC = () => {
       flexDirection="column"
       justifyContent="center"
       transition="background-color .5s"
-      ml={['0.5rem', '0.5rem', '0.5rem', 'unset']}
       borderColor={colors['outline.outlineVariant']}
       nHover={{ bg: colors['outline.outlineVariant'] }}
     >

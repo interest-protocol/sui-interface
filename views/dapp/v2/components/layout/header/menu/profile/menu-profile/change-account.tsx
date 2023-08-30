@@ -25,10 +25,8 @@ const ChangeAccount: FC<MenuSwitchAccountProps> = ({
     <>
       <RefBox
         id={BOX_ID}
-        ml="auto"
         display="flex"
         cursor="pointer"
-        marginLeft="6rem"
         borderRadius="100%"
         position="relative"
         flexDirection="column"

@@ -10,10 +10,14 @@ import {
 import { formatAddress } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, useCallback, useState } from 'react';
+import { useEventListener } from 'usehooks-ts';
 
 import { UserSVG } from '@/components/svg/v2';
-import { RightMenuVariants } from '@/components/web3-manager/connect-wallet/wallet/wallet-variants';
+import {
+  RightMenuVariants,
+  RightMenuVariantsMobile,
+} from '@/components/web3-manager/connect-wallet/wallet/wallet-variants';
 import { SEMANTIC_COLORS } from '@/constants';
 import { useWeb3 } from '@/hooks';
 import { capitalize } from '@/utils';
@@ -46,27 +50,34 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
           dark ? 'dark' : 'light'
         ];
 
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  const handleSetDesktop = useCallback(() => {
+    const mediaIsMobile = !window.matchMedia('(min-width: 55em)').matches;
+    setIsMobile(mediaIsMobile);
+  }, []);
+
+  useEventListener('resize', handleSetDesktop, true);
+
+  const Variants = !isMobile ? RightMenuVariants : RightMenuVariantsMobile;
+
   return (
     <Motion
       top="0"
       right="0"
       zIndex={1}
       bg="surface"
-      width="100%"
       height="100vh"
       initial="closed"
       borderRadius="m"
       overflow="visible"
+      variants={Variants}
       textTransform="capitalize"
-      variants={RightMenuVariants}
-      p={['xl', 'xl', 'xl', 'unset']}
-      maxWidth={['100vw', '100vw', '100vw', '100%']}
       position={['fixed', 'fixed', 'fixed', 'absolute']}
       animate={isSwitchAccountOpen ? 'open' : 'closed'}
       pointerEvents={isSwitchAccountOpen ? 'auto' : 'none'}
     >
       <MenuSwitchAccountHeader
-        size={accounts.length}
         handleCloseProfile={handleCloseProfile}
         handleCloseSwitchAccount={handleCloseSwitchAccount}
       />

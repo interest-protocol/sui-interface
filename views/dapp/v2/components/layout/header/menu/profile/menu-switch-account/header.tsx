@@ -4,13 +4,10 @@ import { FC } from 'react';
 
 import { ArrowLeft } from '@/svg';
 
-import MenuButton from '../../menu-button';
 import { MenuSwitchAccountHeaderProps } from '../profile.types';
 
 const MenuSwitchAccountHeader: FC<MenuSwitchAccountHeaderProps> = ({
   handleCloseSwitchAccount,
-  handleCloseProfile,
-  size,
 }) => {
   const t = useTranslations();
 
@@ -50,23 +47,6 @@ const MenuSwitchAccountHeader: FC<MenuSwitchAccountHeaderProps> = ({
             {t('common.v2.wallet.manage')}
           </Typography>
         </Box>
-        <Box
-          display={['flex', 'flex', 'flex', 'none']}
-          flexDirection="row-reverse"
-        >
-          <MenuButton isOpen={true} handleClose={handleCloseProfile} />
-        </Box>
-      </Box>
-      <Box p="xl" display={['flex', 'flex', 'flex', 'none']}>
-        <Typography
-          variant="small"
-          color="onSurface"
-          textTransform="capitalize"
-        >
-          {t('common.v2.wallet.account', {
-            count: size,
-          })}
-        </Typography>
       </Box>
     </>
   );

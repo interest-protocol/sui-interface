@@ -18,7 +18,7 @@ export interface MenuDesktopProps {
   handleClose: () => void;
 }
 
-export interface MenuMobileProps /*extends MainMenuProps*/ {
+export interface MenuMobileProps extends MainMenuProps {
   isOpen: boolean;
   isLanguage: boolean;
 }

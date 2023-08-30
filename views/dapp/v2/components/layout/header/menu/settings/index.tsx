@@ -1,9 +1,13 @@
 import { Button, Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
+import { useEventListener } from 'usehooks-ts';
 
 import { CogsSVG } from '@/components/svg/v2';
-import { RightMenuVariants } from '@/components/web3-manager/connect-wallet/wallet/wallet-variants';
+import {
+  RightMenuVariants,
+  RightMenuVariantsMobile,
+} from '@/components/web3-manager/connect-wallet/wallet/wallet-variants';
 import { RefBox } from '@/elements';
 import { useLocale } from '@/hooks';
 import useClickOutsideListenerRef from '@/hooks/use-click-outside-listener-ref';
@@ -44,6 +48,17 @@ const Settings: FC = () => {
     setIsOpenSettings(false);
   };
 
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  const handleSetDesktop = useCallback(() => {
+    const mediaIsMobile = !window.matchMedia('(min-width: 55em)').matches;
+    setIsMobile(mediaIsMobile);
+  }, []);
+
+  useEventListener('resize', handleSetDesktop, true);
+
+  const Variants = !isMobile ? RightMenuVariants : RightMenuVariantsMobile;
+
   return (
     <>
       <RefBox
@@ -72,16 +87,14 @@ const Settings: FC = () => {
         top="0"
         right="0"
         zIndex="6"
-        width="100%"
         height="100vh"
         initial="closed"
         position="absolute"
+        variants={Variants}
         background="surface"
         borderLeft="1px solid"
-        variants={RightMenuVariants}
         borderLeftColor="outline.outlineVariant"
         animate={isOpenSettings ? 'open' : 'closed'}
-        maxWidth={['100vw', '100vw', '100vw', '22rem']}
       >
         <MenuSettings setSettingsClosed={handleCloseSettings} />
         <MenuLanguage locales={locales} />

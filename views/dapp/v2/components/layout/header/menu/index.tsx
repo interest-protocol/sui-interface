@@ -4,8 +4,9 @@ import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
 import Wallet from '../../wallet';
-import MenuBackButton from './menu-back-button';
 import MenuButton from './menu-button';
+import MenuMobile from './menu-mobile';
+import NetworkOptions from './network-options';
 
 const Menu: FC = () => {
   const t = useTranslations();
@@ -13,11 +14,11 @@ const Menu: FC = () => {
   const [isOpen, setIsOpen] = useState(Boolean(query.menu));
   const [isLanguage, setIsLanguage] = useState(Boolean(query.language));
 
-  const handleCloseLanguage = () => {
+  const openLanguageMenu = () => {
     const url = new URL(window.location.href);
-    url.searchParams.delete('language');
+    url.searchParams.set('language', 'true');
     window.history.pushState('', '', url.toString());
-    setIsLanguage(false);
+    setIsLanguage(true);
   };
 
   const handleOpen = () => {
@@ -28,7 +29,6 @@ const Menu: FC = () => {
   };
 
   const handleClose = () => {
-    handleCloseLanguage();
     const url = new URL(window.location.href);
     url.searchParams.delete('menu');
     window.history.pushState('', '', url.toString());
@@ -48,6 +48,7 @@ const Menu: FC = () => {
         bg={isOpen ? 'transparent' : 'unset'}
       >
         <Box display="flex" alignItems="center">
+          {isOpen && <NetworkOptions />}
           {!isOpen && (
             <Box
               mr="xl"
@@ -73,11 +74,12 @@ const Menu: FC = () => {
         >
           {t('common.v2.menu.selectLanguage')}
         </Typography>
-        <MenuBackButton
-          handleBack={handleCloseLanguage}
-          showButton={isOpen && isLanguage}
-        />
       </Box>
+      <MenuMobile
+        isOpen={isOpen}
+        isLanguage={isLanguage}
+        openLanguageMenu={openLanguageMenu}
+      />
     </Box>
   );
 };

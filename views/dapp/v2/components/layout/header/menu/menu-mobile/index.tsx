@@ -3,9 +3,8 @@ import { FC } from 'react';
 
 import { MenuMobileProps } from '../menu.types';
 import MainMenu from './main-menu';
-import LanguageMenu from './menu-mobile-language';
 
-const MenuMobile: FC<MenuMobileProps> = ({ isOpen, isLanguage }) => {
+const MenuMobile: FC<MenuMobileProps> = ({ isOpen }) => {
   if (!isOpen) return null;
 
   return (
@@ -21,7 +20,7 @@ const MenuMobile: FC<MenuMobileProps> = ({ isOpen, isLanguage }) => {
       bg="surface.container"
       display={['block', 'block', 'block', 'none']}
     >
-      {isLanguage ? <LanguageMenu /> : <MainMenu />}
+      <MainMenu />
     </Box>
   );
 };

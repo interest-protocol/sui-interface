@@ -91,6 +91,7 @@ const Profile: FC = () => {
 
   const handleCloseProfile = () => {
     handleCloseAccount();
+    handleCloseSwitchAccount;
     const url = new URL(window.location.href);
     url.searchParams.delete('profile');
     window.history.pushState('', '', url.toString());
@@ -98,6 +99,7 @@ const Profile: FC = () => {
   };
 
   const handleCloseAccount = () => {
+    handleCloseSwitchAccount;
     const url = new URL(window.location.href);
     url.searchParams.delete('account');
     window.history.pushState('', '', url.toString());
@@ -126,7 +128,6 @@ const Profile: FC = () => {
         cursor="pointer"
         flexDirection="column"
         justifyContent="center"
-        ml={['0.5rem', '0.5rem', '0.5rem', 'unset']}
       >
         {account && (
           <Box

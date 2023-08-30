@@ -51,8 +51,8 @@ const UserInfoHeader: FC<UserInfoProps & MenuSwitchAccountProps> = ({
           <Box
             bg="primary"
             display="flex"
-            width="2.5rem"
-            height="2.5rem"
+            minWidth="2.5rem"
+            minHeight="2.5rem"
             borderRadius="50%"
             alignItems="center"
             justifyContent="center"
@@ -66,17 +66,18 @@ const UserInfoHeader: FC<UserInfoProps & MenuSwitchAccountProps> = ({
                 alt={`${getName(account, suiNSRecord)} NFT`}
               />
             ) : (
-              <UserSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+              <UserSVG maxHeight="2.5rem" maxWidth="2.5rem" width="100%" />
             )}
           </Box>
         )}
         {account && (
           <Box
+            width="100%"
             display="flex"
             alignItems="center"
             justifyContent="space-between"
           >
-            <Box>
+            <Box mr="auto">
               <Typography variant="large">Wallet A</Typography>
               <Box display="flex" gap="l" alignItems="center">
                 <Typography variant="small" color="onSurface">

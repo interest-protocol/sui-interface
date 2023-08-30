@@ -34,7 +34,6 @@ export interface MenuSwitchAccountProps {
 export interface MenuSwitchAccountHeaderProps {
   handleCloseSwitchAccount: () => void;
   handleCloseProfile: () => void;
-  size: number;
 }
 
 export interface UserInfoProps {
