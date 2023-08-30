@@ -56,9 +56,8 @@ const TVLPools: FC = () => {
         setFilter={setFilter}
       />
       <Box
-        height={['19.25rem', '19.25rem', '19.25rem', '16.25rem']}
+        height={['17.25rem', '17.25rem', '17.25rem', '16.25rem']}
         width={['95%', '90%', '80%', '80%']}
-        pb="l"
         mx="auto"
       >
         {isLoading ? (
