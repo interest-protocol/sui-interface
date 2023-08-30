@@ -73,6 +73,7 @@ const CircleChart: FC<CircleChartProps> = ({
               as="span"
               color="#6B7280"
               variant="small"
+              fontSize={['xs', 's', 's', 's']}
               marginLeft="0.25rem"
             >
               {value}
