@@ -4,6 +4,7 @@ import {
   ProgressIndicator,
   Typography,
 } from '@interest-protocol/ui-kit';
+import { useQuerySenderEvents } from 'hooks/use-query-sender-events';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
@@ -18,6 +19,8 @@ const WalletTabs: FC = () => {
   const [hasMore, setHasMore] = useState(true);
   const [data, setData] =
     useState<ReadonlyArray<TransactionDataProps>>(TRANSACTIONS_DATA);
+
+  useQuerySenderEvents();
 
   const fetchMoreData = () => {
     data.length > 50 || (data.length === 0 && setHasMore(false));
