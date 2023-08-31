@@ -1,7 +1,6 @@
 import { Button, Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
 import { FC, useCallback, useState } from 'react';
-import { useEventListener } from 'usehooks-ts';
 
 import { CogsSVG } from '@/components/svg/v2';
 import {
@@ -10,6 +9,7 @@ import {
 } from '@/components/web3-manager/connect-wallet/wallet/wallet-variants';
 import { RefBox } from '@/elements';
 import useClickOutsideListenerRef from '@/hooks/use-click-outside-listener-ref';
+import useEventListener from '@/hooks/use-event-listener';
 
 import MenuSettings from './menu-settings';
 
@@ -52,7 +52,7 @@ const Settings: FC = () => {
     setIsMobile(mediaIsMobile);
   }, []);
 
-  useEventListener('resize', handleSetDesktop);
+  useEventListener('resize', handleSetDesktop, true);
 
   const Variants = !isMobile ? RightMenuVariants : RightMenuVariantsMobile;
 

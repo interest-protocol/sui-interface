@@ -1,6 +1,5 @@
 import { Box, Motion } from '@interest-protocol/ui-kit';
 import { FC, useCallback, useState } from 'react';
-import { useEventListener } from 'usehooks-ts';
 
 import { RightSidebarCloseButtonProps } from '@/components/web3-manager/connect-wallet/connect-wallet.types';
 import RightSidebarFooter from '@/components/web3-manager/connect-wallet/footer';
@@ -8,6 +7,7 @@ import {
   RightMenuVariants,
   RightMenuVariantsMobile,
 } from '@/components/web3-manager/connect-wallet/wallet/wallet-variants';
+import useEventListener from '@/hooks/use-event-listener';
 
 import { MenuSwitchAccountProps } from '../profile.types';
 import UserInfo from './user-info';
@@ -32,7 +32,7 @@ const MenuProfile: FC<
     setIsMobile(mediaIsMobile);
   }, []);
 
-  useEventListener('resize', handleSetDesktop);
+  useEventListener('resize', handleSetDesktop, true);
 
   const Variants = !isMobile ? RightMenuVariants : RightMenuVariantsMobile;
   return (
@@ -55,7 +55,17 @@ const MenuProfile: FC<
       borderLeftColor="outline.outlineVariant"
       position={['fixed', 'fixed', 'fixed', 'absolute']}
     >
-      <Box display="flex" flexDirection="column" justifyContent="space-between">
+      <Box
+        display="flex"
+        flexDirection="column"
+        height={[
+          'calc(100% + 3rem)',
+          'calc(100% + 3rem)',
+          'calc(100% - 1rem)',
+          'calc(100% - 4rem)',
+        ]}
+        justifyContent="space-between"
+      >
         <UserInfo
           isOpen={isOpen}
           loading={loading}

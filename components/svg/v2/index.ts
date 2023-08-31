@@ -15,6 +15,7 @@ export { default as ConnectConnectorFragSVG } from './connect-connector-frag';
 export { default as ConnectStructureSVG } from './connect-structure';
 export { default as CopySVG } from './copy';
 export { default as DiedComputerSVG } from './died-computer';
+export { default as DollarCoinSVG } from './dollar-coin';
 export { default as DotsSVG } from './dots';
 export { default as DoubleArrowSVG } from './double-arrow';
 export { default as DownArrowSVG } from './down-arrow';

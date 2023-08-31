@@ -1,9 +1,9 @@
 import { Box, Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { FC, useCallback, useEffect, useState } from 'react';
-import { useEventListener } from 'usehooks-ts';
 
 import { useModal } from '@/hooks';
+import useEventListener from '@/hooks/use-event-listener';
 
 import { ConnectWalletProps } from './connect-wallet.types';
 import RightSidebarFooter from './footer';
@@ -33,7 +33,7 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
     setIsMobile(mediaIsMobile);
   }, []);
 
-  useEventListener('resize', handleSetDesktop);
+  useEventListener('resize', handleSetDesktop, true);
 
   const Variants = !isMobile ? RightMenuVariants : RightMenuVariantsMobile;
 

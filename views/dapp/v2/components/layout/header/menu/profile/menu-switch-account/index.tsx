@@ -11,7 +11,6 @@ import { formatAddress } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useCallback, useState } from 'react';
-import { useEventListener } from 'usehooks-ts';
 
 import { UserSVG } from '@/components/svg/v2';
 import {
@@ -20,6 +19,7 @@ import {
 } from '@/components/web3-manager/connect-wallet/wallet/wallet-variants';
 import { SEMANTIC_COLORS } from '@/constants';
 import { useWeb3 } from '@/hooks';
+import useEventListener from '@/hooks/use-event-listener';
 import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../menu-item-wrapper';
@@ -57,7 +57,7 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
     setIsMobile(mediaIsMobile);
   }, []);
 
-  useEventListener('resize', handleSetDesktop);
+  useEventListener('resize', handleSetDesktop, true);
 
   const Variants = !isMobile ? RightMenuVariants : RightMenuVariantsMobile;
 

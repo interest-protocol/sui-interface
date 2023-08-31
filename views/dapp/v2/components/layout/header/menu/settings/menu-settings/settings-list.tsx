@@ -99,6 +99,27 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ setSettingsClosed }) => {
             )}
           />
         </MenuItemWrapper>
+        <MenuItemWrapper>
+          <Typography variant="small" color="onSurface">
+            {t('common.v2.menu.showDeprecated')}
+          </Typography>
+          <SwitchButton
+            activation
+            name="network"
+            size="medium"
+            disabled={
+              NETWORK_RESTRICTION[network].includes(asPath) ||
+              !(
+                asPath.includes('dapp/alpha') ||
+                process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'
+              )
+            }
+            defaultValue={network === Network.TESTNET}
+            onChange={handleChangeNetwork(
+              network === Network.TESTNET ? Network.MAINNET : Network.TESTNET
+            )}
+          />
+        </MenuItemWrapper>
         <Box
           p="l"
           mb="2xl"

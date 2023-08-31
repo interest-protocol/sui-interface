@@ -11,13 +11,14 @@ const RightSidebarFooter: FC<RightSidebarCloseButtonProps> = ({
   return (
     <Box
       left="0"
+      py="1rem"
       zIndex="6"
       bottom="0"
       bg="surface"
       width="100%"
       px="1.25rem"
-      py=".875rem"
       display="flex"
+      height="3.5rem"
       alignItems="center"
       position="absolute"
     >
