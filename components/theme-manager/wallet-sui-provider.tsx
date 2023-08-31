@@ -17,17 +17,17 @@ const NIGHTLY_DATA = {
 };
 
 const WalletSuiProvider: FC<PropsWithChildren> = ({ children }) => (
-  <LoadingPage />
-  // <WalletKitProvider
-  //   adapters={[
-  //     new WalletStandardAdapterProvider(),
-  //     NightlyConnectSuiAdapter.buildLazy(
-  //       NIGHTLY_DATA,
-  //       true
-  //     ) as unknown as WalletAdapter,
-  //   ]}
-  // >
-  // </WalletKitProvider>
+  <WalletKitProvider
+    adapters={[
+      new WalletStandardAdapterProvider(),
+      NightlyConnectSuiAdapter.buildLazy(
+        NIGHTLY_DATA,
+        true
+      ) as unknown as WalletAdapter,
+    ]}
+  >
+    {children}
+  </WalletKitProvider>
 );
 
 export default dynamic(() => Promise.resolve(WalletSuiProvider), {
