@@ -5,10 +5,10 @@ import { SVGProps } from '@/components/svg/svg.types';
 export interface MenuProfileProps {
   isOpen: boolean;
   loading: boolean;
-  handleOpenSwitch: () => void;
+  handleOpenSwitch?: () => void;
   suiNSRecord: Record<string, string>;
   avatarUrlRecord: Record<string, string>;
-  handleCloseProfile: () => void;
+  handleCloseProfile?: () => void;
 }
 
 export interface ProfileMenuItemProps {
@@ -23,16 +23,17 @@ export interface ProfileMenuItemProps {
 export interface MenuSwitchAccountProps {
   isOpen: boolean;
   loading: boolean;
-  onBack: () => void;
-  suiNSRecord: Record<string, string>;
-  avatarUrlRecord: Record<string, string>;
+  isSwitchAccountOpen: boolean;
   handleCloseProfile: () => void;
+  suiNSRecord: Record<string, string>;
+  handleOpenSwitchAccount: () => void;
+  handleCloseSwitchAccount: () => void;
+  avatarUrlRecord: Record<string, string>;
 }
 
 export interface MenuSwitchAccountHeaderProps {
-  onBack: () => void;
+  handleCloseSwitchAccount: () => void;
   handleCloseProfile: () => void;
-  size: number;
 }
 
 export interface UserInfoProps {

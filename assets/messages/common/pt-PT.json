@@ -39,12 +39,17 @@
         "more": "outros"
       },
       "menu": {
-        "settings": "definições globais",
+        "settings": "definições",
         "testnet": "rede de testes",
+        "showTestnets": "mostrar testnets",
+        "showDeprecated": "mostrar obsoletos",
+        "noTokensYet": "ainda sem tokens",
+        "noTokensYetDescription": "Compre ou transfira tokens para esta carteira para começar.",
         "dark": "escuro",
         "light": "claro",
         "darkMode": "modo escuro",
-        "languages": "idiomas",
+        "language": "idioma",
+        "preferences": "preferências",
         "selectLanguage": "selecionar idioma"
       },
       "wallet": {
@@ -53,6 +58,7 @@
         "disconnect": "desconectar",
         "assets": "ativos",
         "switch": "trocar conta",
+        "manage": "gerenciar",
         "viewInExplorer": "ver no explorador",
         "error": "erro na conexão",
         "connect": "conectar",
@@ -82,7 +88,7 @@
       },
       "connectWallet": {
         "metadata": {
-          "title": "Conectar carteira"
+          "title": "Conectar"
         },
         "title": "Escolha a carteira",
         "subtitle": "Conecte sua carteira com segurança para iniciar sua jornada na Web3",

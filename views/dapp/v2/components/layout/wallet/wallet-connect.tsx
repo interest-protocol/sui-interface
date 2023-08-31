@@ -27,6 +27,7 @@ const WalletConnect: FC<WalletProps> = ({ setOpenConnectWallet }) => {
         <Button
           size="small"
           variant="filled"
+          borderRadius="full"
           textTransform="capitalize"
           onClick={() => setOpenConnectWallet(true)}
         >

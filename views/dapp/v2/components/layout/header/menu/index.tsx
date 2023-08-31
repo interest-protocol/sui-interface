@@ -4,22 +4,15 @@ import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
 import Wallet from '../../wallet';
-import MenuBackButton from './menu-back-button';
 import MenuButton from './menu-button';
 import MenuMobile from './menu-mobile';
+import NetworkOptions from './network-options';
 
 const Menu: FC = () => {
   const t = useTranslations();
   const { query } = useRouter();
   const [isOpen, setIsOpen] = useState(Boolean(query.menu));
   const [isLanguage, setIsLanguage] = useState(Boolean(query.language));
-
-  const handleCloseLanguage = () => {
-    const url = new URL(window.location.href);
-    url.searchParams.delete('language');
-    window.history.pushState('', '', url.toString());
-    setIsLanguage(false);
-  };
 
   const openLanguageMenu = () => {
     const url = new URL(window.location.href);
@@ -36,7 +29,6 @@ const Menu: FC = () => {
   };
 
   const handleClose = () => {
-    handleCloseLanguage();
     const url = new URL(window.location.href);
     url.searchParams.delete('menu');
     window.history.pushState('', '', url.toString());
@@ -56,6 +48,7 @@ const Menu: FC = () => {
         bg={isOpen ? 'transparent' : 'unset'}
       >
         <Box display="flex" alignItems="center">
+          {isOpen && <NetworkOptions />}
           {!isOpen && (
             <Box
               mr="xl"
@@ -81,10 +74,6 @@ const Menu: FC = () => {
         >
           {t('common.v2.menu.selectLanguage')}
         </Typography>
-        <MenuBackButton
-          handleBack={handleCloseLanguage}
-          showButton={isOpen && isLanguage}
-        />
       </Box>
       <MenuMobile
         isOpen={isOpen}

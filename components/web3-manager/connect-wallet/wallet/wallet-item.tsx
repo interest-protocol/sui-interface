@@ -1,4 +1,4 @@
-import { Box, lightTheme, Typography } from '@interest-protocol/ui-kit';
+import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { FC } from 'react';
 
@@ -13,6 +13,7 @@ const WalletItem: FC<WalletItemProps> = ({
   openWalletModal,
 }) => {
   const { connect } = useWalletKit();
+  const { colors } = useTheme() as Theme;
 
   const handleConnect = () => {
     if (installLink) return window.open(installLink, '_blank');
@@ -23,20 +24,21 @@ const WalletItem: FC<WalletItemProps> = ({
 
   return (
     <Box
-      p="xl"
+      p="xs"
       display="flex"
+      borderRadius="m"
       cursor="pointer"
       alignItems="center"
-      borderRadius="0.5rem"
+      onClick={handleConnect}
+      bg="surface.containerLow"
       justifyContent="space-between"
       transition="background 250ms ease-in-out"
       nHover={{
-        backgroundColor: lightTheme.colors['surface.containerLowest'],
+        backgroundColor: colors['surface.containerHigh'],
         '& .showButton': {
           display: 'flex',
         },
       }}
-      onClick={handleConnect}
     >
       <Box
         py="2xs"

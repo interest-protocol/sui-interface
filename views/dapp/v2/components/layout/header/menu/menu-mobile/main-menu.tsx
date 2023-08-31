@@ -2,11 +2,10 @@ import { Box, Motion, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import NetworkSwitch from '../../../network-switch';
-import { MainMenuProps } from '../menu.types';
 import MenuSettingsList from '../settings/menu-settings/settings-list';
 import MobileMenuList from './menu-list';
 
-const MainMenu: FC<MainMenuProps> = ({ openLanguageMenu }) => (
+const MainMenu: FC = () => (
   <Box
     pt="2.875rem"
     m="0 1.25rem"
@@ -30,7 +29,7 @@ const MainMenu: FC<MainMenuProps> = ({ openLanguageMenu }) => (
         animate="open"
         pt="xl"
       >
-        <MenuSettingsList openLanguageMenu={openLanguageMenu} />
+        <MenuSettingsList />
       </Motion>
     </Box>
     <Box

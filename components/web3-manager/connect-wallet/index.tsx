@@ -1,15 +1,20 @@
-import { Box, darkTheme } from '@interest-protocol/ui-kit';
+import { Box, Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
-import { FC, useEffect } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 
 import { useModal } from '@/hooks';
+import useEventListener from '@/hooks/use-event-listener';
 
 import { ConnectWalletProps } from './connect-wallet.types';
-import IllustrationSection from './illustration/illustration-section';
+import RightSidebarFooter from './footer';
 import WalletList from './wallet';
 import WalletConnectConfirmModal from './wallet/modal/confirm';
 import WalletConnectFailModal from './wallet/modal/fail';
 import WalletConnectLoadingModal from './wallet/modal/loading';
+import {
+  RightMenuVariants,
+  RightMenuVariantsMobile,
+} from './wallet/wallet-variants';
 
 const NIGHTLY_CONNECT = 'Nightly Connect';
 
@@ -19,6 +24,18 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
 }) => {
   const { isConnected, currentWallet, isError } = useWalletKit();
   const { setModal, handleClose } = useModal();
+  const { colors } = useTheme() as Theme;
+
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  const handleSetDesktop = useCallback(() => {
+    const mediaIsMobile = !window.matchMedia('(min-width: 55em)').matches;
+    setIsMobile(mediaIsMobile);
+  }, []);
+
+  useEventListener('resize', handleSetDesktop, true);
+
+  const Variants = !isMobile ? RightMenuVariants : RightMenuVariantsMobile;
 
   const openModalConnected = () => {
     setModal(
@@ -68,25 +85,34 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
   }, [isConnected, isError, openConnectWallet]);
 
   return (
-    <Box
-      top="0"
-      left="0"
-      zIndex="5"
-      color="text"
-      width="100vw"
-      height="100vh"
-      position="fixed"
-      background="surface"
-      display={!openConnectWallet ? 'none' : 'block'}
-    >
-      <Box display="flex" background={darkTheme.colors.surface}>
-        <WalletList
-          setOpenWallet={setOpenConnectWallet}
-          openWalletModal={openWalletModal}
+    <>
+      <Motion
+        top="0"
+        right="0"
+        zIndex="5"
+        height="100vh"
+        position="fixed"
+        initial="closed"
+        color="onSurface"
+        variants={Variants}
+        background="surface"
+        borderLeft="1px solid"
+        borderLeftColor="outline.outlineVariant"
+        display={['none', 'none', 'none', 'block']}
+        animate={openConnectWallet ? 'open' : 'closed'}
+      >
+        <Box display="flex" background={colors.surface}>
+          <WalletList
+            setOpenWallet={setOpenConnectWallet}
+            openWalletModal={openWalletModal}
+          />
+        </Box>
+        <RightSidebarFooter
+          isOpen={openConnectWallet}
+          setIsOpen={setOpenConnectWallet}
         />
-        <IllustrationSection setOpenWallet={setOpenConnectWallet} />
-      </Box>
-    </Box>
+      </Motion>
+    </>
   );
 };
 

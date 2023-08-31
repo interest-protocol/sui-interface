@@ -1,101 +1,83 @@
-import { Box, Motion, Theme, useTheme } from '@interest-protocol/ui-kit';
-import { useWalletKit } from '@mysten/wallet-kit';
-import { FC, useState } from 'react';
-import { v4 } from 'uuid';
+import { Box, Motion } from '@interest-protocol/ui-kit';
+import { FC, useCallback, useState } from 'react';
 
-import { EXPLORER_URL, wrapperVariants } from '@/constants';
-import { useNetwork, useWeb3 } from '@/hooks';
+import { RightSidebarCloseButtonProps } from '@/components/web3-manager/connect-wallet/connect-wallet.types';
+import RightSidebarFooter from '@/components/web3-manager/connect-wallet/footer';
+import {
+  RightMenuVariants,
+  RightMenuVariantsMobile,
+} from '@/components/web3-manager/connect-wallet/wallet/wallet-variants';
 import useEventListener from '@/hooks/use-event-listener';
 
-import MenuButton from '../../menu-button';
-import { MenuProfileProps } from '../profile.types';
-import { MENU_PROFILE_DATA } from './menu.data';
-import MenuProfileItem from './profile-item';
+import { MenuSwitchAccountProps } from '../profile.types';
 import UserInfo from './user-info';
 
-const MenuProfile: FC<MenuProfileProps> = ({
+const MenuProfile: FC<
+  MenuSwitchAccountProps & RightSidebarCloseButtonProps
+> = ({
   isOpen,
   loading,
-  handleOpenSwitch,
+  setIsOpen,
   suiNSRecord,
   avatarUrlRecord,
   handleCloseProfile,
+  isSwitchAccountOpen,
+  handleOpenSwitchAccount,
+  handleCloseSwitchAccount,
 }) => {
-  const { account } = useWeb3();
-  const { network } = useNetwork();
-  const { disconnect } = useWalletKit();
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
-  const handleAction: Record<string, () => void | Promise<void>> = {
-    disconnect: () => {
-      handleCloseProfile();
-      disconnect();
-    },
-    switchAccounts: handleOpenSwitch,
-    viewInExplorer: () => {
-      window.open(`${EXPLORER_URL[network]}/account/${account}`, '_blank');
-    },
-  };
+  const handleSetDesktop = useCallback(() => {
+    const mediaIsMobile = !window.matchMedia('(min-width: 55em)').matches;
+    setIsMobile(mediaIsMobile);
+  }, []);
 
-  const [isDesktop, setIsDesktop] = useState(false);
-  const { breakpoints } = useTheme() as Theme;
-  const handleSetDesktopView = () =>
-    setIsDesktop(window.matchMedia(`(min-width: ${breakpoints[2]})`).matches);
+  useEventListener('resize', handleSetDesktop, true);
 
-  useEventListener('resize', handleSetDesktopView, true);
-
+  const Variants = !isMobile ? RightMenuVariants : RightMenuVariantsMobile;
   return (
     <Motion
+      top="0"
       right="0"
-      top={['0', '0', '0', '3rem']}
-      overflow="auto"
-      zIndex={1}
-      initial="closed"
-      borderRadius="unset"
-      position={['fixed', 'fixed', 'fixed', 'absolute']}
-      bg="surface.container"
-      variants={wrapperVariants}
-      animate={isOpen ? 'open' : 'closed'}
-      pointerEvents={isOpen ? 'auto' : 'none'}
-      textTransform="capitalize"
-      width={['100vw', '100vw', '100vw', '14.5rem']}
-      height={['100vh', '100vh', '100vh', 'unset']}
-      p={['xl', 'xl', 'xl', 'unset']}
-      pb={['7rem', '7rem', '7rem', 'unset']}
+      zIndex="6"
+      bg="surface"
       display="flex"
+      height="100vh"
+      overflow="hidden"
+      initial="closed"
+      variants={Variants}
       flexDirection="column"
+      borderLeft="1px solid"
+      textTransform="capitalize"
       justifyContent="space-between"
+      animate={isOpen ? 'open' : 'closed'}
+      pb={['7rem', '7rem', '7rem', 'unset']}
+      borderLeftColor="outline.outlineVariant"
+      position={['fixed', 'fixed', 'fixed', 'absolute']}
     >
-      <Box display="flex" flexDirection="column" justifyContent="space-between">
-        <Box
-          display={['flex', 'flex', 'flex', 'none']}
-          flexDirection="row-reverse"
-          py="l"
-        >
-          <MenuButton isOpen={true} handleClose={handleCloseProfile} />
-        </Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        height={[
+          'calc(100% + 3rem)',
+          'calc(100% + 3rem)',
+          'calc(100% - 1rem)',
+          'calc(100% - 4rem)',
+        ]}
+        justifyContent="space-between"
+      >
         <UserInfo
+          isOpen={isOpen}
           loading={loading}
           suiNSRecord={suiNSRecord}
           avatarUrlRecord={avatarUrlRecord}
+          handleCloseProfile={handleCloseProfile}
+          isSwitchAccountOpen={isSwitchAccountOpen}
+          handleOpenSwitchAccount={handleOpenSwitchAccount}
+          handleCloseSwitchAccount={handleCloseSwitchAccount}
         />
-        {MENU_PROFILE_DATA.slice(0, !isDesktop ? -1 : undefined).map(
-          (profileItem) => (
-            <MenuProfileItem
-              {...profileItem}
-              handleAction={handleAction}
-              key={v4()}
-            />
-          )
-        )}
       </Box>
-      {!isDesktop &&
-        MENU_PROFILE_DATA.slice(-1).map((profileItem) => (
-          <MenuProfileItem
-            {...profileItem}
-            handleAction={handleAction}
-            key={v4()}
-          />
-        ))}
+      <RightSidebarFooter isOpen={isOpen} setIsOpen={setIsOpen} />
     </Motion>
   );
 };

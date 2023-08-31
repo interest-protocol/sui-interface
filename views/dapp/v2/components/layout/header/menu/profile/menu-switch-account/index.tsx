@@ -1,8 +1,8 @@
 import {
   Box,
-  Button,
   Motion,
   ProgressIndicator,
+  RadioButton,
   Theme,
   Typography,
   useTheme,
@@ -10,36 +10,36 @@ import {
 import { formatAddress } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
-import { toast } from 'react-hot-toast';
+import { FC, useCallback, useState } from 'react';
 
-import { CheckmarkSVG, CopySVG, UserSVG } from '@/components/svg/v2';
-import { SEMANTIC_COLORS, wrapperVariants } from '@/constants';
+import { UserSVG } from '@/components/svg/v2';
+import {
+  RightMenuVariants,
+  RightMenuVariantsMobile,
+} from '@/components/web3-manager/connect-wallet/wallet/wallet-variants';
+import { SEMANTIC_COLORS } from '@/constants';
 import { useWeb3 } from '@/hooks';
+import useEventListener from '@/hooks/use-event-listener';
 import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../menu-item-wrapper';
+import ChangeAccountHeader from '../menu-profile/change-account-header';
 import { MenuSwitchAccountProps } from '../profile.types';
 import { getName } from '../profile.utils';
 import MenuSwitchAccountHeader from './header';
 
 const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
-  isOpen,
-  onBack,
   loading,
   suiNSRecord,
   avatarUrlRecord,
   handleCloseProfile,
+  isSwitchAccountOpen,
+  handleCloseSwitchAccount,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const { account } = useWeb3();
   const { accounts, selectAccount } = useWalletKit();
-
-  const copyToClipboard = (address: string) => {
-    window.navigator.clipboard.writeText(address || '');
-    toast(capitalize(t('common.v2.wallet.copy')));
-  };
 
   const getIconBg = (index: number, address: string) =>
     loading
@@ -50,29 +50,47 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
           dark ? 'dark' : 'light'
         ];
 
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  const handleSetDesktop = useCallback(() => {
+    const mediaIsMobile = !window.matchMedia('(min-width: 55em)').matches;
+    setIsMobile(mediaIsMobile);
+  }, []);
+
+  useEventListener('resize', handleSetDesktop, true);
+
+  const Variants = !isMobile ? RightMenuVariants : RightMenuVariantsMobile;
+
   return (
     <Motion
+      top="0"
       right="0"
-      top={['0', '0', '0', '3rem']}
-      overflow="visible"
       zIndex={1}
+      bg="surface"
+      height="100vh"
       initial="closed"
       borderRadius="m"
-      position={['fixed', 'fixed', 'fixed', 'absolute']}
-      bg="surface.container"
-      variants={wrapperVariants}
-      animate={isOpen ? 'open' : 'closed'}
-      pointerEvents={isOpen ? 'auto' : 'none'}
+      overflow="visible"
+      variants={Variants}
       textTransform="capitalize"
-      width={['100vw', '100vw', '100vw', '14.5rem']}
-      height={['100vh', '100vh', '100vh', 'unset']}
-      p={['xl', 'xl', 'xl', 'unset']}
+      position={['fixed', 'fixed', 'fixed', 'absolute']}
+      animate={isSwitchAccountOpen ? 'open' : 'closed'}
+      pointerEvents={isSwitchAccountOpen ? 'auto' : 'none'}
     >
       <MenuSwitchAccountHeader
         handleCloseProfile={handleCloseProfile}
-        onBack={onBack}
-        size={accounts.length}
+        handleCloseSwitchAccount={handleCloseSwitchAccount}
       />
+      <ChangeAccountHeader
+        loading={loading}
+        suiNSRecord={suiNSRecord}
+        avatarUrlRecord={avatarUrlRecord}
+      />
+      <Typography variant="small" color="outline" p="l" mt="4xl">
+        {capitalize(
+          t('common.v2.wallet.account', { count: accounts.length > 1 ? 0 : 1 })
+        )}
+      </Typography>
       {accounts.map((walletAccount, index) => (
         <MenuItemWrapper
           key={walletAccount.address}
@@ -80,34 +98,15 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
           onClick={() => {
             if (!(walletAccount.address === account)) {
               selectAccount(walletAccount);
-              onBack();
+              handleCloseSwitchAccount();
             }
           }}
         >
-          <Box display="flex" alignItems="center" gap="s">
-            {walletAccount.address === account && (
-              <Box
-                width="1rem"
-                height="1rem"
-                borderRadius="50%"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                border="1px solid"
-                borderColor="success"
-                color="success"
-              >
-                <CheckmarkSVG
-                  maxHeight="0.438rem"
-                  maxWidth="0.438rem"
-                  width="100%"
-                />
-              </Box>
-            )}
+          <Box display="flex" alignItems="center" gap="s" width="100%">
             <Box
+              display="flex"
               width="1.5rem"
               height="1.5rem"
-              display="flex"
               overflow="hidden"
               borderRadius="50%"
               alignItems="center"
@@ -137,22 +136,17 @@ const MenuSwitchAccount: FC<MenuSwitchAccountProps> = ({
                 ? suiNSRecord[walletAccount.address]
                 : formatAddress(walletAccount.address)}
             </Typography>
+            <Box marginLeft="auto">
+              {walletAccount.address === account ? (
+                <RadioButton
+                  name={walletAccount.address}
+                  checked={!!walletAccount.address}
+                />
+              ) : (
+                <RadioButton name={walletAccount.address} checked={false} />
+              )}
+            </Box>
           </Box>
-          <Button
-            size="small"
-            variant="icon"
-            p="0 !important"
-            nHover={{
-              color: 'primary',
-              bg: 'transparent',
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              copyToClipboard(walletAccount.address);
-            }}
-          >
-            <CopySVG maxHeight="1rem" maxWidth="1rem" width="100%" />
-          </Button>
         </MenuItemWrapper>
       ))}
     </Motion>

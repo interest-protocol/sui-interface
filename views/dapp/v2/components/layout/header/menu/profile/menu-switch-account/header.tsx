@@ -4,13 +4,10 @@ import { FC } from 'react';
 
 import { ArrowLeft } from '@/svg';
 
-import MenuButton from '../../menu-button';
 import { MenuSwitchAccountHeaderProps } from '../profile.types';
 
 const MenuSwitchAccountHeader: FC<MenuSwitchAccountHeaderProps> = ({
-  onBack,
-  handleCloseProfile,
-  size,
+  handleCloseSwitchAccount,
 }) => {
   const t = useTranslations();
 
@@ -33,7 +30,7 @@ const MenuSwitchAccountHeader: FC<MenuSwitchAccountHeaderProps> = ({
         <Button
           variant="icon"
           p="0 !important"
-          onClick={onBack}
+          onClick={handleCloseSwitchAccount}
           nHover={{
             color: 'primary',
             bg: 'transparent',
@@ -41,26 +38,15 @@ const MenuSwitchAccountHeader: FC<MenuSwitchAccountHeaderProps> = ({
         >
           <ArrowLeft maxHeight="1rem" maxWidth="1rem" width="100%" />
         </Button>
-        <Typography variant="small" textTransform="capitalize">
-          {t('common.v2.wallet.switch')}
-        </Typography>
-        <Box
-          display={['flex', 'flex', 'flex', 'none']}
-          flexDirection="row-reverse"
-        >
-          <MenuButton isOpen={true} handleClose={handleCloseProfile} />
+        <Box width="100%" display="flex" justifyContent="center">
+          <Typography
+            variant="small"
+            textAlign="center"
+            textTransform="uppercase"
+          >
+            {t('common.v2.wallet.manage')}
+          </Typography>
         </Box>
-      </Box>
-      <Box p="xl" display={['flex', 'flex', 'flex', 'none']}>
-        <Typography
-          variant="small"
-          color="onSurface"
-          textTransform="capitalize"
-        >
-          {t('common.v2.wallet.account', {
-            count: size,
-          })}
-        </Typography>
       </Box>
     </>
   );

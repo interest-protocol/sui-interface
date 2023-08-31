@@ -1,35 +1,16 @@
-import {
-  Box,
-  darkTheme,
-  lightTheme,
-  Motion,
-  Typography,
-} from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { TimesSVG } from '@/components/svg/v2';
+import Settings from '@/views/dapp/v2/components/layout/header/menu/settings';
 
 import { IWalletItem, WalletListSectionProps } from '../connect-wallet.types';
 import { DEFAULT_WALLETS, WALLET_NAME_MAP } from './wallet.data';
 import WalletItem from './wallet-item';
 
-const menuVariants = {
-  open: {
-    rotate: '0deg',
-    scaleY: 1,
-  },
-  closed: {
-    rotate: '180deg',
-    scaleY: 0,
-  },
-};
-const WalletListSection: FC<WalletListSectionProps> = ({
-  setOpenWallet,
-  openWalletModal,
-}) => {
+const WalletListSection: FC<WalletListSectionProps> = ({ openWalletModal }) => {
   const t = useTranslations();
   const { wallets } = useWalletKit();
 
@@ -49,14 +30,15 @@ const WalletListSection: FC<WalletListSectionProps> = ({
 
   return (
     <Box
-      color="text"
+      px="l"
+      width="100%"
       height="100vh"
       overflowY="auto"
+      color="onSurface"
       maxHeight="100vh"
-      borderTopRightRadius={[0, 0, 0, 32]}
-      background={lightTheme.colors.surface}
-      borderBottomRightRadius={[0, 0, 0, 32]}
-      width={['100%', '100%', '100%', '50%']}
+      background="surface"
+      borderLeft="1px solid"
+      borderLeftColor="outline.outlineVariant"
     >
       <Box
         display="flex"
@@ -71,51 +53,23 @@ const WalletListSection: FC<WalletListSectionProps> = ({
             flexDirection="column"
             justifyContent="space-between"
           >
-            <Box
-              mx="auto"
-              width="100%"
-              px={['unset', 'unset', 'unset', '15%']}
-              pt={['0rem', '0rem', '0rem', '8.125rem']}
-            >
-              <Motion
-                p=".8rem"
-                as="span"
-                border="1px solid"
-                borderRadius="50%"
-                width="fit-content"
+            <Box width="100%">
+              <Box
+                mb="4xl"
+                display="flex"
                 alignItems="center"
-                margin="1.5rem 0 1.5rem auto"
-                justifyContent="center"
-                animate={menuVariants.open}
-                initial={menuVariants.closed}
-                color={['black', 'black', 'black', 'white']}
-                display={['flex', 'flex', 'flex', 'none']}
-                borderColor={darkTheme.colors['outline.outlineVariant']}
-                cursor="pointer"
-                onClick={() => setOpenWallet(false)}
+                justifyContent="space-between"
               >
-                <TimesSVG
-                  width="100%"
-                  height="100%"
-                  maxWidth=".9rem"
-                  maxHeight=".9rem"
-                />
-              </Motion>
-              <Typography
-                variant="displaySmall"
-                fontSize={['5xl', '5xl', '5xl', '7xl']}
-                color="black"
-              >
-                {t('common.v2.connectWallet.title')}
-              </Typography>
-              <Typography
-                variant="small"
-                color="black"
-                mb={['2xl', '2xl', '2xl', '3.5rem']}
-              >
-                {t('common.v2.connectWallet.subtitle')}
-              </Typography>
-              <Box>
+                <Typography
+                  variant="medium"
+                  color="onSurface"
+                  textTransform="uppercase"
+                >
+                  {t('common.v2.connectWallet.title')}
+                </Typography>
+                <Settings />
+              </Box>
+              <Box display="flex" gap="xs" flexDirection="column">
                 {mixedWallets.map(
                   ({ icon, name, displayName, installLink }) => (
                     <WalletItem
@@ -132,39 +86,6 @@ const WalletListSection: FC<WalletListSectionProps> = ({
             </Box>
           </Box>
         </Box>
-      </Box>
-      <Box
-        mt="xl"
-        p="3xl"
-        bg={lightTheme.colors['surface.container']}
-        borderBottomRightRadius={[0, 0, 0, 32]}
-      >
-        <Typography variant="extraSmall" textAlign="center">
-          {t.rich('common.v2.connectWallet.footer', {
-            termsAndService: (chunks: ReactNode) => (
-              <a href="/" target="_blank" rel="noopener noreferrer">
-                <Typography
-                  variant="extraSmall"
-                  as="span"
-                  color={lightTheme.colors.primary}
-                >
-                  {chunks}
-                </Typography>
-              </a>
-            ),
-            privacyPolicy: (chunks: ReactNode) => (
-              <a href="/" target="_blank" rel="noopener noreferrer">
-                <Typography
-                  variant="extraSmall"
-                  as="span"
-                  color={lightTheme.colors.primary}
-                >
-                  {chunks}
-                </Typography>
-              </a>
-            ),
-          })}
-        </Typography>
       </Box>
     </Box>
   );
