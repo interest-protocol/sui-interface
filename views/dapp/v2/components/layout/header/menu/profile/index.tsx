@@ -1,4 +1,4 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box, Button, Typography } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useRouter } from 'next/router';
 import { pathOr, prop } from 'ramda';
@@ -7,6 +7,7 @@ import { FC, useEffect, useState } from 'react';
 import { UserSVG } from '@/components/svg/v2';
 import RefBox from '@/elements/ref-box';
 import { useNetwork, useProvider, useWeb3 } from '@/hooks';
+import useClickOutsideListenerRef from '@/hooks/use-click-outside-listener-ref';
 import { noop } from '@/utils';
 
 import MenuProfile from './menu-profile';
@@ -33,6 +34,18 @@ const Profile: FC = () => {
   >({});
   const { accounts } = useWalletKit();
   const { provider } = useProvider();
+
+  const closeMenu = (event: any) => {
+    if (
+      event?.path?.some((node: any) => node?.id == BOX_ID) ||
+      event?.composedPath()?.some((node: any) => node?.id == BOX_ID)
+    )
+      return;
+
+    setIsOpen(false);
+  };
+
+  const connectedBoxRef = useClickOutsideListenerRef<HTMLDivElement>(closeMenu);
 
   useEffect(() => {
     if (accounts.length) {
@@ -122,7 +135,7 @@ const Profile: FC = () => {
 
   return (
     <>
-      <RefBox
+      <Box
         id={BOX_ID}
         display="flex"
         cursor="pointer"
@@ -130,53 +143,66 @@ const Profile: FC = () => {
         justifyContent="center"
       >
         {account && (
-          <Box
-            gap="m"
-            display="flex"
-            alignItems="center"
-            onClick={() => setIsOpen(true)}
-          >
+          <Button variant="outline" borderRadius="full" size="small">
             <Box
+              gap="m"
               display="flex"
-              width="2.5rem"
-              height="2.5rem"
-              cursor="pointer"
-              overflow="hidden"
               alignItems="center"
-              borderRadius="full"
-              background="primary"
-              justifyContent="center"
-              color="primary.onPrimary"
-              transition="background-color .5s"
+              onClick={() => setIsOpen(true)}
             >
-              {avatarUrlRecord[account] ? (
-                <img
-                  width="100%"
-                  height="100%"
-                  src={avatarUrlRecord[account]}
-                  alt={`${getName(account, suiNSRecord)} NFT`}
-                />
-              ) : (
-                <UserSVG maxWidth="2.5rem" maxHeight="2.5rem" width="100%" />
-              )}
+              <Box
+                display="flex"
+                width="1.5rem"
+                height="1.5rem"
+                cursor="pointer"
+                overflow="hidden"
+                alignItems="center"
+                borderRadius="full"
+                background="primary"
+                justifyContent="center"
+                color="primary.onPrimary"
+                transition="background-color .5s"
+              >
+                {avatarUrlRecord[account] ? (
+                  <Box
+                    display="flex"
+                    width="1.5rem"
+                    height="1.5rem"
+                    overflow="hidden"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    <img
+                      width="100%"
+                      height="100%"
+                      src={avatarUrlRecord[account]}
+                      alt={`${getName(account, suiNSRecord)} NFT`}
+                    />
+                  </Box>
+                ) : (
+                  <UserSVG maxWidth="2.5rem" maxHeight="2.5rem" width="100%" />
+                )}
+              </Box>
+              <Typography color="primary" variant="medium">
+                {getName(account, suiNSRecord)}
+              </Typography>
             </Box>
-            <Typography color="primary" variant="medium">
-              {getName(account, suiNSRecord)}
-            </Typography>
-          </Box>
+          </Button>
         )}
+      </Box>
+      <RefBox id={BOX_ID} ref={connectedBoxRef}>
+        <MenuProfile
+          isOpen={isOpen}
+          loading={loading}
+          setIsOpen={setIsOpen}
+          suiNSRecord={suiNSRecord}
+          avatarUrlRecord={avatarUrlRecord}
+          handleCloseProfile={handleCloseProfile}
+          isSwitchAccountOpen={isSwitchAccountOpen}
+          handleOpenSwitchAccount={handleOpenSwitchAccount}
+          handleCloseSwitchAccount={handleCloseSwitchAccount}
+        />
       </RefBox>
-      <MenuProfile
-        isOpen={isOpen}
-        loading={loading}
-        setIsOpen={setIsOpen}
-        suiNSRecord={suiNSRecord}
-        avatarUrlRecord={avatarUrlRecord}
-        handleCloseProfile={handleCloseProfile}
-        isSwitchAccountOpen={isSwitchAccountOpen}
-        handleOpenSwitchAccount={handleOpenSwitchAccount}
-        handleCloseSwitchAccount={handleCloseSwitchAccount}
-      />
     </>
   );
 };

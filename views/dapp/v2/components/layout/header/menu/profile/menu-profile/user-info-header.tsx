@@ -78,7 +78,7 @@ const UserInfoHeader: FC<UserInfoProps & MenuSwitchAccountProps> = ({
             justifyContent="space-between"
           >
             <Box mr="auto">
-              <Typography variant="large">Wallet A</Typography>
+              <Typography variant="large">Wallet</Typography>
               <Box display="flex" gap="l" alignItems="center">
                 <Typography variant="small" color="onSurface">
                   {getName(account, suiNSRecord)}

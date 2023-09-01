@@ -3,10 +3,11 @@ import { useWalletKit } from '@mysten/wallet-kit';
 import { FC, useCallback } from 'react';
 
 import { LogoutSVG } from '@/components/svg/v2';
+import { SEMANTIC_COLORS } from '@/constants';
 
 const DisconnectWallet: FC = () => {
   const { disconnect } = useWalletKit();
-  const { colors } = useTheme() as Theme;
+  const { dark } = useTheme() as Theme;
 
   const handleDisconnect = useCallback(() => {
     disconnect();
@@ -22,14 +23,19 @@ const DisconnectWallet: FC = () => {
       flexDirection="column"
       justifyContent="center"
       transition="background-color .5s"
-      borderColor={colors['outline.outlineVariant']}
-      nHover={{ bg: colors['outline.outlineVariant'] }}
+      color={dark ? SEMANTIC_COLORS[1].dark : SEMANTIC_COLORS[1].light}
+      nHover={{
+        bg: dark ? SEMANTIC_COLORS[1].light : SEMANTIC_COLORS[1].dark,
+        color: 'white',
+      }}
+      borderColor={dark ? SEMANTIC_COLORS[1].dark : SEMANTIC_COLORS[1].light}
     >
       <Button
-        nHover={{ bg: 'transparent' }}
-        onClick={handleDisconnect}
-        variant="icon"
         size="small"
+        variant="icon"
+        color="inherit"
+        onClick={handleDisconnect}
+        nHover={{ bg: 'transparent' }}
       >
         <LogoutSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
       </Button>

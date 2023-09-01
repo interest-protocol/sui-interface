@@ -36,8 +36,11 @@ const ChangeAccount: FC<MenuSwitchAccountProps> = ({
       >
         <Button
           variant="icon"
+          border="1px solid"
+          borderRadius="full"
           nHover={{ bg: 'transparent' }}
           onClick={handleOpenSwitchAccount}
+          borderColor="outline.outlineVariant"
         >
           <DotsSVG width="100%" maxWidth="1.5rem" maxHeight="1.5rem" />
         </Button>
