@@ -5,8 +5,8 @@ import { path, pathOr } from 'ramda';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
-import { LoadingPage } from '@/components';
 import { useModal } from '@/hooks';
+import LoadingPage from '@/views/dapp/components/loading-page';
 
 import SwapFormConfirmModal from './swap-form-confirm-modal';
 import SwapFormFailModal from './swap-form-fail-modal';

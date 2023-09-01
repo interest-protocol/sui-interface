@@ -4,10 +4,10 @@ import { mergeAll } from 'ramda';
 import { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
-import { LoadingPage } from '@/components';
 import { DEX_TOKENS_DATA } from '@/constants';
 import { ModalProvider } from '@/context/modal';
 import { useNetwork } from '@/hooks';
+import LoadingPage from '@/views/dapp/components/loading-page';
 import DEXFindPool from '@/views/dapp/dex-find-pool';
 import { DexFindPoolForm } from '@/views/dapp/dex-find-pool/dex-find-pool.types';
 

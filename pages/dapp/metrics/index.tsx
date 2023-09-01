@@ -4,9 +4,10 @@ import { useTranslations } from 'next-intl';
 import { mergeDeepRight } from 'ramda';
 import { Layout } from 'views/dapp/v2/components';
 
-import { LoadingPage, SEO } from '@/components';
+import { SEO } from '@/components';
 import { ModalProvider } from '@/context/modal';
 import { NextPageWithProps } from '@/interface';
+import LoadingPage from '@/views/dapp/components/loading-page';
 import Metrics from '@/views/dapp/v2/metrics';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {

@@ -5,7 +5,6 @@ import {
   lightTheme,
   ThemeProvider as InterestThemeProvider,
 } from '@interest-protocol/ui-kit';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FC, PropsWithChildren } from 'react';
 import { SkeletonTheme } from 'react-loading-skeleton';
@@ -19,17 +18,9 @@ import {
 import institutionalTheme from '@/design-system/insitutional-theme/dark';
 import { useLocalStorage } from '@/hooks';
 
-import LoadingPage from '../loading-page';
 import NetworkProvider from '../network-provider';
 import { ThemeProps } from './theme-manager.types';
-
-const WalletKitProvider = dynamic(
-  () => import('@mysten/wallet-kit').then((mod) => mod.WalletKitProvider),
-  {
-    ssr: false,
-    loading: LoadingPage,
-  }
-);
+import WalletSuiProvider from './wallet-sui-provider';
 
 // TODO: REMOVE THESE CONSTANTS
 const INSTITUTIONAL_PAGES = ['/', '/team', '/campaign/liquidity'];
@@ -56,29 +47,25 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
   if (isRedesign)
     return (
       <NetworkProvider>
-        <WalletKitProvider>
-          <InterestThemeProvider
-            theme={{ setDark, ...(dark ? darkTheme : lightTheme) }}
-          >
-            <ModalProvider newDesign>
-              <Global styles={LandingGlobalStyles} />
-              {children}
-            </ModalProvider>
-          </InterestThemeProvider>
-        </WalletKitProvider>
+        <InterestThemeProvider
+          theme={{ setDark, ...(dark ? darkTheme : lightTheme) }}
+        >
+          <Global styles={LandingGlobalStyles} />
+          <WalletSuiProvider>
+            <ModalProvider newDesign>{children}</ModalProvider>
+          </WalletSuiProvider>
+        </InterestThemeProvider>
       </NetworkProvider>
     );
 
   return (
     <NetworkProvider>
-      <WalletKitProvider>
-        <ThemeProvider
-          theme={{ setDark, ...(dark ? DAppDarkTheme : DAppLightTheme) }}
-        >
-          <Global styles={DappGlobalStyles} />
-          {children}
-        </ThemeProvider>
-      </WalletKitProvider>
+      <ThemeProvider
+        theme={{ setDark, ...(dark ? DAppDarkTheme : DAppLightTheme) }}
+      >
+        <Global styles={DappGlobalStyles} />
+        <WalletSuiProvider>{children}</WalletSuiProvider>
+      </ThemeProvider>
     </NetworkProvider>
   );
 };
