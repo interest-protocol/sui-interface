@@ -59,6 +59,7 @@ const TVLPools: FC = () => {
         height={['17.25rem', '17.25rem', '17.25rem', '16.25rem']}
         width={['95%', '90%', '80%', '80%']}
         mx="auto"
+        pt="l"
       >
         {isLoading ? (
           <Box

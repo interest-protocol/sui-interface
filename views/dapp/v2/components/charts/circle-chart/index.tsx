@@ -37,7 +37,7 @@ const CircleChart: FC<CircleChartProps> = ({
       <text
         x={cx}
         y={cy}
-        dy={isMobile ? '33%' : '36%'}
+        dy={isMobile ? '36%' : '38%'}
         dx="50%"
         textAnchor="middle"
         fill={dark ? 'white' : 'black'}
