@@ -8,4 +8,5 @@ export const isIPXPackage = (x: string, network: Network) => {
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
 export const parseIPXEvents = (type: string) => {};
