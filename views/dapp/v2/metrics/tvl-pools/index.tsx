@@ -56,10 +56,10 @@ const TVLPools: FC = () => {
         setFilter={setFilter}
       />
       <Box
-        height="16.25rem"
+        height={['17.25rem', '17.25rem', '17.25rem', '16.25rem']}
         width={['95%', '90%', '80%', '80%']}
-        pb="l"
         mx="auto"
+        pt="l"
       >
         {isLoading ? (
           <Box
@@ -67,11 +67,11 @@ const TVLPools: FC = () => {
             flexDirection="column"
             alignItems="center"
             gap="1rem"
-            width="80%"
+            width="10rem"
             mx="auto"
           >
             <Skeleton height="10rem" width="10rem" borderRadius="10rem" />
-            <Skeleton height="1.5rem" width="15rem" />
+            <Skeleton height="1.5rem" width="5rem" />
           </Box>
         ) : (
           <Chart

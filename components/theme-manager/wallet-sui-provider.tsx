@@ -5,7 +5,7 @@ import { NightlyConnectSuiAdapter } from '@nightlylabs/wallet-selector-sui';
 import dynamic from 'next/dynamic';
 import { FC, PropsWithChildren } from 'react';
 
-import LoadingPage from '../loading-page';
+import LoadingPage from '@/views/dapp/components/loading-page';
 
 const NIGHTLY_DATA = {
   appMetadata: {

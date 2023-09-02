@@ -47,29 +47,25 @@ const Theme: FC<PropsWithChildren<ThemeProps>> = ({
   if (isRedesign)
     return (
       <NetworkProvider>
-        <WalletSuiProvider>
-          <InterestThemeProvider
-            theme={{ setDark, ...(dark ? darkTheme : lightTheme) }}
-          >
-            <ModalProvider newDesign>
-              <Global styles={LandingGlobalStyles} />
-              {children}
-            </ModalProvider>
-          </InterestThemeProvider>
-        </WalletSuiProvider>
+        <InterestThemeProvider
+          theme={{ setDark, ...(dark ? darkTheme : lightTheme) }}
+        >
+          <Global styles={LandingGlobalStyles} />
+          <WalletSuiProvider>
+            <ModalProvider newDesign>{children}</ModalProvider>
+          </WalletSuiProvider>
+        </InterestThemeProvider>
       </NetworkProvider>
     );
 
   return (
     <NetworkProvider>
-      <WalletSuiProvider>
-        <ThemeProvider
-          theme={{ setDark, ...(dark ? DAppDarkTheme : DAppLightTheme) }}
-        >
-          <Global styles={DappGlobalStyles} />
-          {children}
-        </ThemeProvider>
-      </WalletSuiProvider>
+      <ThemeProvider
+        theme={{ setDark, ...(dark ? DAppDarkTheme : DAppLightTheme) }}
+      >
+        <Global styles={DappGlobalStyles} />
+        <WalletSuiProvider>{children}</WalletSuiProvider>
+      </ThemeProvider>
     </NetworkProvider>
   );
 };

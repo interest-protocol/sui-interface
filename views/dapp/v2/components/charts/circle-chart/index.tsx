@@ -1,5 +1,5 @@
 import { Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
-import { FC } from 'react';
+import { FC, useCallback, useState } from 'react';
 import {
   Cell,
   Label,
@@ -11,6 +11,7 @@ import {
 } from 'recharts';
 
 import { SEMANTIC_COLORS } from '@/constants';
+import useEventListener from '@/hooks/use-event-listener';
 
 import CustomTooltip from '../tooltip';
 import { CircleChartProps } from './circle-chart.types';
@@ -22,13 +23,21 @@ const CircleChart: FC<CircleChartProps> = ({
   inDollars,
 }) => {
   const { dark } = useTheme() as Theme;
+  const [isMobile, setIsMobile] = useState(false);
+
+  const handleSetDesktop = useCallback(() => {
+    const mediaIsMobile = !window.matchMedia('(min-width: 55em)').matches;
+    setIsMobile(mediaIsMobile);
+  }, []);
+
+  useEventListener('resize', handleSetDesktop, true);
 
   const renderCustomLabel = ({ cx, cy }: any) => (
     <g>
       <text
         x={cx}
         y={cy}
-        dy="38%"
+        dy={isMobile ? '36%' : '38%'}
         dx="50%"
         textAnchor="middle"
         fill={dark ? 'white' : 'black'}
@@ -73,11 +82,13 @@ const CircleChart: FC<CircleChartProps> = ({
               as="span"
               color="#6B7280"
               variant="small"
+              fontSize={['xs', 's', 's', 's']}
               marginLeft="0.25rem"
             >
               {value}
             </Typography>
           )}
+          wrapperStyle={{ top: '170px', bottom: 'unset' }}
         />
         <Tooltip content={<CustomTooltip inDollars={inDollars} />} />
       </PieChart>

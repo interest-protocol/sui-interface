@@ -6,10 +6,11 @@ import { useForm } from 'react-hook-form';
 import { useReadLocalStorage } from 'usehooks-ts';
 import { Layout } from 'views/dapp/v2/components';
 
-import { LoadingPage, SEO } from '@/components';
+import { SEO } from '@/components';
 import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 import { NextPageWithProps } from '@/interface';
 import { TokenModalMetadata } from '@/interface';
+import LoadingPage from '@/views/dapp/components/loading-page';
 import Swap from '@/views/dapp/v2/swap';
 import {
   ISwapSettingsForm,

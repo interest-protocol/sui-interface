@@ -7,7 +7,6 @@ import { mergeAll, pathOr } from 'ramda';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { LoadingPage } from '@/components';
 import { StakeState } from '@/constants';
 import { FARMS_RECORD } from '@/constants/liquidity-farms.constants';
 import { ModalProvider } from '@/context/modal';
@@ -16,6 +15,7 @@ import { withTypeGuard } from '@/HOC';
 import { useNetwork } from '@/hooks';
 import { NextPageDefaultProps } from '@/interface';
 import { TimesSVG } from '@/svg';
+import LoadingPage from '@/views/dapp/components/loading-page';
 import FarmDetails from '@/views/dapp/liquidity-farms-details';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {

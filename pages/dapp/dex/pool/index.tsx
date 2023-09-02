@@ -2,9 +2,9 @@ import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeAll } from 'ramda';
 
-import { LoadingPage } from '@/components';
 import { ModalProvider } from '@/context/modal';
 import { NextPageWithProps } from '@/interface';
+import LoadingPage from '@/views/dapp/components/loading-page';
 import Pool from '@/views/dapp/dex-pool';
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
