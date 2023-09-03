@@ -48,7 +48,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "interface/declaration.d.ts",
-    "views/dapp/v2/lsd/overview/index.tsx"
+    "interface/declaration.d.ts"
   ]
 }
