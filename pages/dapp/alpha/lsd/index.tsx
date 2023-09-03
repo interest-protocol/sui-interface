@@ -2,7 +2,7 @@ import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box, ProgressIndicator } from '@interest-protocol/ui-kit';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
-import { mergeAll } from 'ramda';
+import { mergeDeepRight } from 'ramda';
 import { Layout } from 'views/dapp/v2/components';
 
 import { SEO } from '@/components';
@@ -46,7 +46,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     import(`../../../../assets/messages/lsd/${locale}.json`),
   ]);
 
-  const messages = mergeAll([commonMessages.default, LsdMessages.default]);
+  const messages = mergeDeepRight(commonMessages.default, LsdMessages.default);
 
   return {
     props: {

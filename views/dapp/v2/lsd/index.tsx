@@ -3,9 +3,9 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { Layout } from '../components';
+import FormProMode from './form-pro-mode';
 import LSDHeader from './lsd-header';
-import OverviewSection from './overview';
-import ProModeSection from './pro-mode';
+import Overview from './overview';
 
 const LSD: FC = () => {
   const t = useTranslations();
@@ -30,8 +30,8 @@ const LSD: FC = () => {
           >
             {t('lsd.metadata.title')}
           </Typography>
-          <OverviewSection />
-          <ProModeSection />
+          <Overview />
+          <FormProMode />
         </Box>
       </Box>
     </Layout>

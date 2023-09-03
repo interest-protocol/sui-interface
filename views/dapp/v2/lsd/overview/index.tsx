@@ -1,10 +1,10 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-const OverviewSection: FC = () => (
+const Overview: FC = () => (
   <Box bg="onSurface" width={['100%', '100%', '100%', '55%']}>
-    Overview Section
+    Overview
   </Box>
 );
 
-export default OverviewSection;
+export default Overview;

@@ -29,7 +29,7 @@ const LSDHeader: FC = () => {
           height="1.375rem"
           display="flex"
           color="onSurface"
-          cursor="pointer"
+          cursor="help"
         >
           <InfoLightSVG maxWidth="1.375rem" maxHeight="1.375rem" width="100%" />
         </Box>
