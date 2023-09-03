@@ -1,10 +1,10 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-const FormProMode: FC = () => (
+const StackingForm: FC = () => (
   <Box bg="onSurface" width={['100%', '100%', '100%', '45%']}>
-    Form Pro Mode
+    Stacking Form
   </Box>
 );
 
-export default FormProMode;
+export default StackingForm;

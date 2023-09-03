@@ -3,9 +3,9 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { Layout } from '../components';
-import FormProMode from './form-pro-mode';
 import LSDHeader from './lsd-header';
 import Overview from './overview';
+import StakingForm from './staking-form';
 
 const LSD: FC = () => {
   const t = useTranslations();
@@ -31,7 +31,7 @@ const LSD: FC = () => {
             {t('lsd.metadata.title')}
           </Typography>
           <Overview />
-          <FormProMode />
+          <StakingForm />
         </Box>
       </Box>
     </Layout>
