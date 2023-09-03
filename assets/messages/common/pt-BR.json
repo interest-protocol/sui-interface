@@ -25,6 +25,7 @@
       },
       "navbar": {
         "swap": "troca",
+        "lsd": "LSD",
         "home": "início",
         "pool": "pool",
         "lend": "emprestimo",

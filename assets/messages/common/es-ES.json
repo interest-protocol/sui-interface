@@ -25,6 +25,7 @@
       },
       "navbar": {
         "swap": "Intercambio",
+        "lsd": "LSD",
         "home": "Inicio",
         "pool": "pool",
         "farm": "farm",
