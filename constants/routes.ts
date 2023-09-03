@@ -17,6 +17,7 @@ export enum RoutesEnum {
   Celer = 'celer',
   Faucet = 'faucet',
   Lend = 'lend',
+  Lsd = 'lsd',
   Metrics = 'metrics',
   LiquidityCampaign = 'liquidity-campaign',
   CreateToken = 'create-token',
@@ -31,6 +32,7 @@ export enum RoutesEnum {
 export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.Home]: '/',
   [RoutesEnum.DApp]: '/dapp',
+  [RoutesEnum.Lsd]: '/dapp/alpha/lsd',
   [RoutesEnum.Swap]: '/dapp/swap',
   [RoutesEnum.Farms]: '/dapp/farms',
   [RoutesEnum.FarmDetails]: '/dapp/farms/details',

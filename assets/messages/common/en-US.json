@@ -25,6 +25,7 @@
       },
       "navbar": {
         "swap": "swap",
+        "lsd": "LSD",
         "home": "home",
         "pool": "pool",
         "lend": "lend",
