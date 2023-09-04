@@ -9,10 +9,11 @@ import {
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
-import { FC } from 'react';
+import { FC, useCallback, useState } from 'react';
 
 import { NETWORK_RESTRICTION } from '@/constants';
 import { useLocale, useNetwork } from '@/hooks';
+import useEventListener from '@/hooks/use-event-listener';
 import { AppTheme } from '@/interface';
 import { ArrowLeft } from '@/svg';
 import { capitalize } from '@/utils';
@@ -35,17 +36,28 @@ const MenuSettingsList: FC<MenuSettingsListProps> = ({ setSettingsClosed }) => {
 
   const { locales } = useLocale();
 
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  const handleSetDesktop = useCallback(() => {
+    const mediaIsMobile = !window.matchMedia('(min-width: 55em)').matches;
+    setIsMobile(mediaIsMobile);
+  }, []);
+
+  useEventListener('resize', handleSetDesktop, true);
+
   return (
     <>
       <Box p="xl" mt="2xs" display="flex" overflow="auto">
-        <Box cursor="pointer">
-          <ArrowLeft
-            width="100%"
-            maxWidth="1.25rem"
-            maxHeight="1.25rem"
-            onClick={setSettingsClosed}
-          />
-        </Box>
+        {!isMobile && (
+          <Box cursor="pointer">
+            <ArrowLeft
+              width="100%"
+              maxWidth="1.25rem"
+              maxHeight="1.25rem"
+              onClick={setSettingsClosed}
+            />
+          </Box>
+        )}
         <Typography
           variant="small"
           color="onSurface"
