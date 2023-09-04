@@ -39,7 +39,7 @@ const UserInfo: FC<MenuSwitchAccountProps> = ({
         handleOpenSwitchAccount={handleOpenSwitchAccount}
         handleCloseSwitchAccount={handleCloseSwitchAccount}
       />
-      <Box p="xl" overflow="auto">
+      <Box overflow="auto">
         <WalletTabs />
       </Box>
     </>

@@ -1,20 +1,19 @@
-import {
-  Box,
-  Motion,
-  ProgressIndicator,
-  Typography,
-} from '@interest-protocol/ui-kit';
+import { Box, ProgressIndicator, Typography } from '@interest-protocol/ui-kit';
 import { useQuerySenderEvents } from 'hooks/use-query-sender-events';
+import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
 import InfiniteScroll from '@/elements/infinite-scroll';
+import { capitalize } from '@/utils';
 
 import DollarCoinIllustration from './empty-actions-illustation';
 import { TransactionDataProps, TRANSACTIONS_DATA } from './transactions.data';
-import WalletTabItem from './wallet-tab-item';
+import WalletActivityItem from './wallet-activity-item';
+import WalletTokenItem from './wallet-token-item';
 
 const WalletTabs: FC = () => {
+  const t = useTranslations();
   const [toggle, setToggle] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [data, setData] =
@@ -35,14 +34,15 @@ const WalletTabs: FC = () => {
   };
 
   return (
-    <Box pb="50px">
+    <Box pb="3.125rem">
       <Box
+        mx="auto"
         p=".125rem"
-        width="100%"
         display="flex"
         cursor="pointer"
         borderRadius="full"
         bg="inverseSurface"
+        width="calc(100% - 1.5rem)"
         justifyContent="space-between"
       >
         <Box
@@ -57,7 +57,7 @@ const WalletTabs: FC = () => {
             Token
           </Typography>
         </Box>
-        <Motion
+        <Box
           flex="1"
           p=".5rem 1.5rem"
           borderRadius="full"
@@ -66,9 +66,9 @@ const WalletTabs: FC = () => {
           color={toggle ? 'onSurface' : 'inverseOnSurface'}
         >
           <Typography textAlign="center" variant="small">
-            Activity
+            {capitalize(t('common.v2.wallet.activity'))}
           </Typography>
-        </Motion>
+        </Box>
       </Box>
       {toggle ? (
         <Box
@@ -81,27 +81,31 @@ const WalletTabs: FC = () => {
           <InfiniteScroll
             hasMore={hasMore}
             next={fetchMoreData}
-            pullDownToRefresh={false}
             scrollableTarget="divId"
             dataLength={data.length}
             loader={
               <Box
-                display={!data.length ? 'none' : 'flex'}
-                width="100%"
                 mt="4xl"
+                width="100%"
                 justifyContent="center"
+                display={!data.length ? 'none' : 'flex'}
               >
                 <ProgressIndicator variant="loading" />
               </Box>
             }
           >
             {data.map((transaction) => (
-              <WalletTabItem {...transaction} key={v4()} />
+              <WalletActivityItem {...transaction} key={v4()} />
             ))}
           </InfiniteScroll>
         </Box>
       ) : (
-        <Box overflow="auto" id="divId" height="25rem" mt="4xl">
+        <Box
+          mt="4xl"
+          id="divId"
+          overflow="auto"
+          height={['65rem', '65rem', '65rem', '25rem']}
+        >
           {!data.length && <DollarCoinIllustration />}
           <InfiniteScroll
             hasMore={hasMore}
@@ -110,17 +114,17 @@ const WalletTabs: FC = () => {
             dataLength={data.length}
             loader={
               <Box
-                display={!data.length ? 'none' : 'flex'}
-                width="100%"
                 mt="4xl"
+                width="100%"
                 justifyContent="center"
+                display={!data.length ? 'none' : 'flex'}
               >
                 <ProgressIndicator variant="loading" />
               </Box>
             }
           >
             {data.map((transaction) => (
-              <WalletTabItem {...transaction} key={v4()} />
+              <WalletTokenItem {...transaction} key={v4()} />
             ))}
           </InfiniteScroll>
         </Box>
