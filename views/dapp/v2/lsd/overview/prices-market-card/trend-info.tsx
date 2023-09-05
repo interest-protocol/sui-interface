@@ -1,7 +1,7 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { ArrowLSVG } from '@/svg';
+import { ArrowTrendSVG } from '@/svg';
 
 import { TrendInfoProps } from '../overview.type';
 
@@ -22,7 +22,7 @@ const TrendInfo: FC<TrendInfoProps> = ({ isTrendUp, percentage, daysPast }) => {
           justifyContent="center"
           mr="0.25rem"
         >
-          <ArrowLSVG
+          <ArrowTrendSVG
             maxWidth="1rem"
             maxHeight="1rem"
             width="0.75rem"

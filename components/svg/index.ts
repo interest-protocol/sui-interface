@@ -1,10 +1,10 @@
 export { default as AnchorSVG } from './anchor';
 export { default as ArrowSVG } from './arrow';
-export { default as ArrowLSVG } from './arrow-l';
 export { default as ArrowLeft } from './arrow-left';
 export { default as ArrowLinkSVG } from './arrow-link';
 export { default as ArrowRightSVG } from './arrow-right';
 export { default as ArrowSpecialSVG } from './arrow-special';
+export { default as ArrowTrendSVG } from './arrow-trend';
 export { default as BarsSVG } from './bars';
 export { default as BehanceSVG } from './behance';
 export { default as BinanceSVG } from './binance';

@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { SVGProps } from './svg.types';
 
-const ArrowL: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
+const ArrowTrend: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   <svg
     viewBox="0 0 10 10"
     stroke="currentColor"
@@ -18,4 +18,4 @@ const ArrowL: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   </svg>
 );
 
-export default ArrowL;
+export default ArrowTrend;
