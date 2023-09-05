@@ -1,37 +1,63 @@
-import { Box, ProgressIndicator, Typography } from '@interest-protocol/ui-kit';
+import {
+  Box,
+  // ProgressIndicator,
+  Typography,
+} from '@interest-protocol/ui-kit';
 import { useQuerySenderEvents } from 'hooks/use-query-sender-events';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
-import { v4 } from 'uuid';
 
-import InfiniteScroll from '@/elements/infinite-scroll';
+// import { v4 } from 'uuid';
+// import InfiniteScroll from '@/elements/infinite-scroll';
+// import { useNetwork } from '@/hooks';
 import { capitalize } from '@/utils';
+import LoadingPage from '@/views/dapp/components/loading-page';
+import ErrorPage from '@/views/dapp/v2/error';
 
-import DollarCoinIllustration from './empty-actions-illustation';
-import { TransactionDataProps, TRANSACTIONS_DATA } from './transactions.data';
-import WalletActivityItem from './wallet-activity-item';
-import WalletTokenItem from './wallet-token-item';
+// import DollarCoinIllustration from './empty-actions-illustation';
+import { parseData } from './menu-profile.utils';
+// import WalletActivityItem from './wallet-activity-item';
+// import WalletTokenItem from './wallet-token-item';
 
 const WalletTabs: FC = () => {
   const t = useTranslations();
-  const [toggle, setToggle] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const [data, setData] =
-    useState<ReadonlyArray<TransactionDataProps>>(TRANSACTIONS_DATA);
 
-  useQuerySenderEvents();
+  const [toggle, setToggle] = useState(false);
+  const [nextCursorParam, setNextCursorParam] = useState<{
+    eventSeq: string;
+    txDigest: string;
+  } | null>(null);
+
+  const {
+    data: senderEvents,
+    error,
+    isLoading,
+  } = useQuerySenderEvents({ cursor: nextCursorParam });
+
+  if (isLoading) return <LoadingPage />;
+
+  if (error || !senderEvents) return <ErrorPage />;
+
+  const { hasNextPage, data, nextCursor } = senderEvents;
+
+  console.log({ hasNextPage });
 
   const fetchMoreData = () => {
-    data.length > 50 || (data.length === 0 && setHasMore(false));
+    setNextCursorParam(nextCursor);
 
-    setTimeout(() => {
-      const result = data.concat(
-        Array.from({ length: 5 }).map(() => TRANSACTIONS_DATA[0])
-      );
-      console.log('DONT_USE_THAT_OR_YOU_WILL_BE_FIRED: ', result);
-      setData(result);
-    }, 3500);
+    // data.length > 50 || (data.length === 0 && setHasMore(false));
+    // setTimeout(() => {
+    //   const result = data.concat(
+    //     Array.from({ length: 5 }).map(() => TRANSACTIONS_DATA[0])
+    //   );
+    //   console.log('DONT_USE_THAT_OR_YOU_WILL_BE_FIRED: ', result);
+    //   setData(result);
+    // }, 3500);
   };
+
+  const parsedData = parseData(data);
+
+  console.log({ parsedData });
 
   return (
     <Box pb="3.125rem">
@@ -70,65 +96,7 @@ const WalletTabs: FC = () => {
           </Typography>
         </Box>
       </Box>
-      {toggle ? (
-        <Box
-          mt="4xl"
-          id="divId"
-          overflow="auto"
-          height={['65rem', '65rem', '65rem', '25rem']}
-        >
-          {!data.length && <DollarCoinIllustration />}
-          <InfiniteScroll
-            hasMore={hasMore}
-            next={fetchMoreData}
-            scrollableTarget="divId"
-            dataLength={data.length}
-            loader={
-              <Box
-                mt="4xl"
-                width="100%"
-                justifyContent="center"
-                display={!data.length ? 'none' : 'flex'}
-              >
-                <ProgressIndicator variant="loading" />
-              </Box>
-            }
-          >
-            {data.map((transaction) => (
-              <WalletActivityItem {...transaction} key={v4()} />
-            ))}
-          </InfiniteScroll>
-        </Box>
-      ) : (
-        <Box
-          mt="4xl"
-          id="divId"
-          overflow="auto"
-          height={['65rem', '65rem', '65rem', '25rem']}
-        >
-          {!data.length && <DollarCoinIllustration />}
-          <InfiniteScroll
-            hasMore={hasMore}
-            next={fetchMoreData}
-            scrollableTarget="divId"
-            dataLength={data.length}
-            loader={
-              <Box
-                mt="4xl"
-                width="100%"
-                justifyContent="center"
-                display={!data.length ? 'none' : 'flex'}
-              >
-                <ProgressIndicator variant="loading" />
-              </Box>
-            }
-          >
-            {data.map((transaction) => (
-              <WalletTokenItem {...transaction} key={v4()} />
-            ))}
-          </InfiniteScroll>
-        </Box>
-      )}
+      {null}
     </Box>
   );
 };
