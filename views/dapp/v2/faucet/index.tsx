@@ -198,7 +198,7 @@ const Faucet: FC = () => {
                 fieldProps={{
                   bg: 'surface.containerLowest',
                   border: 'none',
-                  height: '58px',
+                  height: '3.625rem',
                 }}
                 fontSize="m"
                 value={

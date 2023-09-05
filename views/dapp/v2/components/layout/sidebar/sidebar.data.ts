@@ -2,16 +2,9 @@ import { Network } from '@interest-protocol/sui-amm-sdk';
 
 import { BridgeSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
-import { DotsSVG, SwapSVG, TrendUpSVG } from '@/svg';
+import { DotsSVG, PoolSVG, SwapSVG, TrendUpSVG } from '@/svg';
 
-import { MenuItemProps } from './sidebar.types';
-
-export const SIDEBAR_ITEMS: ReadonlyArray<
-  Omit<
-    MenuItemProps,
-    'setIsCollapsed' | 'isCollapsed' | 'setTemporarilyOpen' | 'temporarilyOpen'
-  >
-> = [
+export const SIDEBAR_ITEMS = [
   {
     Icon: SwapSVG,
     name: 'swap',
@@ -20,8 +13,14 @@ export const SIDEBAR_ITEMS: ReadonlyArray<
     networks: [Network.MAINNET, Network.TESTNET],
   },
   {
-    Icon: TrendUpSVG,
+    Icon: PoolSVG,
+    name: 'earn',
+    path: Routes[RoutesEnum.Earn],
+    networks: [Network.MAINNET, Network.TESTNET],
+  },
+  {
     name: 'metrics',
+    Icon: TrendUpSVG,
     path: Routes[RoutesEnum.Metrics],
     disabled: false,
     networks: [Network.MAINNET, Network.TESTNET],

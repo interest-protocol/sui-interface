@@ -4,6 +4,7 @@
       "on": "on",
       "off": "off",
       "cancel": "Cancelar",
+      "close": "cerrar",
       "confirm": "Confirmar",
       "confirmChanges": "Confirmar cambios",
       "network": {
@@ -19,6 +20,8 @@
       "selectToken": {
         "title": "Seleccionar token",
         "search": "Buscar token",
+        "pair": "Seleccionar par",
+        "choose": "Elegir token",
         "recommended": "Recomendado",
         "favorite": "Favorito",
         "wallet": "cartera"
@@ -27,6 +30,7 @@
         "swap": "Intercambio",
         "home": "Inicio",
         "pool": "pool",
+        "earn": "earn",
         "farm": "farm",
         "lend": "Préstamo",
         "createToken": "Crear token",
@@ -78,6 +82,33 @@
           "label": "Disponibles",
           "description": "Intercambia para obtener el Airdrop",
           "buttons": { "main": "Intercambiar ahora", "secondary": "Saber más" }
+        },
+        "earn": {
+          "createToken": "Está creando un mercado diseñado para activos no correlacionados"
+        }
+      },
+      "earnPool": {
+        "createPool": "Crear Pool",
+        "modal": {
+          "advice": {
+            "title": "Consejos",
+            "message": "Usted está haciendo un mercado volátil para {token1} y {token2}",
+            "button": "Crear de cualquier forma"
+          },
+          "warning": {
+            "title": "Advertencia",
+            "message": "El par que intenta crear ya existe. Para crear un fondo de liquidez, elija otro par de monedas.",
+            "button": "Ir al par"
+          },
+          "fail": {
+            "title": "Crear nueva pool",
+            "message": "La creación de un nuevo pool ha fallado."
+          },
+          "loading": {
+            "title": "Cargando",
+            "message": "Cargando...",
+            "description": "Por favor, espere un momento"
+          }
         }
       },
       "connectWallet": {

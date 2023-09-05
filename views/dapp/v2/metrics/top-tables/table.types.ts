@@ -14,7 +14,7 @@ export interface TableHeadProps {
 
 export interface TopPoolsTableItem
   extends Record<'a' | 'b' | 'c' | 'd', number> {
-  pool: IPool | undefined;
+  pool: IPool;
 }
 
 export interface TopCoinTableItem extends Record<'a' | 'b' | 'c', number> {

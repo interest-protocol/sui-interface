@@ -1,0 +1,32 @@
+{
+  "earnDetails": {
+    "metadata": {
+      "title": "Earn Detalles"
+    },
+    "overview": {
+      "fee": "tarifa",
+      "volume": "Volumen"
+    },
+    "cards": {
+      "addLiquidity": "Añadir liquidez",
+      "removeLiquidity": "Eliminar liquidez",
+      "staked": "apostado",
+      "unstaked": "sin estacas",
+      "rewards": "recompensas",
+      "button": {
+        "harvest": "{isLoading, plural, =1 {cosecha...} other {cosecha}}"
+      }
+    },
+    "modal": {
+      "feeTier": "Nivel de tarifas",
+      "feesEarned": "Comisiones devengadas",
+      "failedMessage": "Transacción fallida",
+      "successMessage": "Transacción enviada",
+      "viewActivity": "Vista de la actividad",
+      "loading": {
+        "mainMessage": "En espera de confirmación",
+        "secondaryMessage": "Confirme esta transacción en su cartera"
+      }
+    }
+  }
+}

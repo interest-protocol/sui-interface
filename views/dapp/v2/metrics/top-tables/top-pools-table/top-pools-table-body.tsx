@@ -39,7 +39,6 @@ const TopPoolsTableBody: FC = () => {
       {sort((item1, item2) => (+item1.a > +item2.a ? -1 : 1), data).map(
         ({ pool, a, b, c, d }, index) => {
           const FirstIcon = TOKENS_SVG_MAP_V2[pool?.token0.type ?? 'default'];
-
           const SecondIcon = TOKENS_SVG_MAP_V2[pool?.token1.type ?? 'default'];
 
           return (

@@ -10,7 +10,7 @@ import RefBox from '@/elements/ref-box';
 import { useNetwork } from '@/hooks';
 import useClickOutsideListenerRef from '@/hooks/use-click-outside-listener-ref';
 import { TTranslatedMessage } from '@/interface';
-import { CarteUpSVG } from '@/svg';
+import { CaretUpSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
 import { MenuMobileItemProps } from '../../../sidebar/sidebar.types';
@@ -62,7 +62,7 @@ const MobileMenuListItem: FC<
           justifyContent="center"
           transition={{ duration: 0.5 }}
         >
-          <CarteUpSVG
+          <CaretUpSVG
             width="0.469rem"
             height="0.469rem"
             maxWidth="1.25rem"

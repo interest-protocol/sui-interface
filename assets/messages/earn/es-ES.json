@@ -1,0 +1,25 @@
+{
+  "earn": {
+    "metadata": {
+      "title": "Earn"
+    },
+    "overview": {
+      "volume": "Volumen"
+    },
+    "filters": {
+      "stakeOnly": "Sólo estaca",
+      "life": "Vida",
+      "button": "Restablecer filtros"
+    },
+    "cards": {
+      "fee": "Tarifa",
+      "addLiquidity": "Añadir liquidez"
+    },
+    "infoCards": {
+      "state": "Estado"
+    },
+    "tabs": {
+      "myPosition": "My Position"
+    }
+  }
+}

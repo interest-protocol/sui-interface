@@ -4,6 +4,7 @@
       "on": "On",
       "off": "Off",
       "cancel": "cancel",
+      "close": "close",
       "confirm": "confirm",
       "confirmChanges": "confirm changes",
       "network": {
@@ -18,6 +19,8 @@
       },
       "selectToken": {
         "title": "Select token",
+        "pair": "Select pair",
+        "choose": "Choose token",
         "search": "Search token",
         "recommended": "Recommended",
         "favorite": "Favorite",
@@ -27,6 +30,7 @@
         "swap": "swap",
         "home": "home",
         "pool": "pool",
+        "earn": "earn",
         "lend": "lend",
         "farm": "farm",
         "createToken": "create token",
@@ -78,6 +82,33 @@
           "label": "For grabs",
           "description": "Swap to get Airdrop",
           "buttons": { "main": "Swap Now", "secondary": "Learn More" }
+        },
+        "earn": {
+          "createToken": "You are creating a market designed for uncorrelated asset"
+        }
+      },
+      "earnPool": {
+        "createPool": "Create Pool",
+        "modal": {
+          "advice": {
+            "title": "Advice",
+            "message": "You are making a volatile market for {token1} and {token2}",
+            "button": "Create anyway"
+          },
+          "warning": {
+            "title": "Warning",
+            "message": "The Pair you are trying to create already exists. To create a liquidity pool, choose a different coin pair.",
+            "button": "Go to pair"
+          },
+          "fail": {
+            "title": "Create New Pool",
+            "message": "Create new pool has failed."
+          },
+          "loading": {
+            "title": "Loading",
+            "message": "Loading...",
+            "description": "Please wait a moment"
+          }
         }
       },
       "connectWallet": {

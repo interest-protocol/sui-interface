@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { TTranslatedMessage } from '@/interface';
-import { CarteUpSVG } from '@/svg';
+import { CaretUpSVG } from '@/svg';
 
 import { MarketTableCollapsibleProps } from './market-table.types';
 
@@ -59,7 +59,7 @@ const MarketTableCollapsible: FC<MarketTableCollapsibleProps> = ({
           justifyContent="center"
           transition={{ duration: 0.5 }}
         >
-          <CarteUpSVG
+          <CaretUpSVG
             width="0.469rem"
             height="0.469rem"
             maxWidth="1.25rem"

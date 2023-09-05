@@ -17,6 +17,13 @@ type LandingPageMessages =
 type LiquidityCampaignMessages =
   typeof import('../assets/messages/liquidity-campaign/en-US.json');
 type SwapMessages = typeof import('../assets/messages/swap/en-US.json');
+type EarnMessages = typeof import('../assets/messages/earn/en-US.json');
+type EarnDetailsMessages =
+  typeof import('../assets/messages/earn/details/en-US.json');
+type EarnFindPoolMessages =
+  typeof import('../assets/messages/earn/find/en-US.json');
+type EarnCreatePoolMessages =
+  typeof import('../assets/messages/earn/create/en-US.json');
 type LendMessages = typeof import('../assets/messages/lend/en-US.json');
 type metricsMessages = typeof import('../assets/messages/metrics/en-US.json');
 
@@ -34,4 +41,8 @@ declare interface IntlMessages
     LendMessages,
     metricsMessages,
     SwapMessages,
-    DexPoolMessages {}
+    DexPoolMessages,
+    EarnMessages,
+    EarnDetailsMessages,
+    EarnFindPoolMessages,
+    EarnCreatePoolMessages {}

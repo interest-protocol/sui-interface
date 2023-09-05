@@ -1,0 +1,25 @@
+{
+  "earn": {
+    "metadata": {
+      "title": "Earn"
+    },
+    "overview": {
+      "volume": "Volume"
+    },
+    "filters": {
+      "stakeOnly": "Stake only",
+      "life": "Life",
+      "button": "Reset Filters"
+    },
+    "cards": {
+      "fee": "Fee",
+      "addLiquidity": "Add Liquidity"
+    },
+    "infoCards": {
+      "state": "State"
+    },
+    "tabs": {
+      "myPosition": "My Position"
+    }
+  }
+}
