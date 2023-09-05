@@ -4,11 +4,13 @@ import { FC } from 'react';
 import { SUISVG } from '@/components/svg/v2';
 import { formatDollars } from '@/utils';
 
-const SuiPriceInfo: FC = () => {
+import { SuiPriceInfoProps } from '../overview.type';
+
+const SuiPriceInfo: FC<SuiPriceInfoProps> = ({ coin, amount }) => {
   return (
     <Box color="onSurface">
       <Typography variant="extraSmall" fontSize="0.688rem" mb="s">
-        Sui / Sui
+        SUI / {coin.symbol}
       </Typography>
       <Box display="flex" alignItems="center" gap="0.5rem">
         <Box
@@ -28,7 +30,7 @@ const SuiPriceInfo: FC = () => {
           />
         </Box>
         <Typography variant="large" fontSize="1.375rem">
-          {formatDollars(0.504)}
+          {formatDollars(amount)}
         </Typography>
       </Box>
     </Box>

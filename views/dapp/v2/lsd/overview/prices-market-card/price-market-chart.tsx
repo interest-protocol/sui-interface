@@ -2,11 +2,11 @@ import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import StepsChart from '../../../components/charts/steps-chart';
-import { DATA_CHART } from '../overview.data';
+import { ChartProps } from '../overview.type';
 
-const PriceMarketChart: FC = () => (
+const PriceMarketChart: FC<ChartProps> = ({ data }) => (
   <Box height="3.125rem" width={['100%', '100%', '100%', '40%']}>
-    <StepsChart data={DATA_CHART} dataKey="amount" inDollars onlyLine />
+    <StepsChart data={data} dataKey="amount" inDollars onlyLine />
   </Box>
 );
 

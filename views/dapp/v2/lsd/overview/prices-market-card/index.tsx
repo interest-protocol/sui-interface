@@ -2,11 +2,16 @@ import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import { SuiPriceMarketProps } from '../overview.type';
 import PriceMarketChart from './price-market-chart';
 import SuiPriceInfo from './sui-price-info';
 import TrendInfo from './trend-info';
 
-const PricesMarketCard: FC = () => {
+const PricesMarketCard: FC<SuiPriceMarketProps> = ({
+  priceInfo,
+  trendInfo,
+  chartData,
+}) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   return (
@@ -27,9 +32,9 @@ const PricesMarketCard: FC = () => {
         gap="0.5rem"
         justifyContent="space-between"
       >
-        <SuiPriceInfo />
-        <TrendInfo percentage={2.87} daysPast={12} />
-        <PriceMarketChart />
+        <SuiPriceInfo {...priceInfo} />
+        <TrendInfo {...trendInfo} />
+        <PriceMarketChart data={chartData} />
       </Box>
     </Box>
   );
