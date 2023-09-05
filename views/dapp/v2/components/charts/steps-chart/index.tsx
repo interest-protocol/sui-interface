@@ -18,6 +18,7 @@ const StepsChart: FC<BaseChartProps> = ({
   xAxis,
   dataKey,
   inDollars,
+  onlyLine,
 }) => {
   const { colors } = useTheme() as Theme;
 
@@ -32,21 +33,25 @@ const StepsChart: FC<BaseChartProps> = ({
           bottom: 5,
         }}
       >
-        <CartesianGrid
-          opacity={0.25}
-          horizontal={false}
-          stroke={colors['outline.outlineVariant']}
-        />
-        <XAxis
-          tickMargin={2}
-          type="category"
-          minTickGap={15}
-          dataKey={xAxis}
-          tickLine={false}
-          tick={<CustomXAxisTick />}
-          interval="preserveStartEnd"
-          allowDuplicatedCategory={false}
-        />
+        {!onlyLine && (
+          <>
+            <CartesianGrid
+              opacity={0.25}
+              horizontal={false}
+              stroke={colors['outline.outlineVariant']}
+            />
+            <XAxis
+              tickMargin={2}
+              type="category"
+              minTickGap={15}
+              dataKey={xAxis}
+              tickLine={false}
+              tick={<CustomXAxisTick />}
+              interval="preserveStartEnd"
+              allowDuplicatedCategory={false}
+            />
+          </>
+        )}
         <Tooltip
           animationDuration={600}
           animationEasing="ease-in-out"
