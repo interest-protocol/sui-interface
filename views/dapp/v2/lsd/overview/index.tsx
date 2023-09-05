@@ -1,10 +1,14 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-const Overview: FC = () => (
-  <Box bg="onSurface" width={['100%', '100%', '100%', '55%']}>
-    Overview
-  </Box>
-);
+import PricesMarketCard from './prices-market-card';
+
+const Overview: FC = () => {
+  return (
+    <Box width={['100%', '100%', '100%', '55%']}>
+      <PricesMarketCard />
+    </Box>
+  );
+};
 
 export default Overview;

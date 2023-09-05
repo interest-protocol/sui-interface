@@ -3,6 +3,11 @@
     "metadata": {
       "title": "LSD",
       "description": "Nueva función LSD"
+    },
+    "cards": {
+      "priceMarket": {
+        "title": "SUI Precios Mercado"
+      }
     }
   }
 }

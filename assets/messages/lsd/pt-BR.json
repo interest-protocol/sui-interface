@@ -3,6 +3,11 @@
     "metadata": {
       "title": "LSD",
       "description": "LSD nova funcionalidade"
+    },
+    "cards": {
+      "priceMarket": {
+        "title": "Mercado de preços da SUI"
+      }
     }
   }
 }

@@ -1,5 +1,6 @@
 export { default as AnchorSVG } from './anchor';
 export { default as ArrowSVG } from './arrow';
+export { default as ArrowLSVG } from './arrow-l';
 export { default as ArrowLeft } from './arrow-left';
 export { default as ArrowLinkSVG } from './arrow-link';
 export { default as ArrowRightSVG } from './arrow-right';
