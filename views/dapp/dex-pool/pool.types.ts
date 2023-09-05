@@ -16,10 +16,11 @@ export interface PoolRowProps {
 }
 
 export interface IPool {
+  stable: boolean;
   token0: CoinData;
   token1: CoinData;
-  stable: boolean;
   decimals: number;
+  lpCoin: CoinData;
   balance: BigNumber;
   poolObjectId: string | null;
 }

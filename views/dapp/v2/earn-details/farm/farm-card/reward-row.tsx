@@ -4,7 +4,7 @@ import { FC } from 'react';
 
 import { capitalize } from '@/utils';
 
-import TokenIcon from '../../components/row-token-field/token-icon';
+import TokenIcon from '../../pool/pool-card/add-liquidity/add-liquidity-field/token-icon';
 import { RewardRowProps } from '../../earn.types';
 
 const RewardRow: FC<RewardRowProps> = ({

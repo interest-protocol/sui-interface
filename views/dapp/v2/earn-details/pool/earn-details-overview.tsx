@@ -6,14 +6,29 @@ import {
   useTheme,
 } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
+import { getMetric } from '@/api/metrics';
 import { MiddlePaperSVG, SwapCurveSVG, VolumeSVG } from '@/components/svg/v2';
-import { capitalize } from '@/utils';
+import { OBJECT_ID_TO_PAIR, Pair } from '@/constants';
+import { capitalize, formatDollars } from '@/utils';
 
-const EarnPoolSectionOverview: FC = () => {
+const EarnPoolOverview: FC<{ stable: boolean; objectId: string }> = ({
+  stable,
+  objectId,
+}) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
+
+  const [[tvl, volume], setPoolInfo] = useState<[number, number]>([0, 0]);
+
+  const pair: Pair = OBJECT_ID_TO_PAIR[objectId];
+
+  useEffect(() => {
+    getMetric('get-pool-info', `pair=${pair}`).then(({ a, b }) =>
+      setPoolInfo([a, b])
+    );
+  }, []);
 
   return (
     <Box display="grid" gridColumn="1/-1">
@@ -48,7 +63,7 @@ const EarnPoolSectionOverview: FC = () => {
             </Box>
           }
         >
-          $82,123.01
+          {stable ? 0.05 : 0.3}%
         </InfoCard>
         <InfoCard
           info=""
@@ -71,11 +86,11 @@ const EarnPoolSectionOverview: FC = () => {
                   width="100%"
                 />
               </Box>
-              {capitalize(t('common.liquidity'))}
+              {capitalize(t('common.tvl'))}
             </Box>
           }
         >
-          $82,123.01
+          {formatDollars(tvl ?? 0, 2)}
         </InfoCard>
         <InfoCard
           info={
@@ -110,11 +125,11 @@ const EarnPoolSectionOverview: FC = () => {
             </Box>
           }
         >
-          $15,123.01
+          {formatDollars(volume ?? 0, 2)}
         </InfoCard>
       </Box>
     </Box>
   );
 };
 
-export default EarnPoolSectionOverview;
+export default EarnPoolOverview;

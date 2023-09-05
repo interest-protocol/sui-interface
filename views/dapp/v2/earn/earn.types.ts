@@ -96,6 +96,7 @@ export interface ParseDataArgs {
 export interface SafeFarmData extends FarmMetadataType {
   tvl: number;
   apr: BigNumber;
+  volume?: number;
   loading?: boolean;
   accountBalance: BigNumber;
   allocationPoints: BigNumber;

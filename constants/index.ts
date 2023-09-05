@@ -68,6 +68,7 @@ export * from './dex';
 export * from './earn';
 export * from './farms';
 export * from './faucet';
+export * from './metrics';
 export * from './pools';
 export * from './routes';
 export * from './semantic-colors';

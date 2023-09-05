@@ -1,5 +1,6 @@
 import { toPairs } from 'ramda';
 
+import { Pair } from '@/constants';
 import {
   A_DAY_IN_MILLISECONDS,
   A_HOUR_IN_MILLISECONDS,
@@ -636,6 +637,61 @@ export const getTopPools = (TZ: string): Promise<PoolReturn> =>
       }, {} as PoolReturn)
     );
 
+export const getPoolInfo = (TZ: string, pair: Pair): Promise<PoolReturn> =>
+  getMetrics(
+    [
+      {
+        metricsQuery: {
+          query: 'tvl_by_pool',
+          alias: '',
+          id: 'a',
+          labelSelector: {
+            pair,
+          },
+          aggregate: null,
+          functions: [],
+          disabled: false,
+        },
+        dataSource: 'METRICS',
+        sourceName: '',
+      },
+      {
+        metricsQuery: {
+          query: 'vol_sum',
+          alias: '',
+          id: 'b',
+          labelSelector: {
+            pair,
+          },
+          aggregate: null,
+          functions: [],
+          disabled: false,
+        },
+        dataSource: 'METRICS',
+        sourceName: '',
+      },
+    ],
+    TZ,
+    { limit: 20 }
+  )
+    .then((res) => res.json())
+    .then((data) =>
+      (data.results as PoolResults).reduce((acc, { id, matrix }) => {
+        const info = matrix.samples.reduce(
+          (accumulator, { values }) => ({
+            ...accumulator,
+            [id]: values.reverse()[0].value,
+          }),
+          {}
+        );
+
+        return {
+          ...acc,
+          ...info,
+        };
+      }, {} as PoolReturn)
+    );
+
 export const getTopCoins = (TZ: string): Promise<CoinReturn> =>
   getMetrics(
     [
@@ -778,6 +834,7 @@ type TMetricEndpoints =
   | 'get-top-pools'
   | 'get-total-active-wallets'
   | 'get-total-liquidity'
+  | 'get-pool-info'
   | 'get-tvl-by-pool';
 
 export const getMetric = (endpoint: TMetricEndpoints, params?: string) =>

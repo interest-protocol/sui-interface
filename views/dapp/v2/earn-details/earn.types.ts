@@ -27,12 +27,6 @@ export interface FarmCardProps extends FarmCardWrapperProps {
   currentAmount?: string;
 }
 
-export interface RowTokenFieldProps {
-  coins: ReadonlyArray<CoinData>;
-  amount: string;
-  balance: string;
-}
-
 export interface TokenDescriptionProps {
   coin: CoinData;
   amount: string;

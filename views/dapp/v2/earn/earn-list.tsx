@@ -4,7 +4,7 @@ import { not, toPairs } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 
-import { getMetric, PoolReturn } from '@/api/metrics';
+import { getMetric } from '@/api/metrics';
 import { useGetCoinsPrices, useNetwork, useWeb3 } from '@/hooks';
 
 import { getPoolFromMetricLabel } from '../metrics/metrics.utils';
@@ -35,21 +35,19 @@ const EarnList: FC = () => {
   const { ipxStorage, pools, error: errorPools } = useGetIPXStorageAndPools();
 
   useEffect(() => {
-    getMetric('get-top-coins').then((data) =>
+    getMetric('get-top-pools').then((data) => {
       setMainnetPools(
         toPairs(data).map(([pair, info]) => ({
           ...info,
           pool: getPoolFromMetricLabel(pair),
         }))
-      )
-    );
+      );
+    });
   }, []);
-
-  console.log({ pricesError, errorFarms, errorPools });
 
   const parsedData =
     network === Network.MAINNET
-      ? []
+      ? parseMainnetData(mainnetPools)
       : parseTestnetData({
           pools,
           farms,
@@ -57,8 +55,6 @@ const EarnList: FC = () => {
           network,
           ipxStorage,
         });
-
-  console.log('>> parsed data :: ', mainnetPools);
 
   return (
     <Box display="flex" variant="container" flexDirection="column">

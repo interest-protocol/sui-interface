@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import RowTokenField from '../../components/row-token-field';
+import RowTokenField from '../../pool/pool-card/add-liquidity/add-liquidity-field';
 import { FarmCardProps } from '../../earn.types';
 import RewardRow from './reward-row';
 import FarmCardWrapper from './wrapper';

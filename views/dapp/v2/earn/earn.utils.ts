@@ -1,8 +1,7 @@
 import { Network, STABLE } from '@interest-protocol/sui-amm-sdk';
 import BigNumber from 'bignumber.js';
-import { propOr, toPairs } from 'ramda';
+import { propOr } from 'ramda';
 
-import { PoolReturn } from '@/api/metrics';
 import { Web3ManagerSuiObject } from '@/components/web3-manager/web3-manager.types';
 import {
   COIN_TYPE_ARRAY_UI,
@@ -22,7 +21,7 @@ import {
 } from '@/utils';
 
 import { FormatLpCoinToPoolArgs } from '../../dex-pool/pool.types';
-import { getPoolFromMetricLabel } from '../metrics/metrics.utils';
+import { TopPoolsTableItem } from '../metrics/top-tables/table.types';
 import {
   IPools,
   ParseDataArgs,
@@ -129,9 +128,42 @@ export const parseFarmData = ({
   };
 };
 
-export const parseMainnetData = (data: PoolReturn) => {
-  return;
-};
+export const parseMainnetData = (
+  data: ReadonlyArray<TopPoolsTableItem>
+): ReadonlyArray<SafeFarmData> =>
+  data.map(
+    (
+      { a, b, c, pool: { poolObjectId, stable, token0, token1, lpCoin } },
+      id
+    ) => {
+      const apr = BigNumber(
+        Number(
+          (a && b ? (365 * (b * (stable ? 0.05 : 0.3))) / a : 0).toFixed(4)
+        ).toPrecision()
+      );
+
+      return {
+        id,
+        apr,
+        tvl: a,
+        lpCoin,
+        stable,
+        volume: c,
+        farmType: '',
+        poolObjectId,
+        isLive: false,
+        coin0: token0,
+        coin1: token1,
+        loading: false,
+        farmObjectId: '',
+        isSingleCoin: false,
+        accountBalance: ZERO_BIG_NUMBER,
+        allocationPoints: ZERO_BIG_NUMBER,
+        totalStakedAmount: ZERO_BIG_NUMBER,
+        totalAllocationPoints: ZERO_BIG_NUMBER,
+      } as SafeFarmData;
+    }
+  );
 
 export const parseTestnetData = ({
   farms,

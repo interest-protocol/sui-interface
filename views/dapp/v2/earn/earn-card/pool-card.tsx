@@ -5,9 +5,11 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import { Routes, RoutesEnum } from '@/constants';
 import { formatDollars } from '@/utils';
 
 import { PoolCardProps } from '../earn.types';
@@ -19,12 +21,15 @@ const PoolCard: FC<PoolCardProps> = ({
   tvl,
   coin0,
   coin1,
+  volume,
   stable,
   isSingleCoin,
+  lpCoin: { type },
   allocationPoints,
   totalAllocationPoints,
 }) => {
   const t = useTranslations();
+  const { push } = useRouter();
   const { dark } = useTheme() as Theme;
 
   return (
@@ -38,7 +43,7 @@ const PoolCard: FC<PoolCardProps> = ({
         flexDirection="column"
         bg="surface.containerLow"
       >
-        <HeaderItems isStable={stable} />
+        <HeaderItems isStable={stable} isFarm={!allocationPoints.isZero()} />
         <Box display="flex" flexWrap="wrap" gap="l">
           <Box gap="m" display="flex">
             <EarnCardTokenIcon
@@ -81,7 +86,7 @@ const PoolCard: FC<PoolCardProps> = ({
               {t('common.tvl')}
             </Typography>
             <Typography variant="small" color={dark ? 'white' : 'black'}>
-              {formatDollars(tvl)}
+              {formatDollars(Number((+tvl.toFixed(2)).toPrecision()))}
             </Typography>
           </Box>
           <Box display="flex" justifyContent="space-between">
@@ -93,26 +98,28 @@ const PoolCard: FC<PoolCardProps> = ({
               {t('earn.overview.volume')}
             </Typography>
             <Typography variant="small" color={dark ? 'white' : 'black'}>
-              {0}
+              {formatDollars(Number((+(volume ?? 0).toFixed(2)).toPrecision()))}
             </Typography>
           </Box>
-          <Box display="flex" justifyContent="space-between">
-            <Typography
-              variant="small"
-              color="onSurfaceVariant"
-              textTransform="capitalize"
-            >
-              {t('common.allocation')}
-            </Typography>
-            <Typography variant="small" color={dark ? 'white' : 'black'}>
-              {allocationPoints
-                .dividedBy(totalAllocationPoints)
-                .multipliedBy(100)
-                .decimalPlaces(2)
-                .toString()}
-              %
-            </Typography>
-          </Box>
+          {!allocationPoints.isZero() && (
+            <Box display="flex" justifyContent="space-between">
+              <Typography
+                variant="small"
+                color="onSurfaceVariant"
+                textTransform="capitalize"
+              >
+                {t('common.allocation')}
+              </Typography>
+              <Typography variant="small" color={dark ? 'white' : 'black'}>
+                {allocationPoints
+                  .dividedBy(totalAllocationPoints)
+                  .multipliedBy(100)
+                  .decimalPlaces(2)
+                  .toString()}
+                %
+              </Typography>
+            </Box>
+          )}
         </Box>
         <Box gap="s" display="flex" flexDirection={['column', 'column', 'row']}>
           <Button
@@ -131,9 +138,12 @@ const PoolCard: FC<PoolCardProps> = ({
               variant="filled"
               textAlign="center"
               width={['auto', 'auto', '100%']}
-              // onClick={() =>
-              //   push({ pathname: Routes[RoutesEnum.EarnDetails] }).then()
-              // }
+              onClick={() =>
+                push({
+                  pathname: Routes[RoutesEnum.EarnDetails],
+                  query: { type },
+                }).then()
+              }
             >
               <Typography
                 variant="small"

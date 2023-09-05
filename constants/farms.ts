@@ -206,14 +206,14 @@ export const FARMS_RECORD: Record<Network, Record<string, FarmMetadataType>> = {
 };
 
 export interface FarmMetadataType {
-  farmType: string;
-  lpCoin: CoinData;
-  coin0: CoinData;
-  coin1: CoinData;
-  isSingleCoin: boolean;
   id: number;
   isLive: boolean;
   stable: boolean;
+  coin0: CoinData;
+  coin1: CoinData;
+  lpCoin: CoinData;
+  farmType: string;
   poolObjectId: string;
   farmObjectId: string;
+  isSingleCoin: boolean;
 }
