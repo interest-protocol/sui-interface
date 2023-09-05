@@ -6,6 +6,11 @@
     },
     "stakingForm": {
       "title": "Tua Informação"
-    }
+    },
+    "exchangeRate": "Taxa de Câmbio",
+    "details": "Detalhes",
+    "validator": "Validadores",
+    "rewards": "Recompensas",
+    "epochsDescription": "Época termina em..."
   }
 }

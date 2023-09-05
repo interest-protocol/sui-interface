@@ -81,6 +81,7 @@ export { default as USDDSVG } from './usdd';
 export { default as USDTSVG } from './usdt';
 export { default as UserSVG } from './user';
 export { default as UserPlusSVG } from './user-plus';
+export { default as UsersSVG } from './users';
 export { default as WormholeADABSVG } from './v2/wormhole-ada-bsc';
 export { default as WarningSVG } from './warning';
 export { default as WarningCircle } from './warning-circle';

@@ -6,6 +6,11 @@
     },
     "stakingForm": {
       "title": "tu información"
-    }
+    },
+    "exchangeRate": "Tasa de cambio",
+    "details": "Detalles",
+    "validator": "Validadores",
+    "rewards": "Recompensas",
+    "epochsDescription": "La Época termina em..."
   }
 }

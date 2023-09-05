@@ -6,6 +6,11 @@
     },
     "stakingForm": {
       "title": "Your info"
-    }
+    },
+    "exchangeRate": "Exchange Rate",
+    "details": "Details",
+    "validator": "Validatores",
+    "rewards": "Rewards",
+    "epochsDescription": "Epoch ends in..."
   }
 }
