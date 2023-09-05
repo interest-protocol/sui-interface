@@ -9,7 +9,7 @@ const StatsWrapper: FC<PropsWithChildren<StatsWrapperProps>> = ({
   value,
   isCoin,
 }) => (
-  <Box display="flex" gap="0rem">
+  <Box display="flex" gap="l">
     <Box
       width="3rem"
       height="3rem"
