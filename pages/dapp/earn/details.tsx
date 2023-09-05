@@ -1,21 +1,15 @@
-import { Network } from '@interest-protocol/sui-amm-sdk';
 import { GetStaticProps, NextPage } from 'next';
-import dynamic from 'next/dynamic';
 import NotFoundPage from 'pages/404';
 import { mergeDeepRight } from 'ramda';
 
 import { SEO } from '@/components';
-import { COIN_TYPE_TO_COIN, FARMS_RECORD } from '@/constants';
+import { FARMS_RECORD } from '@/constants';
 import { FARMS_RECORD as LIQUIDITY_RECORD } from '@/constants/liquidity-farms.constants';
 import { ModalProvider } from '@/context/modal';
-import { withObjectIdGuard, withTypeGuard } from '@/HOC';
+import { withTypeGuard } from '@/HOC';
 import { useNetwork } from '@/hooks';
 import { NextPageDefaultProps } from '@/interface';
 import EarnDetails from '@/views/dapp/v2/earn-details';
-
-const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
-  ssr: false,
-});
 
 interface EarnDetailsPageProps extends NextPageDefaultProps {
   type: string;
