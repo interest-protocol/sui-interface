@@ -8,6 +8,9 @@
       "priceMarket": {
         "title": "SUI prices market"
       }
+    },
+    "stakingForm": {
+      "title": "Your info"
     }
   }
 }
