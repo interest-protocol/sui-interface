@@ -61,6 +61,7 @@ const ProMode: FC = () => {
         <Box
           width="3rem"
           height="fill-available"
+          maxHeight="3rem"
           bg="white"
           color="black"
           borderRadius="0.25rem"
