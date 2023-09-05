@@ -6,6 +6,18 @@
     },
     "stakingForm": {
       "title": "tu información"
+    },
+    "proMode": {
+      "state": "{isEnable, plural, =1 {activo} other {desactivado}}",
+      "modal": {
+        "confirmation": {
+          "title": "{isEnable, plural, =1 {activar el Pro-mode} other {desactivar el Pro-mode}}",
+          "description": "Los cambios que has hecho hasta ahora no serán seguros."
+        },
+        "success": {
+          "title": "{isEnable, plural, =1 {Pro-mode activado} other {Pro-mode desactivado}}"
+        }
+      }
     }
   }
 }

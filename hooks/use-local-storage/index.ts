@@ -6,6 +6,7 @@ type LocalStorageKeys = `sui-interest-${
   | 'theme'
   | 'network'
   | 'version'
+  | 'pro-mode'
   | 'farm-account'
   | 'swap-settings'
   | 'tokens-metadata'

@@ -61,6 +61,7 @@ export { default as PoolSVG } from './pool';
 export { default as PTFlagSVG } from './pt-flag';
 export { default as SecuritySVG } from './security';
 export { default as ShieldCheckSVG } from './shield-check';
+export { default as SkrullSVG } from './skrull';
 export { default as StarSVG } from './star';
 export { default as StarLightSVG } from './star-light';
 export { default as SuiSVG } from './sui';
