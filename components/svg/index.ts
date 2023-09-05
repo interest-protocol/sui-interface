@@ -21,6 +21,7 @@ export { default as CelerETHSVG } from './celer-eth';
 export { default as CelerUSDCSVG } from './celer-usdc';
 export { default as CelerUSDTSVG } from './celer-usdt';
 export { default as ChartSVG } from './chart';
+export { default as CipherSVG } from './cipher';
 export { default as CogsSVG } from './cogs';
 export { default as CopySVG } from './copy';
 export { default as DexSVG } from './dex';
