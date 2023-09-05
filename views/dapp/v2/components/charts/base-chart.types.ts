@@ -3,4 +3,5 @@ export interface BaseChartProps {
   xAxis?: string;
   dataKey: string;
   inDollars?: boolean;
+  onlyLine?: boolean;
 }
