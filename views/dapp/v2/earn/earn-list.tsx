@@ -34,6 +34,8 @@ const EarnList: FC = () => {
 
   const { ipxStorage, pools, error: errorPools } = useGetIPXStorageAndPools();
 
+  console.log({ pricesError, errorFarms, errorPools });
+
   useEffect(() => {
     getMetric('get-top-pools').then((data) => {
       setMainnetPools(
