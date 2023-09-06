@@ -23,6 +23,7 @@
           "title": "{isEnable, plural, =1 {Pro-mode activado} other {Pro-mode desactivado}}"
         }
       }
-    }
+    },
+    "mintType": "Mint Type"
   }
 }

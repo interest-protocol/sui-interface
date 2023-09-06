@@ -1,3 +1,5 @@
+import { DERIVATED_SUI_SYMBOL } from '../../lsd.type';
+
 export interface StatsWrapperProps {
   description: string;
   value: string;
@@ -5,7 +7,7 @@ export interface StatsWrapperProps {
 }
 
 export interface StatsDerivatedWrapperProps {
-  name: 'iSUI' | 'iSUI-PC' | 'iSUI-YC';
+  name: DERIVATED_SUI_SYMBOL;
   value: string;
 }
 
