@@ -17,3 +17,7 @@ export interface StatsProps {
   totalRewards: string;
   derivatedSui: ReadonlyArray<StatsDerivatedWrapperProps>;
 }
+
+export interface GetISuiSVGProps {
+  symbol: DERIVATED_SUI_SYMBOL;
+}

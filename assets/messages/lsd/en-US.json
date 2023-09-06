@@ -24,6 +24,10 @@
         }
       }
     },
-    "mintType": "Mint Type"
+    "mintType": "Mint Type",
+    "stats": "Stats",
+    "totalStaked": "TOTAL SUI STAKED",
+    "totalReward": "TOTAL REWARDS",
+    "totalMinted": "Total {symbol} minted"
   }
 }

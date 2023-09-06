@@ -24,6 +24,10 @@
         }
       }
     },
-    "mintType": "Mint Type"
+    "mintType": "Mint Type",
+    "stats": "Estatística",
+    "totalStaked": "TOTAL DE SUI INVESTIDO",
+    "totalReward": "TOTAL DE RECOMPENSAS",
+    "totalMinted": "Total {symbol} minted"
   }
 }

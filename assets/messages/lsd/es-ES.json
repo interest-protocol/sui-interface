@@ -24,6 +24,10 @@
         }
       }
     },
-    "mintType": "Mint Type"
+    "mintType": "Mint Type",
+    "stats": "Estadística",
+    "totalStaked": "TOTAL SUI APOSTADO",
+    "totalReward": "RECOMPENSAS TOTALES",
+    "totalMinted": "Total {symbol} minted"
   }
 }

@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { SVGProps } from './svg.types';
 
-const ISui: FC<SVGProps & { filled?: boolean; rounded?: boolean }> = ({
+const ISuiPC: FC<SVGProps & { filled?: boolean; rounded?: boolean }> = ({
   maxHeight,
   maxWidth,
   filled,
@@ -20,8 +20,8 @@ const ISui: FC<SVGProps & { filled?: boolean; rounded?: boolean }> = ({
   >
     {filled ? (
       <>
-        <g clipPath="url(#isui)">
-          <rect width="40" height="40" rx="4" fill="#0053DB" />
+        <g clipPath="url(#isui_pc)">
+          <rect width="40" height="40" rx="4" fill="#4BE5FF" />
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -29,8 +29,13 @@ const ISui: FC<SVGProps & { filled?: boolean; rounded?: boolean }> = ({
             fill="currentColor"
           />
         </g>
+        <path
+          d="M20 0H36C38.2091 0 40 1.79086 40 4V36C40 38.2091 38.2091 40 36 40H20V0Z"
+          fill="black"
+          fillOpacity="0.2"
+        />
         <defs>
-          <clipPath id="isui">
+          <clipPath id="isui_pc">
             <rect width="40" height="40" rx="4" fill="currentColor" />
           </clipPath>
         </defs>
@@ -46,4 +51,4 @@ const ISui: FC<SVGProps & { filled?: boolean; rounded?: boolean }> = ({
   </svg>
 );
 
-export default ISui;
+export default ISuiPC;

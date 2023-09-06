@@ -1,8 +1,5 @@
-import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
-
-import { COINS } from '@/constants';
 
 import { DATA_CHART } from './overview.data';
 import { SuiPriceInfoProps, TrendInfoProps } from './overview.type';
@@ -17,7 +14,7 @@ const Overview: FC = () => {
   };
 
   const priceInfo: SuiPriceInfoProps = {
-    coin: COINS[Network.TESTNET].SUID,
+    coin: 'iSui',
     amount: 0.943,
   };
 
