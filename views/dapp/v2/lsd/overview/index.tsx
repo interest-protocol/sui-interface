@@ -38,9 +38,9 @@ const Overview: FC = () => {
         totalRewards="$100"
         totalStaked="574.23"
         derivatedSui={[
-          { name: 'iSUI', value: '1.345' },
-          { name: 'iSUI-PC', value: '1.345' },
-          { name: 'iSUI-YC', value: '1.345' },
+          { name: 'iSui', value: '1.345' },
+          { name: 'iSui-PC', value: '1.345' },
+          { name: 'iSui-YN', value: '1.345' },
         ]}
       />
     </Box>
