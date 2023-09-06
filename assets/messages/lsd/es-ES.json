@@ -4,6 +4,11 @@
       "title": "LSD",
       "description": "Nueva función LSD"
     },
+    "cards": {
+      "priceMarket": {
+        "title": "SUI Precios Mercado"
+      }
+    },
     "stakingForm": {
       "title": "tu información"
     },
@@ -11,6 +16,18 @@
     "details": "Detalles",
     "validator": "Validadores",
     "rewards": "Recompensas",
-    "epochsDescription": "La Época termina em..."
+    "epochsDescription": "La Época termina em...",
+    "proMode": {
+      "state": "{isEnable, plural, =1 {activo} other {desactivado}}",
+      "modal": {
+        "confirmation": {
+          "title": "{isEnable, plural, =1 {activar el Pro-mode} other {desactivar el Pro-mode}}",
+          "description": "Los cambios que has hecho hasta ahora no serán seguros."
+        },
+        "success": {
+          "title": "{isEnable, plural, =1 {Pro-mode activado} other {Pro-mode desactivado}}"
+        }
+      }
+    }
   }
 }

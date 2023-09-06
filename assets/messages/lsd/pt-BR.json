@@ -4,6 +4,11 @@
       "title": "LSD",
       "description": "LSD nova funcionalidade"
     },
+    "cards": {
+      "priceMarket": {
+        "title": "Mercado de preços da SUI"
+      }
+    },
     "stakingForm": {
       "title": "Tua Informação"
     },
@@ -11,6 +16,18 @@
     "details": "Detalhes",
     "validator": "Validadores",
     "rewards": "Recompensas",
-    "epochsDescription": "Época termina em..."
+    "epochsDescription": "Época termina em...",
+    "proMode": {
+      "state": "{isEnable, plural, =1 {activado} other {desactivado}}",
+      "modal": {
+        "confirmation": {
+          "title": "{isEnable, plural, =1 {activar Pro-mode} other {desactivar Pro-mode}}",
+          "description": "As alterações que fez até agora não são seguras."
+        },
+        "success": {
+          "title": "{isEnable, plural, =1 {Pro-mode activado} other {Pro-mode desactivado}}"
+        }
+      }
+    }
   }
 }
