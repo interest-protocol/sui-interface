@@ -53,19 +53,9 @@ const MenuProfile: FC<
       animate={isOpen ? 'open' : 'closed'}
       pb={['7rem', '7rem', '7rem', 'unset']}
       borderLeftColor="outline.outlineVariant"
-      position={['fixed', 'fixed', 'fixed', 'absolute']}
+      position="fixed"
     >
-      <Box
-        display="flex"
-        flexDirection="column"
-        height={[
-          'calc(100% + 3rem)',
-          'calc(100% + 3rem)',
-          'calc(100% - 1rem)',
-          'calc(100% - 4rem)',
-        ]}
-        justifyContent="space-between"
-      >
+      <Box display="flex" flexDirection="column" justifyContent="space-between">
         <UserInfo
           isOpen={isOpen}
           loading={loading}

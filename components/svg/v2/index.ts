@@ -36,6 +36,7 @@ export { default as PercentageSVG } from './percentage';
 export { default as SearchSVG } from './search';
 export { default as SUISVG } from './sui';
 export { default as SUIDSVG } from './suid';
+export { default as SupplySVG } from './supply';
 export { default as SwapSVG } from './swap';
 export { default as SwitchSVG } from './switch';
 export { default as TimesSVG } from './times';

@@ -1,9 +1,22 @@
 import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
+import {
+  BNBSVG,
+  BTCSVG,
+  ETHSVG,
+  SUISVG,
+  USDCSVG,
+  USDTSVG,
+} from '@/components/svg/v2';
+
 import { WalletTokenItemProps } from './menu-profile.types';
 
-const WalletTokenItem: FC<WalletTokenItemProps> = ({ Icon }) => {
+const WalletTokenItem: FC<WalletTokenItemProps> = ({
+  symbol,
+  balance,
+  totalBalance,
+}) => {
   const { colors } = useTheme() as Theme;
 
   return (
@@ -20,11 +33,25 @@ const WalletTokenItem: FC<WalletTokenItemProps> = ({ Icon }) => {
       }}
     >
       <Box p="s" bg="inverseSurface" display="flex" borderRadius="m">
-        <Icon maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+        {symbol === 'BNB' ? (
+          <BNBSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+        ) : symbol === 'BTC' ? (
+          <BTCSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+        ) : symbol === 'ETH' ? (
+          <ETHSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+        ) : symbol === 'SUI' ? (
+          <SUISVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+        ) : symbol === 'USDT' ? (
+          <USDTSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+        ) : symbol === 'USDC' ? (
+          <USDCSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+        ) : (
+          '?'
+        )}
       </Box>
       <Box width="100%">
         <Typography variant="extraSmall" color="onSurface" textAlign="right">
-          $0
+          {balance}
         </Typography>
         <Typography
           width="100%"
@@ -35,7 +62,7 @@ const WalletTokenItem: FC<WalletTokenItemProps> = ({ Icon }) => {
           whiteSpace="nowrap"
           textOverflow="ellipsis"
         >
-          0
+          {totalBalance.toNumber()}
         </Typography>
       </Box>
     </Box>

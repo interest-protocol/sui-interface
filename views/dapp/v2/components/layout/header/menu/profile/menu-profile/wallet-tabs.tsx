@@ -5,33 +5,48 @@ import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
 import InfiniteScroll from '@/elements/infinite-scroll';
+import { useWeb3 } from '@/hooks';
 import { capitalize } from '@/utils';
+import LoadingPage from '@/views/dapp/components/loading-page';
 
 import DollarCoinIllustration from './empty-actions-illustation';
-import { TransactionDataProps, TRANSACTIONS_DATA } from './transactions.data';
+import { parseData } from './menu-profile.utils';
 import WalletActivityItem from './wallet-activity-item';
 import WalletTokenItem from './wallet-token-item';
 
 const WalletTabs: FC = () => {
   const t = useTranslations();
+  const { coins } = useWeb3();
   const [toggle, setToggle] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const [data, setData] =
-    useState<ReadonlyArray<TransactionDataProps>>(TRANSACTIONS_DATA);
 
-  useQuerySenderEvents();
+  const [nextCursorParam, setNextCursorParam] = useState<{
+    eventSeq: string;
+    txDigest: string;
+  } | null>(null);
+
+  const {
+    data: senderEvents,
+    error,
+    isLoading,
+  } = useQuerySenderEvents({ cursor: nextCursorParam });
+
+  if (isLoading) return <LoadingPage />;
+
+  if (error || !senderEvents) return <>Has nothing</>;
+
+  const { hasNextPage, data, nextCursor } = senderEvents;
+
+  console.log(coins);
+  console.log({ hasNextPage });
+  console.log(senderEvents);
 
   const fetchMoreData = () => {
-    data.length > 50 || (data.length === 0 && setHasMore(false));
-
-    setTimeout(() => {
-      const result = data.concat(
-        Array.from({ length: 5 }).map(() => TRANSACTIONS_DATA[0])
-      );
-      console.log('DONT_USE_THAT_OR_YOU_WILL_BE_FIRED: ', result);
-      setData(result);
-    }, 3500);
+    setNextCursorParam(nextCursor);
   };
+
+  const parsedDataArr = parseData(data);
+
+  console.log(parsedDataArr);
 
   return (
     <Box pb="3.125rem">
@@ -77,25 +92,25 @@ const WalletTabs: FC = () => {
           overflow="auto"
           height={['65rem', '65rem', '65rem', '25rem']}
         >
-          {!data.length && <DollarCoinIllustration />}
+          {!parsedDataArr.length && <DollarCoinIllustration />}
           <InfiniteScroll
-            hasMore={hasMore}
+            hasMore={hasNextPage}
             next={fetchMoreData}
             scrollableTarget="divId"
-            dataLength={data.length}
+            dataLength={parsedDataArr.length}
             loader={
               <Box
                 mt="4xl"
                 width="100%"
                 justifyContent="center"
-                display={!data.length ? 'none' : 'flex'}
+                display={!parsedDataArr.length ? 'none' : 'flex'}
               >
                 <ProgressIndicator variant="loading" />
               </Box>
             }
           >
-            {data.map((transaction) => (
-              <WalletActivityItem {...transaction} key={v4()} />
+            {parsedDataArr.map(({ txId, type }) => (
+              <WalletActivityItem id={txId} key={v4()} description={type} />
             ))}
           </InfiniteScroll>
         </Box>
@@ -108,7 +123,7 @@ const WalletTabs: FC = () => {
         >
           {!data.length && <DollarCoinIllustration />}
           <InfiniteScroll
-            hasMore={hasMore}
+            hasMore={hasNextPage}
             next={fetchMoreData}
             scrollableTarget="divId"
             dataLength={data.length}
@@ -123,9 +138,16 @@ const WalletTabs: FC = () => {
               </Box>
             }
           >
-            {data.map((transaction) => (
-              <WalletTokenItem {...transaction} key={v4()} />
-            ))}
+            {coins.map(({ totalBalance, objects, symbol }) => {
+              return (
+                <WalletTokenItem
+                  key={v4()}
+                  symbol={symbol}
+                  totalBalance={totalBalance}
+                  balance={objects[0]?.balance}
+                />
+              );
+            })}
           </InfiniteScroll>
         </Box>
       )}
