@@ -100,8 +100,6 @@ export const useQuerySenderEvents = (
         ? provider.queryEvents({
             query: {
               Sender: account,
-              // ...EVENTS_FILTER[network],
-              // And: [{ Sender: account }, EVENTS_FILTER[network]],
             },
             order: 'descending',
             ...queryEventsConfig,

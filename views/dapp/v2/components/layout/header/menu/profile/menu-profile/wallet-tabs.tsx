@@ -32,7 +32,11 @@ const WalletTabs: FC = () => {
 
   if (isLoading) return <LoadingPage />;
 
-  if (error || !senderEvents) return <>Has nothing</>;
+  if (error || !senderEvents) {
+    console.log(error, senderEvents);
+
+    return <>Error</>;
+  }
 
   const { hasNextPage, data, nextCursor } = senderEvents;
 
@@ -85,7 +89,7 @@ const WalletTabs: FC = () => {
           </Typography>
         </Box>
       </Box>
-      {toggle ? (
+      {/* {toggle ? (
         <Box
           mt="4xl"
           id="divId"
@@ -138,19 +142,17 @@ const WalletTabs: FC = () => {
               </Box>
             }
           >
-            {coins.map(({ totalBalance, objects, symbol }) => {
-              return (
-                <WalletTokenItem
-                  key={v4()}
-                  symbol={symbol}
-                  totalBalance={totalBalance}
-                  balance={objects[0]?.balance}
-                />
-              );
-            })}
+            {coins.map(({ totalBalance, objects, symbol }) => (
+              <WalletTokenItem
+                key={v4()}
+                symbol={symbol}
+                totalBalance={totalBalance}
+                balance={objects[0]?.balance}
+              />
+            ))}
           </InfiniteScroll>
         </Box>
-      )}
+      )} */}
     </Box>
   );
 };
