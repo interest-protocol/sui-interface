@@ -24,6 +24,10 @@
         }
       }
     },
+    "amountField": {
+      "title": "Montante",
+      "wallet": "Saldo da carteira"
+    },
     "mintType": "Mint Type",
     "stats": "Estatística",
     "totalStaked": "TOTAL DE SUI INVESTIDO",

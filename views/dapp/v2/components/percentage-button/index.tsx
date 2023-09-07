@@ -6,6 +6,7 @@ import { PercentageButtonProps } from './percentage-button.types';
 const PercentageButton: FC<PercentageButtonProps> = ({
   value,
   total,
+  isFilled,
   onSelect,
 }) => {
   const handleClick = () => {
@@ -19,7 +20,8 @@ const PercentageButton: FC<PercentageButtonProps> = ({
   return (
     <Button
       size="small"
-      bg="transparent"
+      bg={isFilled ? 'surface.containerHighest' : 'transparent'}
+      borderColor={isFilled ? 'transparent' : 'outline.outlineVariant'}
       variant="outline"
       p=".125rem .75rem"
       onClick={handleClick}
