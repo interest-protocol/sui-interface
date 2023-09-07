@@ -1,8 +1,5 @@
-import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
-
-import { COINS } from '@/constants';
 
 import DetailsCard from './details-card';
 import ExchangeRate from './exchange-rate';
@@ -19,7 +16,7 @@ const Overview: FC = () => {
   };
 
   const priceInfo: SuiPriceInfoProps = {
-    coin: COINS[Network.TESTNET].SUID,
+    coin: 'iSui',
     amount: 0.943,
   };
 
@@ -40,9 +37,9 @@ const Overview: FC = () => {
         totalRewards="$100"
         totalStaked="574.23"
         derivatedSui={[
-          { name: 'iSUI', value: '1.345' },
-          { name: 'iSUI-PC', value: '1.345' },
-          { name: 'iSUI-YC', value: '1.345' },
+          { name: 'iSui', value: '1.345' },
+          { name: 'iSui-PC', value: '1.345' },
+          { name: 'iSui-YN', value: '1.345' },
         ]}
       />
       <Box
@@ -55,16 +52,12 @@ const Overview: FC = () => {
         <ExchangeRate
           exchangeRateData={[
             [
-              { coin: COINS[Network.TESTNET].SUID, amount: 1 },
-              { coin: COINS[Network.TESTNET].SUI, amount: 1 },
+              { coin: 'iSui', amount: 1 },
+              { coin: 'Sui', amount: 1 },
             ],
             [
-              { coin: COINS[Network.TESTNET].SUID, amount: 1 },
-              { coin: COINS[Network.TESTNET].SUI, amount: 1 },
-            ],
-            [
-              { coin: COINS[Network.TESTNET].SUID, amount: 1 },
-              { coin: COINS[Network.TESTNET].SUI, amount: 1 },
+              { coin: 'iSui-PC', amount: 1 },
+              { coin: 'Sui', amount: 1 },
             ],
           ]}
         />

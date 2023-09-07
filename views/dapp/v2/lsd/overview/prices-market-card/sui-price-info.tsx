@@ -10,7 +10,7 @@ const SuiPriceInfo: FC<SuiPriceInfoProps> = ({ coin, amount }) => {
   return (
     <Box color="onSurface">
       <Typography variant="extraSmall" fontSize="0.688rem" mb="s">
-        SUI / {coin.symbol}
+        Sui / {coin}
       </Typography>
       <Box display="flex" alignItems="center" gap="0.5rem">
         <Box
@@ -20,11 +20,12 @@ const SuiPriceInfo: FC<SuiPriceInfoProps> = ({ coin, amount }) => {
           width="1.25rem"
           height="1.25rem"
           display="flex"
+          alignItems="center"
           justifyContent="center"
         >
           <SUISVG
-            maxHeight="2.5rem"
-            maxWidth="2.5rem"
+            maxHeight="0.875rem"
+            maxWidth="0.875rem"
             width="100%"
             height="100%"
           />

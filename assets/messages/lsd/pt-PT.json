@@ -28,6 +28,11 @@
           "title": "{isEnable, plural, =1 {Pro-mode activado} other {Pro-mode desactivado}}"
         }
       }
-    }
+    },
+    "mintType": "Mint Type",
+    "stats": "Estatística",
+    "totalStaked": "TOTAL DE SUI INVESTIDO",
+    "totalReward": "TOTAL DE RECOMPENSAS",
+    "totalMinted": "Total {symbol} minted"
   }
 }

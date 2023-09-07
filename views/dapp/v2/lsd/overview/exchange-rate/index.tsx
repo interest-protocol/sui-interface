@@ -31,7 +31,7 @@ const ExchangeRate: FC<ExchangeRateProps> = ({ exchangeRateData }) => {
               coin={exchangeRateItem[0].coin}
               amount={exchangeRateItem[0].amount}
             />
-            <Typography variant="title4" color="white">
+            <Typography variant="title4" color="onSurface">
               =
             </Typography>
             <CoinInfo

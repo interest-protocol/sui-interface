@@ -28,6 +28,11 @@
           "title": "{isEnable, plural, =1 {Pro-mode enabled} other {Pro-mode disabled}}"
         }
       }
-    }
+    },
+    "mintType": "Mint Type",
+    "stats": "Stats",
+    "totalStaked": "TOTAL SUI STAKED",
+    "totalReward": "TOTAL REWARDS",
+    "totalMinted": "Total {symbol} minted"
   }
 }

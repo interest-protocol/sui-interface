@@ -1,16 +1,8 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { TOKENS_SVG_MAP_V2 } from '@/constants';
-
-import { CoinInfoProps, GetSVGProps } from './exchange-rate.type';
-
-const TokenIcon: FC<GetSVGProps> = ({ type }) => {
-  const SVG = TOKENS_SVG_MAP_V2[type] || TOKENS_SVG_MAP_V2.default;
-  return (
-    <SVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" height="100%" />
-  );
-};
+import SuiDerivatedSVG from '../../components/sui-derivated-svg';
+import { CoinInfoProps } from './exchange-rate.type';
 
 const CoinInfo: FC<CoinInfoProps> = ({ coin, amount }) => {
   return (
@@ -23,9 +15,9 @@ const CoinInfo: FC<CoinInfoProps> = ({ coin, amount }) => {
         justifyContent="center"
         alignItems="center"
         color="white"
-        bg="primary"
+        bg="#6FBCF0"
       >
-        <TokenIcon type={coin.type} />
+        <SuiDerivatedSVG size={coin == 'Sui' ? '2rem' : '3rem'} symbol={coin} />
       </Box>
       <Box>
         <Typography
@@ -34,7 +26,7 @@ const CoinInfo: FC<CoinInfoProps> = ({ coin, amount }) => {
           color="onSurface"
           opacity={0.6}
         >
-          {coin.symbol}
+          {coin}
         </Typography>
         <Typography
           variant="extraSmall"

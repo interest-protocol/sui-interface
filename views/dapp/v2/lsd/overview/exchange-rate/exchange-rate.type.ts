@@ -1,18 +1,8 @@
-import { TOKEN_SYMBOL } from '@/lib';
-
-interface CoinProps {
-  decimals: number;
-  symbol: TOKEN_SYMBOL;
-  type: string;
-}
+import { DERIVATED_SUI_SYMBOL } from '../../lsd.type';
 
 export interface CoinInfoProps {
-  coin: CoinProps;
+  coin: DERIVATED_SUI_SYMBOL | 'Sui';
   amount: number;
-}
-
-export interface GetSVGProps {
-  type: string;
 }
 
 export interface ExchangeRateProps {
