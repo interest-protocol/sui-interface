@@ -11,7 +11,7 @@ import { EXPLORER_URL } from '@/constants';
 import { useNetwork } from '@/hooks';
 import { ArrowLinkSVG } from '@/svg';
 
-import { WalletActivityItemProps } from './menu-profile.types';
+import { WalletActivityItemProps } from './../menu-profile.types';
 
 const WalletActivityItem: FC<WalletActivityItemProps> = ({
   description,
