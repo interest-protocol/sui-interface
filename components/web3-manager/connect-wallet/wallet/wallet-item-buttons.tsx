@@ -19,8 +19,9 @@ const WalletItemButtons: FC<WalletItemButtonProps> = ({ installLink }) => {
 
   return (
     <TooltipWrapper
-      bg={colors['surface']}
-      tooltipPosition="top"
+      bg="surface"
+      left=".625rem"
+      tooltipPosition="left"
       width="max-content"
       tooltipContent={
         <Typography

@@ -24,6 +24,7 @@ export { default as DownloadSVG } from './download';
 export { default as ETHSVG } from './eth';
 export { default as FarmSVG } from './farm';
 export { default as HeartSVG } from './heart';
+export { default as IPXSVG } from './ipx';
 export { default as LeftArrowSVG } from './left-arrow';
 export { default as LinkSVG } from './link';
 export { default as LiquiditySVG } from './liquidity';

@@ -10,17 +10,17 @@ import { toast } from 'react-hot-toast';
 
 import { CopySVG, UserSVG } from '@/components/svg/v2';
 import { useWeb3 } from '@/hooks';
-import { capitalize } from '@/utils';
+import { capitalize, formatDollars } from '@/utils';
 
-import { UserInfoProps } from '../profile.types';
-import { getName } from '../profile.utils';
+import { UserInfoProps } from '../../profile.types';
+import { getName } from '../../profile.utils';
 
 const ChangeAccountHeader: FC<UserInfoProps> = ({
   avatarUrlRecord,
   loading,
   suiNSRecord,
 }) => {
-  const { account } = useWeb3();
+  const { account, coins } = useWeb3();
   const t = useTranslations();
 
   const copyToClipboard = (address: string) => {
@@ -97,7 +97,9 @@ const ChangeAccountHeader: FC<UserInfoProps> = ({
         )}
       </Box>
       <Typography variant="displaySmall" mt="l">
-        $0.00
+        {formatDollars(
+          coins.reduce((accumulator, coin) => accumulator + coin.decimals, 0)
+        )}
       </Typography>
     </Box>
   );

@@ -4,8 +4,8 @@ import { FC } from 'react';
 import { DotsSVG } from '@/components/svg';
 import RefBox from '@/elements/ref-box';
 
-import MenuSwitchAccount from '../menu-switch-account';
-import { MenuSwitchAccountProps } from '../profile.types';
+import MenuSwitchAccount from '../../menu-switch-account';
+import { MenuSwitchAccountProps } from '../../profile.types';
 
 const BOX_ID = 'wallet-accounts';
 

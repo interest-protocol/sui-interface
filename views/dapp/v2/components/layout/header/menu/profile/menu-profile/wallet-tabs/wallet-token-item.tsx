@@ -5,12 +5,13 @@ import {
   BNBSVG,
   BTCSVG,
   ETHSVG,
+  IPXSVG,
   SUISVG,
   USDCSVG,
   USDTSVG,
 } from '@/components/svg/v2';
 
-import { WalletTokenItemProps } from './menu-profile.types';
+import { WalletTokenItemProps } from '../menu-profile.types';
 
 const WalletTokenItem: FC<WalletTokenItemProps> = ({
   symbol,
@@ -45,6 +46,8 @@ const WalletTokenItem: FC<WalletTokenItemProps> = ({
           <USDTSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
         ) : symbol === 'USDC' ? (
           <USDCSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+        ) : symbol === 'IPX' ? (
+          <IPXSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
         ) : (
           '?'
         )}

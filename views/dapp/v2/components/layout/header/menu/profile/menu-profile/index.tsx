@@ -1,4 +1,4 @@
-import { Box, Motion } from '@interest-protocol/ui-kit';
+import { Motion } from '@interest-protocol/ui-kit';
 import { FC, useCallback, useState } from 'react';
 
 import { RightSidebarCloseButtonProps } from '@/components/web3-manager/connect-wallet/connect-wallet.types';
@@ -10,7 +10,7 @@ import {
 import useEventListener from '@/hooks/use-event-listener';
 
 import { MenuSwitchAccountProps } from '../profile.types';
-import UserInfo from './user-info';
+import UserInfo from './user-info/user-info';
 
 const MenuProfile: FC<
   MenuSwitchAccountProps & RightSidebarCloseButtonProps
@@ -43,30 +43,26 @@ const MenuProfile: FC<
       bg="surface"
       display="flex"
       height="100vh"
+      position="fixed"
       overflow="hidden"
       initial="closed"
       variants={Variants}
       flexDirection="column"
       borderLeft="1px solid"
       textTransform="capitalize"
-      justifyContent="space-between"
       animate={isOpen ? 'open' : 'closed'}
-      pb={['7rem', '7rem', '7rem', 'unset']}
       borderLeftColor="outline.outlineVariant"
-      position="fixed"
     >
-      <Box display="flex" flexDirection="column" justifyContent="space-between">
-        <UserInfo
-          isOpen={isOpen}
-          loading={loading}
-          suiNSRecord={suiNSRecord}
-          avatarUrlRecord={avatarUrlRecord}
-          handleCloseProfile={handleCloseProfile}
-          isSwitchAccountOpen={isSwitchAccountOpen}
-          handleOpenSwitchAccount={handleOpenSwitchAccount}
-          handleCloseSwitchAccount={handleCloseSwitchAccount}
-        />
-      </Box>
+      <UserInfo
+        isOpen={isOpen}
+        loading={loading}
+        suiNSRecord={suiNSRecord}
+        avatarUrlRecord={avatarUrlRecord}
+        handleCloseProfile={handleCloseProfile}
+        isSwitchAccountOpen={isSwitchAccountOpen}
+        handleOpenSwitchAccount={handleOpenSwitchAccount}
+        handleCloseSwitchAccount={handleCloseSwitchAccount}
+      />
       <RightSidebarFooter isOpen={isOpen} setIsOpen={setIsOpen} />
     </Motion>
   );

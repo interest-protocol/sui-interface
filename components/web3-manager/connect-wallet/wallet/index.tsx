@@ -32,20 +32,14 @@ const WalletListSection: FC<WalletListSectionProps> = ({ openWalletModal }) => {
     <Box
       px="l"
       width="100%"
-      height="100vh"
+      height="100%"
       overflowY="auto"
       color="onSurface"
-      maxHeight="100vh"
       background="surface"
       borderLeft="1px solid"
       borderLeftColor="outline.outlineVariant"
     >
-      <Box
-        display="flex"
-        variant="container"
-        flexDirection="column"
-        minHeight="calc(98.9vh - 8.5rem)"
-      >
+      <Box display="flex" variant="container" flexDirection="column">
         <Box display="grid" gridColumn="1/-1" height="100%" margin={0}>
           <Box
             height="100%"

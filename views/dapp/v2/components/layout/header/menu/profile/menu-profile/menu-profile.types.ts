@@ -11,6 +11,13 @@ export interface WalletTokenItemProps {
   balance: string;
 }
 
+export interface WalletTabsContentProps {
+  toggleTab: boolean;
+}
+export interface WalletTabsProps extends WalletTabsContentProps {
+  setToggleTab: (prop: boolean) => void;
+}
+
 export interface TransactionData {
   id: {
     txDigest: string;

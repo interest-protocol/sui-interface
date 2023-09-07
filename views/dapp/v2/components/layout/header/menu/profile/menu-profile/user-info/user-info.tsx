@@ -1,11 +1,11 @@
 import { Box } from '@interest-protocol/ui-kit';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
-import Settings from '../../settings';
-import { MenuSwitchAccountProps } from '../profile.types';
-import DisconnectWallet from './disconnect';
+import Settings from '../../../settings';
+import { MenuSwitchAccountProps } from '../../profile.types';
+import DisconnectWallet from '../disconnect';
+import WalletTabsContent from '../wallet-tabs/wallet-tabs-content';
 import UserInfoHeader from './user-info-header';
-import WalletTabs from './wallet-tabs';
 
 const UserInfo: FC<MenuSwitchAccountProps> = ({
   isOpen,
@@ -17,8 +17,10 @@ const UserInfo: FC<MenuSwitchAccountProps> = ({
   handleOpenSwitchAccount,
   handleCloseSwitchAccount,
 }) => {
+  const [toggle, setToggle] = useState<boolean>(false);
+
   return (
-    <>
+    <Box height="calc(100% - 3.5rem)" display="flex" flexDirection="column">
       <Box
         p="xl"
         gap="s"
@@ -32,6 +34,8 @@ const UserInfo: FC<MenuSwitchAccountProps> = ({
       <UserInfoHeader
         isOpen={isOpen}
         loading={loading}
+        toggleTab={toggle}
+        setToggleTab={setToggle}
         suiNSRecord={suiNSRecord}
         avatarUrlRecord={avatarUrlRecord}
         handleCloseProfile={handleCloseProfile}
@@ -39,10 +43,8 @@ const UserInfo: FC<MenuSwitchAccountProps> = ({
         handleOpenSwitchAccount={handleOpenSwitchAccount}
         handleCloseSwitchAccount={handleCloseSwitchAccount}
       />
-      <Box overflow="auto">
-        <WalletTabs />
-      </Box>
-    </>
+      <WalletTabsContent toggleTab={toggle} />
+    </Box>
   );
 };
 

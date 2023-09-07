@@ -23,7 +23,7 @@ import useEventListener from '@/hooks/use-event-listener';
 import { capitalize } from '@/utils';
 
 import MenuItemWrapper from '../../menu-item-wrapper';
-import ChangeAccountHeader from '../menu-profile/change-account-header';
+import ChangeAccountHeader from '../menu-profile/change-account/change-account-header';
 import { MenuSwitchAccountProps } from '../profile.types';
 import { getName } from '../profile.utils';
 import MenuSwitchAccountHeader from './header';

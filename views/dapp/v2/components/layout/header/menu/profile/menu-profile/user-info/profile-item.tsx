@@ -5,8 +5,8 @@ import { FC } from 'react';
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
-import MenuItemWrapper from '../../menu-item-wrapper';
-import { ProfileMenuItemProps } from '../profile.types';
+import MenuItemWrapper from '../../../menu-item-wrapper';
+import { ProfileMenuItemProps } from '../../profile.types';
 
 const MenuProfileItem: FC<ProfileMenuItemProps> = ({
   name,

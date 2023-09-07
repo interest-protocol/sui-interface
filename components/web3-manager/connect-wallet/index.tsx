@@ -85,34 +85,33 @@ const ConnectWallet: FC<ConnectWalletProps> = ({
   }, [isConnected, isError, openConnectWallet]);
 
   return (
-    <>
-      <Motion
-        top="0"
-        right="0"
-        zIndex="5"
-        height="100vh"
-        position="fixed"
-        initial="closed"
-        color="onSurface"
-        variants={Variants}
-        background="surface"
-        borderLeft="1px solid"
-        borderLeftColor="outline.outlineVariant"
-        display={['none', 'none', 'none', 'block']}
-        animate={openConnectWallet ? 'open' : 'closed'}
-      >
-        <Box display="flex" background={colors.surface}>
-          <WalletList
-            setOpenWallet={setOpenConnectWallet}
-            openWalletModal={openWalletModal}
-          />
-        </Box>
-        <RightSidebarFooter
-          isOpen={openConnectWallet}
-          setIsOpen={setOpenConnectWallet}
+    <Motion
+      top="0"
+      right="0"
+      zIndex="5"
+      height="100vh"
+      position="fixed"
+      initial="closed"
+      color="onSurface"
+      variants={Variants}
+      background="surface"
+      borderLeft="1px solid"
+      flexDirection="column"
+      borderLeftColor="outline.outlineVariant"
+      display={['none', 'none', 'none', 'flex']}
+      animate={openConnectWallet ? 'open' : 'closed'}
+    >
+      <Box flex="1" display="flex" overflowY="auto" background={colors.surface}>
+        <WalletList
+          setOpenWallet={setOpenConnectWallet}
+          openWalletModal={openWalletModal}
         />
-      </Motion>
-    </>
+      </Box>
+      <RightSidebarFooter
+        isOpen={openConnectWallet}
+        setIsOpen={setOpenConnectWallet}
+      />
+    </Motion>
   );
 };
 

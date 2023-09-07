@@ -12,14 +12,20 @@ import { CopySVG, UserSVG } from '@/components/svg/v2';
 import { useWeb3 } from '@/hooks';
 import { capitalize } from '@/utils';
 
-import { MenuSwitchAccountProps, UserInfoProps } from '../profile.types';
-import { getName } from '../profile.utils';
-import ChangeAccount from './change-account';
+import { MenuSwitchAccountProps, UserInfoProps } from '../../profile.types';
+import { getName } from './../../profile.utils';
+import ChangeAccount from './../change-account';
+import { WalletTabsProps } from './../menu-profile.types';
+import WalletTabs from './../wallet-tabs';
 
-const UserInfoHeader: FC<UserInfoProps & MenuSwitchAccountProps> = ({
+const UserInfoHeader: FC<
+  UserInfoProps & MenuSwitchAccountProps & WalletTabsProps
+> = ({
   isOpen,
   loading,
+  toggleTab,
   suiNSRecord,
+  setToggleTab,
   avatarUrlRecord,
   handleCloseProfile,
   isSwitchAccountOpen,
@@ -116,6 +122,7 @@ const UserInfoHeader: FC<UserInfoProps & MenuSwitchAccountProps> = ({
       <Typography variant="displaySmall" mt="l">
         $0.00
       </Typography>
+      <WalletTabs setToggleTab={setToggleTab} toggleTab={toggleTab} />
     </Box>
   );
 };
