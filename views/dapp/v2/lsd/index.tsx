@@ -4,7 +4,6 @@ import { FC } from 'react';
 
 import { Layout } from '../components';
 import LSDHeader from './lsd-header';
-import Overview from './overview';
 import StakingForm from './staking-form';
 import Statistics from './statistics';
 
@@ -14,7 +13,6 @@ const LSD: FC = () => {
   return (
     <Layout dashboard titlePage={<LSDHeader />}>
       <Box variant="container" display="flex" flexDirection="column">
-        <Overview />
         <Box
           pb="1rem"
           width="100%"

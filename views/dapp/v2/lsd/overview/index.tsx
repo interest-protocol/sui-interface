@@ -11,7 +11,6 @@ const Overview: FC = () => {
     <Box
       p="l"
       rowGap="l"
-      width="100%"
       variant="container"
       borderRadius="0.5rem"
       bg="surface.container"
