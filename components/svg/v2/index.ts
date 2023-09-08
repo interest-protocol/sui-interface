@@ -42,6 +42,7 @@ export { default as UnknownCoinSVG } from './unknown-coin';
 export { default as USDCSVG } from './usdc';
 export { default as USDTSVG } from './usdt';
 export { default as UserSVG } from './user';
+export { default as UsersSVG } from './users';
 export { default as VolumeSVG } from './volume';
 export { default as VolumeLastSVG } from './volume-last';
 export { default as WormholeADABSCSVG } from './wormhole-ada-bsc';

@@ -1,48 +1,61 @@
-import { Network } from '@interest-protocol/sui-amm-sdk';
-import { Box } from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
+import { v4 } from 'uuid';
 
-import { COINS } from '@/constants';
+import { UsersSVG } from '@/components/svg/v2';
 
-import { DATA_CHART } from './overview.data';
-import { SuiPriceInfoProps, TrendInfoProps } from './overview.type';
-import PricesMarketCard from './prices-market-card';
-import Stats from './stats';
+import { VALIDATORS_DATA } from './overview.data';
 
 const Overview: FC = () => {
-  const trendInfo: TrendInfoProps = {
-    percentage: 3.4,
-    isTrendUp: true,
-    daysPast: 45,
-  };
-
-  const priceInfo: SuiPriceInfoProps = {
-    coin: COINS[Network.TESTNET].SUID,
-    amount: 0.943,
-  };
-
   return (
     <Box
-      width={['100%', '100%', '100%', '55%']}
-      display="flex"
-      flexDirection="column"
-      gap="0.5rem"
+      p="l"
+      rowGap="l"
+      width="100%"
+      variant="container"
+      borderRadius="0.5rem"
+      bg="surface.container"
     >
-      <PricesMarketCard
-        trendInfo={trendInfo}
-        priceInfo={priceInfo}
-        chartData={DATA_CHART}
-      />
-      <Stats
-        apy="100%"
-        totalRewards="$100"
-        totalStaked="574.23"
-        derivatedSui={[
-          { name: 'iSUI', value: '1.345' },
-          { name: 'iSUI-PC', value: '1.345' },
-          { name: 'iSUI-YC', value: '1.345' },
-        ]}
-      />
+      <Box gridColumn="1/-1" width="100%">
+        <Typography variant="extraSmall" color="onSurface">
+          Overview
+        </Typography>
+      </Box>
+      {VALIDATORS_DATA.map((item) => (
+        <Box
+          key={v4()}
+          width="100%"
+          display="flex"
+          columnGap="l"
+          gridColumn="span 3"
+        >
+          <Box
+            display="flex"
+            width="2.5rem"
+            color="primary"
+            height="2.5rem"
+            borderRadius="m"
+            aspectRatio="1/1"
+            alignItems="center"
+            justifyContent="center"
+            bg="surface.containerHigh"
+          >
+            <UsersSVG width="100%" maxHeight="1.25rem" maxWidth="1.25rem" />
+          </Box>
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="space-between"
+          >
+            <Typography variant="extraSmall" color="onSurface">
+              {item.description}
+            </Typography>
+            <Typography variant="large" color="onSurface">
+              {item.length}
+            </Typography>
+          </Box>
+        </Box>
+      ))}
     </Box>
   );
 };

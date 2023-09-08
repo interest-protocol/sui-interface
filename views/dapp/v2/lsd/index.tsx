@@ -6,6 +6,7 @@ import { Layout } from '../components';
 import LSDHeader from './lsd-header';
 import Overview from './overview';
 import StakingForm from './staking-form';
+import Statistics from './statistics';
 
 const LSD: FC = () => {
   const t = useTranslations();
@@ -13,6 +14,7 @@ const LSD: FC = () => {
   return (
     <Layout dashboard titlePage={<LSDHeader />}>
       <Box variant="container" display="flex" flexDirection="column">
+        <Overview />
         <Box
           pb="1rem"
           width="100%"
@@ -30,7 +32,7 @@ const LSD: FC = () => {
           >
             {t('lsd.metadata.title')}
           </Typography>
-          <Overview />
+          <Statistics />
           <StakingForm />
         </Box>
       </Box>
