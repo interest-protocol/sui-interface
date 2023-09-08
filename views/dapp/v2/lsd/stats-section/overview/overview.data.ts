@@ -1,4 +1,10 @@
-import { SUISVG, UsersSVG } from '@/components/svg/v2';
+import {
+  ISuiPCSVG,
+  ISuiSVG,
+  ISuiYNSVG,
+  SUISVG,
+  UsersSVG,
+} from '@/components/svg/v2';
 
 export const OVERVIEW_DATA = [
   {
@@ -15,5 +21,20 @@ export const OVERVIEW_DATA = [
     description: 'validators',
     Icon: UsersSVG,
     value: 96,
+  },
+  {
+    description: 'totalISUIMinted',
+    Icon: ISuiSVG,
+    value: 1.123,
+  },
+  {
+    description: 'totalISUIPCMinted',
+    Icon: ISuiPCSVG,
+    value: 1.123,
+  },
+  {
+    description: 'totalISUIYNMinted',
+    Icon: ISuiYNSVG,
+    value: 5,
   },
 ];
