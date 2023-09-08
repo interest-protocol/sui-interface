@@ -24,6 +24,18 @@
         }
       }
     },
+    "modal": {
+      "preview": {
+        "title": "TRANSACTION OVERVIEW",
+        "stakeLabel": "You Will Stake",
+        "receiveLabel": "You Will Receive",
+        "button": "{isStake, plural, =1 {Stake} other {Unstake}}",
+        "depositFee": "Deposit fee",
+        "rewards": "Esd. Yearly Reward",
+        "other": "other"
+      }
+    },
+    "infoButton": "{isStake, plural, =1 {Preview Stake} other {Preview Unstake}}",
     "mintType": "Mint Type",
     "stats": "Stats",
     "totalStaked": "TOTAL SUI STAKED",

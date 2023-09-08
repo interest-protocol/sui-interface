@@ -24,6 +24,18 @@
         }
       }
     },
+    "modal": {
+      "preview": {
+        "title": "RESUMO DA TRANSACÇÃO",
+        "stakeLabel": "A sua aposta",
+        "receiveLabel": "Vai receber",
+        "button": "{isStake, plural, =1 {Apostar} other {Retirar}}",
+        "depositFee": "Taxa de depósito",
+        "rewards": "Esd. Recompensa anual",
+        "other": "outro"
+      }
+    },
+    "infoButton": "{isStake, plural, =1 {pré-visualizar aposta} other {pré-visualizar a retirada}}",
     "mintType": "Mint Type",
     "stats": "Estatística",
     "totalStaked": "TOTAL DE SUI INVESTIDO",
