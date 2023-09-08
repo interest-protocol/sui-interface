@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 
 import { ISuiSVG } from '@/svg';
 
-import { SUI_BG_COLORS } from '../../lsd.data';
+import { SUI_BG_COLORS } from '../../../lsd.data';
 import { StatsDerivatedWrapperProps } from './stats.type';
 
 const StatsDerivatedWrapper: FC<StatsDerivatedWrapperProps> = ({

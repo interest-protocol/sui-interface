@@ -1,7 +1,8 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import StepsChart from '../../../components/charts/steps-chart';
+import StepsChart from '@/views/dapp/v2/components/charts/steps-chart';
+
 import { ChartProps } from '../statistics.type';
 
 const PriceMarketChart: FC<ChartProps> = ({ data }) => (
