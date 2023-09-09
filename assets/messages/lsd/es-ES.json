@@ -30,6 +30,15 @@
         }
       }
     },
+    "validators": {
+      "tableSection": {
+        "title": "Todos los validadores",
+        "searchInput": "Search Validator",
+        "name": "Nombre",
+        "apy": "APY",
+        "commission": "Comisión"
+      }
+    },
     "statsSection": {
       "overview": {
         "title": "Resumen",

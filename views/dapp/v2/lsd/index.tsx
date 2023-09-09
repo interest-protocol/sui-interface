@@ -8,6 +8,7 @@ import { Layout } from '../components';
 import LSDHeader from './lsd-header';
 import StakedSection from './staked-section';
 import StatsSection from './stats-section';
+import ValidatorsSection from './validators-section';
 
 const LSD: FC = () => {
   const [changeTab, setChangeTab] = useState<number>(0);
@@ -19,12 +20,19 @@ const LSD: FC = () => {
           items={[
             capitalize(t('lsd.tabs.stake')),
             capitalize(t('lsd.tabs.stats')),
+            capitalize(t('lsd.tabs.validators')),
           ]}
           defaultTabIndex={changeTab}
           onChangeTab={(changeTab) => setChangeTab(changeTab)}
         />
       </Box>
-      {changeTab === 0 ? <StakedSection /> : <StatsSection />}
+      {changeTab === 0 ? (
+        <StakedSection />
+      ) : changeTab === 1 ? (
+        <StatsSection />
+      ) : (
+        <ValidatorsSection />
+      )}
     </Layout>
   );
 };
