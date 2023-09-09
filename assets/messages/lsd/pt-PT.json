@@ -23,6 +23,15 @@
           "title": "{isEnable, plural, =1 {Pro-mode activado} other {Pro-mode desactivado}}"
         }
       }
+    },
+    "validators": {
+      "tableSection": {
+        "title": "Todos os validadores",
+        "searchInput": "Pesquisa de validadores",
+        "name": "Nome",
+        "apy": "APY",
+        "commission": "Comissão"
+      }
     }
   }
 }

@@ -6,6 +6,7 @@ import { Layout } from '../components';
 import LSDHeader from './lsd-header';
 import Overview from './overview';
 import StakingForm from './staking-form';
+import Validators from './validators';
 
 const LSD: FC = () => {
   const t = useTranslations();
@@ -33,6 +34,7 @@ const LSD: FC = () => {
           <Overview />
           <StakingForm />
         </Box>
+        <Validators />
       </Box>
     </Layout>
   );
