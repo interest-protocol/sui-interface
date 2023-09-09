@@ -24,6 +24,18 @@
         }
       }
     },
+    "modal": {
+      "preview": {
+        "title": "RESUMEN DE TRANSACCIONES",
+        "stakeLabel": "Estacará",
+        "receiveLabel": "Recibirá",
+        "button": "{isStake, plural, =1 {Stake} other {Unstake}}",
+        "depositFee": "Tarifa de depósito",
+        "rewards": "Esd. Recompensa anual",
+        "other": "otro"
+      }
+    },
+    "infoButton": "{isStake, plural, =1 {Preview Stake} other {Preview Unstake}}",
     "amountField": {
       "title": "Cuantía",
       "wallet": "Saldo en cartera"
