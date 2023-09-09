@@ -34,11 +34,15 @@
       "overview": {
         "title": "Visão geral",
         "totalSuiStaked": "total SUI apostado",
-        "totalStaked": "total apostado",
+        "totalStakers": "total apostadores",
         "validators": "validadores",
         "totalISUIMinted": "total iSUI emitido",
         "totalISUIPCMinted": "total iSUI-PC emitido",
         "totalISUIYNMinted": "total iSUI-YN emitido"
+      },
+      "totalStaked": {
+        "title": "total apostado",
+        "daily": "diário"
       }
     }
   }
