@@ -30,20 +30,30 @@
         }
       }
     },
+    "validators": {
+      "tableSection": {
+        "title": "All Validators",
+        "searchInput": "Search Validator",
+        "name": "Name",
+        "apy": "APY",
+        "commission": "Commission"
+      }
+    },
     "statsSection": {
-      "overview": {
-        "title": "Overview",
-        "totalSuiStaked": "total SUI staked",
-        "totalStakers": "total stakers",
-        "validators": "validators",
-        "totalISUIMinted": "total iSUI minted",
-        "totalISUIPCMinted": "total iSUI-PC minted",
-        "totalISUIYNMinted": "total iSUI-YN minted"
-      },
-      "totalStaked": {
-        "title": "total staked",
+      "totalRewards": {
+        "title": "Total rewards",
         "daily": "daily"
       }
+    },
+    "overview": {
+      "title": "Overview",
+      "totalSuiStaked": "TOTAL SUI STAKED",
+      "totalReward": "TOTAL REWARDS",
+      "totalStakers": "total stakers",
+      "validators": "validators",
+      "totalISUIMinted": "total iSUI minted",
+      "totalISUIPCMinted": "total iSUI-PC minted",
+      "totalISUIYNMinted": "total iSUI-YN minted"
     }
   }
 }
