@@ -24,6 +24,10 @@
         }
       }
     },
+    "amountField": {
+      "title": "Cuantía",
+      "wallet": "Saldo en cartera"
+    },
     "mintType": "Mint Type",
     "stats": "Estadística",
     "totalStaked": "TOTAL SUI APOSTADO",

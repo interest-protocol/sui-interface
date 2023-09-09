@@ -7,6 +7,7 @@ import { capitalize } from '@/utils';
 
 import Switcher from '../../components/switch';
 import { MINT_TYPE_OPTION } from '../../lsd.type';
+import AmountField from './amount-field';
 import MintType from './mint-type';
 
 const YourInfo: FC = () => {
@@ -22,7 +23,13 @@ const YourInfo: FC = () => {
 
   const handleSelect = () => setIsStake(!isStake);
   return (
-    <Box bg="surface.container" p="2xl" borderRadius="0.5rem">
+    <Box
+      bg="surface.container"
+      p="2xl"
+      borderRadius="0.5rem"
+      display="flex"
+      flexDirection="column"
+    >
       <Box mb="2xl">
         <Typography
           variant="medium"
@@ -54,6 +61,7 @@ const YourInfo: FC = () => {
           t(`common.${isStake ? 'stake' : 'unstake'}`, { isLoading: 0 })
         )}
       </Typography>
+      <AmountField balance={0.434} />
       {proMode && (
         <MintType onChange={onChangeMintType} mintTypeOption={mintTypeOption} />
       )}
