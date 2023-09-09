@@ -2,8 +2,7 @@ import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import ISUIPcToSUI from './i-sui-pc-to-sui';
-import ISUIToSUI from './i-sui-to-sui';
+import ExchangeRateItem from './exchange-rate-item';
 
 const ExchangeRate: FC = () => {
   const t = useTranslations();
@@ -24,8 +23,14 @@ const ExchangeRate: FC = () => {
       >
         {t('lsd.exchangeRate')}
       </Typography>
-      <ISUIToSUI />
-      <ISUIPcToSUI />
+      <ExchangeRateItem to="SUI" from="iSUI" finalValue={1} initialValue={1} />
+      <ExchangeRateItem
+        to="SUI"
+        from="iSUI-PC"
+        finalValue={1.2}
+        initialValue={1}
+        hasFirstOverlayIcon
+      />
     </Box>
   );
 };
