@@ -40,19 +40,20 @@
       }
     },
     "statsSection": {
-      "overview": {
-        "title": "Overview",
-        "totalSuiStaked": "total SUI staked",
-        "totalStakers": "total stakers",
-        "validators": "validators",
-        "totalISUIMinted": "total iSUI minted",
-        "totalISUIPCMinted": "total iSUI-PC minted",
-        "totalISUIYNMinted": "total iSUI-YN minted"
-      },
       "totalRewards": {
         "title": "Total rewards",
         "daily": "daily"
       }
+    },
+    "overview": {
+      "title": "Overview",
+      "totalSuiStaked": "TOTAL SUI STAKED",
+      "totalReward": "TOTAL REWARDS",
+      "totalStakers": "total stakers",
+      "validators": "validators",
+      "totalISUIMinted": "total iSUI minted",
+      "totalISUIPCMinted": "total iSUI-PC minted",
+      "totalISUIYNMinted": "total iSUI-YN minted"
     }
   }
 }

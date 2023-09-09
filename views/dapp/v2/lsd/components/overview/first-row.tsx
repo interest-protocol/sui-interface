@@ -7,15 +7,15 @@ import { SEMANTIC_COLORS } from '@/constants';
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
-import { OVERVIEW_DATA } from './overview.data';
+import { OverviewRowProps } from './overview.type';
 
-const FirstOverviewRow: FC = () => {
+const FirstOverviewRow: FC<OverviewRowProps> = ({ data }) => {
   const { dark } = useTheme() as Theme;
   const t = useTranslations();
 
   return (
     <>
-      {OVERVIEW_DATA.slice(0, 3).map((item, index) => (
+      {data.map((item, index) => (
         <Box
           key={v4()}
           display="flex"
@@ -48,11 +48,7 @@ const FirstOverviewRow: FC = () => {
             justifyContent="space-between"
           >
             <Typography variant="extraSmall" opacity="0.6" color="onSurface">
-              {capitalize(
-                t(
-                  `lsd.statsSection.overview.${item.description}` as TTranslatedMessage
-                )
-              )}
+              {capitalize(t(item.description as TTranslatedMessage))}
             </Typography>
             <Typography variant="large" color="onSurface">
               {item.value}

@@ -40,19 +40,20 @@
       }
     },
     "statsSection": {
-      "overview": {
-        "title": "Resumen",
-        "totalSuiStaked": "total SUI apostado",
-        "totalStakers": "total apostantes",
-        "validators": "validadores",
-        "totalISUIMinted": "total iSUI emitido",
-        "totalISUIPCMinted": "total iSUI-PC emitido",
-        "totalISUIYNMinted": "total iSUI-YN emitido"
-      },
       "totalRewards": {
         "title": "Total recompensas",
         "daily": "diario"
       }
+    },
+    "overview": {
+      "title": "Resumen",
+      "totalSuiStaked": "TOTAL SUI APOSTADO",
+      "totalReward": "RECOMPENSAS TOTALES",
+      "totalStakers": "total apostantes",
+      "validators": "validadores",
+      "totalISUIMinted": "total iSUI emitido",
+      "totalISUIPCMinted": "total iSUI-PC emitido",
+      "totalISUIYNMinted": "total iSUI-YN emitido"
     }
   }
 }

@@ -15,23 +15,25 @@ const LSD: FC = () => {
   const t = useTranslations();
   return (
     <Layout dashboard titlePage={<LSDHeader />}>
-      <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
-        <Tabs
-          items={[
-            capitalize(t('lsd.tabs.stake')),
-            capitalize(t('lsd.tabs.stats')),
-            capitalize(t('lsd.tabs.validators')),
-          ]}
-          defaultTabIndex={changeTab}
-          onChangeTab={(changeTab) => setChangeTab(changeTab)}
-        />
+      <Box variant="container" display="flex" flexDirection="column">
+        <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
+          <Tabs
+            items={[
+              capitalize(t('lsd.tabs.stake')),
+              capitalize(t('lsd.tabs.validators')),
+              capitalize(t('lsd.tabs.stats')),
+            ]}
+            defaultTabIndex={changeTab}
+            onChangeTab={(changeTab) => setChangeTab(changeTab)}
+          />
+        </Box>
       </Box>
       {changeTab === 0 ? (
         <StakedSection />
       ) : changeTab === 1 ? (
-        <StatsSection />
-      ) : (
         <ValidatorsSection />
+      ) : (
+        <StatsSection />
       )}
     </Layout>
   );

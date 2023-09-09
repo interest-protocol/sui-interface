@@ -6,13 +6,13 @@ import { v4 } from 'uuid';
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
-import { OVERVIEW_DATA } from './overview.data';
+import { OverviewRowProps } from './stats.type';
 
-const SecondOverviewRow: FC = () => {
+const OverviewSecondRow: FC<OverviewRowProps> = ({ data }) => {
   const t = useTranslations();
   return (
     <>
-      {OVERVIEW_DATA.slice(3, 6).map((item) => (
+      {data.map((item) => (
         <Box
           key={v4()}
           display="flex"
@@ -23,11 +23,7 @@ const SecondOverviewRow: FC = () => {
         >
           <Box>
             <Typography variant="extraSmall" opacity="0.6" color="onSurface">
-              {capitalize(
-                t(
-                  `lsd.statsSection.overview.${item.description}` as TTranslatedMessage
-                )
-              )}
+              {capitalize(t(item.description as TTranslatedMessage))}
             </Typography>
           </Box>
           <Box display="flex" columnGap="s" alignItems="center">
@@ -42,4 +38,4 @@ const SecondOverviewRow: FC = () => {
   );
 };
 
-export default SecondOverviewRow;
+export default OverviewSecondRow;
