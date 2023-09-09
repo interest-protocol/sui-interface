@@ -1,10 +1,15 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
+
+import { TTranslatedMessage } from '@/interface';
+import { capitalize } from '@/utils';
 
 import { OVERVIEW_DATA } from './overview.data';
 
 const SecondOverviewRow: FC = () => {
+  const t = useTranslations();
   return (
     <>
       {OVERVIEW_DATA.slice(3, 6).map((item) => (
@@ -18,7 +23,11 @@ const SecondOverviewRow: FC = () => {
         >
           <Box>
             <Typography variant="extraSmall" opacity="0.6" color="onSurface">
-              {item.description}
+              {capitalize(
+                t(
+                  `lsd.statsSection.overview.${item.description}` as TTranslatedMessage
+                )
+              )}
             </Typography>
           </Box>
           <Box display="flex" columnGap="s" alignItems="center">

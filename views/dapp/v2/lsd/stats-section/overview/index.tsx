@@ -1,10 +1,12 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import FirstOverviewRow from './first-row';
 import SecondOverviewRow from './second-row';
 
 const Overview: FC = () => {
+  const t = useTranslations();
   return (
     <Box
       p="l"
@@ -16,7 +18,7 @@ const Overview: FC = () => {
     >
       <Box gridColumn="1/-1" width="100%">
         <Typography variant="extraSmall" color="onSurface">
-          Overview
+          {t('lsd.statsSection.overview.title')}
         </Typography>
       </Box>
       <Box

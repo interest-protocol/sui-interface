@@ -4,6 +4,12 @@
       "title": "LSD",
       "description": "LSD new feature"
     },
+    "tabs": {
+      "stake": "stake",
+      "portfolio": "portfolio",
+      "validators": "validators",
+      "stats": "stats"
+    },
     "cards": {
       "priceMarket": {
         "title": "SUI prices market"
@@ -22,6 +28,17 @@
         "success": {
           "title": "{isEnable, plural, =1 {Pro-mode enabled} other {Pro-mode disabled}}"
         }
+      }
+    },
+    "statsSection": {
+      "overview": {
+        "title": "Overview",
+        "totalSuiStaked": "total sui staked",
+        "totalStaked": "total staked",
+        "validators": "validators",
+        "totalISUIMinted": "total iSUI minted",
+        "totalISUIPCMinted": "total iSUI-PC minted",
+        "totalISUIYNMinted": "total iSUI-YN minted"
       }
     }
   }

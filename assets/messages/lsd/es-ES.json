@@ -4,6 +4,12 @@
       "title": "LSD",
       "description": "Nueva función LSD"
     },
+    "tabs": {
+      "stake": "apostar",
+      "portfolio": "portafolio",
+      "validators": "validadores",
+      "stats": "estadísticas"
+    },
     "cards": {
       "priceMarket": {
         "title": "SUI Precios Mercado"
@@ -22,6 +28,17 @@
         "success": {
           "title": "{isEnable, plural, =1 {Pro-mode activado} other {Pro-mode desactivado}}"
         }
+      }
+    },
+    "statsSection": {
+      "overview": {
+        "title": "Resumen",
+        "totalSuiStaked": "total SUI apostado",
+        "totalStaked": "total apostado",
+        "validators": "validadores",
+        "totalISUIMinted": "total iSUI emitido",
+        "totalISUIPCMinted": "total iSUI-PC emitido",
+        "totalISUIYNMinted": "total iSUI-YN emitido"
       }
     }
   }

@@ -1,13 +1,18 @@
 import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import { SEMANTIC_COLORS } from '@/constants';
+import { TTranslatedMessage } from '@/interface';
+import { capitalize } from '@/utils';
 
 import { OVERVIEW_DATA } from './overview.data';
 
 const FirstOverviewRow: FC = () => {
   const { dark } = useTheme() as Theme;
+  const t = useTranslations();
+
   return (
     <>
       {OVERVIEW_DATA.slice(0, 3).map((item, index) => (
@@ -43,7 +48,11 @@ const FirstOverviewRow: FC = () => {
             justifyContent="space-between"
           >
             <Typography variant="extraSmall" opacity="0.6" color="onSurface">
-              {item.description}
+              {capitalize(
+                t(
+                  `lsd.statsSection.overview.${item.description}` as TTranslatedMessage
+                )
+              )}
             </Typography>
             <Typography variant="large" color="onSurface">
               {item.value}
