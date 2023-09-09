@@ -18,7 +18,7 @@ const StatsWrapper: FC<PropsWithChildren<StatsWrapperProps>> = ({
       justifyContent="center"
       alignItems="center"
       color={isCoin ? 'white' : 'primary'}
-      bg={isCoin ? 'primary' : 'surface.containerHigh'}
+      bg={isCoin ? '#6FBCF0' : 'surface.containerHigh'}
     >
       {children}
     </Box>

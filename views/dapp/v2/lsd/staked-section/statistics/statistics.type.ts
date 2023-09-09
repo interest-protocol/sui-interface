@@ -1,4 +1,4 @@
-import { TOKEN_SYMBOL } from '@/lib';
+import { DERIVATED_SUI_SYMBOL } from '../../lsd.type';
 
 export interface TrendInfoProps {
   isTrendUp?: boolean;
@@ -7,11 +7,7 @@ export interface TrendInfoProps {
 }
 
 export interface SuiPriceInfoProps {
-  coin: {
-    decimals: number;
-    symbol: TOKEN_SYMBOL;
-    type: string;
-  };
+  coin: DERIVATED_SUI_SYMBOL;
   amount: number;
 }
 
