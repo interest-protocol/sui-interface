@@ -1,39 +1,30 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box, Tabs } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, useState } from 'react';
+
+import { capitalize } from '@/utils';
 
 import { Layout } from '../components';
 import LSDHeader from './lsd-header';
-import Overview from './overview';
-import StakingForm from './staking-form';
+import StakedSection from './staked-section';
+import StatsSection from './stats-section';
 
 const LSD: FC = () => {
+  const [changeTab, setChangeTab] = useState<number>(0);
   const t = useTranslations();
-
   return (
     <Layout dashboard titlePage={<LSDHeader />}>
-      <Box variant="container" display="flex" flexDirection="column">
-        <Box
-          pb="1rem"
-          width="100%"
-          gridColumn="1/-1"
-          display="flex"
-          flexDirection={['column', 'column', 'column', 'row']}
-          gap={['l', 'l', 'l', '3xl']}
-        >
-          <Typography
-            display={['block', 'block', 'block', 'none']}
-            variant="displayLarge"
-            color="onSurface"
-            textTransform="capitalize"
-            textAlign="center"
-          >
-            {t('lsd.metadata.title')}
-          </Typography>
-          <Overview />
-          <StakingForm />
-        </Box>
+      <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
+        <Tabs
+          items={[
+            capitalize(t('lsd.tabs.stake')),
+            capitalize(t('lsd.tabs.stats')),
+          ]}
+          defaultTabIndex={changeTab}
+          onChangeTab={(changeTab) => setChangeTab(changeTab)}
+        />
       </Box>
+      {changeTab === 0 ? <StakedSection /> : <StatsSection />}
     </Layout>
   );
 };

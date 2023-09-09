@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { SUISVG } from '@/components/svg/v2';
 import { formatDollars } from '@/utils';
 
-import { SuiPriceInfoProps } from '../overview.type';
+import { SuiPriceInfoProps } from '../statistics.type';
 
 const SuiPriceInfo: FC<SuiPriceInfoProps> = ({ coin, amount }) => {
   return (

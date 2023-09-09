@@ -4,6 +4,12 @@
       "title": "LSD",
       "description": "LSD nova funcionalidade"
     },
+    "tabs": {
+      "stake": "apostar",
+      "portfolio": "portefólio",
+      "validators": "validadores",
+      "stats": "estatísticas"
+    },
     "cards": {
       "priceMarket": {
         "title": "Mercado de preços da SUI"
@@ -22,6 +28,17 @@
         "success": {
           "title": "{isEnable, plural, =1 {Pro-mode activado} other {Pro-mode desactivado}}"
         }
+      }
+    },
+    "statsSection": {
+      "overview": {
+        "title": "Visão geral",
+        "totalSuiStaked": "total SUI apostado",
+        "totalStaked": "total apostado",
+        "validators": "validadores",
+        "totalISUIMinted": "total iSUI emitido",
+        "totalISUIPCMinted": "total iSUI-PC emitido",
+        "totalISUIYNMinted": "total iSUI-YN emitido"
       }
     }
   }
