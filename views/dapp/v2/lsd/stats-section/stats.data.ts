@@ -8,32 +8,32 @@ import {
 
 export const OVERVIEW_DATA = [
   {
-    description: 'totalSuiStaked',
+    description: 'lsd.overview.totalSuiStaked',
     Icon: SUISVG,
     value: 574.34,
   },
   {
-    description: 'totalStakers',
+    description: 'lsd.overview.totalStakers',
     Icon: UsersSVG,
     value: 96,
   },
   {
-    description: 'validators',
+    description: 'lsd.overview.validators',
     Icon: UsersSVG,
     value: 96,
   },
   {
-    description: 'totalISUIMinted',
+    description: 'lsd.overview.totalISUIMinted',
     Icon: ISuiSVG,
     value: 1.123,
   },
   {
-    description: 'totalISUIPCMinted',
+    description: 'lsd.overview.totalISUIPCMinted',
     Icon: ISuiPCSVG,
     value: 1.123,
   },
   {
-    description: 'totalISUIYNMinted',
+    description: 'lsd.overview.totalISUIYNMinted',
     Icon: ISuiYNSVG,
     value: 5,
   },

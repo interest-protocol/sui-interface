@@ -19,8 +19,8 @@ const LSD: FC = () => {
         <Tabs
           items={[
             capitalize(t('lsd.tabs.stake')),
-            capitalize(t('lsd.tabs.stats')),
             capitalize(t('lsd.tabs.validators')),
+            capitalize(t('lsd.tabs.stats')),
           ]}
           defaultTabIndex={changeTab}
           onChangeTab={(changeTab) => setChangeTab(changeTab)}
@@ -29,9 +29,9 @@ const LSD: FC = () => {
       {changeTab === 0 ? (
         <StakedSection />
       ) : changeTab === 1 ? (
-        <StatsSection />
-      ) : (
         <ValidatorsSection />
+      ) : (
+        <StatsSection />
       )}
     </Layout>
   );
