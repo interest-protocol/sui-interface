@@ -37,17 +37,17 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
           alignItems="center"
           justifyContent="center"
           bg={
-            from === 'iSUI' && hasFirstOverlayIcon
+            from === 'iSui' && hasFirstOverlayIcon
               ? dark
                 ? SEMANTIC_COLORS[3].dark
                 : SEMANTIC_COLORS[3].light
-              : from === 'iSUI' && !hasFirstOverlayIcon
+              : from === 'iSui' && !hasFirstOverlayIcon
               ? lightTheme.colors.primary
               : '#6FBCF0'
           }
         >
           {hasFirstOverlayIcon && <IconOverlay />}
-          {from === 'iSUI' ? (
+          {from === 'iSui' ? (
             <ISuiSVG width="100%" maxHeight="1.5rem" maxWidth="1.5rem" />
           ) : (
             <SuiSVG filled width="100%" maxHeight="1rem" maxWidth="1rem" />
@@ -76,11 +76,11 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
           color="white"
           display="flex"
           bg={
-            to === 'iSUI' && hasSecondOverlayIcon
+            to === 'iSui' && hasSecondOverlayIcon
               ? dark
                 ? SEMANTIC_COLORS[3].dark
                 : SEMANTIC_COLORS[3].light
-              : to === 'iSUI' && !hasSecondOverlayIcon
+              : to === 'iSui' && !hasSecondOverlayIcon
               ? lightTheme.colors.primary
               : '#6FBCF0'
           }
@@ -92,7 +92,7 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
           justifyContent="center"
         >
           {hasSecondOverlayIcon && <IconOverlay />}
-          {to === 'iSUI' ? (
+          {to === 'iSui' ? (
             <ISuiSVG width="100%" maxHeight="1.5rem" maxWidth="1.5rem" />
           ) : (
             <SuiSVG filled width="100%" maxHeight="1rem" maxWidth="1rem" />

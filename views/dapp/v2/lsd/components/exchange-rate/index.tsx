@@ -23,10 +23,10 @@ const ExchangeRate: FC = () => {
       >
         {t('lsd.exchangeRate')}
       </Typography>
-      <ExchangeRateItem to="SUI" from="iSUI" finalValue={1} initialValue={1} />
+      <ExchangeRateItem to="SUI" from="iSui" finalValue={1} initialValue={1} />
       <ExchangeRateItem
         to="SUI"
-        from="iSUI-PC"
+        from="iSui-PC"
         finalValue={1.2}
         initialValue={1}
         hasFirstOverlayIcon

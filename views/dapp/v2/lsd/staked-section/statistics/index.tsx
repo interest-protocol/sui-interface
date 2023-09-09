@@ -1,8 +1,5 @@
-import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
-
-import { COINS } from '@/constants';
 
 import FAQ from './faq';
 import PricesMarketCard from './prices-market-card';
@@ -18,7 +15,7 @@ const Statistics: FC = () => {
   };
 
   const priceInfo: SuiPriceInfoProps = {
-    coin: COINS[Network.TESTNET].SUID,
+    coin: 'iSui',
     amount: 0.943,
   };
 
@@ -39,9 +36,9 @@ const Statistics: FC = () => {
         totalRewards="$100"
         totalStaked="574.23"
         derivatedSui={[
-          { name: 'iSUI', value: '1.345' },
-          { name: 'iSUI-PC', value: '1.345' },
-          { name: 'iSUI-YC', value: '1.345' },
+          { name: 'iSui', value: '1.345' },
+          { name: 'iSui-PC', value: '1.345' },
+          { name: 'iSui-YN', value: '1.345' },
         ]}
       />
       <FAQ />
