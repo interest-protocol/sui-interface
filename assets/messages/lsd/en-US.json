@@ -36,6 +36,10 @@
       }
     },
     "infoButton": "{isStake, plural, =1 {Preview Stake} other {Preview Unstake}}",
+    "amountField": {
+      "title": "Amount",
+      "wallet": "Wallet Balance"
+    },
     "mintType": "Mint Type",
     "stats": "Stats",
     "totalStaked": "TOTAL SUI STAKED",

@@ -6,3 +6,7 @@ export interface MintTypeProps {
   onChange: (type: string) => void;
   mintTypeOption: MINT_TYPE_OPTION;
 }
+
+export interface AmountFieldsProps {
+  balance: number;
+}

@@ -36,6 +36,10 @@
       }
     },
     "infoButton": "{isStake, plural, =1 {pré-visualizar aposta} other {pré-visualizar a retirada}}",
+    "amountField": {
+      "title": "Montante",
+      "wallet": "Saldo da carteira"
+    },
     "mintType": "Mint Type",
     "stats": "Estatística",
     "totalStaked": "TOTAL DE SUI INVESTIDO",
