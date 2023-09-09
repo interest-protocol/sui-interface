@@ -1,4 +1,4 @@
-import { DERIVATED_SUI_SYMBOL } from '../lsd.type';
+import { DERIVATED_SUI_SYMBOL } from '../../lsd.type';
 
 export interface TrendInfoProps {
   isTrendUp?: boolean;
