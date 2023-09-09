@@ -60,13 +60,7 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
           justifyContent="space-between"
         >
           <Typography variant="extraSmall" color="onSurface" opacity="0.6">
-            {from === 'iSUI'
-              ? 'iSUI'
-              : from === 'SUI'
-              ? 'SUI'
-              : from === 'iSUI-PC'
-              ? 'iSUI-PC'
-              : 'iSUI-YN'}
+            {from}
           </Typography>
           <Typography variant="large" color="onSurface">
             {initialValue}
@@ -111,13 +105,7 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
           justifyContent="space-between"
         >
           <Typography variant="extraSmall" color="onSurface" opacity="0.6">
-            {to === 'iSUI'
-              ? 'iSUI'
-              : to === 'SUI'
-              ? 'SUI'
-              : to === 'iSUI-PC'
-              ? 'iSUI-PC'
-              : 'iSUI-YN'}
+            {to}
           </Typography>
           <Typography variant="large" color="onSurface">
             {finalValue}
