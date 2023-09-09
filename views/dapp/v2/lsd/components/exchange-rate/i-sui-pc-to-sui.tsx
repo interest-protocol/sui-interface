@@ -30,6 +30,7 @@ const ISUIPcToSUI: FC = () => {
         </Box>
         <Box
           display="flex"
+          width="3.125rem"
           flexDirection="column"
           justifyContent="space-between"
         >
@@ -61,6 +62,7 @@ const ISUIPcToSUI: FC = () => {
         </Box>
         <Box
           display="flex"
+          width="3.125rem"
           flexDirection="column"
           justifyContent="space-between"
         >

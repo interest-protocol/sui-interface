@@ -24,6 +24,7 @@ const ISUIToSUI: FC = () => {
         </Box>
         <Box
           display="flex"
+          width="3.125rem"
           flexDirection="column"
           justifyContent="space-between"
         >
@@ -55,6 +56,7 @@ const ISUIToSUI: FC = () => {
         </Box>
         <Box
           display="flex"
+          width="3.125rem"
           flexDirection="column"
           justifyContent="space-between"
         >

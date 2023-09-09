@@ -27,7 +27,11 @@ const StatsSection: FC = () => {
         </Box>
       </Overview>
       <TotalStaked />
-      <Box display="flex" gap="l">
+      <Box
+        gap="l"
+        display="flex"
+        flexDirection={['column', 'column', 'column', 'row']}
+      >
         <TotalRewards />
         <ExchangeRate />
       </Box>
