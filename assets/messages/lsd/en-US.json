@@ -33,12 +33,19 @@
     "statsSection": {
       "overview": {
         "title": "Overview",
-        "totalSuiStaked": "total sui staked",
-        "totalStaked": "total staked",
+        "totalSuiStaked": "total SUI staked",
+        "totalStakers": "total stakers",
         "validators": "validators",
         "totalISUIMinted": "total iSUI minted",
         "totalISUIPCMinted": "total iSUI-PC minted",
         "totalISUIYNMinted": "total iSUI-YN minted"
+      },
+      "totalStaked": {
+        "title": "Total staked"
+      },
+      "totalRewards": {
+        "title": "Total rewards",
+        "daily": "daily"
       }
     }
   }

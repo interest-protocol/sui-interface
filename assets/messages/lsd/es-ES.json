@@ -34,12 +34,19 @@
       "overview": {
         "title": "Resumen",
         "totalSuiStaked": "total SUI apostado",
-        "totalStaked": "total apostado",
+        "totalStakers": "total apostantes",
         "validators": "validadores",
         "totalISUIMinted": "total iSUI emitido",
         "totalISUIPCMinted": "total iSUI-PC emitido",
         "totalISUIYNMinted": "total iSUI-YN emitido"
       }
+    },
+    "totalStaked": {
+      "title": "total apostado"
+    },
+    "totalRewards": {
+      "title": "Total recompensas",
+      "daily": "diario"
     }
   }
 }
