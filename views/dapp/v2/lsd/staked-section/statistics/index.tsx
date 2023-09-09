@@ -4,6 +4,7 @@ import { FC } from 'react';
 
 import { COINS } from '@/constants';
 
+import FAQ from './faq';
 import PricesMarketCard from './prices-market-card';
 import { DATA_CHART } from './statistics.data';
 import { SuiPriceInfoProps, TrendInfoProps } from './statistics.type';
@@ -43,6 +44,7 @@ const Statistics: FC = () => {
           { name: 'iSUI-YC', value: '1.345' },
         ]}
       />
+      <FAQ />
     </Box>
   );
 };

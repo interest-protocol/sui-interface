@@ -57,6 +57,27 @@
       "totalISUIMinted": "total iSUI minted",
       "totalISUIPCMinted": "total iSUI-PC minted",
       "totalISUIYNMinted": "total iSUI-YN minted"
+    },
+    "faq": {
+      "title": "FAQ",
+      "questions": {
+        "block1": {
+          "title": "How do I get my staking rewards?",
+          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+        },
+        "block2": {
+          "title": "What is iSUI?",
+          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+        },
+        "block3": {
+          "title": "What is iSUI-PC?",
+          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+        },
+        "block4": {
+          "title": "What is iSUI-YN?",
+          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+        }
+      }
     }
   }
 }
