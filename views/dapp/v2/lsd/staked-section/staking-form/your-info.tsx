@@ -4,7 +4,7 @@ import { FC, useState } from 'react';
 
 import { capitalize } from '@/utils';
 
-import Switcher from '../components/switch';
+import Switcher from '../../components/switch';
 
 const YourInfo: FC = () => {
   const t = useTranslations();

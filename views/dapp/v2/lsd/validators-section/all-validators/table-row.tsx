@@ -1,7 +1,7 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC, PropsWithChildren } from 'react';
 
-import { TableRowProps } from '../../metrics/top-tables/table.types';
+import { TableRowProps } from '../../../metrics/top-tables/table.types';
 
 const TableRow: FC<
   PropsWithChildren<Omit<TableRowProps, 'numCols' | 'title'>>

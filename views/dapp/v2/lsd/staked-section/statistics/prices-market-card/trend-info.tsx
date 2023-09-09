@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 import { ArrowTrendSVG } from '@/svg';
 
-import { TrendInfoProps } from '../overview.type';
+import { TrendInfoProps } from '../statistics.type';
 
 const TrendInfo: FC<TrendInfoProps> = ({ isTrendUp, percentage, daysPast }) => {
   return (
