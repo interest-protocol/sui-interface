@@ -39,14 +39,11 @@
         "totalISUIMinted": "total iSUI emitido",
         "totalISUIPCMinted": "total iSUI-PC emitido",
         "totalISUIYNMinted": "total iSUI-YN emitido"
+      },
+      "totalRewards": {
+        "title": "Total recompensas",
+        "daily": "diário"
       }
-    },
-    "totalStaked": {
-      "title": "total apostado"
-    },
-    "totalRewards": {
-      "title": "Total recompensas",
-      "daily": "diário"
     }
   }
 }

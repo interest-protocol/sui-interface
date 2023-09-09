@@ -40,9 +40,6 @@
         "totalISUIPCMinted": "total iSUI-PC minted",
         "totalISUIYNMinted": "total iSUI-YN minted"
       },
-      "totalStaked": {
-        "title": "Total staked"
-      },
       "totalRewards": {
         "title": "Total rewards",
         "daily": "daily"
