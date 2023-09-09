@@ -3,9 +3,9 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import Chart from '../../../components/charts';
-import { TOTAL_DATA } from './total-staked.data';
+import { TOTAL_DATA } from './total-rewards.data';
 
-const TotalStaked: FC = () => {
+const TotalRewards: FC = () => {
   const t = useTranslations();
   return (
     <Box
@@ -57,4 +57,4 @@ const TotalStaked: FC = () => {
   );
 };
 
-export default TotalStaked;
+export default TotalRewards;
