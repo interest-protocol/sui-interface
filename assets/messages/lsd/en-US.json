@@ -41,7 +41,10 @@
     },
     "statsSection": {
       "totalRewards": {
-        "title": "Total rewards",
+        "title": "Total rewards"
+      },
+      "totalStaked": {
+        "title": "Total staked",
         "daily": "daily"
       }
     },
