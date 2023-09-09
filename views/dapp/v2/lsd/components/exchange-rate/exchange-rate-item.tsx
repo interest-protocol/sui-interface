@@ -1,16 +1,8 @@
-import {
-  Box,
-  lightTheme,
-  Theme,
-  Typography,
-  useTheme,
-} from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { SEMANTIC_COLORS } from '@/constants';
-import { ISuiSVG, SuiSVG } from '@/svg';
+import { ISuiPCSVG, ISuiSVG, SuiSVG } from '@/svg';
 
-import IconOverlay from '../icon-overlay';
 import { ExchangeRateItemProps } from './exchange-rate.type';
 
 const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
@@ -18,15 +10,11 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
   from,
   finalValue,
   initialValue,
-  hasFirstOverlayIcon,
-  hasSecondOverlayIcon,
 }) => {
-  const { dark } = useTheme() as Theme;
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between">
       <Box display="flex" gap="l">
         <Box
-          p="s"
           color="white"
           display="flex"
           width="2.5rem"
@@ -36,21 +24,16 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
           position="relative"
           alignItems="center"
           justifyContent="center"
-          bg={
-            from === 'iSui' && hasFirstOverlayIcon
-              ? dark
-                ? SEMANTIC_COLORS[3].dark
-                : SEMANTIC_COLORS[3].light
-              : from === 'iSui' && !hasFirstOverlayIcon
-              ? lightTheme.colors.primary
-              : '#6FBCF0'
-          }
         >
-          {hasFirstOverlayIcon && <IconOverlay />}
           {from === 'iSui' ? (
-            <ISuiSVG width="100%" maxHeight="1.5rem" maxWidth="1.5rem" />
+            <ISuiSVG filled width="100%" maxHeight="2.5rem" maxWidth="2.5rem" />
           ) : (
-            <SuiSVG filled width="100%" maxHeight="1rem" maxWidth="1rem" />
+            <ISuiPCSVG
+              filled
+              width="100%"
+              maxHeight="2.5rem"
+              maxWidth="2.5rem"
+            />
           )}
         </Box>
         <Box
@@ -72,18 +55,9 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
       </Typography>
       <Box display="flex" gap="l">
         <Box
-          p="s"
           color="white"
           display="flex"
-          bg={
-            to === 'iSui' && hasSecondOverlayIcon
-              ? dark
-                ? SEMANTIC_COLORS[3].dark
-                : SEMANTIC_COLORS[3].light
-              : to === 'iSui' && !hasSecondOverlayIcon
-              ? lightTheme.colors.primary
-              : '#6FBCF0'
-          }
+          bg="#6FBCF0"
           width="2.5rem"
           height="2.5rem"
           borderRadius="m"
@@ -91,12 +65,7 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
           alignItems="center"
           justifyContent="center"
         >
-          {hasSecondOverlayIcon && <IconOverlay />}
-          {to === 'iSui' ? (
-            <ISuiSVG width="100%" maxHeight="1.5rem" maxWidth="1.5rem" />
-          ) : (
-            <SuiSVG filled width="100%" maxHeight="1rem" maxWidth="1rem" />
-          )}
+          <SuiSVG filled width="100%" maxHeight="1rem" maxWidth="1rem" />
         </Box>
         <Box
           display="flex"

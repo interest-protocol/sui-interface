@@ -29,7 +29,6 @@ const ExchangeRate: FC = () => {
         from="iSui-PC"
         finalValue={1.2}
         initialValue={1}
-        hasFirstOverlayIcon
       />
     </Box>
   );
