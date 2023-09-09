@@ -13,7 +13,7 @@ export const OVERVIEW_DATA = [
     value: 574.34,
   },
   {
-    description: 'totalStaked',
+    description: 'totalStakers',
     Icon: UsersSVG,
     value: 96,
   },

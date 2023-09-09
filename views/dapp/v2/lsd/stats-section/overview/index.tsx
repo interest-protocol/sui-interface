@@ -11,7 +11,9 @@ const Overview: FC = () => {
     <Box
       p="l"
       rowGap="l"
+      width="100%"
       display="flex"
+      gridColumn="1/-1"
       flexDirection="column"
       borderRadius="0.5rem"
       bg="surface.container"
