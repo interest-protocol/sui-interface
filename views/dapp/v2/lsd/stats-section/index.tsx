@@ -6,6 +6,7 @@ import Overview from '../components/overview';
 import OverviewSecondRow from './overview-second-row';
 import { OVERVIEW_DATA } from './stats.data';
 import TotalRewards from './total-rewards';
+import TotalStaked from './total-staked';
 
 const StatsSection: FC = () => {
   const t = useTranslations();
@@ -24,6 +25,7 @@ const StatsSection: FC = () => {
           <OverviewSecondRow data={OVERVIEW_DATA.slice(3, 6)} />
         </Box>
       </Overview>
+      <TotalStaked />
       <TotalRewards />
     </Box>
   );

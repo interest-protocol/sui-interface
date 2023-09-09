@@ -3,10 +3,12 @@ import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
-import Chart from '../../../components/charts';
-import { TOTAL_DATA } from './total-rewards.data';
+import { capitalize } from '@/utils';
 
-const TotalRewards: FC = () => {
+import Chart from '../../../components/charts';
+import { TOTAL_DATA } from './total-staked.data';
+
+const TotalStaked: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   setTimeout(() => {
@@ -31,13 +33,22 @@ const TotalRewards: FC = () => {
         </>
       ) : (
         <>
-          <Box gridColumn="1/-1" width="100%">
+          <Box
+            width="100%"
+            display="flex"
+            gridColumn="1/-1"
+            alignItems="center"
+            justifyContent="space-between"
+          >
             <Typography
               color="onSurface"
               variant="extraSmall"
               textTransform="capitalize"
             >
-              {t('lsd.statsSection.totalRewards.title')}
+              {t('lsd.statsSection.totalStaked.title')}
+            </Typography>
+            <Typography variant="extraSmall" color="onSurface" opacity="0.6">
+              {capitalize(t('lsd.statsSection.totalStaked.daily'))}
             </Typography>
           </Box>
           <Box
@@ -65,7 +76,7 @@ const TotalRewards: FC = () => {
               </Typography>
               <Box height="260px" width="100%">
                 <Chart
-                  type="bar"
+                  type="area"
                   dataKey="amount"
                   xAxis="description"
                   data={TOTAL_DATA}
@@ -79,4 +90,4 @@ const TotalRewards: FC = () => {
   );
 };
 
-export default TotalRewards;
+export default TotalStaked;
