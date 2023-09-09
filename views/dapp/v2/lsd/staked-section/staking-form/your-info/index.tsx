@@ -7,8 +7,8 @@ import { useLocalStorage, useModal } from '@/hooks';
 import { ISuiSVG } from '@/svg';
 import { capitalize, noop } from '@/utils';
 
-import Switcher from '../../components/switch';
-import { MINT_TYPE_OPTION } from '../../lsd.type';
+import Switcher from '../../../components/switch';
+import { MINT_TYPE_OPTION } from '../../../lsd.type';
 import AmountField from './amount-field';
 import MintType from './mint-type';
 import PreviewTransaction from './modal/preview';

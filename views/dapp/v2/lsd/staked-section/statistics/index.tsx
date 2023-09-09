@@ -1,12 +1,13 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { DATA_CHART } from './overview.data';
-import { SuiPriceInfoProps, TrendInfoProps } from './overview.type';
+import FAQ from './faq';
 import PricesMarketCard from './prices-market-card';
+import { DATA_CHART } from './statistics.data';
+import { SuiPriceInfoProps, TrendInfoProps } from './statistics.type';
 import Stats from './stats';
 
-const Overview: FC = () => {
+const Statistics: FC = () => {
   const trendInfo: TrendInfoProps = {
     percentage: 3.4,
     isTrendUp: true,
@@ -40,8 +41,9 @@ const Overview: FC = () => {
           { name: 'iSui-YN', value: '1.345' },
         ]}
       />
+      <FAQ />
     </Box>
   );
 };
 
-export default Overview;
+export default Statistics;

@@ -4,6 +4,12 @@
       "title": "LSD",
       "description": "LSD nova funcionalidade"
     },
+    "tabs": {
+      "stake": "apostar",
+      "portfolio": "portfólio",
+      "validators": "validadores",
+      "stats": "estatísticas"
+    },
     "cards": {
       "priceMarket": {
         "title": "Mercado de preços da SUI"
@@ -44,6 +50,55 @@
     "stats": "Estatística",
     "totalStaked": "TOTAL DE SUI INVESTIDO",
     "totalReward": "TOTAL DE RECOMPENSAS",
-    "totalMinted": "Total {symbol} minted"
+    "totalMinted": "Total {symbol} minted",
+    "validators": {
+      "tableSection": {
+        "title": "Todos os validadores",
+        "searchInput": "Pesquisa de validadores",
+        "name": "Nome",
+        "apy": "APY",
+        "commission": "Comissão"
+      }
+    },
+    "statsSection": {
+      "totalRewards": {
+        "title": "Total recompensas"
+      },
+      "totalStaked": {
+        "title": "Total apostado",
+        "daily": "diário"
+      }
+    },
+    "overview": {
+      "title": "Visão geral",
+      "totalSuiStaked": "TOTAL SUI APOSTADO",
+      "totalReward": "TOTAL DE RECOMPENSAS",
+      "totalStakers": "total apostadores",
+      "validators": "validadores",
+      "totalISUIMinted": "total iSUI emitido",
+      "totalISUIPCMinted": "total iSUI-PC emitido",
+      "totalISUIYNMinted": "total iSUI-YN emitido"
+    },
+    "faq": {
+      "title": "PERGUNTAS FREQUENTES",
+      "questions": {
+        "block1": {
+          "title": "Como é que recebo os meus prémios de staking?",
+          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+        },
+        "block2": {
+          "title": "O que é iSUI?",
+          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+        },
+        "block3": {
+          "title": "O que é iSUI-PC?",
+          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+        },
+        "block4": {
+          "title": "O que é iSUI-YN?",
+          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+        }
+      }
+    }
   }
 }

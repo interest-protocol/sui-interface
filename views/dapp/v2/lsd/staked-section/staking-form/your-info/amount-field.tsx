@@ -3,9 +3,9 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { SUISVG } from '@/components/svg/v2';
+import { PercentageButton } from '@/views/dapp/v2/components';
 
-import { PercentageButton } from '../../../components';
-import { AmountFieldsProps } from '../../lsd.type';
+import { AmountFieldsProps } from '../../../lsd.type';
 
 const AmountField: FC<AmountFieldsProps> = ({ balance }) => {
   const t = useTranslations();

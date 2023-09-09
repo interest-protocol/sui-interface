@@ -4,7 +4,7 @@ import { FC } from 'react';
 
 import { ISuiPCSVG, ISuiSVG, ISuiYNSVG } from '@/svg';
 
-import { MintTypeProps } from '../../lsd.type';
+import { MintTypeProps } from '../../../lsd.type';
 
 const MintType: FC<MintTypeProps> = ({ onChange, mintTypeOption }) => {
   const t = useTranslations();
