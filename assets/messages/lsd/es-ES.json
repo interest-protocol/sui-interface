@@ -79,6 +79,7 @@
       "totalISUIPCMinted": "total iSUI-PC emitido",
       "totalISUIYNMinted": "total iSUI-YN emitido"
     },
+    "exchangeRate": "tipo de cambio",
     "faq": {
       "title": "PREGUNTAS MÁS FRECUENTES",
       "questions": {

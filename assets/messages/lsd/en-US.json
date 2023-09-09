@@ -79,6 +79,7 @@
       "totalISUIPCMinted": "total iSUI-PC minted",
       "totalISUIYNMinted": "total iSUI-YN minted"
     },
+    "exchangeRate": "exchange rate",
     "faq": {
       "title": "FAQ",
       "questions": {
