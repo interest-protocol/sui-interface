@@ -7,16 +7,16 @@ import { capitalize } from '@/utils';
 
 import { Layout } from '../components';
 import LSDHeader from './lsd-header';
-import PortfolioSection from './portfolio-section';
-import StakedSection from './staked-section';
-import StatsSection from './stats-section';
-import ValidatorsSection from './validators-section';
+import Portfolio from './portfolio';
+import Staked from './staked';
+import Stats from './stats';
+import Validators from './validators';
 
 const Tab = [
-  <StakedSection key={v4()} />,
-  <PortfolioSection key={v4()} />,
-  <ValidatorsSection key={v4()} />,
-  <StatsSection key={v4()} />,
+  <Staked key={v4()} />,
+  <Portfolio key={v4()} />,
+  <Validators key={v4()} />,
+  <Stats key={v4()} />,
 ];
 
 const LSD: FC = () => {

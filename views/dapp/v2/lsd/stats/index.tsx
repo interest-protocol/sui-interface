@@ -9,7 +9,7 @@ import { OVERVIEW_DATA } from './stats.data';
 import TotalRewards from './total-rewards';
 import TotalStaked from './total-staked';
 
-const StatsSection: FC = () => {
+const Stats: FC = () => {
   const t = useTranslations();
   return (
     <Box variant="container" display="flex" flexDirection="column">
@@ -39,4 +39,4 @@ const StatsSection: FC = () => {
   );
 };
 
-export default StatsSection;
+export default Stats;
