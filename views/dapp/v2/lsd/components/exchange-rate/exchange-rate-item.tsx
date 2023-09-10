@@ -68,7 +68,7 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
         </Box>
         <Box
           display="flex"
-          width="30px"
+          width="1.875rem"
           flexDirection="column"
           justifyContent="space-between"
         >
