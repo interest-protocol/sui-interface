@@ -9,23 +9,25 @@ import {
 
 const TabsTransition: FC<
   PropsWithChildren<{ type: 'fade' | 'slide' | 'scale' }>
-> = ({ type, children }) => (
-  <Motion
-    initial="out"
-    animate="in"
-    transformOrigin="top"
-    variants={
-      type === 'fade'
-        ? fadeTabTransitions
-        : type === 'slide'
-        ? slideTabTransitions
-        : type === 'scale'
-        ? scaleTabTransitions
-        : fadeTabTransitions
-    }
-  >
-    {children}
-  </Motion>
-);
+> = ({ type, children }) => {
+  return (
+    <Motion
+      initial="out"
+      animate="in"
+      transformOrigin="top"
+      variants={
+        type === 'fade'
+          ? fadeTabTransitions
+          : type === 'slide'
+          ? slideTabTransitions
+          : type === 'scale'
+          ? scaleTabTransitions
+          : fadeTabTransitions
+      }
+    >
+      {children}
+    </Motion>
+  );
+};
 
 export default TabsTransition;
