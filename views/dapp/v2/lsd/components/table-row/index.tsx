@@ -9,6 +9,7 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
   withBG,
   isFirstRow,
   isTableHead,
+  hasDropdown,
 }) => (
   <Box
     fontWeight={isTableHead ? '400' : ''}
@@ -25,7 +26,7 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
     ]}
     py={isTableHead ? 'l' : 'm'}
     bg={withBG ? 'surface.containerHigh' : 'unset'}
-    px="m"
+    px={hasDropdown ? 'unset' : 'm'}
     borderRadius={withBG ? '0.25rem' : 'unset'}
     borderBottomRightRadius={withBG && isFirstRow ? 'unset' : '0.25rem'}
     borderBottomLeftRadius={withBG && isFirstRow ? 'unset' : '0.25rem'}

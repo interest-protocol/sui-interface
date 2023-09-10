@@ -8,11 +8,12 @@ import { SUISVG } from '@/components/svg/v2';
 import { ISuiPCSVG, ISuiSVG } from '@/svg';
 import { formatDollars } from '@/utils';
 
+import DropdownBox from '../../../components/dropdown-box';
+import DropdownItem from '../../../components/dropdown-box/dropdown-item';
 import TableRow from '../../../components/table-row';
 import { DERIVATED_SUI_SYMBOL } from '../../../lsd.type';
 import { TokensRowItemProps } from '../../portfolio.type';
 import OpenDetails from './open-details';
-
 const TokensTableBodyRow: FC<TokensRowItemProps & { index: number }> = ({
   tokens,
   value,
@@ -105,10 +106,15 @@ const TokensTableBodyRow: FC<TokensRowItemProps & { index: number }> = ({
           </Box>
         </Box>
       </TableRow>
-      {openDetails && (
-        <TableRow numCols={4} withBG={openDetails}>
+      <DropdownBox isOpen={openDetails}>
+        <TableRow numCols={4} withBG={openDetails} hasDropdown>
           <Box />
-          <Box display="flex" flexDirection="column" gap="0.25rem">
+          <DropdownItem
+            display="flex"
+            gap="0.25rem"
+            isOpen={openDetails}
+            flexDirection="column"
+          >
             {moreDetails.map((item) => (
               <Box
                 key={v4()}
@@ -127,8 +133,13 @@ const TokensTableBodyRow: FC<TokensRowItemProps & { index: number }> = ({
                 </Box>
               </Box>
             ))}
-          </Box>
-          <Box display="flex" flexDirection="column" gap="0.25rem">
+          </DropdownItem>
+          <DropdownItem
+            display="flex"
+            gap="0.25rem"
+            isOpen={openDetails}
+            flexDirection="column"
+          >
             {moreDetails.map((item) => (
               <Box
                 key={v4()}
@@ -142,10 +153,10 @@ const TokensTableBodyRow: FC<TokensRowItemProps & { index: number }> = ({
                 </Typography>
               </Box>
             ))}
-          </Box>
+          </DropdownItem>
           <Box />
         </TableRow>
-      )}
+      </DropdownBox>
     </Box>
   );
 };

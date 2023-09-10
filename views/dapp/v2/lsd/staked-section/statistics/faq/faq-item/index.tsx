@@ -11,6 +11,8 @@ import { FC, useState } from 'react';
 
 import { TTranslatedMessage } from '@/interface';
 
+import DropdownBox from '../../../../components/dropdown-box';
+import DropdownItem from '../../../../components/dropdown-box/dropdown-item';
 import { FaqItemProps } from '../faq.type';
 import CollapseIcon from './collapsible-icon';
 
@@ -57,11 +59,13 @@ const FaqItem: FC<FaqItemProps> = ({ title, description, index }) => {
           <CollapseIcon />
         </Motion>
       </Box>
-      {openFAQ && (
-        <Typography pl="2.75rem" pt="xl" variant="small" color="onSurface">
-          {t(description as TTranslatedMessage)}
-        </Typography>
-      )}
+      <DropdownBox isOpen={openFAQ}>
+        <DropdownItem isOpen={openFAQ}>
+          <Typography pl="2.75rem" pt="xl" variant="small" color="onSurface">
+            {t(description as TTranslatedMessage)}
+          </Typography>
+        </DropdownItem>
+      </DropdownBox>
     </Box>
   );
 };

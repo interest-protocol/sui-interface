@@ -1,4 +1,4 @@
-import { Box, Tabs } from '@interest-protocol/ui-kit';
+import { Box, Motion, Tabs } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
@@ -44,7 +44,13 @@ const LSD: FC = () => {
           />
         </Box>
       </Box>
-      {Tab[changeTab]}
+      <Motion
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        {Tab[changeTab]}
+      </Motion>
     </Layout>
   );
 };
