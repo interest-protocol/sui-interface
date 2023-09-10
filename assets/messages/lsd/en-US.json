@@ -80,6 +80,10 @@
       "totalISUIYNMinted": "total iSUI-YN minted"
     },
     "exchangeRate": "exchange rate",
+    "epoch": {
+      "title": "Details",
+      "end": "epoch ends in..."
+    },
     "faq": {
       "title": "FAQ",
       "questions": {

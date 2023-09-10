@@ -6,6 +6,7 @@ import ExchangeRateItem from './exchange-rate-item';
 
 const ExchangeRate: FC = () => {
   const t = useTranslations();
+
   return (
     <Box
       p="l"

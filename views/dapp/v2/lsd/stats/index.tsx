@@ -11,6 +11,7 @@ import TotalStaked from './total-staked';
 
 const Stats: FC = () => {
   const t = useTranslations();
+
   return (
     <Box variant="container" display="flex" flexDirection="column">
       <Overview
