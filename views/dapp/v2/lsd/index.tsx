@@ -6,6 +6,7 @@ import { capitalize } from '@/utils';
 
 import { Layout } from '../components';
 import LSDHeader from './lsd-header';
+import PortfolioSection from './portfolio-section';
 import StakedSection from './staked-section';
 import StatsSection from './stats-section';
 import ValidatorsSection from './validators-section';
@@ -15,11 +16,17 @@ const LSD: FC = () => {
   const t = useTranslations();
   return (
     <Layout dashboard titlePage={<LSDHeader />}>
-      <Box variant="container" display="flex" flexDirection="column">
+      <Box
+        variant="container"
+        display="flex"
+        flexDirection="column"
+        overflowX="scroll"
+      >
         <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
           <Tabs
             items={[
               capitalize(t('lsd.tabs.stake')),
+              capitalize(t('lsd.tabs.portfolio')),
               capitalize(t('lsd.tabs.validators')),
               capitalize(t('lsd.tabs.stats')),
             ]}
@@ -31,6 +38,8 @@ const LSD: FC = () => {
       {changeTab === 0 ? (
         <StakedSection />
       ) : changeTab === 1 ? (
+        <PortfolioSection />
+      ) : changeTab === 2 ? (
         <ValidatorsSection />
       ) : (
         <StatsSection />

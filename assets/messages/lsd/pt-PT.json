@@ -105,6 +105,11 @@
       "title": "Resumo da transação",
       "stakeOrBurn": "{isStake, plural, =1 {Irá apostar} other {Irá arder}}",
       "receive": "Irá receber"
+    },
+    "portfolio": {
+      "name": "Nome",
+      "more": "Mais",
+      "value": "Valor"
     }
   }
 }
