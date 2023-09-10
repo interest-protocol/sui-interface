@@ -10,9 +10,16 @@ import StakedSection from './staked-section';
 import StatsSection from './stats-section';
 import ValidatorsSection from './validators-section';
 
+const Tab = [
+  <StakedSection key={0} />,
+  <ValidatorsSection key={1} />,
+  <StatsSection key={2} />,
+];
+
 const LSD: FC = () => {
-  const [changeTab, setChangeTab] = useState<number>(0);
   const t = useTranslations();
+  const [changeTab, setChangeTab] = useState<number>(0);
+
   return (
     <Layout dashboard titlePage={<LSDHeader />}>
       <Box variant="container" display="flex" flexDirection="column">
@@ -28,13 +35,7 @@ const LSD: FC = () => {
           />
         </Box>
       </Box>
-      {changeTab === 0 ? (
-        <StakedSection />
-      ) : changeTab === 1 ? (
-        <ValidatorsSection />
-      ) : (
-        <StatsSection />
-      )}
+      {Tab[changeTab]}
     </Layout>
   );
 };

@@ -3,26 +3,17 @@ import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
 import { SUISVG } from '@/components/svg/v2';
-import { useLocalStorage, useModal } from '@/hooks';
+import { useModal } from '@/hooks';
 import { ISuiSVG } from '@/svg';
 import { capitalize, noop } from '@/utils';
 
 import Switcher from '../../../components/switch';
-import { MINT_TYPE_OPTION } from '../../../lsd.type';
 import AmountField from './amount-field';
-import MintType from './mint-type';
 import PreviewTransaction from './modal/preview';
 
 const YourInfo: FC = () => {
   const t = useTranslations();
-  const [proMode] = useLocalStorage<boolean>('sui-interest-pro-mode', false);
   const [isStake, setIsStake] = useState(true);
-
-  const [mintTypeOption, setMintTypeOption] =
-    useState<MINT_TYPE_OPTION>('NONE');
-
-  const onChangeMintType = (type: string) =>
-    setMintTypeOption(type as MINT_TYPE_OPTION);
 
   const handleSelect = () => setIsStake(!isStake);
 
@@ -31,8 +22,8 @@ const YourInfo: FC = () => {
   const openStakeModal = () => {
     setModal(
       <PreviewTransaction
-        depositFee={0}
         rewards={0}
+        depositFee={0}
         handleClose={handleClose}
         lines={[
           {
@@ -324,9 +315,6 @@ const YourInfo: FC = () => {
         )}
       </Typography>
       <AmountField balance={0.434} />
-      {proMode && (
-        <MintType onChange={onChangeMintType} mintTypeOption={mintTypeOption} />
-      )}
       <Button
         variant="filled"
         mt="1.875rem"

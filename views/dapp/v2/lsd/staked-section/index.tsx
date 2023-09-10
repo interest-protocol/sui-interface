@@ -7,6 +7,7 @@ import Statistics from './statistics';
 
 const StakedSection: FC = () => {
   const t = useTranslations();
+
   return (
     <Box variant="container" display="flex" flexDirection="column">
       <Box
