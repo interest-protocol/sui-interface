@@ -1,6 +1,8 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
+import ExchangeRate from '../../components/exchange-rate';
+import Details from './details';
 import FAQ from './faq';
 import PricesMarketCard from './prices-market-card';
 import { DATA_CHART } from './statistics.data';
@@ -41,6 +43,14 @@ const Statistics: FC = () => {
           { name: 'iSui-YN', value: '1.345' },
         ]}
       />
+      <Box
+        gap="s"
+        display="flex"
+        flexDirection={['column', 'column', 'column', 'row']}
+      >
+        <ExchangeRate />
+        <Details />
+      </Box>
       <FAQ />
     </Box>
   );
