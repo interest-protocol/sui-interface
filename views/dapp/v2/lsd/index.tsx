@@ -33,14 +33,14 @@ const LSD: FC = () => {
       >
         <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
           <Tabs
+            defaultTabIndex={changeTab}
+            onChangeTab={(changeTab) => setChangeTab(changeTab)}
             items={[
               capitalize(t('lsd.tabs.stake')),
               capitalize(t('lsd.tabs.portfolio')),
               capitalize(t('lsd.tabs.validators')),
               capitalize(t('lsd.tabs.stats')),
             ]}
-            defaultTabIndex={changeTab}
-            onChangeTab={(changeTab) => setChangeTab(changeTab)}
           />
         </Box>
       </Box>
