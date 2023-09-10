@@ -26,10 +26,10 @@ const LSD: FC = () => {
   return (
     <Layout dashboard titlePage={<LSDHeader />}>
       <Box
-        variant="container"
         display="flex"
+        overflowX="auto"
+        variant="container"
         flexDirection="column"
-        overflowX="scroll"
       >
         <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
           <Tabs
