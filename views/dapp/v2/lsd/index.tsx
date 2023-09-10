@@ -1,4 +1,4 @@
-import { Box, Motion, Tabs } from '@interest-protocol/ui-kit';
+import { Box, Tabs } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
@@ -6,6 +6,7 @@ import { v4 } from 'uuid';
 import { capitalize } from '@/utils';
 
 import { Layout } from '../components';
+import TabsTransition from './components/tabs-transition';
 import LSDHeader from './lsd-header';
 import PortfolioSection from './portfolio-section';
 import StakedSection from './staked-section';
@@ -44,13 +45,7 @@ const LSD: FC = () => {
           />
         </Box>
       </Box>
-      <Motion
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        {Tab[changeTab]}
-      </Motion>
+      <TabsTransition type="scale">{Tab[changeTab]}</TabsTransition>
     </Layout>
   );
 };
