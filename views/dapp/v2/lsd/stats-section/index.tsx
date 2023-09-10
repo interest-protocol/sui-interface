@@ -2,6 +2,7 @@ import { Box } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import ExchangeRate from '../components/exchange-rate';
 import Overview from '../components/overview';
 import OverviewSecondRow from './overview-second-row';
 import { OVERVIEW_DATA } from './stats.data';
@@ -26,7 +27,14 @@ const StatsSection: FC = () => {
         </Box>
       </Overview>
       <TotalStaked />
-      <TotalRewards />
+      <Box
+        gap="l"
+        display="flex"
+        flexDirection={['column', 'column', 'column', 'row']}
+      >
+        <TotalRewards />
+        <ExchangeRate />
+      </Box>
     </Box>
   );
 };

@@ -17,6 +17,7 @@ const TotalRewards: FC = () => {
   return (
     <Box
       p="l"
+      flex="2"
       rowGap="l"
       display="flex"
       flexDirection="column"
@@ -63,7 +64,7 @@ const TotalRewards: FC = () => {
               >
                 09 • 07 • 2023
               </Typography>
-              <Box height="260px" width="100%">
+              <Box height="200px" width="100%">
                 <Chart
                   type="bar"
                   dataKey="amount"
