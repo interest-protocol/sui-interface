@@ -16,7 +16,7 @@ const Staked: FC = () => {
         gridColumn="1/-1"
         display="flex"
         flexDirection={['column', 'column', 'column', 'row']}
-        gap={['l', 'l', 'l', '3xl']}
+        gap={['l', 'l', 'l', 'xl']}
       >
         <Typography
           display={['block', 'block', 'block', 'none']}
