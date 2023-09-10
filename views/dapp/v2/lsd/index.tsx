@@ -45,7 +45,7 @@ const LSD: FC = () => {
           />
         </Box>
       </Box>
-      <TabsTransition type="scale">{Tab[changeTab]}</TabsTransition>
+      <TabsTransition type="slide">{Tab[changeTab]}</TabsTransition>
     </Layout>
   );
 };
