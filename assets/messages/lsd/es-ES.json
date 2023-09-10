@@ -100,6 +100,11 @@
           "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
         }
       }
+    },
+    "transactionOverview": {
+      "title": "Resumen de la transacción",
+      "stakeOrBurn": "{isStake, plural, =1 {Apostará} other {Te quemarás}}",
+      "receive": "Recibirá"
     }
   }
 }
