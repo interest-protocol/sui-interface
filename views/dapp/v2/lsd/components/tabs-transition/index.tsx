@@ -8,7 +8,7 @@ import {
 } from '@/constants';
 
 const TabsTransition: FC<
-  PropsWithChildren<{ type: 'fade' | 'slide' | 'scale' }>
+  PropsWithChildren<{ type?: 'fade' | 'slide' | 'scale' }>
 > = ({ type, children }) => {
   return (
     <Motion
