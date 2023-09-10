@@ -2,11 +2,15 @@ import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import CardSection from '../../components/card-section';
+import { TokensListProps } from '../portfolio.type';
+import TokensTable from './table';
 
-const Tokens: FC = () => {
+const Tokens: FC<TokensListProps> = ({ data }) => {
   return (
     <Box height="max-content" width={['100%', '100%', '100%', '50%']}>
-      <CardSection title="Tokens"></CardSection>
+      <CardSection title="Tokens">
+        <TokensTable data={data} />
+      </CardSection>
     </Box>
   );
 };

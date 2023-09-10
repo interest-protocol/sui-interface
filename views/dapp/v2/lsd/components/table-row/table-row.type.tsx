@@ -1,0 +1,6 @@
+import { TableRowProps as GeneralTableRowProps } from '../../../metrics/top-tables/table.types';
+
+export interface TableRowProps extends Omit<GeneralTableRowProps, 'title'> {
+  withBG?: boolean;
+  isFirstRow?: boolean;
+}

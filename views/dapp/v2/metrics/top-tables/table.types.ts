@@ -4,7 +4,7 @@ import { IPool } from '@/views/dapp/dex-pool/pool.types';
 
 export interface TableRowProps {
   title?: string;
-  numCols: 3 | 5 | 7;
+  numCols: 3 | 4 | 5 | 7;
   isTableHead?: boolean;
 }
 

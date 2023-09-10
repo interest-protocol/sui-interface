@@ -1,11 +1,15 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC, PropsWithChildren } from 'react';
 
-import { TableRowProps } from '../../../metrics/top-tables/table.types';
+import { TableRowProps } from './table-row.type';
 
-const TableRow: FC<
-  PropsWithChildren<Omit<TableRowProps, 'title'> & { withBG?: boolean }>
-> = ({ children, numCols, withBG, isTableHead }) => (
+const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
+  children,
+  numCols,
+  withBG,
+  isFirstRow,
+  isTableHead,
+}) => (
   <Box
     fontWeight={isTableHead ? '400' : ''}
     color="onSurfaceVariant"
@@ -23,8 +27,13 @@ const TableRow: FC<
     bg={withBG ? 'surface.containerHigh' : 'unset'}
     px="m"
     borderRadius={withBG ? '0.25rem' : 'unset'}
-    mb={withBG ? 'm' : 'unset'}
+    borderBottomRightRadius={withBG && isFirstRow ? 'unset' : '0.25rem'}
+    borderBottomLeftRadius={withBG && isFirstRow ? 'unset' : '0.25rem'}
+    borderTopRightRadius={withBG && isFirstRow ? '0.25rem' : 'unset'}
+    borderTopLeftRadius={withBG && isFirstRow ? '0.25rem' : 'unset'}
     mx="-0.5rem"
+    borderBottom={withBG && isFirstRow ? '1px solid' : 'unset'}
+    borderColor="outline.outlineVariant"
   >
     {children}
   </Box>
