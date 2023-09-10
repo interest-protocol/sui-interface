@@ -13,7 +13,7 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
 }) => {
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between">
-      <Box display="flex" gap="l">
+      <Box gap="l" display="flex" alignItems="center">
         <Box
           color="white"
           display="flex"
@@ -38,7 +38,6 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
         </Box>
         <Box
           display="flex"
-          width="3.1875rem"
           flexDirection="column"
           justifyContent="space-between"
         >
@@ -53,7 +52,7 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
       <Typography variant="large" color="onSurface">
         =
       </Typography>
-      <Box display="flex" gap="l">
+      <Box display="flex" gap="l" alignItems="center">
         <Box
           color="white"
           display="flex"
@@ -69,7 +68,7 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
         </Box>
         <Box
           display="flex"
-          width="3.1875rem"
+          width="30px"
           flexDirection="column"
           justifyContent="space-between"
         >
