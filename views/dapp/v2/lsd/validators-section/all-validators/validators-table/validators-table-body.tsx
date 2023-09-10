@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 
 import { SUISVG } from '@/components/svg/v2';
 
-import TableRow from '../table-row';
+import TableRow from '../../../components/table-row';
 
 const ValidatorsTableBody: FC = () => {
   const t = useTranslations();
@@ -14,7 +14,7 @@ const ValidatorsTableBody: FC = () => {
     <>
       {[1, 2, 3].map((item, index) => (
         <Box key={v4()}>
-          <TableRow>
+          <TableRow numCols={5}>
             <Typography variant="small">{index + 1}</Typography>
             <Box display="flex" gap="m" alignItems="center">
               <Box display="flex">

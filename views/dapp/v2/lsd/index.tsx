@@ -1,19 +1,22 @@
 import { Box, Tabs } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
+import { v4 } from 'uuid';
 
 import { capitalize } from '@/utils';
 
 import { Layout } from '../components';
 import LSDHeader from './lsd-header';
+import PortfolioSection from './portfolio-section';
 import StakedSection from './staked-section';
 import StatsSection from './stats-section';
 import ValidatorsSection from './validators-section';
 
 const Tab = [
-  <StakedSection key={0} />,
-  <ValidatorsSection key={1} />,
-  <StatsSection key={2} />,
+  <StakedSection key={v4()} />,
+  <PortfolioSection key={v4()} />,
+  <ValidatorsSection key={v4()} />,
+  <StatsSection key={v4()} />,
 ];
 
 const LSD: FC = () => {
@@ -22,11 +25,17 @@ const LSD: FC = () => {
 
   return (
     <Layout dashboard titlePage={<LSDHeader />}>
-      <Box variant="container" display="flex" flexDirection="column">
+      <Box
+        variant="container"
+        display="flex"
+        flexDirection="column"
+        overflowX="scroll"
+      >
         <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
           <Tabs
             items={[
               capitalize(t('lsd.tabs.stake')),
+              capitalize(t('lsd.tabs.portfolio')),
               capitalize(t('lsd.tabs.validators')),
               capitalize(t('lsd.tabs.stats')),
             ]}

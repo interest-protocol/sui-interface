@@ -4,13 +4,13 @@ import { FC } from 'react';
 
 import { capitalize } from '@/utils';
 
-import TableRow from '../table-row';
+import TableRow from '../../../components/table-row';
 
 const ValidatorsTableHead: FC = () => {
   const t = useTranslations();
 
   return (
-    <TableRow isTableHead>
+    <TableRow numCols={5} isTableHead>
       <Typography variant="small">#</Typography>
       <Typography variant="small">
         {capitalize(t('lsd.validators.tableSection.name'))}

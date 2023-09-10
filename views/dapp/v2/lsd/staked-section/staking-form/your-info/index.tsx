@@ -10,6 +10,7 @@ import { capitalize, noop } from '@/utils';
 import Switcher from '../../../components/switch';
 import AmountField from './amount-field';
 import PreviewTransaction from './modal/preview';
+import Overview from './overview';
 
 const YourInfo: FC = () => {
   const t = useTranslations();
@@ -336,6 +337,19 @@ const YourInfo: FC = () => {
           {t('lsd.infoButton', { isStake: +isStake })}
         </Typography>
       </Button>
+      <Overview
+        stakeOrBurn={{
+          symbol: isStake ? 'SUI' : 'iSui',
+          value: '',
+        }}
+        receive={{
+          symbol: !isStake ? 'SUI' : 'iSui',
+          value: '1',
+        }}
+        depositFee=""
+        rewards=""
+        isStake={isStake}
+      />
     </Box>
   );
 };

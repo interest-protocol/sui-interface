@@ -5,6 +5,4 @@ export interface ExchangeRateItemProps {
   from: DERIVATED_SUI_SYMBOL;
   finalValue: number;
   initialValue: number;
-  hasFirstOverlayIcon?: boolean;
-  hasSecondOverlayIcon?: boolean;
 }
