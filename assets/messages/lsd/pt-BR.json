@@ -84,20 +84,24 @@
       "title": "PERGUNTAS FREQUENTES",
       "questions": {
         "block1": {
-          "title": "Como é que recebo os meus prémios de staking?",
-          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+          "title": "O que é o Interest LSD?",
+          "description": "Interest LSD é um protocolo financeiro descentralizado (DeFi) que permite aos utilizadores ganhar Sui sem perder o acesso aos seus fundos através de staking. Quando os usuários apostam seu Sui via Interest LSD, eles recebem iSui em troca, que pode ser usado em qualquer lugar, assim como o Sui. Os utilizadores podem obter o seu depósito inicial de Sui com todas as recompensas acumuladas em qualquer altura, devolvendo o iSui ao protocolo"
         },
         "block2": {
-          "title": "O que é iSUI?",
-          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+          "title": "A Interest LSD é descentralizada?",
+          "description": "Sim, o Interest LSD é descentralizado e de código aberto. Os utilizadores podem apostar e desempatar com qualquer validador, e todo o processo ocorre na cadeia. O administrador só tem controlo sobre os parâmetros da taxa, que são limitados para proteger os utilizadores. O contrato não pode ser interrompido, mesmo que o administrador perca as suas chaves."
         },
         "block3": {
-          "title": "O que é iSUI-PC?",
-          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+          "title": "Como é que isto funciona?",
+          "description": "Interest LSD é um conjunto de contratos inteligentes que depositam seu Sui em um validador para proteger a rede. Em troca, a rede paga ao Sui por este serviço. Esta é uma das opções de investimento mais seguras em DeFi."
         },
         "block4": {
-          "title": "O que é iSUI-YN?",
-          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+          "title": "Quais são as vantagens de utilizar o Interest LSD?",
+          "description": "Quando se aposta o Sui numa carteira, fica-se sem liquidez. Apesar de os seus fundos estarem a ganhar Sui, não podem ser utilizados até que desfaça a sua aposta. No Interest LSD, obtém o melhor dos dois mundos. Pode manter os seus fundos enquanto eles estão a ganhar Sui."
+        },
+        "block5": {
+          "title": "Há alguma taxa sobre os juros LSD?",
+          "description": "Existe apenas uma taxa de depósito no Interest LSD. Trata-se de uma comissão dinâmica destinada a incentivar a descentralização. A taxa é baseada na participação de um validador em relação à participação total dentro do Interest LSD."
         }
       }
     },

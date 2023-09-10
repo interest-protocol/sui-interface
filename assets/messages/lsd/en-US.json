@@ -84,20 +84,24 @@
       "title": "FAQ",
       "questions": {
         "block1": {
-          "title": "How do I get my staking rewards?",
-          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+          "title": "What is Interest LSD?",
+          "description": "Interest LSD is a decentralized finance (DeFi) protocol that allows users to earn Sui without losing access to their funds via staking. When users stake their Sui via Interest LSD, they receive iSui in return which can be used anywhere just like Sui. Users can get their initial Sui deposit with all the rewards accrued anytime by returning iSui to the protocol."
         },
         "block2": {
-          "title": "What is iSUI?",
-          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+          "title": "Is Interest LSD decentralized?",
+          "description": "Yes, Interest LSD is decentralized and open source. Users can stake and unstake with any validator, and the entire process occurs on-chain.You can get your original Sui at any time. The admin only has control over fee parameters, which are capped to safeguard users. The contract cannot be paused, even if the admin loses their keys."
         },
         "block3": {
-          "title": "What is iSUI-PC?",
-          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+          "title": "How does it work?",
+          "description": "Interest LSD is a set of smart contracts that deposit your Sui on a validator to secure the network. In return the network pays Sui to for this service. This is one of the safest investment options in DeFi."
         },
         "block4": {
-          "title": "What is iSUI-YN?",
-          "description": "Lorem ipsum dolor sit amet consectetur. Velit mauris turpis pellentesque lacus sollicitudin ultrices phasellus nunc placerat. Quis erat potenti erat justo tincidunt sapien ornare fusce viverra."
+          "title": "What are the advantages of using Interest LSD?",
+          "description": "When you stake your Sui in a wallet, you become illiquid. Although your funds are earning Sui, they cannot be used until you unstake. On Interest LSD, you get the best of both worlds. You can keep your funds while they are earning Sui."
+        },
+        "block5": {
+          "title": "Are there any fees on Interest LSD?",
+          "description": "There is only a deposit fee on Interest LSD. It is a dynamic fee designed to encourage decentralization. The fee is based on a validator's stake relative to the total stake inside Interest LSD."
         }
       }
     },
