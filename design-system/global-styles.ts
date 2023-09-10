@@ -23,25 +23,21 @@ export const LandingGlobalStyles = css`
   }
   /* width */
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 4px;
     padding: 2rem;
   }
 
   /* Track */
   ::-webkit-scrollbar-track {
+    width: 4px;
     border-radius: 0.5rem;
-    background: transparent;
+    background: #0006;
     transition: all 300ms ease-in-out;
-  }
-
-  /* Track on hover */
-  ::-webkit-scrollbar-track:hover {
-    background: #fff1;
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: #ddd;
     border-radius: 0.5rem;
     border: 5px solid transparent;
   }

@@ -5,7 +5,7 @@ import { FC } from 'react';
 import StakingForm from './staking-form';
 import Statistics from './statistics';
 
-const StakedSection: FC = () => {
+const Staked: FC = () => {
   const t = useTranslations();
 
   return (
@@ -34,4 +34,4 @@ const StakedSection: FC = () => {
   );
 };
 
-export default StakedSection;
+export default Staked;
