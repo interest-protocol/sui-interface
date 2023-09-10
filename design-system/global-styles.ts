@@ -31,13 +31,13 @@ export const LandingGlobalStyles = css`
   ::-webkit-scrollbar-track {
     width: 4px;
     border-radius: 0.5rem;
-    background: #0004;
+    background: #0006;
     transition: all 300ms ease-in-out;
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #ddd8;
+    background: #ddd;
     border-radius: 0.5rem;
     border: 5px solid transparent;
   }
