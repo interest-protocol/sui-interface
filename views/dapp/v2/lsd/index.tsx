@@ -6,6 +6,7 @@ import { v4 } from 'uuid';
 import { capitalize } from '@/utils';
 
 import { Layout } from '../components';
+import TabsTransition from './components/tabs-transition';
 import LSDHeader from './lsd-header';
 import Portfolio from './portfolio';
 import Staked from './staked';
@@ -44,7 +45,7 @@ const LSD: FC = () => {
           />
         </Box>
       </Box>
-      {Tab[changeTab]}
+      <TabsTransition type="fade">{Tab[changeTab]}</TabsTransition>
     </Layout>
   );
 };
