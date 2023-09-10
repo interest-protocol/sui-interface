@@ -80,6 +80,10 @@
       "totalISUIYNMinted": "total iSUI-YN emitido"
     },
     "exchangeRate": "tipo de cambio",
+    "epoch": {
+      "title": "Detalles",
+      "end": "La época termina en..."
+    },
     "faq": {
       "title": "PREGUNTAS MÁS FRECUENTES",
       "questions": {

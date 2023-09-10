@@ -6,7 +6,7 @@ import Overview from '../components/overview';
 import AllValidators from './all-validators';
 import { OVERVIEW_DATA } from './validatores.data';
 
-const ValidatorsSection: FC = () => {
+const Validators: FC = () => {
   const t = useTranslations();
   return (
     <Box variant="container" display="flex" flexDirection="column">
@@ -16,4 +16,4 @@ const ValidatorsSection: FC = () => {
   );
 };
 
-export default ValidatorsSection;
+export default Validators;

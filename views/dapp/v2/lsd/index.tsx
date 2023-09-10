@@ -8,16 +8,16 @@ import { capitalize } from '@/utils';
 import { Layout } from '../components';
 import TabsTransition from './components/tabs-transition';
 import LSDHeader from './lsd-header';
-import PortfolioSection from './portfolio-section';
-import StakedSection from './staked-section';
-import StatsSection from './stats-section';
-import ValidatorsSection from './validators-section';
+import Portfolio from './portfolio';
+import Staked from './staked';
+import Stats from './stats';
+import Validators from './validators';
 
 const Tab = [
-  <StakedSection key={v4()} />,
-  <PortfolioSection key={v4()} />,
-  <ValidatorsSection key={v4()} />,
-  <StatsSection key={v4()} />,
+  <Staked key={v4()} />,
+  <Portfolio key={v4()} />,
+  <Validators key={v4()} />,
+  <Stats key={v4()} />,
 ];
 
 const LSD: FC = () => {
@@ -34,14 +34,14 @@ const LSD: FC = () => {
       >
         <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
           <Tabs
+            defaultTabIndex={changeTab}
+            onChangeTab={(changeTab) => setChangeTab(changeTab)}
             items={[
               capitalize(t('lsd.tabs.stake')),
               capitalize(t('lsd.tabs.portfolio')),
               capitalize(t('lsd.tabs.validators')),
               capitalize(t('lsd.tabs.stats')),
             ]}
-            defaultTabIndex={changeTab}
-            onChangeTab={(changeTab) => setChangeTab(changeTab)}
           />
         </Box>
       </Box>
