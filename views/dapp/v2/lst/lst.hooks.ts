@@ -1,4 +1,5 @@
 import { getAllDynamicFields } from '@interest-protocol/sui-amm-sdk';
+import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 import { SuiObjectResponse } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { pathOr } from 'ramda';
@@ -61,13 +62,10 @@ const DEFAULT_LST_STORAGE: LstStorage = {
   lastEpoch: ZERO_BIG_NUMBER,
   validatorCount: 0,
   whiteListedValidators: [],
-  pool: {
-    base: ZERO_BIG_NUMBER,
-    elastic: ZERO_BIG_NUMBER,
-  },
+  pool: new Rebase(ZERO_BIG_NUMBER, ZERO_BIG_NUMBER),
 };
 
-const parseStorage = (data: SuiObjectResponse | undefined) => {
+const parseStorage = (data: SuiObjectResponse | undefined): LstStorage => {
   if (!data) return DEFAULT_LST_STORAGE;
 
   return {
@@ -106,26 +104,26 @@ const parseStorage = (data: SuiObjectResponse | undefined) => {
       data
     ),
     whiteListedValidators: pathOr(
-      '0',
+      [],
       ['data', 'content', 'fields', 'whitelist_validators'],
       data
     ),
-    pool: {
-      base: BigNumber(
+    pool: new Rebase(
+      BigNumber(
         pathOr(
           '0',
           ['data', 'content', 'fields', 'pool', 'fields', 'base'],
           data
         )
       ),
-      elastic: BigNumber(
+      BigNumber(
         pathOr(
           '0',
           ['data', 'content', 'fields', 'pool', 'fields', 'elastic'],
           data
         )
-      ),
-    },
+      )
+    ),
   };
 };
 

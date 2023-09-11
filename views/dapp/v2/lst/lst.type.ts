@@ -1,11 +1,6 @@
-export type MINT_TYPE_OPTION = 'NONE' | 'ISUI' | 'OTHER';
+import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 
 export type DERIVATED_SUI_SYMBOL = 'SUI' | 'iSui' | 'iSui-PC' | 'iSui-YN';
-
-export interface MintTypeProps {
-  onChange: (type: string) => void;
-  mintTypeOption: MINT_TYPE_OPTION;
-}
 
 export interface AmountFieldsProps {
   balance: number;
@@ -19,13 +14,8 @@ export interface LstFee {
   jump: BigNumber;
 }
 
-export interface LstPool {
-  base: BigNumber;
-  elastic: BigNumber;
-}
-
 export interface LstStorage {
-  pool: LstPool;
+  pool: Rebase;
   fee: LstFee;
   lastEpoch: BigNumber;
   totalPrincipal: BigNumber;

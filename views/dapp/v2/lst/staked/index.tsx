@@ -1,4 +1,3 @@
-import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
@@ -23,12 +22,12 @@ const Staked: FC = () => {
 
   const { data } = useGetLstStorage();
 
-  const pool = new Rebase(data.pool.base, data.pool.elastic);
-  const totalStakedSui = FixedPointMath.toNumber(pool.elastic);
+  const totalStakedSui = FixedPointMath.toNumber(data.pool.elastic);
   const iSuiExchangeRate =
     totalStakedSui === 0
       ? 1
-      : FixedPointMath.toNumber(pool.toElastic(ONE_COIN));
+      : FixedPointMath.toNumber(data.pool.toElastic(ONE_COIN));
+  const totalISuiMinted = FixedPointMath.toNumber(data.pool.base);
 
   return (
     <Box variant="container" display="flex" flexDirection="column">
@@ -53,6 +52,7 @@ const Staked: FC = () => {
           totalSuiStaked={totalStakedSui.toString()}
           iSuiExchangeRate={iSuiExchangeRate.toString()}
           totalActiveValidators={activeValidators.length}
+          totalISuiMinted={totalISuiMinted.toString()}
         />
         <StakingForm />
       </Box>

@@ -16,4 +16,5 @@ export interface StatisticsProps {
   iSuiExchangeRate: string;
   totalSuiStaked: string;
   totalActiveValidators: number;
+  totalISuiMinted: string;
 }
