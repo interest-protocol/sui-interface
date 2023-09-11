@@ -4,15 +4,17 @@ import { FC, useState } from 'react';
 
 import { SUISVG } from '@/components/svg/v2';
 import { useModal } from '@/hooks';
+import { TOKEN_SYMBOL } from '@/lib';
 import { ISuiSVG } from '@/svg';
 import { capitalize, noop } from '@/utils';
+import { YourInfoProps } from '@/views/dapp/v2/lst/staked/staking-form/your-info/your-info.types';
 
 import Switcher from '../../../components/switch';
 import AmountField from './amount-field';
 import PreviewTransaction from './modal/preview';
 import Overview from './overview';
 
-const YourInfo: FC = () => {
+const YourInfo: FC<YourInfoProps> = ({ form }) => {
   const t = useTranslations();
   const [isStake, setIsStake] = useState(true);
 
@@ -315,7 +317,7 @@ const YourInfo: FC = () => {
           t(`common.${isStake ? 'stake' : 'unstake'}`, { isLoading: 0 })
         )}
       </Typography>
-      <AmountField balance={0.434} />
+      <AmountField isStake={isStake} form={form} />
       <Button
         variant="filled"
         mt="1.875rem"
@@ -337,19 +339,7 @@ const YourInfo: FC = () => {
           {t('lst.infoButton', { isStake: +isStake })}
         </Typography>
       </Button>
-      <Overview
-        stakeOrBurn={{
-          symbol: isStake ? 'SUI' : 'iSui',
-          value: '',
-        }}
-        receive={{
-          symbol: !isStake ? 'SUI' : 'iSui',
-          value: '1',
-        }}
-        depositFee=""
-        rewards=""
-        isStake={isStake}
-      />
+      <Overview form={form} isStake={isStake} />
     </Box>
   );
 };

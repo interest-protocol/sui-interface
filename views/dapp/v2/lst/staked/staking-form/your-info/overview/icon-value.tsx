@@ -2,6 +2,7 @@ import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { SUISVG } from '@/components/svg/v2';
+import { TOKEN_SYMBOL } from '@/lib';
 import { ISuiPCSVG, ISuiSVG, ISuiYNSVG } from '@/svg';
 
 import { IconValueProps } from './overview.type';
@@ -26,14 +27,14 @@ const IconValue: FC<IconValueProps> = ({ symbol, value }) => (
       color="white"
       bg={symbol == 'SUI' ? '#6FBCF0' : 'unset'}
     >
-      {symbol == 'SUI' ? (
+      {symbol == TOKEN_SYMBOL.SUI ? (
         <SUISVG
           maxHeight="2.5rem"
           maxWidth="2.5rem"
           width="100%"
           height="100%"
         />
-      ) : symbol == 'iSui' ? (
+      ) : symbol == TOKEN_SYMBOL.ISUI ? (
         <ISuiSVG
           maxHeight="1.25rem"
           maxWidth="1.25rem"

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { DERIVATED_SUI_SYMBOL } from '../../../../lst.type';
+import { LSTProps } from '@/views/dapp/v2/lst/lst.type';
 
 export interface LineProps {
   description: string;
@@ -8,14 +8,11 @@ export interface LineProps {
 }
 
 export interface IconValueProps {
-  symbol: DERIVATED_SUI_SYMBOL;
+  symbol: string;
   value: ReactNode | string;
 }
 
 export interface TransactionOverviewProps {
-  stakeOrBurn: IconValueProps | string;
-  receive: IconValueProps | string;
-  depositFee: string;
-  rewards: string;
+  form: LSTProps['form'];
   isStake: boolean;
 }

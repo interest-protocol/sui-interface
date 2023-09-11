@@ -1,19 +1,39 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import { useWatch } from 'react-hook-form';
+
+import { FixedPointMath, TOKEN_SYMBOL } from '@/lib';
+import { useGetLstStorage } from '@/views/dapp/v2/lst/lst.hooks';
 
 import IconValue from './icon-value';
 import Line from './line';
-import { IconValueProps, TransactionOverviewProps } from './overview.type';
+import { TransactionOverviewProps } from './overview.type';
 
-const Overview: FC<TransactionOverviewProps> = ({
-  stakeOrBurn,
-  receive,
-  depositFee,
-  rewards,
-  isStake,
-}) => {
+const Overview: FC<TransactionOverviewProps> = ({ form, isStake }) => {
   const t = useTranslations();
+  const { data } = useGetLstStorage();
+
+  const amount = useWatch({ control: form.control, name: 'amount' });
+
+  const receiveValue =
+    isStake && data.pool.elastic.isZero()
+      ? amount
+      : isStake
+      ? FixedPointMath.toNumber(
+          data.pool.toBase(FixedPointMath.toBigNumber(amount))
+        )
+      : FixedPointMath.toNumber(
+          data.pool.toElastic(FixedPointMath.toBigNumber(amount))
+        );
+
+  const stakeOrBurn = isStake
+    ? { symbol: TOKEN_SYMBOL.SUI, value: amount }
+    : { symbol: TOKEN_SYMBOL.ISUI, value: amount };
+
+  const receive = !isStake
+    ? { symbol: TOKEN_SYMBOL.SUI, value: receiveValue }
+    : { symbol: TOKEN_SYMBOL.ISUI, value: receiveValue };
 
   return (
     <Box>
@@ -39,37 +59,16 @@ const Overview: FC<TransactionOverviewProps> = ({
           description={t('lst.transactionOverview.stakeOrBurn', {
             isStake: +isStake,
           })}
-          value={
-            typeof stakeOrBurn == 'string' ? (
-              stakeOrBurn
-            ) : (
-              <IconValue
-                symbol={(stakeOrBurn as IconValueProps).symbol}
-                value={(stakeOrBurn as IconValueProps).value}
-              />
-            )
-          }
+          value={<IconValue {...stakeOrBurn} />}
         />
         <Line
           description={t('lst.transactionOverview.receive', {
             isStake: +isStake,
           })}
-          value={
-            typeof receive == 'string' ? (
-              receive
-            ) : (
-              <IconValue
-                symbol={(receive as IconValueProps).symbol}
-                value={(receive as IconValueProps).value}
-              />
-            )
-          }
+          value={<IconValue {...receive} />}
         />
-        <Line
-          description={t('lst.modal.preview.depositFee')}
-          value={depositFee}
-        />
-        <Line description={t('lst.modal.preview.rewards')} value={rewards} />
+        <Line description={t('lst.modal.preview.depositFee')} value="0%" />
+        <Line description={t('lst.modal.preview.rewards')} value="2.5%" />
       </Box>
     </Box>
   );

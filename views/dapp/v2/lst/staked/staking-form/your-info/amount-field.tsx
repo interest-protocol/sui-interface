@@ -1,14 +1,30 @@
 import { Box, TextField, Typography } from '@interest-protocol/ui-kit';
+import { SUI_TYPE_ARG } from '@mysten/sui.js';
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { propOr } from 'ramda';
+import { ChangeEvent, FC } from 'react';
 
 import { SUISVG } from '@/components/svg/v2';
+import { ISUI_COIN_TYPE } from '@/constants/lst';
+import { useWeb3 } from '@/hooks';
+import { FixedPointMath } from '@/lib';
+import { parseInputEventToNumberString, ZERO_BIG_NUMBER } from '@/utils';
 import { PercentageButton } from '@/views/dapp/v2/components';
 
-import { AmountFieldsProps } from '../../../lst.type';
+import { AmountFieldProps } from './your-info.types';
 
-const AmountField: FC<AmountFieldsProps> = ({ balance }) => {
+const AmountField: FC<AmountFieldProps> = ({ isStake, form }) => {
   const t = useTranslations();
+  const { coinsMap, isFetchingCoinBalances } = useWeb3();
+  const sui = coinsMap[SUI_TYPE_ARG];
+  const iSui = coinsMap[ISUI_COIN_TYPE];
+
+  const totalBalance: BigNumber = isStake
+    ? propOr(ZERO_BIG_NUMBER, 'totalBalance', sui)
+    : propOr(ZERO_BIG_NUMBER, 'totalBalance', iSui);
+  console.log(form);
+
   return (
     <Box mt="l">
       <Typography
@@ -50,6 +66,11 @@ const AmountField: FC<AmountFieldsProps> = ({ balance }) => {
           placeholder="0"
           textAlign="right"
           fieldProps={{ border: 'none', p: '0' }}
+          {...form?.register('amount', {
+            onChange: (v: ChangeEvent<HTMLInputElement>) => {
+              form.setValue?.('amount', parseInputEventToNumberString(v));
+            },
+          })}
         />
         <Box
           display="flex"
@@ -63,38 +84,59 @@ const AmountField: FC<AmountFieldsProps> = ({ balance }) => {
             color="onSurface"
             textTransform="capitalize"
           >
-            {t('lst.amountField.wallet')}: {balance}
+            {t('lst.amountField.wallet')}:{' '}
+            {FixedPointMath.toNumber(totalBalance)}
           </Typography>
           <Box display="flex" columnGap=".25rem">
             <PercentageButton
               value={25}
               total={100}
-              onSelect={(parsedValue: any) => {
-                console.log(parsedValue);
+              onSelect={() => {
+                form.setValue?.(
+                  'amount',
+                  FixedPointMath.toNumber(
+                    totalBalance.dividedBy(BigNumber(4))
+                  ).toString()
+                );
               }}
               isFilled
             />
             <PercentageButton
               value={50}
               total={100}
-              onSelect={(parsedValue: any) => {
-                console.log(parsedValue);
+              onSelect={() => {
+                form.setValue?.(
+                  'amount',
+                  FixedPointMath.toNumber(
+                    totalBalance.dividedBy(BigNumber(2))
+                  ).toString()
+                );
               }}
               isFilled
             />
             <PercentageButton
               value={75}
               total={100}
-              onSelect={(parsedValue: any) => {
-                console.log(parsedValue);
+              onSelect={() => {
+                form.setValue?.(
+                  'amount',
+                  FixedPointMath.toNumber(
+                    totalBalance
+                      .multipliedBy(BigNumber(3))
+                      .dividedBy(BigNumber(4))
+                  ).toString()
+                );
               }}
               isFilled
             />
             <PercentageButton
               value={100}
               total={100}
-              onSelect={(parsedValue: any) => {
-                console.log(parsedValue);
+              onSelect={() => {
+                form.setValue?.(
+                  'amount',
+                  FixedPointMath.toNumber(totalBalance).toString()
+                );
               }}
               isFilled
             />

@@ -7,20 +7,14 @@ import { capitalize } from '@/utils';
 
 import { Layout } from '../components';
 import TabsTransition from './components/tabs-transition';
+import { LSTProps } from './lst.type';
 import LstHeader from './lst-header';
 import Portfolio from './portfolio';
 import Staked from './staked';
 import Stats from './stats';
 import Validators from './validators';
 
-const Tab = [
-  <Staked key={v4()} />,
-  <Portfolio key={v4()} />,
-  <Validators key={v4()} />,
-  <Stats key={v4()} />,
-];
-
-const LST: FC = () => {
+const LST: FC<LSTProps> = ({ form }) => {
   const t = useTranslations();
   const [changeTab, setChangeTab] = useState<number>(0);
 
@@ -45,7 +39,16 @@ const LST: FC = () => {
           />
         </Box>
       </Box>
-      <TabsTransition type="fade">{Tab[changeTab]}</TabsTransition>
+      <TabsTransition type="fade">
+        {
+          [
+            <Staked form={form} key={v4()} />,
+            <Portfolio key={v4()} />,
+            <Validators key={v4()} />,
+            <Stats key={v4()} />,
+          ][changeTab]
+        }
+      </TabsTransition>
     </Layout>
   );
 };

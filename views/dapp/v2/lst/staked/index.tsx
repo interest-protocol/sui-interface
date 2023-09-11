@@ -9,10 +9,11 @@ import {
   useGetValidatorTableFields,
 } from '@/views/dapp/v2/lst/lst.hooks';
 
+import { StakedProps } from './staked.types';
 import StakingForm from './staking-form';
 import Statistics from './statistics';
 
-const Staked: FC = () => {
+const Staked: FC<StakedProps> = ({ form }) => {
   const t = useTranslations();
   const { data: activeValidators, isActiveValidatorsLoading } =
     useGetActiveValidators();
@@ -54,7 +55,7 @@ const Staked: FC = () => {
           totalActiveValidators={activeValidators.length}
           totalISuiMinted={totalISuiMinted.toString()}
         />
-        <StakingForm />
+        <StakingForm form={form} />
       </Box>
     </Box>
   );

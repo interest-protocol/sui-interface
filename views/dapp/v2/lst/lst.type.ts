@@ -2,11 +2,17 @@ import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 
 export type DERIVATED_SUI_SYMBOL = 'SUI' | 'iSui' | 'iSui-PC' | 'iSui-YN';
 
-export interface AmountFieldsProps {
-  balance: number;
+import BigNumber from 'bignumber.js';
+import { UseFormReturn } from 'react-hook-form';
+
+export interface LSTForm {
+  amount: string;
+  coinType: string;
 }
 
-import BigNumber from 'bignumber.js';
+export interface LSTProps {
+  form: UseFormReturn<LSTForm>;
+}
 
 export interface LstFee {
   base: BigNumber;
