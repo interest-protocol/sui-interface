@@ -10,8 +10,6 @@ const AllValidators: FC<AllValidatorsProps> = ({ activeValidators }) => {
   const { data: validatorTable, isLoading: isValidatorTableLoading } =
     useGetValidatorTableFields();
 
-  console.log(validatorTable);
-
   return (
     <Box bg="surface.container" p="l" borderRadius="0.5rem">
       <ValidatorSearch />

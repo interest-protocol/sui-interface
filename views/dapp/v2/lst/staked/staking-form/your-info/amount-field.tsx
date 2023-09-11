@@ -23,7 +23,6 @@ const AmountField: FC<AmountFieldProps> = ({ isStake, form }) => {
   const totalBalance: BigNumber = isStake
     ? propOr(ZERO_BIG_NUMBER, 'totalBalance', sui)
     : propOr(ZERO_BIG_NUMBER, 'totalBalance', iSui);
-  console.log(form);
 
   return (
     <Box mt="l">

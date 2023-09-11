@@ -93,7 +93,7 @@ const PreviewTransaction: FC<PreviewTransactionProps> = ({
               color="onSurface"
               mb="0.5rem"
             >
-              {depositFee ? depositFee : '--'}
+              {depositFee}
             </Typography>
           </Box>
           <Box display="flex" justifyContent="space-between" width="100%">
@@ -113,7 +113,7 @@ const PreviewTransaction: FC<PreviewTransactionProps> = ({
               color="onSurface"
               mb="0.5rem"
             >
-              {rewards ? rewards : '--'}
+              {rewards}
             </Typography>
           </Box>
         </Box>

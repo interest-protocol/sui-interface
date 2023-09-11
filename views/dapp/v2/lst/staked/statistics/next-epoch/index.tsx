@@ -10,7 +10,8 @@ import EpochProgressBar from './epoch-progress-bar';
 
 const NextEpoch: FC = () => {
   const t = useTranslations();
-  const {} = useGetCurrentEpoch();
+  const { data } = useGetCurrentEpoch();
+
   const value = 96;
 
   return (
