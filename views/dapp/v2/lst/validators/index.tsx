@@ -1,6 +1,5 @@
 import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 import { Box } from '@interest-protocol/ui-kit';
-import { useGetLstStorage } from 'hooks/use-get-lst-storage';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
@@ -9,6 +8,7 @@ import { FixedPointMath, ONE_COIN } from '@/lib';
 import { OverviewWrapperProps } from '@/views/dapp/v2/lst/validators/validators.types';
 
 import Overview from '../components/overview';
+import { useGetLstStorage } from '../lst.hooks';
 import { useGetActiveValidators } from '../lst.hooks';
 import AllValidators from './all-validators';
 
