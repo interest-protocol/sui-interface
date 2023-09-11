@@ -154,3 +154,18 @@ export const useGetLstStorage = () => {
     data: parseStorage(data),
   };
 };
+
+export const useGetCurrentEpoch = () => {
+  const { provider } = useProvider();
+  const { network } = useNetwork();
+
+  return useSWR(
+    makeSWRKey([network], useGetCurrentEpoch.name),
+    async () => provider.getCurrentEpoch(),
+    {
+      revalidateOnFocus: false,
+      revalidateOnMount: true,
+      refreshWhenHidden: false,
+    }
+  );
+};

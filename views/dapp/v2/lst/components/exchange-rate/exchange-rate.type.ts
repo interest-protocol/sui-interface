@@ -6,3 +6,7 @@ export interface ExchangeRateItemProps {
   finalValue: number;
   initialValue: number;
 }
+
+export interface ExchangeRateProps {
+  iSuiExchangeRate: number;
+}

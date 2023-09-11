@@ -12,8 +12,8 @@ export interface ChartProps {
   data: any;
 }
 
-export interface SuiPriceMarketProps {
-  priceInfo: SuiPriceInfoProps;
-  trendInfo: TrendInfoProps;
-  chartData: any;
+export interface StatisticsProps {
+  iSuiExchangeRate: string;
+  totalSuiStaked: string;
+  totalActiveValidators: number;
 }

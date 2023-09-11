@@ -4,11 +4,13 @@ import { FC } from 'react';
 
 import { UsersSVG } from '@/components/svg/v2';
 import { capitalize } from '@/utils';
+import { useGetCurrentEpoch } from '@/views/dapp/v2/lst/lst.hooks';
 
 import EpochProgressBar from './epoch-progress-bar';
 
 const NextEpoch: FC = () => {
   const t = useTranslations();
+  const {} = useGetCurrentEpoch();
   const value = 96;
 
   return (

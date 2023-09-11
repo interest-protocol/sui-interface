@@ -5,9 +5,13 @@ import ExchangeRate from '../../components/exchange-rate';
 import FAQ from './faq';
 import NextEpoch from './next-epoch';
 import PricesMarketCard from './prices-market-card';
+import { StatisticsProps } from './statistics.type';
 import Stats from './stats';
 
-const Statistics: FC = () => (
+const Statistics: FC<StatisticsProps> = ({
+  totalSuiStaked,
+  iSuiExchangeRate,
+}) => (
   <Box
     width={['100%', '100%', '100%', '55%']}
     display="flex"
@@ -16,21 +20,17 @@ const Statistics: FC = () => (
   >
     <PricesMarketCard />
     <Stats
-      apy="100%"
-      totalRewards="$100"
-      totalStaked="574.23"
-      derivatedSui={[
-        { name: 'iSui', value: '1.345' },
-        { name: 'iSui-PC', value: '1.345' },
-        { name: 'iSui-YN', value: '1.345' },
-      ]}
+      apy="3.5%"
+      totalRewards="50 sui"
+      totalStaked={totalSuiStaked}
+      derivatedSui={[{ name: 'iSui', value: iSuiExchangeRate }]}
     />
     <Box
       gap="s"
       display="flex"
       flexDirection={['column', 'column', 'column', 'row']}
     >
-      <ExchangeRate />
+      <ExchangeRate iSuiExchangeRate={+iSuiExchangeRate} />
       <NextEpoch />
     </Box>
     <FAQ />
