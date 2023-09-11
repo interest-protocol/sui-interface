@@ -1,22 +1,15 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import {
-  useGetActiveValidators,
-  useGetValidatorTableFields,
-} from '@/views/dapp/v2/lst/validators/validators.hooks';
-
+import { useGetValidatorTableFields } from '../../lst.hooks';
+import { AllValidatorsProps } from './all-validators.types';
 import ValidatorSearch from './validator-search';
 import ValidatorsTable from './validators-table';
 
-const AllValidators: FC = () => {
-  const { data: activeValidators, isActiveValidatorsLoading } =
-    useGetActiveValidators();
-
+const AllValidators: FC<AllValidatorsProps> = ({ activeValidators }) => {
   const { data: validatorTable, isLoading: isValidatorTableLoading } =
     useGetValidatorTableFields();
 
-  console.log(activeValidators);
   console.log(validatorTable);
 
   return (

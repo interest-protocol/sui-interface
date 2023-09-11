@@ -6,10 +6,10 @@ import { FC } from 'react';
 
 import { SUISVG, UsersSVG } from '@/components/svg/v2';
 import { FixedPointMath, ONE_COIN } from '@/lib';
-import { useGetActiveValidators } from '@/views/dapp/v2/lst/validators/validators.hooks';
 import { OverviewWrapperProps } from '@/views/dapp/v2/lst/validators/validators.types';
 
 import Overview from '../components/overview';
+import { useGetActiveValidators } from '../lst.hooks';
 import AllValidators from './all-validators';
 
 const OverViewWrapper: FC<OverviewWrapperProps> = ({ validatorsCount }) => {
@@ -46,7 +46,7 @@ const Validators: FC = () => {
   return (
     <Box variant="container" display="flex" flexDirection="column">
       <OverViewWrapper validatorsCount={activeValidators.length} />
-      <AllValidators />
+      <AllValidators activeValidators={activeValidators} />
     </Box>
   );
 };

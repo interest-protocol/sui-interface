@@ -6,11 +6,11 @@ import { formatDollars } from '@/utils';
 
 import { SuiPriceInfoProps } from '../statistics.type';
 
-const SuiPriceInfo: FC<SuiPriceInfoProps> = ({ coin, amount }) => {
+const SuiPriceInfo: FC<SuiPriceInfoProps> = ({ amount }) => {
   return (
     <Box color="onSurface">
       <Typography variant="extraSmall" fontSize="0.688rem" mb="s">
-        Sui / {coin}
+        Sui
       </Typography>
       <Box display="flex" alignItems="center" gap="0.5rem">
         <Box

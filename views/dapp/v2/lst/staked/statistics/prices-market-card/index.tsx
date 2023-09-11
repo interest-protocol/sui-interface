@@ -1,17 +1,20 @@
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { SuiPriceMarketProps } from '../statistics.type';
+import { COINS } from '@/constants';
+import { COIN_PRICES } from '@/constants/liquidity-farms.constants';
+import { useGetCoinsPrices } from '@/hooks';
+
 import PriceMarketChart from './price-market-chart';
 import SuiPriceInfo from './sui-price-info';
 import TrendInfo from './trend-info';
 
-const PricesMarketCard: FC<SuiPriceMarketProps> = ({
-  priceInfo,
-  trendInfo,
-  chartData,
-}) => {
+const PricesMarketCard: FC = () => {
+  const { data, isLoading } = useGetCoinsPrices([
+    COINS[Network.MAINNET].SUI.type,
+  ]);
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   return (
@@ -32,9 +35,9 @@ const PricesMarketCard: FC<SuiPriceMarketProps> = ({
         gap="0.5rem"
         justifyContent="space-between"
       >
-        <SuiPriceInfo {...priceInfo} />
-        <TrendInfo {...trendInfo} />
-        <PriceMarketChart data={chartData} />
+        {/*<SuiPriceInfo {...priceInfo} />*/}
+        {/*<TrendInfo {...trendInfo} />*/}
+        {/*<PriceMarketChart data={chartData} />*/}
       </Box>
     </Box>
   );

@@ -5,20 +5,7 @@ import ExchangeRate from '../../components/exchange-rate';
 import FAQ from './faq';
 import NextEpoch from './next-epoch';
 import PricesMarketCard from './prices-market-card';
-import { DATA_CHART } from './statistics.data';
-import { SuiPriceInfoProps, TrendInfoProps } from './statistics.type';
 import Stats from './stats';
-
-const TREND_INFO: TrendInfoProps = {
-  percentage: 3.4,
-  isTrendUp: true,
-  daysPast: 45,
-};
-
-const PRICE_INFO: SuiPriceInfoProps = {
-  coin: 'iSui',
-  amount: 0.943,
-};
 
 const Statistics: FC = () => (
   <Box
@@ -27,11 +14,7 @@ const Statistics: FC = () => (
     flexDirection="column"
     gap="0.5rem"
   >
-    <PricesMarketCard
-      trendInfo={TREND_INFO}
-      priceInfo={PRICE_INFO}
-      chartData={DATA_CHART}
-    />
+    <PricesMarketCard />
     <Stats
       apy="100%"
       totalRewards="$100"

@@ -1,5 +1,3 @@
-import { DERIVATED_SUI_SYMBOL } from '../../lst.type';
-
 export interface TrendInfoProps {
   isTrendUp?: boolean;
   percentage: number;
@@ -7,7 +5,6 @@ export interface TrendInfoProps {
 }
 
 export interface SuiPriceInfoProps {
-  coin: DERIVATED_SUI_SYMBOL;
   amount: number;
 }
 

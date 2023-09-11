@@ -2,12 +2,21 @@ import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import {
+  useGetActiveValidators,
+  useGetValidatorTableFields,
+} from '@/views/dapp/v2/lst/lst.hooks';
+
 import StakingForm from './staking-form';
 import Statistics from './statistics';
 
 const Staked: FC = () => {
   const t = useTranslations();
+  const { data: activeValidators, isActiveValidatorsLoading } =
+    useGetActiveValidators();
 
+  const { data: validatorTable, isLoading: isValidatorTableLoading } =
+    useGetValidatorTableFields();
   return (
     <Box variant="container" display="flex" flexDirection="column">
       <Box
