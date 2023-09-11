@@ -1,4 +1,4 @@
-import { DERIVATED_SUI_SYMBOL } from '../lst.type';
+import { DERIVATED_SUI_SYMBOL } from '../lst.types';
 
 export interface NFTRowItemProps {
   id: number;

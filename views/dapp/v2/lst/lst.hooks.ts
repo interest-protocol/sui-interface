@@ -10,7 +10,7 @@ import { useNetwork, useProvider } from '@/hooks';
 import { ZERO_BIG_NUMBER } from '@/utils';
 import { makeSWRKey } from '@/utils';
 
-import { LstStorage } from './lst.type';
+import { LstStorage } from './lst.types';
 export const useGetValidatorTableFields = () => {
   const { provider } = useProvider();
   const { network } = useNetwork();

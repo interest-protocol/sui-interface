@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { LSTProps } from '@/views/dapp/v2/lst/lst.type';
+import { LSTProps } from '@/views/dapp/v2/lst/lst.types';
 
 export interface LineProps {
   description: string;

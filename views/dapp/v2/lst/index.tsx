@@ -7,7 +7,7 @@ import { capitalize } from '@/utils';
 
 import { Layout } from '../components';
 import TabsTransition from './components/tabs-transition';
-import { LSTProps } from './lst.type';
+import { LSTProps } from './lst.types';
 import LstHeader from './lst-header';
 import Portfolio from './portfolio';
 import Staked from './staked';

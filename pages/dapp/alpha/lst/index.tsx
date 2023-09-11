@@ -12,7 +12,7 @@ import { SEO } from '@/components';
 import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import LoadingPage from '@/views/dapp/components/loading-page';
-import { LSTForm } from '@/views/dapp/v2/lst/lst.type';
+import { LSTForm } from '@/views/dapp/v2/lst/lst.types';
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
   loading: LoadingPage,

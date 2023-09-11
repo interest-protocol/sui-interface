@@ -11,7 +11,7 @@ import { formatDollars } from '@/utils';
 import DropdownBox from '../../../components/dropdown-box';
 import DropdownItem from '../../../components/dropdown-box/dropdown-item';
 import TableRow from '../../../components/table-row';
-import { DERIVATED_SUI_SYMBOL } from '../../../lst.type';
+import { DERIVATED_SUI_SYMBOL } from '../../../lst.types';
 import { TokensRowItemProps } from '../../portfolio.type';
 import OpenDetails from './open-details';
 const TokensTableBodyRow: FC<TokensRowItemProps & { index: number }> = ({
