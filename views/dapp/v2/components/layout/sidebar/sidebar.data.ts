@@ -14,8 +14,8 @@ export const SIDEBAR_ITEMS: ReadonlyArray<
 > = [
   {
     Icon: HomeSVG,
-    name: 'lsd',
-    path: Routes[RoutesEnum.Lsd],
+    name: 'lst',
+    path: Routes[RoutesEnum.Lst],
     disabled: false,
     networks: [Network.MAINNET, Network.TESTNET],
   },

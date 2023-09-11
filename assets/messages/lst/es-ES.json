@@ -1,0 +1,123 @@
+{
+  "lst": {
+    "metadata": {
+      "title": "LST",
+      "description": "Nueva función LST"
+    },
+    "tabs": {
+      "stake": "apostar",
+      "portfolio": "portafolio",
+      "validators": "validadores",
+      "stats": "estadísticas"
+    },
+    "cards": {
+      "priceMarket": {
+        "title": "SUI Precios Mercado"
+      }
+    },
+    "stakingForm": {
+      "title": "tu información"
+    },
+    "proMode": {
+      "state": "{isEnable, plural, =1 {activo} other {desactivado}}",
+      "modal": {
+        "confirmation": {
+          "title": "{isEnable, plural, =1 {activar el Pro-mode} other {desactivar el Pro-mode}}",
+          "description": "Los cambios que has hecho hasta ahora no serán seguros."
+        },
+        "success": {
+          "title": "{isEnable, plural, =1 {Pro-mode activado} other {Pro-mode desactivado}}"
+        }
+      }
+    },
+    "modal": {
+      "preview": {
+        "title": "RESUMEN DE TRANSACCIONES",
+        "stakeLabel": "Estacará",
+        "receiveLabel": "Recibirá",
+        "button": "{isStake, plural, =1 {Stake} other {Unstake}}",
+        "depositFee": "Tarifa de depósito",
+        "rewards": "Esd. Recompensa anual",
+        "other": "otro"
+      }
+    },
+    "infoButton": "{isStake, plural, =1 {Preview Stake} other {Preview Unstake}}",
+    "amountField": {
+      "title": "Cuantía",
+      "wallet": "Saldo en cartera"
+    },
+    "mintType": "Mint Type",
+    "stats": "Estadística",
+    "totalStaked": "TOTAL SUI APOSTADO",
+    "totalReward": "RECOMPENSAS TOTALES",
+    "totalMinted": "Total {symbol} minted",
+    "validators": {
+      "tableSection": {
+        "title": "Todos los validadores",
+        "searchInput": "Search Validator",
+        "name": "Nombre",
+        "apy": "APY",
+        "commission": "Comisión"
+      }
+    },
+    "statsSection": {
+      "totalRewards": {
+        "title": "Total recompensas"
+      },
+      "totalStaked": {
+        "title": "Total apostado",
+        "daily": "diario"
+      }
+    },
+    "overview": {
+      "title": "Resumen",
+      "totalSuiStaked": "TOTAL SUI APOSTADO",
+      "totalReward": "RECOMPENSAS TOTALES",
+      "totalStakers": "total apostantes",
+      "validators": "validadores",
+      "totalISUIMinted": "total iSUI emitido",
+      "totalISUIPCMinted": "total iSUI-PC emitido",
+      "totalISUIYNMinted": "total iSUI-YN emitido"
+    },
+    "exchangeRate": "tipo de cambio",
+    "epoch": {
+      "title": "Detalles",
+      "end": "La época termina en..."
+    },
+    "faq": {
+      "title": "PREGUNTAS MÁS FRECUENTES",
+      "questions": {
+        "block1": {
+          "title": "Qué es el LST de intereses?",
+          "description": "Interest LST es un protocolo financiero descentralizado (DeFi) que permite a los usuarios ganar Sui sin perder el acceso a sus fondos a través de apuestas. Cuando los usuarios apuestan su Sui a través de Interest LST, reciben iSui a cambio, que se puede utilizar en cualquier lugar al igual que Sui. Los usuarios pueden obtener su depósito inicial de Sui con todas las recompensas acumuladas en cualquier momento devolviendo iSui al protocolo."
+        },
+        "block2": {
+          "title": "Está descentralizado el interés LST?",
+          "description": "Sí, Interest LST es descentralizado y de código abierto. Los usuarios pueden apostar y des-apostar con cualquier validador, y todo el proceso ocurre en la cadena.Puedes obtener tu Sui original en cualquier momento. El administrador sólo tiene control sobre los parámetros de las comisiones, que están limitadas para proteger a los usuarios. El contrato no puede ser pausado, incluso si el administrador pierde sus llaves."
+        },
+        "block3": {
+          "title": "Cómo funciona?",
+          "description": "Interest LST es un conjunto de contratos inteligentes que depositan sus Sui en un validador para asegurar la red. A cambio, la red paga Sui a por este servicio. Esta es una de las opciones de inversión más seguras en DeFi"
+        },
+        "block4": {
+          "title": "Cuáles son las ventajas de usar Interest LST?",
+          "description": "Cuando estacas tus Sui en un monedero, te vuelves ilíquido. A pesar de que sus fondos están ganando Sui, no se pueden utilizar hasta que no los retire. En Interest LST, obtienes lo mejor de ambos mundos. Puedes mantener tus fondos mientras están ganando Sui."
+        },
+        "block5": {
+          "title": "Hay comisiones en Interest LST?",
+          "description": "Sólo existe una comisión de depósito en Interest LST. Es una comisión dinámica diseñada para fomentar la descentralización. La tarifa se basa en la participación de un validador en relación con la participación total dentro de Interest LST."
+        }
+      }
+    },
+    "transactionOverview": {
+      "title": "Resumen de la transacción",
+      "stakeOrBurn": "{isStake, plural, =1 {Apostará} other {Te quemarás}}",
+      "receive": "Recibirá"
+    },
+    "portfolio": {
+      "name": "Nombre",
+      "more": "Más",
+      "value": "Valor"
+    }
+  }
+}
