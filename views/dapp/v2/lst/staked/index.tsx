@@ -21,6 +21,8 @@ const Staked: FC<StakedProps> = ({ form }) => {
   const { data: validatorTable, isLoading: isValidatorTableLoading } =
     useGetValidatorTableFields();
 
+  console.log(validatorTable, 'HERE');
+
   const { data } = useGetLstStorage();
 
   const totalStakedSui = FixedPointMath.toNumber(data.pool.elastic);

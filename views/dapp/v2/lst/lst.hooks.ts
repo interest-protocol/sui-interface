@@ -180,6 +180,14 @@ export const useGetCurrentEpoch = () => {
 };
 
 export const useGetExchangeRateSuiToISui = (amount: string) => {
+  return useGetSuiExchangeRate(amount, 'get_exchange_rate_sui_to_isui');
+};
+
+export const useGetExchangeRateISuiToSui = (amount: string) => {
+  return useGetSuiExchangeRate(amount, 'get_exchange_rate_isui_to_sui');
+};
+
+const useGetSuiExchangeRate = (amount: string, fn: string) => {
   const { provider } = useProvider();
   const { network } = useNetwork();
 
@@ -188,7 +196,7 @@ export const useGetExchangeRateSuiToISui = (amount: string) => {
   const txb = new TransactionBlock();
 
   txb.moveCall({
-    target: `${objects.PACKAGE_ID}::pool::get_exchange_rate_sui_to_isui`,
+    target: `${objects.PACKAGE_ID}::pool::${fn}`,
     arguments: [
       txb.object(SUI_SYSTEM_STATE_OBJECT_ID),
       txb.object(objects.POOL_STORAGE),

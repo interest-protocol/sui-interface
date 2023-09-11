@@ -68,6 +68,10 @@ const AmountField: FC<AmountFieldProps> = ({ isStake, form }) => {
           {...form?.register('amount', {
             onChange: (v: ChangeEvent<HTMLInputElement>) => {
               form.setValue?.('amount', parseInputEventToNumberString(v));
+              form.setValue(
+                'coinType',
+                isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
+              );
             },
           })}
         />
@@ -97,6 +101,10 @@ const AmountField: FC<AmountFieldProps> = ({ isStake, form }) => {
                     totalBalance.dividedBy(BigNumber(4))
                   ).toString()
                 );
+                form.setValue(
+                  'coinType',
+                  isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
+                );
               }}
               isFilled
             />
@@ -109,6 +117,10 @@ const AmountField: FC<AmountFieldProps> = ({ isStake, form }) => {
                   FixedPointMath.toNumber(
                     totalBalance.dividedBy(BigNumber(2))
                   ).toString()
+                );
+                form.setValue(
+                  'coinType',
+                  isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
                 );
               }}
               isFilled
@@ -125,6 +137,10 @@ const AmountField: FC<AmountFieldProps> = ({ isStake, form }) => {
                       .dividedBy(BigNumber(4))
                   ).toString()
                 );
+                form.setValue(
+                  'coinType',
+                  isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
+                );
               }}
               isFilled
             />
@@ -135,6 +151,10 @@ const AmountField: FC<AmountFieldProps> = ({ isStake, form }) => {
                 form.setValue?.(
                   'amount',
                   FixedPointMath.toNumber(totalBalance).toString()
+                );
+                form.setValue(
+                  'coinType',
+                  isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
                 );
               }}
               isFilled

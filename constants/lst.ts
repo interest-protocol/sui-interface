@@ -75,7 +75,9 @@ export const LST_OBJECTS = {
   },
 };
 
-export const ISUI_COIN_TYPE = `${LST_OBJECTS[Network.TESTNET]}::isui::ISUI`;
+export const ISUI_COIN_TYPE = `${
+  LST_OBJECTS[Network.TESTNET].PACKAGE_ID
+}::isui::ISUI`;
 
 export const ISUI_YIELD_TYPE = `${
   LST_OBJECTS[Network.TESTNET]

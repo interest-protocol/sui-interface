@@ -20,3 +20,5 @@ export interface StakePreviewModalProps {
   coinsMap: CoinsMap;
   account: string | null;
 }
+
+export type UnstakePreviewModalProps = StakePreviewModalProps;
