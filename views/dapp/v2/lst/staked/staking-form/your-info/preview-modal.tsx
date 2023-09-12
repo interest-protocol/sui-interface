@@ -33,6 +33,7 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
   network,
   coinsMap,
   account,
+  suiUsdPrice,
 }) => {
   const t = useTranslations();
   const { signTransactionBlock } = useWalletKit();
@@ -148,7 +149,7 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
                 color="onSurface"
                 opacity="0.6"
               >
-                $100.000
+                {+suiAmount * suiUsdPrice}
               </Typography>
             </Box>
           ),

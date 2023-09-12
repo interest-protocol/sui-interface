@@ -9,10 +9,11 @@ import { Layout } from 'views/dapp/v2/components';
 import LST from 'views/dapp/v2/lst';
 
 import { SEO } from '@/components';
+import { DEFAULT_VALIDATOR } from '@/constants/lst';
 import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import LoadingPage from '@/views/dapp/components/loading-page';
-import { LSTForm } from '@/views/dapp/v2/lst/lst.types';
+import { StakeForm } from '@/views/dapp/v2/lst/lst.types';
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
   loading: LoadingPage,
@@ -21,10 +22,11 @@ const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
 const LSTPage: NextPageWithProps = ({ pageTitle }) => {
   const { network } = useNetwork();
 
-  const form = useForm<LSTForm>({
+  const stakeForm = useForm<StakeForm>({
     defaultValues: {
       coinType: SUI_TYPE_ARG,
       amount: '0',
+      validator: DEFAULT_VALIDATOR[network],
     },
   });
 
@@ -45,7 +47,7 @@ const LSTPage: NextPageWithProps = ({ pageTitle }) => {
   return (
     <Web3Manager>
       <SEO pageTitle={pageTitle} />
-      <LST form={form} />
+      <LST stakeForm={stakeForm} />
     </Web3Manager>
   );
 };

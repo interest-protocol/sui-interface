@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
@@ -6,6 +6,7 @@ import { SUISVG } from '@/components/svg/v2';
 import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { ISuiSVG } from '@/svg';
 import { capitalize, noop } from '@/utils';
+import { useLstData } from '@/views/dapp/v2/lst/lst.hooks';
 import { StakePreviewModal } from '@/views/dapp/v2/lst/staked/staking-form/your-info/preview-modal';
 import { YourInfoProps } from '@/views/dapp/v2/lst/staked/staking-form/your-info/your-info.types';
 
@@ -13,13 +14,15 @@ import Switcher from '../../../components/switch';
 import AmountField from './amount-field';
 import PreviewTransaction from './modal/preview';
 import Overview from './overview';
+import PreviewButton from './preview-button';
 
-const YourInfo: FC<YourInfoProps> = ({ form, iSuiExchangeRate }) => {
+const YourInfo: FC<YourInfoProps> = ({ form }) => {
   const t = useTranslations();
   const [isStake, setIsStake] = useState(true);
   const { provider } = useProvider();
   const { network } = useNetwork();
   const { coinsMap, account } = useWeb3();
+  const { iSuiExchangeRate, suiCoinInfo } = useLstData();
   const handleSelect = () => setIsStake(!isStake);
 
   const { setModal, handleClose } = useModal();
@@ -34,6 +37,7 @@ const YourInfo: FC<YourInfoProps> = ({ form, iSuiExchangeRate }) => {
           network={network}
           coinsMap={coinsMap}
           account={account}
+          suiUsdPrice={suiCoinInfo?.price || 0}
         />
       ) : (
         <PreviewTransaction
@@ -335,27 +339,12 @@ const YourInfo: FC<YourInfoProps> = ({ form, iSuiExchangeRate }) => {
         isStake={isStake}
         exchangeRate={iSuiExchangeRate}
       />
-      <Button
-        px="1.5rem"
-        mt="1.875rem"
-        py="0.625rem"
-        variant="filled"
-        textAlign="center"
-        width="fill-available"
-        onClick={isStake ? openStakeModal : openUnstakeModal}
-      >
-        <Typography
-          variant="small"
-          fontWeight="500"
-          textAlign="center"
-          fontSize="0.875rem"
-          width="100%"
-          color="primary.onPrimary"
-          textTransform="capitalize"
-        >
-          {t('lst.infoButton', { isStake: +isStake })}
-        </Typography>
-      </Button>
+      <PreviewButton
+        isStake={isStake}
+        lstForm={form}
+        openStakeModal={openStakeModal}
+        openUnstakeModal={openUnstakeModal}
+      />
       <Overview form={form} isStake={isStake} />
     </Box>
   );

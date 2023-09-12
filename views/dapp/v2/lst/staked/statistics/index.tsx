@@ -3,22 +3,31 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { UsersSVG } from '@/components/svg/v2';
+import { FixedPointMath } from '@/lib';
 import { capitalize } from '@/utils';
+import {
+  useGetActiveValidators,
+  useLstData,
+} from '@/views/dapp/v2/lst/lst.hooks';
 
 import ExchangeRate from '../../components/exchange-rate';
 import FAQ from './faq';
 import NextEpoch from './next-epoch';
 import PricesMarketCard from './prices-market-card';
-import { StatisticsProps } from './statistics.types';
 import Stats from './stats';
 
-const Statistics: FC<StatisticsProps> = ({
-  totalSuiStaked,
-  totalISuiMinted,
-  iSuiExchangeRate,
-  totalActiveValidators,
-}) => {
+const Statistics: FC = () => {
   const t = useTranslations();
+
+  const { data: activeValidators, isLoading: isActiveValidatorsLoading } =
+    useGetActiveValidators();
+
+  const { lstStorage, totalISuiMinted, iSuiExchangeRate, isLoading } =
+    useLstData();
+
+  if (isActiveValidatorsLoading || isLoading) return <div>loading...</div>;
+
+  const totalSuiStaked = FixedPointMath.toNumber(lstStorage.totalPrincipal);
 
   return (
     <Box
@@ -32,7 +41,7 @@ const Statistics: FC<StatisticsProps> = ({
         apy={0}
         totalRewards={0}
         totalStaked={Number(totalSuiStaked)}
-        derivatedSui={[{ name: 'iSui', value: totalISuiMinted }]}
+        derivatedSui={[{ name: 'iSui', value: totalISuiMinted.toString() }]}
       />
       <Box
         gap="s"
@@ -79,7 +88,7 @@ const Statistics: FC<StatisticsProps> = ({
                 {capitalize(t('lst.overview.validators'))}
               </Typography>
               <Typography variant="large" color="onSurface">
-                {totalActiveValidators}
+                {activeValidators.length}
               </Typography>
             </Box>
           </Box>

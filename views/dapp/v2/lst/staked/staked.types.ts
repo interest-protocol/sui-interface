@@ -1,9 +1,7 @@
 import { LSTProps } from '@/views/dapp/v2/lst/lst.types';
 
 export interface StakedProps {
-  form: LSTProps['form'];
+  form: LSTProps['stakeForm'];
 }
 
-export interface StakingFormProps extends StakedProps {
-  iSuiExchangeRate: number;
-}
+export type StakingFormProps = StakedProps;

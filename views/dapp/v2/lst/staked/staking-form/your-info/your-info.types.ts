@@ -4,7 +4,7 @@ import { Control } from 'react-hook-form';
 
 import { CoinsMap } from '@/components/web3-manager/web3-manager.types';
 
-import { LSTForm, LSTProps } from '../../../lst.types';
+import { LSTProps } from '../../../lst.types';
 import { StakedProps } from '../../staked.types';
 
 export interface AmountFieldProps {
@@ -15,20 +15,26 @@ export interface AmountFieldProps {
 
 export interface AmountFieldDollarsProps {
   usdPrice: number;
-  control: Control<LSTForm>;
+  control: Control<LSTProps['stakeForm']>;
 }
 
-export interface YourInfoProps extends Pick<AmountFieldProps, 'form'> {
-  iSuiExchangeRate: AmountFieldProps['exchangeRate'];
-}
+export type YourInfoProps = Pick<AmountFieldProps, 'form'>;
 
 export interface StakePreviewModalProps {
   handleClose: () => void;
-  lstForm: LSTProps['form'];
+  lstForm: LSTProps['stakeForm'];
   provider: JsonRpcProvider;
   network: Network;
   coinsMap: CoinsMap;
   account: string | null;
+  suiUsdPrice: number;
 }
 
 export type UnstakePreviewModalProps = StakePreviewModalProps;
+
+export interface PreviewButtonProps {
+  isStake: boolean;
+  openStakeModal: () => void;
+  openUnstakeModal: () => void;
+  lstForm: LSTProps['stakeForm'];
+}

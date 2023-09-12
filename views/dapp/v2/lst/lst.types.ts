@@ -5,13 +5,19 @@ export type DERIVATED_SUI_SYMBOL = 'SUI' | 'iSui' | 'iSui-PC' | 'iSui-YN';
 import BigNumber from 'bignumber.js';
 import { UseFormReturn } from 'react-hook-form';
 
-export interface LSTForm {
+export interface StakeForm {
   amount: string;
   coinType: string;
+  validator: string;
+}
+
+export interface ValidatorStakePosition {
+  validator: string;
+  totalPrincipal: BigNumber;
 }
 
 export interface LSTProps {
-  form: UseFormReturn<LSTForm>;
+  stakeForm: UseFormReturn<StakeForm>;
 }
 
 export interface LstFee {

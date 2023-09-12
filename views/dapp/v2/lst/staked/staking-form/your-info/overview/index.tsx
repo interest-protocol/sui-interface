@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { FixedPointMath, TOKEN_SYMBOL } from '@/lib';
-import { useGetLstStorage } from '@/views/dapp/v2/lst/lst.hooks';
+import { useLstData } from '@/views/dapp/v2/lst/lst.hooks';
 
 import IconValue from './icon-value';
 import Line from './line';
@@ -12,19 +12,19 @@ import { TransactionOverviewProps } from './overview.type';
 
 const Overview: FC<TransactionOverviewProps> = ({ form, isStake }) => {
   const t = useTranslations();
-  const { data } = useGetLstStorage();
+  const { lstStorage } = useLstData();
 
   const amount = useWatch({ control: form.control, name: 'amount' });
 
   const receiveValue =
-    isStake && data.pool.elastic.isZero()
+    isStake && lstStorage.pool.elastic.isZero()
       ? amount
       : isStake
       ? FixedPointMath.toNumber(
-          data.pool.toBase(FixedPointMath.toBigNumber(amount))
+          lstStorage.pool.toBase(FixedPointMath.toBigNumber(amount))
         )
       : FixedPointMath.toNumber(
-          data.pool.toElastic(FixedPointMath.toBigNumber(amount))
+          lstStorage.pool.toElastic(FixedPointMath.toBigNumber(amount))
         );
 
   const stakeOrBurn = isStake

@@ -40,7 +40,7 @@ export const useGetValidatorsStakePosition = (
       const txb = new TransactionBlock();
 
       txb.moveCall({
-        target: `${objects.PACKAGE_ID}::pool::get_validators_stake_position`,
+        target: `${objects.PACKAGE_ID}::sdk::get_validators_stake_position`,
         arguments: [
           txb.object(objects.POOL_STORAGE),
           txb.pure(from, BCS.ADDRESS),
@@ -91,7 +91,7 @@ export const useGetActiveValidators = () => {
   };
 };
 
-const DEFAULT_LST_STORAGE: LstStorage = {
+export const DEFAULT_LST_STORAGE: LstStorage = {
   totalPrincipal: ZERO_BIG_NUMBER,
   fee: { base: ZERO_BIG_NUMBER, jump: ZERO_BIG_NUMBER, kink: ZERO_BIG_NUMBER },
   lastEpoch: ZERO_BIG_NUMBER,
