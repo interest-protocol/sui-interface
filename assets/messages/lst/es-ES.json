@@ -6,6 +6,7 @@
     },
     "tabs": {
       "stake": "apostar",
+      "bonds": "cautiverio",
       "portfolio": "portafolio",
       "validators": "validadores",
       "stats": "estadísticas"

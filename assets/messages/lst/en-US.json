@@ -6,6 +6,7 @@
     },
     "tabs": {
       "stake": "stake",
+      "bonds": "bonds",
       "portfolio": "portfolio",
       "validators": "validators",
       "stats": "stats"

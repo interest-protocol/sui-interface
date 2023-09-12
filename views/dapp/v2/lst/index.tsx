@@ -6,6 +6,7 @@ import { v4 } from 'uuid';
 import { capitalize } from '@/utils';
 
 import { Layout } from '../components';
+import Bonds from './bonds';
 import TabsTransition from './components/tabs-transition';
 import { LSTProvider } from './context';
 import { LSTProps } from './lst.types';
@@ -34,6 +35,7 @@ const LST: FC<LSTProps> = ({ form }) => {
               onChangeTab={(changeTab) => setChangeTab(changeTab)}
               items={[
                 capitalize(t('lst.tabs.stake')),
+                capitalize(t('lst.tabs.bonds')),
                 capitalize(t('lst.tabs.portfolio')),
                 capitalize(t('lst.tabs.validators')),
                 capitalize(t('lst.tabs.stats')),
@@ -45,6 +47,7 @@ const LST: FC<LSTProps> = ({ form }) => {
           {
             [
               <Staked form={form} key={v4()} />,
+              <Bonds key={v4()} />,
               <Portfolio key={v4()} />,
               <Validators key={v4()} />,
               <Stats key={v4()} />,
