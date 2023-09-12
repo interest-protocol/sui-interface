@@ -1,7 +1,7 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { capitalize } from '@/utils';
