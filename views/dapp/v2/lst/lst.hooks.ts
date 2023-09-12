@@ -1,4 +1,7 @@
-import { getReturnValuesFromInspectResults } from '@interest-protocol/sui-amm-sdk';
+import {
+  getReturnValuesFromInspectResults,
+  Network,
+} from '@interest-protocol/sui-amm-sdk';
 import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 import { BCS } from '@mysten/bcs';
 import {
@@ -12,15 +15,22 @@ import { pathOr } from 'ramda';
 import { useContext } from 'react';
 import useSWR from 'swr';
 
-import { LST_OBJECTS } from '@/constants/lst';
+import { DEFAULT_LST_STORAGE, LST_OBJECTS } from '@/constants/lst';
 import { useNetwork, useProvider } from '@/hooks';
 import { AddressZero } from '@/lib';
-import { ZERO_BIG_NUMBER } from '@/utils';
 import { makeSWRKey } from '@/utils';
 
 import lstContext from './context';
 import { ILSTContext } from './context/context.types';
 import { LstStorage } from './lst.types';
+
+bcs.registerStructType(
+  `${LST_OBJECTS[Network.TESTNET].PACKAGE_ID}::sdk::ValidatorStakePosition`,
+  {
+    validator: BCS.ADDRESS,
+    total_principal: BCS.U64,
+  }
+);
 
 export const useLstData = (): ILSTContext => useContext(lstContext);
 
@@ -89,20 +99,6 @@ export const useGetActiveValidators = () => {
     ...other,
     data: data ? data.activeValidators : [],
   };
-};
-
-export const DEFAULT_LST_STORAGE: LstStorage = {
-  totalPrincipal: ZERO_BIG_NUMBER,
-  fee: { base: ZERO_BIG_NUMBER, jump: ZERO_BIG_NUMBER, kink: ZERO_BIG_NUMBER },
-  lastEpoch: ZERO_BIG_NUMBER,
-  validatorCount: 0,
-  whiteListedValidators: [],
-  pool: new Rebase(ZERO_BIG_NUMBER, ZERO_BIG_NUMBER),
-  validatorTable: {
-    size: ZERO_BIG_NUMBER,
-    head: null,
-    tail: null,
-  },
 };
 
 const parseStorage = (data: SuiObjectResponse | undefined): LstStorage => {

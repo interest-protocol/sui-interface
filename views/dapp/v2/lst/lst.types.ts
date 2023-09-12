@@ -3,6 +3,7 @@ import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 export type DERIVATED_SUI_SYMBOL = 'SUI' | 'iSui' | 'iSui-PC' | 'iSui-YN';
 
 import BigNumber from 'bignumber.js';
+import { Dispatch, SetStateAction } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 export interface StakeForm {
@@ -18,6 +19,8 @@ export interface ValidatorStakePosition {
 
 export interface LSTProps {
   stakeForm: UseFormReturn<StakeForm>;
+  isStakeTabStake: boolean;
+  setStakeTabState: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface LstFee {

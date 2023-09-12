@@ -6,7 +6,7 @@ import { StakedProps } from './staked.types';
 import StakingForm from './staking-form';
 import Statistics from './statistics';
 
-const Staked: FC<StakedProps> = ({ form }) => {
+const Staked: FC<StakedProps> = (props) => {
   const t = useTranslations();
 
   return (
@@ -29,7 +29,7 @@ const Staked: FC<StakedProps> = ({ form }) => {
           {t('lst.metadata.title')}
         </Typography>
         <Statistics />
-        <StakingForm form={form} />
+        <StakingForm {...props} />
       </Box>
     </Box>
   );

@@ -12,4 +12,5 @@ export interface ILSTContext {
   isLoading: boolean;
   iSuiExchangeRate: number;
   totalISuiMinted: number;
+  mutate: () => Promise<void>;
 }

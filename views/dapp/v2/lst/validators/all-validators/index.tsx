@@ -15,7 +15,10 @@ const AllValidators: FC<AllValidatorsProps> = ({ activeValidators }) => {
       lstStorage.validatorTable.tail
     );
 
-  console.log({ validatorTable, isValidatorTableLoading, activeValidators });
+  console.log(
+    { validatorTable, isValidatorTableLoading, activeValidators },
+    'validators'
+  );
 
   return (
     <Box bg="surface.container" p="l" borderRadius="0.5rem">

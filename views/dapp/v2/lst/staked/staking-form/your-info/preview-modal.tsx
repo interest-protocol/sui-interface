@@ -7,11 +7,12 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { SUISVG } from '@/components/svg/v2';
-import { DEFAULT_VALIDATOR, LST_OBJECTS } from '@/constants/lst';
+import { LST_OBJECTS } from '@/constants/lst';
 import { FixedPointMath } from '@/lib';
 import { ISuiSVG } from '@/svg';
 import {
   createObjectsParameter,
+  formatDollars,
   showTXSuccessToast,
   throwTXIfNotSuccessful,
 } from '@/utils';
@@ -34,15 +35,18 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
   coinsMap,
   account,
   suiUsdPrice,
+  mutate,
 }) => {
   const t = useTranslations();
   const { signTransactionBlock } = useWalletKit();
   const suiAmount = lstForm.getValues('amount');
-  const { data } = useGetExchangeRateSuiToISui(
+  const { data, isLoading } = useGetExchangeRateSuiToISui(
     FixedPointMath.toBigNumber(suiAmount)
       .decimalPlaces(0, BigNumber.ROUND_DOWN)
       .toString()
   );
+
+  if (isLoading) return <div>loading...</div>;
 
   const stake = async () => {
     if (+suiAmount < 1 || !account) return;
@@ -52,6 +56,7 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
 
       const txb = new TransactionBlock();
       const coinType = lstForm.getValues('coinType');
+      const validator = lstForm.getValues('validator');
       const suiAmountBN = FixedPointMath.toBigNumber(suiAmount)
         .decimalPlaces(0, BigNumber.ROUND_DOWN)
         .toString();
@@ -63,27 +68,17 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
         amount: suiAmountBN,
       });
 
-      const suiCoin = txb.moveCall({
-        target: `${objects.PACKAGE_ID}::coin_utils::handle_coin_vector`,
-        typeArguments: [coinType],
-        arguments: [
-          txb.makeMoveVec({ objects: coinInList }),
-          txb.pure(suiAmountBN.toString(), BCS.U64),
-        ],
-      });
-
-      const iSuiCoin = txb.moveCall({
-        target: `${objects.PACKAGE_ID}::pool::mint_isui`,
+      txb.moveCall({
+        target: `${objects.PACKAGE_ID}::sdk::mint_isui`,
         arguments: [
           txb.object(SUI_SYSTEM_STATE_OBJECT_ID),
           txb.object(objects.POOL_STORAGE),
           txb.object(objects.ISUI_STORAGE),
-          suiCoin,
-          txb.pure(DEFAULT_VALIDATOR[network], BCS.ADDRESS),
+          txb.makeMoveVec({ objects: coinInList }),
+          txb.pure(suiAmountBN.toString(), BCS.U64),
+          txb.pure(validator, BCS.ADDRESS),
         ],
       });
-
-      txb.transferObjects([iSuiCoin], txb.pure(account, BCS.ADDRESS));
 
       const { signature, transactionBlockBytes } = await signTransactionBlock({
         transactionBlock: txb,
@@ -101,6 +96,8 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
       await showTXSuccessToast(tx, network);
     } catch (error) {
       console.log(error);
+    } finally {
+      await mutate();
     }
   };
 
@@ -149,7 +146,7 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
                 color="onSurface"
                 opacity="0.6"
               >
-                {+suiAmount * suiUsdPrice}
+                {formatDollars(+suiAmount * suiUsdPrice)}
               </Typography>
             </Box>
           ),
@@ -232,15 +229,22 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
   network,
   coinsMap,
   account,
+  mutate,
+  suiUsdPrice,
 }) => {
   const t = useTranslations();
   const { signTransactionBlock } = useWalletKit();
   const iSuiAmount = lstForm.getValues('amount');
-  const { data } = useGetExchangeRateISuiToSui(
+
+  const { data, isLoading } = useGetExchangeRateISuiToSui(
     FixedPointMath.toBigNumber(iSuiAmount)
       .decimalPlaces(0, BigNumber.ROUND_DOWN)
       .toString()
   );
+
+  if (isLoading) return <div>loading...</div>;
+
+  const suiAmountToReceive = FixedPointMath.toNumber(BigNumber(data));
 
   const unstake = async () => {
     if (+iSuiAmount < 1 || !account) return;
@@ -249,8 +253,11 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
       const objects = LST_OBJECTS[network];
 
       const txb = new TransactionBlock();
+
       const coinType = lstForm.getValues('coinType');
-      const suiAmountBN = FixedPointMath.toBigNumber(iSuiAmount)
+      const validator = lstForm.getValues('validator');
+
+      const iSuiAmountBN = FixedPointMath.toBigNumber(iSuiAmount)
         .decimalPlaces(0, BigNumber.ROUND_DOWN)
         .toString();
 
@@ -258,32 +265,33 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
         coinsMap,
         txb,
         type: coinType,
-        amount: suiAmountBN,
+        amount: iSuiAmountBN,
       });
 
-      const iSuiCoin = txb.moveCall({
-        target: `${objects.PACKAGE_ID}::coin_utils::handle_coin_vector`,
-        typeArguments: [coinType],
-        arguments: [
-          txb.makeMoveVec({ objects: coinInList }),
-          txb.pure(suiAmountBN.toString(), BCS.U64),
-        ],
-      });
+      console.log(coinType);
 
       const burnValidatorPayload = txb.moveCall({
-        target: `${objects.PACKAGE_ID}::pool::create_burn_validator_payload`,
+        target: `${objects.PACKAGE_ID}::sdk::create_burn_validator_payload`,
+        arguments: [
+          txb.object(objects.POOL_STORAGE),
+          txb.pure(iSuiAmountBN.toString(), BCS.U64),
+        ],
       });
 
       console.log({ burnValidatorPayload });
 
       const suiCoin = txb.moveCall({
-        target: `${objects.PACKAGE_ID}::pool::burn_isui`,
+        target: `${objects.PACKAGE_ID}::sdk::burn_isui`,
         arguments: [
           txb.object(SUI_SYSTEM_STATE_OBJECT_ID),
           txb.object(objects.POOL_STORAGE),
           txb.object(objects.ISUI_STORAGE),
-          iSuiCoin,
-          txb.pure(DEFAULT_VALIDATOR[network], BCS.ADDRESS),
+          burnValidatorPayload,
+          txb.makeMoveVec({
+            objects: coinInList,
+          }),
+          txb.pure(iSuiAmountBN.toString(), BCS.U64),
+          txb.pure(validator, BCS.ADDRESS),
         ],
       });
 
@@ -305,6 +313,8 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
       await showTXSuccessToast(tx, network);
     } catch (error) {
       console.log(error);
+    } finally {
+      await mutate();
     }
   };
 
@@ -317,7 +327,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
       lines={[
         {
           title: t('lst.modal.preview.stakeLabel'),
-          token: { main: 'SUI', secondary: 'SUI' },
+          token: { main: 'iSUI', secondary: 'SUI' },
           Icon: (
             <Box
               width="3rem"
@@ -329,7 +339,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
               color="white"
               bg="#6FBCF0"
             >
-              <SUISVG
+              <ISuiSVG
                 maxHeight="2.5rem"
                 maxWidth="2.5rem"
                 width="100%"
@@ -345,7 +355,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
                 fontSize="1rem"
                 color="onSurface"
               >
-                {iSuiAmount}
+                {suiAmountToReceive}
               </Typography>
               <Typography
                 variant="extraSmall"
@@ -354,7 +364,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
                 color="onSurface"
                 opacity="0.6"
               >
-                $100.000
+                {formatDollars(suiAmountToReceive * suiUsdPrice)}
               </Typography>
             </Box>
           ),

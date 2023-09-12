@@ -4,6 +4,7 @@ import { SUI_TYPE_ARG } from '@mysten/sui.js';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Layout } from 'views/dapp/v2/components';
 import LST from 'views/dapp/v2/lst';
@@ -21,7 +22,7 @@ const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
 
 const LSTPage: NextPageWithProps = ({ pageTitle }) => {
   const { network } = useNetwork();
-
+  const [isStakeTabStake, setStakeTabState] = useState(true);
   const stakeForm = useForm<StakeForm>({
     defaultValues: {
       coinType: SUI_TYPE_ARG,
@@ -29,6 +30,12 @@ const LSTPage: NextPageWithProps = ({ pageTitle }) => {
       validator: DEFAULT_VALIDATOR[network],
     },
   });
+
+  useEffect(() => {
+    stakeForm.setValue('coinType', SUI_TYPE_ARG);
+    stakeForm.setValue('amount', '0');
+    stakeForm.setValue('validator', DEFAULT_VALIDATOR[network]);
+  }, [network]);
 
   if (network !== Network.TESTNET)
     return (
@@ -47,7 +54,11 @@ const LSTPage: NextPageWithProps = ({ pageTitle }) => {
   return (
     <Web3Manager>
       <SEO pageTitle={pageTitle} />
-      <LST stakeForm={stakeForm} />
+      <LST
+        stakeForm={stakeForm}
+        setStakeTabState={setStakeTabState}
+        isStakeTabStake={isStakeTabStake}
+      />
     </Web3Manager>
   );
 };

@@ -3,12 +3,11 @@ import { last } from 'ramda';
 import { createContext, FC, PropsWithChildren } from 'react';
 
 import { COINS } from '@/constants';
+import { DEFAULT_LST_STORAGE } from '@/constants/lst';
 import { useGetCoinsUSDInfo } from '@/hooks/use-get-coins-usd-info';
 import { FixedPointMath, ONE_COIN } from '@/lib';
-import {
-  DEFAULT_LST_STORAGE,
-  useGetLstStorage,
-} from '@/views/dapp/v2/lst/lst.hooks';
+import { noop } from '@/utils';
+import { useGetLstStorage } from '@/views/dapp/v2/lst/lst.hooks';
 
 import { ILSTContext } from './context.types';
 
@@ -20,11 +19,17 @@ const lstContext = createContext({
   isLoading: true,
   iSuiExchangeRate: 1,
   totalISuiMinted: 0,
+  mutate: noop,
 } as ILSTContext);
 
 export const LSTProvider: FC<PropsWithChildren> = ({ children }) => {
   const { Provider } = lstContext;
-  const { data: lstStorage, isLoading: storageIsLoading } = useGetLstStorage();
+  const {
+    data: lstStorage,
+    isLoading: storageIsLoading,
+    mutate: storageMutate,
+  } = useGetLstStorage();
+
   const { data: coinData, isLoading } = useGetCoinsUSDInfo([
     COINS[Network.MAINNET].SUI.type,
   ]);
@@ -49,6 +54,9 @@ export const LSTProvider: FC<PropsWithChildren> = ({ children }) => {
     validatorStakeRecord: {},
     iSuiExchangeRate,
     totalISuiMinted,
+    mutate: async () => {
+      await storageMutate();
+    },
   };
 
   return <Provider value={data}>{children}</Provider>;
