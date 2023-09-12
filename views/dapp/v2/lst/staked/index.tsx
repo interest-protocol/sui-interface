@@ -9,7 +9,6 @@ import { FixedPointMath, ONE_COIN } from '@/lib';
 import {
   useGetActiveValidators,
   useGetLstStorage,
-  useGetValidatorTableFields,
 } from '@/views/dapp/v2/lst/lst.hooks';
 
 import { StakedProps } from './staked.types';
@@ -21,14 +20,7 @@ const Staked: FC<StakedProps> = ({ form }) => {
   const { data: activeValidators, isLoading: isActiveValidatorsLoading } =
     useGetActiveValidators();
 
-  const { data: validatorTable, isLoading: isValidatorTableLoading } =
-    useGetValidatorTableFields();
-
-  console.log({
-    validatorTable,
-    isActiveValidatorsLoading,
-    isValidatorTableLoading,
-  });
+  console.log({ isActiveValidatorsLoading });
 
   const { data: coinPrice, isLoading } = useGetCoinsPrices([
     COINS[Network.MAINNET].SUI.type,
@@ -38,7 +30,7 @@ const Staked: FC<StakedProps> = ({ form }) => {
     ? 0
     : coinPrice[COINS[Network.MAINNET].SUI.type].price;
 
-  console.log({ coinPrice, isLoading });
+  console.log({ isLoading });
 
   const { data } = useGetLstStorage();
 

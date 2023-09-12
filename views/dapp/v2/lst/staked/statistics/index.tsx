@@ -30,9 +30,9 @@ const Statistics: FC<StatisticsProps> = ({
     >
       <PricesMarketCard suiPrice={suiPrice} />
       <Stats
-        apy="0"
-        totalRewards="0"
-        totalStaked={totalSuiStaked}
+        apy={0}
+        totalRewards={0}
+        totalStaked={Number(totalSuiStaked)}
         derivatedSui={[{ name: 'iSui', value: totalISuiMinted }]}
       />
       <Box

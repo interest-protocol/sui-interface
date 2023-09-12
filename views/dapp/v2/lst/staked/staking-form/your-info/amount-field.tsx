@@ -43,7 +43,7 @@ const AmountField: FC<AmountFieldProps> = ({
     ? propOr(ZERO_BIG_NUMBER, 'totalBalance', sui)
     : propOr(ZERO_BIG_NUMBER, 'totalBalance', iSui);
 
-  console.log({ form, isFetchingCoinBalances });
+  console.log({ isFetchingCoinBalances });
 
   return (
     <Box mt="l">
