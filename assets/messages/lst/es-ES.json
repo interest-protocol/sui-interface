@@ -90,23 +90,23 @@
       "questions": {
         "block1": {
           "title": "Qué es el LST de intereses?",
-          "description": "Interest LST es un protocolo financiero descentralizado (DeFi) que permite a los usuarios ganar Sui sin perder el acceso a sus fondos a través de apuestas. Cuando los usuarios apuestan su Sui a través de Interest LST, reciben iSui a cambio, que se puede utilizar en cualquier lugar al igual que Sui. Los usuarios pueden obtener su depósito inicial de Sui con todas las recompensas acumuladas en cualquier momento devolviendo iSui al protocolo."
+          "description": "Interest LST es un protocolo financiero descentralizado (DeFi) que permite a los usuarios apostar Sui y ganar iSui sin bloquear sus fondos. Pueden retirar su depósito inicial y sus recompensas en cualquier momento devolviendo iSui."
         },
         "block2": {
           "title": "Está descentralizado el interés LST?",
-          "description": "Sí, Interest LST es descentralizado y de código abierto. Los usuarios pueden apostar y des-apostar con cualquier validador, y todo el proceso ocurre en la cadena.Puedes obtener tu Sui original en cualquier momento. El administrador sólo tiene control sobre los parámetros de las comisiones, que están limitadas para proteger a los usuarios. El contrato no puede ser pausado, incluso si el administrador pierde sus llaves."
+          "description": "Sí, Interest LST está totalmente descentralizado y es de código abierto. Los usuarios pueden apostar y des-apostar con cualquier validador en la cadena. El administrador sólo controla los parámetros de las comisiones, que están limitadas para proteger a los usuarios."
         },
         "block3": {
           "title": "Cómo funciona?",
-          "description": "Interest LST es un conjunto de contratos inteligentes que depositan sus Sui en un validador para asegurar la red. A cambio, la red paga Sui a por este servicio. Esta es una de las opciones de inversión más seguras en DeFi"
+          "description": "Interest LST utiliza contratos inteligentes para depositar Sui en un validador, asegurando la red. A cambio, los usuarios reciben Sui. Es una opción de inversión DeFi segura."
         },
         "block4": {
           "title": "Cuáles son las ventajas de usar Interest LST?",
-          "description": "Cuando estacas tus Sui en un monedero, te vuelves ilíquido. A pesar de que sus fondos están ganando Sui, no se pueden utilizar hasta que no los retire. En Interest LST, obtienes lo mejor de ambos mundos. Puedes mantener tus fondos mientras están ganando Sui."
+          "description": "Interest LST te permite ganar Sui mientras mantienes tus fondos líquidos, a diferencia del staking tradicional. Ofrece lo mejor de ambos mundos."
         },
         "block5": {
           "title": "Hay comisiones en Interest LST?",
-          "description": "Sólo existe una comisión de depósito en Interest LST. Es una comisión dinámica diseñada para fomentar la descentralización. La tarifa se basa en la participación de un validador en relación con la participación total dentro de Interest LST."
+          "description": "Sí, hay una comisión de depósito en Interest LST. Es una tarifa dinámica que promueve la descentralización, basada en la participación de un validador en relación con la participación total en el protocolo."
         }
       }
     },

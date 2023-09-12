@@ -90,23 +90,23 @@
       "questions": {
         "block1": {
           "title": "What is Interest LST?",
-          "description": "Interest LST is a decentralized finance (DeFi) protocol that allows users to earn Sui without losing access to their funds via staking. When users stake their Sui via Interest LST, they receive iSui in return which can be used anywhere just like Sui. Users can get their initial Sui deposit with all the rewards accrued anytime by returning iSui to the protocol."
+          "description": "Interest LST is a decentralized finance (DeFi) protocol allowing users to stake Sui and earn iSui without locking up their funds. They can withdraw their initial deposit and rewards anytime by returning iSui."
         },
         "block2": {
           "title": "Is Interest LST decentralized?",
-          "description": "Yes, Interest LST is decentralized and open source. Users can stake and unstake with any validator, and the entire process occurs on-chain.You can get your original Sui at any time. The admin only has control over fee parameters, which are capped to safeguard users. The contract cannot be paused, even if the admin loses their keys."
+          "description": "Yes, Interest LST is fully decentralized and open source. Users can stake and unstake with any validator on-chain. The admin only controls fee parameters, which are capped to protect users."
         },
         "block3": {
           "title": "How does it work?",
-          "description": "Interest LST is a set of smart contracts that deposit your Sui on a validator to secure the network. In return the network pays Sui to for this service. This is one of the safest investment options in DeFi."
+          "description": "Interest LST uses smart contracts to deposit Sui on a validator, securing the network. In return, users receive Sui. It's a safe DeFi investment option."
         },
         "block4": {
           "title": "What are the advantages of using Interest LST?",
-          "description": "When you stake your Sui in a wallet, you become illiquid. Although your funds are earning Sui, they cannot be used until you unstake. On Interest LST, you get the best of both worlds. You can keep your funds while they are earning Sui."
+          "description": "Interest LST allows you to earn Sui while keeping your funds liquid, unlike traditional staking. It offers the best of both worlds."
         },
         "block5": {
           "title": "Are there any fees on Interest LST?",
-          "description": "There is only a deposit fee on Interest LST. It is a dynamic fee designed to encourage decentralization. The fee is based on a validator's stake relative to the total stake inside Interest LST."
+          "description": "Yes, there's a deposit fee on Interest LST. It's a dynamic fee promoting decentralization, based on a validator's stake relative to the total stake in the protocol."
         }
       }
     },

@@ -5,6 +5,7 @@ import { FC } from 'react';
 import { StakedProps } from './staked.types';
 import StakingForm from './staking-form';
 import Statistics from './statistics';
+import FAQ from './statistics/faq';
 
 const Staked: FC<StakedProps> = (props) => {
   const t = useTranslations();
@@ -28,7 +29,16 @@ const Staked: FC<StakedProps> = (props) => {
         >
           {t('lst.metadata.title')}
         </Typography>
-        <Statistics />
+
+        <Box
+          gap="0.5rem"
+          display="flex"
+          flexDirection="column"
+          width={['100%', '100%', '100%', '55%']}
+        >
+          <Statistics />
+          <FAQ />
+        </Box>
         <StakingForm {...props} />
       </Box>
     </Box>

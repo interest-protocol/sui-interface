@@ -11,7 +11,6 @@ import {
 } from '@/views/dapp/v2/lst/lst.hooks';
 
 import ExchangeRate from '../../components/exchange-rate';
-import FAQ from './faq';
 import NextEpoch from './next-epoch';
 import PricesMarketCard from './prices-market-card';
 import Stats from './stats';
@@ -30,12 +29,7 @@ const Statistics: FC = () => {
   const totalSuiStaked = FixedPointMath.toNumber(lstStorage.totalPrincipal);
 
   return (
-    <Box
-      gap="0.5rem"
-      display="flex"
-      flexDirection="column"
-      width={['100%', '100%', '100%', '55%']}
-    >
+    <>
       <PricesMarketCard />
       <Stats
         apy={0}
@@ -95,8 +89,7 @@ const Statistics: FC = () => {
         </Box>
       </Box>
       <NextEpoch />
-      <FAQ />
-    </Box>
+    </>
   );
 };
 
