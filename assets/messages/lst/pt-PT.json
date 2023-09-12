@@ -6,6 +6,7 @@
     },
     "tabs": {
       "stake": "apostar",
+      "bonds": "títulos",
       "portfolio": "portefólio",
       "validators": "validadores",
       "stats": "estatísticas"
