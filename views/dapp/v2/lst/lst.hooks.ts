@@ -1,7 +1,4 @@
-import {
-  getAllDynamicFields,
-  getReturnValuesFromInspectResults,
-} from '@interest-protocol/sui-amm-sdk';
+import { getReturnValuesFromInspectResults } from '@interest-protocol/sui-amm-sdk';
 import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 import { BCS } from '@mysten/bcs';
 import {
@@ -27,18 +24,35 @@ import { LstStorage } from './lst.types';
 
 export const useLstData = (): ILSTContext => useContext(lstContext);
 
-export const useGetValidatorTableFields = () => {
+export const useGetValidatorsStakePosition = (
+  from: string | null,
+  to: string | null
+) => {
   const { provider } = useProvider();
   const { network } = useNetwork();
 
   const objects = LST_OBJECTS[network];
 
   const { data, ...other } = useSWR(
-    makeSWRKey(
-      [network, objects.VALIDATORS_TABLE_ID],
-      useGetValidatorTableFields.name
-    ),
-    async () => getAllDynamicFields(provider, objects.VALIDATORS_TABLE_ID),
+    makeSWRKey([network, from, to], useGetValidatorsStakePosition.name),
+    async () => {
+      if (!from || !to) return null;
+      const txb = new TransactionBlock();
+
+      txb.moveCall({
+        target: `${objects.PACKAGE_ID}::pool::get_validators_stake_position`,
+        arguments: [
+          txb.object(objects.POOL_STORAGE),
+          txb.pure(from, BCS.ADDRESS),
+          txb.pure(to, BCS.ADDRESS),
+        ],
+      });
+
+      return provider.devInspectTransactionBlock({
+        transactionBlock: txb,
+        sender: AddressZero,
+      });
+    },
     {
       revalidateOnFocus: false,
       revalidateOnMount: true,
@@ -46,9 +60,14 @@ export const useGetValidatorTableFields = () => {
     }
   );
 
+  const result = data ? getReturnValuesFromInspectResults(data) : [];
+
   return {
     ...other,
-    data: data,
+    data:
+      !result || !result.length
+        ? []
+        : bcs.de(result[0][1], Uint8Array.from(result[0][0])),
   };
 };
 
@@ -79,6 +98,11 @@ const DEFAULT_LST_STORAGE: LstStorage = {
   validatorCount: 0,
   whiteListedValidators: [],
   pool: new Rebase(ZERO_BIG_NUMBER, ZERO_BIG_NUMBER),
+  validatorTable: {
+    size: ZERO_BIG_NUMBER,
+    head: null,
+    tail: null,
+  },
 };
 
 const parseStorage = (data: SuiObjectResponse | undefined): LstStorage => {
@@ -140,6 +164,25 @@ const parseStorage = (data: SuiObjectResponse | undefined): LstStorage => {
         )
       )
     ),
+    validatorTable: {
+      size: BigNumber(
+        pathOr(
+          '0',
+          ['data', 'content', 'fields', 'validators_table', 'fields', 'size'],
+          data
+        )
+      ),
+      head: pathOr(
+        null,
+        ['data', 'content', 'fields', 'validators_table', 'fields', 'head'],
+        data
+      ),
+      tail: pathOr(
+        null,
+        ['data', 'content', 'fields', 'validators_table', 'fields', 'tail'],
+        data
+      ),
+    },
   };
 };
 

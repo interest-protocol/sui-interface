@@ -20,6 +20,12 @@ export interface LstFee {
   jump: BigNumber;
 }
 
+export interface ValidatorTable {
+  head: string | null;
+  tail: string | null;
+  size: BigNumber;
+}
+
 export interface LstStorage {
   pool: Rebase;
   fee: LstFee;
@@ -27,4 +33,5 @@ export interface LstStorage {
   totalPrincipal: BigNumber;
   validatorCount: number;
   whiteListedValidators: ReadonlyArray<string>;
+  validatorTable: ValidatorTable;
 }
