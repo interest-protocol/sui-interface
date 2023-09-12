@@ -273,6 +273,8 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
         target: `${objects.PACKAGE_ID}::pool::create_burn_validator_payload`,
       });
 
+      console.log({ burnValidatorPayload });
+
       const suiCoin = txb.moveCall({
         target: `${objects.PACKAGE_ID}::pool::burn_isui`,
         arguments: [
