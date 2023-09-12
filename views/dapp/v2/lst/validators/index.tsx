@@ -17,6 +17,8 @@ const OverViewWrapper: FC<OverviewWrapperProps> = ({ validatorsCount }) => {
 
   const { data, isLoading } = useGetLstStorage();
 
+  console.log({ isLoading });
+
   const poolRebase = new Rebase(data.pool.base, data.pool.elastic);
   const exchangeRate = poolRebase.toElastic(ONE_COIN);
 
