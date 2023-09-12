@@ -3,7 +3,7 @@ import { PropsWithChildren, ReactNode } from 'react';
 export interface PreviewTransactionProps {
   handleClose: () => void;
   depositFee: number;
-  rewards: number;
+  rewards: string;
   lines: ReadonlyArray<PropsWithChildren<LineWrapperProps>>;
   onClick: () => void;
   isStake: boolean;

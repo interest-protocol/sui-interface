@@ -10,7 +10,11 @@ const NextEpoch: FC = () => {
   const t = useTranslations();
   const { data, isLoading, error } = useGetCurrentEpoch();
 
-  if (!data || isLoading || error) return null;
+  // TODO: handle the loading error case
+  if (isLoading) return null;
+
+  // TODO: handle the case error case
+  if (!data || error) return null;
 
   const startDateMS = Number(data?.epochStartTimestampMs);
   const durationMS = Number(data?.epochDurationMs);

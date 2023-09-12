@@ -1,13 +1,23 @@
-import { getAllDynamicFields } from '@interest-protocol/sui-amm-sdk';
+import {
+  getAllDynamicFields,
+  getReturnValuesFromInspectResults,
+} from '@interest-protocol/sui-amm-sdk';
 import { Rebase } from '@interest-protocol/sui-money-market-sdk';
-import { SuiObjectResponse } from '@mysten/sui.js';
+import { BCS } from '@mysten/bcs';
+import {
+  bcs,
+  SUI_SYSTEM_STATE_OBJECT_ID,
+  SuiObjectResponse,
+  TransactionBlock,
+} from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { pathOr } from 'ramda';
 import useSWR from 'swr';
 
 import { LST_OBJECTS } from '@/constants/lst';
 import { useNetwork, useProvider } from '@/hooks';
-import { mainNetProvider, ZERO_BIG_NUMBER } from '@/utils';
+import { AddressZero } from '@/lib';
+import { ZERO_BIG_NUMBER } from '@/utils';
 import { makeSWRKey } from '@/utils';
 
 import { LstStorage } from './lst.types';
@@ -153,13 +163,67 @@ export const useGetLstStorage = () => {
   };
 };
 
-export const useGetCurrentEpoch = () =>
-  useSWR(
-    useGetCurrentEpoch.name,
-    async () => mainNetProvider.getLatestSuiSystemState(),
+export const useGetCurrentEpoch = () => {
+  const { provider } = useProvider();
+  const { network } = useNetwork();
+
+  return useSWR(
+    makeSWRKey([network], useGetCurrentEpoch.name),
+    async () => provider.getLatestSuiSystemState(),
     {
       revalidateOnFocus: false,
       revalidateOnMount: true,
       refreshWhenHidden: false,
     }
   );
+};
+
+export const useGetExchangeRateSuiToISui = (amount: string) => {
+  return useGetSuiExchangeRate(amount, 'get_exchange_rate_sui_to_isui');
+};
+
+export const useGetExchangeRateISuiToSui = (amount: string) => {
+  return useGetSuiExchangeRate(amount, 'get_exchange_rate_isui_to_sui');
+};
+
+const useGetSuiExchangeRate = (amount: string, fn: string) => {
+  const { provider } = useProvider();
+  const { network } = useNetwork();
+
+  const objects = LST_OBJECTS[network];
+
+  const txb = new TransactionBlock();
+
+  txb.moveCall({
+    target: `${objects.PACKAGE_ID}::pool::${fn}`,
+    arguments: [
+      txb.object(SUI_SYSTEM_STATE_OBJECT_ID),
+      txb.object(objects.POOL_STORAGE),
+      txb.pure(amount, BCS.U64),
+    ],
+  });
+
+  const { data, ...other } = useSWR(
+    makeSWRKey([network, amount], useGetExchangeRateSuiToISui.name),
+    async () =>
+      provider.devInspectTransactionBlock({
+        transactionBlock: txb,
+        sender: AddressZero,
+      }),
+    {
+      revalidateOnFocus: false,
+      revalidateOnMount: true,
+      refreshWhenHidden: false,
+    }
+  );
+
+  const result = data ? getReturnValuesFromInspectResults(data) : undefined;
+
+  return {
+    ...other,
+    data:
+      !result || !result.length
+        ? 0
+        : bcs.de(result[0][1], Uint8Array.from(result[0][0])),
+  };
+};

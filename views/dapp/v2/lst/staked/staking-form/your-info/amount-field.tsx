@@ -94,6 +94,10 @@ const AmountField: FC<AmountFieldProps> = ({
           {...form?.register('amount', {
             onChange: (v: ChangeEvent<HTMLInputElement>) => {
               form.setValue?.('amount', parseInputEventToNumberString(v));
+              form.setValue(
+                'coinType',
+                isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
+              );
             },
           })}
         />
@@ -123,6 +127,10 @@ const AmountField: FC<AmountFieldProps> = ({
                     totalBalance.dividedBy(BigNumber(4))
                   ).toString()
                 );
+                form.setValue(
+                  'coinType',
+                  isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
+                );
               }}
               isFilled
             />
@@ -135,6 +143,10 @@ const AmountField: FC<AmountFieldProps> = ({
                   FixedPointMath.toNumber(
                     totalBalance.dividedBy(BigNumber(2))
                   ).toString()
+                );
+                form.setValue(
+                  'coinType',
+                  isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
                 );
               }}
               isFilled
@@ -151,6 +163,10 @@ const AmountField: FC<AmountFieldProps> = ({
                       .dividedBy(BigNumber(4))
                   ).toString()
                 );
+                form.setValue(
+                  'coinType',
+                  isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
+                );
               }}
               isFilled
             />
@@ -161,6 +177,10 @@ const AmountField: FC<AmountFieldProps> = ({
                 form.setValue?.(
                   'amount',
                   FixedPointMath.toNumber(totalBalance).toString()
+                );
+                form.setValue(
+                  'coinType',
+                  isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
                 );
               }}
               isFilled

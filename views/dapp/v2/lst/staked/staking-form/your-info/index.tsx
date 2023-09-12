@@ -3,9 +3,10 @@ import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
 import { SUISVG } from '@/components/svg/v2';
-import { useModal } from '@/hooks';
+import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { ISuiSVG } from '@/svg';
 import { capitalize, noop } from '@/utils';
+import { StakePreviewModal } from '@/views/dapp/v2/lst/staked/staking-form/your-info/preview-modal';
 import { YourInfoProps } from '@/views/dapp/v2/lst/staked/staking-form/your-info/your-info.types';
 
 import Switcher from '../../../components/switch';
@@ -16,95 +17,62 @@ import Overview from './overview';
 const YourInfo: FC<YourInfoProps> = ({ form, iSuiExchangeRate, suiPrice }) => {
   const t = useTranslations();
   const [isStake, setIsStake] = useState(true);
-
+  const { provider } = useProvider();
+  const { network } = useNetwork();
+  const { coinsMap, account } = useWeb3();
   const handleSelect = () => setIsStake(!isStake);
 
   const { setModal, handleClose } = useModal();
 
   const openStakeModal = () => {
     setModal(
-      <PreviewTransaction
-        rewards={0}
-        depositFee={0}
-        handleClose={handleClose}
-        lines={[
-          {
-            title: t('lst.modal.preview.stakeLabel'),
-            token: { main: 'SUI', secondary: 'SUI' },
-            Icon: (
-              <Box
-                width="3rem"
-                height="3rem"
-                borderRadius="0.34rem"
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                color="white"
-                bg="#6FBCF0"
-              >
-                <SUISVG
-                  maxHeight="2.5rem"
-                  maxWidth="2.5rem"
-                  width="100%"
-                  height="100%"
-                />
-              </Box>
-            ),
-            children: (
-              <Box textAlign="right">
-                <Typography
-                  variant="small"
-                  fontWeight="400"
-                  fontSize="1rem"
-                  color="onSurface"
+      isStake ? (
+        <StakePreviewModal
+          provider={provider}
+          handleClose={handleClose}
+          lstForm={form}
+          network={network}
+          coinsMap={coinsMap}
+          account={account}
+        />
+      ) : (
+        <PreviewTransaction
+          rewards="2.5%"
+          depositFee={0}
+          handleClose={handleClose}
+          lines={[
+            {
+              title: t('lst.modal.preview.stakeLabel'),
+              token: { main: 'SUI', secondary: 'SUI' },
+              Icon: (
+                <Box
+                  width="3rem"
+                  height="3rem"
+                  borderRadius="0.34rem"
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  color="white"
+                  bg="#6FBCF0"
                 >
-                  1.1234
-                </Typography>
-                <Typography
-                  variant="extraSmall"
-                  fontWeight="400"
-                  fontSize="0.6875rem"
-                  color="onSurface"
-                  opacity="0.6"
-                >
-                  $100.000
-                </Typography>
-              </Box>
-            ),
-          },
-          {
-            title: t('lst.modal.preview.receiveLabel'),
-            token: { main: 'iSUI', secondary: 'SUI' },
-            Icon: (
-              <Box
-                width="3rem"
-                height="3rem"
-                borderRadius="0.34rem"
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                color="white"
-              >
-                <ISuiSVG
-                  maxHeight="3rem"
-                  maxWidth="3rem"
-                  width="100%"
-                  height="100%"
-                  filled
-                />
-              </Box>
-            ),
-            children: (
-              <Box textAlign="right">
-                <Typography
-                  variant="small"
-                  fontWeight="400"
-                  fontSize="1rem"
-                  color="onSurface"
-                >
-                  1
-                </Typography>
-                <Box display="flex" alignItems="center" gap="0.5rem">
+                  <SUISVG
+                    maxHeight="2.5rem"
+                    maxWidth="2.5rem"
+                    width="100%"
+                    height="100%"
+                  />
+                </Box>
+              ),
+              children: (
+                <Box textAlign="right">
+                  <Typography
+                    variant="small"
+                    fontWeight="400"
+                    fontSize="1rem"
+                    color="onSurface"
+                  >
+                    1.1234
+                  </Typography>
                   <Typography
                     variant="extraSmall"
                     fontWeight="400"
@@ -112,34 +80,80 @@ const YourInfo: FC<YourInfoProps> = ({ form, iSuiExchangeRate, suiPrice }) => {
                     color="onSurface"
                     opacity="0.6"
                   >
-                    1.1234
+                    $100.000
                   </Typography>
-                  <Box
-                    color="white"
-                    bg="#6FBCF0"
-                    borderRadius="full"
-                    width="1rem"
-                    height="1rem"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
+                </Box>
+              ),
+            },
+            {
+              title: t('lst.modal.preview.receiveLabel'),
+              token: { main: 'iSUI', secondary: 'SUI' },
+              Icon: (
+                <Box
+                  width="3rem"
+                  height="3rem"
+                  borderRadius="0.34rem"
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  color="white"
+                >
+                  <ISuiSVG
+                    maxHeight="3rem"
+                    maxWidth="3rem"
+                    width="100%"
+                    height="100%"
+                    filled
+                  />
+                </Box>
+              ),
+              children: (
+                <Box textAlign="right">
+                  <Typography
+                    variant="small"
+                    fontWeight="400"
+                    fontSize="1rem"
+                    color="onSurface"
                   >
-                    <SUISVG
-                      maxHeight="0.825rem"
-                      maxWidth="0.825rem"
-                      width="100%"
-                      height="100%"
-                    />
+                    1
+                  </Typography>
+                  <Box display="flex" alignItems="center" gap="0.5rem">
+                    <Typography
+                      variant="extraSmall"
+                      fontWeight="400"
+                      fontSize="0.6875rem"
+                      color="onSurface"
+                      opacity="0.6"
+                    >
+                      1.1234
+                    </Typography>
+                    <Box
+                      color="white"
+                      bg="#6FBCF0"
+                      borderRadius="full"
+                      width="1rem"
+                      height="1rem"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <SUISVG
+                        maxHeight="0.825rem"
+                        maxWidth="0.825rem"
+                        width="100%"
+                        height="100%"
+                      />
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
-            ),
-            reverse: true,
-          },
-        ]}
-        onClick={noop}
-        isStake={isStake}
-      />,
+              ),
+              reverse: true,
+            },
+          ]}
+          onClick={noop}
+          isStake={isStake}
+        />
+      ),
       {
         isOpen: true,
         custom: true,
@@ -153,7 +167,7 @@ const YourInfo: FC<YourInfoProps> = ({ form, iSuiExchangeRate, suiPrice }) => {
     setModal(
       <PreviewTransaction
         depositFee={0}
-        rewards={0}
+        rewards="2.5%"
         handleClose={handleClose}
         lines={[
           {
