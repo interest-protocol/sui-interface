@@ -7,7 +7,7 @@ import useSWR from 'swr';
 
 import { LST_OBJECTS } from '@/constants/lst';
 import { useNetwork, useProvider } from '@/hooks';
-import { ZERO_BIG_NUMBER } from '@/utils';
+import { mainNetProvider, ZERO_BIG_NUMBER } from '@/utils';
 import { makeSWRKey } from '@/utils';
 
 import { LstStorage } from './lst.types';
@@ -153,17 +153,13 @@ export const useGetLstStorage = () => {
   };
 };
 
-export const useGetCurrentEpoch = () => {
-  const { provider } = useProvider();
-  const { network } = useNetwork();
-
-  return useSWR(
-    makeSWRKey([network], useGetCurrentEpoch.name),
-    async () => provider.getCurrentEpoch(),
+export const useGetCurrentEpoch = () =>
+  useSWR(
+    useGetCurrentEpoch.name,
+    async () => mainNetProvider.getLatestSuiSystemState(),
     {
       revalidateOnFocus: false,
       revalidateOnMount: true,
       refreshWhenHidden: false,
     }
   );
-};

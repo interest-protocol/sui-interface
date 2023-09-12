@@ -5,9 +5,9 @@ import { StakingFormProps } from '@/views/dapp/v2/lst/staked/staked.types';
 
 import YourInfo from './your-info';
 
-const StakingForm: FC<StakingFormProps> = ({ form }) => (
+const StakingForm: FC<StakingFormProps> = ({ form, ...props }) => (
   <Box height="max-content" width={['100%', '100%', '100%', '45%']}>
-    <YourInfo form={form} />
+    <YourInfo form={form} {...props} />
   </Box>
 );
 

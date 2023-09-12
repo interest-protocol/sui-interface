@@ -4,4 +4,7 @@ export interface StakedProps {
   form: LSTProps['form'];
 }
 
-export type StakingFormProps = StakedProps;
+export interface StakingFormProps extends StakedProps {
+  suiPrice: number;
+  iSuiExchangeRate: number;
+}

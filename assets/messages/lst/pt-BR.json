@@ -81,7 +81,7 @@
     },
     "exchangeRate": "taxa de câmbio",
     "epoch": {
-      "title": "Detalhes",
+      "title": "Preço do gás da próxima época",
       "end": "A época termina em..."
     },
     "faq": {

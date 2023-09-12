@@ -4,17 +4,36 @@ import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';
 import { ChangeEvent, FC } from 'react';
+import { useWatch } from 'react-hook-form';
 
 import { SUISVG } from '@/components/svg/v2';
 import { ISUI_COIN_TYPE } from '@/constants/lst';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
-import { parseInputEventToNumberString, ZERO_BIG_NUMBER } from '@/utils';
+import {
+  formatDollars,
+  parseInputEventToNumberString,
+  ZERO_BIG_NUMBER,
+} from '@/utils';
 import { PercentageButton } from '@/views/dapp/v2/components';
 
-import { AmountFieldProps } from './your-info.types';
+import { AmountFieldDollarsProps, AmountFieldProps } from './your-info.types';
 
-const AmountField: FC<AmountFieldProps> = ({ isStake, form }) => {
+const AmountFieldInDollars: FC<AmountFieldDollarsProps> = ({
+  control,
+  usdPrice,
+}) => {
+  const amount = useWatch({ control, name: 'amount' });
+
+  return <>{formatDollars(Number(amount) * usdPrice)}</>;
+};
+
+const AmountField: FC<AmountFieldProps> = ({
+  form,
+  isStake,
+  suiUSDPrice,
+  exchangeRate,
+}) => {
   const t = useTranslations();
   const { coinsMap, isFetchingCoinBalances } = useWeb3();
   const sui = coinsMap[SUI_TYPE_ARG];
@@ -23,15 +42,16 @@ const AmountField: FC<AmountFieldProps> = ({ isStake, form }) => {
   const totalBalance: BigNumber = isStake
     ? propOr(ZERO_BIG_NUMBER, 'totalBalance', sui)
     : propOr(ZERO_BIG_NUMBER, 'totalBalance', iSui);
-  console.log(form);
+
+  console.log({ form, isFetchingCoinBalances });
 
   return (
     <Box mt="l">
       <Typography
-        variant="extraSmall"
-        fontSize="0.688rem"
-        color="onSurface"
         mb="s"
+        color="onSurface"
+        fontSize="0.688rem"
+        variant="extraSmall"
         textTransform="uppercase"
       >
         {t('lst.amountField.title')}
@@ -39,17 +59,17 @@ const AmountField: FC<AmountFieldProps> = ({ isStake, form }) => {
       <Box
         px="m"
         pb="m"
+        mb="3xl"
         bg="surface.containerHigh"
         borderRadius="0.25rem"
-        mb="3xl"
       >
         <TextField
           Prefix={
             <Box
-              height="2.5rem"
-              width="2.5rem"
-              color="white"
               bg="#6FBCF0"
+              color="white"
+              width="2.5rem"
+              height="2.5rem"
               borderRadius="0.34rem"
             >
               <SUISVG
@@ -60,12 +80,17 @@ const AmountField: FC<AmountFieldProps> = ({ isStake, form }) => {
               />
             </Box>
           }
-          my="0" //Amount equivalent in USD
-          Top="$0"
+          my="0"
           fontSize="xl"
           placeholder="0"
           textAlign="right"
           fieldProps={{ border: 'none', p: '0' }}
+          Top={
+            <AmountFieldInDollars
+              control={form.control}
+              usdPrice={suiUSDPrice * (isStake ? 1 : exchangeRate)}
+            />
+          }
           {...form?.register('amount', {
             onChange: (v: ChangeEvent<HTMLInputElement>) => {
               form.setValue?.('amount', parseInputEventToNumberString(v));

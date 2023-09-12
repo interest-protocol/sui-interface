@@ -1,7 +1,10 @@
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
+import { COINS } from '@/constants';
+import { useGetCoinsPrices } from '@/hooks';
 import { FixedPointMath, ONE_COIN } from '@/lib';
 import {
   useGetActiveValidators,
@@ -15,11 +18,27 @@ import Statistics from './statistics';
 
 const Staked: FC<StakedProps> = ({ form }) => {
   const t = useTranslations();
-  const { data: activeValidators, isActiveValidatorsLoading } =
+  const { data: activeValidators, isLoading: isActiveValidatorsLoading } =
     useGetActiveValidators();
 
   const { data: validatorTable, isLoading: isValidatorTableLoading } =
     useGetValidatorTableFields();
+
+  console.log({
+    validatorTable,
+    isActiveValidatorsLoading,
+    isValidatorTableLoading,
+  });
+
+  const { data: coinPrice, isLoading } = useGetCoinsPrices([
+    COINS[Network.MAINNET].SUI.type,
+  ]);
+
+  const suiPrice = isLoading
+    ? 0
+    : coinPrice[COINS[Network.MAINNET].SUI.type].price;
+
+  console.log({ coinPrice, isLoading });
 
   const { data } = useGetLstStorage();
 
@@ -50,12 +69,17 @@ const Staked: FC<StakedProps> = ({ form }) => {
           {t('lst.metadata.title')}
         </Typography>
         <Statistics
+          suiPrice={suiPrice}
           totalSuiStaked={totalStakedSui.toString()}
+          totalISuiMinted={totalISuiMinted.toString()}
           iSuiExchangeRate={iSuiExchangeRate.toString()}
           totalActiveValidators={activeValidators.length}
-          totalISuiMinted={totalISuiMinted.toString()}
         />
-        <StakingForm form={form} />
+        <StakingForm
+          form={form}
+          suiPrice={suiPrice}
+          iSuiExchangeRate={iSuiExchangeRate}
+        />
       </Box>
     </Box>
   );

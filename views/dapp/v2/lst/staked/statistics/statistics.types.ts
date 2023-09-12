@@ -13,8 +13,9 @@ export interface ChartProps {
 }
 
 export interface StatisticsProps {
-  iSuiExchangeRate: string;
+  suiPrice: number;
   totalSuiStaked: string;
-  totalActiveValidators: number;
   totalISuiMinted: string;
+  iSuiExchangeRate: string;
+  totalActiveValidators: number;
 }

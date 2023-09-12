@@ -1,7 +1,43 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box, Motion, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
+import Countdown, { CountdownRendererFn } from 'react-countdown';
 
-const EpochProgressBar: FC<{ percentage: number }> = ({ percentage }) => (
+import { EpochProgressBarProps } from './next-epoch.types';
+
+const renderer =
+  (duration: number): CountdownRendererFn =>
+  // eslint-disable-next-line react/display-name
+  ({ total, days, hours, minutes, seconds, completed }) => {
+    if (completed) return null;
+
+    return (
+      <>
+        <Motion
+          height="100%"
+          display="flex"
+          position="absolute"
+          alignItems="center"
+          width={`${(total * 100) / duration}%`}
+          justifyContent="flex-end"
+          backgroundImage="linear-gradient(90deg, #7997FF 0%, #99BBFF 100%)"
+        >
+          <Box
+            m="xs"
+            height="80%"
+            borderRadius="m"
+            border="2px solid #002A78"
+          />
+        </Motion>
+        <Typography variant="medium" color="#002A78" pl="l" position="relative">
+          {!!days && `${days}h`} {!!(days || hours) && `${hours}h`}{' '}
+          {!!(days || hours || minutes) && `${minutes}m`}{' '}
+          {!!(days || hours || minutes || seconds) && `${seconds}s`}
+        </Typography>
+      </>
+    );
+  };
+
+const EpochProgressBar: FC<EpochProgressBarProps> = ({ endDate, duration }) => (
   <Box
     bg="#D9D9D91A"
     display="flex"
@@ -11,20 +47,7 @@ const EpochProgressBar: FC<{ percentage: number }> = ({ percentage }) => (
     position="relative"
     alignItems="center"
   >
-    <Box
-      height="100%"
-      display="flex"
-      position="absolute"
-      alignItems="center"
-      width={`${percentage}%`}
-      justifyContent="flex-end"
-      backgroundImage="linear-gradient(90deg, #7997FF 0%, #99BBFF 100%)"
-    >
-      <Box border="2px solid #002A78" height="80%" borderRadius="m" m="xs" />
-    </Box>
-    <Typography variant="medium" color="#002A78" pl="l" position="relative">
-      2h 07m 9s
-    </Typography>
+    <Countdown date={endDate} renderer={renderer(duration)} />
   </Box>
 );
 

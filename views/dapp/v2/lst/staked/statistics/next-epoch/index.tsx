@@ -2,16 +2,19 @@ import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { UsersSVG } from '@/components/svg/v2';
-import { capitalize } from '@/utils';
 import { useGetCurrentEpoch } from '@/views/dapp/v2/lst/lst.hooks';
 
 import EpochProgressBar from './epoch-progress-bar';
 
 const NextEpoch: FC = () => {
   const t = useTranslations();
-  const {} = useGetCurrentEpoch();
-  const value = 96;
+  const { data, isLoading, error } = useGetCurrentEpoch();
+
+  if (!data || isLoading || error) return null;
+
+  const startDateMS = Number(data?.epochStartTimestampMs);
+  const durationMS = Number(data?.epochDurationMs);
+  const endDataMS = startDateMS + durationMS;
 
   return (
     <Box
@@ -24,39 +27,13 @@ const NextEpoch: FC = () => {
       bg="surface.container"
     >
       <Typography
-        color="onSurface"
+        mb="l"
         variant="extraSmall"
+        fontSize="0.688rem"
         textTransform="capitalize"
       >
         {t('lst.epoch.title')}
       </Typography>
-      <Box display="flex" columnGap="l" alignItems="center">
-        <Box
-          display="flex"
-          width="2.5rem"
-          height="2.5rem"
-          color="primary"
-          borderRadius="m"
-          aspectRatio="1/1"
-          alignItems="center"
-          justifyContent="center"
-          bg="surface.containerHigh"
-        >
-          <UsersSVG width="100%" maxHeight="1.25rem" maxWidth="1.25rem" />
-        </Box>
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="space-between"
-        >
-          <Typography variant="extraSmall" opacity="0.6" color="onSurface">
-            {capitalize(t('lst.overview.validators'))}
-          </Typography>
-          <Typography variant="large" color="onSurface">
-            {value}
-          </Typography>
-        </Box>
-      </Box>
       <Box display="flex" flexDirection="column" gap="m">
         <Typography
           opacity="0.6"
@@ -66,7 +43,7 @@ const NextEpoch: FC = () => {
         >
           {t('lst.epoch.end')}
         </Typography>
-        <EpochProgressBar percentage={60} />
+        <EpochProgressBar duration={durationMS} endDate={endDataMS} />
       </Box>
     </Box>
   );

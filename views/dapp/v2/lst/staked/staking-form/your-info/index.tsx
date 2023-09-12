@@ -4,7 +4,6 @@ import { FC, useState } from 'react';
 
 import { SUISVG } from '@/components/svg/v2';
 import { useModal } from '@/hooks';
-import { TOKEN_SYMBOL } from '@/lib';
 import { ISuiSVG } from '@/svg';
 import { capitalize, noop } from '@/utils';
 import { YourInfoProps } from '@/views/dapp/v2/lst/staked/staking-form/your-info/your-info.types';
@@ -14,7 +13,7 @@ import AmountField from './amount-field';
 import PreviewTransaction from './modal/preview';
 import Overview from './overview';
 
-const YourInfo: FC<YourInfoProps> = ({ form }) => {
+const YourInfo: FC<YourInfoProps> = ({ form, iSuiExchangeRate, suiPrice }) => {
   const t = useTranslations();
   const [isStake, setIsStake] = useState(true);
 
@@ -280,11 +279,11 @@ const YourInfo: FC<YourInfoProps> = ({ form }) => {
 
   return (
     <Box
-      bg="surface.container"
       p="2xl"
-      borderRadius="0.5rem"
       display="flex"
+      borderRadius="0.5rem"
       flexDirection="column"
+      bg="surface.container"
     >
       <Box mb="2xl">
         <Typography
@@ -301,13 +300,13 @@ const YourInfo: FC<YourInfoProps> = ({ form }) => {
           options={[
             {
               value: +true,
-              displayValue: capitalize(t('common.stake', { isLoading: 0 })),
               onSelect: handleSelect,
+              displayValue: capitalize(t('common.stake', { isLoading: 0 })),
             },
             {
               value: +false,
-              displayValue: capitalize(t('common.unstake', { isLoading: 0 })),
               onSelect: handleSelect,
+              displayValue: capitalize(t('common.unstake', { isLoading: 0 })),
             },
           ]}
         />
@@ -317,14 +316,19 @@ const YourInfo: FC<YourInfoProps> = ({ form }) => {
           t(`common.${isStake ? 'stake' : 'unstake'}`, { isLoading: 0 })
         )}
       </Typography>
-      <AmountField isStake={isStake} form={form} />
+      <AmountField
+        form={form}
+        isStake={isStake}
+        suiUSDPrice={suiPrice}
+        exchangeRate={iSuiExchangeRate}
+      />
       <Button
-        variant="filled"
+        px="1.5rem"
         mt="1.875rem"
         py="0.625rem"
-        px="1.5rem"
-        width="fill-available"
+        variant="filled"
         textAlign="center"
+        width="fill-available"
         onClick={isStake ? openStakeModal : openUnstakeModal}
       >
         <Typography

@@ -48,7 +48,7 @@ const StatsDerivatedWrapper: FC<StatsDerivatedWrapperProps> = ({
           lineHeight="1.75rem"
           color="onSurface"
         >
-          {value}
+          {value} {name}
         </Typography>
       </Box>
     </Box>

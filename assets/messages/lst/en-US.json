@@ -81,7 +81,7 @@
     },
     "exchangeRate": "exchange rate",
     "epoch": {
-      "title": "Details",
+      "title": "Next epoch gas price",
       "end": "epoch ends in..."
     },
     "faq": {

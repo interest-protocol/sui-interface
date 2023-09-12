@@ -12,8 +12,8 @@ export interface StatsDerivatedWrapperProps {
 }
 
 export interface StatsProps {
-  totalStaked: string;
   apy: string;
+  totalStaked: string;
   totalRewards: string;
   derivatedSui: ReadonlyArray<StatsDerivatedWrapperProps>;
 }
