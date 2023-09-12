@@ -49,10 +49,10 @@ const Stats: FC<StatsProps> = ({
         </StatsWrapper>
         <StatsWrapper description="APY" value={apy}>
           <PercentageSVG
-            maxHeight="1.25rem"
-            maxWidth="1.25rem"
             width="100%"
             height="100%"
+            maxWidth="1.25rem"
+            maxHeight="1.25rem"
           />
         </StatsWrapper>
         <StatsWrapper description={t('lst.totalReward')} value={totalRewards}>

@@ -19,7 +19,7 @@ const NextEpoch: FC = () => {
   return (
     <Box
       p="l"
-      gap="l"
+      gap="s"
       flex="1"
       display="flex"
       flexDirection="column"
@@ -28,8 +28,9 @@ const NextEpoch: FC = () => {
     >
       <Typography
         mb="l"
-        variant="extraSmall"
+        color="onSurface"
         fontSize="0.688rem"
+        variant="extraSmall"
         textTransform="capitalize"
       >
         {t('lst.epoch.title')}
