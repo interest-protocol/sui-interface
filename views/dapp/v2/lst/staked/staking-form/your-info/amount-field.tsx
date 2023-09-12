@@ -17,6 +17,7 @@ import {
 } from '@/utils';
 import { PercentageButton } from '@/views/dapp/v2/components';
 
+import { useLstData } from '../../../lst.hooks';
 import { AmountFieldDollarsProps, AmountFieldProps } from './your-info.types';
 
 const AmountFieldInDollars: FC<AmountFieldDollarsProps> = ({
@@ -28,16 +29,13 @@ const AmountFieldInDollars: FC<AmountFieldDollarsProps> = ({
   return <>{formatDollars(Number(amount) * usdPrice)}</>;
 };
 
-const AmountField: FC<AmountFieldProps> = ({
-  form,
-  isStake,
-  suiUSDPrice,
-  exchangeRate,
-}) => {
+const AmountField: FC<AmountFieldProps> = ({ form, isStake, exchangeRate }) => {
   const t = useTranslations();
   const { coinsMap, isFetchingCoinBalances } = useWeb3();
   const sui = coinsMap[SUI_TYPE_ARG];
   const iSui = coinsMap[ISUI_COIN_TYPE];
+
+  const { suiCoinInfo } = useLstData();
 
   const totalBalance: BigNumber = isStake
     ? propOr(ZERO_BIG_NUMBER, 'totalBalance', sui)
@@ -88,7 +86,9 @@ const AmountField: FC<AmountFieldProps> = ({
           Top={
             <AmountFieldInDollars
               control={form.control}
-              usdPrice={suiUSDPrice * (isStake ? 1 : exchangeRate)}
+              usdPrice={
+                (suiCoinInfo?.price ?? 1) * (isStake ? 1 : exchangeRate)
+              }
             />
           }
           {...form?.register('amount', {

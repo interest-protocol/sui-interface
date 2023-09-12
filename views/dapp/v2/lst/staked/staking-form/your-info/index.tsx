@@ -14,7 +14,7 @@ import AmountField from './amount-field';
 import PreviewTransaction from './modal/preview';
 import Overview from './overview';
 
-const YourInfo: FC<YourInfoProps> = ({ form, iSuiExchangeRate, suiPrice }) => {
+const YourInfo: FC<YourInfoProps> = ({ form, iSuiExchangeRate }) => {
   const t = useTranslations();
   const [isStake, setIsStake] = useState(true);
   const { provider } = useProvider();
@@ -333,7 +333,6 @@ const YourInfo: FC<YourInfoProps> = ({ form, iSuiExchangeRate, suiPrice }) => {
       <AmountField
         form={form}
         isStake={isStake}
-        suiUSDPrice={suiPrice}
         exchangeRate={iSuiExchangeRate}
       />
       <Button

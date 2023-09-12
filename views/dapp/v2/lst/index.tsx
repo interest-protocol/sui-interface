@@ -7,6 +7,7 @@ import { capitalize } from '@/utils';
 
 import { Layout } from '../components';
 import TabsTransition from './components/tabs-transition';
+import { LSTProvider } from './context';
 import { LSTProps } from './lst.types';
 import LstHeader from './lst-header';
 import Portfolio from './portfolio';
@@ -20,35 +21,37 @@ const LST: FC<LSTProps> = ({ form }) => {
 
   return (
     <Layout dashboard titlePage={<LstHeader />}>
-      <Box
-        display="flex"
-        overflowX="auto"
-        variant="container"
-        flexDirection="column"
-      >
-        <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
-          <Tabs
-            defaultTabIndex={changeTab}
-            onChangeTab={(changeTab) => setChangeTab(changeTab)}
-            items={[
-              capitalize(t('lst.tabs.stake')),
-              capitalize(t('lst.tabs.portfolio')),
-              capitalize(t('lst.tabs.validators')),
-              capitalize(t('lst.tabs.stats')),
-            ]}
-          />
+      <LSTProvider>
+        <Box
+          display="flex"
+          overflowX="auto"
+          variant="container"
+          flexDirection="column"
+        >
+          <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
+            <Tabs
+              defaultTabIndex={changeTab}
+              onChangeTab={(changeTab) => setChangeTab(changeTab)}
+              items={[
+                capitalize(t('lst.tabs.stake')),
+                capitalize(t('lst.tabs.portfolio')),
+                capitalize(t('lst.tabs.validators')),
+                capitalize(t('lst.tabs.stats')),
+              ]}
+            />
+          </Box>
         </Box>
-      </Box>
-      <TabsTransition type="fade">
-        {
-          [
-            <Staked form={form} key={v4()} />,
-            <Portfolio key={v4()} />,
-            <Validators key={v4()} />,
-            <Stats key={v4()} />,
-          ][changeTab]
-        }
-      </TabsTransition>
+        <TabsTransition type="fade">
+          {
+            [
+              <Staked form={form} key={v4()} />,
+              <Portfolio key={v4()} />,
+              <Validators key={v4()} />,
+              <Stats key={v4()} />,
+            ][changeTab]
+          }
+        </TabsTransition>
+      </LSTProvider>
     </Layout>
   );
 };

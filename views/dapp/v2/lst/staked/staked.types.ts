@@ -5,6 +5,5 @@ export interface StakedProps {
 }
 
 export interface StakingFormProps extends StakedProps {
-  suiPrice: number;
   iSuiExchangeRate: number;
 }

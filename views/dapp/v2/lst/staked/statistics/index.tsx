@@ -13,7 +13,6 @@ import { StatisticsProps } from './statistics.types';
 import Stats from './stats';
 
 const Statistics: FC<StatisticsProps> = ({
-  suiPrice,
   totalSuiStaked,
   totalISuiMinted,
   iSuiExchangeRate,
@@ -28,7 +27,7 @@ const Statistics: FC<StatisticsProps> = ({
       flexDirection="column"
       width={['100%', '100%', '100%', '55%']}
     >
-      <PricesMarketCard suiPrice={suiPrice} />
+      <PricesMarketCard />
       <Stats
         apy={0}
         totalRewards={0}

@@ -13,7 +13,6 @@ export interface ChartProps {
 }
 
 export interface StatisticsProps {
-  suiPrice: number;
   totalSuiStaked: string;
   totalISuiMinted: string;
   iSuiExchangeRate: string;

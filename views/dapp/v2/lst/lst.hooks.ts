@@ -12,6 +12,7 @@ import {
 } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { pathOr } from 'ramda';
+import { useContext } from 'react';
 import useSWR from 'swr';
 
 import { LST_OBJECTS } from '@/constants/lst';
@@ -20,7 +21,12 @@ import { AddressZero } from '@/lib';
 import { ZERO_BIG_NUMBER } from '@/utils';
 import { makeSWRKey } from '@/utils';
 
+import lstContext from './context';
+import { ILSTContext } from './context/context.types';
 import { LstStorage } from './lst.types';
+
+export const useLstData = (): ILSTContext => useContext(lstContext);
+
 export const useGetValidatorTableFields = () => {
   const { provider } = useProvider();
   const { network } = useNetwork();

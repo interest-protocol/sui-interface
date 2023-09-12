@@ -9,19 +9,17 @@ import { StakedProps } from '../../staked.types';
 
 export interface AmountFieldProps {
   isStake: boolean;
-  suiUSDPrice: number;
   exchangeRate: number;
   form: StakedProps['form'];
 }
 
 export interface AmountFieldDollarsProps {
+  usdPrice: number;
   control: Control<LSTForm>;
-  usdPrice: AmountFieldProps['suiUSDPrice'];
 }
 
 export interface YourInfoProps extends Pick<AmountFieldProps, 'form'> {
   iSuiExchangeRate: AmountFieldProps['exchangeRate'];
-  suiPrice: AmountFieldProps['suiUSDPrice'];
 }
 
 export interface StakePreviewModalProps {
