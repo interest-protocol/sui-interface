@@ -10,11 +10,14 @@ import { Layout } from 'views/dapp/v2/components';
 import LST from 'views/dapp/v2/lst';
 
 import { SEO } from '@/components';
+import { ISUI_COIN_TYPE } from '@/constants/lst';
 import { DEFAULT_VALIDATOR } from '@/constants/lst';
 import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
+import { formatDollars } from '@/utils';
 import LoadingPage from '@/views/dapp/components/loading-page';
 import { StakeForm } from '@/views/dapp/v2/lst/lst.types';
+
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
   loading: LoadingPage,
@@ -25,8 +28,9 @@ const LSTPage: NextPageWithProps = ({ pageTitle }) => {
   const [isStakeTabStake, setStakeTabState] = useState(true);
   const stakeForm = useForm<StakeForm>({
     defaultValues: {
-      coinType: SUI_TYPE_ARG,
       amount: '0',
+      coinType: SUI_TYPE_ARG,
+      amountUSD: formatDollars(0),
       validator: DEFAULT_VALIDATOR[network],
     },
   });
@@ -51,13 +55,18 @@ const LSTPage: NextPageWithProps = ({ pageTitle }) => {
       </Layout>
     );
 
+  const handleChangeStakeTab = (value: boolean) => {
+    setStakeTabState(value);
+    stakeForm.setValue('coinType', value ? SUI_TYPE_ARG : ISUI_COIN_TYPE);
+  };
+
   return (
     <Web3Manager>
       <SEO pageTitle={pageTitle} />
       <LST
         stakeForm={stakeForm}
-        setStakeTabState={setStakeTabState}
         isStakeTabStake={isStakeTabStake}
+        setStakeTabState={handleChangeStakeTab}
       />
     </Web3Manager>
   );

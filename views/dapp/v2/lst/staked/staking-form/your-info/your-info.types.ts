@@ -4,7 +4,7 @@ import { Control } from 'react-hook-form';
 
 import { CoinsMap } from '@/components/web3-manager/web3-manager.types';
 
-import { LSTProps } from '../../../lst.types';
+import { LSTProps, StakeForm } from '../../../lst.types';
 import { StakedProps, StakingFormProps } from '../../staked.types';
 
 export interface AmountFieldProps {
@@ -14,8 +14,7 @@ export interface AmountFieldProps {
 }
 
 export interface AmountFieldDollarsProps {
-  usdPrice: number;
-  control: Control<LSTProps['stakeForm']>;
+  control: Control<StakeForm>;
 }
 
 export type YourInfoProps = StakingFormProps;

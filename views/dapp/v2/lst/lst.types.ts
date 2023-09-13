@@ -8,6 +8,7 @@ import { UseFormReturn } from 'react-hook-form';
 
 export interface StakeForm {
   amount: string;
+  amountUSD: string;
   coinType: string;
   validator: string;
 }
@@ -18,9 +19,9 @@ export interface ValidatorStakePosition {
 }
 
 export interface LSTProps {
-  stakeForm: UseFormReturn<StakeForm>;
   isStakeTabStake: boolean;
-  setStakeTabState: Dispatch<SetStateAction<boolean>>;
+  stakeForm: UseFormReturn<StakeForm>;
+  setStakeTabState: (value: boolean) => void;
 }
 
 export interface LstFee {
