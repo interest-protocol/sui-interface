@@ -13,6 +13,6 @@ export interface IconValueProps {
 }
 
 export interface TransactionOverviewProps {
-  form: LSTProps['form'];
+  form: LSTProps['stakeForm'];
   isStake: boolean;
 }

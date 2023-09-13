@@ -27,7 +27,7 @@ const YourInfo: FC<YourInfoProps> = ({
   const { iSuiExchangeRate, suiCoinInfo, mutate } = useLstData();
   const handleSelect = () => {
     form.reset();
-    setStakeTabState(not);
+    setStakeTabState(not(isStake));
   };
 
   const { setModal, handleClose } = useModal();
