@@ -11,10 +11,10 @@ import {
 } from '@/views/dapp/v2/lst/lst.hooks';
 
 import ExchangeRate from '../../components/exchange-rate';
+import NextEpoch from '../../components/next-epoch';
+import PricesMarketCard from '../../components/prices-market-card';
+import Stats from '../../components/stats';
 import FAQ from './faq';
-import NextEpoch from './next-epoch';
-import PricesMarketCard from './prices-market-card';
-import Stats from './stats';
 
 const Statistics: FC = () => {
   const t = useTranslations();
