@@ -15,6 +15,7 @@ const ValidatorsTable: FC = () => {
       color="onSurface"
       gridColumn="1/-1"
       flexDirection="column"
+      px="s"
     >
       <Box minWidth="55em">
         <ValidatorsTableHead />
