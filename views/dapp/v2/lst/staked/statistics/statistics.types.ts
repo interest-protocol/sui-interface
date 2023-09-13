@@ -11,10 +11,3 @@ export interface SuiPriceInfoProps {
 export interface ChartProps {
   data: any;
 }
-
-export interface StatisticsProps {
-  totalSuiStaked: string;
-  totalISuiMinted: string;
-  iSuiExchangeRate: string;
-  totalActiveValidators: number;
-}

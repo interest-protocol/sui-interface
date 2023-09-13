@@ -1,38 +1,34 @@
-import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 import { Box } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { SUISVG, UsersSVG } from '@/components/svg/v2';
-import { FixedPointMath, ONE_COIN } from '@/lib';
+import { FixedPointMath } from '@/lib';
 import { OverviewWrapperProps } from '@/views/dapp/v2/lst/validators/validators.types';
 
 import Overview from '../components/overview';
-import { useGetLstStorage } from '../lst.hooks';
+import { useLstData } from '../lst.hooks';
 import { useGetActiveValidators } from '../lst.hooks';
 import AllValidators from './all-validators';
 
 const OverViewWrapper: FC<OverviewWrapperProps> = ({ validatorsCount }) => {
   const t = useTranslations();
 
-  const { data, isLoading } = useGetLstStorage();
+  const { iSuiExchangeRate, isLoading, lstStorage } = useLstData();
 
-  console.log({ isLoading });
-
-  const poolRebase = new Rebase(data.pool.base, data.pool.elastic);
-  const exchangeRate = poolRebase.toElastic(ONE_COIN);
+  if (isLoading) return <div>loading...</div>;
 
   const OVERVIEW_DATA = [
     {
       description: 'lst.overview.totalSuiStaked',
       Icon: SUISVG,
       // Sui has 9 decimals
-      value: FixedPointMath.toNumber(data.totalPrincipal),
+      value: FixedPointMath.toNumber(lstStorage.totalPrincipal),
     },
     {
       description: 'lst.exchangeRate',
       Icon: UsersSVG,
-      value: exchangeRate.isZero() ? 1 : FixedPointMath.toNumber(exchangeRate),
+      value: iSuiExchangeRate,
     },
     {
       description: 'lst.overview.validators',

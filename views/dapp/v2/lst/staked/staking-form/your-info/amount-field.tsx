@@ -10,6 +10,7 @@ import { SUISVG } from '@/components/svg/v2';
 import { ISUI_COIN_TYPE } from '@/constants/lst';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
+import { ISuiSVG } from '@/svg';
 import {
   formatDollars,
   parseInputEventToNumberString,
@@ -70,12 +71,22 @@ const AmountField: FC<AmountFieldProps> = ({ form, isStake, exchangeRate }) => {
               height="2.5rem"
               borderRadius="0.34rem"
             >
-              <SUISVG
-                maxHeight="2.5rem"
-                maxWidth="2.5rem"
-                height="100%"
-                width="100%"
-              />
+              {isStake ? (
+                <SUISVG
+                  maxHeight="2.5rem"
+                  maxWidth="2.5rem"
+                  height="100%"
+                  width="100%"
+                />
+              ) : (
+                <ISuiSVG
+                  filled
+                  maxHeight="2.5rem"
+                  maxWidth="2.5rem"
+                  height="100%"
+                  width="100%"
+                />
+              )}
             </Box>
           }
           my="0"

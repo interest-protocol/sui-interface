@@ -16,7 +16,11 @@ import Staked from './staked';
 import Stats from './stats';
 import Validators from './validators';
 
-const LST: FC<LSTProps> = ({ form }) => {
+const LST: FC<LSTProps> = ({
+  stakeForm,
+  setStakeTabState,
+  isStakeTabStake,
+}) => {
   const t = useTranslations();
   const [changeTab, setChangeTab] = useState<number>(0);
 
@@ -46,7 +50,12 @@ const LST: FC<LSTProps> = ({ form }) => {
         <TabsTransition type="fade">
           {
             [
-              <Staked form={form} key={v4()} />,
+              <Staked
+                form={stakeForm}
+                key={v4()}
+                isStakeTabStake={isStakeTabStake}
+                setStakeTabState={setStakeTabState}
+              />,
               <Bonds key={v4()} />,
               <Portfolio key={v4()} />,
               <Validators key={v4()} />,

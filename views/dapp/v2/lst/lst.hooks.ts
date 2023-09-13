@@ -1,6 +1,6 @@
 import {
-  getAllDynamicFields,
   getReturnValuesFromInspectResults,
+  Network,
 } from '@interest-protocol/sui-amm-sdk';
 import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 import { BCS } from '@mysten/bcs';
@@ -15,30 +15,54 @@ import { pathOr } from 'ramda';
 import { useContext } from 'react';
 import useSWR from 'swr';
 
-import { LST_OBJECTS } from '@/constants/lst';
+import { DEFAULT_LST_STORAGE, LST_OBJECTS } from '@/constants/lst';
 import { useNetwork, useProvider } from '@/hooks';
 import { AddressZero } from '@/lib';
-import { ZERO_BIG_NUMBER } from '@/utils';
 import { makeSWRKey } from '@/utils';
 
 import lstContext from './context';
 import { ILSTContext } from './context/context.types';
 import { LstStorage } from './lst.types';
 
+bcs.registerStructType(
+  `${LST_OBJECTS[Network.TESTNET].PACKAGE_ID}::sdk::ValidatorStakePosition`,
+  {
+    validator: BCS.ADDRESS,
+    total_principal: BCS.U64,
+  }
+);
+
 export const useLstData = (): ILSTContext => useContext(lstContext);
 
-export const useGetValidatorTableFields = () => {
+export const useGetValidatorsStakePosition = (
+  from: string | null,
+  to: string | null
+) => {
   const { provider } = useProvider();
   const { network } = useNetwork();
 
   const objects = LST_OBJECTS[network];
 
   const { data, ...other } = useSWR(
-    makeSWRKey(
-      [network, objects.VALIDATORS_TABLE_ID],
-      useGetValidatorTableFields.name
-    ),
-    async () => getAllDynamicFields(provider, objects.VALIDATORS_TABLE_ID),
+    makeSWRKey([network, from, to], useGetValidatorsStakePosition.name),
+    async () => {
+      if (!from || !to) return null;
+      const txb = new TransactionBlock();
+
+      txb.moveCall({
+        target: `${objects.PACKAGE_ID}::sdk::get_validators_stake_position`,
+        arguments: [
+          txb.object(objects.POOL_STORAGE),
+          txb.pure(from, BCS.ADDRESS),
+          txb.pure(to, BCS.ADDRESS),
+        ],
+      });
+
+      return provider.devInspectTransactionBlock({
+        transactionBlock: txb,
+        sender: AddressZero,
+      });
+    },
     {
       revalidateOnFocus: false,
       revalidateOnMount: true,
@@ -46,9 +70,14 @@ export const useGetValidatorTableFields = () => {
     }
   );
 
+  const result = data ? getReturnValuesFromInspectResults(data) : [];
+
   return {
     ...other,
-    data: data,
+    data:
+      !result || !result.length
+        ? []
+        : bcs.de(result[0][1], Uint8Array.from(result[0][0])),
   };
 };
 
@@ -70,15 +99,6 @@ export const useGetActiveValidators = () => {
     ...other,
     data: data ? data.activeValidators : [],
   };
-};
-
-const DEFAULT_LST_STORAGE: LstStorage = {
-  totalPrincipal: ZERO_BIG_NUMBER,
-  fee: { base: ZERO_BIG_NUMBER, jump: ZERO_BIG_NUMBER, kink: ZERO_BIG_NUMBER },
-  lastEpoch: ZERO_BIG_NUMBER,
-  validatorCount: 0,
-  whiteListedValidators: [],
-  pool: new Rebase(ZERO_BIG_NUMBER, ZERO_BIG_NUMBER),
 };
 
 const parseStorage = (data: SuiObjectResponse | undefined): LstStorage => {
@@ -140,6 +160,25 @@ const parseStorage = (data: SuiObjectResponse | undefined): LstStorage => {
         )
       )
     ),
+    validatorTable: {
+      size: BigNumber(
+        pathOr(
+          '0',
+          ['data', 'content', 'fields', 'validators_table', 'fields', 'size'],
+          data
+        )
+      ),
+      head: pathOr(
+        null,
+        ['data', 'content', 'fields', 'validators_table', 'fields', 'head'],
+        data
+      ),
+      tail: pathOr(
+        null,
+        ['data', 'content', 'fields', 'validators_table', 'fields', 'tail'],
+        data
+      ),
+    },
   };
 };
 
