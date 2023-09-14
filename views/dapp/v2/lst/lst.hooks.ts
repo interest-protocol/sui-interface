@@ -30,10 +30,21 @@ import {
 } from './lst.types';
 
 bcs.registerStructType(
+  `${LST_OBJECTS[Network.TESTNET].PACKAGE_ID}::sdk::StakePosition`,
+  {
+    epoch: BCS.U64,
+    amount: BCS.U64,
+  }
+);
+
+bcs.registerStructType(
   `${LST_OBJECTS[Network.TESTNET].PACKAGE_ID}::sdk::ValidatorStakePosition`,
   {
     validator: BCS.ADDRESS,
     total_principal: BCS.U64,
+    stakes: `vector<${
+      LST_OBJECTS[Network.TESTNET].PACKAGE_ID
+    }::sdk::StakePosition>`,
   }
 );
 
@@ -84,9 +95,15 @@ export const useGetValidatorsStakePosition = (
   return {
     ...other,
     data: (data as ReadonlyArray<ValidatorStakePosition>).reduce(
-      (acc: ValidatorStakePositionRecord, { validator, total_principal }) => ({
+      (
+        acc: ValidatorStakePositionRecord,
+        { validator, total_principal, stakes }
+      ) => ({
         ...acc,
-        [normalizeSuiAddress(validator, true)]: total_principal,
+        [normalizeSuiAddress(validator, true)]: {
+          principal: total_principal,
+          stakes,
+        },
       }),
       {} as ValidatorStakePositionRecord
     ),
