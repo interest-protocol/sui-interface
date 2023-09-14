@@ -1,20 +1,23 @@
-import { FC, useState } from 'react';
+import { Network } from '@interest-protocol/sui-amm-sdk';
+import { FC } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
 
-import { TokensListProps } from '../../portfolio.type';
+import { COINS } from '@/constants';
+import { ISUI_COIN_TYPE } from '@/constants/lst';
+import { useWeb3 } from '@/hooks';
+
 import TokensTableBodyRow from './tokens-table-body-row';
 
-const TokensTableBody: FC<TokensListProps> = ({ data }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+const TOKENS = [COINS[Network.TESTNET].SUI.type, ISUI_COIN_TYPE];
 
-  setTimeout(() => {
-    setIsLoading(false);
-  }, 4000);
-  return !isLoading ? (
+const TokensTableBody: FC = () => {
+  const { isFetchingCoinBalances } = useWeb3();
+
+  return !isFetchingCoinBalances ? (
     <>
-      {data.map((item, index) => (
-        <TokensTableBodyRow {...item} index={index} key={v4()} />
+      {TOKENS.map((type, index) => (
+        <TokensTableBodyRow index={index} key={v4()} type={type} />
       ))}
     </>
   ) : (
