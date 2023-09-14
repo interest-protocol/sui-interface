@@ -10,12 +10,12 @@ const ValidatorSearch: FC = () => {
 
   return (
     <Box
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      color="onSurface"
       pb="s"
       gap="m"
+      display="flex"
+      color="onSurface"
+      alignItems="center"
+      justifyContent="space-between"
       flexDirection={['column', 'column', 'column', 'row']}
     >
       <Typography variant="medium" textTransform="uppercase">
@@ -24,10 +24,10 @@ const ValidatorSearch: FC = () => {
       <Box width={['100%', '100%', '100%', '26rem']}>
         <TextField
           fontSize="14px"
+          placeholder={capitalize(t('lst.validators.tableSection.searchInput'))}
           fieldProps={{
             borderRadius: 'full',
           }}
-          placeholder={capitalize(t('lst.validators.tableSection.searchInput'))}
           Prefix={
             <Box
               height="1.5rem"
