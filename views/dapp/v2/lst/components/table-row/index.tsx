@@ -11,6 +11,7 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
   isTableHead,
   hasDropdown,
   isEquidistant,
+  isDropdownInformation,
 }) => (
   <Box
     fontWeight={isTableHead ? '400' : ''}
@@ -20,8 +21,10 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
     alignItems="center"
     textTransform="capitalize"
     gridTemplateColumns={
-      isEquidistant
-        ? [`1rem 1fr repeat(${numCols - 2}, 1fr)`]
+      isDropdownInformation
+        ? `2fr repeat(${numCols}, 1rem)`
+        : isEquidistant
+        ? [`2rem 1fr repeat(${numCols - 2}, 1fr)`]
         : [
             `2rem 1fr repeat(${numCols - 2}, 1fr)`,
             `2rem 1fr repeat(${numCols - 2}, 1fr)`,
@@ -31,7 +34,7 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
     }
     py={isTableHead ? 'l' : 'm'}
     bg={withBG ? 'surface.containerHigh' : 'unset'}
-    px={hasDropdown ? 'unset' : 'm'}
+    px={hasDropdown ? 'unset' : isDropdownInformation ? 'xl' : 'm'}
     borderRadius={withBG ? '0.25rem' : 'unset'}
     borderBottomRightRadius={withBG && isFirstRow ? 'unset' : '0.25rem'}
     borderBottomLeftRadius={withBG && isFirstRow ? 'unset' : '0.25rem'}

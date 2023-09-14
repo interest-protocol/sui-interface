@@ -1,26 +1,10 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import NFT from './nfts';
-import { NFTRowItemProps, TokensRowItemProps } from './portfolio.type';
+import { TokensRowItemProps } from './portfolio.type';
+import PortfolioAssets from './portfolio-assets';
+import { ASSETS_DATA } from './portfolio-assets/assets.data';
 import Tokens from './tokens';
-
-const DATA_NFT: ReadonlyArray<NFTRowItemProps> = [
-  {
-    id: 1234,
-    value: {
-      coin: 0.5434,
-      inUSD: 300000,
-    },
-  },
-  {
-    id: 1234,
-    value: {
-      coin: 0.5434,
-      inUSD: 300000,
-    },
-  },
-];
 
 const DATA_TOKENS: ReadonlyArray<TokensRowItemProps> = [
   {
@@ -68,13 +52,13 @@ const Portfolio: FC = () => (
     <Box
       pb="1rem"
       width="100%"
-      gridColumn="1/-1"
       display="flex"
-      flexDirection={['column', 'column', 'column', 'row']}
+      gridColumn="1/-1"
+      flexDirection="column"
       gap={['l', 'l', 'l', '3xl']}
     >
       <Tokens data={DATA_TOKENS} />
-      <NFT data={DATA_NFT} />
+      <PortfolioAssets data={ASSETS_DATA} />
     </Box>
   </Box>
 );
