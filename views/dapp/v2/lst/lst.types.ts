@@ -15,6 +15,7 @@ export interface StakeForm {
 export interface ValidatorStakePosition {
   validator: string;
   total_principal: string;
+  stakes: ReadonlyArray<{ amount: string; epoch: string }>;
 }
 
 export interface LSTProps {
@@ -49,4 +50,9 @@ export interface IconVariantBoxProps {
   symbol: Omit<DERIVATED_SUI_SYMBOL, 'iSui-YN'>;
 }
 
-export type ValidatorStakePositionRecord = Record<string, string>;
+export interface ValidatorPosition {
+  principal: string;
+  stakes: ReadonlyArray<{ amount: string; epoch: string }>;
+}
+
+export type ValidatorStakePositionRecord = Record<string, ValidatorPosition>;
