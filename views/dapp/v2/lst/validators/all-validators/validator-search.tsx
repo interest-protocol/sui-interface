@@ -5,7 +5,9 @@ import { FC } from 'react';
 import { SearchSVG } from '@/components/svg/v2';
 import { capitalize } from '@/utils';
 
-const ValidatorSearch: FC = () => {
+import { ValidatorSearchProps } from './all-validators.types';
+
+const ValidatorSearch: FC<ValidatorSearchProps> = ({ register }) => {
   const t = useTranslations();
 
   return (
@@ -24,6 +26,7 @@ const ValidatorSearch: FC = () => {
       <Box width={['100%', '100%', '100%', '26rem']}>
         <TextField
           fontSize="14px"
+          {...register('search')}
           placeholder={capitalize(t('lst.validators.tableSection.searchInput'))}
           fieldProps={{
             borderRadius: 'full',
@@ -37,10 +40,10 @@ const ValidatorSearch: FC = () => {
               alignItems="center"
             >
               <SearchSVG
-                maxHeight="1rem"
-                maxWidth="1rem"
                 width="100%"
                 height="100%"
+                maxWidth="1rem"
+                maxHeight="1rem"
               />
             </Box>
           }
