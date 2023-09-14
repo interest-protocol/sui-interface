@@ -7,8 +7,6 @@ import { AmountFieldDollarsProps } from '../../your-info.types';
 const AmountFieldInputDollars: FC<AmountFieldDollarsProps> = ({ control }) => {
   const amount = useWatch({ control, name: 'amountUSD' });
 
-  console.log('>> amount :: ', amount);
-
   return <Box as="span">{amount}</Box>;
 };
 
