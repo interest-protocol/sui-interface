@@ -7,6 +7,7 @@ import ValidatorSearch from './validator-search';
 import ValidatorsTable from './validators-table';
 
 const AllValidators: FC<AllValidatorsProps> = ({ activeValidators }) => {
+  console.log({ activeValidators });
   const { lstStorage } = useLstData();
 
   const { data: validatorTable, isLoading: isValidatorTableLoading } =
@@ -23,7 +24,7 @@ const AllValidators: FC<AllValidatorsProps> = ({ activeValidators }) => {
   return (
     <Box bg="surface.container" p="l" borderRadius="0.5rem">
       <ValidatorSearch />
-      <ValidatorsTable />
+      <ValidatorsTable activeValidators={activeValidators} />
     </Box>
   );
 };

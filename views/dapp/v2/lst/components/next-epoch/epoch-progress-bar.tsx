@@ -17,8 +17,8 @@ const renderer =
           display="flex"
           position="absolute"
           alignItems="center"
-          width={`${(total * 100) / duration}%`}
           justifyContent="flex-end"
+          width={`${100 - (total * 100) / duration}%`}
           backgroundImage="linear-gradient(90deg, #7997FF 0%, #99BBFF 100%)"
         >
           <Box
