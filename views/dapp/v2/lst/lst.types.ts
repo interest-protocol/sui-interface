@@ -14,7 +14,8 @@ export interface StakeForm {
 
 export interface ValidatorStakePosition {
   validator: string;
-  totalPrincipal: BigNumber;
+  total_principal: string;
+  stakes: ReadonlyArray<{ amount: string; epoch: string }>;
 }
 
 export interface LSTProps {
@@ -44,3 +45,10 @@ export interface LstStorage {
   whiteListedValidators: ReadonlyArray<string>;
   validatorTable: ValidatorTable;
 }
+
+export interface ValidatorPosition {
+  principal: string;
+  stakes: ReadonlyArray<{ amount: string; epoch: string }>;
+}
+
+export type ValidatorStakePositionRecord = Record<string, ValidatorPosition>;

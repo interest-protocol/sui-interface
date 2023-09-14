@@ -1,15 +1,76 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box } from '@interest-protocol/ui-kit';
+import BigNumber from 'bignumber.js';
+import { pathOr } from 'ramda';
 import { FC } from 'react';
-import { v4 } from 'uuid';
 
-import { SUISVG } from '@/components/svg/v2';
+import { FixedPointMath } from '@/lib';
+import { formatMoney } from '@/utils';
+import { useGetValidatorsApy } from '@/views/dapp/v2/lst/lst.hooks';
 
-import TableRow from '../../../components/table-row';
+import { useGetValidatorsStakePosition, useLstData } from '../../../lst.hooks';
 import { AllValidatorsProps } from '../all-validators.types';
+import ValidatorsTableData from './validators-table-data';
 import ValidatorsTableHead from './validators-table-head';
 
-const ValidatorsTable: FC<AllValidatorsProps> = ({ activeValidators }) => {
-  console.log({ activeValidators });
+const ValidatorsTable: FC<AllValidatorsProps> = ({
+  control,
+  activeValidators,
+}) => {
+  const { lstStorage } = useLstData();
+  const {
+    data: validatorStakeDistribution,
+    isLoading: isValidatorTableLoading,
+    error: isValidatorTableError,
+  } = useGetValidatorsStakePosition(
+    lstStorage.validatorTable.head,
+    lstStorage.validatorTable.tail
+  );
+
+  console.log('DIS', validatorStakeDistribution);
+
+  const {
+    data: validatorsApy,
+    isLoading: validatorsApyLoading,
+    error: validatorsApyError,
+  } = useGetValidatorsApy();
+
+  if (isValidatorTableError || validatorsApyError) return <>error!</>; // TODO: handle this error
+
+  if (validatorsApyLoading || isValidatorTableLoading) return <>loading</>; // TODO: Loading APY
+
+  const apyMap = (validatorsApy?.apys?.reduce(
+    (acc, { address, apy }) => ({ ...acc, [address]: apy }),
+    {}
+  ) ?? {}) as Record<string, number>;
+
+  const validators = activeValidators.map(
+    ({
+      name,
+      imageUrl,
+      projectUrl,
+      suiAddress,
+      description,
+      commissionRate,
+      stakingPoolSuiBalance,
+    }) => ({
+      name,
+      imageUrl,
+      projectUrl,
+      description,
+      commissionRate: +commissionRate / 1000,
+      apy: Number((apyMap[suiAddress] ?? 0).toFixed(3)).toPrecision(),
+      stakingPoolSuiBalance: formatMoney(
+        FixedPointMath.toNumber(BigNumber(stakingPoolSuiBalance))
+      ),
+      lstStaked: Number(
+        FixedPointMath.toNumber(
+          BigNumber(
+            pathOr('0', [suiAddress, 'principal'], validatorStakeDistribution)
+          )
+        ).toFixed(4)
+      ).toPrecision(),
+    })
+  );
 
   return (
     <Box
@@ -25,62 +86,7 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({ activeValidators }) => {
     >
       <Box minWidth="55em">
         <ValidatorsTableHead />
-        <Box>
-          {activeValidators.map(({ name, imageUrl, projectUrl }, index) => (
-            <Box
-              key={v4()}
-              cursor="pointer"
-              onClick={() => window.open(projectUrl)}
-            >
-              <TableRow numCols={5}>
-                <Typography variant="small">{index + 1}</Typography>
-                <Box display="flex" gap="m" alignItems="center">
-                  <Box display="flex">
-                    <Box
-                      width="2rem"
-                      height="2rem"
-                      borderRadius="0.25rem"
-                      backgroundColor="white"
-                      backgroundSize="contain"
-                      backgroundPosition="center center"
-                      backgroundImage={`url(${imageUrl})`}
-                    />
-                  </Box>
-                  <Typography variant="medium">{name}</Typography>
-                </Box>
-                <Box display="flex" justifyContent="flex-end">
-                  <Box display="flex" alignItems="center" gap="0.5rem">
-                    <Typography variant="small" textAlign="center">
-                      41.47 M
-                    </Typography>
-                    <Box
-                      bg="#6FBCF0"
-                      width="1rem"
-                      color="white"
-                      height="1rem"
-                      display="flex"
-                      borderRadius="full"
-                      justifyContent="center"
-                    >
-                      <SUISVG
-                        maxHeight="1rem"
-                        maxWidth="1rem"
-                        width="100%"
-                        height="100%"
-                      />
-                    </Box>
-                  </Box>
-                </Box>
-                <Typography variant="small" textAlign="right">
-                  4.95%
-                </Typography>
-                <Typography variant="small" textAlign="right">
-                  4.95%
-                </Typography>
-              </TableRow>
-            </Box>
-          ))}
-        </Box>
+        <ValidatorsTableData control={control} validators={validators} />
       </Box>
     </Box>
   );

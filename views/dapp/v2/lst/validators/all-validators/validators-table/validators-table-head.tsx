@@ -10,7 +10,7 @@ const ValidatorsTableHead: FC = () => {
   const t = useTranslations();
 
   return (
-    <TableRow numCols={5} isTableHead>
+    <TableRow numCols={6} isTableHead>
       <Typography variant="small">#</Typography>
       <Typography variant="small">
         {capitalize(t('lst.validators.tableSection.name'))}
@@ -20,6 +20,9 @@ const ValidatorsTableHead: FC = () => {
       </Typography>
       <Typography variant="small" textAlign="right" textTransform="uppercase">
         {t('lst.validators.tableSection.apy')}
+      </Typography>
+      <Typography variant="small" textAlign="right" textTransform="uppercase">
+        {t('lst.validators.tableSection.lstStaked')}
       </Typography>
       <Typography variant="small" textAlign="right" textTransform="capitalize">
         {t('lst.validators.tableSection.commission')}

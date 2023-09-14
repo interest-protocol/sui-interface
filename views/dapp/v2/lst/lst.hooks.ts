@@ -6,6 +6,7 @@ import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 import { BCS } from '@mysten/bcs';
 import {
   bcs,
+  normalizeSuiAddress,
   SUI_SYSTEM_STATE_OBJECT_ID,
   SuiObjectResponse,
   TransactionBlock,
@@ -22,13 +23,28 @@ import { makeSWRKey } from '@/utils';
 
 import lstContext from './context';
 import { ILSTContext } from './context/context.types';
-import { LstStorage } from './lst.types';
+import {
+  LstStorage,
+  ValidatorStakePosition,
+  ValidatorStakePositionRecord,
+} from './lst.types';
+
+bcs.registerStructType(
+  `${LST_OBJECTS[Network.TESTNET].PACKAGE_ID}::sdk::StakePosition`,
+  {
+    epoch: BCS.U64,
+    amount: BCS.U64,
+  }
+);
 
 bcs.registerStructType(
   `${LST_OBJECTS[Network.TESTNET].PACKAGE_ID}::sdk::ValidatorStakePosition`,
   {
     validator: BCS.ADDRESS,
     total_principal: BCS.U64,
+    stakes: `vector<${
+      LST_OBJECTS[Network.TESTNET].PACKAGE_ID
+    }::sdk::StakePosition>`,
   }
 );
 
@@ -43,7 +59,7 @@ export const useGetValidatorsStakePosition = (
 
   const objects = LST_OBJECTS[network];
 
-  const { data, ...other } = useSWR(
+  const { data: raw, ...other } = useSWR(
     makeSWRKey([network, from, to], useGetValidatorsStakePosition.name),
     async () => {
       if (!from || !to) return null;
@@ -70,14 +86,27 @@ export const useGetValidatorsStakePosition = (
     }
   );
 
-  const result = data ? getReturnValuesFromInspectResults(data) : [];
+  const result = raw ? getReturnValuesFromInspectResults(raw) : [];
+  const data =
+    !result || !result.length
+      ? []
+      : bcs.de(result[0][1], Uint8Array.from(result[0][0]));
 
   return {
     ...other,
-    data:
-      !result || !result.length
-        ? []
-        : bcs.de(result[0][1], Uint8Array.from(result[0][0])),
+    data: (data as ReadonlyArray<ValidatorStakePosition>).reduce(
+      (
+        acc: ValidatorStakePositionRecord,
+        { validator, total_principal, stakes }
+      ) => ({
+        ...acc,
+        [normalizeSuiAddress(validator, true)]: {
+          principal: total_principal,
+          stakes,
+        },
+      }),
+      {} as ValidatorStakePositionRecord
+    ),
   };
 };
 
@@ -215,6 +244,21 @@ export const useGetCurrentEpoch = () => {
   return useSWR(
     makeSWRKey([network], useGetCurrentEpoch.name),
     async () => provider.getLatestSuiSystemState(),
+    {
+      revalidateOnFocus: false,
+      revalidateOnMount: true,
+      refreshWhenHidden: false,
+    }
+  );
+};
+
+export const useGetValidatorsApy = () => {
+  const { provider } = useProvider();
+  const { network } = useNetwork();
+
+  return useSWR(
+    makeSWRKey([network], useGetCurrentEpoch.name),
+    async () => provider.getValidatorsApy(),
     {
       revalidateOnFocus: false,
       revalidateOnMount: true,
