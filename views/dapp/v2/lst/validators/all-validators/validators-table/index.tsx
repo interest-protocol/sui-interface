@@ -1,5 +1,6 @@
 import { Box } from '@interest-protocol/ui-kit';
 import BigNumber from 'bignumber.js';
+import { pathOr } from 'ramda';
 import { FC } from 'react';
 
 import { FixedPointMath } from '@/lib';
@@ -24,6 +25,8 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
     lstStorage.validatorTable.head,
     lstStorage.validatorTable.tail
   );
+
+  console.log('DIS', validatorStakeDistribution);
 
   const {
     data: validatorsApy,
@@ -61,7 +64,9 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
       ),
       lstStaked: Number(
         FixedPointMath.toNumber(
-          BigNumber(validatorStakeDistribution[suiAddress] ?? '0')
+          BigNumber(
+            pathOr('0', [suiAddress, 'principal'], validatorStakeDistribution)
+          )
         ).toFixed(4)
       ).toPrecision(),
     })
