@@ -14,7 +14,7 @@ export interface StakeForm {
 
 export interface ValidatorStakePosition {
   validator: string;
-  totalPrincipal: BigNumber;
+  total_principal: string;
 }
 
 export interface LSTProps {
@@ -48,3 +48,5 @@ export interface LstStorage {
 export interface IconVariantBoxProps {
   symbol: Omit<DERIVATED_SUI_SYMBOL, 'iSui-YN'>;
 }
+
+export type ValidatorStakePositionRecord = Record<string, string>;

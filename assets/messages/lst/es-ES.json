@@ -58,6 +58,7 @@
         "searchInput": "Search Validator",
         "name": "Nombre",
         "apy": "APY",
+        "lstStaked": "LST Staked",
         "commission": "Comisión"
       }
     },

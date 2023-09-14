@@ -4,19 +4,25 @@ import { FC } from 'react';
 
 import { SUISVG, UsersSVG } from '@/components/svg/v2';
 import { FixedPointMath } from '@/lib';
-import { OverviewWrapperProps } from '@/views/dapp/v2/lst/validators/validators.types';
 
 import Overview from '../components/overview';
 import { useLstData } from '../lst.hooks';
 import { useGetActiveValidators } from '../lst.hooks';
 import AllValidators from './all-validators';
 
-const OverViewWrapper: FC<OverviewWrapperProps> = ({ validatorsCount }) => {
+const OverViewWrapper: FC = () => {
   const t = useTranslations();
 
+  const {
+    data: activeValidators,
+    isLoading: isLoadingActiveValidators,
+    error: errorActiveValidator,
+  } = useGetActiveValidators();
   const { iSuiExchangeRate, isLoading, lstStorage } = useLstData();
 
-  if (isLoading) return <div>loading...</div>;
+  if (errorActiveValidator) return <>error!</>; // TODO: handle loading
+
+  if (isLoading || isLoadingActiveValidators) return <div>loading...</div>; // TODO: handle loading
 
   const OVERVIEW_DATA = [
     {
@@ -33,20 +39,26 @@ const OverViewWrapper: FC<OverviewWrapperProps> = ({ validatorsCount }) => {
     {
       description: 'lst.overview.validators',
       Icon: UsersSVG,
-      value: validatorsCount,
+      value: activeValidators?.length || 0,
     },
   ];
   return <Overview title={t('lst.overview.title')} data={OVERVIEW_DATA} />;
 };
 
 const Validators: FC = () => {
-  const { data: activeValidators, isLoading } = useGetActiveValidators();
+  const {
+    data: activeValidators,
+    isLoading: activeValidatorsLoading,
+    error: activeValidatorsError,
+  } = useGetActiveValidators();
 
-  console.log({ isLoading });
+  if (activeValidatorsError) return <>error</>; // TODO fix this error
+
+  if (activeValidatorsLoading) return <>loading</>; // TODO fix this loading
 
   return (
     <Box variant="container" display="flex" flexDirection="column">
-      <OverViewWrapper validatorsCount={activeValidators.length} />
+      <OverViewWrapper />
       <AllValidators activeValidators={activeValidators} />
     </Box>
   );
