@@ -27,6 +27,12 @@ const FaqItem: FC<FaqItemProps> = ({ title, description, index }) => {
       mb="m"
       borderRadius="0.5rem"
       bg={openFAQ ? 'surface.containerHigh' : 'unset'}
+      onClick={() => setOpenFAQ(not)}
+      cursor="pointer"
+      transition="background-color .5s"
+      nHover={{
+        bg: 'surface.containerHigh',
+      }}
     >
       <Box display="flex" gap="l" justifyContent="space-between">
         <Box display="flex" width="90%">
@@ -53,8 +59,6 @@ const FaqItem: FC<FaqItemProps> = ({ title, description, index }) => {
           color="surface"
           initial="rest"
           animate={openFAQ ? 'clicked' : 'rest'}
-          onClick={() => setOpenFAQ(not)}
-          cursor="pointer"
         >
           <CollapseIcon />
         </Motion>

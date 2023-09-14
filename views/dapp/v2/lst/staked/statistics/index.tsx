@@ -1,7 +1,6 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
-import Skeleton from 'react-loading-skeleton';
 
 import { UsersSVG } from '@/components/svg/v2';
 import { FixedPointMath } from '@/lib';
@@ -15,7 +14,7 @@ import ExchangeRate from '../../components/exchange-rate';
 import NextEpoch from '../../components/next-epoch';
 import PricesMarketCard from '../../components/prices-market-card';
 import Stats from '../../components/stats';
-import FAQ from './faq';
+import StatsSkeleton from './stats-skeleton';
 
 const Statistics: FC = () => {
   const t = useTranslations();
@@ -26,41 +25,12 @@ const Statistics: FC = () => {
   const { lstStorage, totalISuiMinted, iSuiExchangeRate, isLoading } =
     useLstData();
 
-  if (isActiveValidatorsLoading || isLoading)
-    return (
-      <Box
-        gap="0.5rem"
-        display="flex"
-        flexDirection="column"
-        width={['100%', '100%', '100%', '55%']}
-      >
-        <Skeleton height="6.75rem" width="100%" />
-        <Skeleton height="10.3rem" width="100%" />
-        <Box
-          gap="s"
-          display="flex"
-          flexDirection={['column', 'column', 'column', 'row']}
-        >
-          <Box width={['100%', '100%', '100%', '50%']}>
-            <Skeleton height="6.75rem" width="100%" />
-          </Box>
-          <Box width={['100%', '100%', '100%', '50%']}>
-            <Skeleton height="6.75rem" width="100%" />
-          </Box>
-        </Box>
-        <Skeleton height="5.6rem" width="100%" />
-      </Box>
-    );
+  if (isActiveValidatorsLoading || isLoading) return <StatsSkeleton />;
 
   const totalSuiStaked = FixedPointMath.toNumber(lstStorage.totalPrincipal);
 
   return (
-    <Box
-      gap="0.5rem"
-      display="flex"
-      flexDirection="column"
-      width={['100%', '100%', '100%', '55%']}
-    >
+    <>
       <PricesMarketCard />
       <Stats
         apy={0}
@@ -120,8 +90,7 @@ const Statistics: FC = () => {
         </Box>
       </Box>
       <NextEpoch />
-      <FAQ />
-    </Box>
+    </>
   );
 };
 
