@@ -71,6 +71,5 @@
     "Zasset",
     "Zealy",
     "ZUSD"
-  ],
-  "dotenv.enableAutocloaking": false
+  ]
 }

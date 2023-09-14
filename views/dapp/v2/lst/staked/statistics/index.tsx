@@ -88,7 +88,7 @@ const Statistics: FC = () => {
             variant="extraSmall"
             textTransform="capitalize"
           >
-            {t('lst.epoch.title')}
+            {capitalize(t('lst.overview.validators'))}
           </Typography>
           <Box display="flex" columnGap="l" alignItems="center">
             <Box
