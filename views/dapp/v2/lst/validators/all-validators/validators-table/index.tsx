@@ -25,8 +25,12 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({ activeValidators }) => {
       <Box minWidth="55em">
         <ValidatorsTableHead />
         <Box>
-          {activeValidators.map(({ name, imageUrl }, index) => (
-            <Box key={v4()}>
+          {activeValidators.map(({ name, imageUrl, projectUrl }, index) => (
+            <Box
+              key={v4()}
+              cursor="pointer"
+              onClick={() => window.open(projectUrl)}
+            >
               <TableRow numCols={5}>
                 <Typography variant="small">{index + 1}</Typography>
                 <Box display="flex" gap="m" alignItems="center">

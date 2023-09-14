@@ -122,9 +122,15 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
                   totalBalance.dividedBy(BigNumber(4))
                 ).toString()
               );
-              form.setValue(
-                'coinType',
-                isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
+              form.setValue?.(
+                'amountUSD',
+                formatDollars(
+                  FixedPointMath.toNumber(
+                    totalBalance.dividedBy(BigNumber(4))
+                  ) *
+                    (suiCoinInfo?.price ?? 1) *
+                    (isStake ? 1 : exchangeRate)
+                )
               );
             }}
             isFilled
@@ -139,9 +145,15 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
                   totalBalance.dividedBy(BigNumber(2))
                 ).toString()
               );
-              form.setValue(
-                'coinType',
-                isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
+              form.setValue?.(
+                'amountUSD',
+                formatDollars(
+                  FixedPointMath.toNumber(
+                    totalBalance.dividedBy(BigNumber(2))
+                  ) *
+                    (suiCoinInfo?.price ?? 1) *
+                    (isStake ? 1 : exchangeRate)
+                )
               );
             }}
             isFilled
@@ -158,9 +170,17 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
                     .dividedBy(BigNumber(4))
                 ).toString()
               );
-              form.setValue(
-                'coinType',
-                isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
+              form.setValue?.(
+                'amountUSD',
+                formatDollars(
+                  FixedPointMath.toNumber(
+                    totalBalance
+                      .multipliedBy(BigNumber(3))
+                      .dividedBy(BigNumber(4))
+                  ) *
+                    (suiCoinInfo?.price ?? 1) *
+                    (isStake ? 1 : exchangeRate)
+                )
               );
             }}
             isFilled
@@ -173,9 +193,13 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
                 'amount',
                 FixedPointMath.toNumber(totalBalance).toString()
               );
-              form.setValue(
-                'coinType',
-                isStake ? SUI_TYPE_ARG : ISUI_COIN_TYPE
+              form.setValue?.(
+                'amountUSD',
+                formatDollars(
+                  FixedPointMath.toNumber(totalBalance) *
+                    (suiCoinInfo?.price ?? 1) *
+                    (isStake ? 1 : exchangeRate)
+                )
               );
             }}
             isFilled
