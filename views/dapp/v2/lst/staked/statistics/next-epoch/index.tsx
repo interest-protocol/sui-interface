@@ -26,19 +26,10 @@ const NextEpoch: FC = () => {
       gap="s"
       flex="1"
       display="flex"
-      flexDirection="column"
       borderRadius="0.5rem"
+      flexDirection="column"
       bg="surface.container"
     >
-      <Typography
-        mb="l"
-        color="onSurface"
-        fontSize="0.688rem"
-        variant="extraSmall"
-        textTransform="capitalize"
-      >
-        {t('lst.epoch.title')}
-      </Typography>
       <Box display="flex" flexDirection="column" gap="m">
         <Typography
           opacity="0.6"
