@@ -20,7 +20,7 @@ const ValidatorSearch: FC<ValidatorSearchProps> = ({ register }) => {
       justifyContent="space-between"
       flexDirection={['column', 'column', 'column', 'row']}
     >
-      <Typography variant="medium" textTransform="uppercase">
+      <Typography variant="medium" textTransform="uppercase" px="s">
         {t('lst.validators.tableSection.title')}
       </Typography>
       <Box width={['100%', '100%', '100%', '26rem']}>

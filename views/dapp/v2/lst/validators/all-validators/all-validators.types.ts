@@ -13,3 +13,19 @@ export interface AllValidatorsProps {
 export interface ValidatorSearchProps {
   register: UseFormRegister<IValidatorSearchForm>;
 }
+
+export interface IValidator {
+  apy: string;
+  name: string;
+  imageUrl: string;
+  lstStaked: string;
+  projectUrl: string;
+  description: string;
+  commissionRate: number;
+  stakingPoolSuiBalance: string;
+}
+
+export interface ValidatorsTableDataProps {
+  control: Control<IValidatorSearchForm>;
+  validators: ReadonlyArray<IValidator>;
+}

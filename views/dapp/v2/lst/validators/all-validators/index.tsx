@@ -9,7 +9,9 @@ import {
 import ValidatorSearch from './validator-search';
 import ValidatorsTable from './validators-table';
 
-const AllValidators: FC<AllValidatorsProps> = ({ activeValidators }) => {
+const AllValidators: FC<Pick<AllValidatorsProps, 'activeValidators'>> = ({
+  activeValidators,
+}) => {
   const { control, register } = useForm<IValidatorSearchForm>({
     defaultValues: { search: '' },
   });
@@ -17,7 +19,7 @@ const AllValidators: FC<AllValidatorsProps> = ({ activeValidators }) => {
   return (
     <Box bg="surface.container" p="l" borderRadius="0.5rem">
       <ValidatorSearch register={register} />
-      <ValidatorsTable activeValidators={activeValidators} control={control} />
+      <ValidatorsTable control={control} activeValidators={activeValidators} />
     </Box>
   );
 };
