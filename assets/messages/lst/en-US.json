@@ -61,6 +61,13 @@
         "commission": "Commission"
       }
     },
+    "assetsTable": {
+      "title": "Assets",
+      "seeAll": "See All",
+      "maturity": "Maturity",
+      "dayLeft": "Day Left",
+      "totalAssetsMinted": "Total Assets Minted"
+    },
     "statsSection": {
       "totalRewards": {
         "title": "Total rewards"

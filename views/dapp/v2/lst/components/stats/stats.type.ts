@@ -1,4 +1,4 @@
-import { DERIVATED_SUI_SYMBOL } from '../../../lst.types';
+import { DERIVATED_SUI_SYMBOL } from '../../lst.types';
 
 export interface StatsWrapperProps {
   description: string;

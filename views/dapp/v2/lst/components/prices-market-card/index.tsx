@@ -2,7 +2,7 @@ import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC, useMemo } from 'react';
 
-import { useLstData } from '../../../lst.hooks';
+import { useLstData } from '../../lst.hooks';
 import PriceMarketChart from './price-market-chart';
 import SuiPriceInfo from './sui-price-info';
 import TrendInfo from './trend-info';

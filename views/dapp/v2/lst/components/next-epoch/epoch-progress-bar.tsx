@@ -37,15 +37,19 @@ const renderer =
     );
   };
 
-const EpochProgressBar: FC<EpochProgressBarProps> = ({ endDate, duration }) => (
+const EpochProgressBar: FC<EpochProgressBarProps> = ({
+  endDate,
+  duration,
+  size,
+}) => (
   <Box
     bg="#D9D9D91A"
     display="flex"
-    height="2.4rem"
     borderRadius="m"
     overflow="hidden"
     position="relative"
     alignItems="center"
+    height={size === 'small' ? '1.5rem' : '2.4rem'}
   >
     <Countdown date={endDate} renderer={renderer(duration)} />
   </Box>

@@ -10,20 +10,25 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
   isFirstRow,
   isTableHead,
   hasDropdown,
+  isEquidistant,
 }) => (
   <Box
     fontWeight={isTableHead ? '400' : ''}
     color="onSurfaceVariant"
     display="grid"
-    columnGap="xl"
+    columnGap={isEquidistant ? 's' : 'xl'}
     alignItems="center"
     textTransform="capitalize"
-    gridTemplateColumns={[
-      `2rem 2fr repeat(${numCols - 2}, 1fr)`,
-      `2rem 2fr repeat(${numCols - 2}, 1fr)`,
-      `2rem 2fr repeat(${numCols - 2}, 1fr)`,
-      `2rem 3fr repeat(${numCols - 2}, 1fr)`,
-    ]}
+    gridTemplateColumns={
+      isEquidistant
+        ? [`1rem 1fr repeat(${numCols - 2}, 1fr)`]
+        : [
+            `2rem 1fr repeat(${numCols - 2}, 1fr)`,
+            `2rem 1fr repeat(${numCols - 2}, 1fr)`,
+            `2rem 1fr repeat(${numCols - 2}, 1fr)`,
+            `2rem 1fr repeat(${numCols - 2}, 1fr)`,
+          ]
+    }
     py={isTableHead ? 'l' : 'm'}
     bg={withBG ? 'surface.containerHigh' : 'unset'}
     px={hasDropdown ? 'unset' : 'm'}
