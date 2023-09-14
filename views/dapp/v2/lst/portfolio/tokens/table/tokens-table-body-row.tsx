@@ -4,16 +4,15 @@ import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
 import { CopyToClipboard } from '@/components';
-import { SUISVG } from '@/components/svg/v2';
-import { ISuiPCSVG, ISuiSVG } from '@/svg';
 import { formatDollars } from '@/utils';
 
 import DropdownBox from '../../../components/dropdown-box';
 import DropdownItem from '../../../components/dropdown-box/dropdown-item';
 import TableRow from '../../../components/table-row';
-import { DERIVATED_SUI_SYMBOL } from '../../../lst.types';
 import { TokensRowItemProps } from '../../portfolio.type';
+import IconVariantBox from './icon-variant-box';
 import OpenDetails from './open-details';
+
 const TokensTableBodyRow: FC<TokensRowItemProps & { index: number }> = ({
   tokens,
   value,
@@ -21,45 +20,6 @@ const TokensTableBodyRow: FC<TokensRowItemProps & { index: number }> = ({
   index,
 }) => {
   const [openDetails, setOpenDetails] = useState(false);
-  const getSuiIcon = (symbol: Omit<DERIVATED_SUI_SYMBOL, 'iSui-YN'>) => {
-    return (
-      <Box
-        width="2.25rem"
-        height="2.25rem"
-        borderRadius="0.25rem"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        color="white"
-        bg={symbol == 'SUI' ? '#6FBCF0' : 'unset'}
-      >
-        {symbol == 'SUI' ? (
-          <SUISVG
-            maxHeight="2.5rem"
-            maxWidth="2.5rem"
-            width="100%"
-            height="100%"
-          />
-        ) : symbol == 'iSui' ? (
-          <ISuiSVG
-            maxHeight="2.25rem"
-            maxWidth="2.25rem"
-            width="100%"
-            height="100%"
-            filled
-          />
-        ) : (
-          <ISuiPCSVG
-            maxHeight="2.25rem"
-            maxWidth="2.25rem"
-            width="100%"
-            height="100%"
-            filled
-          />
-        )}
-      </Box>
-    );
-  };
 
   return (
     <Box key={v4()}>
@@ -69,7 +29,7 @@ const TokensTableBodyRow: FC<TokensRowItemProps & { index: number }> = ({
         </Box>
         <Box>
           <Box display="flex" gap="m" alignItems="center">
-            {getSuiIcon(tokens[0])}
+            <IconVariantBox symbol={tokens[0]} />
             <Box>
               <Typography variant="medium">{tokens[0]}</Typography>
               <Typography variant="extraSmall" opacity={0.6}>

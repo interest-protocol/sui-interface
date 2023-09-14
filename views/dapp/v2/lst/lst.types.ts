@@ -44,3 +44,7 @@ export interface LstStorage {
   whiteListedValidators: ReadonlyArray<string>;
   validatorTable: ValidatorTable;
 }
+
+export interface IconVariantBoxProps {
+  symbol: Omit<DERIVATED_SUI_SYMBOL, 'iSui-YN'>;
+}
