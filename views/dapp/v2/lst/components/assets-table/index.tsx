@@ -70,8 +70,8 @@ const AssetsTable: FC<AssetsTableProps> = ({ dataLimit }) => {
                       <Box>
                         <item.Icon
                           width="100%"
-                          maxHeight="1.25rem"
                           maxWidth="1.25rem"
+                          maxHeight="1.25rem"
                         />
                       </Box>
                     </Box>
