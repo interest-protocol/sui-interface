@@ -42,7 +42,7 @@ const OverViewWrapper: FC<OverviewWrapperProps> = ({ validatorsCount }) => {
 const Validators: FC = () => {
   const { data: activeValidators, isLoading } = useGetActiveValidators();
 
-  console.log({ isLoading });
+  console.log({ isLoading }); // TODO: Loading fix
 
   return (
     <Box variant="container" display="flex" flexDirection="column">
