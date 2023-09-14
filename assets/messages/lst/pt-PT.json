@@ -61,6 +61,13 @@
         "commission": "Comissão"
       }
     },
+    "assetsTable": {
+      "title": "Ativos",
+      "seeAll": "Ver Todos",
+      "maturity": "Maturidade",
+      "dayLeft": "Dias Restantes",
+      "totalAssetsMinted": "Total de Ativos Criados"
+    },
     "statsSection": {
       "totalRewards": {
         "title": "Total recompensas"

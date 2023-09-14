@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { SUISVG } from '@/components/svg/v2';
 import { formatDollars } from '@/utils';
 
-import { SuiPriceInfoProps } from '../statistics.types';
+import { SuiPriceInfoProps } from './statistics.types';
 
 const SuiPriceInfo: FC<SuiPriceInfoProps> = ({ amount }) => (
   <Box color="onSurface">

@@ -17,8 +17,8 @@ const renderer =
           display="flex"
           position="absolute"
           alignItems="center"
-          width={`${(total * 100) / duration}%`}
           justifyContent="flex-end"
+          width={`${100 - (total * 100) / duration}%`}
           backgroundImage="linear-gradient(90deg, #7997FF 0%, #99BBFF 100%)"
         >
           <Box
@@ -37,15 +37,19 @@ const renderer =
     );
   };
 
-const EpochProgressBar: FC<EpochProgressBarProps> = ({ endDate, duration }) => (
+const EpochProgressBar: FC<EpochProgressBarProps> = ({
+  endDate,
+  duration,
+  size,
+}) => (
   <Box
     bg="#D9D9D91A"
     display="flex"
-    height="2.4rem"
     borderRadius="m"
     overflow="hidden"
     position="relative"
     alignItems="center"
+    height={size === 'small' ? '1.5rem' : '2.4rem'}
   >
     <Countdown date={endDate} renderer={renderer(duration)} />
   </Box>
