@@ -126,6 +126,7 @@
       "name": "Name",
       "more": "More",
       "value": "Value"
-    }
+    },
+    "selectValidator": "Select Validator"
   }
 }
