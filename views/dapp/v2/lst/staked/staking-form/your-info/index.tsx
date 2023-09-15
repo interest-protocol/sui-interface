@@ -28,7 +28,8 @@ const YourInfo: FC<YourInfoProps> = ({
   const { provider } = useProvider();
   const { network } = useNetwork();
   const { coinsMap, account } = useWeb3();
-  const { iSuiExchangeRate, suiCoinInfo, mutate } = useLstData();
+  const { iSuiExchangeRate, suiCoinInfo, validatorStakeRecord, mutate } =
+    useLstData();
 
   const handleSelect = () => {
     form.reset();
@@ -86,6 +87,7 @@ const YourInfo: FC<YourInfoProps> = ({
           onFail={openFailureModal(false)}
           onSuccess={openConfirmModal(false)}
           suiUsdPrice={suiCoinInfo?.price || 0}
+          validatorStakeRecord={validatorStakeRecord}
         />
       ),
       {

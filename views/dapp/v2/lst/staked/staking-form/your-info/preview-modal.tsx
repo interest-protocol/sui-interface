@@ -332,7 +332,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
   const suiAmountToReceive = FixedPointMath.toNumber(BigNumber(data));
 
   const unstake = async () => {
-    if (+iSuiAmount < 1 || !account) return;
+    if (!account) return;
 
     try {
       setLoading(true);
@@ -362,7 +362,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
         ],
       });
 
-      const suiCoin = txb.moveCall({
+      txb.moveCall({
         target: `${objects.PACKAGE_ID}::sdk::burn_isui`,
         arguments: [
           txb.object(SUI_SYSTEM_STATE_OBJECT_ID),
@@ -376,8 +376,6 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
           txb.pure(validator, BCS.ADDRESS),
         ],
       });
-
-      txb.transferObjects([suiCoin], txb.pure(account, BCS.ADDRESS));
 
       const { signature, transactionBlockBytes } = await signTransactionBlock({
         transactionBlock: txb,
