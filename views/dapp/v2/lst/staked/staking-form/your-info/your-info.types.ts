@@ -74,9 +74,10 @@ export interface IValidatorModal {
   apy: string;
   name: string;
   imageUrl: string;
+  lstStaked: string;
   description: string;
-  stakingPoolSuiBalance: string;
   suiAddress: SuiAddress;
+  stakingPoolSuiBalance: string;
 }
 
 export interface ValidatorsTableDataProps {

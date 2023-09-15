@@ -51,7 +51,7 @@ const ValidatorsTableDataItem: FC<ValidatorListTableDataItemProps> = ({
         <Box display="flex" justifyContent="flex-end">
           <Box display="flex" alignItems="center" gap="0.5rem">
             <Typography variant="small" textAlign="center">
-              {validator.stakingPoolSuiBalance}
+              {validator.lstStaked}
             </Typography>
             <Box
               bg="#6FBCF0"
