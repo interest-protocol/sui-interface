@@ -1,10 +1,16 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
 import { JsonRpcProvider } from '@mysten/sui.js';
+import { SuiAddress } from '@mysten/sui.js/src/types';
+import { Dispatch, SetStateAction } from 'react';
 import { Control } from 'react-hook-form';
 
 import { CoinsMap } from '@/components/web3-manager/web3-manager.types';
 
 import { LSTProps, StakeForm } from '../../../lst.types';
+import {
+  AllValidatorsProps,
+  IValidatorSearchForm,
+} from '../../../validators/all-validators/all-validators.types';
 import { StakedProps, StakingFormProps } from '../../staked.types';
 
 export interface AmountFieldProps {
@@ -37,4 +43,41 @@ export interface PreviewButtonProps {
   openModal: () => void;
   lstForm: LSTProps['stakeForm'];
   network: Network;
+}
+
+export interface CurrentValidatorProps {
+  suiAddress: SuiAddress;
+  name: string;
+  imageUrl: string;
+}
+
+export interface ValidatorListBodyProps extends AllValidatorsProps {
+  setNewValidator: Dispatch<SetStateAction<CurrentValidatorProps>>;
+  newValidator: CurrentValidatorProps;
+}
+
+export interface ValidatorListTableDataProps extends ValidatorsTableDataProps {
+  setNewValidator: Dispatch<SetStateAction<CurrentValidatorProps>>;
+  newValidator: CurrentValidatorProps;
+}
+
+export interface ValidatorListTableDataItemProps {
+  index: number;
+  validator: IValidatorModal;
+  newValidator: CurrentValidatorProps;
+  setNewValidator: Dispatch<SetStateAction<CurrentValidatorProps>>;
+}
+
+export interface IValidatorModal {
+  apy: string;
+  name: string;
+  imageUrl: string;
+  description: string;
+  stakingPoolSuiBalance: string;
+  suiAddress: SuiAddress;
+}
+
+export interface ValidatorsTableDataProps {
+  control: Control<IValidatorSearchForm>;
+  validators: ReadonlyArray<IValidatorModal>;
 }

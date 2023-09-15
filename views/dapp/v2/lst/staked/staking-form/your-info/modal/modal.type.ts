@@ -1,5 +1,7 @@
 import { PropsWithChildren, ReactNode } from 'react';
 
+import { CurrentValidatorProps } from '../your-info.types';
+
 export interface PreviewTransactionProps {
   handleClose: () => void;
   depositFee: number;
@@ -12,6 +14,7 @@ export interface PreviewTransactionProps {
 export interface HeaderModalProps {
   title: string;
   handleClose: () => void;
+  withoutBack?: boolean;
 }
 
 export interface LineWrapperProps {
@@ -22,4 +25,10 @@ export interface LineWrapperProps {
     secondary: string;
   };
   reverse?: boolean;
+}
+
+export interface ValidatorListProps {
+  handleClose: () => void;
+  currentValidator: CurrentValidatorProps;
+  fillValidator: (fillCurrentValidator: CurrentValidatorProps) => void;
 }

@@ -40,6 +40,13 @@
         "depositFee": "Tarifa de depósito",
         "rewards": "Esd. Recompensa anual",
         "other": "otro"
+      },
+      "validator": {
+        "title": "Validadores",
+        "info": "Por favor, seleccione un validador para apostar su Sui.",
+        "select": "selecione",
+        "clearButton": "limpiar",
+        "confirmButton": "confirmar selección"
       }
     },
     "infoButton": "{isStake, plural, =1 {Preview Stake} other {Preview Unstake}}",

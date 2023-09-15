@@ -23,10 +23,10 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
       isEquidistant
         ? [`1rem 1fr repeat(${numCols - 2}, 1fr)`]
         : [
-            `2rem 1fr repeat(${numCols - 2}, 1fr)`,
-            `2rem 1fr repeat(${numCols - 2}, 1fr)`,
-            `2rem 1fr repeat(${numCols - 2}, 1fr)`,
-            `2rem 1fr repeat(${numCols - 2}, 1fr)`,
+            `2rem 2fr repeat(${numCols - 2}, 1fr)`,
+            `2rem 2fr repeat(${numCols - 2}, 1fr)`,
+            `2rem 2fr repeat(${numCols - 2}, 1fr)`,
+            `2rem 2fr repeat(${numCols - 2}, 1fr)`,
           ]
     }
     py={isTableHead ? 'l' : 'm'}

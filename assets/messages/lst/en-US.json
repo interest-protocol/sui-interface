@@ -40,6 +40,13 @@
         "depositFee": "Deposit fee",
         "rewards": "Esd. Yearly Reward",
         "other": "other"
+      },
+      "validator": {
+        "title": "Validators",
+        "info": "Please Select one Validator in order to stake your Sui. choo from the list bellow.",
+        "select": "select",
+        "clearButton": "clear",
+        "confirmButton": "confirm selection"
       }
     },
     "infoButton": "{isStake, plural, =1 {Preview Stake} other {Preview Unstake}}",

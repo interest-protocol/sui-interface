@@ -13,6 +13,7 @@ import AmountField from './amount-field';
 import Overview from './overview';
 import PreviewButton from './preview-button';
 import { StakePreviewModal, UnstakePreviewModal } from './preview-modal';
+import SelectValidators from './select-validators';
 
 const YourInfo: FC<YourInfoProps> = ({
   form,
@@ -120,6 +121,7 @@ const YourInfo: FC<YourInfoProps> = ({
         onClick={handleSelectValidator}
         defaultValue={selectValidator}
       />
+      {selectValidator && <SelectValidators />}
       <PreviewButton
         isStake={isStake}
         lstForm={form}
