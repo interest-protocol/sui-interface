@@ -9,7 +9,7 @@ import { CopyToClipboard } from '@/components';
 import { SUISVG } from '@/components/svg/v2';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
-import { ISuiPCSVG, ISuiSVG } from '@/svg';
+import { ISuiSVG } from '@/svg';
 import { formatDollars } from '@/utils';
 
 import DropdownBox from '../../../components/dropdown-box';
@@ -34,22 +34,16 @@ const TokenIcon: FC<{ symbol: Omit<DERIVATED_SUI_SYMBOL, 'iSui-YN'> }> = ({
   >
     {symbol == 'SUI' ? (
       <SUISVG maxHeight="2.5rem" maxWidth="2.5rem" width="100%" height="100%" />
-    ) : symbol == 'iSui' ? (
-      <ISuiSVG
-        maxHeight="2.25rem"
-        maxWidth="2.25rem"
-        width="100%"
-        height="100%"
-        filled
-      />
     ) : (
-      <ISuiPCSVG
-        maxHeight="2.25rem"
-        maxWidth="2.25rem"
-        width="100%"
-        height="100%"
-        filled
-      />
+      symbol == 'ISUI' && (
+        <ISuiSVG
+          maxHeight="2.25rem"
+          maxWidth="2.25rem"
+          width="100%"
+          height="100%"
+          filled
+        />
+      )
     )}
   </Box>
 );

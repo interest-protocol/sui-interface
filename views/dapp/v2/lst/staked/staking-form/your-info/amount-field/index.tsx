@@ -22,7 +22,7 @@ const AmountField: FC<AmountFieldProps> = (props) => {
       <Box
         px="m"
         pb="m"
-        mb="3xl"
+        mb="l"
         bg="surface.containerHigh"
         borderRadius="0.25rem"
       >

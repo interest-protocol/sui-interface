@@ -15,7 +15,7 @@ const TrendInfo: FC<TrendInfoProps> = ({ isTrendUp, percentage, daysPast }) => (
       <Box
         width="1rem"
         height="1rem"
-        transform={`rotate(${isTrendUp ? 180 : 0}deg)`}
+        transform={`rotate(${isTrendUp ? 270 : 90}deg)`}
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -24,8 +24,8 @@ const TrendInfo: FC<TrendInfoProps> = ({ isTrendUp, percentage, daysPast }) => (
         <ArrowTrendSVG
           maxWidth="1rem"
           maxHeight="1rem"
-          width="0.75rem"
-          height="0.75rem"
+          width="100%"
+          height="100%"
         />
       </Box>
       <Typography variant="large" fontSize="0.688rem">

@@ -3,9 +3,13 @@ import { FC } from 'react';
 
 import { LeftArrowSVG, TimesSVG } from '@/components/svg/v2';
 
-import { HeaderModalProps } from './modal.type';
+import { HeaderModalProps } from './modal.types';
 
-const HeaderModal: FC<HeaderModalProps> = ({ handleClose, title }) => {
+const HeaderModal: FC<HeaderModalProps> = ({
+  handleClose,
+  withoutBack,
+  title,
+}) => {
   return (
     <Box
       p="xl"
@@ -14,9 +18,13 @@ const HeaderModal: FC<HeaderModalProps> = ({ handleClose, title }) => {
       justifyContent="space-between"
       color="onSurface"
     >
-      <Button variant="icon" onClick={handleClose}>
-        <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
-      </Button>
+      {withoutBack ? (
+        <Box />
+      ) : (
+        <Button variant="icon" onClick={handleClose}>
+          <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+        </Button>
+      )}
       <Box display="flex" alignItems="center">
         <Typography
           variant="medium"

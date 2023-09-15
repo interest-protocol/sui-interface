@@ -1,12 +1,13 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box, ProgressIndicator, Typography } from '@interest-protocol/ui-kit';
 import { BCS } from '@mysten/bcs';
 import { SUI_SYSTEM_STATE_OBJECT_ID, TransactionBlock } from '@mysten/sui.js';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { BigNumber } from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { SUISVG } from '@/components/svg/v2';
+import { EXPLORER_URL } from '@/constants';
 import { LST_OBJECTS } from '@/constants/lst';
 import { FixedPointMath } from '@/lib';
 import { ISuiSVG } from '@/svg';
@@ -21,6 +22,7 @@ import {
   useGetExchangeRateSuiToISui,
 } from '@/views/dapp/v2/lst/lst.hooks';
 
+import HeaderModal from './modal/header-modal';
 import PreviewTransaction from './modal/preview';
 import {
   StakePreviewModalProps,
@@ -32,12 +34,15 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
   lstForm,
   provider,
   network,
+  onSuccess,
   coinsMap,
   account,
+  onFail,
   suiUsdPrice,
   mutate,
 }) => {
   const t = useTranslations();
+  const [loading, setLoading] = useState(false);
   const { signTransactionBlock } = useWalletKit();
   const suiAmount = lstForm.getValues('amount');
   const { data, isLoading } = useGetExchangeRateSuiToISui(
@@ -46,12 +51,48 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
       .toString()
   );
 
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading || loading)
+    return (
+      <Box
+        width={['90vw', '90vw', '90vw', '27rem']}
+        borderRadius="1rem"
+        bg="surface.container"
+        display="flex"
+        flexDirection="column"
+        pb="l"
+      >
+        <HeaderModal
+          title={t('lst.modal.preview.title')}
+          handleClose={handleClose}
+        />
+        <Box
+          px="l"
+          pt="l"
+          gap="l"
+          display="flex"
+          minHeight="12rem"
+          alignItems="center"
+          flexDirection="column"
+          justifyContent="center"
+        >
+          <ProgressIndicator variant="loading" />
+          <Typography variant="medium">
+            {t(
+              isLoading
+                ? 'lst.modal.preview.fetchingExchangeRate'
+                : 'lst.modal.preview.submitting',
+              isLoading ? undefined : { isStake: 1 }
+            )}
+          </Typography>
+        </Box>
+      </Box>
+    );
 
   const stake = async () => {
     if (+suiAmount < 1 || !account) return;
 
     try {
+      setLoading(true);
       const objects = LST_OBJECTS[network];
 
       const txb = new TransactionBlock();
@@ -94,9 +135,14 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
-    } catch (error) {
-      console.log(error);
+
+      const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
+
+      onSuccess(explorerLink);
+    } catch {
+      onFail();
     } finally {
+      setLoading(false);
       await mutate();
     }
   };
@@ -230,8 +276,11 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
   coinsMap,
   account,
   mutate,
+  onSuccess,
+  onFail,
   suiUsdPrice,
 }) => {
+  const [loading, setLoading] = useState(false);
   const t = useTranslations();
   const { signTransactionBlock } = useWalletKit();
   const iSuiAmount = lstForm.getValues('amount');
@@ -242,14 +291,50 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
       .toString()
   );
 
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading || loading)
+    return (
+      <Box
+        width={['90vw', '90vw', '90vw', '27rem']}
+        borderRadius="1rem"
+        bg="surface.container"
+        display="flex"
+        flexDirection="column"
+        pb="l"
+      >
+        <HeaderModal
+          title={t('lst.modal.preview.title')}
+          handleClose={handleClose}
+        />
+        <Box
+          px="l"
+          pt="l"
+          gap="l"
+          display="flex"
+          minHeight="12rem"
+          alignItems="center"
+          flexDirection="column"
+          justifyContent="center"
+        >
+          <ProgressIndicator variant="loading" />
+          <Typography variant="medium">
+            {t(
+              isLoading
+                ? 'lst.modal.preview.fetchingExchangeRate'
+                : 'lst.modal.preview.submitting',
+              isLoading ? undefined : { isStake: 0 }
+            )}
+          </Typography>
+        </Box>
+      </Box>
+    );
 
   const suiAmountToReceive = FixedPointMath.toNumber(BigNumber(data));
 
   const unstake = async () => {
-    if (+iSuiAmount < 1 || !account) return;
+    if (!account) return;
 
     try {
+      setLoading(true);
       const objects = LST_OBJECTS[network];
 
       const txb = new TransactionBlock();
@@ -268,8 +353,6 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
         amount: iSuiAmountBN,
       });
 
-      console.log(coinType);
-
       const burnValidatorPayload = txb.moveCall({
         target: `${objects.PACKAGE_ID}::sdk::create_burn_validator_payload`,
         arguments: [
@@ -278,9 +361,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
         ],
       });
 
-      console.log({ burnValidatorPayload });
-
-      const suiCoin = txb.moveCall({
+      txb.moveCall({
         target: `${objects.PACKAGE_ID}::sdk::burn_isui`,
         arguments: [
           txb.object(SUI_SYSTEM_STATE_OBJECT_ID),
@@ -294,8 +375,6 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
           txb.pure(validator, BCS.ADDRESS),
         ],
       });
-
-      txb.transferObjects([suiCoin], txb.pure(account, BCS.ADDRESS));
 
       const { signature, transactionBlockBytes } = await signTransactionBlock({
         transactionBlock: txb,
@@ -311,9 +390,14 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
       throwTXIfNotSuccessful(tx);
 
       await showTXSuccessToast(tx, network);
-    } catch (error) {
-      console.log(error);
+
+      const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
+
+      onSuccess(explorerLink);
+    } catch {
+      onFail();
     } finally {
+      setLoading(false);
       await mutate();
     }
   };

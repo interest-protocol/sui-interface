@@ -23,9 +23,9 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
     columnGap={isEquidistant ? 's' : isDropdownInformation ? 'unset' : 'xl'}
     gridTemplateColumns={
       isDropdownInformation
-        ? `110px 1fr`
+        ? '110px 1fr'
         : isEquidistant && numCols
-        ? [`2rem 1fr repeat(${numCols - 2}, 1fr)`]
+        ? `2rem 1fr repeat(${numCols - 2}, 1fr)`
         : numCols
         ? [
             `2rem 1fr repeat(${numCols - 2}, 1fr)`,

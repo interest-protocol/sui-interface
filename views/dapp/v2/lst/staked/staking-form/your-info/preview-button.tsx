@@ -17,11 +17,11 @@ const PreviewButton: FC<PreviewButtonProps> = ({
   const { colors } = useTheme() as Theme;
   const t = useTranslations();
   const amount = useWatch({ control: lstForm.control, name: 'amount' });
-  const disabled = 1 > +amount;
+  const disabled = isStake && 1 > +amount;
   return (
     <Button
       px="1.5rem"
-      mt="1.875rem"
+      mt="2rem"
       py="0.625rem"
       variant="filled"
       textAlign="center"

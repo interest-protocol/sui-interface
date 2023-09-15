@@ -38,8 +38,27 @@
         "receiveLabel": "You Will Receive",
         "button": "{isStake, plural, =1 {Stake} other {Unstake}}",
         "depositFee": "Deposit fee",
+        "fetchingExchangeRate": "Fetching Exchange Rate",
+        "submitting": "{isStake, plural, =1 {Staking} other {Unstaking}}",
         "rewards": "Esd. Yearly Reward",
         "other": "other"
+      },
+      "validator": {
+        "title": "Validators",
+        "info": "Please Select one Validator in order to stake your Sui. choo from the list bellow.",
+        "select": "select",
+        "clearButton": "clear",
+        "confirmButton": "confirm selection"
+      },
+      "confirm": {
+        "title": "{isStake, plural, =1 {Stake} other {Unstake}} Successful",
+        "description": "You can check your transaction in the Explorer",
+        "button": "See on SuiVision"
+      },
+      "error": {
+        "title": "Error",
+        "description": "{isStake, plural, =1 {Stake} other {Unstake}} failed",
+        "button": "Try again"
       }
     },
     "infoButton": "{isStake, plural, =1 {Preview Stake} other {Preview Unstake}}",
@@ -127,6 +146,7 @@
       "name": "Name",
       "more": "More",
       "value": "Value"
-    }
+    },
+    "selectValidator": "Select Validator"
   }
 }

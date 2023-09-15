@@ -39,7 +39,26 @@
         "button": "{isStake, plural, =1 {Stake} other {Unstake}}",
         "depositFee": "Tarifa de depósito",
         "rewards": "Esd. Recompensa anual",
+        "fetchingExchangeRate": "Fetching Exchange Rate",
+        "submitting": "{isStake, plural, =1 {Apuestando} other {Desempatando}}",
         "other": "otro"
+      },
+      "validator": {
+        "title": "Validadores",
+        "info": "Por favor, seleccione un validador para apostar su Sui.",
+        "select": "selecione",
+        "clearButton": "limpiar",
+        "confirmButton": "confirmar selección"
+      },
+      "confirm": {
+        "title": "Éxito de {isStake, plural, =1 {la Apuesta} other {lo desempate}}  ",
+        "description": "Puedes verificar tu transacción en el Explorador",
+        "button": "Ver en SuiVision"
+      },
+      "error": {
+        "title": "Error",
+        "description": "{isStake, plural, =1 {La Apuesta} other {Lo desempate}} falló",
+        "button": "intentar nuevamente"
       }
     },
     "infoButton": "{isStake, plural, =1 {Preview Stake} other {Preview Unstake}}",
@@ -127,6 +146,7 @@
       "name": "Nombre",
       "more": "Más",
       "value": "Valor"
-    }
+    },
+    "selectValidator": "seleccionar validador"
   }
 }

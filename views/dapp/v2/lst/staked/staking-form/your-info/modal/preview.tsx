@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 
 import HeaderModal from './header-modal';
 import LineWrapper from './line-wrapper';
-import { PreviewTransactionProps } from './modal.type';
+import { PreviewTransactionProps } from './modal.types';
 
 const PreviewTransaction: FC<PreviewTransactionProps> = ({
   handleClose,
@@ -16,6 +16,7 @@ const PreviewTransaction: FC<PreviewTransactionProps> = ({
   isStake,
 }) => {
   const t = useTranslations();
+
   return (
     <Box
       width={['90vw', '90vw', '90vw', '27rem']}
