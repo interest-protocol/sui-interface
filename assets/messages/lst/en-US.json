@@ -47,6 +47,16 @@
         "select": "select",
         "clearButton": "clear",
         "confirmButton": "confirm selection"
+      },
+      "confirm": {
+        "title": "Token Swapped",
+        "description": "You can check your transaction in the Explorer",
+        "button": "See on SuiVision"
+      },
+      "error": {
+        "title": "Error",
+        "description": "Your swap failed",
+        "button": "Try again"
       }
     },
     "infoButton": "{isStake, plural, =1 {Preview Stake} other {Preview Unstake}}",

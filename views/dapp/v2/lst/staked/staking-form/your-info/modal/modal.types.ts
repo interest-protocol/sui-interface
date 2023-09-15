@@ -2,6 +2,10 @@ import { SuiSystemStateSummary } from '@mysten/sui.js';
 import { PropsWithChildren, ReactNode } from 'react';
 
 import { CurrentValidatorProps } from '../your-info.types';
+import {
+  SwapFormConfirmModalProps,
+  SwapFormFailModalProps,
+} from './../../../../../swap/swap-form/swap-form-preview/swap-form-preview.types';
 
 export interface PreviewTransactionProps {
   handleClose: () => void;
@@ -33,4 +37,12 @@ export interface ValidatorListProps {
   currentValidator: CurrentValidatorProps;
   activeValidators: SuiSystemStateSummary['activeValidators'];
   fillValidator: (fillCurrentValidator: CurrentValidatorProps) => void;
+}
+
+export interface LSTFormFailModalProps extends SwapFormFailModalProps {
+  isStake: boolean;
+}
+
+export interface LSTFormConfirmModalProps extends SwapFormConfirmModalProps {
+  isStake: boolean;
 }

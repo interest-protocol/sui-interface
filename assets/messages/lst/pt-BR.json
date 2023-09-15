@@ -47,6 +47,16 @@
         "select": "selecione",
         "clearButton": "limpar",
         "confirmButton": "confirmar seleção"
+      },
+      "confirm": {
+        "title": "Token trocado",
+        "description": "Pode verificar a sua transacção no Explorador",
+        "button": "Ver na SuiVision"
+      },
+      "error": {
+        "title": "Erro",
+        "description": "A sua troca falhou",
+        "button": "Tente de Novo"
       }
     },
     "infoButton": "{isStake, plural, =1 {pré-visualizar aposta} other {pré-visualizar a retirada}}",
