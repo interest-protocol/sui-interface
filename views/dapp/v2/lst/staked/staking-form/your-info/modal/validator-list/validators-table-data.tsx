@@ -8,6 +8,7 @@ import ValidatorsTableDataItem from './validators-table-data-item';
 
 const ValidatorsTableData: FC<ValidatorListTableDataProps> = ({
   control,
+  isStake,
   validators,
   newValidator,
   setNewValidator,
@@ -27,6 +28,7 @@ const ValidatorsTableData: FC<ValidatorListTableDataProps> = ({
           <ValidatorsTableDataItem
             key={v4()}
             index={index}
+            isStake={isStake}
             validator={validator}
             newValidator={newValidator}
             setNewValidator={setNewValidator}
