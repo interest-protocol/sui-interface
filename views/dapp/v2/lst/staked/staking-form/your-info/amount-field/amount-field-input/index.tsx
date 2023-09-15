@@ -37,7 +37,7 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
     ? propOr(ZERO_BIG_NUMBER, 'totalBalance', sui)
     : propOr(ZERO_BIG_NUMBER, 'totalBalance', iSui);
 
-  console.log({ isFetchingCoinBalances });
+  console.log({ isFetchingCoinBalances }); // TODO: handle this loader
 
   return (
     <Box
