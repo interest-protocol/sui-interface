@@ -139,9 +139,8 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
       const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
 
       onSuccess(explorerLink);
-    } catch (error) {
+    } catch {
       onFail();
-      console.log(error);
     } finally {
       setLoading(false);
       await mutate();
@@ -397,8 +396,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
       const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
 
       onSuccess(explorerLink);
-    } catch (error) {
-      console.log(error);
+    } catch {
       onFail();
     } finally {
       setLoading(false);

@@ -31,8 +31,6 @@ const ValidatorListBody: FC<ValidatorListBodyProps> = ({
     lstStorage.validatorTable.tail
   );
 
-  console.log('DIS', validatorStakeDistribution);
-
   const {
     data: validatorsApy,
     isLoading: validatorsApyLoading,
