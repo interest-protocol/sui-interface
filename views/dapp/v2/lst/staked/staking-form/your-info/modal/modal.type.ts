@@ -32,3 +32,8 @@ export interface ValidatorListProps {
   currentValidator: CurrentValidatorProps;
   fillValidator: (fillCurrentValidator: CurrentValidatorProps) => void;
 }
+
+export interface MaturityModalProps {
+  handleClose: () => void;
+  handleConfirm: () => void;
+}

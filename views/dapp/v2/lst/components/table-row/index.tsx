@@ -11,6 +11,7 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
   isTableHead,
   hasDropdown,
   isEquidistant,
+  withoutIndex,
 }) => (
   <Box
     fontWeight={isTableHead ? '400' : ''}
@@ -21,12 +22,12 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
     textTransform="capitalize"
     gridTemplateColumns={
       isEquidistant
-        ? [`1rem 1fr repeat(${numCols - 2}, 1fr)`]
+        ? [`${!withoutIndex && '1rem '}1fr repeat(${numCols - 2}, 1fr)`]
         : [
-            `2rem 2fr repeat(${numCols - 2}, 1fr)`,
-            `2rem 2fr repeat(${numCols - 2}, 1fr)`,
-            `2rem 2fr repeat(${numCols - 2}, 1fr)`,
-            `2rem 2fr repeat(${numCols - 2}, 1fr)`,
+            `${!withoutIndex && '2rem'} 2fr repeat(${numCols - 2}, 1fr)`,
+            `${!withoutIndex && '2rem'} 2fr repeat(${numCols - 2}, 1fr)`,
+            `${!withoutIndex && '2rem'} 2fr repeat(${numCols - 2}, 1fr)`,
+            `${!withoutIndex && '2rem'} 2fr repeat(${numCols - 2}, 1fr)`,
           ]
     }
     py={isTableHead ? 'l' : 'm'}

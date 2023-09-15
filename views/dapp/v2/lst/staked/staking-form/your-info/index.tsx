@@ -13,6 +13,7 @@ import AmountField from './amount-field';
 import Overview from './overview';
 import PreviewButton from './preview-button';
 import { StakePreviewModal, UnstakePreviewModal } from './preview-modal';
+import SelectMaturityDate from './select-maturity';
 import SelectValidators from './select-validators';
 
 const YourInfo: FC<YourInfoProps> = ({
@@ -122,6 +123,7 @@ const YourInfo: FC<YourInfoProps> = ({
         defaultValue={selectValidator}
       />
       {selectValidator && <SelectValidators />}
+      {selectValidator && <SelectMaturityDate />}
       <PreviewButton
         isStake={isStake}
         lstForm={form}
