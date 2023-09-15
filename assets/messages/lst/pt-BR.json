@@ -66,7 +66,11 @@
         "name": "Nome",
         "apy": "APY",
         "lstStaked": "LST Staked",
-        "commission": "Comissão"
+        "commission": "Comissão",
+        "error": "Ocorreu um erro ao carregar os validadores"
+      },
+      "validatorSection": {
+        "activeValidatorError": "Ocorreu um erro ao ativar o validador"
       }
     },
     "assetsTable": {
@@ -93,12 +97,14 @@
       "validators": "validadores",
       "totalISUIMinted": "total iSUI emitido",
       "totalISUIPCMinted": "total iSUI-PC emitido",
-      "totalISUIYNMinted": "total iSUI-YN emitido"
+      "totalISUIYNMinted": "total iSUI-YN emitido",
+      "error": "Ocorreu um erro ao carregar a visão geral"
     },
     "exchangeRate": "taxa de câmbio",
     "epoch": {
       "title": "Preço do gás da próxima época",
-      "end": "A época termina em..."
+      "end": "A época termina em...",
+      "error": "Erro ao carregar o preço do gás da próxima época"
     },
     "faq": {
       "title": "PERGUNTAS FREQUENTES",

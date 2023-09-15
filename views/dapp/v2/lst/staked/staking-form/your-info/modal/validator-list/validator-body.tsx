@@ -1,10 +1,12 @@
 import { Box } from '@interest-protocol/ui-kit';
 import BigNumber from 'bignumber.js';
+import { useTranslations } from 'next-intl';
 import { pathOr } from 'ramda';
 import { FC } from 'react';
 
 import { FixedPointMath } from '@/lib';
-import { formatMoney } from '@/utils';
+import { capitalize, formatMoney } from '@/utils';
+import ErrorState from '@/views/dapp/v2/lst/components/error-state';
 import {
   useGetValidatorsApy,
   useGetValidatorsStakePosition,
@@ -14,6 +16,7 @@ import {
 import { ValidatorListBodyProps } from '../../your-info.types';
 import ValidatorsTableData from './validators-table-data';
 import ValidatorsTableHead from './validators-table-head';
+import ValidatorsTableSkeleton from './validators-table-skeleton';
 
 const ValidatorListBody: FC<ValidatorListBodyProps> = ({
   activeValidators,
@@ -21,6 +24,7 @@ const ValidatorListBody: FC<ValidatorListBodyProps> = ({
   control,
   newValidator,
 }) => {
+  const t = useTranslations();
   const { lstStorage } = useLstData();
   const {
     data: validatorStakeDistribution,
@@ -39,9 +43,16 @@ const ValidatorListBody: FC<ValidatorListBodyProps> = ({
     error: validatorsApyError,
   } = useGetValidatorsApy();
 
-  if (isValidatorTableError || validatorsApyError) return <>error!</>; // TODO: handle this error
+  if (isValidatorTableError || validatorsApyError)
+    return (
+      <ErrorState
+        size="large"
+        errorMessage={capitalize(t('lst.validators.tableSection.error'))}
+      />
+    );
 
-  if (validatorsApyLoading || isValidatorTableLoading) return <>loading</>; // TODO: Loading APY
+  if (!validatorsApyLoading || !isValidatorTableLoading)
+    return <ValidatorsTableSkeleton custom />;
 
   const apyMap = (validatorsApy?.apys?.reduce(
     (acc, { address, apy }) => ({ ...acc, [address]: apy }),

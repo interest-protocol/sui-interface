@@ -29,8 +29,8 @@ const DAPP_OLD_DESIGN_PAGES = ['/dex', '/farms', '/liquidity'];
 const Theme: FC<PropsWithChildren<ThemeProps>> = ({
   dark,
   setDark,
-  isRedesign,
   children,
+  isRedesign,
 }) => {
   const { asPath } = useRouter();
 
