@@ -65,8 +65,25 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
           title={t('lst.modal.preview.title')}
           handleClose={handleClose}
         />
-        <Box px="l" pt="l" display="flex" flexDirection="column">
+        <Box
+          px="l"
+          pt="l"
+          gap="l"
+          display="flex"
+          minHeight="12rem"
+          alignItems="center"
+          flexDirection="column"
+          justifyContent="center"
+        >
           <ProgressIndicator variant="loading" />
+          <Typography variant="medium">
+            {t(
+              isLoading
+                ? 'lst.modal.preview.fetchingExchangeRate'
+                : 'lst.modal.preview.submitting',
+              isLoading ? undefined : { isStake: 1 }
+            )}
+          </Typography>
         </Box>
       </Box>
     );
@@ -289,8 +306,25 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
           title={t('lst.modal.preview.title')}
           handleClose={handleClose}
         />
-        <Box px="l" pt="l" display="flex" flexDirection="column">
+        <Box
+          px="l"
+          pt="l"
+          gap="l"
+          display="flex"
+          minHeight="12rem"
+          alignItems="center"
+          flexDirection="column"
+          justifyContent="center"
+        >
           <ProgressIndicator variant="loading" />
+          <Typography variant="medium">
+            {t(
+              isLoading
+                ? 'lst.modal.preview.fetchingExchangeRate'
+                : 'lst.modal.preview.submitting',
+              isLoading ? undefined : { isStake: 0 }
+            )}
+          </Typography>
         </Box>
       </Box>
     );

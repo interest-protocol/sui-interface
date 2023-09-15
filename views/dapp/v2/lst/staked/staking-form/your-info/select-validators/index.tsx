@@ -38,8 +38,6 @@ const SelectValidators: FC<SelectValidatorsProps> = ({ form }) => {
     suiAddress: '',
   };
 
-  console.log('>> currentValidator :: ', currentValidator);
-
   const fillValidator = ({ suiAddress }: CurrentValidatorProps) => {
     form.setValue('validator', suiAddress);
   };

@@ -6,6 +6,7 @@ import HeaderModal from './header-modal';
 import { LSTFormFailModalProps } from './modal.types';
 
 const LSTFormFailModal: FC<LSTFormFailModalProps> = ({
+  isStake,
   message,
   handleClose,
 }) => {
@@ -26,7 +27,8 @@ const LSTFormFailModal: FC<LSTFormFailModalProps> = ({
       />
       <Box px="l" pt="l" display="flex" flexDirection="column">
         <Typography variant="extraSmall" textAlign="center">
-          {message ?? t('lst.modal.error.description')}
+          {message ??
+            t('lst.modal.error.description', { isStake: Number(isStake) })}
         </Typography>
         <Button
           mt="xl"

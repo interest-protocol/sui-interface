@@ -38,6 +38,8 @@
         "receiveLabel": "You Will Receive",
         "button": "{isStake, plural, =1 {Stake} other {Unstake}}",
         "depositFee": "Deposit fee",
+        "fetchingExchangeRate": "Fetching Exchange Rate",
+        "submitting": "{isStake, plural, =1 {Staking} other {Unstaking}}",
         "rewards": "Esd. Yearly Reward",
         "other": "other"
       },
@@ -49,13 +51,13 @@
         "confirmButton": "confirm selection"
       },
       "confirm": {
-        "title": "Token Swapped",
+        "title": "{isStake, plural, =1 {Stake} other {Unstake}} Successful",
         "description": "You can check your transaction in the Explorer",
         "button": "See on SuiVision"
       },
       "error": {
         "title": "Error",
-        "description": "Your swap failed",
+        "description": "{isStake, plural, =1 {Stake} other {Unstake}} failed",
         "button": "Try again"
       }
     },
