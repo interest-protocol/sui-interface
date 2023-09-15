@@ -16,6 +16,7 @@ const PreviewTransaction: FC<PreviewTransactionProps> = ({
   isStake,
 }) => {
   const t = useTranslations();
+
   return (
     <Box
       width={['90vw', '90vw', '90vw', '27rem']}

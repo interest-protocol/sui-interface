@@ -10,6 +10,8 @@ import { YourInfoProps } from '@/views/dapp/v2/lst/staked/staking-form/your-info
 
 import Switcher from '../../../components/switch';
 import AmountField from './amount-field';
+import LSTFormConfirmModal from './modal/confirm-modal';
+import LSTFormFailModal from './modal/fail-modal';
 import Overview from './overview';
 import PreviewButton from './preview-button';
 import { StakePreviewModal, UnstakePreviewModal } from './preview-modal';
@@ -27,6 +29,7 @@ const YourInfo: FC<YourInfoProps> = ({
   const { network } = useNetwork();
   const { coinsMap, account } = useWeb3();
   const { iSuiExchangeRate, suiCoinInfo, mutate } = useLstData();
+
   const handleSelect = () => {
     form.reset();
     setStakeTabState(not(isStake));
@@ -38,29 +41,51 @@ const YourInfo: FC<YourInfoProps> = ({
     setSelectValidator(not);
   };
 
+  const openConfirmModal = (isStake: boolean) => (txLink: string) =>
+    setModal(
+      <LSTFormConfirmModal
+        txLink={txLink}
+        isStake={isStake}
+        handleClose={handleClose}
+      />
+    );
+
+  const openFailureModal = (isStake: boolean) => (message?: string) =>
+    setModal(
+      <LSTFormFailModal
+        message={message}
+        isStake={isStake}
+        handleClose={handleClose}
+      />
+    );
+
   const openStakeModal = () => {
     setModal(
       isStake ? (
         <StakePreviewModal
-          provider={provider}
-          handleClose={handleClose}
           lstForm={form}
-          network={network}
-          coinsMap={coinsMap}
-          account={account}
-          suiUsdPrice={suiCoinInfo?.price || 0}
           mutate={mutate}
+          network={network}
+          account={account}
+          provider={provider}
+          coinsMap={coinsMap}
+          handleClose={handleClose}
+          onFail={openFailureModal(true)}
+          onSuccess={openConfirmModal(true)}
+          suiUsdPrice={suiCoinInfo?.price || 0}
         />
       ) : (
         <UnstakePreviewModal
-          provider={provider}
-          handleClose={handleClose}
           lstForm={form}
-          network={network}
-          coinsMap={coinsMap}
-          account={account}
-          suiUsdPrice={suiCoinInfo?.price || 0}
           mutate={mutate}
+          network={network}
+          account={account}
+          provider={provider}
+          coinsMap={coinsMap}
+          handleClose={handleClose}
+          onFail={openFailureModal(false)}
+          onSuccess={openConfirmModal(false)}
+          suiUsdPrice={suiCoinInfo?.price || 0}
         />
       ),
       {
