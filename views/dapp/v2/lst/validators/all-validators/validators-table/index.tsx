@@ -56,9 +56,9 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
         imageUrl,
         projectUrl,
         description,
+        commissionRate: +commissionRate / 100,
         stakingPoolSuiBalanceString: stakingPoolSuiBalance,
-        commissionRate: +commissionRate / 1000,
-        apy: Number((apyMap[suiAddress] ?? 0).toFixed(3)).toPrecision(),
+        apy: Number((apyMap[suiAddress] * 100 ?? 0).toFixed(2)).toPrecision(),
         stakingPoolSuiBalance: formatMoney(
           FixedPointMath.toNumber(BigNumber(stakingPoolSuiBalance))
         ),
