@@ -10,25 +10,27 @@ import TableRow from '../../../components/table-row';
 import OpenDetails from '../../tokens/table/open-details';
 import { TotalAssetsMintedInfoProps } from './assets-table.types';
 
-const TotalAssetsMintedInfo: FC<TotalAssetsMintedInfoProps> = ({
+const TotalAssetsMintedInfo: FC<
+  TotalAssetsMintedInfoProps & { index: number }
+> = ({
   Icon,
-  handleClick,
-  isDropdownOpen,
-  moreDetails,
   name,
   value,
+  index,
+  moreDetails,
+  handleClick,
+  isDropdownOpen,
 }) => {
   return (
     <Box
       key={v4()}
       width="100%"
-      mr=".125rem"
-      overflow="hidden"
-      borderRadius="0.5rem"
+      borderRadius="0.25rem"
+      mr={index != 0 ? '.125rem' : ''}
     >
       <TableRow isFirstRow isDropdownInformation withBG={isDropdownOpen}>
         <Box display="flex" width="100%" alignItems="center" gap="m">
-          <Box width="1.875rem" height="2.125rem">
+          <Box width="2.25rem" height="2.5rem">
             <Icon width="100%" maxWidth="2.25rem" maxHeight="2.5rem" />
           </Box>
           <Typography variant="small">{name}</Typography>
@@ -57,8 +59,8 @@ const TotalAssetsMintedInfo: FC<TotalAssetsMintedInfoProps> = ({
             ml="xl"
             display="flex"
             gap="0.25rem"
-            isOpen={isDropdownOpen}
             flexDirection="column"
+            isOpen={isDropdownOpen}
           >
             {moreDetails.map((item) => (
               <Box
@@ -82,13 +84,13 @@ const TotalAssetsMintedInfo: FC<TotalAssetsMintedInfoProps> = ({
             ))}
           </DropdownItem>
           <DropdownItem
-            display="flex"
-            gridColumn="2/-1"
             width="100%"
-            alignItems="center"
+            display="flex"
             gap="0.25rem"
-            isOpen={isDropdownOpen}
+            gridColumn="2/-1"
+            alignItems="center"
             flexDirection="column"
+            isOpen={isDropdownOpen}
           >
             {moreDetails.map((item) => (
               <Box

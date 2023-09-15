@@ -16,7 +16,7 @@ const AssetsTable: FC<AssetsListProps> = ({ data }) => {
       flexDirection="column"
       overflowX={['auto', 'auto', 'auto', 'hidden']}
     >
-      <Box minWidth={['64em', '64em', '64em', 'unset']}>
+      <Box minWidth={['54.75 em', '54.75 em', '54.75 em', 'unset']}>
         <AssetsTableHead />
         <Box>
           <AssetsTableBody data={data} />

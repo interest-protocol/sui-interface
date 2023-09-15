@@ -17,14 +17,15 @@ const AssetsTableBodyRow: FC<AssetsRowItemProps & { index: number }> = ({
 
   return (
     <Box key={v4()}>
-      <TableRow numCols={5} isEquidistant>
+      <TableRow numCols={5} isWide>
         <Typography variant="small">{index + 1}</Typography>
         <Typography variant="small">{maturity}</Typography>
         <Typography variant="small">{dayLeft}</Typography>
-        {totalAssetsMinted.map((minted) => (
+        {totalAssetsMinted.map((minted, index) => (
           <TotalAssetsMintedInfo
             key={v4()}
             {...minted}
+            index={index}
             isDropdownOpen={isDropdownOpen}
             handleClick={() => setIsDropdownOpen(not)}
           />

@@ -8,7 +8,7 @@ const AssetsTableHead: FC = () => {
   const t = useTranslations();
 
   return (
-    <TableRow numCols={5} isEquidistant isTableHead>
+    <TableRow numCols={5} isWide isTableHead>
       <Typography variant="extraSmall" color="onSurface">
         #
       </Typography>

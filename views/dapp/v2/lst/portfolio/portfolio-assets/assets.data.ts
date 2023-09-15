@@ -1,4 +1,4 @@
-import ISuiPC from '@/components/svg/v2/i-sui-pc';
+import ISuiP from '@/components/svg/v2/i-sui-p';
 import ISuiYN from '@/components/svg/v2/i-sui-yn';
 
 export const ASSETS_DATA = [
@@ -28,7 +28,7 @@ export const ASSETS_DATA = [
       {
         name: 'iSUIP',
         value: 10,
-        Icon: ISuiPC,
+        Icon: ISuiP,
         moreDetails: [
           {
             type: '0x025f...E3fa',
@@ -72,7 +72,7 @@ export const ASSETS_DATA = [
       {
         name: 'iSUIP',
         value: 10,
-        Icon: ISuiPC,
+        Icon: ISuiP,
         moreDetails: [
           {
             type: '0x025f...E3fa',
@@ -116,7 +116,7 @@ export const ASSETS_DATA = [
       {
         name: 'iSUIP',
         value: 10,
-        Icon: ISuiPC,
+        Icon: ISuiP,
         moreDetails: [
           {
             type: '0x025f...E3fa',
@@ -160,7 +160,7 @@ export const ASSETS_DATA = [
       {
         name: 'iSUIP',
         value: 10,
-        Icon: ISuiPC,
+        Icon: ISuiP,
         moreDetails: [
           {
             type: '0x025f...E3fa',
