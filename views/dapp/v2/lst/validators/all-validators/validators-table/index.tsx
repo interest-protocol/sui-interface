@@ -26,8 +26,6 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
     lstStorage.validatorTable.tail
   );
 
-  console.log('DIS', validatorStakeDistribution);
-
   const {
     data: validatorsApy,
     isLoading: validatorsApyLoading,
@@ -43,34 +41,40 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
     {}
   ) ?? {}) as Record<string, number>;
 
-  const validators = activeValidators.map(
-    ({
-      name,
-      imageUrl,
-      projectUrl,
-      suiAddress,
-      description,
-      commissionRate,
-      stakingPoolSuiBalance,
-    }) => ({
-      name,
-      imageUrl,
-      projectUrl,
-      description,
-      commissionRate: +commissionRate / 1000,
-      apy: Number((apyMap[suiAddress] ?? 0).toFixed(3)).toPrecision(),
-      stakingPoolSuiBalance: formatMoney(
-        FixedPointMath.toNumber(BigNumber(stakingPoolSuiBalance))
-      ),
-      lstStaked: Number(
-        FixedPointMath.toNumber(
-          BigNumber(
-            pathOr('0', [suiAddress, 'principal'], validatorStakeDistribution)
-          )
-        ).toFixed(4)
-      ).toPrecision(),
-    })
-  );
+  const validators = activeValidators
+    .map(
+      ({
+        name,
+        imageUrl,
+        projectUrl,
+        suiAddress,
+        description,
+        commissionRate,
+        stakingPoolSuiBalance,
+      }) => ({
+        name,
+        imageUrl,
+        projectUrl,
+        description,
+        stakingPoolSuiBalanceString: stakingPoolSuiBalance,
+        commissionRate: +commissionRate / 1000,
+        apy: Number((apyMap[suiAddress] ?? 0).toFixed(3)).toPrecision(),
+        stakingPoolSuiBalance: formatMoney(
+          FixedPointMath.toNumber(BigNumber(stakingPoolSuiBalance))
+        ),
+        lstStaked: Number(
+          FixedPointMath.toNumber(
+            BigNumber(
+              pathOr('0', [suiAddress, 'principal'], validatorStakeDistribution)
+            )
+          ).toFixed(4)
+        ).toPrecision(),
+      })
+    )
+    .sort((a, b) =>
+      +a.stakingPoolSuiBalanceString > +b.stakingPoolSuiBalanceString ? -1 : 0
+    )
+    .sort((a, b) => (+a.lstStaked > +b.lstStaked ? -1 : 0));
 
   return (
     <Box
