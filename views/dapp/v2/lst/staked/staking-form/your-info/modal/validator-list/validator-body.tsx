@@ -5,16 +5,21 @@ import { FC } from 'react';
 
 import { FixedPointMath } from '@/lib';
 import { formatMoney } from '@/utils';
-import { useGetValidatorsApy } from '@/views/dapp/v2/lst/lst.hooks';
+import {
+  useGetValidatorsApy,
+  useGetValidatorsStakePosition,
+  useLstData,
+} from '@/views/dapp/v2/lst/lst.hooks';
 
-import { useGetValidatorsStakePosition, useLstData } from '../../../lst.hooks';
-import { AllValidatorsProps } from '../all-validators.types';
+import { ValidatorListBodyProps } from '../../your-info.types';
 import ValidatorsTableData from './validators-table-data';
 import ValidatorsTableHead from './validators-table-head';
 
-const ValidatorsTable: FC<AllValidatorsProps> = ({
-  control,
+const ValidatorListBody: FC<ValidatorListBodyProps> = ({
   activeValidators,
+  setNewValidator,
+  control,
+  newValidator,
 }) => {
   const { lstStorage } = useLstData();
   const {
@@ -25,6 +30,8 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
     lstStorage.validatorTable.head,
     lstStorage.validatorTable.tail
   );
+
+  console.log('DIS', validatorStakeDistribution);
 
   const {
     data: validatorsApy,
@@ -55,6 +62,7 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
         name,
         imageUrl,
         projectUrl,
+        suiAddress,
         description,
         commissionRate: +commissionRate / 100,
         stakingPoolSuiBalanceString: stakingPoolSuiBalance,
@@ -79,21 +87,27 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
   return (
     <Box
       width="100%"
-      display="flex"
       overflowX="auto"
-      borderRadius="m"
       overflowY="hidden"
       color="onSurface"
       gridColumn="1/-1"
-      flexDirection="column"
-      px="s"
     >
-      <Box minWidth="55em">
+      <Box
+        p="xl"
+        maxHeight={['100%', '100%', '100%', '23rem']}
+        overflowY="auto"
+        minWidth="20rem"
+      >
         <ValidatorsTableHead />
-        <ValidatorsTableData control={control} validators={validators} />
+        <ValidatorsTableData
+          control={control}
+          validators={validators}
+          newValidator={newValidator}
+          setNewValidator={setNewValidator}
+        />
       </Box>
     </Box>
   );
 };
 
-export default ValidatorsTable;
+export default ValidatorListBody;

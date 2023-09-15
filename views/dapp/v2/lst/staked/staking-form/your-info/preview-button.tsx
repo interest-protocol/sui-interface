@@ -21,7 +21,7 @@ const PreviewButton: FC<PreviewButtonProps> = ({
   return (
     <Button
       px="1.5rem"
-      mt="1.875rem"
+      mt="2rem"
       py="0.625rem"
       variant="filled"
       textAlign="center"

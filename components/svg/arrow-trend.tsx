@@ -4,7 +4,7 @@ import { SVGProps } from './svg.types';
 
 const ArrowTrend: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
   <svg
-    viewBox="0 0 10 10"
+    viewBox="0 0 24 24"
     stroke="currentColor"
     style={{ maxWidth, maxHeight }}
     {...props}
@@ -12,7 +12,7 @@ const ArrowTrend: FC<SVGProps> = ({ maxWidth, maxHeight, ...props }) => (
     <path
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M7.79288 8.70711L0.292879 1.20711L0.999986 0.5L8.5 8.00001V2.20711H9.5V9.20711L9 9.70711H2V8.70711H7.79288Z"
+      d="M18.0001 5.25H7.50009V6.75H16.1895L4.93945 18L6.00011 19.0607L17.2501 7.81068V16.5H18.7501V6L18.0001 5.25Z"
       fill="currentColor"
     />
   </svg>

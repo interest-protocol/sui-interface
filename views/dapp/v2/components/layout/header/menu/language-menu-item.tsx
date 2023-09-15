@@ -40,12 +40,7 @@ const LanguageMenuItem: FC<LanguageMenuItemProps> = ({ name }) => {
       </Box>
       <Box display="flex" justifyContent="flex-end">
         {name !== 'title' && (
-          <RadioButton
-            name={name}
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            onChange={() => {}}
-            checked={currentLocale === name}
-          />
+          <RadioButton defaultValue={currentLocale === name} />
         )}
       </Box>
     </>

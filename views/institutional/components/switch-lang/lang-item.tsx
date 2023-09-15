@@ -29,12 +29,7 @@ const LangItem: FC<{
         <Icon maxHeight="1rem" maxWidth="1rem" width="100%" height="100%" />
       </Box>
       {t(`common.v2.languages.${locale}`)}
-      <RadioButton
-        name={locale}
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        onChange={() => {}}
-        checked={currentLocale === locale}
-      />
+      <RadioButton defaultValue={currentLocale === locale} />
     </>
   );
 };

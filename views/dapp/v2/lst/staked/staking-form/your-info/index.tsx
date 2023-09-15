@@ -1,7 +1,7 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box, Checkbox, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { capitalize } from '@/utils';
@@ -13,6 +13,7 @@ import AmountField from './amount-field';
 import Overview from './overview';
 import PreviewButton from './preview-button';
 import { StakePreviewModal, UnstakePreviewModal } from './preview-modal';
+import SelectValidators from './select-validators';
 
 const YourInfo: FC<YourInfoProps> = ({
   form,
@@ -21,6 +22,7 @@ const YourInfo: FC<YourInfoProps> = ({
 }) => {
   const t = useTranslations();
 
+  const [selectValidator, setSelectValidator] = useState(false);
   const { provider } = useProvider();
   const { network } = useNetwork();
   const { coinsMap, account } = useWeb3();
@@ -31,6 +33,10 @@ const YourInfo: FC<YourInfoProps> = ({
   };
 
   const { setModal, handleClose } = useModal();
+
+  const handleSelectValidator = () => {
+    setSelectValidator(not);
+  };
 
   const openStakeModal = () => {
     setModal(
@@ -110,6 +116,12 @@ const YourInfo: FC<YourInfoProps> = ({
         isStake={isStake}
         exchangeRate={iSuiExchangeRate}
       />
+      <Checkbox
+        label={capitalize(t('lst.selectValidator'))}
+        onClick={handleSelectValidator}
+        defaultValue={selectValidator}
+      />
+      {selectValidator && <SelectValidators form={form} />}
       <PreviewButton
         isStake={isStake}
         lstForm={form}

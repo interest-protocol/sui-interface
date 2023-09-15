@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 
 import HeaderModal from './header-modal';
 import LineWrapper from './line-wrapper';
-import { PreviewTransactionProps } from './modal.type';
+import { PreviewTransactionProps } from './modal.types';
 
 const PreviewTransaction: FC<PreviewTransactionProps> = ({
   handleClose,
