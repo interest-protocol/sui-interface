@@ -10,13 +10,13 @@ const AssetsTable: FC<AssetsListProps> = ({ data }) => {
     <Box
       width="100%"
       display="flex"
-      overflowX="auto"
       borderRadius="m"
       color="onSurface"
       gridColumn="1/-1"
       flexDirection="column"
+      overflowX={['auto', 'auto', 'auto', 'hidden']}
     >
-      <Box minWidth="64em">
+      <Box minWidth={['64em', '64em', '64em', 'unset']}>
         <AssetsTableHead />
         <Box>
           <AssetsTableBody data={data} />

@@ -14,35 +14,38 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
   isDropdownInformation,
 }) => (
   <Box
-    fontWeight={isTableHead ? '400' : ''}
-    color="onSurfaceVariant"
     display="grid"
-    columnGap={isEquidistant ? 's' : 'xl'}
     alignItems="center"
+    position="relative"
+    color="onSurfaceVariant"
     textTransform="capitalize"
+    fontWeight={isTableHead ? '400' : ''}
+    columnGap={isEquidistant ? 's' : isDropdownInformation ? 'unset' : 'xl'}
     gridTemplateColumns={
       isDropdownInformation
-        ? `2fr repeat(${numCols}, 1rem)`
-        : isEquidistant
+        ? `110px 1fr`
+        : isEquidistant && numCols
         ? [`2rem 1fr repeat(${numCols - 2}, 1fr)`]
-        : [
+        : numCols
+        ? [
             `2rem 1fr repeat(${numCols - 2}, 1fr)`,
             `2rem 1fr repeat(${numCols - 2}, 1fr)`,
             `2rem 1fr repeat(${numCols - 2}, 1fr)`,
             `2rem 1fr repeat(${numCols - 2}, 1fr)`,
           ]
+        : ''
     }
-    py={isTableHead ? 'l' : 'm'}
-    bg={withBG ? 'surface.containerHigh' : 'unset'}
-    px={hasDropdown ? 'unset' : isDropdownInformation ? 'xl' : 'm'}
-    borderRadius={withBG ? '0.25rem' : 'unset'}
-    borderBottomRightRadius={withBG && isFirstRow ? 'unset' : '0.25rem'}
-    borderBottomLeftRadius={withBG && isFirstRow ? 'unset' : '0.25rem'}
-    borderTopRightRadius={withBG && isFirstRow ? '0.25rem' : 'unset'}
-    borderTopLeftRadius={withBG && isFirstRow ? '0.25rem' : 'unset'}
     mx="-0.5rem"
-    borderBottom={withBG && isFirstRow ? '1px solid' : 'unset'}
+    py={isTableHead ? 'l' : 'm'}
     borderColor="outline.outlineVariant"
+    borderRadius={withBG ? '0.25rem' : 'unset'}
+    bg={withBG ? 'surface.containerHigh' : 'unset'}
+    borderBottom={withBG && isFirstRow ? '1px solid' : 'unset'}
+    px={hasDropdown ? 'unset' : isDropdownInformation ? 'xl' : 'm'}
+    borderTopLeftRadius={withBG && isFirstRow ? '0.25rem' : 'unset'}
+    borderTopRightRadius={withBG && isFirstRow ? '0.25rem' : 'unset'}
+    borderBottomLeftRadius={withBG && isFirstRow ? 'unset' : '0.25rem'}
+    borderBottomRightRadius={withBG && isFirstRow ? 'unset' : '0.25rem'}
   >
     {children}
   </Box>
