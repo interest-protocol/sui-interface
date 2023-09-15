@@ -1,35 +1,56 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { isEmpty } from 'ramda';
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { useWatch } from 'react-hook-form';
 
 import { useModal } from '@/hooks';
 import { ArrowTrendSVG } from '@/svg';
 
+import { useGetActiveValidators } from '../../../../lst.hooks';
 import ValidatorList from '../modal/validator-list';
 import { CurrentValidatorProps } from '../your-info.types';
+import { SelectValidatorsProps } from './select-validators.types';
 
-const SelectValidators: FC = () => {
+const SelectValidators: FC<SelectValidatorsProps> = ({ form }) => {
   const t = useTranslations();
   const { setModal, handleClose } = useModal();
 
-  const [currentValidator, setCurrentValidator] =
-    useState<CurrentValidatorProps>({
-      name: '',
-      imageUrl: '',
-      suiAddress: '',
-    });
+  const {
+    data: activeValidators,
+    isLoading: activeValidatorsLoading,
+    error: activeValidatorsError,
+  } = useGetActiveValidators();
 
-  const fillValidator = (fillCurrentValidator: CurrentValidatorProps) => {
-    setCurrentValidator(fillCurrentValidator);
+  const currentValidatorAddress = useWatch({
+    control: form.control,
+    name: 'validator',
+  });
+
+  // TODO: handle error case and loading case
+  if (activeValidatorsError || activeValidatorsLoading)
+    return <>Loading | Error</>;
+
+  const currentValidator = activeValidators
+    .map(({ suiAddress, name, imageUrl }) => ({ suiAddress, name, imageUrl }))
+    .find(({ suiAddress }) => suiAddress === currentValidatorAddress) ?? {
+    name: '',
+    imageUrl: '',
+    suiAddress: '',
+  };
+
+  console.log('>> currentValidator :: ', currentValidator);
+
+  const fillValidator = ({ suiAddress }: CurrentValidatorProps) => {
+    form.setValue('validator', suiAddress);
   };
 
   const openValidatorModals = () => {
     setModal(
       <ValidatorList
         handleClose={handleClose}
-        currentValidator={currentValidator}
         fillValidator={fillValidator}
+        activeValidators={activeValidators}
+        currentValidator={currentValidator}
       />,
       {
         isOpen: true,
@@ -68,17 +89,13 @@ const SelectValidators: FC = () => {
             width="2.5rem"
             height="2.5rem"
             borderRadius="0.25rem"
-            backgroundColor={
-              isEmpty(currentValidator.imageUrl)
-                ? 'surface.dim'
-                : currentValidator.imageUrl
-            }
             backgroundSize="contain"
             backgroundPosition="center center"
             backgroundImage={`url(${currentValidator.imageUrl})`}
+            backgroundColor={currentValidator.imageUrl || 'surface.dim'}
           />
           <Typography variant="medium">
-            {isEmpty(currentValidator.name) ? '???' : currentValidator.name}
+            {currentValidator.name ? currentValidator.name : '???'}
           </Typography>
         </Box>
         <Box

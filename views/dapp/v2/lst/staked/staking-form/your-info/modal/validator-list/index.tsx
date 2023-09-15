@@ -1,8 +1,6 @@
 import {
   Box,
   Button,
-  darkTheme,
-  lightTheme,
   Theme,
   Typography,
   useTheme,
@@ -13,18 +11,18 @@ import { useForm } from 'react-hook-form';
 
 import { InfoSVG } from '@/svg';
 import { capitalize } from '@/utils';
-import { useGetActiveValidators } from '@/views/dapp/v2/lst/lst.hooks';
 import { IValidatorSearchForm } from '@/views/dapp/v2/lst/validators/all-validators/all-validators.types';
 
 import { CurrentValidatorProps } from '../../your-info.types';
 import HeaderModal from '../header-modal';
-import { ValidatorListProps } from '../modal.type';
+import { ValidatorListProps } from '../modal.types';
 import ValidatorListBody from './validator-body';
 import ValidatorSearch from './validator-search';
 
 const ValidatorList: FC<ValidatorListProps> = ({
   handleClose,
   fillValidator,
+  activeValidators,
   currentValidator,
 }) => {
   const t = useTranslations();
@@ -35,16 +33,6 @@ const ValidatorList: FC<ValidatorListProps> = ({
   const { control, register } = useForm<IValidatorSearchForm>({
     defaultValues: { search: '' },
   });
-
-  const {
-    data: activeValidators,
-    isLoading: activeValidatorsLoading,
-    error: activeValidatorsError,
-  } = useGetActiveValidators();
-
-  if (activeValidatorsError) return <>error</>; // TODO fix this error
-
-  if (activeValidatorsLoading) return <>loading</>; // TODO fix this loading
 
   return (
     <Box
@@ -109,8 +97,8 @@ const ValidatorList: FC<ValidatorListProps> = ({
         </Button>
         <Button
           variant="filled"
-          bg={(dark ? lightTheme : darkTheme).colors.primary}
           color="white"
+          bg="primary"
           p="0.654rem 1.5rem !important"
           onClick={() => {
             fillValidator(newValidator);

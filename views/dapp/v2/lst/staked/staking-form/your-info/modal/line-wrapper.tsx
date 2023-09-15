@@ -1,7 +1,7 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC, PropsWithChildren } from 'react';
 
-import { LineWrapperProps } from './modal.type';
+import { LineWrapperProps } from './modal.types';
 
 const LineWrapper: FC<PropsWithChildren<LineWrapperProps>> = ({
   title,

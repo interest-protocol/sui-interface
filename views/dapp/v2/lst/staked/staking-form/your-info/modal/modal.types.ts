@@ -1,3 +1,4 @@
+import { SuiSystemStateSummary } from '@mysten/sui.js';
 import { PropsWithChildren, ReactNode } from 'react';
 
 import { CurrentValidatorProps } from '../your-info.types';
@@ -30,5 +31,6 @@ export interface LineWrapperProps {
 export interface ValidatorListProps {
   handleClose: () => void;
   currentValidator: CurrentValidatorProps;
+  activeValidators: SuiSystemStateSummary['activeValidators'];
   fillValidator: (fillCurrentValidator: CurrentValidatorProps) => void;
 }

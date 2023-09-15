@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 import { LeftArrowSVG, TimesSVG } from '@/components/svg/v2';
 
-import { HeaderModalProps } from './modal.type';
+import { HeaderModalProps } from './modal.types';
 
 const HeaderModal: FC<HeaderModalProps> = ({
   handleClose,
