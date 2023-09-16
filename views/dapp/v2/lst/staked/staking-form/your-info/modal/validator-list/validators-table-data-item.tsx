@@ -1,5 +1,11 @@
-import { Box, RadioButton, Typography } from '@interest-protocol/ui-kit';
-import { FC } from 'react';
+import {
+  Box,
+  Checkbox,
+  RadioButton,
+  Typography,
+} from '@interest-protocol/ui-kit';
+import { indexOf, remove } from 'ramda';
+import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
 import { SUISVG } from '@/components/svg/v2';
@@ -9,15 +15,34 @@ import { ValidatorListTableDataItemProps } from '../../your-info.types';
 
 const ValidatorsTableDataItem: FC<ValidatorListTableDataItemProps> = ({
   index,
+  isStake,
   validator,
   newValidator,
   setNewValidator,
 }) => {
+  const [isChecked, setIsChecked] = useState(
+    indexOf(validator.suiAddress, newValidator.suiAddress.split(';')) !== -1
+  );
+
+  const updateSuiAddresses = (
+    allSuiAddress: string,
+    currentSuiAddress: string
+  ) => {
+    const suiAddressArr = allSuiAddress.split(';');
+    const index = indexOf(currentSuiAddress, suiAddressArr);
+    setIsChecked(index !== -1);
+    return index !== -1
+      ? remove(index, 1, suiAddressArr).join(';')
+      : suiAddressArr.concat(currentSuiAddress).join(';');
+  };
+
   const selectValidator = () => {
     setNewValidator({
       name: validator.name,
       imageUrl: validator.imageUrl,
-      suiAddress: validator.suiAddress,
+      suiAddress: isStake
+        ? validator.suiAddress
+        : updateSuiAddresses(newValidator.suiAddress, validator.suiAddress),
     });
   };
 
@@ -51,7 +76,7 @@ const ValidatorsTableDataItem: FC<ValidatorListTableDataItemProps> = ({
         <Box display="flex" justifyContent="flex-end">
           <Box display="flex" alignItems="center" gap="0.5rem">
             <Typography variant="small" textAlign="center">
-              {validator.stakingPoolSuiBalance}
+              {validator.lstStaked}
             </Typography>
             <Box
               bg="#6FBCF0"
@@ -75,10 +100,18 @@ const ValidatorsTableDataItem: FC<ValidatorListTableDataItemProps> = ({
           {validator.apy}%
         </Typography>
         <Box display="flex" justifyContent="flex-end">
-          <RadioButton
-            onClick={selectValidator}
-            defaultValue={newValidator.suiAddress === validator.suiAddress}
-          />
+          {isStake ? (
+            <RadioButton
+              onClick={selectValidator}
+              defaultValue={newValidator.suiAddress === validator.suiAddress}
+            />
+          ) : (
+            <Checkbox
+              label=""
+              onClick={selectValidator}
+              defaultValue={isChecked}
+            />
+          )}
         </Box>
       </TableRow>
     </Box>

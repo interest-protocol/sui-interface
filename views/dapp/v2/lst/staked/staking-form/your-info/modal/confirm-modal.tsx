@@ -9,6 +9,7 @@ import { LSTFormConfirmModalProps } from './modal.types';
 
 const LSTFormConfirmModal: FC<LSTFormConfirmModalProps> = ({
   txLink,
+  isStake,
   handleClose,
 }) => {
   const t = useTranslations();
@@ -23,7 +24,7 @@ const LSTFormConfirmModal: FC<LSTFormConfirmModalProps> = ({
       pb="l"
     >
       <HeaderModal
-        title={t('lst.modal.error.title')}
+        title={t('lst.modal.preview.title')}
         handleClose={handleClose}
       />
       <Box px="l" pt="l" display="flex" flexDirection="column">
@@ -45,11 +46,17 @@ const LSTFormConfirmModal: FC<LSTFormConfirmModalProps> = ({
               maxHeight="3rem"
             />
           </Box>
-          <Typography my="xl" width="16rem" variant="medium" textAlign="center">
-            {t('lst.modal.confirm.title')}
+          <Typography
+            my="xl"
+            width="16rem"
+            variant="medium"
+            textAlign="center"
+            color="onSurface"
+          >
+            {t('lst.modal.confirm.title', { isStake: Number(isStake) })}
           </Typography>
         </Box>
-        <Typography variant="extraSmall">
+        <Typography variant="extraSmall" color="onSurface">
           {t('lst.modal.confirm.description')}
         </Typography>
         <a href={txLink} target="_blank" rel="noreferrer" onClick={handleClose}>

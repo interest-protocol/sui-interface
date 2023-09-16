@@ -38,24 +38,26 @@
         "receiveLabel": "Vai receber",
         "button": "{isStake, plural, =1 {Apostar} other {Retirar}}",
         "depositFee": "Taxa de depósito",
+        "fetchingExchangeRate": "Trazendo o cambio",
+        "submitting": "{isStake, plural, =1 {Apostando} other {Retirando}}",
         "rewards": "Esd. Recompensa anual",
         "other": "outro"
       },
       "validator": {
         "title": "Validadores",
-        "info": "Seleccione um Validador da lista abaixo para apostar o seu Sui. ",
+        "info": "Seleccione um validador da lista abaixo para apostar o seu Sui. ",
         "select": "selecione",
         "clearButton": "limpar",
         "confirmButton": "confirmar seleção"
       },
       "confirm": {
-        "title": "Token trocado",
+        "title": "{isStake, plural, =1 {Aposte} other {Desempate}} com sucesso",
         "description": "Pode verificar a sua transacção no Explorador",
         "button": "Ver na SuiVision"
       },
       "error": {
         "title": "Erro",
-        "description": "A sua troca falhou",
+        "description": "{isStake, plural, =1 {A sua aposta} other {O seu desempate}} falhou",
         "button": "Tente de Novo"
       }
     },

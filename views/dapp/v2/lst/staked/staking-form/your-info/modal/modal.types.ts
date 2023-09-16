@@ -34,6 +34,7 @@ export interface LineWrapperProps {
 
 export interface ValidatorListProps {
   handleClose: () => void;
+  isStake: boolean;
   currentValidator: CurrentValidatorProps;
   activeValidators: SuiSystemStateSummary['activeValidators'];
   fillValidator: (fillCurrentValidator: CurrentValidatorProps) => void;

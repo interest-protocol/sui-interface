@@ -22,6 +22,7 @@ const ValidatorListBody: FC<ValidatorListBodyProps> = ({
   activeValidators,
   setNewValidator,
   control,
+  isStake,
   newValidator,
 }) => {
   const t = useTranslations();
@@ -34,8 +35,6 @@ const ValidatorListBody: FC<ValidatorListBodyProps> = ({
     lstStorage.validatorTable.head,
     lstStorage.validatorTable.tail
   );
-
-  console.log('DIS', validatorStakeDistribution);
 
   const {
     data: validatorsApy,
@@ -112,6 +111,7 @@ const ValidatorListBody: FC<ValidatorListBodyProps> = ({
         <ValidatorsTableHead />
         <ValidatorsTableData
           control={control}
+          isStake={isStake}
           validators={validators}
           newValidator={newValidator}
           setNewValidator={setNewValidator}

@@ -21,6 +21,7 @@ import ValidatorSearch from './validator-search';
 
 const ValidatorList: FC<ValidatorListProps> = ({
   handleClose,
+  isStake,
   fillValidator,
   activeValidators,
   currentValidator,
@@ -74,6 +75,7 @@ const ValidatorList: FC<ValidatorListProps> = ({
       </Box>
       <ValidatorListBody
         control={control}
+        isStake={isStake}
         newValidator={newValidator}
         setNewValidator={setNewValidator}
         activeValidators={activeValidators}

@@ -6,7 +6,11 @@ import { Control } from 'react-hook-form';
 
 import { CoinsMap } from '@/components/web3-manager/web3-manager.types';
 
-import { LSTProps, StakeForm } from '../../../lst.types';
+import {
+  LSTProps,
+  StakeForm,
+  ValidatorStakePositionRecord,
+} from '../../../lst.types';
 import {
   AllValidatorsProps,
   IValidatorSearchForm,
@@ -34,11 +38,11 @@ export interface StakePreviewModalProps {
   account: string | null;
   suiUsdPrice: number;
   mutate: () => Promise<void>;
-  onFail: (message?: string) => void;
-  onSuccess: (txLink: string) => void;
 }
 
-export type UnstakePreviewModalProps = StakePreviewModalProps;
+export interface UnstakePreviewModalProps extends StakePreviewModalProps {
+  validatorStakeRecord: ValidatorStakePositionRecord;
+}
 
 export interface PreviewButtonProps {
   isStake: boolean;
@@ -56,15 +60,18 @@ export interface CurrentValidatorProps {
 export interface ValidatorListBodyProps extends AllValidatorsProps {
   setNewValidator: Dispatch<SetStateAction<CurrentValidatorProps>>;
   newValidator: CurrentValidatorProps;
+  isStake: boolean;
 }
 
 export interface ValidatorListTableDataProps extends ValidatorsTableDataProps {
   setNewValidator: Dispatch<SetStateAction<CurrentValidatorProps>>;
   newValidator: CurrentValidatorProps;
+  isStake: boolean;
 }
 
 export interface ValidatorListTableDataItemProps {
   index: number;
+  isStake: boolean;
   validator: IValidatorModal;
   newValidator: CurrentValidatorProps;
   setNewValidator: Dispatch<SetStateAction<CurrentValidatorProps>>;
@@ -74,9 +81,10 @@ export interface IValidatorModal {
   apy: string;
   name: string;
   imageUrl: string;
+  lstStaked: string;
   description: string;
-  stakingPoolSuiBalance: string;
   suiAddress: SuiAddress;
+  stakingPoolSuiBalance: string;
 }
 
 export interface ValidatorsTableDataProps {

@@ -39,6 +39,8 @@
         "button": "{isStake, plural, =1 {Stake} other {Unstake}}",
         "depositFee": "Tarifa de depósito",
         "rewards": "Esd. Recompensa anual",
+        "fetchingExchangeRate": "Fetching Exchange Rate",
+        "submitting": "{isStake, plural, =1 {Apuestando} other {Desempatando}}",
         "other": "otro"
       },
       "validator": {
@@ -49,13 +51,13 @@
         "confirmButton": "confirmar selección"
       },
       "confirm": {
-        "title": "Tokens Intercambiado",
+        "title": "Éxito de {isStake, plural, =1 {la Apuesta} other {lo desempate}}  ",
         "description": "Puedes verificar tu transacción en el Explorador",
         "button": "Ver en SuiVision"
       },
       "error": {
         "title": "Error",
-        "description": "El intercambio falló",
+        "description": "{isStake, plural, =1 {La Apuesta} other {Lo desempate}} falló",
         "button": "intentar nuevamente"
       }
     },
