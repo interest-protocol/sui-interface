@@ -47,7 +47,13 @@ const YourInfo: FC<YourInfoProps> = ({
         txLink={txLink}
         isStake={isStake}
         handleClose={handleClose}
-      />
+      />,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: false,
+      }
     );
 
   const openFailureModal = (isStake: boolean) => (message?: string) =>
@@ -56,7 +62,13 @@ const YourInfo: FC<YourInfoProps> = ({
         message={message}
         isStake={isStake}
         handleClose={handleClose}
-      />
+      />,
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: false,
+      }
     );
 
   const openStakeModal = () => {

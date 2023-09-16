@@ -9,37 +9,35 @@ const HeaderModal: FC<HeaderModalProps> = ({
   handleClose,
   withoutBack,
   title,
-}) => {
-  return (
-    <Box
-      p="xl"
-      display="flex"
-      alignItems="center"
-      justifyContent="space-between"
-      color="onSurface"
-    >
-      {withoutBack ? (
-        <Box />
-      ) : (
-        <Button variant="icon" onClick={handleClose}>
-          <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
-        </Button>
-      )}
-      <Box display="flex" alignItems="center">
-        <Typography
-          variant="medium"
-          textTransform="uppercase"
-          ml="s"
-          color="onSurface"
-        >
-          {title}
-        </Typography>
-      </Box>
+}) => (
+  <Box
+    p="xl"
+    display="flex"
+    alignItems="center"
+    justifyContent="space-between"
+    color="onSurface"
+  >
+    {withoutBack ? (
+      <Box />
+    ) : (
       <Button variant="icon" onClick={handleClose}>
-        <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+        <LeftArrowSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
       </Button>
+    )}
+    <Box display="flex" alignItems="center">
+      <Typography
+        variant="medium"
+        textTransform="uppercase"
+        ml="s"
+        color="onSurface"
+      >
+        {title}
+      </Typography>
     </Box>
-  );
-};
+    <Button variant="icon" onClick={handleClose}>
+      <TimesSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+    </Button>
+  </Box>
+);
 
 export default HeaderModal;
