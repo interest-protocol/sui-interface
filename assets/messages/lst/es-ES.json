@@ -50,6 +50,12 @@
         "clearButton": "limpiar",
         "confirmButton": "confirmar selección"
       },
+      "asset": {
+        "title": "Activos",
+        "info": "Siempre puedes canjear iSUIP e iSUIY si tienen la misma cantidad y la misma madurez.",
+        "select": "selecione",
+        "confirmButton": "confirmar"
+      },
       "confirm": {
         "title": "Éxito de {isStake, plural, =1 {la Apuesta} other {lo desempate}}  ",
         "description": "Puedes verificar tu transacción en el Explorador",
@@ -90,6 +96,12 @@
       "seeAll": "Ver Todo",
       "maturity": "Madurez",
       "dayLeft": "Días Restantes",
+      "searchInput": "Buscar activo",
+      "name": "Nombre",
+      "balance": "Saldo",
+      "state": "Estado",
+      "inMaturity": "En Madurez",
+      "pastMaturity": "Pasado Madurez",
       "totalAssetsMinted": "Total de Activos Generados"
     },
     "statsSection": {
@@ -153,6 +165,7 @@
       "more": "Más",
       "value": "Valor"
     },
-    "selectValidator": "seleccionar validador"
+    "selectValidator": "seleccionar validador",
+    "selectAsset": "seleccionar activo"
   }
 }
