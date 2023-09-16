@@ -46,11 +46,17 @@ const LSTFormConfirmModal: FC<LSTFormConfirmModalProps> = ({
               maxHeight="3rem"
             />
           </Box>
-          <Typography my="xl" width="16rem" variant="medium" textAlign="center">
+          <Typography
+            my="xl"
+            width="16rem"
+            variant="medium"
+            textAlign="center"
+            color="onSurface"
+          >
             {t('lst.modal.confirm.title', { isStake: Number(isStake) })}
           </Typography>
         </Box>
-        <Typography variant="extraSmall">
+        <Typography variant="extraSmall" color="onSurface">
           {t('lst.modal.confirm.description')}
         </Typography>
         <a href={txLink} target="_blank" rel="noreferrer" onClick={handleClose}>
