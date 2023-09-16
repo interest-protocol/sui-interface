@@ -10,8 +10,6 @@ import { YourInfoProps } from '@/views/dapp/v2/lst/staked/staking-form/your-info
 
 import Switcher from '../../../components/switch';
 import AmountField from './amount-field';
-import LSTFormConfirmModal from './modal/confirm-modal';
-import LSTFormFailModal from './modal/fail-modal';
 import Overview from './overview';
 import PreviewButton from './preview-button';
 import { StakePreviewModal, UnstakePreviewModal } from './preview-modal';
@@ -42,24 +40,6 @@ const YourInfo: FC<YourInfoProps> = ({
     setSelectValidator(not);
   };
 
-  const openConfirmModal = (isStake: boolean) => (txLink: string) =>
-    setModal(
-      <LSTFormConfirmModal
-        txLink={txLink}
-        isStake={isStake}
-        handleClose={handleClose}
-      />
-    );
-
-  const openFailureModal = (isStake: boolean) => (message?: string) =>
-    setModal(
-      <LSTFormFailModal
-        message={message}
-        isStake={isStake}
-        handleClose={handleClose}
-      />
-    );
-
   const openStakeModal = () => {
     setModal(
       isStake ? (
@@ -71,8 +51,6 @@ const YourInfo: FC<YourInfoProps> = ({
           provider={provider}
           coinsMap={coinsMap}
           handleClose={handleClose}
-          onFail={openFailureModal(true)}
-          onSuccess={openConfirmModal(true)}
           suiUsdPrice={suiCoinInfo?.price || 0}
         />
       ) : (
@@ -84,8 +62,6 @@ const YourInfo: FC<YourInfoProps> = ({
           provider={provider}
           coinsMap={coinsMap}
           handleClose={handleClose}
-          onFail={openFailureModal(false)}
-          onSuccess={openConfirmModal(false)}
           suiUsdPrice={suiCoinInfo?.price || 0}
           validatorStakeRecord={validatorStakeRecord}
         />

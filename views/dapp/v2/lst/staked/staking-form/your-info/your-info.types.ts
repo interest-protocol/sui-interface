@@ -38,8 +38,6 @@ export interface StakePreviewModalProps {
   account: string | null;
   suiUsdPrice: number;
   mutate: () => Promise<void>;
-  onFail: (message?: string) => void;
-  onSuccess: (txLink: string) => void;
 }
 
 export interface UnstakePreviewModalProps extends StakePreviewModalProps {
