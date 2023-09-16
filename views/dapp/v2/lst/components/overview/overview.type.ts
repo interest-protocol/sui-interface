@@ -20,4 +20,6 @@ export interface OverviewRowProps {
 
 export interface OverviewProps extends OverviewRowProps {
   title: string;
+  isLoading?: boolean;
+  error?: boolean;
 }
