@@ -124,7 +124,7 @@ const YourInfo: FC<YourInfoProps> = ({
         onClick={handleSelectValidator}
         defaultValue={selectValidator}
       />
-      {selectValidator && <SelectValidators form={form} />}
+      {selectValidator && <SelectValidators form={form} isStake={isStake} />}
       <PreviewButton
         isStake={isStake}
         lstForm={form}

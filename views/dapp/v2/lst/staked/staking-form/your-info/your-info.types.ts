@@ -60,15 +60,18 @@ export interface CurrentValidatorProps {
 export interface ValidatorListBodyProps extends AllValidatorsProps {
   setNewValidator: Dispatch<SetStateAction<CurrentValidatorProps>>;
   newValidator: CurrentValidatorProps;
+  isStake: boolean;
 }
 
 export interface ValidatorListTableDataProps extends ValidatorsTableDataProps {
   setNewValidator: Dispatch<SetStateAction<CurrentValidatorProps>>;
   newValidator: CurrentValidatorProps;
+  isStake: boolean;
 }
 
 export interface ValidatorListTableDataItemProps {
   index: number;
+  isStake: boolean;
   validator: IValidatorModal;
   newValidator: CurrentValidatorProps;
   setNewValidator: Dispatch<SetStateAction<CurrentValidatorProps>>;

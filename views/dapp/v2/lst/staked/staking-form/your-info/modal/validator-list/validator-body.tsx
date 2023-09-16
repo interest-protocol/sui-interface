@@ -19,6 +19,7 @@ const ValidatorListBody: FC<ValidatorListBodyProps> = ({
   activeValidators,
   setNewValidator,
   control,
+  isStake,
   newValidator,
 }) => {
   const { lstStorage } = useLstData();
@@ -99,6 +100,7 @@ const ValidatorListBody: FC<ValidatorListBodyProps> = ({
         <ValidatorsTableHead />
         <ValidatorsTableData
           control={control}
+          isStake={isStake}
           validators={validators}
           newValidator={newValidator}
           setNewValidator={setNewValidator}
