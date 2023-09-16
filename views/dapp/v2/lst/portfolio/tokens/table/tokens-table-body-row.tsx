@@ -60,56 +60,58 @@ const TokensTableBodyRow: FC<{ index: number; type: string }> = ({
 
   return (
     <Box key={v4()}>
-      <TableRow numCols={4} withBG={openDetails} isFirstRow>
-        <Box height="100%" pt="0.75rem">
-          <Typography variant="small">{index + 1}</Typography>
-        </Box>
-        <Box>
-          <Box display="flex" gap="m" alignItems="center">
-            {<TokenIcon symbol={coin.symbol} />}
-            <Box>
-              <Typography variant="medium">{coin.symbol}</Typography>
-              <Typography variant="extraSmall" opacity={0.6}>
-                {coin.symbol}
-              </Typography>
+      {coin ? (
+        <TableRow numCols={4} withBG={openDetails} isFirstRow>
+          <Box height="100%" pt="0.75rem">
+            <Typography variant="small">{index + 1}</Typography>
+          </Box>
+          <Box>
+            <Box display="flex" gap="m" alignItems="center">
+              {<TokenIcon symbol={coin?.symbol} />}
+              <Box>
+                <Typography variant="medium">{coin?.symbol}</Typography>
+                <Typography variant="extraSmall" opacity={0.6}>
+                  {coin?.symbol}
+                </Typography>
+              </Box>
             </Box>
           </Box>
-        </Box>
-        <Box
-          display="flex"
-          justifyContent="flex-end"
-          alignItems="flex-end"
-          flexDirection="column"
-        >
-          <Typography variant="medium" textAlign="center">
-            {FixedPointMath.toNumber(coinsMap[type].totalBalance)}
-          </Typography>
-          {suiCoinInfo?.price && (
-            <Typography variant="extraSmall" textAlign="center">
-              {formatDollars(
-                FixedPointMath.toNumber(coinsMap[type].totalBalance) *
-                  suiCoinInfo?.price
-              )}
-            </Typography>
-          )}
-        </Box>
-        <Box height="100%" pt="0.05rem">
           <Box
             display="flex"
             justifyContent="flex-end"
-            alignItems="center"
-            pr="l"
-            py="l"
+            alignItems="flex-end"
+            flexDirection="column"
           >
-            <OpenDetails
-              handleClick={() => setOpenDetails(not)}
-              isOpen={openDetails}
-            />
+            <Typography variant="medium" textAlign="center">
+              {FixedPointMath.toNumber(coinsMap[type]?.totalBalance)}
+            </Typography>
+            {suiCoinInfo?.price && (
+              <Typography variant="extraSmall" textAlign="center">
+                {formatDollars(
+                  FixedPointMath.toNumber(coinsMap[type]?.totalBalance) *
+                    suiCoinInfo?.price
+                )}
+              </Typography>
+            )}
           </Box>
-        </Box>
-      </TableRow>
+          <Box height="100%" pt="0.05rem">
+            <Box
+              display="flex"
+              justifyContent="flex-end"
+              alignItems="center"
+              pr="l"
+              py="l"
+            >
+              <OpenDetails
+                handleClick={() => setOpenDetails(not)}
+                isOpen={openDetails}
+              />
+            </Box>
+          </Box>
+        </TableRow>
+      ) : null}
       <DropdownBox isOpen={openDetails}>
-        {coin.objects.map(({ coinType, balance }) => (
+        {coin?.objects.map(({ coinType, balance }) => (
           <TableRow numCols={4} withBG={openDetails} hasDropdown key={v4()}>
             <Box />
             <DropdownItem

@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 import PortfolioAssets from './portfolio-assets';
 import { ASSETS_DATA } from './portfolio-assets/assets.data';
-// import Tokens from './tokens';
+import Tokens from './tokens';
 
 const Portfolio: FC = () => (
   <Box variant="container" display="flex" flexDirection="column">
@@ -15,7 +15,7 @@ const Portfolio: FC = () => (
       flexDirection="column"
       gap={['l', 'l', 'l', '3xl']}
     >
-      {/* <Tokens /> */}
+      <Tokens />
       <PortfolioAssets data={ASSETS_DATA} />
     </Box>
   </Box>
