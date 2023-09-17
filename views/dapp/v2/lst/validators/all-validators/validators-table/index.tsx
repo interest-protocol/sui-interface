@@ -1,5 +1,6 @@
 import { Box } from '@interest-protocol/ui-kit';
 import BigNumber from 'bignumber.js';
+import { useTranslations } from 'next-intl';
 import { pathOr } from 'ramda';
 import { FC } from 'react';
 
@@ -7,7 +8,9 @@ import { FixedPointMath } from '@/lib';
 import { formatMoney } from '@/utils';
 import { useGetValidatorsApy } from '@/views/dapp/v2/lst/lst.hooks';
 
+import ErrorState from '../../../components/error-state';
 import { useGetValidatorsStakePosition, useLstData } from '../../../lst.hooks';
+import ValidatorsTableSkeleton from '../../../staked/staking-form/your-info/modal/validator-list/validators-table-skeleton';
 import { AllValidatorsProps } from '../all-validators.types';
 import ValidatorsTableData from './validators-table-data';
 import ValidatorsTableHead from './validators-table-head';
@@ -16,6 +19,7 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
   control,
   activeValidators,
 }) => {
+  const t = useTranslations();
   const { lstStorage } = useLstData();
   const {
     data: validatorStakeDistribution,
@@ -32,9 +36,16 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
     error: validatorsApyError,
   } = useGetValidatorsApy();
 
-  if (isValidatorTableError || validatorsApyError) return <>error!</>; // TODO: handle this error
+  if (isValidatorTableError || validatorsApyError)
+    return (
+      <ErrorState
+        size="large"
+        errorMessage={t('lst.validators.tableSection.error')}
+      />
+    );
 
-  if (validatorsApyLoading || isValidatorTableLoading) return <>loading</>; // TODO: Loading APY
+  if (!validatorsApyLoading || !isValidatorTableLoading)
+    return <ValidatorsTableSkeleton />;
 
   const apyMap = (validatorsApy?.apys?.reduce(
     (acc, { address, apy }) => ({ ...acc, [address]: apy }),

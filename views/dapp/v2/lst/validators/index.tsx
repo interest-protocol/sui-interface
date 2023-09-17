@@ -5,9 +5,11 @@ import { FC } from 'react';
 import { SUISVG, UsersSVG } from '@/components/svg/v2';
 import { FixedPointMath } from '@/lib';
 
+import ErrorState from '../components/error-state';
 import Overview from '../components/overview';
 import { useLstData } from '../lst.hooks';
 import { useGetActiveValidators } from '../lst.hooks';
+import ValidatorsTableSkeleton from '../staked/staking-form/your-info/modal/validator-list/validators-table-skeleton';
 import AllValidators from './all-validators';
 
 const OverViewWrapper: FC = () => {
@@ -19,10 +21,6 @@ const OverViewWrapper: FC = () => {
     error: errorActiveValidator,
   } = useGetActiveValidators();
   const { iSuiExchangeRate, isLoading, lstStorage } = useLstData();
-
-  if (errorActiveValidator) return <>error!</>; // TODO: handle loading
-
-  if (isLoading || isLoadingActiveValidators) return <div>loading...</div>; // TODO: handle loading
 
   const OVERVIEW_DATA = [
     {
@@ -42,7 +40,14 @@ const OverViewWrapper: FC = () => {
       value: activeValidators?.length || 0,
     },
   ];
-  return <Overview title={t('lst.overview.title')} data={OVERVIEW_DATA} />;
+  return (
+    <Overview
+      title={t('lst.overview.title')}
+      data={OVERVIEW_DATA}
+      isLoading={isLoading || isLoadingActiveValidators}
+      error={errorActiveValidator}
+    />
+  );
 };
 
 const Validators: FC = () => {
@@ -52,14 +57,21 @@ const Validators: FC = () => {
     error: activeValidatorsError,
   } = useGetActiveValidators();
 
-  if (activeValidatorsError) return <>error</>; // TODO fix this error
-
-  if (activeValidatorsLoading) return <>loading</>; // TODO fix this loading
+  const t = useTranslations();
 
   return (
     <Box variant="container" display="flex" flexDirection="column">
       <OverViewWrapper />
-      <AllValidators activeValidators={activeValidators} />
+      {activeValidatorsLoading ? (
+        <ValidatorsTableSkeleton />
+      ) : activeValidatorsError ? (
+        <ErrorState
+          size="large"
+          errorMessage={t('lst.validators.tableSection.error')}
+        />
+      ) : (
+        <AllValidators activeValidators={activeValidators} />
+      )}
     </Box>
   );
 };
