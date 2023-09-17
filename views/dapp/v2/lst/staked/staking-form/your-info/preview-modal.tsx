@@ -22,6 +22,8 @@ import {
   useGetExchangeRateSuiToISui,
 } from '@/views/dapp/v2/lst/lst.hooks';
 
+import LSTFormConfirmModal from './modal/confirm-modal';
+import LSTFormFailModal from './modal/fail-modal';
 import HeaderModal from './modal/header-modal';
 import PreviewTransaction from './modal/preview';
 import {
@@ -34,15 +36,15 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
   lstForm,
   provider,
   network,
-  onSuccess,
   coinsMap,
   account,
-  onFail,
   suiUsdPrice,
   mutate,
 }) => {
   const t = useTranslations();
   const [loading, setLoading] = useState(false);
+  const [transactionFailed, setTransactionFailed] = useState(false);
+  const [transactionSuccess, setTransactionSuccess] = useState('');
   const { signTransactionBlock } = useWalletKit();
   const suiAmount = lstForm.getValues('amount');
   const { data, isLoading } = useGetExchangeRateSuiToISui(
@@ -50,6 +52,18 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
       .decimalPlaces(0, BigNumber.ROUND_DOWN)
       .toString()
   );
+
+  if (transactionFailed)
+    return <LSTFormFailModal isStake={true} handleClose={handleClose} />;
+
+  if (transactionSuccess)
+    return (
+      <LSTFormConfirmModal
+        txLink={transactionSuccess}
+        isStake={true}
+        handleClose={handleClose}
+      />
+    );
 
   if (isLoading || loading)
     return (
@@ -76,7 +90,7 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
           justifyContent="center"
         >
           <ProgressIndicator variant="loading" />
-          <Typography variant="medium">
+          <Typography variant="medium" color="onSurface">
             {t(
               isLoading
                 ? 'lst.modal.preview.fetchingExchangeRate'
@@ -138,9 +152,9 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
 
       const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
 
-      onSuccess(explorerLink);
+      setTransactionSuccess(explorerLink);
     } catch {
-      onFail();
+      setTransactionFailed(true);
     } finally {
       setLoading(false);
       await mutate();
@@ -276,12 +290,12 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
   coinsMap,
   account,
   mutate,
-  onSuccess,
-  onFail,
   suiUsdPrice,
 }) => {
   const [loading, setLoading] = useState(false);
   const t = useTranslations();
+  const [transactionFailed, setTransactionFailed] = useState(false);
+  const [transactionSuccess, setTransactionSuccess] = useState('');
   const { signTransactionBlock } = useWalletKit();
   const iSuiAmount = lstForm.getValues('amount');
 
@@ -290,6 +304,18 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
       .decimalPlaces(0, BigNumber.ROUND_DOWN)
       .toString()
   );
+
+  if (transactionFailed)
+    return <LSTFormFailModal isStake={true} handleClose={handleClose} />;
+
+  if (transactionSuccess)
+    return (
+      <LSTFormConfirmModal
+        txLink={transactionSuccess}
+        isStake={true}
+        handleClose={handleClose}
+      />
+    );
 
   if (isLoading || loading)
     return (
@@ -316,7 +342,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
           justifyContent="center"
         >
           <ProgressIndicator variant="loading" />
-          <Typography variant="medium">
+          <Typography variant="medium" color="onSurface">
             {t(
               isLoading
                 ? 'lst.modal.preview.fetchingExchangeRate'
@@ -331,7 +357,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
   const suiAmountToReceive = FixedPointMath.toNumber(BigNumber(data));
 
   const unstake = async () => {
-    if (+iSuiAmount < 1 || !account) return;
+    if (!account) return;
 
     try {
       setLoading(true);
@@ -361,7 +387,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
         ],
       });
 
-      const suiCoin = txb.moveCall({
+      txb.moveCall({
         target: `${objects.PACKAGE_ID}::sdk::burn_isui`,
         arguments: [
           txb.object(SUI_SYSTEM_STATE_OBJECT_ID),
@@ -375,8 +401,6 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
           txb.pure(validator, BCS.ADDRESS),
         ],
       });
-
-      txb.transferObjects([suiCoin], txb.pure(account, BCS.ADDRESS));
 
       const { signature, transactionBlockBytes } = await signTransactionBlock({
         transactionBlock: txb,
@@ -395,9 +419,9 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
 
       const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
 
-      onSuccess(explorerLink);
+      setTransactionSuccess(explorerLink);
     } catch {
-      onFail();
+      setTransactionFailed(true);
     } finally {
       setLoading(false);
       await mutate();

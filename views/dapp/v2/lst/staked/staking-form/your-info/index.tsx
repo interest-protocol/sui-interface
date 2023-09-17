@@ -10,8 +10,6 @@ import { YourInfoProps } from '@/views/dapp/v2/lst/staked/staking-form/your-info
 
 import Switcher from '../../../components/switch';
 import AmountField from './amount-field';
-import LSTFormConfirmModal from './modal/confirm-modal';
-import LSTFormFailModal from './modal/fail-modal';
 import Overview from './overview';
 import PreviewButton from './preview-button';
 import { StakePreviewModal, UnstakePreviewModal } from './preview-modal';
@@ -28,7 +26,8 @@ const YourInfo: FC<YourInfoProps> = ({
   const { provider } = useProvider();
   const { network } = useNetwork();
   const { coinsMap, account } = useWeb3();
-  const { iSuiExchangeRate, suiCoinInfo, mutate } = useLstData();
+  const { iSuiExchangeRate, suiCoinInfo, validatorStakeRecord, mutate } =
+    useLstData();
 
   const handleSelect = () => {
     form.reset();
@@ -41,36 +40,6 @@ const YourInfo: FC<YourInfoProps> = ({
     setSelectValidator(not);
   };
 
-  const openConfirmModal = (isStake: boolean) => (txLink: string) =>
-    setModal(
-      <LSTFormConfirmModal
-        txLink={txLink}
-        isStake={isStake}
-        handleClose={handleClose}
-      />,
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: false,
-      }
-    );
-
-  const openFailureModal = (isStake: boolean) => (message?: string) =>
-    setModal(
-      <LSTFormFailModal
-        message={message}
-        isStake={isStake}
-        handleClose={handleClose}
-      />,
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: false,
-      }
-    );
-
   const openStakeModal = () => {
     setModal(
       isStake ? (
@@ -82,8 +51,6 @@ const YourInfo: FC<YourInfoProps> = ({
           provider={provider}
           coinsMap={coinsMap}
           handleClose={handleClose}
-          onFail={openFailureModal(true)}
-          onSuccess={openConfirmModal(true)}
           suiUsdPrice={suiCoinInfo?.price || 0}
         />
       ) : (
@@ -95,9 +62,8 @@ const YourInfo: FC<YourInfoProps> = ({
           provider={provider}
           coinsMap={coinsMap}
           handleClose={handleClose}
-          onFail={openFailureModal(false)}
-          onSuccess={openConfirmModal(false)}
           suiUsdPrice={suiCoinInfo?.price || 0}
+          validatorStakeRecord={validatorStakeRecord}
         />
       ),
       {
@@ -158,7 +124,7 @@ const YourInfo: FC<YourInfoProps> = ({
         onClick={handleSelectValidator}
         defaultValue={selectValidator}
       />
-      {selectValidator && <SelectValidators form={form} />}
+      {selectValidator && <SelectValidators form={form} isStake={isStake} />}
       <PreviewButton
         isStake={isStake}
         lstForm={form}

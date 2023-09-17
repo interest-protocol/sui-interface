@@ -7,7 +7,10 @@ import { DEFAULT_LST_STORAGE } from '@/constants/lst';
 import { useGetCoinsUSDInfo } from '@/hooks/use-get-coins-usd-info';
 import { FixedPointMath, ONE_COIN } from '@/lib';
 import { noop } from '@/utils';
-import { useGetLstStorage } from '@/views/dapp/v2/lst/lst.hooks';
+import {
+  useGetLstStorage,
+  useGetValidatorsStakePosition,
+} from '@/views/dapp/v2/lst/lst.hooks';
 
 import { ILSTContext } from './context.types';
 
@@ -34,6 +37,14 @@ export const LSTProvider: FC<PropsWithChildren> = ({ children }) => {
     COINS[Network.MAINNET].SUI.type,
   ]);
 
+  const {
+    isLoading: isGetValidatorStakePositionLoading,
+    data: validatorStakeRecord,
+  } = useGetValidatorsStakePosition(
+    lstStorage.validatorTable.head,
+    lstStorage.validatorTable.tail
+  );
+
   const suiCoinInfo = coinData[COINS[Network.MAINNET].SUI.type].info;
 
   const totalStakedSui = FixedPointMath.toNumber(lstStorage.pool.elastic);
@@ -49,9 +60,10 @@ export const LSTProvider: FC<PropsWithChildren> = ({ children }) => {
       price,
       timestamp,
     })),
-    isLoading: storageIsLoading,
+    isLoading:
+      storageIsLoading || isGetValidatorStakePositionLoading || isLoading,
     lstStorage,
-    validatorStakeRecord: {},
+    validatorStakeRecord,
     iSuiExchangeRate,
     totalISuiMinted,
     mutate: async () => {

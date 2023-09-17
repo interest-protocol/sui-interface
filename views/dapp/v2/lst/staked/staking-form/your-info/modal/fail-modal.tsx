@@ -27,30 +27,32 @@ const LSTFormFailModal: FC<LSTFormFailModalProps> = ({
         title={t('lst.modal.error.title')}
         handleClose={handleClose}
       />
-      <Box
-        p="xl"
-        pt="4xl"
-        mb="xl"
-        display="flex"
-        borderRadius="m"
-        alignItems="center"
-        flexDirection="column"
-        bg="surface.containerLowest"
-      >
-        <Box my="xl" color="error">
-          <TimesSVG filled width="100%" maxWidth="3rem" maxHeight="3rem" />
+      <Box px="l" display="flex" flexDirection="column">
+        <Box
+          pt="4xl"
+          pb="xl"
+          mb="xl"
+          display="flex"
+          borderRadius="m"
+          alignItems="center"
+          flexDirection="column"
+          bg="surface.containerLowest"
+        >
+          <Box my="xl" color="error">
+            <TimesSVG filled width="100%" maxWidth="3rem" maxHeight="3rem" />
+          </Box>
+          <Typography
+            my="xl"
+            width="16rem"
+            variant="medium"
+            textAlign="center"
+            color="onSurface"
+          >
+            {message ??
+              t('lst.modal.error.description', { isStake: Number(isStake) })}
+          </Typography>
         </Box>
-        <Typography my="xl" width="16rem" variant="medium" textAlign="center">
-          {t('lst.modal.error.title')}
-        </Typography>
-      </Box>
-      <Box px="l" pt="l" display="flex" flexDirection="column">
-        <Typography variant="extraSmall" textAlign="center">
-          {message ??
-            t('lst.modal.error.description', { isStake: Number(isStake) })}
-        </Typography>
         <Button
-          mt="xl"
           mb="2xl"
           size="small"
           width="100%"
