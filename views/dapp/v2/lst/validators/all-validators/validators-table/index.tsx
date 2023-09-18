@@ -44,7 +44,7 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
       />
     );
 
-  if (!validatorsApyLoading || !isValidatorTableLoading)
+  if (validatorsApyLoading || isValidatorTableLoading)
     return <ValidatorsTableSkeleton />;
 
   const apyMap = (validatorsApy?.apys?.reduce(
