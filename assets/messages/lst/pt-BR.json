@@ -50,6 +50,12 @@
         "clearButton": "limpar",
         "confirmButton": "confirmar seleção"
       },
+      "asset": {
+        "title": "Ativos",
+        "info": "Pode sempre resgatar iSUIP e iSUIY se tiverem a mesma quantidade e a mesma maturidade.",
+        "select": "selecione",
+        "confirmButton": "confirmar"
+      },
       "confirm": {
         "title": "{isStake, plural, =1 {Aposte} other {Desempate}} com sucesso",
         "description": "Pode verificar a sua transacção no Explorador",
@@ -90,6 +96,12 @@
       "seeAll": "Ver Todos",
       "maturity": "Maturidade",
       "dayLeft": "Dias Restantes",
+      "searchInput": "Pesquisa de ativos",
+      "name": "Nome",
+      "balance": "Saldo",
+      "state": "Estado",
+      "inMaturity": "Em Maturidade",
+      "pastMaturity": "Passado Maturidade",
       "totalAssetsMinted": "Total de Ativos Criados"
     },
     "statsSection": {
@@ -153,6 +165,7 @@
       "more": "Mais",
       "value": "Valor"
     },
-    "selectValidator": "selecionar validador"
+    "selectValidator": "selecionar validador",
+    "selectAsset": "selecionar ativo"
   }
 }

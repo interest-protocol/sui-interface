@@ -26,7 +26,7 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
             `2rem 2fr repeat(${numCols - 2}, 1fr)`,
             `2rem 2fr repeat(${numCols - 2}, 1fr)`,
             `2rem 2fr repeat(${numCols - 2}, 1fr)`,
-            `2rem 2fr repeat(${numCols - 2}, 1fr)`,
+            `2rem 1.5fr repeat(${numCols - 2}, 1fr)`,
           ]
     }
     py={isTableHead ? 'l' : 'm'}
