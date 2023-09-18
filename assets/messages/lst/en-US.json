@@ -50,6 +50,12 @@
         "clearButton": "clear",
         "confirmButton": "confirm selection"
       },
+      "asset": {
+        "title": "all assets",
+        "info": "You can always redeem iSUIP and iSUIY if they have the same quantity and same maturity.",
+        "select": "select",
+        "confirmButton": "confirm"
+      },
       "confirm": {
         "title": "{isStake, plural, =1 {Stake} other {Unstake}} Successful",
         "description": "You can check your transaction in the Explorer",
@@ -90,6 +96,12 @@
       "seeAll": "See All",
       "maturity": "Maturity",
       "dayLeft": "Day Left",
+      "searchInput": "Search Asset",
+      "name": "Name",
+      "balance": "Balance",
+      "state": "State",
+      "inMaturity": "In Maturity",
+      "pastMaturity": "Past Maturity",
       "totalAssetsMinted": "Total Assets Minted"
     },
     "statsSection": {
@@ -153,6 +165,7 @@
       "more": "More",
       "value": "Value"
     },
-    "selectValidator": "Select Validator"
+    "selectValidator": "Select Validator",
+    "selectAsset": "Select Asset"
   }
 }

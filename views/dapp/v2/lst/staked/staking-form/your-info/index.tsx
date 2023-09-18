@@ -74,11 +74,11 @@ const YourInfo: FC<YourInfoProps> = ({ form, isStake, handleChangeStake }) => {
     >
       <Box mb="2xl">
         <Typography
+          mb="2xl"
           variant="medium"
-          textTransform="uppercase"
           fontWeight="700"
           color="inverseSurface"
-          mb="2xl"
+          textTransform="uppercase"
         >
           {t('lst.stakingForm.title')}
         </Typography>
@@ -109,16 +109,16 @@ const YourInfo: FC<YourInfoProps> = ({ form, isStake, handleChangeStake }) => {
         exchangeRate={iSuiExchangeRate}
       />
       <Checkbox
-        label={capitalize(t('lst.selectValidator'))}
-        onClick={handleSelectValidator}
         defaultValue={selectValidator}
+        onClick={handleSelectValidator}
+        label={capitalize(t('lst.selectValidator'))}
       />
       {selectValidator && <SelectValidators form={form} isStake={isStake} />}
       <PreviewButton
-        isStake={isStake}
         lstForm={form}
-        openModal={openStakeModal}
+        isStake={isStake}
         network={network}
+        openModal={openStakeModal}
       />
       <Overview form={form} isStake={isStake} />
     </Box>
