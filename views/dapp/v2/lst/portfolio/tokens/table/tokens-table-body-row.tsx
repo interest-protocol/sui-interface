@@ -79,11 +79,11 @@ const TokensTableBodyRow: FC<{ index: number; type: string }> = ({
           </Box>
           <Box>
             <Box display="flex" gap="m" alignItems="center">
-              {<TokenIcon symbol={coin?.symbol} />}
+              {<TokenIcon symbol={coin.symbol} />}
               <Box>
-                <Typography variant="medium">{coin?.symbol}</Typography>
+                <Typography variant="medium">{coin.symbol}</Typography>
                 <Typography variant="extraSmall" opacity={0.6}>
-                  {coin?.symbol}
+                  {coin.symbol}
                 </Typography>
               </Box>
             </Box>
@@ -95,7 +95,7 @@ const TokensTableBodyRow: FC<{ index: number; type: string }> = ({
             flexDirection="column"
           >
             <Typography variant="medium" textAlign="center">
-              {FixedPointMath.toNumber(coinsMap[type]?.totalBalance)}
+              {FixedPointMath.toNumber(coin.totalBalance)}
             </Typography>
             {suiCoinInfo?.price && (
               <Typography variant="extraSmall" textAlign="center">
@@ -123,7 +123,7 @@ const TokensTableBodyRow: FC<{ index: number; type: string }> = ({
         </TableRow>
       ) : null}
       <DropdownBox isOpen={openDetails}>
-        {coin?.objects.map(({ coinType, balance }) => (
+        {coin.objects.map(({ coinType, balance }) => (
           <TableRow numCols={4} withBG={openDetails} hasDropdown key={v4()}>
             <Box />
             <DropdownItem
