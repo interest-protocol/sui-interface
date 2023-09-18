@@ -61,7 +61,12 @@ const ValidatorsTableData: FC<ValidatorsTableDataProps> = ({
                   </Box>
                   <Typography variant="medium">{name}</Typography>
                 </Box>
-                <Box display="flex" alignItems="center" gap="0.5rem">
+                <Box
+                  gap="0.5rem"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="flex-end"
+                >
                   <Typography variant="small" textAlign="center">
                     {lstStaked}
                   </Typography>

@@ -50,6 +50,12 @@
         "clearButton": "limpar",
         "confirmButton": "confirmar seleção"
       },
+      "asset": {
+        "title": "Ativos",
+        "info": "Pode sempre resgatar iSUIP e iSUIY se tiverem a mesma quantidade e a mesma maturidade.",
+        "select": "selecione",
+        "confirmButton": "confirmar"
+      },
       "confirm": {
         "title": "{isStake, plural, =1 {Aposte} other {Desempate}} com sucesso",
         "description": "Pode verificar a sua transacção no Explorador",
@@ -78,7 +84,11 @@
         "name": "Nome",
         "apy": "APY",
         "lstStaked": "LST Staked",
-        "commission": "Comissão"
+        "commission": "Comissão",
+        "error": "Ocorreu um erro ao carregar os validadores"
+      },
+      "validatorSection": {
+        "activeValidatorError": "Ocorreu um erro ao ativar o validador"
       }
     },
     "assetsTable": {
@@ -86,6 +96,12 @@
       "seeAll": "Ver Todos",
       "maturity": "Maturidade",
       "dayLeft": "Dias Restantes",
+      "searchInput": "Pesquisa de ativos",
+      "name": "Nome",
+      "balance": "Saldo",
+      "state": "Estado",
+      "inMaturity": "Em Maturidade",
+      "pastMaturity": "Passado Maturidade",
       "totalAssetsMinted": "Total de Ativos Criados"
     },
     "statsSection": {
@@ -105,12 +121,14 @@
       "validators": "validadores",
       "totalISUIMinted": "total iSUI emitido",
       "totalISUIPCMinted": "total iSUI-PC emitido",
-      "totalISUIYNMinted": "total iSUI-YN emitido"
+      "totalISUIYNMinted": "total iSUI-YN emitido",
+      "error": "Ocorreu um erro ao carregar a visão geral"
     },
     "exchangeRate": "taxa de câmbio",
     "epoch": {
       "title": "Preço do gás da próxima época",
-      "end": "A época termina em..."
+      "end": "A época termina em...",
+      "error": "Erro ao carregar o preço do gás da próxima época"
     },
     "faq": {
       "title": "PERGUNTAS FREQUENTES",
@@ -147,6 +165,7 @@
       "more": "Mais",
       "value": "Valor"
     },
-    "selectValidator": "selecionar validador"
+    "selectValidator": "selecionar validador",
+    "selectAsset": "selecionar ativo"
   }
 }

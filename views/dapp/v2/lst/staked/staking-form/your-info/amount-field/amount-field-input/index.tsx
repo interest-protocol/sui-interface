@@ -4,6 +4,7 @@ import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { propOr } from 'ramda';
 import { ChangeEvent, FC } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 import { SUISVG } from '@/components/svg/v2';
 import { ISUI_COIN_TYPE } from '@/constants/lst';
@@ -37,7 +38,7 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
     ? propOr(ZERO_BIG_NUMBER, 'totalBalance', sui)
     : propOr(ZERO_BIG_NUMBER, 'totalBalance', iSui);
 
-  console.log({ isFetchingCoinBalances }); // TODO: handle this loader
+  isFetchingCoinBalances && <Skeleton width="100%" height="1.875rem" />;
 
   return (
     <Box

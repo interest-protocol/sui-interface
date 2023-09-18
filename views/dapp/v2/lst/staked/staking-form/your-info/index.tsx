@@ -15,11 +15,7 @@ import PreviewButton from './preview-button';
 import { StakePreviewModal, UnstakePreviewModal } from './preview-modal';
 import SelectValidators from './select-validators';
 
-const YourInfo: FC<YourInfoProps> = ({
-  form,
-  setStakeTabState,
-  isStakeTabStake: isStake,
-}) => {
+const YourInfo: FC<YourInfoProps> = ({ form, isStake, handleChangeStake }) => {
   const t = useTranslations();
 
   const [selectValidator, setSelectValidator] = useState(false);
@@ -29,16 +25,9 @@ const YourInfo: FC<YourInfoProps> = ({
   const { iSuiExchangeRate, suiCoinInfo, validatorStakeRecord, mutate } =
     useLstData();
 
-  const handleSelect = () => {
-    form.reset();
-    setStakeTabState(not(isStake));
-  };
-
   const { setModal, handleClose } = useModal();
 
-  const handleSelectValidator = () => {
-    setSelectValidator(not);
-  };
+  const handleSelectValidator = () => setSelectValidator(not);
 
   const openStakeModal = () => {
     setModal(
@@ -85,11 +74,11 @@ const YourInfo: FC<YourInfoProps> = ({
     >
       <Box mb="2xl">
         <Typography
+          mb="2xl"
           variant="medium"
-          textTransform="uppercase"
           fontWeight="700"
           color="inverseSurface"
-          mb="2xl"
+          textTransform="uppercase"
         >
           {t('lst.stakingForm.title')}
         </Typography>
@@ -98,12 +87,12 @@ const YourInfo: FC<YourInfoProps> = ({
           options={[
             {
               value: +true,
-              onSelect: handleSelect,
+              onSelect: handleChangeStake,
               displayValue: capitalize(t('common.stake', { isLoading: 0 })),
             },
             {
               value: +false,
-              onSelect: handleSelect,
+              onSelect: handleChangeStake,
               displayValue: capitalize(t('common.unstake', { isLoading: 0 })),
             },
           ]}
@@ -120,16 +109,16 @@ const YourInfo: FC<YourInfoProps> = ({
         exchangeRate={iSuiExchangeRate}
       />
       <Checkbox
-        label={capitalize(t('lst.selectValidator'))}
-        onClick={handleSelectValidator}
         defaultValue={selectValidator}
+        onClick={handleSelectValidator}
+        label={capitalize(t('lst.selectValidator'))}
       />
       {selectValidator && <SelectValidators form={form} isStake={isStake} />}
       <PreviewButton
-        isStake={isStake}
         lstForm={form}
-        openModal={openStakeModal}
+        isStake={isStake}
         network={network}
+        openModal={openStakeModal}
       />
       <Overview form={form} isStake={isStake} />
     </Box>

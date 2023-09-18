@@ -11,10 +11,10 @@ const FAQ: FC = () => {
   return (
     <Box bg="surface.container" p="l" borderRadius="0.5rem" maxHeight="24rem">
       <Typography
-        variant="extraSmall"
-        fontSize="0.688rem"
-        color="onSurface"
         mb="l"
+        color="onSurface"
+        fontSize="0.688rem"
+        variant="extraSmall"
         textTransform="capitalize"
       >
         {t('lst.faq.title')}
