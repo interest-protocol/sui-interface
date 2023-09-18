@@ -15,11 +15,7 @@ import PreviewButton from './preview-button';
 import { StakePreviewModal, UnstakePreviewModal } from './preview-modal';
 import SelectValidators from './select-validators';
 
-const YourInfo: FC<YourInfoProps> = ({
-  form,
-  setStakeTabState,
-  isStakeTabStake: isStake,
-}) => {
+const YourInfo: FC<YourInfoProps> = ({ form, isStake, handleChangeStake }) => {
   const t = useTranslations();
 
   const [selectValidator, setSelectValidator] = useState(false);
@@ -29,16 +25,9 @@ const YourInfo: FC<YourInfoProps> = ({
   const { iSuiExchangeRate, suiCoinInfo, validatorStakeRecord, mutate } =
     useLstData();
 
-  const handleSelect = () => {
-    form.reset();
-    setStakeTabState(not(isStake));
-  };
-
   const { setModal, handleClose } = useModal();
 
-  const handleSelectValidator = () => {
-    setSelectValidator(not);
-  };
+  const handleSelectValidator = () => setSelectValidator(not);
 
   const openStakeModal = () => {
     setModal(
@@ -98,12 +87,12 @@ const YourInfo: FC<YourInfoProps> = ({
           options={[
             {
               value: +true,
-              onSelect: handleSelect,
+              onSelect: handleChangeStake,
               displayValue: capitalize(t('common.stake', { isLoading: 0 })),
             },
             {
               value: +false,
-              onSelect: handleSelect,
+              onSelect: handleChangeStake,
               displayValue: capitalize(t('common.unstake', { isLoading: 0 })),
             },
           ]}

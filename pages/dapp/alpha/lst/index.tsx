@@ -4,13 +4,12 @@ import { SUI_TYPE_ARG } from '@mysten/sui.js';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { mergeDeepRight } from 'ramda';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Layout } from 'views/dapp/v2/components';
 import LST from 'views/dapp/v2/lst';
 
 import { SEO } from '@/components';
-import { ISUI_COIN_TYPE } from '@/constants/lst';
 import { DEFAULT_VALIDATOR } from '@/constants/lst';
 import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
@@ -25,7 +24,6 @@ const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
 
 const LSTPage: NextPageWithProps = ({ pageTitle }) => {
   const { network } = useNetwork();
-  const [isStakeTabStake, setStakeTabState] = useState(true);
   const stakeForm = useForm<StakeForm>({
     defaultValues: {
       amount: '0',
@@ -41,6 +39,10 @@ const LSTPage: NextPageWithProps = ({ pageTitle }) => {
     stakeForm.setValue('validator', DEFAULT_VALIDATOR[network]);
   }, [network]);
 
+  useEffect(() => {
+    console.log('>> stakeForm : ', stakeForm);
+  }, [stakeForm]);
+
   if (network !== Network.TESTNET)
     return (
       <Layout dashboard>
@@ -55,19 +57,10 @@ const LSTPage: NextPageWithProps = ({ pageTitle }) => {
       </Layout>
     );
 
-  const handleChangeStakeTab = (value: boolean) => {
-    setStakeTabState(value);
-    stakeForm.setValue('coinType', value ? SUI_TYPE_ARG : ISUI_COIN_TYPE);
-  };
-
   return (
     <Web3Manager>
       <SEO pageTitle={pageTitle} />
-      <LST
-        stakeForm={stakeForm}
-        isStakeTabStake={isStakeTabStake}
-        setStakeTabState={handleChangeStakeTab}
-      />
+      <LST stakeForm={stakeForm} />
     </Web3Manager>
   );
 };
