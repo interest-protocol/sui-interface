@@ -1,5 +1,5 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
-import { formatAddress } from '@mysten/sui.js';
+import { formatAddress, SUI_TYPE_ARG } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
@@ -7,7 +7,8 @@ import { v4 } from 'uuid';
 
 import { CopyToClipboard } from '@/components';
 import { SUISVG } from '@/components/svg/v2';
-import { useWeb3 } from '@/hooks';
+import { COINS } from '@/constants';
+import { useNetwork, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import { ISuiSVG } from '@/svg';
 import { formatDollars } from '@/utils';
@@ -52,62 +53,75 @@ const TokensTableBodyRow: FC<{ index: number; type: string }> = ({
   type,
   index,
 }) => {
+  const { network } = useNetwork();
   const { coinsMap } = useWeb3();
   const { suiCoinInfo } = useLstData();
   const [openDetails, setOpenDetails] = useState(false);
 
-  const coin = coinsMap[type];
+  const coin = coinsMap[type] ?? {
+    ...(type === SUI_TYPE_ARG
+      ? COINS[network].SUI
+      : {
+          type,
+          symbol: 'ISUI',
+          decimals: 0,
+        }),
+    totalBalance: BigNumber(0),
+    objects: [],
+  };
 
   return (
     <Box key={v4()}>
-      <TableRow numCols={4} withBG={openDetails} isFirstRow>
-        <Box height="100%" pt="0.75rem">
-          <Typography variant="small">{index + 1}</Typography>
-        </Box>
-        <Box>
-          <Box display="flex" gap="m" alignItems="center">
-            {<TokenIcon symbol={coin.symbol} />}
-            <Box>
-              <Typography variant="medium">{coin.symbol}</Typography>
-              <Typography variant="extraSmall" opacity={0.6}>
-                {coin.symbol}
-              </Typography>
+      {coin ? (
+        <TableRow numCols={4} withBG={openDetails} isFirstRow>
+          <Box height="100%" pt="0.75rem">
+            <Typography variant="small">{index + 1}</Typography>
+          </Box>
+          <Box>
+            <Box display="flex" gap="m" alignItems="center">
+              {<TokenIcon symbol={coin.symbol} />}
+              <Box>
+                <Typography variant="medium">{coin.symbol}</Typography>
+                <Typography variant="extraSmall" opacity={0.6}>
+                  {coin.symbol}
+                </Typography>
+              </Box>
             </Box>
           </Box>
-        </Box>
-        <Box
-          display="flex"
-          justifyContent="flex-end"
-          alignItems="flex-end"
-          flexDirection="column"
-        >
-          <Typography variant="medium" textAlign="center">
-            {FixedPointMath.toNumber(coinsMap[type].totalBalance)}
-          </Typography>
-          {suiCoinInfo?.price && (
-            <Typography variant="extraSmall" textAlign="center">
-              {formatDollars(
-                FixedPointMath.toNumber(coinsMap[type].totalBalance) *
-                  suiCoinInfo?.price
-              )}
-            </Typography>
-          )}
-        </Box>
-        <Box height="100%" pt="0.05rem">
           <Box
             display="flex"
             justifyContent="flex-end"
-            alignItems="center"
-            pr="l"
-            py="l"
+            alignItems="flex-end"
+            flexDirection="column"
           >
-            <OpenDetails
-              handleClick={() => setOpenDetails(not)}
-              isOpen={openDetails}
-            />
+            <Typography variant="medium" textAlign="center">
+              {FixedPointMath.toNumber(coin.totalBalance)}
+            </Typography>
+            {suiCoinInfo?.price && (
+              <Typography variant="extraSmall" textAlign="center">
+                {formatDollars(
+                  FixedPointMath.toNumber(coinsMap[type]?.totalBalance) *
+                    suiCoinInfo?.price
+                )}
+              </Typography>
+            )}
           </Box>
-        </Box>
-      </TableRow>
+          <Box height="100%" pt="0.05rem">
+            <Box
+              display="flex"
+              justifyContent="flex-end"
+              alignItems="center"
+              pr="l"
+              py="l"
+            >
+              <OpenDetails
+                handleClick={() => setOpenDetails(not)}
+                isOpen={openDetails}
+              />
+            </Box>
+          </Box>
+        </TableRow>
+      ) : null}
       <DropdownBox isOpen={openDetails}>
         {coin.objects.map(({ coinType, balance }) => (
           <TableRow numCols={4} withBG={openDetails} hasDropdown key={v4()}>

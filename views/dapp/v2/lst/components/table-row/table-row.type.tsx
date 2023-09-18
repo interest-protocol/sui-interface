@@ -2,7 +2,9 @@ import { TableRowProps as GeneralTableRowProps } from '../../../metrics/top-tabl
 
 export interface TableRowProps extends Omit<GeneralTableRowProps, 'title'> {
   withBG?: boolean;
+  isWide?: boolean;
   isFirstRow?: boolean;
   hasDropdown?: boolean;
   isEquidistant?: boolean;
+  isDropdownInformation?: boolean;
 }

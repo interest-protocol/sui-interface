@@ -1,15 +1,14 @@
-import { Network } from '@interest-protocol/sui-amm-sdk';
+import { SUI_TYPE_ARG } from '@mysten/sui.js';
 import { FC } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
 
-import { COINS } from '@/constants';
 import { ISUI_COIN_TYPE } from '@/constants/lst';
 import { useWeb3 } from '@/hooks';
 
 import TokensTableBodyRow from './tokens-table-body-row';
 
-const TOKENS = [COINS[Network.TESTNET].SUI.type, ISUI_COIN_TYPE];
+const TOKENS = [SUI_TYPE_ARG, ISUI_COIN_TYPE];
 
 const TokensTableBody: FC = () => {
   const { isFetchingCoinBalances } = useWeb3();
