@@ -11,9 +11,9 @@ import StatsDerivatedWrapper from './stats-derivated-wrapper';
 import StatsWrapper from './stats-wrapper';
 
 const Stats: FC<StatsProps> = ({
-  apy,
+  // apy,
   totalStaked,
-  totalRewards,
+  // totalRewards,
   derivatedSui,
 }) => {
   const t = useTranslations();
