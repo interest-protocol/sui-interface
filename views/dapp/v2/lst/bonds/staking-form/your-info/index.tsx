@@ -1,24 +1,42 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { useLstData } from '@/views/dapp/v2/lst/lst.hooks';
-import { YourInfoProps } from '@/views/dapp/v2/lst/staked/staking-form/your-info/your-info.types';
 
 import YourInfoContainer from '../../../components/your-info-container';
+import { DERIVATED_SUI_SYMBOL } from '../../../lst.types';
 import AmountField from './amount-field';
 import Overview from './overview';
 import { StakePreviewModal, UnstakePreviewModal } from './preview-modal';
+import { YourInfoProps } from './your-info.types';
 
 const YourInfo: FC<YourInfoProps> = ({
   form,
   setStakeTabState,
   isStakeTabStake: isStake,
 }) => {
+  const [unstakeAmountType, setUnstakeAmountType] = useState<
+    ReadonlyArray<DERIVATED_SUI_SYMBOL>
+  >(['SUI']);
+
+  const [changeTab, setChangeTab] = useState<number>(0);
   const { provider } = useProvider();
   const { network } = useNetwork();
   const { coinsMap, account } = useWeb3();
   const { iSuiExchangeRate, suiCoinInfo, validatorStakeRecord, mutate } =
     useLstData();
+
+  const tabHandle = (tabIndex: number) => setChangeTab(tabIndex);
+
+  useEffect(() => {
+    setUnstakeAmountType(
+      changeTab == 0
+        ? ['iSui-PC', 'iSui-YN']
+        : changeTab == 1
+        ? ['iSui-PC']
+        : ['iSui-YN']
+    );
+  }, [changeTab]);
 
   const { setModal, handleClose } = useModal();
 
@@ -34,6 +52,8 @@ const YourInfo: FC<YourInfoProps> = ({
           coinsMap={coinsMap}
           handleClose={handleClose}
           suiUsdPrice={suiCoinInfo?.price || 0}
+          stakeTokenList={['SUI']}
+          receiveTokenList={['iSui-YN', 'iSui-PC']}
         />
       ) : (
         <UnstakePreviewModal
@@ -46,6 +66,8 @@ const YourInfo: FC<YourInfoProps> = ({
           handleClose={handleClose}
           suiUsdPrice={suiCoinInfo?.price || 0}
           validatorStakeRecord={validatorStakeRecord}
+          stakeTokenList={unstakeAmountType}
+          receiveTokenList={['SUI']}
         />
       ),
       {
@@ -66,11 +88,20 @@ const YourInfo: FC<YourInfoProps> = ({
         <AmountField
           form={form}
           isStake={isStake}
+          tabIndex={changeTab}
+          tabHandle={tabHandle}
           exchangeRate={iSuiExchangeRate}
+          unstakeAmountType={unstakeAmountType}
         />
       }
       openStakeModal={openStakeModal}
-      Overview={<Overview form={form} isStake={isStake} />}
+      Overview={
+        <Overview
+          form={form}
+          isStake={isStake}
+          unstakeAmountType={unstakeAmountType}
+        />
+      }
     />
   );
 };

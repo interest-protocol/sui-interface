@@ -22,9 +22,9 @@ import {
   useGetExchangeRateSuiToISui,
 } from '@/views/dapp/v2/lst/lst.hooks';
 
-import LSTFormConfirmModal from './modal/confirm-modal';
-import LSTFormFailModal from './modal/fail-modal';
-import HeaderModal from './modal/header-modal';
+import LSTFormConfirmModal from '../../../components/your-info-container/modal/confirm-modal';
+import LSTFormFailModal from '../../../components/your-info-container/modal/fail-modal';
+import HeaderModal from '../../../components/your-info-container/modal/header-modal';
 import PreviewTransaction from './modal/preview';
 import {
   StakePreviewModalProps,

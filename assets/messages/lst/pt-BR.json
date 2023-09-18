@@ -147,6 +147,8 @@
       "more": "Mais",
       "value": "Valor"
     },
-    "selectValidator": "selecionar validador"
+    "selectValidator": "selecionar validador",
+    "selectAssets": "Escolha activos",
+    "maturity": "Maturidade {date}"
   }
 }

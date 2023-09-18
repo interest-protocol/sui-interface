@@ -8,7 +8,7 @@ import { v4 } from 'uuid';
 import { useModal } from '@/hooks';
 import { ArrowTrendSVG } from '@/svg';
 
-import { useGetActiveValidators } from '../../../../lst.hooks';
+import { useGetActiveValidators } from '../../../lst.hooks';
 import ValidatorList from '../modal/validator-list';
 import { CurrentValidatorProps } from '../your-info.types';
 import { SelectValidatorsProps } from './select-validators.types';
