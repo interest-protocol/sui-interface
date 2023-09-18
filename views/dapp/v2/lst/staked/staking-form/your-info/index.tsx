@@ -10,7 +10,6 @@ import { YourInfoProps } from '@/views/dapp/v2/lst/staked/staking-form/your-info
 
 import Switcher from '../../../components/switch';
 import AmountField from './amount-field';
-import SelectAssetModal from './modal/select-asset';
 import Overview from './overview';
 import PreviewButton from './preview-button';
 import { StakePreviewModal, UnstakePreviewModal } from './preview-modal';
@@ -39,15 +38,6 @@ const YourInfo: FC<YourInfoProps> = ({
 
   const handleSelectValidator = () => {
     setSelectValidator(not);
-  };
-
-  const openSelectAssetModal = () => {
-    setModal(<SelectAssetModal handleClose={handleClose} />, {
-      isOpen: true,
-      custom: true,
-      opaque: false,
-      allowClose: true,
-    });
   };
 
   const openStakeModal = () => {
@@ -134,11 +124,6 @@ const YourInfo: FC<YourInfoProps> = ({
         onClick={handleSelectValidator}
         label={capitalize(t('lst.selectValidator'))}
       />
-      <Box mt="4xl" onClick={openSelectAssetModal}>
-        <Typography variant="small" color="onSurface">
-          open modal
-        </Typography>
-      </Box>
       {selectValidator && <SelectValidators form={form} isStake={isStake} />}
       <PreviewButton
         lstForm={form}
