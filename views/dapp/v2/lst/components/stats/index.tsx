@@ -47,7 +47,7 @@ const Stats: FC<StatsProps> = ({
             height="100%"
           />
         </StatsWrapper>
-        <StatsWrapper description="APY" value={`${apy}%`}>
+        <StatsWrapper description="APY" value={`3%`}>
           <PercentageSVG
             width="100%"
             height="100%"
@@ -55,10 +55,7 @@ const Stats: FC<StatsProps> = ({
             maxHeight="1.25rem"
           />
         </StatsWrapper>
-        <StatsWrapper
-          value={`${totalRewards}%`}
-          description={t('lst.totalReward')}
-        >
+        <StatsWrapper value={`0.01 Sui`} description={t('lst.totalReward')}>
           <CipherSVG
             maxHeight="2rem"
             maxWidth="2rem"
