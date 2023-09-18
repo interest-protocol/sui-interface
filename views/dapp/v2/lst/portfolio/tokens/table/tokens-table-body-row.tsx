@@ -1,5 +1,5 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
-import { formatAddress } from '@mysten/sui.js';
+import { formatAddress, SUI_TYPE_ARG } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
@@ -7,7 +7,8 @@ import { v4 } from 'uuid';
 
 import { CopyToClipboard } from '@/components';
 import { SUISVG } from '@/components/svg/v2';
-import { useWeb3 } from '@/hooks';
+import { COINS } from '@/constants';
+import { useNetwork, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import { ISuiSVG } from '@/svg';
 import { formatDollars } from '@/utils';
@@ -52,11 +53,22 @@ const TokensTableBodyRow: FC<{ index: number; type: string }> = ({
   type,
   index,
 }) => {
+  const { network } = useNetwork();
   const { coinsMap } = useWeb3();
   const { suiCoinInfo } = useLstData();
   const [openDetails, setOpenDetails] = useState(false);
 
-  const coin = coinsMap[type];
+  const coin = coinsMap[type] ?? {
+    ...(type === SUI_TYPE_ARG
+      ? COINS[network].SUI
+      : {
+          type,
+          symbol: 'ISUI',
+          decimals: 0,
+        }),
+    totalBalance: BigNumber(0),
+    objects: [],
+  };
 
   return (
     <Box key={v4()}>
