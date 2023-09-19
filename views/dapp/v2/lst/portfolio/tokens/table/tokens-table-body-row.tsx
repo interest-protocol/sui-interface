@@ -56,7 +56,7 @@ const TokensTableBodyRow: FC<{ index: number; type: string }> = ({
   const { network } = useNetwork();
   const { coinsMap } = useWeb3();
   const { suiCoinInfo } = useLstData();
-  const [openDetails, setOpenDetails] = useState(false);
+  const [openDetails, setOpenDetails] = useState<boolean>(false);
 
   const coin = coinsMap[type] ?? {
     ...(type === SUI_TYPE_ARG
@@ -72,7 +72,7 @@ const TokensTableBodyRow: FC<{ index: number; type: string }> = ({
 
   return (
     <Box key={v4()}>
-      {coin ? (
+      {coin && (
         <TableRow numCols={4} withBG={openDetails} isFirstRow>
           <Box height="100%" pt="0.75rem">
             <Typography variant="small">{index + 1}</Typography>
@@ -115,13 +115,15 @@ const TokensTableBodyRow: FC<{ index: number; type: string }> = ({
               py="l"
             >
               <OpenDetails
-                handleClick={() => setOpenDetails(not)}
+                handleClick={() => {
+                  setOpenDetails(not);
+                }}
                 isOpen={openDetails}
               />
             </Box>
           </Box>
         </TableRow>
-      ) : null}
+      )}
       <DropdownBox isOpen={openDetails}>
         {coin?.objects.map(({ coinType, balance }) => (
           <TableRow numCols={4} withBG={openDetails} hasDropdown key={v4()}>

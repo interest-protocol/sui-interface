@@ -12,7 +12,7 @@ const DropdownItem: FC<PropsWithChildren<DropdownBoxProps & MotionProps>> = ({
   return (
     <Motion
       {...props}
-      initial="closed"
+      initial={isOpen ? 'open' : 'closed'}
       variants={dropdownItemVariants}
       animate={isOpen ? 'open' : 'closed'}
     >

@@ -1,19 +1,15 @@
 export const dropdownVariants = {
   open: {
-    height: 'auto',
     scaleY: 1,
+    height: 'auto',
     transition: {
-      type: 'spring',
-      bounce: 0,
       duration: 0.4,
-      delayChildren: 0.3,
-      staggerChildren: 0.1,
       opacity: { delay: 0.7 },
     },
   },
   closed: {
-    height: '0',
     scaleY: 0,
+    height: '0',
   },
 };
 
