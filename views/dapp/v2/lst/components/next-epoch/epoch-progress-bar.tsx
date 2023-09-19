@@ -54,7 +54,6 @@ const EpochProgressBar: FC<EpochProgressBarProps> = ({
   startDate,
   endDate,
   duration,
-  size,
 }) => {
   const { dark } = useTheme() as Theme;
   const t = useTranslations();
@@ -91,7 +90,7 @@ const EpochProgressBar: FC<EpochProgressBarProps> = ({
         overflow="hidden"
         position="relative"
         alignItems="center"
-        height={size === 'small' ? '0.5rem' : '0.5rem'}
+        height="0.5rem"
       >
         <Countdown date={endDate} renderer={renderer(duration, false)} />
       </Box>

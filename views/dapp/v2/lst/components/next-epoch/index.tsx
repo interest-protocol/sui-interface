@@ -16,7 +16,7 @@ const NextEpoch: FC = () => {
 
   if (!data || error)
     return (
-      <EpochHeader>
+      <EpochHeader epochNumber={data?.epoch}>
         <ErrorState
           errorMessage={capitalize(t('lst.epoch.error')) as TTranslatedMessage}
         />
@@ -28,7 +28,7 @@ const NextEpoch: FC = () => {
   const endDataMS = startDateMS + durationMS;
 
   return (
-    <EpochHeader>
+    <EpochHeader epochNumber={data?.epoch}>
       {isLoading ? (
         <Skeleton width="100%" height="1.875rem" />
       ) : (

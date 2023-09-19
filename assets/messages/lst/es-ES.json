@@ -126,7 +126,7 @@
     },
     "exchangeRate": "tipo de cambio",
     "epoch": {
-      "title": "Próxima época",
+      "title": "Época",
       "end": "La época termina en...",
       "error": "Error al cargar la época",
       "started": "Empezó {time}",
