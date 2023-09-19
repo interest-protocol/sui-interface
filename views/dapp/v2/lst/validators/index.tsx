@@ -7,9 +7,9 @@ import { FixedPointMath } from '@/lib';
 
 import ErrorState from '../components/error-state';
 import Overview from '../components/overview';
+import ValidatorsTableSkeleton from '../components/your-info-container/modal/validator-list/validators-table-skeleton';
 import { useLstData } from '../lst.hooks';
 import { useGetActiveValidators } from '../lst.hooks';
-import ValidatorsTableSkeleton from '../staked/staking-form/your-info/modal/validator-list/validators-table-skeleton';
 import AllValidators from './all-validators';
 
 const OverViewWrapper: FC = () => {

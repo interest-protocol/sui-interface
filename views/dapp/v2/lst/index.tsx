@@ -25,7 +25,7 @@ const TabsContent: FC<{
     {
       [
         <Staked form={stakeForm} key={v4()} />,
-        <Bonds key={v4()} />,
+        <Bonds form={stakeForm} key={v4()} />,
         <Portfolio key={v4()} />,
         <Validators key={v4()} />,
         <Stats key={v4()} />,
@@ -44,11 +44,13 @@ const LST: FC<LSTProps> = ({ stakeForm }) => {
         <Box
           display="flex"
           overflowX="auto"
+          overflowY="hidden"
           variant="container"
           flexDirection="column"
         >
           <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
             <Tabs
+              key={v4()}
               defaultTabIndex={changeTab}
               onChangeTab={(changeTab) => setChangeTab(changeTab)}
               items={[

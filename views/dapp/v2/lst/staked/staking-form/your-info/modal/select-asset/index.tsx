@@ -11,8 +11,8 @@ import { noop } from 'swr/_internal';
 
 import { InfoSVG } from '@/svg';
 import { capitalize } from '@/utils';
+import HeaderModal from '@/views/dapp/v2/lst/components/your-info-container/modal/header-modal';
 
-import HeaderModal from '../header-modal';
 import AssetSearch from './asset-search';
 import AssetsTableBody from './assets-table-body';
 import { SelectAssetProps } from './select-asset.types';

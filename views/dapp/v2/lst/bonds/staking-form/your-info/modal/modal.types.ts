@@ -4,7 +4,7 @@ export interface PreviewTransactionProps {
   handleClose: () => void;
   depositFee: number;
   rewards: string;
-  lines: ReadonlyArray<PropsWithChildren<LineWrapperProps>>;
+  lines: ReadonlyArray<LineWrapperProps>;
   onClick: () => void;
   isStake: boolean;
 }
@@ -15,12 +15,16 @@ export interface HeaderModalProps {
   withoutBack?: boolean;
 }
 
-export interface LineWrapperProps {
-  title: string;
+export interface LineWrapperInputProps {
   Icon: ReactNode;
   token: {
     main: string;
     secondary: string;
   };
   reverse?: boolean;
+}
+
+export interface LineWrapperProps {
+  title: string;
+  fields: ReadonlyArray<PropsWithChildren<LineWrapperInputProps>>;
 }

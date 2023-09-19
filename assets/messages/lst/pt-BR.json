@@ -168,6 +168,7 @@
       "value": "Valor"
     },
     "selectValidator": "selecionar validador",
-    "selectAsset": "selecionar ativo"
+    "selectAssets": "Escolha activos",
+    "maturity": "Maturidade {date}"
   }
 }

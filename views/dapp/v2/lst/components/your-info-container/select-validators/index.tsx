@@ -9,8 +9,8 @@ import { v4 } from 'uuid';
 import { useModal } from '@/hooks';
 import { ArrowTrendSVG } from '@/svg';
 
-import ErrorState from '../../../../components/error-state';
-import { useGetActiveValidators } from '../../../../lst.hooks';
+import { useGetActiveValidators } from '../../../lst.hooks';
+import ErrorState from '../../error-state';
 import ValidatorList from '../modal/validator-list';
 import { CurrentValidatorProps } from '../your-info.types';
 import { SelectValidatorsProps } from './select-validators.types';

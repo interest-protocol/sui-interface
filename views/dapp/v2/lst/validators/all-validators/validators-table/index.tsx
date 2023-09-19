@@ -9,8 +9,8 @@ import { formatMoney } from '@/utils';
 import { useGetValidatorsApy } from '@/views/dapp/v2/lst/lst.hooks';
 
 import ErrorState from '../../../components/error-state';
+import ValidatorsTableSkeleton from '../../../components/your-info-container/modal/validator-list/validators-table-skeleton';
 import { useLstData } from '../../../lst.hooks';
-import ValidatorsTableSkeleton from '../../../staked/staking-form/your-info/modal/validator-list/validators-table-skeleton';
 import { AllValidatorsProps } from '../all-validators.types';
 import ValidatorsTableData from './validators-table-data';
 import ValidatorsTableHead from './validators-table-head';

@@ -123,7 +123,7 @@ const TokensTableBodyRow: FC<{ index: number; type: string }> = ({
         </TableRow>
       ) : null}
       <DropdownBox isOpen={openDetails}>
-        {coin.objects.map(({ coinType, balance }) => (
+        {coin?.objects.map(({ coinType, balance }) => (
           <TableRow numCols={4} withBG={openDetails} hasDropdown key={v4()}>
             <Box />
             <DropdownItem
