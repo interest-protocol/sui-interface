@@ -43,15 +43,15 @@ const RegularOverview: FC = () => {
         />
         <Box display="flex" flexDirection="column" flex="1" gap="s">
           <Typography opacity="0.6" variant="extraSmall" color="onSurface">
-            {capitalize(t('lst.epoch.end'))}
+            {t('lst.epoch.title') + ` ${data?.epoch ?? '#'}`}
           </Typography>
           {isLoading ? (
             <Skeleton width="100%" height="1.875rem" />
           ) : (
             <EpochProgressBar
-              size="small"
               endDate={endDataMS}
               duration={durationMS}
+              startDate={startDateMS}
             />
           )}
         </Box>

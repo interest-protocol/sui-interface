@@ -126,9 +126,11 @@
     },
     "exchangeRate": "exchange rate",
     "epoch": {
-      "title": "Next epoch gas price",
+      "title": "Epoch",
       "end": "epoch ends in...",
-      "error": "error while fetching epoch information"
+      "error": "error while fetching epoch information",
+      "started": "Started {time}",
+      "timeLeft": "left"
     },
     "faq": {
       "title": "FAQ",

@@ -2,7 +2,12 @@ import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC, PropsWithChildren } from 'react';
 
-const EpochHeader: FC<PropsWithChildren> = ({ children }) => {
+import { EpochHeaderProps } from './next-epoch.types';
+
+const EpochHeader: FC<PropsWithChildren<EpochHeaderProps>> = ({
+  epochNumber,
+  children,
+}) => {
   const t = useTranslations();
   return (
     <Box
@@ -21,7 +26,7 @@ const EpochHeader: FC<PropsWithChildren> = ({ children }) => {
           color="onSurface"
           textTransform="uppercase"
         >
-          {t('lst.epoch.end')}
+          {t('lst.epoch.title') + ` ${epochNumber ?? '#'}`}
         </Typography>
         {children}
       </Box>

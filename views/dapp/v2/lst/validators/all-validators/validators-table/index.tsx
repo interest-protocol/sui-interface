@@ -9,7 +9,7 @@ import { formatMoney } from '@/utils';
 import { useGetValidatorsApy } from '@/views/dapp/v2/lst/lst.hooks';
 
 import ErrorState from '../../../components/error-state';
-import { useGetValidatorsStakePosition, useLstData } from '../../../lst.hooks';
+import { useLstData } from '../../../lst.hooks';
 import ValidatorsTableSkeleton from '../../../staked/staking-form/your-info/modal/validator-list/validators-table-skeleton';
 import { AllValidatorsProps } from '../all-validators.types';
 import ValidatorsTableData from './validators-table-data';
@@ -20,15 +20,7 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
   activeValidators,
 }) => {
   const t = useTranslations();
-  const { lstStorage } = useLstData();
-  const {
-    data: validatorStakeDistribution,
-    isLoading: isValidatorTableLoading,
-    error: isValidatorTableError,
-  } = useGetValidatorsStakePosition(
-    lstStorage.validatorTable.head,
-    lstStorage.validatorTable.tail
-  );
+  const { validatorStakeRecord } = useLstData();
 
   const {
     data: validatorsApy,
@@ -36,7 +28,7 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
     error: validatorsApyError,
   } = useGetValidatorsApy();
 
-  if (isValidatorTableError || validatorsApyError)
+  if (validatorsApyError)
     return (
       <ErrorState
         size="large"
@@ -44,8 +36,7 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
       />
     );
 
-  if (validatorsApyLoading || isValidatorTableLoading)
-    return <ValidatorsTableSkeleton />;
+  if (validatorsApyLoading) return <ValidatorsTableSkeleton />;
 
   const apyMap = (validatorsApy?.apys?.reduce(
     (acc, { address, apy }) => ({ ...acc, [address]: apy }),
@@ -76,7 +67,7 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
         lstStaked: Number(
           FixedPointMath.toNumber(
             BigNumber(
-              pathOr('0', [suiAddress, 'principal'], validatorStakeDistribution)
+              pathOr('0', [suiAddress, 'principal'], validatorStakeRecord)
             )
           ).toFixed(4)
         ).toPrecision(),

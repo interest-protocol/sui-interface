@@ -10,9 +10,9 @@ const DropdownBox: FC<PropsWithChildren<DropdownBoxProps>> = ({
 }) => {
   return (
     <Motion
-      initial="closed"
+      initial={isOpen ? 'open' : 'closed'}
+      transformOrigin="top"
       variants={dropdownVariants}
-      transformOrigin="top left"
       animate={isOpen ? 'open' : 'closed'}
     >
       {children}
