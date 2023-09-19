@@ -32,7 +32,11 @@ const NextEpoch: FC = () => {
       {isLoading ? (
         <Skeleton width="100%" height="1.875rem" />
       ) : (
-        <EpochProgressBar duration={durationMS} endDate={endDataMS} />
+        <EpochProgressBar
+          duration={durationMS}
+          startDate={startDateMS}
+          endDate={endDataMS}
+        />
       )}
     </EpochHeader>
   );

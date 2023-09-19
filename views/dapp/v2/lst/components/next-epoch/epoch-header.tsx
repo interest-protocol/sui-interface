@@ -21,7 +21,7 @@ const EpochHeader: FC<PropsWithChildren> = ({ children }) => {
           color="onSurface"
           textTransform="uppercase"
         >
-          {t('lst.epoch.end')}
+          {t('lst.epoch.title')}
         </Typography>
         {children}
       </Box>
