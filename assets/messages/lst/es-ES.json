@@ -126,9 +126,11 @@
     },
     "exchangeRate": "tipo de cambio",
     "epoch": {
-      "title": "Próxima época precio del gas",
+      "title": "Época",
       "end": "La época termina en...",
-      "error": "Error al cargar la época"
+      "error": "Error al cargar la época",
+      "started": "Empezó {time}",
+      "timeLeft": "restantes"
     },
     "faq": {
       "title": "PREGUNTAS MÁS FRECUENTES",

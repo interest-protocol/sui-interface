@@ -126,9 +126,11 @@
     },
     "exchangeRate": "taxa de câmbio",
     "epoch": {
-      "title": "Preço do gás da próxima época",
+      "title": "Época",
       "end": "A época termina em...",
-      "error": "Erro ao carregar o preço do gás da próxima época"
+      "error": "Erro ao carregar o preço do gás da próxima época",
+      "started": "Iniciou {time}",
+      "timeLeft": "restantes"
     },
     "faq": {
       "title": "PERGUNTAS FREQUENTES",
