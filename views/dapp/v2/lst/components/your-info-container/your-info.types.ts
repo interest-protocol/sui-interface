@@ -82,4 +82,6 @@ export interface YourInfoContainerProps extends StakingFormProps {
   openStakeModal: () => void;
   AmountField: ReactNode;
   Overview: ReactNode;
+  handleChangeStake: () => void;
+  isStakeTabStake: boolean;
 }

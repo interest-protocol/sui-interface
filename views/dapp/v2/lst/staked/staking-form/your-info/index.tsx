@@ -9,11 +9,7 @@ import AmountField from './amount-field';
 import Overview from './overview';
 import { StakePreviewModal, UnstakePreviewModal } from './preview-modal';
 
-const YourInfo: FC<YourInfoProps> = ({
-  form,
-  setStakeTabState,
-  isStakeTabStake: isStake,
-}) => {
+const YourInfo: FC<YourInfoProps> = ({ form, isStake, handleChangeStake }) => {
   const { provider } = useProvider();
   const { network } = useNetwork();
   const { coinsMap, account } = useWeb3();
@@ -60,7 +56,7 @@ const YourInfo: FC<YourInfoProps> = ({
   return (
     <YourInfoContainer
       form={form}
-      setStakeTabState={setStakeTabState}
+      handleChangeStake={handleChangeStake}
       isStakeTabStake={isStake}
       AmountField={
         <AmountField

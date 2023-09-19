@@ -1,5 +1,6 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
+import { keys } from 'ramda';
 import { FC } from 'react';
 
 import { UsersSVG } from '@/components/svg/v2';
@@ -22,12 +23,19 @@ const Statistics: FC = () => {
   const { data: activeValidators, isLoading: isActiveValidatorsLoading } =
     useGetActiveValidators();
 
-  const { lstStorage, totalISuiMinted, iSuiExchangeRate, isLoading } =
-    useLstData();
+  const {
+    lstStorage,
+    totalISuiMinted,
+    iSuiExchangeRate,
+    isLoading,
+    validatorStakeRecord,
+  } = useLstData();
 
   if (isActiveValidatorsLoading || isLoading) return <StatsSkeleton />;
 
   const totalSuiStaked = FixedPointMath.toNumber(lstStorage.totalPrincipal);
+
+  const validatorsStaking = keys(validatorStakeRecord).length;
 
   return (
     <>
@@ -79,11 +87,8 @@ const Statistics: FC = () => {
               flexDirection="column"
               justifyContent="space-between"
             >
-              <Typography variant="extraSmall" opacity="0.6" color="onSurface">
-                {capitalize(t('lst.overview.validators'))}
-              </Typography>
               <Typography variant="large" color="onSurface">
-                {activeValidators.length}
+                {validatorsStaking}/{activeValidators.length}
               </Typography>
             </Box>
           </Box>

@@ -3,12 +3,14 @@ import { useTranslations } from 'next-intl';
 import { indexOf } from 'ramda';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
+import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
 
 import { useModal } from '@/hooks';
 import { ArrowTrendSVG } from '@/svg';
 
 import { useGetActiveValidators } from '../../../lst.hooks';
+import ErrorState from '../../error-state';
 import ValidatorList from '../modal/validator-list';
 import { CurrentValidatorProps } from '../your-info.types';
 import { SelectValidatorsProps } from './select-validators.types';
@@ -28,9 +30,23 @@ const SelectValidators: FC<SelectValidatorsProps> = ({ form, isStake }) => {
     name: 'validator',
   });
 
-  // TODO: handle error case and loading case
-  if (activeValidatorsError || activeValidatorsLoading)
-    return <>Loading | Error</>;
+  if (activeValidatorsError)
+    return (
+      <Box mt="xl">
+        <ErrorState
+          errorMessage={t(
+            'lst.validators.validatorSection.activeValidatorError'
+          )}
+        />
+      </Box>
+    );
+
+  if (activeValidatorsLoading)
+    return (
+      <Box mt="xl">
+        <Skeleton width="100%" height="1.5rem" />
+      </Box>
+    );
 
   const currentValidator = activeValidators
     .map(({ suiAddress, name, imageUrl }) => ({ suiAddress, name, imageUrl }))

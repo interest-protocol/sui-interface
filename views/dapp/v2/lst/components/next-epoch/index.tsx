@@ -1,47 +1,44 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
+import { TTranslatedMessage } from '@/interface';
+import { capitalize } from '@/utils';
 import { useGetCurrentEpoch } from '@/views/dapp/v2/lst/lst.hooks';
 
+import ErrorState from '../error-state';
+import EpochHeader from './epoch-header';
 import EpochProgressBar from './epoch-progress-bar';
 
 const NextEpoch: FC = () => {
   const t = useTranslations();
   const { data, isLoading, error } = useGetCurrentEpoch();
 
-  // TODO: handle the loading error case
-  if (isLoading) return null;
-
-  // TODO: handle the case error case
-  if (!data || error) return null;
+  if (!data || error)
+    return (
+      <EpochHeader epochNumber={data?.epoch}>
+        <ErrorState
+          errorMessage={capitalize(t('lst.epoch.error')) as TTranslatedMessage}
+        />
+      </EpochHeader>
+    );
 
   const startDateMS = Number(data?.epochStartTimestampMs);
   const durationMS = Number(data?.epochDurationMs);
   const endDataMS = startDateMS + durationMS;
 
   return (
-    <Box
-      p="l"
-      gap="s"
-      flex="1"
-      display="flex"
-      borderRadius="0.5rem"
-      flexDirection="column"
-      bg="surface.container"
-    >
-      <Box display="flex" flexDirection="column" gap="m">
-        <Typography
-          opacity="0.6"
-          variant="small"
-          color="onSurface"
-          textTransform="uppercase"
-        >
-          {t('lst.epoch.end')}
-        </Typography>
-        <EpochProgressBar duration={durationMS} endDate={endDataMS} />
-      </Box>
-    </Box>
+    <EpochHeader epochNumber={data?.epoch}>
+      {isLoading ? (
+        <Skeleton width="100%" height="1.875rem" />
+      ) : (
+        <EpochProgressBar
+          duration={durationMS}
+          startDate={startDateMS}
+          endDate={endDataMS}
+        />
+      )}
+    </EpochHeader>
   );
 };
 

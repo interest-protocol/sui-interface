@@ -10,11 +10,7 @@ import Overview from './overview';
 import { StakePreviewModal, UnstakePreviewModal } from './preview-modal';
 import { YourInfoProps } from './your-info.types';
 
-const YourInfo: FC<YourInfoProps> = ({
-  form,
-  setStakeTabState,
-  isStakeTabStake: isStake,
-}) => {
+const YourInfo: FC<YourInfoProps> = ({ form, handleChangeStake, isStake }) => {
   const [unstakeAmountType, setUnstakeAmountType] = useState<
     ReadonlyArray<DERIVATED_SUI_SYMBOL>
   >(['SUI']);
@@ -82,7 +78,7 @@ const YourInfo: FC<YourInfoProps> = ({
   return (
     <YourInfoContainer
       form={form}
-      setStakeTabState={setStakeTabState}
+      handleChangeStake={handleChangeStake}
       isStakeTabStake={isStake}
       AmountField={
         <AmountField

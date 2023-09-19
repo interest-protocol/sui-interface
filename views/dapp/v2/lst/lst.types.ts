@@ -19,9 +19,7 @@ export interface ValidatorStakePosition {
 }
 
 export interface LSTProps {
-  isStakeTabStake: boolean;
   stakeForm: UseFormReturn<StakeForm>;
-  setStakeTabState: (value: boolean) => void;
 }
 
 export interface LstFee {

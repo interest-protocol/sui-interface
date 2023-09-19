@@ -8,7 +8,7 @@ import { FC, useState } from 'react';
 
 import { SUISVG } from '@/components/svg/v2';
 import { EXPLORER_URL } from '@/constants';
-import { LST_OBJECTS } from '@/constants/lst';
+import { DEFAULT_VALIDATOR, LST_OBJECTS } from '@/constants/lst';
 import { FixedPointMath } from '@/lib';
 import { ISuiSVG } from '@/svg';
 import {
@@ -379,26 +379,17 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
         amount: iSuiAmountBN,
       });
 
-      const burnValidatorPayload = txb.moveCall({
-        target: `${objects.PACKAGE_ID}::sdk::create_burn_validator_payload`,
-        arguments: [
-          txb.object(objects.POOL_STORAGE),
-          txb.pure(iSuiAmountBN.toString(), BCS.U64),
-        ],
-      });
-
       txb.moveCall({
         target: `${objects.PACKAGE_ID}::sdk::burn_isui`,
         arguments: [
           txb.object(SUI_SYSTEM_STATE_OBJECT_ID),
           txb.object(objects.POOL_STORAGE),
           txb.object(objects.ISUI_STORAGE),
-          burnValidatorPayload,
           txb.makeMoveVec({
             objects: coinInList,
           }),
           txb.pure(iSuiAmountBN.toString(), BCS.U64),
-          txb.pure(validator, BCS.ADDRESS),
+          txb.pure(validator || DEFAULT_VALIDATOR[network], BCS.ADDRESS),
         ],
       });
 

@@ -1,5 +1,6 @@
 import { Box } from '@interest-protocol/ui-kit';
 import BigNumber from 'bignumber.js';
+import { useTranslations } from 'next-intl';
 import { pathOr } from 'ramda';
 import { FC } from 'react';
 
@@ -7,7 +8,9 @@ import { FixedPointMath } from '@/lib';
 import { formatMoney } from '@/utils';
 import { useGetValidatorsApy } from '@/views/dapp/v2/lst/lst.hooks';
 
-import { useGetValidatorsStakePosition, useLstData } from '../../../lst.hooks';
+import ErrorState from '../../../components/error-state';
+import ValidatorsTableSkeleton from '../../../components/your-info-container/modal/validator-list/validators-table-skeleton';
+import { useLstData } from '../../../lst.hooks';
 import { AllValidatorsProps } from '../all-validators.types';
 import ValidatorsTableData from './validators-table-data';
 import ValidatorsTableHead from './validators-table-head';
@@ -16,15 +19,8 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
   control,
   activeValidators,
 }) => {
-  const { lstStorage } = useLstData();
-  const {
-    data: validatorStakeDistribution,
-    isLoading: isValidatorTableLoading,
-    error: isValidatorTableError,
-  } = useGetValidatorsStakePosition(
-    lstStorage.validatorTable.head,
-    lstStorage.validatorTable.tail
-  );
+  const t = useTranslations();
+  const { validatorStakeRecord } = useLstData();
 
   const {
     data: validatorsApy,
@@ -32,9 +28,15 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
     error: validatorsApyError,
   } = useGetValidatorsApy();
 
-  if (isValidatorTableError || validatorsApyError) return <>error!</>; // TODO: handle this error
+  if (validatorsApyError)
+    return (
+      <ErrorState
+        size="large"
+        errorMessage={t('lst.validators.tableSection.error')}
+      />
+    );
 
-  if (validatorsApyLoading || isValidatorTableLoading) return <>loading</>; // TODO: Loading APY
+  if (validatorsApyLoading) return <ValidatorsTableSkeleton />;
 
   const apyMap = (validatorsApy?.apys?.reduce(
     (acc, { address, apy }) => ({ ...acc, [address]: apy }),
@@ -65,7 +67,7 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
         lstStaked: Number(
           FixedPointMath.toNumber(
             BigNumber(
-              pathOr('0', [suiAddress, 'principal'], validatorStakeDistribution)
+              pathOr('0', [suiAddress, 'principal'], validatorStakeRecord)
             )
           ).toFixed(4)
         ).toPrecision(),

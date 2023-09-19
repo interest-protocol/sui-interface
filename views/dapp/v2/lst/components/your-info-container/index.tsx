@@ -13,7 +13,7 @@ import { YourInfoContainerProps } from './your-info.types';
 
 const YourInfoContainer: FC<YourInfoContainerProps> = ({
   form,
-  setStakeTabState,
+  handleChangeStake,
   Overview,
   AmountField,
   openStakeModal,
@@ -23,11 +23,6 @@ const YourInfoContainer: FC<YourInfoContainerProps> = ({
 
   const [selectValidator, setSelectValidator] = useState(false);
   const { network } = useNetwork();
-
-  const handleSelect = () => {
-    form.reset();
-    setStakeTabState(not(isStake));
-  };
 
   const handleSelectValidator = () => {
     setSelectValidator(not);
@@ -56,12 +51,12 @@ const YourInfoContainer: FC<YourInfoContainerProps> = ({
           options={[
             {
               value: +true,
-              onSelect: handleSelect,
+              onSelect: handleChangeStake,
               displayValue: capitalize(t('common.stake', { isLoading: 0 })),
             },
             {
               value: +false,
-              onSelect: handleSelect,
+              onSelect: handleChangeStake,
               displayValue: capitalize(t('common.unstake', { isLoading: 0 })),
             },
           ]}

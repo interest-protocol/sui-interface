@@ -5,7 +5,7 @@ import CardSection from '../../components/card-section';
 import TokensTable from './table';
 
 const Tokens: FC = () => (
-  <Box height="max-content" width={['100%', '100%', '100%', '50%']}>
+  <Box height="max-content" width="100%">
     <CardSection title="Tokens">
       <TokensTable />
     </CardSection>

@@ -49,7 +49,10 @@ export interface AmountFieldDollarsProps {
   control: Control<StakeForm>;
 }
 
-export type YourInfoProps = StakingFormProps;
+export interface YourInfoProps extends StakingFormProps {
+  isStake: boolean;
+  handleChangeStake: () => void;
+}
 
 export interface StakePreviewModalProps {
   handleClose: () => void;
