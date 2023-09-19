@@ -108,11 +108,13 @@ const YourInfo: FC<YourInfoProps> = ({ form, isStake, handleChangeStake }) => {
         isStake={isStake}
         exchangeRate={iSuiExchangeRate}
       />
-      <Checkbox
-        defaultValue={selectValidator}
-        onClick={handleSelectValidator}
-        label={capitalize(t('lst.selectValidator'))}
-      />
+      {isStake && (
+        <Checkbox
+          defaultValue={selectValidator}
+          onClick={handleSelectValidator}
+          label={capitalize(t('lst.selectValidator'))}
+        />
+      )}
       {selectValidator && <SelectValidators form={form} isStake={isStake} />}
       <PreviewButton
         lstForm={form}
