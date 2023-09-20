@@ -37,3 +37,9 @@ export interface MaturityModalProps {
   handleClose: () => void;
   handleConfirm: () => void;
 }
+
+export interface MaturityBodyRowProps {
+  date: string;
+  daysLeft: string;
+  withBG?: boolean;
+}

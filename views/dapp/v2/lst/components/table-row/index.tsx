@@ -4,14 +4,15 @@ import { FC, PropsWithChildren } from 'react';
 import { TableRowProps } from './table-row.type';
 
 const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
-  children,
-  numCols,
   withBG,
+  numCols,
+  customBG,
+  children,
   isFirstRow,
   isTableHead,
   hasDropdown,
-  isEquidistant,
   withoutIndex,
+  isEquidistant,
 }) => (
   <Box
     fontWeight={isTableHead ? '400' : ''}
@@ -31,7 +32,7 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
           ]
     }
     py={isTableHead ? 'l' : 'm'}
-    bg={withBG ? 'surface.containerHigh' : 'unset'}
+    bg={withBG ? customBG ?? 'surface.containerHigh' : 'unset'}
     px={hasDropdown ? 'unset' : 'm'}
     borderRadius={withBG ? '0.25rem' : 'unset'}
     borderBottomRightRadius={withBG && isFirstRow ? 'unset' : '0.25rem'}
