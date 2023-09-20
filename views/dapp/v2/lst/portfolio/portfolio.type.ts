@@ -1,15 +1,29 @@
+import { FC } from 'react';
+
+import { SVGProps } from '@/components/svg/svg.types';
+
 import { DERIVATED_SUI_SYMBOL } from '../lst.types';
 
-export interface NFTRowItemProps {
-  id: number;
-  value: {
-    coin: number;
-    inUSD: number;
-  };
+interface MoreDetailsProps {
+  type: string;
+  value: number;
 }
 
-export interface NFTListProps {
-  data: ReadonlyArray<NFTRowItemProps>;
+interface TotalAssetsMintedProps {
+  name: string;
+  value: number;
+  Icon: FC<SVGProps>;
+  moreDetails: ReadonlyArray<MoreDetailsProps>;
+}
+
+export interface AssetsRowItemProps {
+  maturity: string;
+  dayLeft: number;
+  totalAssetsMinted: ReadonlyArray<TotalAssetsMintedProps>;
+}
+
+export interface AssetsListProps {
+  data: ReadonlyArray<AssetsRowItemProps>;
 }
 
 export interface OpenDetailsProps {

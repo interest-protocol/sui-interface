@@ -6,7 +6,11 @@ import { Control } from 'react-hook-form';
 
 import { CoinsMap } from '@/components/web3-manager/web3-manager.types';
 
-import { LSTProps, StakeForm } from '../../../lst.types';
+import {
+  LSTProps,
+  StakeForm,
+  ValidatorStakePositionRecord,
+} from '../../../lst.types';
 import {
   AllValidatorsProps,
   IValidatorSearchForm,
@@ -23,7 +27,10 @@ export interface AmountFieldDollarsProps {
   control: Control<StakeForm>;
 }
 
-export type YourInfoProps = StakingFormProps;
+export interface YourInfoProps extends StakingFormProps {
+  isStake: boolean;
+  handleChangeStake: () => void;
+}
 
 export interface StakePreviewModalProps {
   handleClose: () => void;
@@ -36,7 +43,9 @@ export interface StakePreviewModalProps {
   mutate: () => Promise<void>;
 }
 
-export type UnstakePreviewModalProps = StakePreviewModalProps;
+export interface UnstakePreviewModalProps extends StakePreviewModalProps {
+  validatorStakeRecord: ValidatorStakePositionRecord;
+}
 
 export interface PreviewButtonProps {
   isStake: boolean;

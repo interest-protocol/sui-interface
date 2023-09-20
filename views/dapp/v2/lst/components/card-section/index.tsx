@@ -5,20 +5,28 @@ import { CardSectionProps } from './card-section';
 
 const CardSection: FC<PropsWithChildren<CardSectionProps>> = ({
   title,
-  withOpactity,
   children,
+  rightAction,
+  withOpactity,
 }) => (
   <Box bg="surface.container" p="l" borderRadius="0.5rem">
-    <Typography
-      variant="extraSmall"
-      fontSize="0.688rem"
-      color="onSurface"
+    <Box
       mb="l"
-      textTransform="capitalize"
-      opacity={withOpactity ? 0.6 : 'unset'}
+      display="flex"
+      alignItems="center"
+      justifyContent="space-between"
     >
-      {title}
-    </Typography>
+      <Typography
+        color="onSurface"
+        fontSize="0.688rem"
+        variant="extraSmall"
+        textTransform="capitalize"
+        opacity={withOpactity ? 0.6 : 'unset'}
+      >
+        {title}
+      </Typography>
+      {rightAction}
+    </Box>
     {children}
   </Box>
 );

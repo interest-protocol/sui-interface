@@ -38,6 +38,8 @@
         "receiveLabel": "You Will Receive",
         "button": "{isStake, plural, =1 {Stake} other {Unstake}}",
         "depositFee": "Deposit fee",
+        "fetchingExchangeRate": "Fetching Exchange Rate",
+        "submitting": "{isStake, plural, =1 {Staking} other {Unstaking}}",
         "rewards": "Esd. Yearly Reward",
         "other": "other"
       },
@@ -47,6 +49,22 @@
         "select": "select",
         "clearButton": "clear",
         "confirmButton": "confirm selection"
+      },
+      "asset": {
+        "title": "all assets",
+        "info": "You can always redeem iSUIP and iSUIY if they have the same quantity and same maturity.",
+        "select": "select",
+        "confirmButton": "confirm"
+      },
+      "confirm": {
+        "title": "{isStake, plural, =1 {Stake} other {Unstake}} Successful",
+        "description": "You can check your transaction in the Explorer",
+        "button": "See on SuiVision"
+      },
+      "error": {
+        "title": "Error",
+        "description": "{isStake, plural, =1 {Stake} other {Unstake}} failed",
+        "button": "Try again"
       }
     },
     "infoButton": "{isStake, plural, =1 {Preview Stake} other {Preview Unstake}}",
@@ -66,7 +84,11 @@
         "name": "Name",
         "apy": "APY",
         "lstStaked": "LST Staked",
-        "commission": "Commission"
+        "commission": "Commission",
+        "error": "An error occurred while fetching validators"
+      },
+      "validatorSection": {
+        "activeValidatorError": "An error occurred while validator activation"
       }
     },
     "assetsTable": {
@@ -74,6 +96,12 @@
       "seeAll": "See All",
       "maturity": "Maturity",
       "dayLeft": "Day Left",
+      "searchInput": "Search Asset",
+      "name": "Name",
+      "balance": "Balance",
+      "state": "State",
+      "inMaturity": "In Maturity",
+      "pastMaturity": "Past Maturity",
       "totalAssetsMinted": "Total Assets Minted"
     },
     "statsSection": {
@@ -93,12 +121,16 @@
       "validators": "validators",
       "totalISUIMinted": "total iSUI minted",
       "totalISUIPCMinted": "total iSUI-PC minted",
-      "totalISUIYNMinted": "total iSUI-YN minted"
+      "totalISUIYNMinted": "total iSUI-YN minted",
+      "error": "cannot fetch overview data"
     },
     "exchangeRate": "exchange rate",
     "epoch": {
-      "title": "Next epoch gas price",
-      "end": "epoch ends in..."
+      "title": "Epoch",
+      "end": "epoch ends in...",
+      "error": "error while fetching epoch information",
+      "started": "Started {time}",
+      "timeLeft": "left"
     },
     "faq": {
       "title": "FAQ",
@@ -135,6 +167,8 @@
       "more": "More",
       "value": "Value"
     },
-    "selectValidator": "Select Validator"
+    "selectValidator": "Select Validator",
+    "selectAssets": "Select Assets",
+    "maturity": "Maturity {date}"
   }
 }

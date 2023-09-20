@@ -3,9 +3,11 @@ import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
+import CardSection from '../card-section';
 import TableRow from '../table-row';
 import { ASSETS_DATA } from './assets-table.data';
 import { AssetsTableProps } from './assets-table.types';
+import AssetsTableHead from './assets-table-head';
 import AssetsTableSkeleton from './skeleton';
 
 const AssetsTable: FC<AssetsTableProps> = ({ dataLimit }) => {
@@ -18,34 +20,15 @@ const AssetsTable: FC<AssetsTableProps> = ({ dataLimit }) => {
 
   return (
     <>
-      <Box padding="l" bg="surface.container" borderRadius="0.5rem">
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          mb="l"
-        >
-          <Typography variant="extraSmall" color="onSurface">
-            {t('lst.assetsTable.title')}
-          </Typography>
+      <CardSection
+        title={t('lst.assetsTable.title')}
+        rightAction={
           <Typography variant="extraSmall" color="primary" cursor="pointer">
             {t('lst.assetsTable.seeAll')}
           </Typography>
-        </Box>
-        <TableRow numCols={5} isEquidistant isTableHead>
-          <Typography variant="extraSmall" color="onSurface">
-            #
-          </Typography>
-          <Typography variant="extraSmall" color="onSurface">
-            {t('lst.assetsTable.maturity')}
-          </Typography>
-          <Typography variant="extraSmall" color="onSurface">
-            {t('lst.assetsTable.dayLeft')}
-          </Typography>
-          <Typography variant="extraSmall" color="onSurface">
-            {t('lst.assetsTable.totalAssetsMinted')}
-          </Typography>
-        </TableRow>
+        }
+      >
+        <AssetsTableHead />
         {isLoading ? (
           <AssetsTableSkeleton />
         ) : (
@@ -69,6 +52,7 @@ const AssetsTable: FC<AssetsTableProps> = ({ dataLimit }) => {
                       </Typography>
                       <Box>
                         <item.Icon
+                          filled
                           width="100%"
                           maxWidth="1.25rem"
                           maxHeight="1.25rem"
@@ -81,7 +65,7 @@ const AssetsTable: FC<AssetsTableProps> = ({ dataLimit }) => {
             )}
           </>
         )}
-      </Box>
+      </CardSection>
     </>
   );
 };
