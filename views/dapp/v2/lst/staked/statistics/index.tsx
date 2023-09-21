@@ -5,7 +5,7 @@ import { FC } from 'react';
 
 import { UsersSVG } from '@/components/svg/v2';
 import { FixedPointMath } from '@/lib';
-import { capitalize } from '@/utils';
+import { capitalize, formatMoney } from '@/utils';
 import {
   useGetActiveValidators,
   useLstData,
@@ -33,7 +33,7 @@ const Statistics: FC = () => {
 
   if (isActiveValidatorsLoading || isLoading) return <StatsSkeleton />;
 
-  const totalSuiStaked = FixedPointMath.toNumber(lstStorage.totalPrincipal);
+  const totalSui = FixedPointMath.toNumber(lstStorage.pool.elastic);
 
   const validatorsStaking = keys(validatorStakeRecord).length;
 
@@ -43,8 +43,10 @@ const Statistics: FC = () => {
       <Stats
         apy={0}
         totalRewards={0}
-        totalStaked={Number(totalSuiStaked)}
-        derivatedSui={[{ name: 'iSui', value: totalISuiMinted.toString() }]}
+        totalStaked={+formatMoney(totalSui, 2)}
+        derivatedSui={[
+          { name: 'iSui', value: formatMoney(totalISuiMinted, 2) },
+        ]}
       />
       <Box
         gap="s"
