@@ -74,7 +74,7 @@
     },
     "mintType": "Mint Type",
     "stats": "Estadística",
-    "totalStaked": "TOTAL SUI APOSTADO",
+    "totalStaked": "TOTAL SUI",
     "totalReward": "RECOMPENSAS TOTALES",
     "totalMinted": "Total {symbol} minted",
     "validators": {

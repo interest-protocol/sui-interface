@@ -10,7 +10,7 @@ import { SUISVG } from '@/components/svg/v2';
 import { EXPLORER_URL } from '@/constants';
 import { DEFAULT_VALIDATOR, LST_OBJECTS } from '@/constants/lst';
 import { FixedPointMath } from '@/lib';
-import { ISuiSVG } from '@/svg';
+import { ISuiSVG, SuiSVG } from '@/svg';
 import {
   createObjectsParameter,
   formatDollars,
@@ -427,7 +427,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
       isStake={false}
       lines={[
         {
-          title: t('lst.modal.preview.stakeLabel'),
+          title: t('lst.modal.preview.unstakeLabel'),
           token: { main: 'iSUI', secondary: 'SUI' },
           Icon: (
             <Box
@@ -438,7 +438,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
               justifyContent="center"
               alignItems="center"
               color="white"
-              bg="#6FBCF0"
+              bg="#0053DB"
             >
               <ISuiSVG
                 maxHeight="2.5rem"
@@ -472,23 +472,24 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
         },
         {
           title: t('lst.modal.preview.receiveLabel'),
-          token: { main: 'iSUI', secondary: 'SUI' },
+          token: { main: 'SUI', secondary: 'iSUI' },
           Icon: (
             <Box
               width="3rem"
-              height="3rem"
-              borderRadius="0.34rem"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
+              bg="#6FBCF0"
               color="white"
+              height="3rem"
+              display="flex"
+              alignItems="center"
+              borderRadius="0.34rem"
+              justifyContent="center"
             >
-              <ISuiSVG
-                maxHeight="3rem"
-                maxWidth="3rem"
+              <SuiSVG
+                filled
                 width="100%"
                 height="100%"
-                filled
+                maxWidth="2rem"
+                maxHeight="2rem"
               />
             </Box>
           ),
@@ -522,7 +523,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <SUISVG
+                  <SuiSVG
                     maxHeight="0.825rem"
                     maxWidth="0.825rem"
                     width="100%"

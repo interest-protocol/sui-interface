@@ -35,6 +35,7 @@
       "preview": {
         "title": "TRANSACTION OVERVIEW",
         "stakeLabel": "You Will Stake",
+        "unstakeLabel": "You Will Unstake",
         "receiveLabel": "You Will Receive",
         "button": "{isStake, plural, =1 {Stake} other {Unstake}}",
         "depositFee": "Deposit fee",
@@ -74,7 +75,7 @@
     },
     "mintType": "Mint Type",
     "stats": "Stats",
-    "totalStaked": "TOTAL SUI STAKED",
+    "totalStaked": "TOTAL SUI",
     "totalReward": "TOTAL REWARDS",
     "totalMinted": "Total {symbol} minted",
     "validators": {
