@@ -13,12 +13,12 @@ import { useForm } from 'react-hook-form';
 
 import { InfoSVG } from '@/svg';
 import { capitalize } from '@/utils';
+import HeaderModal from '@/views/dapp/v2/lst/components/your-info-container/modal/header-modal';
 import { useGetActiveValidators } from '@/views/dapp/v2/lst/lst.hooks';
 import { IValidatorSearchForm } from '@/views/dapp/v2/lst/validators/all-validators/all-validators.types';
 
 import { CurrentValidatorProps } from '../../your-info.types';
-import HeaderModal from '../header-modal';
-import { ValidatorListProps } from '../modal.type';
+import { ValidatorListProps } from '../modal.types';
 import ValidatorListBody from './validator-body';
 import ValidatorSearch from './validator-search';
 

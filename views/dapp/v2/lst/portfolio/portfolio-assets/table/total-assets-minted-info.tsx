@@ -28,7 +28,12 @@ const TotalAssetsMintedInfo: FC<
       borderRadius="0.25rem"
       mr={index != 0 ? '.125rem' : ''}
     >
-      <TableRow isFirstRow isDropdownInformation withBG={isDropdownOpen}>
+      <TableRow
+        numCols={3}
+        isFirstRow
+        isDropdownInformation
+        withBG={isDropdownOpen}
+      >
         <Box display="flex" width="100%" alignItems="center" gap="m">
           <Box width="2.25rem" height="2.5rem">
             <Icon width="100%" maxWidth="2.25rem" maxHeight="2.5rem" />
@@ -54,7 +59,12 @@ const TotalAssetsMintedInfo: FC<
         </Box>
       </TableRow>
       <DropdownBox isOpen={isDropdownOpen}>
-        <TableRow hasDropdown isDropdownInformation withBG={isDropdownOpen}>
+        <TableRow
+          numCols={3}
+          hasDropdown
+          isDropdownInformation
+          withBG={isDropdownOpen}
+        >
           <DropdownItem
             ml="xl"
             display="flex"
