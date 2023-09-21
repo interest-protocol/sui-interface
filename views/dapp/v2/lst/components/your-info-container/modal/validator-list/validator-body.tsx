@@ -50,7 +50,7 @@ const ValidatorListBody: FC<ValidatorListBodyProps> = ({
       />
     );
 
-  if (!validatorsApyLoading || !isValidatorTableLoading)
+  if (validatorsApyLoading || isValidatorTableLoading)
     return <ValidatorsTableSkeleton custom />;
 
   const apyMap = (validatorsApy?.apys?.reduce(
