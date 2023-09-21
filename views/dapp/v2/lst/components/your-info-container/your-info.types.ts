@@ -84,4 +84,5 @@ export interface YourInfoContainerProps extends StakingFormProps {
   Overview: ReactNode;
   handleChangeStake: () => void;
   isStakeTabStake: boolean;
+  hasMaturity?: boolean;
 }

@@ -5,7 +5,8 @@ import {
   SwapFormFailModalProps,
 } from '@/views/dapp/v2/swap/swap-form/swap-form-preview/swap-form-preview.types';
 
-import { CurrentValidatorProps } from '../your-info.types';
+import { MaturityInputField } from '../../../lst.types';
+import { CurrentValidatorProps, YourInfoProps } from '../your-info.types';
 
 export interface HeaderModalProps {
   title: string;
@@ -31,11 +32,14 @@ export interface LSTFormConfirmModalProps extends SwapFormConfirmModalProps {
 
 export interface MaturityModalProps {
   handleClose: () => void;
-  handleConfirm: () => void;
+  form: YourInfoProps['form'];
 }
 
-export interface MaturityBodyRowProps {
-  date: string;
-  daysLeft: string;
-  withBG?: boolean;
+export interface MaturityBodyProps {
+  handleSelectMaturity: (maturitySelected: MaturityInputField) => void;
+  currentMaturity: MaturityInputField;
+}
+
+export interface MaturityBodyRowProps extends MaturityBodyProps {
+  maturityInfo: MaturityInputField;
 }

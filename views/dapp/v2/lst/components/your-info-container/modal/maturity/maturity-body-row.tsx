@@ -1,36 +1,40 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
-import { not } from 'ramda';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { CheckmarkSVG } from '@/components/svg/v2';
 import TableRow from '@/views/dapp/v2/lst/components/table-row';
 
-import { MaturityBodyRowProps } from '../modal.type';
+import { MaturityBodyRowProps } from '../modal.types';
 
 const MaturityModalBodyRow: FC<MaturityBodyRowProps> = ({
-  date,
-  daysLeft,
-  withBG,
+  handleSelectMaturity,
+  currentMaturity,
+  maturityInfo,
 }) => {
-  const [selected, setSelected] = useState(withBG);
-  const handleSelect = () => setSelected(not);
+  const selected = currentMaturity.id == maturityInfo.id;
   return (
-    <Box onClick={handleSelect}>
+    <Box onClick={() => handleSelectMaturity(maturityInfo)} cursor="pointer">
       <TableRow
         numCols={3}
         isTableHead
         isEquidistant
-        withBG={withBG}
+        withBG={currentMaturity.id == maturityInfo.id}
         customBG="#99BBFF14"
       >
-        <Box>
+        <Box
+          height="1.5rem"
+          width="1.5rem"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
           {selected && (
-            <CheckmarkSVG maxHeight="1.5rem" maxWidth="1.5rem" width="100%" />
+            <CheckmarkSVG maxHeight="1rem" maxWidth="1rem" width="100%" />
           )}
         </Box>
-        <Typography variant="medium">{date}</Typography>
+        <Typography variant="medium">{maturityInfo.date}</Typography>
         <Typography variant="medium" textAlign="right" pr="m">
-          {daysLeft}
+          {maturityInfo.daysLeft}+
         </Typography>
         <Box />
       </TableRow>

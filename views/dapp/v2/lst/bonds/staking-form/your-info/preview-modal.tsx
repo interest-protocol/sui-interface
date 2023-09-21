@@ -94,7 +94,12 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
           fields: stakeTokenList.map((stakeToken) => ({
             token: {
               main: stakeToken,
-              secondary: stakeToken == 'SUI' ? stakeToken : 'Maturity:MM/DD/YY',
+              secondary:
+                stakeToken == 'SUI'
+                  ? stakeToken
+                  : t('lst.maturity', {
+                      date: lstForm.getValues('maturity.date'),
+                    }),
             },
             Icon: <TokenIcon symbol={stakeToken} size={3} lessRadius />,
             children: (
@@ -126,7 +131,11 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
             token: {
               main: receiveToken,
               secondary:
-                receiveToken == 'SUI' ? receiveToken : 'Maturity:MM/DD/YY',
+                receiveToken == 'SUI'
+                  ? receiveToken
+                  : t('lst.maturity', {
+                      date: lstForm.getValues('maturity.date'),
+                    }),
             },
             Icon: <TokenIcon symbol={receiveToken} size={3} lessRadius />,
             children: (
@@ -232,7 +241,12 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
           fields: stakeTokenList.map((stakeToken) => ({
             token: {
               main: stakeToken,
-              secondary: stakeToken == 'SUI' ? stakeToken : 'Maturity:MM/DD/YY',
+              secondary:
+                stakeToken == 'SUI'
+                  ? stakeToken
+                  : t('lst.maturity', {
+                      date: lstForm.getValues('maturity.date'),
+                    }),
             },
             Icon: <TokenIcon symbol={stakeToken} size={3} lessRadius />,
             children: (
@@ -264,7 +278,11 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
             token: {
               main: receiveToken,
               secondary:
-                receiveToken == 'SUI' ? receiveToken : 'Maturity:MM/DD/YY',
+                receiveToken == 'SUI'
+                  ? receiveToken
+                  : t('lst.maturity', {
+                      date: lstForm.getValues('maturity.date'),
+                    }),
             },
             Icon: <TokenIcon symbol={receiveToken} size={3} lessRadius />,
             children: (

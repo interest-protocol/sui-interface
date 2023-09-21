@@ -169,6 +169,11 @@
     },
     "selectValidator": "Select Validator",
     "selectAssets": "Select Assets",
-    "maturity": "Maturity {date}"
+    "maturity": "Maturity {date}",
+    "maturitySelector": {
+      "title": "Select Maturity Date",
+      "date": "Date",
+      "daysLeft": "Days left to mature"
+    }
   }
 }

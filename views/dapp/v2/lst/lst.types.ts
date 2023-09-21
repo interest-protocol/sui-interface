@@ -5,12 +5,17 @@ export type DERIVATED_SUI_SYMBOL = 'SUI' | 'iSui' | 'iSui-PC' | 'iSui-YN';
 import BigNumber from 'bignumber.js';
 import { UseFormReturn } from 'react-hook-form';
 
+export interface MaturityInputField {
+  date: string;
+  daysLeft: string;
+  id: number;
+}
 export interface StakeForm {
   amount: string;
   amountUSD: string;
   coinType: string;
   validator: string;
-  maturity: string;
+  maturity: MaturityInputField;
 }
 
 export interface ValidatorStakePosition {

@@ -98,6 +98,7 @@ const YourInfo: FC<YourInfoProps> = ({ form, handleChangeStake, isStake }) => {
           unstakeAmountType={unstakeAmountType}
         />
       }
+      hasMaturity
     />
   );
 };

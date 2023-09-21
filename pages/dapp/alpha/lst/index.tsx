@@ -30,6 +30,7 @@ const LSTPage: NextPageWithProps = ({ pageTitle }) => {
       coinType: SUI_TYPE_ARG,
       amountUSD: formatDollars(0),
       validator: DEFAULT_VALIDATOR[network],
+      maturity: { date: '', daysLeft: '', id: -1 },
     },
   });
 
@@ -37,6 +38,7 @@ const LSTPage: NextPageWithProps = ({ pageTitle }) => {
     stakeForm.setValue('coinType', SUI_TYPE_ARG);
     stakeForm.setValue('amount', '0');
     stakeForm.setValue('validator', DEFAULT_VALIDATOR[network]);
+    stakeForm.setValue('maturity', { date: '', daysLeft: '', id: -1 });
   }, [network]);
 
   useEffect(() => {

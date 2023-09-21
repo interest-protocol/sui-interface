@@ -19,6 +19,7 @@ const YourInfoContainer: FC<YourInfoContainerProps> = ({
   AmountField,
   openStakeModal,
   isStakeTabStake: isStake,
+  hasMaturity,
 }) => {
   const t = useTranslations();
 
@@ -70,7 +71,7 @@ const YourInfoContainer: FC<YourInfoContainerProps> = ({
         defaultValue={selectValidator}
       />
       {selectValidator && <SelectValidators form={form} isStake={isStake} />}
-      {selectValidator && <SelectMaturityDate />}
+      {hasMaturity && selectValidator && <SelectMaturityDate form={form} />}
       <PreviewButton
         isStake={isStake}
         lstForm={form}

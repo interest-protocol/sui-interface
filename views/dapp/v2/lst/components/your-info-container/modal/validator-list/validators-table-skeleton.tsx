@@ -11,26 +11,26 @@ const ValidatorsTableSkeleton: FC<{ custom?: boolean }> = ({ custom }) => {
           <Skeleton
             width="100%"
             height="1.5rem"
-            baseColor={custom ? colors.primary : ''}
-            highlightColor={colors['primary.onPrimaryContainer']}
+            baseColor={custom ? colors['outline.outlineVariant'] : ''}
+            highlightColor={colors.outline}
           />
           <Skeleton
             width="100%"
             height="1.5rem"
-            baseColor={colors.primary}
-            highlightColor={colors['primary.onPrimaryContainer']}
+            baseColor={colors['outline.outlineVariant']}
+            highlightColor={colors.outline}
           />
           <Skeleton
             width="100%"
             height="1.5rem"
-            baseColor={colors.primary}
-            highlightColor={colors['primary.onPrimaryContainer']}
+            baseColor={colors['outline.outlineVariant']}
+            highlightColor={colors.outline}
           />
           <Skeleton
             width="100%"
             height="1.5rem"
-            baseColor={colors.primary}
-            highlightColor={colors['primary.onPrimaryContainer']}
+            baseColor={colors['outline.outlineVariant']}
+            highlightColor={colors.outline}
           />
         </>
       ) : (

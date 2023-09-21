@@ -8,21 +8,36 @@ import {
   useTheme,
 } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { InfoSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
+import { MaturityInputField } from '../../../../lst.types';
 import HeaderModal from '../header-modal';
-import { MaturityModalProps } from '../modal.type';
+import { MaturityModalProps } from '../modal.types';
 import MaturityModalBody from './maturity-body';
 
-const MaturityModal: FC<MaturityModalProps> = ({
-  handleClose,
-  handleConfirm,
-}) => {
+const MaturityModal: FC<MaturityModalProps> = ({ form, handleClose }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
+  const [currentMaturity, setCurrentMaturity] = useState<MaturityInputField>(
+    form.getValues('maturity')
+  );
+
+  const handleConfirm = () => {
+    form.setValue('maturity', currentMaturity);
+    handleClose();
+  };
+
+  const clearButton = () => {
+    handleSelectMaturity({ date: '', daysLeft: '', id: -1 });
+  };
+
+  const handleSelectMaturity = (maturitySelected: MaturityInputField) => {
+    setCurrentMaturity(maturitySelected);
+  };
+
   return (
     <Box
       width={['90vw', '90vw', '90vw', '28rem']}
@@ -60,7 +75,10 @@ const MaturityModal: FC<MaturityModalProps> = ({
           </Typography>
         </Box>
       </Box>
-      <MaturityModalBody />
+      <MaturityModalBody
+        handleSelectMaturity={handleSelectMaturity}
+        currentMaturity={currentMaturity}
+      />
       <Box
         px="xl"
         py="0.75rem"
@@ -75,6 +93,7 @@ const MaturityModal: FC<MaturityModalProps> = ({
           fontSize="0.688rem"
           textDecoration="underline"
           color="onSurface"
+          onClick={clearButton}
         >
           {capitalize(t('lst.modal.validator.clearButton'))}
         </Button>

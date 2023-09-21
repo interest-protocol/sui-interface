@@ -169,6 +169,11 @@
     },
     "selectValidator": "selecionar validador",
     "selectAssets": "Escolha activos",
-    "maturity": "Maturidade {date}"
+    "maturity": "Maturidade {date}",
+    "maturitySelector": {
+      "title": "Selecionar data de vencimento",
+      "date": "Data",
+      "daysLeft": "Dias que faltam para o vencimento"
+    }
   }
 }
