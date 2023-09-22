@@ -2,11 +2,11 @@ import { Network } from '@interest-protocol/sui-amm-sdk';
 import { JsonRpcProvider } from '@mysten/sui.js';
 import { SuiAddress } from '@mysten/sui.js/src/types';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { Control } from 'react-hook-form';
+import { Control, UseFormReturn } from 'react-hook-form';
 
 import { CoinsMap } from '@/components/web3-manager/web3-manager.types';
 
-import { LSTProps, ValidatorStakePositionRecord } from '../../lst.types';
+import { StakeForm, ValidatorStakePositionRecord } from '../../lst.types';
 import { StakingFormProps } from '../../staked/staked.types';
 import {
   AllValidatorsProps,
@@ -17,9 +17,9 @@ export type YourInfoProps = StakingFormProps;
 
 export interface PreviewButtonProps {
   isStake: boolean;
-  openModal: () => void;
-  lstForm: LSTProps['stakeForm'];
   network: Network;
+  openModal: () => void;
+  lstForm: UseFormReturn<StakeForm>;
 }
 
 export interface CurrentValidatorProps {
@@ -30,8 +30,8 @@ export interface CurrentValidatorProps {
 
 export interface StakePreviewModalProps {
   handleClose: () => void;
-  lstForm: LSTProps['stakeForm'];
   provider: JsonRpcProvider;
+  lstForm: UseFormReturn<StakeForm>;
   network: Network;
   coinsMap: CoinsMap;
   account: string | null;

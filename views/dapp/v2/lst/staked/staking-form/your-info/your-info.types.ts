@@ -1,14 +1,10 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
 import { JsonRpcProvider } from '@mysten/sui.js';
-import { Control } from 'react-hook-form';
+import { Control, UseFormReturn } from 'react-hook-form';
 
 import { CoinsMap } from '@/components/web3-manager/web3-manager.types';
 
-import {
-  LSTProps,
-  StakeForm,
-  ValidatorStakePositionRecord,
-} from '../../../lst.types';
+import { StakeForm, ValidatorStakePositionRecord } from '../../../lst.types';
 import { StakedProps, StakingFormProps } from '../../staked.types';
 
 export interface AmountFieldProps {
@@ -28,7 +24,7 @@ export interface YourInfoProps extends StakingFormProps {
 
 export interface StakePreviewModalProps {
   handleClose: () => void;
-  lstForm: LSTProps['stakeForm'];
+  lstForm: UseFormReturn<StakeForm>;
   provider: JsonRpcProvider;
   network: Network;
   coinsMap: CoinsMap;
@@ -44,6 +40,6 @@ export interface UnstakePreviewModalProps extends StakePreviewModalProps {
 export interface PreviewButtonProps {
   isStake: boolean;
   openModal: () => void;
-  lstForm: LSTProps['stakeForm'];
+  lstForm: UseFormReturn<StakeForm>;
   network: Network;
 }

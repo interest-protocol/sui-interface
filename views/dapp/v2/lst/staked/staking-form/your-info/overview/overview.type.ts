@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
+import { UseFormReturn } from 'react-hook-form';
 
-import { LSTProps } from '@/views/dapp/v2/lst/lst.types';
+import { StakeForm } from '../../../../lst.types';
 
 export interface LineProps {
   description: string;
@@ -13,6 +14,6 @@ export interface IconValueProps {
 }
 
 export interface TransactionOverviewProps {
-  form: LSTProps['stakeForm'];
+  form: UseFormReturn<StakeForm>;
   isStake: boolean;
 }
