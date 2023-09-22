@@ -63,12 +63,16 @@ const YourInfoContainer: FC<YourInfoContainerProps> = ({
         />
       </Box>
       {AmountField}
-      <Checkbox
-        label={capitalize(t('lst.selectValidator'))}
-        onClick={handleSelectValidator}
-        defaultValue={selectValidator}
-      />
-      {selectValidator && <SelectValidators form={form} isStake={isStake} />}
+      {isStake && (
+        <Checkbox
+          label={capitalize(t('lst.selectValidator'))}
+          onClick={handleSelectValidator}
+          defaultValue={selectValidator}
+        />
+      )}
+      {isStake && selectValidator && (
+        <SelectValidators form={form} isStake={isStake} />
+      )}
       <PreviewButton
         isStake={isStake}
         lstForm={form}
