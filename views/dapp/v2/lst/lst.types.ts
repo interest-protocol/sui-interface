@@ -19,7 +19,8 @@ export interface ValidatorStakePosition {
 }
 
 export interface LSTProps {
-  stakeForm: UseFormReturn<StakeForm>;
+  loading?: boolean;
+  stakeForm?: UseFormReturn<StakeForm>;
 }
 
 export interface LstFee {
