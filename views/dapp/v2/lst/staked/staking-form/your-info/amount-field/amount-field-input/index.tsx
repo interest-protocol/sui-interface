@@ -6,11 +6,10 @@ import { propOr } from 'ramda';
 import { ChangeEvent, FC } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
-import { SUISVG } from '@/components/svg/v2';
+import { ISuiSVG, SUISVG } from '@/components/svg/v2';
 import { ISUI_COIN_TYPE } from '@/constants/lst';
 import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
-import { ISuiSVG } from '@/svg';
 import {
   formatDollars,
   parseInputEventToNumberString,
@@ -54,26 +53,26 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
       <TextField
         Prefix={
           <Box
-            bg="#6FBCF0"
-            color="white"
             width="2.5rem"
             height="2.5rem"
+            overflow="hidden"
             borderRadius="0.34rem"
           >
             {isStake ? (
               <SUISVG
-                maxHeight="2.5rem"
-                maxWidth="2.5rem"
-                height="100%"
+                filled
                 width="100%"
+                height="100%"
+                maxWidth="2.5rem"
+                maxHeight="2.5rem"
               />
             ) : (
               <ISuiSVG
                 filled
-                maxHeight="2.5rem"
-                maxWidth="2.5rem"
-                height="100%"
                 width="100%"
+                height="100%"
+                maxWidth="2.5rem"
+                maxHeight="2.5rem"
               />
             )}
           </Box>

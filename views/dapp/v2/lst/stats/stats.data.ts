@@ -1,5 +1,5 @@
-import { SUISVG, UsersSVG } from '@/components/svg/v2';
-import { ISuiPCSVG, ISuiSVG, ISuiYNSVG } from '@/svg';
+import { ISuiSVG, SUISVG, UsersSVG } from '@/components/svg/v2';
+import { ISuiPCSVG, ISuiYNSVG } from '@/svg';
 
 export const OVERVIEW_DATA = [
   {

@@ -79,15 +79,16 @@ const ValidatorsTableDataItem: FC<ValidatorListTableDataItemProps> = ({
               {validator.lstStaked}
             </Typography>
             <Box
-              bg="#6FBCF0"
               width="1rem"
               color="white"
               height="1rem"
               display="flex"
+              overflow="hidden"
               borderRadius="full"
               justifyContent="center"
             >
               <SUISVG
+                filled
                 maxHeight="1rem"
                 maxWidth="1rem"
                 width="100%"

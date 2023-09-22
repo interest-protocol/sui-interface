@@ -17,10 +17,6 @@ export interface HeaderModalProps {
 
 export interface LineWrapperProps {
   title: string;
+  token: string;
   Icon: ReactNode;
-  token: {
-    main: string;
-    secondary: string;
-  };
-  reverse?: boolean;
 }

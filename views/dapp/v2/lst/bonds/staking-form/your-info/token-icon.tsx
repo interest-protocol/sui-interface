@@ -1,8 +1,8 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { SUISVG } from '@/components/svg/v2';
-import { ISuiPCSVG, ISuiSVG, ISuiYNSVG } from '@/svg';
+import { ISuiSVG, SUISVG } from '@/components/svg/v2';
+import { ISuiPCSVG, ISuiYNSVG } from '@/svg';
 
 import { TokenIconProps } from './your-info.types';
 
@@ -35,10 +35,11 @@ const TokenIcon: FC<TokenIconProps> = ({ symbol, size, lessRadius }) => (
     >
       {symbol == 'SUI' ? (
         <SUISVG
-          maxHeight={`${size * 2}rem`}
-          maxWidth={`${size * 2}rem`}
+          filled
           width="100%"
           height="100%"
+          maxHeight={`${size * 2}rem`}
+          maxWidth={`${size * 2}rem`}
         />
       ) : symbol == 'iSui' ? (
         <ISuiSVG
@@ -47,7 +48,6 @@ const TokenIcon: FC<TokenIconProps> = ({ symbol, size, lessRadius }) => (
           width="100%"
           height="100%"
           filled
-          rounded={!lessRadius}
         />
       ) : symbol == 'iSui-PC' ? (
         <ISuiPCSVG

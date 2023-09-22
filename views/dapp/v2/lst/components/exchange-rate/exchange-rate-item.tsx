@@ -1,7 +1,8 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { ISuiPCSVG, ISuiSVG, SuiSVG } from '@/svg';
+import { ISuiSVG, SUISVG } from '@/components/svg/v2';
+import { ISuiPCSVG } from '@/svg';
 
 import { ExchangeRateItemProps } from './exchange-rate.type';
 
@@ -69,7 +70,7 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
           alignItems="center"
           justifyContent="center"
         >
-          <SuiSVG filled width="100%" maxHeight="1rem" maxWidth="1rem" />
+          <SUISVG filled width="100%" maxHeight="2.5rem" maxWidth="2.5rem" />
         </Box>
         <Box
           display="flex"

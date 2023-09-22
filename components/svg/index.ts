@@ -42,7 +42,6 @@ export { default as InfoLightSVG } from './info-light';
 export { default as InstagramSVG } from './instagram';
 export { default as InstagramAlternativeSVG } from './instagram-alternative';
 export { default as InterestTokenSVG } from './interest-token';
-export { default as ISuiSVG } from './isui';
 export { default as ISuiPCSVG } from './isui-pc';
 export { default as ISuiYNSVG } from './isui-yn';
 export { default as LendSVG } from './lend';

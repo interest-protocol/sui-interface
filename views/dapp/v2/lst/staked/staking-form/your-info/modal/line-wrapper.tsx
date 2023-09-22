@@ -7,7 +7,6 @@ const LineWrapper: FC<PropsWithChildren<LineWrapperProps>> = ({
   title,
   Icon,
   token,
-  reverse,
   children,
 }) => (
   <Box>
@@ -33,28 +32,14 @@ const LineWrapper: FC<PropsWithChildren<LineWrapperProps>> = ({
     >
       <Box display="flex" gap="1rem" alignItems="center">
         {Icon}
-        <Box
-          display="flex"
-          flexDirection={reverse ? 'column-reverse' : 'column'}
+        <Typography
+          variant="small"
+          fontWeight="400"
+          fontSize="1rem"
+          color="onSurface"
         >
-          <Typography
-            variant="small"
-            fontWeight="400"
-            fontSize="1rem"
-            color="onSurface"
-          >
-            {token.main}
-          </Typography>
-          <Typography
-            variant="extraSmall"
-            fontWeight="400"
-            fontSize="0.6875rem"
-            color="onSurface"
-            opacity="0.6"
-          >
-            {token.secondary}
-          </Typography>
-        </Box>
+          {token}
+        </Typography>
       </Box>
       {children}
     </Box>

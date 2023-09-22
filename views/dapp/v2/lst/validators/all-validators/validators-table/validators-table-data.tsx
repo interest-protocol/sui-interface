@@ -71,19 +71,19 @@ const ValidatorsTableData: FC<ValidatorsTableDataProps> = ({
                     {lstStaked}
                   </Typography>
                   <Box
-                    bg="#6FBCF0"
                     width="1rem"
-                    color="white"
                     height="1rem"
                     display="flex"
+                    overflow="hidden"
                     borderRadius="full"
                     justifyContent="center"
                   >
                     <SUISVG
-                      maxHeight="1rem"
-                      maxWidth="1rem"
+                      filled
                       width="100%"
                       height="100%"
+                      maxWidth="1rem"
+                      maxHeight="1rem"
                     />
                   </Box>
                 </Box>
@@ -93,19 +93,19 @@ const ValidatorsTableData: FC<ValidatorsTableDataProps> = ({
                       {stakingPoolSuiBalance}
                     </Typography>
                     <Box
-                      bg="#6FBCF0"
                       width="1rem"
-                      color="white"
                       height="1rem"
                       display="flex"
+                      overflow="hidden"
                       borderRadius="full"
                       justifyContent="center"
                     >
                       <SUISVG
-                        maxHeight="1rem"
-                        maxWidth="1rem"
+                        filled
                         width="100%"
                         height="100%"
+                        maxWidth="1rem"
+                        maxHeight="1rem"
                       />
                     </Box>
                   </Box>

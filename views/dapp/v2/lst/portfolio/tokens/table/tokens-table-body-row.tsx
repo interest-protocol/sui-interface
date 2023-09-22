@@ -6,11 +6,10 @@ import { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
 import { CopyToClipboard } from '@/components';
-import { SUISVG } from '@/components/svg/v2';
+import { ISuiSVG, SUISVG } from '@/components/svg/v2';
 import { COINS } from '@/constants';
 import { useNetwork, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
-import { ISuiSVG } from '@/svg';
 import { formatDollars } from '@/utils';
 
 import DropdownBox from '../../../components/dropdown-box';
@@ -30,11 +29,14 @@ const TokenIcon: FC<{ symbol: Omit<DERIVATED_SUI_SYMBOL, 'iSui-YN'> }> = ({
     display="flex"
     justifyContent="center"
     alignItems="center"
-    color="white"
-    bg={symbol == 'SUI' ? '#6FBCF0' : 'unset'}
   >
     {symbol == 'SUI' ? (
-      <SUISVG maxHeight="2.5rem" maxWidth="2.5rem" width="100%" height="100%" />
+      <SUISVG
+        maxHeight="2.25rem"
+        maxWidth="2.25rem"
+        width="100%"
+        height="100%"
+      />
     ) : (
       symbol == 'ISUI' && (
         <ISuiSVG

@@ -3,13 +3,15 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { ISuiPCSVG, ISuiSVG, ISuiYNSVG } from '@/svg';
+import { ISuiSVG } from '@/components/svg/v2';
+import { ISuiPCSVG, ISuiYNSVG } from '@/svg';
 
 import { GetISuiSVGProps, StatsDerivatedWrapperProps } from './stats.type';
 
 const GetISuiSVG: FC<GetISuiSVGProps> = ({ symbol }) => {
   const SVG =
     symbol == 'iSui' ? ISuiSVG : symbol == 'iSui-PC' ? ISuiPCSVG : ISuiYNSVG;
+
   return (
     <SVG
       maxWidth="1.25rem"
@@ -17,7 +19,6 @@ const GetISuiSVG: FC<GetISuiSVGProps> = ({ symbol }) => {
       width="100%"
       height="100%"
       filled
-      rounded
     />
   );
 };

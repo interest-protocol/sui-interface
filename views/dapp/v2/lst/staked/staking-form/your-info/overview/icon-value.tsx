@@ -1,9 +1,9 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { SUISVG } from '@/components/svg/v2';
+import { ISuiSVG, SUISVG } from '@/components/svg/v2';
 import { TOKEN_SYMBOL } from '@/lib';
-import { ISuiPCSVG, ISuiSVG, ISuiYNSVG } from '@/svg';
+import { ISuiPCSVG, ISuiYNSVG } from '@/svg';
 
 import { IconValueProps } from './overview.type';
 
@@ -15,22 +15,22 @@ const IconValue: FC<IconValueProps> = ({ symbol, value }) => (
     gap="0.5rem"
   >
     <Typography variant="extraSmall" color="onSurface">
-      {value == '' ? '--' : `${value} ${symbol} `}
+      {value ? `${value} ${symbol} ` : '--'}
     </Typography>
     <Box
+      display="flex"
       width="1.25rem"
       height="1.25rem"
+      overflow="hidden"
       borderRadius="full"
-      display="flex"
-      justifyContent="center"
       alignItems="center"
-      color="white"
-      bg={symbol == 'SUI' ? '#6FBCF0' : 'unset'}
+      justifyContent="center"
     >
       {symbol == TOKEN_SYMBOL.SUI ? (
         <SUISVG
-          maxHeight="2.5rem"
-          maxWidth="2.5rem"
+          filled
+          maxHeight="1.25rem"
+          maxWidth="1.25rem"
           width="100%"
           height="100%"
         />
@@ -41,7 +41,6 @@ const IconValue: FC<IconValueProps> = ({ symbol, value }) => (
           width="100%"
           height="100%"
           filled
-          rounded
         />
       ) : symbol == 'iSui-PC' ? (
         <ISuiPCSVG

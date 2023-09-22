@@ -11,11 +11,11 @@ const iSui: FC<SVGProps & { filled?: boolean }> = ({
   filled ? (
     <svg
       style={{ maxWidth, maxHeight }}
-      viewBox="0 0 41 40"
+      viewBox="1 0 39 40"
       fill="none"
       {...props}
     >
-      <g clipPath="url(#clipiSui)">
+      <g clipPath="url(#clip0_iSUI)">
         <rect x="0.666748" width="40" height="40" rx="4" fill="#0053DB" />
         <path
           fillRule="evenodd"
@@ -25,7 +25,7 @@ const iSui: FC<SVGProps & { filled?: boolean }> = ({
         />
       </g>
       <defs>
-        <clipPath id="clipiSui">
+        <clipPath id="clip0_iSUI">
           <rect x="0.666748" width="40" height="40" rx="4" fill="white" />
         </clipPath>
       </defs>

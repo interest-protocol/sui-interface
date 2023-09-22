@@ -6,11 +6,10 @@ import { BigNumber } from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
-import { SUISVG } from '@/components/svg/v2';
+import { ISuiSVG, SUISVG } from '@/components/svg/v2';
 import { EXPLORER_URL } from '@/constants';
 import { DEFAULT_VALIDATOR, LST_OBJECTS } from '@/constants/lst';
 import { FixedPointMath } from '@/lib';
-import { ISuiSVG, SuiSVG } from '@/svg';
 import {
   createObjectsParameter,
   formatDollars,
@@ -169,23 +168,21 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
       lines={[
         {
           title: t('lst.modal.preview.stakeLabel'),
-          token: { main: 'SUI', secondary: 'SUI' },
+          token: 'SUI',
           Icon: (
             <Box
               width="3rem"
               height="3rem"
-              borderRadius="0.34rem"
               display="flex"
-              justifyContent="center"
               alignItems="center"
-              color="white"
-              bg="#6FBCF0"
+              justifyContent="center"
             >
               <SUISVG
-                maxHeight="2.5rem"
-                maxWidth="2.5rem"
+                filled
                 width="100%"
                 height="100%"
+                maxWidth="3rem"
+                maxHeight="3rem"
               />
             </Box>
           ),
@@ -213,23 +210,21 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
         },
         {
           title: t('lst.modal.preview.receiveLabel'),
-          token: { main: 'iSUI', secondary: 'SUI' },
+          token: 'iSUI',
           Icon: (
             <Box
               width="3rem"
               height="3rem"
-              borderRadius="0.34rem"
               display="flex"
-              justifyContent="center"
               alignItems="center"
-              color="white"
+              justifyContent="center"
             >
               <ISuiSVG
-                maxHeight="3rem"
-                maxWidth="3rem"
+                filled
                 width="100%"
                 height="100%"
-                filled
+                maxWidth="3rem"
+                maxHeight="3rem"
               />
             </Box>
           ),
@@ -243,37 +238,8 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
               >
                 {FixedPointMath.toNumber(BigNumber(data))}
               </Typography>
-              <Box display="flex" alignItems="center" gap="0.5rem">
-                <Typography
-                  variant="extraSmall"
-                  fontWeight="400"
-                  fontSize="0.6875rem"
-                  color="onSurface"
-                  opacity="0.6"
-                >
-                  {suiAmount}
-                </Typography>
-                <Box
-                  color="white"
-                  bg="#6FBCF0"
-                  borderRadius="full"
-                  width="1rem"
-                  height="1rem"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <SUISVG
-                    maxHeight="0.825rem"
-                    maxWidth="0.825rem"
-                    width="100%"
-                    height="100%"
-                  />
-                </Box>
-              </Box>
             </Box>
           ),
-          reverse: true,
         },
       ]}
       onClick={stake}
@@ -427,24 +393,22 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
       isStake={false}
       lines={[
         {
+          token: 'iSUI',
           title: t('lst.modal.preview.unstakeLabel'),
-          token: { main: 'iSUI', secondary: 'SUI' },
           Icon: (
             <Box
               width="3rem"
               height="3rem"
-              borderRadius="0.34rem"
               display="flex"
-              justifyContent="center"
               alignItems="center"
-              color="white"
-              bg="#0053DB"
+              justifyContent="center"
             >
               <ISuiSVG
-                maxHeight="2.5rem"
-                maxWidth="2.5rem"
+                filled
                 width="100%"
                 height="100%"
+                maxWidth="3rem"
+                maxHeight="3rem"
               />
             </Box>
           ),
@@ -471,12 +435,11 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
           ),
         },
         {
+          token: 'SUI',
           title: t('lst.modal.preview.receiveLabel'),
-          token: { main: 'SUI', secondary: 'iSUI' },
           Icon: (
             <Box
               width="3rem"
-              bg="#6FBCF0"
               color="white"
               height="3rem"
               display="flex"
@@ -484,12 +447,12 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
               borderRadius="0.34rem"
               justifyContent="center"
             >
-              <SuiSVG
+              <SUISVG
                 filled
                 width="100%"
                 height="100%"
-                maxWidth="2rem"
-                maxHeight="2rem"
+                maxWidth="3rem"
+                maxHeight="3rem"
               />
             </Box>
           ),
@@ -503,37 +466,8 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
               >
                 {FixedPointMath.toNumber(BigNumber(data))}
               </Typography>
-              <Box display="flex" alignItems="center" gap="0.5rem">
-                <Typography
-                  variant="extraSmall"
-                  fontWeight="400"
-                  fontSize="0.6875rem"
-                  color="onSurface"
-                  opacity="0.6"
-                >
-                  {FixedPointMath.toNumber(BigNumber(data))}
-                </Typography>
-                <Box
-                  color="white"
-                  bg="#6FBCF0"
-                  borderRadius="full"
-                  width="1rem"
-                  height="1rem"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <SuiSVG
-                    maxHeight="0.825rem"
-                    maxWidth="0.825rem"
-                    width="100%"
-                    height="100%"
-                  />
-                </Box>
-              </Box>
             </Box>
           ),
-          reverse: true,
         },
       ]}
       onClick={unstake}
