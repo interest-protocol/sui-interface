@@ -7,18 +7,17 @@ const StatsWrapper: FC<PropsWithChildren<StatsWrapperProps>> = ({
   children,
   description,
   value,
-  isCoin,
 }) => (
   <Box display="flex" gap="l">
     <Box
       width="3rem"
       height="3rem"
-      borderRadius="0.34rem"
       display="flex"
-      justifyContent="center"
+      color="primary"
       alignItems="center"
-      color={isCoin ? 'white' : 'primary'}
-      bg={isCoin ? '#6FBCF0' : 'surface.containerHigh'}
+      borderRadius="0.34rem"
+      justifyContent="center"
+      bg="surface.containerHigh"
     >
       {children}
     </Box>

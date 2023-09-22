@@ -13,20 +13,17 @@ const SuiPriceInfo: FC<SuiPriceInfoProps> = ({ amount }) => (
     </Typography>
     <Box display="flex" alignItems="center" gap="0.5rem">
       <Box
-        color="white"
-        bg="#6FBCF0"
-        borderRadius="full"
         width="1.25rem"
         height="1.25rem"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
+        overflow="hidden"
+        borderRadius="full"
       >
         <SUISVG
-          maxHeight="0.875rem"
-          maxWidth="0.875rem"
+          filled
           width="100%"
           height="100%"
+          maxWidth="1.25rem"
+          maxHeight="1.25rem"
         />
       </Box>
       <Typography variant="large" fontSize="1.375rem">

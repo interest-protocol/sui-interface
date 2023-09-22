@@ -1,22 +1,20 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
+import { keys } from 'ramda';
 import { FC } from 'react';
-import { v4 } from 'uuid';
 
-import { SUISVG } from '@/components/svg/v2';
+import { ISuiSVG, SUISVG } from '@/components/svg/v2';
 import { CipherSVG, PercentageSVG } from '@/svg';
 
+import { useLstData } from '../../lst.hooks';
 import { StatsProps } from './stats.type';
-import StatsDerivatedWrapper from './stats-derivated-wrapper';
 import StatsWrapper from './stats-wrapper';
 
-const Stats: FC<StatsProps> = ({
-  // apy,
-  totalStaked,
-  // totalRewards,
-  derivatedSui,
-}) => {
+const Stats: FC<StatsProps> = ({ totalStaked, totalISui }) => {
   const t = useTranslations();
+  const { activeValidators, validatorStakeRecord } = useLstData();
+
+  const validatorsStaking = keys(validatorStakeRecord).length;
 
   return (
     <Box bg="surface.container" p="l" borderRadius="0.5rem">
@@ -29,22 +27,37 @@ const Stats: FC<StatsProps> = ({
       >
         {t('lst.stats')}
       </Typography>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        flexWrap="wrap"
-        gap="0.5rem"
-      >
-        <StatsWrapper
-          description={t('lst.totalStaked')}
-          value={`${totalStaked} SUI`}
-          isCoin
-        >
-          <SUISVG
-            maxHeight="2.5rem"
-            maxWidth="2.5rem"
+      <Box gap="l" display="grid" gridTemplateColumns="1fr 1fr 1fr">
+        <StatsWrapper value={`0.01 Sui`} description={t('lst.totalReward')}>
+          <CipherSVG
+            maxHeight="2rem"
+            maxWidth="2rem"
             width="100%"
             height="100%"
+          />
+        </StatsWrapper>
+        <StatsWrapper
+          description={t('lst.overview.totalSuiStaked')}
+          value={totalStaked.toString()}
+        >
+          <SUISVG
+            filled
+            width="100%"
+            height="100%"
+            maxWidth="3rem"
+            maxHeight="3rem"
+          />
+        </StatsWrapper>
+        <StatsWrapper
+          description={t('lst.overview.totalISUIMinted')}
+          value={totalISui}
+        >
+          <ISuiSVG
+            filled
+            width="100%"
+            height="100%"
+            maxWidth="3rem"
+            maxHeight="3rem"
           />
         </StatsWrapper>
         <StatsWrapper description="APY" value={`3%`}>
@@ -55,25 +68,17 @@ const Stats: FC<StatsProps> = ({
             maxHeight="1.25rem"
           />
         </StatsWrapper>
-        <StatsWrapper value={`0.01 Sui`} description={t('lst.totalReward')}>
-          <CipherSVG
-            maxHeight="2rem"
-            maxWidth="2rem"
+        <StatsWrapper
+          description={t('lst.overview.validators')}
+          value={`${validatorsStaking}/${activeValidators.length}`}
+        >
+          <PercentageSVG
             width="100%"
             height="100%"
+            maxWidth="1.25rem"
+            maxHeight="1.25rem"
           />
         </StatsWrapper>
-      </Box>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        mt="l"
-        flexWrap="wrap"
-        gap="0.5rem"
-      >
-        {derivatedSui.map(({ name, value }) => (
-          <StatsDerivatedWrapper name={name} value={value} key={v4()} />
-        ))}
       </Box>
     </Box>
   );

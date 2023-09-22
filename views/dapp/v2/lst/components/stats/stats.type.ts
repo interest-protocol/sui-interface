@@ -12,10 +12,8 @@ export interface StatsDerivatedWrapperProps {
 }
 
 export interface StatsProps {
-  apy: number;
+  totalISui: string;
   totalStaked: number;
-  totalRewards: number;
-  derivatedSui: ReadonlyArray<StatsDerivatedWrapperProps>;
 }
 
 export interface GetISuiSVGProps {

@@ -24,6 +24,7 @@ export { default as FarmSVG } from './farm';
 export { default as HeartSVG } from './heart';
 export { default as ISuiPSVG } from './i-sui-p';
 export { default as ISuiYNSVG } from './i-sui-yn';
+export { default as ISuiSVG } from './isui';
 export { default as LeftArrowSVG } from './left-arrow';
 export { default as LinkSVG } from './link';
 export { default as LiquiditySVG } from './liquidity';

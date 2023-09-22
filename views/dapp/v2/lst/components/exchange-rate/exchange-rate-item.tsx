@@ -12,7 +12,12 @@ const ExchangeRateItem: FC<ExchangeRateItemProps> = ({
   initialValue,
 }) => {
   return (
-    <Box display="flex" alignItems="center" justifyContent="space-between">
+    <Box
+      gap="xl"
+      display="grid"
+      alignItems="center"
+      gridTemplateColumns="1fr auto 1fr"
+    >
       <Box gap="l" display="flex" alignItems="center">
         <Box
           color="white"

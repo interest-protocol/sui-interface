@@ -1,15 +1,8 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
-import { useTranslations } from 'next-intl';
-import { keys } from 'ramda';
 import { FC } from 'react';
 
-import { UsersSVG } from '@/components/svg/v2';
 import { FixedPointMath } from '@/lib';
-import { capitalize, formatMoney } from '@/utils';
-import {
-  useGetActiveValidators,
-  useLstData,
-} from '@/views/dapp/v2/lst/lst.hooks';
+import { formatMoney } from '@/utils';
+import { useLstData } from '@/views/dapp/v2/lst/lst.hooks';
 
 import ExchangeRate from '../../components/exchange-rate';
 import NextEpoch from '../../components/next-epoch';
@@ -18,84 +11,21 @@ import Stats from '../../components/stats';
 import StatsSkeleton from './stats-skeleton';
 
 const Statistics: FC = () => {
-  const t = useTranslations();
+  const { lstStorage, totalISuiMinted, iSuiExchangeRate, isLoading } =
+    useLstData();
 
-  const { data: activeValidators, isLoading: isActiveValidatorsLoading } =
-    useGetActiveValidators();
-
-  const {
-    lstStorage,
-    totalISuiMinted,
-    iSuiExchangeRate,
-    isLoading,
-    validatorStakeRecord,
-  } = useLstData();
-
-  if (isActiveValidatorsLoading || isLoading) return <StatsSkeleton />;
+  if (isLoading) return <StatsSkeleton />;
 
   const totalSui = FixedPointMath.toNumber(lstStorage.pool.elastic);
-
-  const validatorsStaking = keys(validatorStakeRecord).length;
 
   return (
     <>
       <PricesMarketCard />
       <Stats
-        apy={0}
-        totalRewards={0}
         totalStaked={+formatMoney(totalSui, 2)}
-        derivatedSui={[
-          { name: 'iSui', value: formatMoney(totalISuiMinted, 2) },
-        ]}
+        totalISui={formatMoney(totalISuiMinted, 2).toString()}
       />
-      <Box
-        gap="s"
-        display="flex"
-        flexDirection={['column', 'column', 'column', 'row']}
-      >
-        <ExchangeRate iSuiExchangeRate={Number(iSuiExchangeRate)} />
-        <Box
-          p="l"
-          gap="l"
-          flex="1"
-          display="flex"
-          flexDirection="column"
-          borderRadius="0.5rem"
-          bg="surface.container"
-        >
-          <Typography
-            color="onSurface"
-            variant="extraSmall"
-            textTransform="capitalize"
-          >
-            {capitalize(t('lst.overview.validators'))}
-          </Typography>
-          <Box display="flex" columnGap="l" alignItems="center">
-            <Box
-              display="flex"
-              width="2.5rem"
-              height="2.5rem"
-              color="primary"
-              borderRadius="m"
-              aspectRatio="1/1"
-              alignItems="center"
-              justifyContent="center"
-              bg="surface.containerHigh"
-            >
-              <UsersSVG width="100%" maxHeight="1.25rem" maxWidth="1.25rem" />
-            </Box>
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="space-between"
-            >
-              <Typography variant="large" color="onSurface">
-                {validatorsStaking}/{activeValidators.length}
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
+      <ExchangeRate iSuiExchangeRate={Number(iSuiExchangeRate)} />
       <NextEpoch />
     </>
   );

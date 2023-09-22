@@ -1,3 +1,5 @@
+import { SuiSystemStateSummary } from '@mysten/sui.js';
+
 import { CoinUSDInfo } from '@/hooks/use-get-coins-usd-info';
 import {
   LstStorage,
@@ -8,6 +10,7 @@ export interface ILSTContext {
   suiCoinInfo: CoinUSDInfo | null;
   last30daysPrice: ReadonlyArray<Pick<CoinUSDInfo, 'timestamp' | 'price'>>;
   lstStorage: LstStorage;
+  activeValidators: SuiSystemStateSummary['activeValidators'];
   validatorStakeRecord: ValidatorStakePositionRecord;
   isLoading: boolean;
   iSuiExchangeRate: number;

@@ -8,6 +8,7 @@ import { useGetCoinsUSDInfo } from '@/hooks/use-get-coins-usd-info';
 import { FixedPointMath, ONE_COIN } from '@/lib';
 import { noop } from '@/utils';
 import {
+  useGetActiveValidators,
   useGetLstStorage,
   useGetValidatorsStakePosition,
 } from '@/views/dapp/v2/lst/lst.hooks';
@@ -19,6 +20,7 @@ const lstContext = createContext({
   last30daysPrice: [],
   lstStorage: DEFAULT_LST_STORAGE,
   validatorStakeRecord: {},
+  activeValidators: [],
   isLoading: true,
   iSuiExchangeRate: 1,
   totalISuiMinted: 0,
@@ -45,6 +47,9 @@ export const LSTProvider: FC<PropsWithChildren> = ({ children }) => {
     lstStorage.validatorTable.tail
   );
 
+  const { data: activeValidators, isLoading: isActiveValidatorsLoading } =
+    useGetActiveValidators();
+
   const suiCoinInfo = coinData[COINS[Network.MAINNET].SUI.type].info;
 
   const totalStakedSui = FixedPointMath.toNumber(lstStorage.pool.elastic);
@@ -61,8 +66,12 @@ export const LSTProvider: FC<PropsWithChildren> = ({ children }) => {
       timestamp,
     })),
     isLoading:
-      storageIsLoading || isGetValidatorStakePositionLoading || isLoading,
+      storageIsLoading ||
+      isGetValidatorStakePositionLoading ||
+      isLoading ||
+      isActiveValidatorsLoading,
     lstStorage,
+    activeValidators,
     validatorStakeRecord,
     iSuiExchangeRate,
     totalISuiMinted,
