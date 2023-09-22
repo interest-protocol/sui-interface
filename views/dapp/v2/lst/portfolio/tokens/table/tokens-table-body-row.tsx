@@ -32,19 +32,20 @@ const TokenIcon: FC<{ symbol: Omit<DERIVATED_SUI_SYMBOL, 'iSui-YN'> }> = ({
   >
     {symbol == 'SUI' ? (
       <SUISVG
-        maxHeight="2.25rem"
-        maxWidth="2.25rem"
+        filled
         width="100%"
         height="100%"
+        maxWidth="2.25rem"
+        maxHeight="2.25rem"
       />
     ) : (
       symbol == 'ISUI' && (
         <ISuiSVG
-          maxHeight="2.25rem"
-          maxWidth="2.25rem"
+          filled
           width="100%"
           height="100%"
-          filled
+          maxWidth="2.25rem"
+          maxHeight="2.25rem"
         />
       )
     )}
