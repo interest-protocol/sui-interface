@@ -50,12 +50,14 @@ const LST: FC<LSTProps> = ({ stakeForm, loading }) => {
   const t = useTranslations();
   const { push, asPath } = useRouter();
 
-  const currentTab = findIndex(
-    (link) =>
-      asPath === link ||
-      (asPath === Routes[RoutesEnum.LSTStake] && asPath.includes(link)),
-    links
-  );
+  const currentTab =
+    asPath === Routes[RoutesEnum.LSTStake]
+      ? 0
+      : findIndex(
+          (link) =>
+            link !== Routes[RoutesEnum.LSTStake] && asPath.includes(link),
+          links
+        );
 
   return (
     <Layout dashboard titlePage={<LstHeader />}>
