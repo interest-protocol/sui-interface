@@ -70,7 +70,7 @@ const LST: FC<LSTProps> = ({ stakeForm, loading }) => {
           <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
             <Tabs
               key={v4()}
-              defaultTabIndex={currentTab}
+              defaultTabIndex={1}
               onChangeTab={(index) =>
                 push(links[index], undefined, { shallow: true })
               }
