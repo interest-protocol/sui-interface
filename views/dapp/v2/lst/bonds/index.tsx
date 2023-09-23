@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { ArrowLeft } from '@/svg';
 
 import BondsCard from './bonds-card';
+import Input from './components/input';
 import MaturityCard from './components/maturity-card';
 
 const Bonds: FC = () => (
@@ -19,7 +20,12 @@ const Bonds: FC = () => (
       flexDirection="column"
       gridTemplateColumns="3fr 2fr"
     >
-      <Box bg="surface.container" p="l" borderRadius="0.5rem">
+      <Box
+        bg="surface.container"
+        p="l"
+        borderRadius="0.5rem"
+        height="max-content"
+      >
         <Box mb="3rem">
           <Button
             variant="text"
@@ -68,12 +74,20 @@ const Bonds: FC = () => (
           </Box>
         </Box>
       </Box>
-      <Box
-        bg="surface.container"
-        p="l"
-        borderRadius="0.5rem"
-        height="max-content"
-      ></Box>
+      <Box bg="surface.container" p="l" borderRadius="0.5rem" height="90vh">
+        <Typography variant="medium" py="l" color="white">
+          Transaction summary
+        </Typography>
+        <Box py="l" display="flex" flexDirection="column" gap="l">
+          <Input label="You will receive" symbol="SUI" title="SUI" />
+          <Input
+            label="You will redeem"
+            symbol="SUI"
+            title="30 • Dec • 2027"
+            description="iSUIY"
+          />
+        </Box>
+      </Box>
     </Box>
   </Box>
 );
