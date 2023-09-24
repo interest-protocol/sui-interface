@@ -169,6 +169,32 @@
     },
     "selectValidator": "selecionar validador",
     "selectAssets": "Escolha activos",
-    "maturity": "Maturidade {date}"
+    "maturity": "Maturidade {date}",
+    "claimnRewards": {
+      "noRewards": {
+        "title": "Lamentamos, mas não tem quaisquer recompensas para reclamar",
+        "description": "Para obtener iSUIY por favor ve y toma algunos SUI"
+      },
+      "maturity": {
+        "title": "Receber prémios",
+        "description": "Introduza as suas informações para concluir a sua transação",
+        "selectRedeem": "Selecciona qué iSUIY canjear"
+      },
+      "transactionSummary": {
+        "title": "Resumo da transação",
+        "receive": "Irá receber",
+        "redeem": "Irá receber",
+        "depositFee": "Taxa de depósito",
+        "buttonClear": "Limpar tudo"
+      },
+      "modal": {
+        "success": {
+          "description": "Transação concluída"
+        },
+        "error": {
+          "description": "Falha na Transação"
+        }
+      }
+    }
   }
 }
