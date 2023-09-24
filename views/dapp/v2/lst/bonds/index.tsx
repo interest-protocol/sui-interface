@@ -1,15 +1,16 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import BondsCard from './bonds-card';
-
 const Bonds: FC = () => (
   <Box variant="container" display="flex" flexDirection="column">
-    <Box gap="l" display="grid" gridTemplateColumns="1fr 1fr 1fr">
-      <BondsCard type="stake" />
-      <BondsCard type="unstake" />
-      <BondsCard type="rewards" />
-    </Box>
+    <Box
+      pb="1rem"
+      width="100%"
+      gridColumn="1/-1"
+      display="flex"
+      flexDirection={['column', 'column', 'column', 'row']}
+      gap={['l', 'l', 'l', 'xl']}
+    ></Box>
   </Box>
 );
 

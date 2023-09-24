@@ -1,3 +1,3 @@
 export interface BondsCardProps {
-  type: 'stake' | 'unstake' | 'rewards';
+  key: 'stake' | 'unstake' | 'rewards';
 }

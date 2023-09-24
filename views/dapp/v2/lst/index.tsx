@@ -50,14 +50,7 @@ const LST: FC<LSTProps> = ({ stakeForm, loading }) => {
   const t = useTranslations();
   const { push, asPath } = useRouter();
 
-  const currentTab =
-    asPath === Routes[RoutesEnum.LSTStake]
-      ? 0
-      : findIndex(
-          (link) =>
-            link !== Routes[RoutesEnum.LSTStake] && asPath.includes(link),
-          links
-        );
+  const currentTab = findIndex((link) => link === asPath, links);
 
   return (
     <Layout dashboard titlePage={<LstHeader />}>
@@ -73,9 +66,9 @@ const LST: FC<LSTProps> = ({ stakeForm, loading }) => {
             <Tabs
               key={v4()}
               defaultTabIndex={currentTab}
-              onChangeTab={(index) =>
-                push(links[index], undefined, { shallow: true })
-              }
+              onChangeTab={(index) => {
+                push(links[index], undefined, { shallow: true });
+              }}
               items={[
                 capitalize(t('lst.tabs.stake')),
                 capitalize(t('lst.tabs.bonds')),

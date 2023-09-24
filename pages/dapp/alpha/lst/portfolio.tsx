@@ -20,7 +20,6 @@ const PortfolioPage: NextPageWithProps = ({ pageTitle }) => (
     <LST />
   </Web3Manager>
 );
-
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, LstMessages] = await Promise.all([
     import(`../../../../assets/messages/common/${locale}.json`),
