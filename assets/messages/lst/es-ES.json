@@ -169,6 +169,32 @@
     },
     "selectValidator": "seleccionar validador",
     "selectAssets": "Elegir activos",
-    "maturity": "Vencimiento {date}"
+    "maturity": "Vencimiento {date}",
+    "claimnRewards": {
+      "noRewards": {
+        "title": "Lo sentimos, no tienes ninguna recompensa que reclamar",
+        "description": "Para obtener iSUIY por favor ve y toma algunos SUI"
+      },
+      "maturity": {
+        "title": "Reclamar premios",
+        "description": "Introduce tus datos para completar la transacción",
+        "selectRedeem": "Selecciona qué iSUIY canjear"
+      },
+      "transactionSummary": {
+        "title": "Resumen de transacción",
+        "receive": "Recibirás",
+        "redeem": "Usted canjeará",
+        "depositFee": "Comisión de depósito",
+        "buttonClear": "Borrar todo"
+      },
+      "modal": {
+        "success": {
+          "description": "Transacción completada"
+        },
+        "error": {
+          "description": "Transacción Fallida"
+        }
+      }
+    }
   }
 }

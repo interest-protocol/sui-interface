@@ -1,7 +1,7 @@
 import { Box, Tabs } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
-import { findIndex } from 'ramda';
+import { findIndex, includes } from 'ramda';
 import { FC } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { v4 } from 'uuid';
@@ -22,22 +22,36 @@ import Stats from './stats';
 import Validators from './validators';
 
 const links = [
-  Routes[RoutesEnum.LSTStake],
-  Routes[RoutesEnum.LSTBonds],
-  Routes[RoutesEnum.LSTPortfolio],
-  Routes[RoutesEnum.LSTValidators],
-  Routes[RoutesEnum.LSTStats],
+  [Routes[RoutesEnum.LSTStake]],
+  [
+    Routes[RoutesEnum.LSTBonds],
+    Routes[RoutesEnum.LSTBondsRewards],
+    Routes[RoutesEnum.LSTBondsStake],
+    Routes[RoutesEnum.LSTBondsUnstake],
+  ],
+  [Routes[RoutesEnum.LSTPortfolio]],
+  [Routes[RoutesEnum.LSTValidators]],
+  [Routes[RoutesEnum.LSTStats]],
 ];
 
 const TabsContent: FC<{
   changeTab: number;
   stakeForm?: UseFormReturn<StakeForm>;
-}> = ({ stakeForm, changeTab }) => (
+  asPath: string;
+}> = ({ stakeForm, changeTab, asPath }) => (
   <TabsTransition type="fade">
     {
       [
         <Staked form={stakeForm!} key={v4()} />,
-        <Bonds key={v4()} />,
+        <Bonds
+          form={stakeForm!}
+          type={
+            asPath == Routes[RoutesEnum.LSTBondsRewards]
+              ? 'rewards'
+              : 'get-started'
+          }
+          key={v4()}
+        />,
         <Portfolio key={v4()} />,
         <Validators key={v4()} />,
         <Stats key={v4()} />,
@@ -51,9 +65,7 @@ const LST: FC<LSTProps> = ({ stakeForm, loading }) => {
   const { push, asPath } = useRouter();
 
   const currentTab = findIndex(
-    (link) =>
-      asPath === link ||
-      (asPath === Routes[RoutesEnum.LSTStake] && asPath.includes(link)),
+    (link) => includes(asPath, link) || asPath === Routes[RoutesEnum.LSTStake],
     links
   );
 
@@ -70,9 +82,9 @@ const LST: FC<LSTProps> = ({ stakeForm, loading }) => {
           <Box borderBottom="1px solid" borderColor="outline.outlineVariant">
             <Tabs
               key={v4()}
-              defaultTabIndex={1}
+              defaultTabIndex={currentTab}
               onChangeTab={(index) =>
-                push(links[index], undefined, { shallow: true })
+                push(links[index]?.[0], undefined, { shallow: true })
               }
               items={[
                 capitalize(t('lst.tabs.stake')),
@@ -87,7 +99,11 @@ const LST: FC<LSTProps> = ({ stakeForm, loading }) => {
         {loading ? (
           <LoadingView />
         ) : (
-          <TabsContent stakeForm={stakeForm} changeTab={currentTab} />
+          <TabsContent
+            stakeForm={stakeForm}
+            changeTab={currentTab}
+            asPath={asPath}
+          />
         )}
       </LSTProvider>
     </Layout>

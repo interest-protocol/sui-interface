@@ -189,6 +189,33 @@
     },
     "selectValidator": "Select Validator",
     "selectAssets": "Select Assets",
-    "maturity": "Maturity {date}"
+    "maturity": "Maturity {date}",
+    "claimnRewards": {
+      "title": "Claim Rewards",
+      "noRewards": {
+        "title": "Sorry, you don´t have any rewards to claim",
+        "description": "To obtain iSUIY please go and take some SUI"
+      },
+      "maturity": {
+        "title": "Claim Rewards",
+        "description": "Enter your information to complete your transaction.",
+        "selectRedeem": "Select what iSUIY to redeem"
+      },
+      "transactionSummary": {
+        "title": "Transaction Summary",
+        "receive": "You will receive",
+        "redeem": "You will redeem",
+        "depositFee": "Deposit fee",
+        "buttonClear": "Clear All"
+      },
+      "modal": {
+        "success": {
+          "description": "Transaction Completed"
+        },
+        "error": {
+          "description": "Transaction Failed"
+        }
+      }
+    }
   }
 }
