@@ -4,6 +4,25 @@
       "title": "LST",
       "description": "LST new feature"
     },
+    "bonds": {
+      "menu": {
+        "stake": {
+          "title": "Stake SUI",
+          "description": "Stake Sui and<br></br>receive iSUIP and iSUIY",
+          "button": "Get Started"
+        },
+        "unstake": {
+          "title": "Unstake<br></br>iSUIY & iSUIP",
+          "description": "Unstake iSUIP or<br></br>iSUIP + iSUIY and receive SUI",
+          "button": "Get Started"
+        },
+        "rewards": {
+          "title": "Claim<br></br>Rewards",
+          "description": "Claim your iSUIY<br></br>yield in SUI",
+          "button": "Get Started"
+        }
+      }
+    },
     "tabs": {
       "stake": "stake",
       "bonds": "bonds",

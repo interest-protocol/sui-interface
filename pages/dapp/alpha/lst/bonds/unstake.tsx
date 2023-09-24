@@ -14,7 +14,7 @@ const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   loading: LoadingPage,
 });
 
-const BondsPage: NextPageWithProps = ({ pageTitle }) => (
+const BondsUnstakePage: NextPageWithProps = ({ pageTitle }) => (
   <Web3Manager>
     <SEO pageTitle={pageTitle} />
     <LST />
@@ -23,8 +23,8 @@ const BondsPage: NextPageWithProps = ({ pageTitle }) => (
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, LstMessages] = await Promise.all([
-    import(`../../../../assets/messages/common/${locale}.json`),
-    import(`../../../../assets/messages/lst/${locale}.json`),
+    import(`../../../../../assets/messages/common/${locale}.json`),
+    import(`../../../../../assets/messages/lst/${locale}.json`),
   ]);
 
   const messages = mergeDeepRight(commonMessages.default, LstMessages.default);
@@ -38,4 +38,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default BondsPage;
+export default BondsUnstakePage;
