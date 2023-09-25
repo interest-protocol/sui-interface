@@ -185,7 +185,13 @@
         "receive": "Irá receber",
         "redeem": "Irá receber",
         "depositFee": "Taxa de depósito",
-        "buttonClear": "Limpar tudo"
+        "buttonClear": "Limpar tudo",
+        "validatorDetails": {
+          "title": "Validador",
+          "ranking": "Classificação",
+          "votingPower": "Poder de voto",
+          "commision": "Comissão"
+        }
       },
       "modal": {
         "success": {

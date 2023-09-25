@@ -185,7 +185,13 @@
         "receive": "Recibirás",
         "redeem": "Usted canjeará",
         "depositFee": "Comisión de depósito",
-        "buttonClear": "Borrar todo"
+        "buttonClear": "Borrar todo",
+        "validatorDetails": {
+          "title": "Validador",
+          "ranking": "Clasificación",
+          "votingPower": "Poder de voto",
+          "commision": "Comisión"
+        }
       },
       "modal": {
         "success": {

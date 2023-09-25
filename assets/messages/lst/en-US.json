@@ -206,7 +206,13 @@
         "receive": "You will receive",
         "redeem": "You will redeem",
         "depositFee": "Deposit fee",
-        "buttonClear": "Clear All"
+        "buttonClear": "Clear All",
+        "validatorDetails": {
+          "title": "Validator",
+          "ranking": "Ranking",
+          "votingPower": "Voting Power",
+          "commision": "Comission"
+        }
       },
       "modal": {
         "success": {
