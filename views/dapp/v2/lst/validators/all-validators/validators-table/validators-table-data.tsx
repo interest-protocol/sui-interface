@@ -1,9 +1,11 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 import { v4 } from 'uuid';
 
 import { SUISVG } from '@/components/svg/v2';
+import { Routes, RoutesEnum } from '@/constants';
 
 import TableRow from '../../../components/table-row';
 import { ValidatorsTableDataProps } from '../all-validators.types';
@@ -13,6 +15,7 @@ const ValidatorsTableData: FC<ValidatorsTableDataProps> = ({
   validators,
 }) => {
   const search = useWatch({ control, name: 'search' });
+  const { push } = useRouter();
 
   return (
     <Box>
@@ -30,7 +33,7 @@ const ValidatorsTableData: FC<ValidatorsTableDataProps> = ({
               name,
               imageUrl,
               lstStaked,
-              projectUrl,
+              suiAddress,
               commissionRate,
               stakingPoolSuiBalance,
             },
@@ -40,7 +43,13 @@ const ValidatorsTableData: FC<ValidatorsTableDataProps> = ({
               key={v4()}
               cursor="pointer"
               borderRadius="m"
-              onClick={() => window.open(projectUrl)}
+              onClick={() =>
+                push(
+                  `${
+                    Routes[RoutesEnum.LSTValidatorDetails]
+                  }?validatorAddress=${suiAddress}`
+                )
+              }
               nHover={{
                 bg: 'surface.surfaceVariant',
               }}

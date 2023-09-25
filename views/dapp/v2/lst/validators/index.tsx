@@ -11,6 +11,8 @@ import ValidatorsTableSkeleton from '../components/your-info-container/modal/val
 import { useLstData } from '../lst.hooks';
 import { useGetActiveValidators } from '../lst.hooks';
 import AllValidators from './all-validators';
+import ValidatorDetailsPage from './detailed-validator-info';
+import { ValidatorsProps } from './validators.types';
 
 const OverViewWrapper: FC = () => {
   const t = useTranslations();
@@ -50,7 +52,7 @@ const OverViewWrapper: FC = () => {
   );
 };
 
-const Validators: FC = () => {
+const Validators: FC<ValidatorsProps> = ({ type }) => {
   const {
     data: activeValidators,
     isLoading: activeValidatorsLoading,
@@ -61,16 +63,22 @@ const Validators: FC = () => {
 
   return (
     <Box variant="container" display="flex" flexDirection="column">
-      <OverViewWrapper />
-      {activeValidatorsLoading ? (
-        <ValidatorsTableSkeleton />
-      ) : activeValidatorsError ? (
-        <ErrorState
-          size="large"
-          errorMessage={t('lst.validators.tableSection.error')}
-        />
+      {type === 'details' ? (
+        <ValidatorDetailsPage />
       ) : (
-        <AllValidators activeValidators={activeValidators} />
+        <>
+          <OverViewWrapper />
+          {activeValidatorsLoading ? (
+            <ValidatorsTableSkeleton />
+          ) : activeValidatorsError ? (
+            <ErrorState
+              size="large"
+              errorMessage={t('lst.validators.tableSection.error')}
+            />
+          ) : (
+            <AllValidators activeValidators={activeValidators} />
+          )}
+        </>
       )}
     </Box>
   );

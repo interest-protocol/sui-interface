@@ -57,6 +57,7 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
         name,
         imageUrl,
         projectUrl,
+        suiAddress,
         description,
         commissionRate: +commissionRate / 100,
         stakingPoolSuiBalanceString: stakingPoolSuiBalance,

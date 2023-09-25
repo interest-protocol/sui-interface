@@ -19,6 +19,7 @@ export interface IValidator {
   name: string;
   imageUrl: string;
   lstStaked: string;
+  suiAddress: string;
   projectUrl: string;
   description: string;
   commissionRate: number;
