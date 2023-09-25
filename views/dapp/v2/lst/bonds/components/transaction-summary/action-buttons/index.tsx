@@ -13,6 +13,7 @@ import { ActionButtonsProps } from './action-buttons.type';
 const ActionButtons: FC<ActionButtonsProps> = ({
   disable,
   handleClear,
+  submitText,
   handleSubmit,
 }) => {
   const t = useTranslations();
@@ -57,7 +58,7 @@ const ActionButtons: FC<ActionButtonsProps> = ({
           width="100%"
           textTransform="capitalize"
         >
-          {t('lst.claimnRewards.transactionSummary.buttonClear')}
+          {submitText}
         </Typography>
       </Button>
     </Box>

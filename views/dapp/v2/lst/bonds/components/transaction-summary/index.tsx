@@ -16,6 +16,7 @@ const TransactionSummaryContainer: FC<TransactionSummaryProps> = ({
   handleSubmit,
   validatorDetailsData,
   overviewData,
+  submitText,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
@@ -63,6 +64,7 @@ const TransactionSummaryContainer: FC<TransactionSummaryProps> = ({
         <Overview {...overviewData} />
         <ActionButtons
           disable={disable}
+          submitText={submitText}
           handleSubmit={handleSubmit}
           handleClear={handleClear}
         />

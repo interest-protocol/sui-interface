@@ -91,13 +91,6 @@ const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards, form }) => {
             ? t('lst.maturity', { date: 'DD/MM/YYYY' })
             : maturity.date,
         },
-        {
-          symbol: 'iSui-PC',
-          description: 'iSUIP',
-          title: IS_MATURITY_EMPTY
-            ? t('lst.maturity', { date: 'DD/MM/YYYY' })
-            : maturity.date,
-        },
       ],
       value: amount,
     },
@@ -142,6 +135,9 @@ const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards, form }) => {
       },
     ],
   };
+
+  console.log(ValidatorDetailsData, '>>>>ValidatorDetailsData');
+
   return hasRewards ? (
     <NonRewards />
   ) : (
@@ -158,7 +154,7 @@ const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards, form }) => {
         handleSubmit={handleSubmit}
         overviewData={OverviewData}
         disable={IS_MATURITY_EMPTY}
-        validatorDetailsData={ValidatorDetailsData}
+        submitText={t('lst.claimnRewards.title')}
       />
     </Box>
   );
