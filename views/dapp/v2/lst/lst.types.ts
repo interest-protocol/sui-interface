@@ -9,6 +9,7 @@ export interface StakeForm {
   amountUSD: string;
   coinType: string;
   validator: string;
+  maturity: { date: string; id: string };
 }
 
 export interface ValidatorStakePosition {

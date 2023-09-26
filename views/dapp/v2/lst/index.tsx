@@ -1,7 +1,7 @@
 import { Box, Tabs } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
-import { findIndex } from 'ramda';
+import { findIndex, includes } from 'ramda';
 import { FC, PropsWithChildren } from 'react';
 import { v4 } from 'uuid';
 
@@ -16,25 +16,26 @@ import { LSTProps } from './lst.types';
 import LstHeader from './lst-header';
 
 const links = [
-  Routes[RoutesEnum.LSTStake],
-  Routes[RoutesEnum.LSTBonds],
-  Routes[RoutesEnum.LSTPortfolio],
-  Routes[RoutesEnum.LSTValidators],
-  Routes[RoutesEnum.LSTStats],
+  [Routes[RoutesEnum.LSTStake]],
+  [
+    Routes[RoutesEnum.LSTBonds],
+    Routes[RoutesEnum.LSTBondsRewards],
+    Routes[RoutesEnum.LSTBondsStake],
+    Routes[RoutesEnum.LSTBondsUnstake],
+  ],
+  [Routes[RoutesEnum.LSTPortfolio]],
+  [Routes[RoutesEnum.LSTValidators]],
+  [Routes[RoutesEnum.LSTStats]],
 ];
 
 const LSTLayout: FC<PropsWithChildren<LSTProps>> = ({ loading, children }) => {
   const t = useTranslations();
   const { push, asPath } = useRouter();
 
-  const currentTab =
-    asPath === Routes[RoutesEnum.LSTStake]
-      ? 0
-      : findIndex(
-          (link) =>
-            link !== Routes[RoutesEnum.LSTStake] && asPath.includes(link),
-          links
-        );
+  const currentTab = findIndex(
+    (link) => includes(asPath, link) || asPath === Routes[RoutesEnum.LSTStake],
+    links
+  );
 
   return (
     <Layout dashboard titlePage={<LstHeader />}>
@@ -51,7 +52,7 @@ const LSTLayout: FC<PropsWithChildren<LSTProps>> = ({ loading, children }) => {
               key={v4()}
               defaultTabIndex={currentTab}
               onChangeTab={(index) =>
-                push(links[index], undefined, { shallow: true })
+                push(links[index]?.[0], undefined, { shallow: true })
               }
               items={[
                 capitalize(t('lst.tabs.stake')),
