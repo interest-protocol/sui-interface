@@ -5,7 +5,7 @@ import { FC } from 'react';
 
 import { ISuiPSVG, ISuiYNSVG } from '@/components/svg/v2';
 
-import SelectCard from '../../select-card';
+import SelectCard from '../../components/select-card';
 import StepTitle from '../../step-title';
 import UnstakeInput from './unstake-input';
 

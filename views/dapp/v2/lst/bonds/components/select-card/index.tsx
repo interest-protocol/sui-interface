@@ -1,21 +1,16 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { not } from 'ramda';
-import { FC, ReactNode, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { CheckSVG } from '@/components/svg/v2';
 
-interface SelectCardProps {
-  value?: boolean;
-  title?: ReactNode;
-  content?: ReactNode;
-  onSelect?: (value: boolean) => void;
-}
+import { SelectCardProps } from './select-card.types';
 
 const SelectCard: FC<SelectCardProps> = ({
   value,
+  title,
   content,
   onSelect,
-  title,
 }) => {
   const [checked, setCheck] = useState(value ?? false);
 
@@ -24,21 +19,30 @@ const SelectCard: FC<SelectCardProps> = ({
     onSelect?.(!checked);
   };
 
+  console.log('>>  checked :: ', checked);
+
   return (
     <Box
-      p="l"
-      gap="m"
+      gap="l"
+      p="0.875rem"
       width="100%"
       display="grid"
-      borderRadius="m"
       cursor="pointer"
       border="1px solid"
       alignItems="center"
       onClick={handleChange}
+      borderRadius="0.25rem"
+      transition="border-color .5s"
       gridTemplateColumns="1fr 1rem"
+      bg={checked ? 'primary' : 'unset'}
       color={checked ? 'primary.onPrimary' : 'onSurface'}
-      bg={checked ? 'primary.onPrimaryContainer' : 'unset'}
-      borderColor={checked ? 'transparent' : 'outline.outlineVariant'}
+      borderColor={checked ? 'primary' : 'outline.outlineVariant'}
+      nHover={{
+        borderColor: 'primary',
+        background: checked
+          ? 'linear-gradient(0deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.32) 100%), #B4C5FF'
+          : 'unset',
+      }}
     >
       <span>{title}</span>
       <Box

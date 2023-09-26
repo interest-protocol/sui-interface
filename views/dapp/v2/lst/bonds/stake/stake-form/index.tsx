@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 
 import { formatDollars } from '@/utils';
 
-import SelectCard from '../../select-card';
+import SelectCard from '../../components/select-card';
 import StepTitle from '../../step-title';
 import StakeInput from './stake-input';
 
