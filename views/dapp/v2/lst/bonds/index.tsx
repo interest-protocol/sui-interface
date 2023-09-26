@@ -8,7 +8,7 @@ import BondsClaimRewards from './claim-rewards';
 const Bonds: FC<BondsProps> = ({ form, type }) => (
   <Box variant="container" display="flex" flexDirection="column">
     {type == 'rewards' ? (
-      <BondsClaimRewards form={form} hasRewards />
+      <BondsClaimRewards form={form} />
     ) : (
       <Box
         gap="l"
