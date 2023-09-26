@@ -2,7 +2,6 @@ import { Box } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { isEmpty } from 'ramda';
 import { FC } from 'react';
-import { useWatch } from 'react-hook-form';
 import { noop } from 'swr/_internal';
 
 import { useModal } from '@/hooks';
@@ -25,9 +24,7 @@ const BondsClaimRewards: FC = () => {
   const t = useTranslations();
   const { form } = useBondsContext();
   const { setModal, handleClose } = useModal();
-  const control = form.control;
-  const maturity = useWatch({ control, name: 'maturity' });
-  const amount = useWatch({ control, name: 'amount' });
+  const { maturity, amount } = form.getValues();
 
   const IS_MATURITY_EMPTY = isEmpty(maturity.date);
 
