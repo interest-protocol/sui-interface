@@ -7,6 +7,7 @@ export { default as BTCSVG } from './btc';
 export { default as CelerBTCETHSVG } from './celer-btc-eth';
 export { default as CelerETHSVG } from './celer-eth';
 export { default as CelerUSDCETHSVG } from './celer-usdc-eth';
+export { default as CheckSVG } from './check';
 export { default as CheckmarkSVG } from './checkmark';
 export { default as CogsSVG } from './cogs';
 export { default as ComputerEyesSVG } from './computer-eyes';

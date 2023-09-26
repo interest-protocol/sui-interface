@@ -21,6 +21,24 @@
           "description": "Claim your iSUIY<br></br>yield in SUI",
           "button": "Get Started"
         }
+      },
+      "stake": {
+        "title": "Stake SUI",
+        "description": "Enter the information below to complete your transaction.",
+        "form": {
+          "selectMaturity": "Select Maturity",
+          "selectAmount": "Select Amount to Stake",
+          "selectValidator": "Select Validator"
+        }
+      },
+      "unstake": {
+        "title": "Unstake",
+        "description": "Enter the information below to complete your transaction.",
+        "form": {
+          "selectRedeem": "Select what SFT to redeem",
+          "selectMaturity": "Select Maturity",
+          "selectAmount": "Select Amount to redeem"
+        }
       }
     },
     "tabs": {
