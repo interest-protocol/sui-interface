@@ -1,7 +1,7 @@
 import { Box, Tabs } from '@interest-protocol/ui-kit';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
-import { findIndex } from 'ramda';
+import { findIndex, includes } from 'ramda';
 import { FC } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { v4 } from 'uuid';
@@ -22,24 +22,32 @@ import Stats from './stats';
 import Validators from './validators';
 
 const links = [
-  Routes[RoutesEnum.LSTStake],
-  Routes[RoutesEnum.LSTBonds],
-  Routes[RoutesEnum.LSTPortfolio],
-  Routes[RoutesEnum.LSTValidators],
-  Routes[RoutesEnum.LSTStats],
+  [Routes[RoutesEnum.LSTStake]],
+  [Routes[RoutesEnum.LSTBonds]],
+  [Routes[RoutesEnum.LSTPortfolio]],
+  [Routes[RoutesEnum.LSTValidators], Routes[RoutesEnum.LSTValidatorDetails]],
+  [Routes[RoutesEnum.LSTStats]],
 ];
 
 const TabsContent: FC<{
   changeTab: number;
   stakeForm?: UseFormReturn<StakeForm>;
-}> = ({ stakeForm, changeTab }) => (
+  asPath: string;
+}> = ({ stakeForm, changeTab, asPath }) => (
   <TabsTransition type="fade">
     {
       [
         <Staked form={stakeForm!} key={v4()} />,
         <Bonds key={v4()} />,
         <Portfolio key={v4()} />,
-        <Validators key={v4()} />,
+        <Validators
+          type={
+            asPath == Routes[RoutesEnum.LSTValidatorDetails]
+              ? 'details'
+              : 'all-validators'
+          }
+          key={v4()}
+        />,
         <Stats key={v4()} />,
       ][changeTab]
     }
@@ -48,16 +56,13 @@ const TabsContent: FC<{
 
 const LST: FC<LSTProps> = ({ stakeForm, loading }) => {
   const t = useTranslations();
-  const { push, asPath } = useRouter();
+  const { push, pathname } = useRouter();
 
-  const currentTab =
-    asPath === Routes[RoutesEnum.LSTStake]
-      ? 0
-      : findIndex(
-          (link) =>
-            link !== Routes[RoutesEnum.LSTStake] && asPath.includes(link),
-          links
-        );
+  const currentTab = findIndex(
+    (link) =>
+      includes(pathname, link) || pathname === Routes[RoutesEnum.LSTStake],
+    links
+  );
 
   return (
     <Layout dashboard titlePage={<LstHeader />}>
@@ -74,7 +79,7 @@ const LST: FC<LSTProps> = ({ stakeForm, loading }) => {
               key={v4()}
               defaultTabIndex={currentTab}
               onChangeTab={(index) =>
-                push(links[index], undefined, { shallow: true })
+                push(links[index]?.[0], undefined, { shallow: true })
               }
               items={[
                 capitalize(t('lst.tabs.stake')),
@@ -89,7 +94,11 @@ const LST: FC<LSTProps> = ({ stakeForm, loading }) => {
         {loading ? (
           <LoadingView />
         ) : (
-          <TabsContent stakeForm={stakeForm} changeTab={currentTab} />
+          <TabsContent
+            stakeForm={stakeForm}
+            changeTab={currentTab}
+            asPath={pathname}
+          />
         )}
       </LSTProvider>
     </Layout>

@@ -108,6 +108,33 @@
         "error": "An error occurred while fetching validators"
       },
       "validatorSection": {
+        "validatorDetailsPage": {
+          "detailsSection": {
+            "address": "address",
+            "web": "web",
+            "totalSuiStaked": "Total Sui Staked",
+            "votingPower": "Voting Power",
+            "apy": "APY",
+            "gasPrice": "Gas Price",
+            "commission": "Commission",
+            "nextEpochGasPrice": "Next epoch gas price",
+            "comments": "Comments",
+            "sortBy": "Sort by"
+          },
+          "rankingAndCommentsSection": {
+            "ranking": "Ranking",
+            "positiveReview": "positive review",
+            "negativeReview": "negative review",
+            "reviewAndComment": "review & comments",
+            "headerMessage": "We´d love to hear your thoughts on this validator. Please vote and leave a comment.",
+            "vote": "vote",
+            "comment": "leave a comment",
+            "optionalComment": "(optional) Leave a comment",
+            "publish": "publish",
+            "modalMessage": "Thanks for summitting your vote",
+            "backToHome": "back to home"
+          }
+        },
         "activeValidatorError": "An error occurred while validator activation"
       }
     },

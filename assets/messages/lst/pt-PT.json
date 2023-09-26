@@ -88,6 +88,33 @@
         "error": "Ocorreu um erro ao carregar os validadores"
       },
       "validatorSection": {
+        "validatorDetailsPage": {
+          "detailsSection": {
+            "address": "Endereço",
+            "web": "website",
+            "totalSuiStaked": "Total SUI Apostado",
+            "votingPower": "Poder de Voto",
+            "apy": "APY",
+            "gasPrice": "Preço do gás",
+            "commission": "Comissão",
+            "nextEpochGasPrice": "Preço do gás da próxima época",
+            "comments": "Comentários",
+            "sortBy": "Ordenar por"
+          },
+          "rankingAndCommentsSection": {
+            "ranking": "Ranking",
+            "positiveReview": "revisão positiva",
+            "negativeReview": "revisão negativa",
+            "reviewAndComment": "revisão e comentário",
+            "headerMessage": "Gostaríamos de ouvir os seus pensamentos sobre este validador. Por favor, vote e deixe um comentário.",
+            "vote": "voto",
+            "comment": "deixe um comentário",
+            "optionalComment": "(optional) Deixe um comentário",
+            "publish": "publicar",
+            "modalMessage": "Obrigado pelo seu feedback!",
+            "backToHome": "voltar para o início"
+          }
+        },
         "activeValidatorError": "Um erro ocorreu ao activar o validador"
       }
     },

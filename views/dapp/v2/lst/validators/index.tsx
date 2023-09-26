@@ -11,7 +11,7 @@ import ValidatorsTableSkeleton from '../components/your-info-container/modal/val
 import { useLstData } from '../lst.hooks';
 import { useGetActiveValidators } from '../lst.hooks';
 import AllValidators from './all-validators';
-import ValidatorDetailsPage from './detailed-validator-info';
+import ValidatorDetailsPage from './validator-details';
 import { ValidatorsProps } from './validators.types';
 
 const OverViewWrapper: FC = () => {
@@ -62,11 +62,11 @@ const Validators: FC<ValidatorsProps> = ({ type }) => {
   const t = useTranslations();
 
   return (
-    <Box variant="container" display="flex" flexDirection="column">
+    <>
       {type === 'details' ? (
         <ValidatorDetailsPage />
       ) : (
-        <>
+        <Box variant="container" display="flex" flexDirection="column">
           <OverViewWrapper />
           {activeValidatorsLoading ? (
             <ValidatorsTableSkeleton />
@@ -78,9 +78,9 @@ const Validators: FC<ValidatorsProps> = ({ type }) => {
           ) : (
             <AllValidators activeValidators={activeValidators} />
           )}
-        </>
+        </Box>
       )}
-    </Box>
+    </>
   );
 };
 
