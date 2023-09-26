@@ -15,14 +15,16 @@ const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   loading: LoadingPage,
 });
 
-const BondsPage: NextPageWithProps = ({ pageTitle }) => (
-  <Web3Manager>
-    <SEO pageTitle={pageTitle} />
-    <LSTLayout>
-      <Bonds />
-    </LSTLayout>
-  </Web3Manager>
-);
+const BondsPage: NextPageWithProps = ({ pageTitle }) => {
+  return (
+    <Web3Manager>
+      <SEO pageTitle={pageTitle} />
+      <LSTLayout>
+        <Bonds />
+      </LSTLayout>
+    </Web3Manager>
+  );
+};
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, LstMessages] = await Promise.all([

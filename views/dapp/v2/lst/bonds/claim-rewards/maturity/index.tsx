@@ -6,15 +6,14 @@ import { v4 } from 'uuid';
 
 import { capitalize } from '@/utils';
 
+import { useBondsContext } from '../../bonds.hooks';
 import BondsContainer from '../../components/bonds-container';
 import MaturityCard from '../../components/maturity-card';
-import { MaturityProps } from './maturity.type';
+import { MaturityProps } from './maturity.types';
 
-const BondsClaimRewardsMaturity: FC<MaturityProps> = ({
-  form,
-  maturityList,
-}) => {
+const BondsClaimRewardsMaturity: FC<MaturityProps> = ({ maturityList }) => {
   const t = useTranslations();
+  const { form } = useBondsContext();
   const control = form.control;
   const maturity = useWatch({ control, name: 'maturity' });
   const [maturitySelected, setMaturitySelected] = useState(maturity.id);
@@ -51,6 +50,7 @@ const BondsClaimRewardsMaturity: FC<MaturityProps> = ({
         {maturityList.map((maturityItem) => (
           <MaturityCard
             key={v4()}
+            amount="0"
             {...maturityItem}
             selected={maturitySelected == maturityItem.id}
             onSelected={handleMaturitySelected}

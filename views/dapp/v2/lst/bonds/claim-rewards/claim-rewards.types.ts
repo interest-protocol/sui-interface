@@ -1,5 +1,3 @@
-import { BondsProps } from '../bonds.type';
-
-export interface ClaimRewardsProps extends BondsProps {
+export interface ClaimRewardsProps {
   hasRewards?: boolean;
 }

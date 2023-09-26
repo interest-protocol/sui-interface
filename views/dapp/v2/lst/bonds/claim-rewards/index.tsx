@@ -7,6 +7,7 @@ import { noop } from 'swr/_internal';
 
 import { useModal } from '@/hooks';
 
+import { useBondsContext } from '../bonds.hooks';
 import BondsFormConfirmModal from '../components/modal/confirm-modal';
 import BondsFormFailModal from '../components/modal/fail-modal';
 import BondsFormLoadingModal from '../components/modal/loading-modal';
@@ -31,7 +32,8 @@ const MATURITY_LIST = [
   },
 ];
 
-const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards, form }) => {
+const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards }) => {
+  const { form } = useBondsContext();
   const t = useTranslations();
   const { setModal, handleClose } = useModal();
   const control = form.control;
@@ -138,16 +140,16 @@ const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards, form }) => {
 
   console.log(ValidatorDetailsData, '>>>>ValidatorDetailsData');
 
-  return hasRewards ? (
-    <NonRewards />
-  ) : (
+  if (!hasRewards) return <NonRewards />;
+
+  return (
     <Box
       gap="l"
       flexDirection="column"
       gridTemplateColumns="3fr 2fr"
       display={['flex', 'flex', 'flex', 'grid']}
     >
-      <BondsClaimRewardsMaturity form={form} maturityList={MATURITY_LIST} />
+      <BondsClaimRewardsMaturity maturityList={MATURITY_LIST} />
       <TransactionSummaryContainer
         amountList={AmountList}
         handleClear={handleClear}
