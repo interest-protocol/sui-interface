@@ -1,20 +1,17 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
-import { SUI_TYPE_ARG } from '@mysten/sui.js';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { always, mergeDeepRight } from 'ramda';
-import { FC, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { FC } from 'react';
 
 import { SEO } from '@/components';
-import { DEFAULT_VALIDATOR } from '@/constants/lst';
 import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
-import { formatDollars } from '@/utils';
-import LST from '@/views/dapp/v2/lst';
-import { StakeForm } from '@/views/dapp/v2/lst/lst.types';
+import LSTLayout from '@/views/dapp/v2/lst';
+import BondsClaimRewards from '@/views/dapp/v2/lst/bonds/claim-rewards';
+import { BondsProvider } from '@/views/dapp/v2/lst/bonds/context';
 
-const LoadingPage: FC = always(<LST loading={true} />);
+const LoadingPage: FC = always(<LSTLayout loading={true} />);
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
@@ -23,30 +20,18 @@ const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
 
 const BondsRewardsPage: NextPageWithProps = ({ pageTitle }) => {
   const { network } = useNetwork();
-  const stakeForm = useForm<StakeForm>({
-    defaultValues: {
-      amount: '0',
-      coinType: SUI_TYPE_ARG,
-      amountUSD: formatDollars(0),
-      validator: DEFAULT_VALIDATOR[network],
-      maturity: { date: '', id: '' },
-    },
-  });
-
-  useEffect(() => {
-    stakeForm.setValue('coinType', SUI_TYPE_ARG);
-    stakeForm.setValue('amount', '0');
-    stakeForm.setValue('validator', DEFAULT_VALIDATOR[network]);
-    stakeForm.setValue('maturity', { date: '', id: '' });
-  }, [network]);
 
   if (network !== Network.TESTNET) return <LoadingPage />;
 
   return (
-    <Web3Manager>
-      <SEO pageTitle={pageTitle} />
-      <LST stakeForm={stakeForm} />
-    </Web3Manager>
+    <BondsProvider>
+      <Web3Manager>
+        <SEO pageTitle={pageTitle} />
+        <LSTLayout>
+          <BondsClaimRewards />
+        </LSTLayout>
+      </Web3Manager>
+    </BondsProvider>
   );
 };
 

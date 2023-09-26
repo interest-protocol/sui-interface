@@ -9,13 +9,14 @@ import { Control, UseFormRegisterReturn, useWatch } from 'react-hook-form';
 import { v4 } from 'uuid';
 
 import { PercentageButton } from '../../components';
+import { IBondsContext } from './context/bonds-context.types';
 
 interface MoneyInputProps
   extends Pick<TextFieldProps, 'Prefix'>,
     UseFormRegisterReturn<'amount'> {
   balance: string;
+  control: Control<IBondsContext>;
   onChangeValue: (value: number) => void;
-  control: Control<{ amount: string; amountUSD: string }>;
 }
 
 const MoneyInputDollars: FC<Pick<MoneyInputProps, 'control'>> = ({

@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import { ChangeEvent, FC } from 'react';
-import { UseFormReturn } from 'react-hook-form';
 
 import { SUISVG } from '@/components/svg/v2';
 import { FixedPointMath } from '@/lib';
@@ -10,21 +9,22 @@ import {
   parseInputEventToNumberString,
 } from '@/utils';
 
+import { useBondsContext } from '../../bonds.hooks';
 import MoneyInput from '../../money-input';
 
 interface UnstakeInputProps {
   suiPrice: number;
   exchangeRate: number;
   totalBalance: BigNumber;
-  form: UseFormReturn<{ amount: string; amountUSD: string }>;
 }
 
 const UnstakeInput: FC<UnstakeInputProps> = ({
-  form,
   suiPrice,
   totalBalance,
   exchangeRate,
 }) => {
+  const { form } = useBondsContext();
+
   return (
     <MoneyInput
       Prefix={<SUISVG maxHeight="3rem" maxWidth="3rem" height="100%" filled />}

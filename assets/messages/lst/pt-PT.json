@@ -170,7 +170,7 @@
     "selectValidator": "selecionar validador",
     "selectAssets": "Escolha activos",
     "maturity": "Maturidade {date}",
-    "claimnRewards": {
+    "clamRewards": {
       "noRewards": {
         "title": "Lamentamos, mas não tem quaisquer recompensas para reclamar",
         "description": "Para obtener iSUIY por favor ve y toma algunos SUI"

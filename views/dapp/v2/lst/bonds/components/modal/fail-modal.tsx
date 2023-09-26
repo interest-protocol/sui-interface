@@ -59,7 +59,7 @@ const BondsFormFailModal: FC<Omit<BondsFormModalProps, 'onClick'>> = ({
             color="onSurface"
             textTransform="uppercase"
           >
-            {t('lst.claimnRewards.modal.error.description')}
+            {t('lst.clamRewards.modal.error.description')}
           </Typography>
         </Box>
         <Button

@@ -40,7 +40,7 @@ const ActionButtons: FC<ActionButtonsProps> = ({
           color="onSurface"
           textTransform="capitalize"
         >
-          {t('lst.claimnRewards.transactionSummary.buttonClear')}
+          {t('lst.clamRewards.transactionSummary.buttonClear')}
         </Typography>
       </Button>
       <Button

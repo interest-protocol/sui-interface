@@ -24,7 +24,7 @@ const ValidatorDetails: FC<ValidatorDetailsProps> = ({
         mb="0.5rem"
         textTransform="uppercase"
       >
-        {t('lst.claimnRewards.transactionSummary.validatorDetails.title')}
+        {t('lst.clamRewards.transactionSummary.validatorDetails.title')}
       </Typography>
       <Box
         bg="surface.containerHigh"

@@ -66,7 +66,7 @@ const BondsFormConfirmModal: FC<BondsFormModalProps> = ({
             color="onSurface"
             textTransform="capitalize"
           >
-            {t('lst.claimnRewards.modal.success.description')}
+            {t('lst.clamRewards.modal.success.description')}
           </Typography>
         </Box>
         <Button

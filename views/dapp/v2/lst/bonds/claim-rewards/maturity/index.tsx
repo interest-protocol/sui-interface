@@ -4,11 +4,12 @@ import { FC, useEffect, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { v4 } from 'uuid';
 
+import { ISuiYNSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
 import { useBondsContext } from '../../bonds.hooks';
 import BondsContainer from '../../components/bonds-container';
-import MaturityCard from '../../components/maturity-card';
+import SelectCard from '../../select-card';
 import { MaturityProps } from './maturity.types';
 
 const BondsClaimRewardsMaturity: FC<MaturityProps> = ({ maturityList }) => {
@@ -19,8 +20,8 @@ const BondsClaimRewardsMaturity: FC<MaturityProps> = ({ maturityList }) => {
   const [maturitySelected, setMaturitySelected] = useState(maturity.id);
 
   const handleMaturitySelected = (date: string, amount: string, id: string) => {
-    form?.setValue('amount', amount);
-    form?.setValue('maturity', { date, id });
+    form.setValue('amount', amount);
+    form.setValue('maturity', { date, id });
     setMaturitySelected(id);
   };
 
@@ -30,8 +31,8 @@ const BondsClaimRewardsMaturity: FC<MaturityProps> = ({ maturityList }) => {
 
   return (
     <BondsContainer
-      title={capitalize(t('lst.claimnRewards.maturity.title'))}
-      description={capitalize(t('lst.claimnRewards.maturity.description'))}
+      title={capitalize(t('lst.clamRewards.maturity.title'))}
+      description={capitalize(t('lst.clamRewards.maturity.description'))}
     >
       <Typography
         variant="medium"
@@ -39,7 +40,7 @@ const BondsClaimRewardsMaturity: FC<MaturityProps> = ({ maturityList }) => {
         fontSize={['0.75rem', '0.75rem', '0.75rem', 'l']}
         mb={['xs', 'xs', 'xs', 'l']}
       >
-        {t('lst.claimnRewards.maturity.selectRedeem')}
+        {t('lst.clamRewards.maturity.selectRedeem')}
       </Typography>
       <Box
         gap="m"
@@ -47,13 +48,34 @@ const BondsClaimRewardsMaturity: FC<MaturityProps> = ({ maturityList }) => {
         flexDirection="column"
         gridTemplateColumns="1fr 1fr"
       >
-        {maturityList.map((maturityItem) => (
-          <MaturityCard
+        {maturityList.map(({ date, id }) => (
+          <SelectCard
             key={v4()}
-            amount="0"
-            {...maturityItem}
-            selected={maturitySelected == maturityItem.id}
-            onSelected={handleMaturitySelected}
+            content={
+              <Box display="flex">
+                <Box color="white" mr="0.5rem">
+                  <ISuiYNSVG
+                    maxHeight="2.5rem"
+                    maxWidth="2.5rem"
+                    width="100%"
+                    filled
+                  />
+                </Box>
+                <Box
+                  color={
+                    maturitySelected === id ? 'primary.onPrimary' : 'onSurface'
+                  }
+                >
+                  <Typography variant="small" fontSize="0.875rem">
+                    {date}
+                  </Typography>
+                  <Typography variant="small" fontSize="0.875rem" opacity="0.6">
+                    0
+                  </Typography>
+                </Box>
+              </Box>
+            }
+            onSelect={() => handleMaturitySelected(date, '0', id)}
           />
         ))}
       </Box>

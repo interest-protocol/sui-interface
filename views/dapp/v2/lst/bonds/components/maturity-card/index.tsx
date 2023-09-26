@@ -1,8 +1,7 @@
-import { Box, Typography } from '@interest-protocol/ui-kit';
+import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
 import { CheckmarkSVG } from '@/components/svg/v2';
-import { ISuiYNSVG } from '@/svg';
 
 import { MaturityCardProps } from './maturity-card.type';
 
@@ -14,23 +13,23 @@ const MaturityCard: FC<MaturityCardProps> = ({
   selected,
 }) => (
   <Box
-    borderRadius="0.25rem"
-    border="1px solid"
-    borderColor={selected ? 'primary' : 'outline.outlineVariant'}
-    p="0.875rem"
-    transition="border-color .5s"
-    cursor="pointer"
-    display="flex"
-    flexDirection="column"
     gap="l"
+    p="0.875rem"
+    display="flex"
+    cursor="pointer"
+    border="1px solid"
+    flexDirection="column"
+    borderRadius="0.25rem"
+    transition="border-color .5s"
+    bg={selected ? 'primary' : 'unset'}
+    onClick={() => onSelected(date, amount, id)}
+    borderColor={selected ? 'primary' : 'outline.outlineVariant'}
     nHover={{
-      borderColor: selected ? 'primary' : 'primary',
+      borderColor: 'primary',
       background: selected
         ? 'linear-gradient(0deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.32) 100%), #B4C5FF'
         : 'unset',
     }}
-    onClick={() => onSelected(date, amount, id)}
-    bg={selected ? 'primary' : 'unset'}
   >
     <Box>
       <Box
@@ -54,19 +53,6 @@ const MaturityCard: FC<MaturityCardProps> = ({
           maxHeight="0.85rem"
           display={selected ? 'flex' : 'none'}
         />
-      </Box>
-    </Box>
-    <Box display="flex">
-      <Box color="white" mr="0.5rem">
-        <ISuiYNSVG maxHeight="2.5rem" maxWidth="2.5rem" width="100%" filled />
-      </Box>
-      <Box color={selected ? 'primary.onPrimary' : 'onSurface'}>
-        <Typography variant="small" fontSize="0.875rem">
-          {date}
-        </Typography>
-        <Typography variant="small" fontSize="0.875rem" opacity="0.6">
-          {amount}
-        </Typography>
       </Box>
     </Box>
   </Box>

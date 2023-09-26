@@ -8,20 +8,20 @@ interface SelectCardProps {
   value?: boolean;
   title?: ReactNode;
   content?: ReactNode;
-  onChange?: (value: boolean) => void;
+  onSelect?: (value: boolean) => void;
 }
 
 const SelectCard: FC<SelectCardProps> = ({
   value,
   content,
-  onChange,
+  onSelect,
   title,
 }) => {
   const [checked, setCheck] = useState(value ?? false);
 
   const handleChange = () => {
     setCheck(not);
-    onChange?.(!checked);
+    onSelect?.(!checked);
   };
 
   return (

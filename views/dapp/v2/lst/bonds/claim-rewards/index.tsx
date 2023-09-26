@@ -15,26 +15,15 @@ import TransactionSummaryContainer from '../components/transaction-summary';
 import { AmountProps } from '../components/transaction-summary/amount/amount.type';
 import { OverviewProps } from '../components/transaction-summary/overview/overview.type';
 import { ValidatorDetailsProps } from '../components/transaction-summary/validator-details/validator-details.type';
-import { ClaimRewardsProps } from './claim-rewards.types';
+import { MATURITY_LIST } from './claim-rewards.mock';
 import BondsClaimRewardsMaturity from './maturity';
 import NonRewards from './non-rewards';
 
-const MATURITY_LIST = [
-  {
-    date: '30 • Dec • 2027',
-    amount: '0.5532',
-    id: '1',
-  },
-  {
-    date: '31 • Dec • 2028',
-    amount: '0.3433',
-    id: '2',
-  },
-];
+const BondsClaimRewards: FC = () => {
+  const hasRewards = false;
 
-const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards }) => {
-  const { form } = useBondsContext();
   const t = useTranslations();
+  const { form } = useBondsContext();
   const { setModal, handleClose } = useModal();
   const control = form.control;
   const maturity = useWatch({ control, name: 'maturity' });
@@ -56,13 +45,13 @@ const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards }) => {
 
   const openModal = (type: 'loading' | 'success' | 'error') => {
     setModal(
-      type == 'loading' ? (
-        <BondsFormLoadingModal handleClose={handleClose} />
-      ) : type == 'error' ? (
-        <BondsFormFailModal handleClose={handleClose} />
-      ) : (
-        <BondsFormConfirmModal handleClose={handleClose} onClick={noop} />
-      ),
+      {
+        loading: <BondsFormLoadingModal handleClose={handleClose} />,
+        error: <BondsFormFailModal handleClose={handleClose} />,
+        success: (
+          <BondsFormConfirmModal handleClose={handleClose} onClick={noop} />
+        ),
+      }[type],
       {
         isOpen: true,
         custom: true,
@@ -74,7 +63,7 @@ const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards }) => {
 
   const AmountList: ReadonlyArray<AmountProps> = [
     {
-      label: t('lst.claimnRewards.transactionSummary.receive'),
+      label: t('lst.clamRewards.transactionSummary.receive'),
       fieldList: [
         {
           symbol: 'SUI',
@@ -84,7 +73,7 @@ const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards }) => {
       value: amount,
     },
     {
-      label: t('lst.claimnRewards.transactionSummary.redeem'),
+      label: t('lst.clamRewards.transactionSummary.redeem'),
       fieldList: [
         {
           symbol: 'iSui-YN',
@@ -102,7 +91,7 @@ const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards }) => {
     title: t('lst.transactionOverview.title'),
     data: [
       {
-        label: t('lst.claimnRewards.transactionSummary.depositFee'),
+        label: t('lst.clamRewards.transactionSummary.depositFee'),
         value: '0.12',
       },
     ],
@@ -113,21 +102,19 @@ const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards }) => {
     imageURL: 'https://static.lgns.xyz/logo.jpg',
     data: [
       {
-        label: t(
-          'lst.claimnRewards.transactionSummary.validatorDetails.ranking'
-        ),
+        label: t('lst.clamRewards.transactionSummary.validatorDetails.ranking'),
         value: '3',
         isRanking: true,
       },
       {
         label: t(
-          'lst.claimnRewards.transactionSummary.validatorDetails.votingPower'
+          'lst.clamRewards.transactionSummary.validatorDetails.votingPower'
         ),
         value: '1.27%',
       },
       {
         label: t(
-          'lst.claimnRewards.transactionSummary.validatorDetails.commision'
+          'lst.clamRewards.transactionSummary.validatorDetails.commision'
         ),
         value: '10%',
       },
@@ -138,9 +125,9 @@ const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards }) => {
     ],
   };
 
-  console.log(ValidatorDetailsData, '>>>>ValidatorDetailsData');
+  console.log('>> ValidatorDetailsData :: ', ValidatorDetailsData);
 
-  if (!hasRewards) return <NonRewards />;
+  if (hasRewards) return <NonRewards />;
 
   return (
     <Box
@@ -156,7 +143,7 @@ const BondsClaimRewards: FC<ClaimRewardsProps> = ({ hasRewards }) => {
         handleSubmit={handleSubmit}
         overviewData={OverviewData}
         disable={IS_MATURITY_EMPTY}
-        submitText={t('lst.claimnRewards.title')}
+        submitText={t('lst.clamRewards.title')}
       />
     </Box>
   );

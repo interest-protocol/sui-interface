@@ -39,7 +39,7 @@ const TransactionSummaryContainer: FC<TransactionSummaryProps> = ({
           color={dark ? 'white' : 'black'}
           textTransform="uppercase"
         >
-          {t('lst.claimnRewards.transactionSummary.title')}
+          {t('lst.clamRewards.transactionSummary.title')}
         </Typography>
         <Box
           py={['xs', 'xs', 'xs', 'l']}

@@ -208,7 +208,7 @@
     "selectValidator": "Select Validator",
     "selectAssets": "Select Assets",
     "maturity": "Maturity {date}",
-    "claimnRewards": {
+    "clamRewards": {
       "title": "Claim Rewards",
       "noRewards": {
         "title": "Sorry, you don´t have any rewards to claim",
