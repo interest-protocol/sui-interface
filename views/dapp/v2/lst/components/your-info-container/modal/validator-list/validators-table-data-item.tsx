@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@interest-protocol/ui-kit';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { v4 } from 'uuid';
 
 import { CheckmarkSVG, SUISVG } from '@/components/svg/v2';
@@ -15,6 +15,9 @@ const ValidatorsTableDataItem: FC<ValidatorListTableDataItemProps> = ({
   handleSelected,
   currentValidatorAddress,
 }) => {
+  const rating = useMemo(() => Number((Math.random() * 10).toFixed(0)), []);
+  const review = useMemo(() => Number((Math.random() * 100).toFixed(0)), []);
+
   return (
     <Box
       key={v4()}
@@ -30,7 +33,6 @@ const ValidatorsTableDataItem: FC<ValidatorListTableDataItemProps> = ({
       }}
     >
       <TableRow numCols={6} extraSpace={3}>
-        {/*<Typography variant="small">{index + 1}</Typography>*/}
         <Typography variant="small">
           {currentValidatorAddress == validator.suiAddress ? (
             <CheckmarkSVG maxHeight="1rem" maxWidth="1rem" width="100%" />
@@ -81,19 +83,22 @@ const ValidatorsTableDataItem: FC<ValidatorListTableDataItemProps> = ({
         <Typography variant="small" textAlign="right">
           {validator.apy}%
         </Typography>
-        <Typography
-          variant="small"
-          color={+validator.apy <= 50 ? 'error' : 'success'}
-          textAlign="right"
-        >
-          {validator.apy}/10
+        <Typography variant="small" textAlign="right">
+          <Typography
+            as="span"
+            variant="small"
+            color={rating > 7 ? 'success' : rating < 5 ? 'error' : 'warning'}
+          >
+            {rating}
+          </Typography>
+          /10
         </Typography>
         <Typography
           variant="small"
-          color={+validator.apy <= 50 ? 'error' : 'success'}
+          color={review <= 50 ? 'error' : 'success'}
           textAlign="right"
         >
-          {validator.apy}%
+          {review}%
         </Typography>
         <Box display="flex" justifyContent="flex-end">
           <a

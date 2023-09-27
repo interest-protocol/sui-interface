@@ -1,6 +1,6 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useWatch } from 'react-hook-form';
 import { v4 } from 'uuid';
 
@@ -26,8 +26,9 @@ const TransactionSummaryStakeBody: FC = () => {
       }
     : null;
 
+  const rating = useMemo(() => Number((Math.random() * 10).toFixed(0)), []);
+
   const value = undefined; // TODO: calculated value
-  const ranking = 8; // TODO: calculated value
 
   return (
     <Box>
@@ -221,14 +222,10 @@ const TransactionSummaryStakeBody: FC = () => {
                     as="span"
                     variant="extraSmall"
                     color={
-                      ranking > 6
-                        ? 'success'
-                        : ranking < 5
-                        ? 'error'
-                        : 'warning'
+                      rating > 6 ? 'success' : rating < 5 ? 'error' : 'warning'
                     }
                   >
-                    {ranking}
+                    {rating}
                   </Typography>
                   /10
                 </Typography>
