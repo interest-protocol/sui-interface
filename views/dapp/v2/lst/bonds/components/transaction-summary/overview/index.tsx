@@ -3,10 +3,16 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
+import { useBondsContext } from '../../../bonds.hooks';
 import { OverviewProps } from './overview.types';
 
-const Overview: FC<OverviewProps> = ({ fee, rewards }) => {
+const Overview: FC<OverviewProps> = ({ fee }) => {
   const t = useTranslations();
+
+  const { form } = useBondsContext();
+
+  const type = form.getValues('type');
+  const rewards = undefined; // TODO: calculate rewards
 
   return (
     <Box>
@@ -44,19 +50,21 @@ const Overview: FC<OverviewProps> = ({ fee, rewards }) => {
             {fee}
           </Typography>
         </Box>
-        <Box key={v4()} display="flex" justifyContent="space-between">
-          <Typography variant="small" fontSize="0.75rem" color="onSurface">
-            {t('lst.bonds.transactionSummary.estimatedRewards')}
-          </Typography>
-          <Typography
-            variant="small"
-            fontSize="0.75rem"
-            color="onSurface"
-            fontWeight="700"
-          >
-            {rewards ?? '--'}
-          </Typography>
-        </Box>
+        {type === 'stake' && (
+          <Box key={v4()} display="flex" justifyContent="space-between">
+            <Typography variant="small" fontSize="0.75rem" color="onSurface">
+              {t('lst.bonds.transactionSummary.estimatedRewards')}
+            </Typography>
+            <Typography
+              variant="small"
+              fontWeight="700"
+              color="onSurface"
+              fontSize="0.75rem"
+            >
+              {rewards ?? '--'}
+            </Typography>
+          </Box>
+        )}
       </Box>
     </Box>
   );

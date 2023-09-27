@@ -3,21 +3,19 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { useBondsContext } from '../../bonds.hooks';
-// import { v4 } from 'uuid';
-// import { useBondsContext } from '../../bonds.hooks';
 import ActionButtons from './action-buttons';
+import TransactionSummaryClaimBody from './claim-body';
 import Overview from './overview';
 import TransactionSummaryStakeBody from './stake-body';
 import { TransactionSummaryProps } from './transaction-summary.types';
 import TransactionSummaryUnstakeBody from './unstake-body';
-// import ValidatorDetails from './validator-details';
 
 const TransactionSummary: FC<TransactionSummaryProps> = ({
   submitText,
   handleClear,
   handleSubmit,
 }) => {
-  const disable = false;
+  const disable = false; // TODO: handle the logic
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const { form } = useBondsContext();
@@ -52,17 +50,7 @@ const TransactionSummary: FC<TransactionSummaryProps> = ({
         >
           {type === 'stake' && <TransactionSummaryStakeBody />}
           {type === 'unstake' && <TransactionSummaryUnstakeBody />}
-          {/* {amountList.map((amount) => (
-            <Amount
-              key={v4()}
-              label={amount.label}
-              fieldList={amount.fieldList}
-              value={disable ? '--' : amount.value}
-            />
-          ))} */}
-          {/* {validatorDetailsData && (
-            <ValidatorDetails {...validatorDetailsData} />
-          )} */}
+          {type === 'claim' && <TransactionSummaryClaimBody />}
         </Box>
       </Box>
       <Box mt="5rem">

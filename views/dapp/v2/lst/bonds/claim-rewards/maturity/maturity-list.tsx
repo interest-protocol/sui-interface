@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 import { v4 } from 'uuid';
 
+import { MONTHS } from '@/constants';
 import { ISuiYNSVG } from '@/svg';
-import { formatDollars } from '@/utils';
 
 import { useBondsContext } from '../../bonds.hooks';
 import SelectCard from '../../components/select-card';
@@ -15,10 +15,9 @@ const BondsClaimRewardsMaturityList: FC = () => {
   const control = form.control;
   const maturity = useWatch({ control, name: 'maturity' });
 
-  const handleMaturitySelected = (date: string, amount: string, id: string) => {
+  const handleMaturitySelected = (date: number, amount: string, id: string) => {
     form.setValue('amount', amount);
-    form.setValue('amountUSD', formatDollars(+amount));
-    form.setValue('maturity', { date, id });
+    form.setValue('maturity', { date: String(date), id });
   };
 
   return (
@@ -28,7 +27,7 @@ const BondsClaimRewardsMaturityList: FC = () => {
       flexDirection="column"
       gridTemplateColumns="1fr 1fr"
     >
-      {MATURITY_LIST.map(({ date, id }) => (
+      {MATURITY_LIST.map(({ date, id, amount }) => (
         <SelectCard
           key={v4()}
           checked={maturity.id === id}
@@ -45,10 +44,12 @@ const BondsClaimRewardsMaturityList: FC = () => {
               </Box>
               <Box>
                 <Typography variant="small" fontSize="0.875rem">
-                  {date}
+                  {`${new Date(date).getDate()} • ${
+                    MONTHS[new Date(date).getMonth()]
+                  } • ${new Date(date).getFullYear()}`}
                 </Typography>
                 <Typography variant="small" fontSize="0.875rem" opacity="0.6">
-                  10
+                  {amount ?? '--'}
                 </Typography>
               </Box>
             </Box>

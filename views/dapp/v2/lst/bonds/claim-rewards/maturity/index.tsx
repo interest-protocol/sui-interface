@@ -18,8 +18,8 @@ const BondsClaimRewardsMaturity: FC = () => {
       <Typography
         variant="medium"
         color="onSurface"
-        fontSize={['0.75rem', '0.75rem', '0.75rem', 'l']}
         mb={['xs', 'xs', 'xs', 'l']}
+        fontSize={['0.75rem', '0.75rem', '0.75rem', 'l']}
       >
         {t('lst.bonds.clamRewards.maturity.selectRedeem')}
       </Typography>
