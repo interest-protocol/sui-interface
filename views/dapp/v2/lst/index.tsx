@@ -33,7 +33,9 @@ const LSTLayout: FC<PropsWithChildren<LSTProps>> = ({ loading, children }) => {
   const { push, asPath } = useRouter();
 
   const currentTab = findIndex(
-    (link) => includes(asPath, link) || asPath === Routes[RoutesEnum.LSTStake],
+    (link) =>
+      includes(asPath.split('?')[0], link) ||
+      asPath === Routes[RoutesEnum.LSTStake],
     links
   );
 
