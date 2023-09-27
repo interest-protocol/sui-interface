@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import CardSection from '../../components/card-section';
-import { ASSETS_DATA } from './assets.data';
+import { ASSETS_DATA } from './assets.mock';
 import AssetsTable from './table';
 
 const PortfolioAssets: FC = () => {
