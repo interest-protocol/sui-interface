@@ -26,8 +26,8 @@ const ValidatorsPage: NextPageWithProps = ({ pageTitle }) => (
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, LstMessages] = await Promise.all([
-    import(`../../../../assets/messages/common/${locale}.json`),
-    import(`../../../../assets/messages/lst/${locale}.json`),
+    import(`../../../../../assets/messages/common/${locale}.json`),
+    import(`../../../../../assets/messages/lst/${locale}.json`),
   ]);
 
   const messages = mergeDeepRight(commonMessages.default, LstMessages.default);

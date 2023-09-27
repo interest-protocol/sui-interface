@@ -10,4 +10,5 @@ export { default as RefBox } from './ref-box';
 export { default as ResponsiveImage } from './responsive-image';
 export { default as Rotate } from './rotate';
 export { default as Table } from './table';
+export { default as Textarea } from './textarea';
 export { default as Typography } from './typography';

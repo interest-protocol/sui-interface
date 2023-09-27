@@ -98,7 +98,9 @@ const ValidatorsTableDataItem: FC<ValidatorListTableDataItemProps> = ({
         <Box display="flex" justifyContent="flex-end">
           <a
             onClick={(e) => e.stopPropagation()}
-            href={`${Routes[RoutesEnum.LSTValidators]}`}
+            href={`${Routes[RoutesEnum.LSTValidatorDetails]}?validatorAddress=${
+              validator.suiAddress
+            }`}
             target="_blank"
             rel="noreferrer"
           >

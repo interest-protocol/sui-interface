@@ -24,7 +24,7 @@ const links = [
     Routes[RoutesEnum.LSTBondsUnstake],
   ],
   [Routes[RoutesEnum.LSTPortfolio]],
-  [Routes[RoutesEnum.LSTValidators]],
+  [Routes[RoutesEnum.LSTValidators], Routes[RoutesEnum.LSTValidatorDetails]],
   [Routes[RoutesEnum.LSTStats]],
 ];
 

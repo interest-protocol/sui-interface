@@ -1,6 +1,5 @@
 import { Box } from '@interest-protocol/ui-kit';
 import BigNumber from 'bignumber.js';
-import { pathOr } from 'ramda';
 import { FC } from 'react';
 
 import { FixedPointMath } from '@/lib';
@@ -13,8 +12,7 @@ import ValidatorsTableData from './validators-table-data';
 import ValidatorsTableHead from './validators-table-head';
 
 const ValidatorsTable: FC<AllValidatorsProps> = ({ control }) => {
-  const { validatorStakeRecord, activeValidators, validatorsApy, isLoading } =
-    useLstData();
+  const { activeValidators, validatorsApy, isLoading } = useLstData();
 
   if (isLoading) return <ValidatorsTableSkeleton />;
 
@@ -31,32 +29,30 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({ control }) => {
         projectUrl,
         suiAddress,
         description,
+        votingPower,
         commissionRate,
         stakingPoolSuiBalance,
       }) => ({
         name,
         imageUrl,
         projectUrl,
+        suiAddress,
         description,
+        votingPower: +votingPower / 100,
         commissionRate: +commissionRate / 100,
         stakingPoolSuiBalanceString: stakingPoolSuiBalance,
         apy: Number((apyMap[suiAddress] * 100 ?? 0).toFixed(2)).toPrecision(),
         stakingPoolSuiBalance: formatMoney(
           FixedPointMath.toNumber(BigNumber(stakingPoolSuiBalance))
         ),
-        lstStaked: Number(
-          FixedPointMath.toNumber(
-            BigNumber(
-              pathOr('0', [suiAddress, 'principal'], validatorStakeRecord)
-            )
-          ).toFixed(4)
-        ).toPrecision(),
       })
     )
     .sort((a, b) =>
       +a.stakingPoolSuiBalanceString > +b.stakingPoolSuiBalanceString ? -1 : 0
     )
-    .sort((a, b) => (+a.lstStaked > +b.lstStaked ? -1 : 0));
+    .sort((a, b) =>
+      +a.stakingPoolSuiBalance > +b.stakingPoolSuiBalance ? -1 : 0
+    );
 
   return (
     <Box

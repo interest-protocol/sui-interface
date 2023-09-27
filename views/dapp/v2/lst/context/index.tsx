@@ -18,16 +18,16 @@ import {
 import { ILSTContext } from './context.types';
 
 const lstContext = createContext({
-  suiCoinInfo: null,
-  last30daysPrice: [],
-  lstStorage: DEFAULT_LST_STORAGE,
-  validatorStakeRecord: {},
-  activeValidators: [],
-  validatorsApy: [] as unknown as ValidatorsApy,
-  isLoading: true,
-  iSuiExchangeRate: 1,
-  totalISuiMinted: 0,
   mutate: noop,
+  isLoading: true,
+  suiCoinInfo: null,
+  totalISuiMinted: 0,
+  iSuiExchangeRate: 1,
+  last30daysPrice: [],
+  activeValidators: [],
+  validatorStakeRecord: {},
+  lstStorage: DEFAULT_LST_STORAGE,
+  validatorsApy: { epoch: '', apys: [] } as ValidatorsApy,
 } as ILSTContext);
 
 export const LSTProvider: FC<PropsWithChildren> = ({ children }) => {
