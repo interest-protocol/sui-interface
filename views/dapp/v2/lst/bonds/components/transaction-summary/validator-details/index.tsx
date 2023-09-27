@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { ValidatorDetailsProps } from './validator-details.type';
+import { ValidatorDetailsProps } from './validator-details.types';
 
 const ValidatorDetails: FC<ValidatorDetailsProps> = ({
   name,

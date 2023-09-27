@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 
 export interface SelectCardProps {
-  value?: boolean;
   title?: ReactNode;
+  checked?: boolean;
   content?: ReactNode;
   onSelect?: (value: boolean) => void;
 }

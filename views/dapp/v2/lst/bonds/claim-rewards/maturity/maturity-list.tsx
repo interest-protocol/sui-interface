@@ -8,9 +8,9 @@ import { formatDollars } from '@/utils';
 
 import { useBondsContext } from '../../bonds.hooks';
 import SelectCard from '../../components/select-card';
-import { MaturityProps } from './maturity.types';
+import { MATURITY_LIST } from '../claim-rewards.mock';
 
-const BondsClaimRewardsMaturityList: FC<MaturityProps> = ({ maturityList }) => {
+const BondsClaimRewardsMaturityList: FC = () => {
   const { form } = useBondsContext();
   const control = form.control;
   const maturity = useWatch({ control, name: 'maturity' });
@@ -28,10 +28,11 @@ const BondsClaimRewardsMaturityList: FC<MaturityProps> = ({ maturityList }) => {
       flexDirection="column"
       gridTemplateColumns="1fr 1fr"
     >
-      {maturityList.map(({ date, id }) => (
+      {MATURITY_LIST.map(({ date, id }) => (
         <SelectCard
           key={v4()}
-          value={maturity.id === id}
+          checked={maturity.id === id}
+          onSelect={() => handleMaturitySelected(date, '10', id)}
           content={
             <Box display="flex">
               <Box color="white" mr="0.5rem">
@@ -52,7 +53,6 @@ const BondsClaimRewardsMaturityList: FC<MaturityProps> = ({ maturityList }) => {
               </Box>
             </Box>
           }
-          onSelect={() => handleMaturitySelected(date, '10', id)}
         />
       ))}
     </Box>

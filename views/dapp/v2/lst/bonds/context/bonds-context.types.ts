@@ -4,10 +4,9 @@ export interface BondsForm {
   amount: string;
   amountUSD: string;
   validator: string;
-  maturity: {
-    id: string;
-    date: string;
-  };
+  tokens: ReadonlyArray<string>;
+  type: 'stake' | 'unstake' | 'claim';
+  maturity: { id: string; date: string };
 }
 
 export interface IBondsContext {

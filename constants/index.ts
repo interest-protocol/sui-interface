@@ -202,3 +202,18 @@ export const SEMANTIC_COLORS = [
 
 export const SCALAR = BigNumber(1e9);
 export const DOUBLE_SCALAR = BigNumber(1e18);
+
+export const MONTHS = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];

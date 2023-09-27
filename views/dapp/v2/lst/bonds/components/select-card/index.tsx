@@ -1,25 +1,17 @@
 import { Box } from '@interest-protocol/ui-kit';
-import { not } from 'ramda';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { CheckSVG } from '@/components/svg/v2';
 
 import { SelectCardProps } from './select-card.types';
 
 const SelectCard: FC<SelectCardProps> = ({
-  value,
   title,
   content,
+  checked,
   onSelect,
 }) => {
-  const [checked, setCheck] = useState(value ?? false);
-
-  const handleChange = () => {
-    setCheck(not);
-    onSelect?.(!checked);
-  };
-
-  console.log('>>  checked :: ', checked);
+  const handleChange = () => onSelect?.(!checked);
 
   return (
     <Box

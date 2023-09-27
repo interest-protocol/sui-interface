@@ -1,35 +1,37 @@
 import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
-import { v4 } from 'uuid';
 
+import { useBondsContext } from '../../bonds.hooks';
+// import { v4 } from 'uuid';
+// import { useBondsContext } from '../../bonds.hooks';
 import ActionButtons from './action-buttons';
 import Amount from './amount';
 import Overview from './overview';
-import { TransactionSummaryProps } from './transaction-summary.type';
-import ValidatorDetails from './validator-details';
+import { TransactionSummaryProps } from './transaction-summary.types';
+// import ValidatorDetails from './validator-details';
 
-const TransactionSummaryContainer: FC<TransactionSummaryProps> = ({
-  amountList,
-  disable,
+const TransactionSummary: FC<TransactionSummaryProps> = ({
+  submitText,
   handleClear,
   handleSubmit,
-  validatorDetailsData,
-  overviewData,
-  submitText,
 }) => {
+  const disable = false;
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
+  const { form } = useBondsContext();
+
+  const type = form.getValues('type');
 
   return (
     <Box
-      bg="surface.container"
       p="l"
-      borderRadius="0.5rem"
-      minHeight={['max-content', 'max-content', 'max-content', '90vh']}
       display="flex"
+      borderRadius="0.5rem"
+      bg="surface.container"
       flexDirection="column"
       justifyContent="space-between"
+      minHeight={['max-content', 'max-content', 'max-content', '90vh']}
     >
       <Box>
         <Typography
@@ -47,30 +49,31 @@ const TransactionSummaryContainer: FC<TransactionSummaryProps> = ({
           flexDirection="column"
           gap="l"
         >
-          {amountList.map((amount) => (
+          {type === 'stake' && <Amount value={''} fieldList={[]} />}
+          {/* {amountList.map((amount) => (
             <Amount
               key={v4()}
               label={amount.label}
               fieldList={amount.fieldList}
               value={disable ? '--' : amount.value}
             />
-          ))}
-          {validatorDetailsData && (
+          ))} */}
+          {/* {validatorDetailsData && (
             <ValidatorDetails {...validatorDetailsData} />
-          )}
+          )} */}
         </Box>
       </Box>
       <Box mt="5rem">
-        <Overview {...overviewData} />
+        <Overview fee={0.12} />
         <ActionButtons
           disable={disable}
           submitText={submitText}
-          handleSubmit={handleSubmit}
           handleClear={handleClear}
+          handleSubmit={handleSubmit}
         />
       </Box>
     </Box>
   );
 };
 
-export default TransactionSummaryContainer;
+export default TransactionSummary;

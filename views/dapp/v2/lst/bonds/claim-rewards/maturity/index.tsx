@@ -5,10 +5,9 @@ import { FC } from 'react';
 import { capitalize } from '@/utils';
 
 import BondsContainer from '../../components/bonds-container';
-import { MaturityProps } from './maturity.types';
 import BondsClaimRewardsMaturityList from './maturity-list';
 
-const BondsClaimRewardsMaturity: FC<MaturityProps> = ({ maturityList }) => {
+const BondsClaimRewardsMaturity: FC = () => {
   const t = useTranslations();
 
   return (
@@ -24,7 +23,7 @@ const BondsClaimRewardsMaturity: FC<MaturityProps> = ({ maturityList }) => {
       >
         {t('lst.clamRewards.maturity.selectRedeem')}
       </Typography>
-      <BondsClaimRewardsMaturityList maturityList={maturityList} />
+      <BondsClaimRewardsMaturityList />
     </BondsContainer>
   );
 };
