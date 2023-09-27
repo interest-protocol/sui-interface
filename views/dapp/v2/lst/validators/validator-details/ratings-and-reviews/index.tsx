@@ -7,7 +7,6 @@ import { capitalize } from '@/utils';
 import {
   RatingRowProps,
   ValidatorsUserActionsProps,
-  VotingButtonsProps,
 } from '../validators-details.types';
 import CommunityInvite from './community-invite';
 import RatingRow from './rating-row';
@@ -31,9 +30,7 @@ const DividerLine = () => {
 };
 
 const ValidatorRatings: FC<
-  VotingButtonsProps &
-    RatingRowProps &
-    Pick<ValidatorsUserActionsProps, 'ranking'>
+  RatingRowProps & Pick<ValidatorsUserActionsProps, 'ranking'>
 > = ({ ranking, negativeReview, positiveReview }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;

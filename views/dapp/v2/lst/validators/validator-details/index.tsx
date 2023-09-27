@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { pathOr } from 'ramda';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { Routes, RoutesEnum } from '@/constants';
 import { FixedPointMath } from '@/lib';
@@ -17,8 +17,6 @@ import { validatorDetailsMockData } from './validator-details.mock';
 import ValidatorDetailsSection from './validator-information';
 
 const ValidatorDetailsPage: FC = () => {
-  const [isNegative, setIsNegative] = useState<boolean>(false);
-  const [isPositive, setIsPositive] = useState<boolean>(false);
   const t = useTranslations();
   const { push } = useRouter();
   const { validatorStakeRecord, activeValidators } = useLstData();
@@ -130,14 +128,11 @@ const ValidatorDetailsPage: FC = () => {
           flexDirection={['column', 'column', 'column', 'row']}
           gap="1.5rem"
         >
+          {/* 
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          @ts-ignore */}
           <ValidatorDetailsSection {...validatorDetailsAndComments} />
-          <ValidatorRatings
-            isNegative={isNegative}
-            isPositive={isPositive}
-            setIsNegative={setIsNegative}
-            setIsPositive={setIsPositive}
-            {...validatorDetailsAndComments}
-          />
+          <ValidatorRatings {...validatorDetailsAndComments} />
         </Box>
       </Box>
     </Box>
