@@ -19,6 +19,7 @@ const BondsClaimRewards: FC = () => {
   const t = useTranslations();
   const { form } = useBondsContext();
   const { setModal, handleClose } = useModal();
+  const txUrlMock = 'https://burrrd.club';
 
   const handleSubmit = () => {
     openModal('loading');
@@ -38,7 +39,11 @@ const BondsClaimRewards: FC = () => {
         loading: <BondsFormLoadingModal handleClose={handleClose} />,
         error: <BondsFormFailModal handleClose={handleClose} />,
         success: (
-          <BondsFormConfirmModal handleClose={handleClose} onClick={noop} />
+          <BondsFormConfirmModal
+            onClick={noop}
+            handleClose={handleClose}
+            viewInExplorerLink={txUrlMock}
+          />
         ),
       }[type],
       {

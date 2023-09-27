@@ -4,6 +4,43 @@
       "title": "LST",
       "description": "LST nova funcionalidade"
     },
+    "bonds": {
+      "menu": {
+        "stake": {
+          "title": "Apostar SUI",
+          "description": "Apostar SUI e<br></br>receber iSUIP e iSUIY",
+          "button": "Iniciar"
+        },
+        "unstake": {
+          "title": "Desapostar<br></br>iSUIY e iSUIP",
+          "description": "Desapostar iSUIP ou<br></br>iSUIP + iSUIY e receber SUI",
+          "button": "Iniciar"
+        },
+        "rewards": {
+          "title": "Reivindicar<br></br>Recompensas",
+          "description": "Reivindicar seu iSUIY<br></br>rendimento em SUI",
+          "button": "Iniciar"
+        }
+      },
+      "stake": {
+        "title": "Apostar SUI",
+        "description": "Introduza as informações abaixo para concluir a sua transação.",
+        "form": {
+          "selectMaturity": "Selecionar Maturidade",
+          "selectAmount": "Selecionar Valor a Apostar",
+          "selectValidator": "Selecionar Validador"
+        }
+      },
+      "unstake": {
+        "title": "Desapostar",
+        "description": "Introduza as informações abaixo para concluir a sua transação.",
+        "form": {
+          "selectRedeem": "Selecionar o que deseja desapostar de SFT",
+          "selectMaturity": "Selecionar Maturidade",
+          "selectAmount": "Selecionar Valor a Desapostar"
+        }
+      }
+    },
     "tabs": {
       "stake": "apostar",
       "bonds": "títulos",
@@ -202,6 +239,7 @@
     "selectAssets": "Escolha activos",
     "maturity": "Maturidade {date}",
     "clamRewards": {
+      "title": "Receber prémios",
       "noRewards": {
         "title": "Lamentamos, mas não tem quaisquer recompensas para reclamar",
         "description": "Para obtener iSUIY por favor ve y toma algunos SUI"
@@ -209,7 +247,7 @@
       "maturity": {
         "title": "Receber prémios",
         "description": "Introduza as suas informações para concluir a sua transação",
-        "selectRedeem": "Selecciona qué iSUIY canjear"
+        "selectRedeem": "Selecione o que iSUIY pode usar"
       },
       "transactionSummary": {
         "title": "Resumo da transação",
@@ -226,7 +264,8 @@
       },
       "modal": {
         "success": {
-          "description": "Transação concluída"
+          "description": "Transação concluída",
+          "viewInExplorer": "Ver no explorador"
         },
         "error": {
           "description": "Falha na Transação"
