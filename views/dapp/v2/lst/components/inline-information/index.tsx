@@ -8,8 +8,10 @@ import { capitalize } from '@/utils';
 import { InlineInformationProps } from './small-information.types';
 
 const InlineInformation: FC<InlineInformationProps> = ({
+  bg,
   Icon,
   value,
+  color,
   description,
 }) => {
   const t = useTranslations();
@@ -23,8 +25,8 @@ const InlineInformation: FC<InlineInformationProps> = ({
         aspectRatio="1/1"
         alignItems="center"
         justifyContent="center"
-        bg="surface.containerHigh"
-        color="primary"
+        color={color ? color : 'primary'}
+        bg={bg ? bg : 'surface.containerHigh'}
       >
         <Icon width="100%" maxHeight="1.25rem" maxWidth="1.25rem" />
       </Box>

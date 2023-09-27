@@ -14,17 +14,19 @@ const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   loading: LoadingPage,
 });
 
-const ValidatorsPage: NextPageWithProps = ({ pageTitle }) => (
-  <Web3Manager>
-    <SEO pageTitle={pageTitle} />
-    <LST />
-  </Web3Manager>
-);
+const LSTValidatorsDetailsPage: NextPageWithProps = ({ pageTitle }) => {
+  return (
+    <Web3Manager>
+      <SEO pageTitle={pageTitle} />
+      <LST />
+    </Web3Manager>
+  );
+};
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const [commonMessages, LstMessages] = await Promise.all([
-    import(`../../../../assets/messages/common/${locale}.json`),
-    import(`../../../../assets/messages/lst/${locale}.json`),
+    import(`../../../../../assets/messages/common/${locale}.json`),
+    import(`../../../../../assets/messages/lst/${locale}.json`),
   ]);
 
   const messages = mergeDeepRight(commonMessages.default, LstMessages.default);
@@ -38,4 +40,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default ValidatorsPage;
+export default LSTValidatorsDetailsPage;
