@@ -8,7 +8,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { ActionButtonsProps } from './action-buttons.type';
+import { ActionButtonsProps } from './action-buttons.types';
 
 const ActionButtons: FC<ActionButtonsProps> = ({
   disable,

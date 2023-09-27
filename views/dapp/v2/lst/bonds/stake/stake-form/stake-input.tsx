@@ -9,19 +9,29 @@ import {
   parseInputEventToNumberString,
 } from '@/utils';
 
+import { useBondsContext } from '../../bonds.hooks';
+import MoneyInput from '../../components/money-input';
 import MoneyInput from '../../money-input';
 import { StakeInputProps } from '../stake-form.types';
 
+interface StakeInputProps {
+  suiPrice: number;
+  exchangeRate: number;
+  totalBalance: BigNumber;
+}
+
 const StakeInput: FC<StakeInputProps> = ({
-  form,
   suiPrice,
   totalBalance,
   exchangeRate,
 }) => {
+  const { form } = useBondsContext();
+
   return (
     <MoneyInput
-      Prefix={<SUISVG maxHeight="3rem" maxWidth="3rem" height="100%" filled />}
       control={form.control}
+      balance={formatMoney(FixedPointMath.toNumber(totalBalance))}
+      Prefix={<SUISVG maxHeight="3rem" maxWidth="3rem" height="100%" filled />}
       onChangeValue={(value: number) => {
         form.setValue?.(
           'amount',
@@ -40,7 +50,6 @@ const StakeInput: FC<StakeInputProps> = ({
           )
         );
       }}
-      balance={formatMoney(FixedPointMath.toNumber(totalBalance))}
       {...form.register('amount', {
         onChange: (v: ChangeEvent<HTMLInputElement>) => {
           form.setValue?.('amount', parseInputEventToNumberString(v));

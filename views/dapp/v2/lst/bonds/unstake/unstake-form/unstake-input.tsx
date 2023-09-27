@@ -1,7 +1,10 @@
+import { Box } from '@interest-protocol/ui-kit';
 import BigNumber from 'bignumber.js';
 import { ChangeEvent, FC } from 'react';
+import { useWatch } from 'react-hook-form';
 
-import { SUISVG } from '@/components/svg/v2';
+import { ISuiPSVG, ISuiYNSVG } from '@/components/svg/v2';
+import { ISUI_PRINCIPAL_TYPE, ISUI_YIELD_TYPE } from '@/constants/lst';
 import { FixedPointMath } from '@/lib';
 import {
   formatDollars,
@@ -10,7 +13,7 @@ import {
 } from '@/utils';
 
 import { useBondsContext } from '../../bonds.hooks';
-import MoneyInput from '../../money-input';
+import MoneyInput from '../../components/money-input';
 
 interface UnstakeInputProps {
   suiPrice: number;
@@ -23,20 +26,46 @@ const UnstakeInput: FC<UnstakeInputProps> = ({
   totalBalance,
   exchangeRate,
 }) => {
-  const { form } = useBondsContext();
+  const {
+    form: { control, register, setValue },
+  } = useBondsContext();
+  const tokens = useWatch({ control, name: 'tokens' });
+
+  const haveiSuiP = tokens.includes(ISUI_PRINCIPAL_TYPE);
+  const haveiSuiYn = tokens.includes(ISUI_YIELD_TYPE);
 
   return (
     <MoneyInput
-      Prefix={<SUISVG maxHeight="3rem" maxWidth="3rem" height="100%" filled />}
-      control={form.control}
+      control={control}
+      balance={formatMoney(FixedPointMath.toNumber(totalBalance))}
+      Prefix={
+        <Box display="flex" gap="s">
+          {haveiSuiP && (
+            <ISuiPSVG
+              maxHeight="3rem"
+              maxWidth="3rem"
+              height="100%"
+              width="100%"
+            />
+          )}
+          {haveiSuiYn && (
+            <ISuiYNSVG
+              maxHeight="3rem"
+              maxWidth="3rem"
+              height="100%"
+              width="100%"
+            />
+          )}
+        </Box>
+      }
       onChangeValue={(value: number) => {
-        form.setValue?.(
+        setValue(
           'amount',
           FixedPointMath.toNumber(
             totalBalance.dividedBy(BigNumber(100 / value))
           ).toString()
         );
-        form.setValue?.(
+        setValue(
           'amountUSD',
           formatDollars(
             FixedPointMath.toNumber(
@@ -47,11 +76,10 @@ const UnstakeInput: FC<UnstakeInputProps> = ({
           )
         );
       }}
-      balance={formatMoney(FixedPointMath.toNumber(totalBalance))}
-      {...form.register('amount', {
+      {...register('amount', {
         onChange: (v: ChangeEvent<HTMLInputElement>) => {
-          form.setValue?.('amount', parseInputEventToNumberString(v));
-          form.setValue?.(
+          setValue('amount', parseInputEventToNumberString(v));
+          setValue(
             'amountUSD',
             formatDollars(
               Number(parseInputEventToNumberString(v)) * suiPrice * exchangeRate

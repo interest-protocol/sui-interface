@@ -64,9 +64,11 @@ const LSTLayout: FC<PropsWithChildren<LSTProps>> = ({ loading, children }) => {
             />
           </Box>
         </Box>
-        <TabsTransition type="fade">
-          {loading ? <LoadingView /> : children}
-        </TabsTransition>
+        <Box variant="container" display="flex" flexDirection="column">
+          <TabsTransition type="fade">
+            {loading ? <LoadingView /> : children}
+          </TabsTransition>
+        </Box>
       </LSTProvider>
     </Layout>
   );

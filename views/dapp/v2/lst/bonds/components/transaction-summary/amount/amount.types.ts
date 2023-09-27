@@ -1,12 +1,13 @@
 import { DERIVATED_SUI_SYMBOL } from '../../../../lst.types';
 
 export interface FieldElement {
-  symbol: DERIVATED_SUI_SYMBOL;
-  description?: string;
   title: string;
+  description?: string;
+  symbol: DERIVATED_SUI_SYMBOL;
 }
+
 export interface AmountProps {
-  label: string;
-  fieldList: ReadonlyArray<FieldElement>;
   value: string;
+  isRedeem?: boolean;
+  fieldList: ReadonlyArray<FieldElement>;
 }

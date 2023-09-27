@@ -38,6 +38,8 @@ const ValidatorsTable: FC<AllValidatorsProps> = ({
 
   if (validatorsApyLoading) return <ValidatorsTableSkeleton />;
 
+  console.log(activeValidators[0]);
+
   const apyMap = (validatorsApy?.apys?.reduce(
     (acc, { address, apy }) => ({ ...acc, [address]: apy }),
     {}
