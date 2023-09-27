@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from '@interest-protocol/ui-kit';
+import { Box, TextField } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
