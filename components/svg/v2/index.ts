@@ -1,9 +1,11 @@
 export { default as ActivitySVG } from './activity';
+export { default as ArrowDownSVG } from './arrow-down';
 export { default as AssetsSVG } from './assets';
 export { default as BNBSVG } from './bnb';
 export { default as BorrowSVG } from './borrow';
 export { default as BridgeSVG } from './bridge';
 export { default as BTCSVG } from './btc';
+export { default as CalendarSVG } from './calendar';
 export { default as CelerBTCETHSVG } from './celer-btc-eth';
 export { default as CelerETHSVG } from './celer-eth';
 export { default as CelerUSDCETHSVG } from './celer-usdc-eth';

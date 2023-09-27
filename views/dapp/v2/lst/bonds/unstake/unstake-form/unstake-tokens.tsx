@@ -18,7 +18,10 @@ const UnstakeTokens: FC = () => {
         checked={
           JSON.stringify(tokens) === JSON.stringify([ISUI_PRINCIPAL_TYPE])
         }
-        onSelect={() => form.setValue('tokens', [ISUI_PRINCIPAL_TYPE])}
+        onSelect={() => {
+          form.setValue('tokens', [ISUI_PRINCIPAL_TYPE]);
+          form.setValue('maturity', { date: '', id: '' });
+        }}
         title={
           <Box display="flex" alignItems="center" gap="l">
             <ISuiPSVG maxHeight="2rem" maxWidth="2rem" height="100%" />
@@ -31,9 +34,10 @@ const UnstakeTokens: FC = () => {
           JSON.stringify(tokens) ===
           JSON.stringify([ISUI_PRINCIPAL_TYPE, ISUI_YIELD_TYPE])
         }
-        onSelect={() =>
-          form.setValue('tokens', [ISUI_PRINCIPAL_TYPE, ISUI_YIELD_TYPE])
-        }
+        onSelect={() => {
+          form.setValue('tokens', [ISUI_PRINCIPAL_TYPE, ISUI_YIELD_TYPE]);
+          form.setValue('maturity', { date: '', id: '' });
+        }}
         title={
           <Box display="flex" alignItems="center" gap="l">
             <Box display="flex" alignItems="center" gap="l">
