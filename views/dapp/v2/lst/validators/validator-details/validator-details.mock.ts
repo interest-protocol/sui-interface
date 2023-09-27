@@ -1,4 +1,4 @@
-export const validatorDetailsMockData = {
+export const VALIDATOR_DETAILS_MOCK_DATA = {
   ranking: 8,
   positiveReview: 432,
   negativeReview: 56,

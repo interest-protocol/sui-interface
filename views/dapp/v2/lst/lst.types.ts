@@ -3,13 +3,13 @@ import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 export type DERIVATED_SUI_SYMBOL = 'SUI' | 'iSui' | 'iSui-PC' | 'iSui-YN';
 
 import BigNumber from 'bignumber.js';
-import { UseFormReturn } from 'react-hook-form';
 
 export interface StakeForm {
   amount: string;
   amountUSD: string;
   coinType: string;
   validator: string;
+  maturity: { date: string; id: string };
 }
 
 export interface ValidatorStakePosition {
@@ -20,7 +20,6 @@ export interface ValidatorStakePosition {
 
 export interface LSTProps {
   loading?: boolean;
-  stakeForm?: UseFormReturn<StakeForm>;
 }
 
 export interface LstFee {

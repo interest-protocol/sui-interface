@@ -1,4 +1,3 @@
-import { SuiSystemStateSummary } from '@mysten/sui.js/src/types';
 import { Control, UseFormRegister } from 'react-hook-form';
 
 export interface IValidatorSearchForm {
@@ -7,7 +6,6 @@ export interface IValidatorSearchForm {
 
 export interface AllValidatorsProps {
   control: Control<IValidatorSearchForm>;
-  activeValidators: SuiSystemStateSummary['activeValidators'];
 }
 
 export interface ValidatorSearchProps {

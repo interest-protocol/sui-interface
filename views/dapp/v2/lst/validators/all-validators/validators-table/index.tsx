@@ -1,39 +1,20 @@
 import { Box } from '@interest-protocol/ui-kit';
 import BigNumber from 'bignumber.js';
-import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { FixedPointMath } from '@/lib';
 import { formatMoney } from '@/utils';
-import { useGetValidatorsApy } from '@/views/dapp/v2/lst/lst.hooks';
 
-import ErrorState from '../../../components/error-state';
 import ValidatorsTableSkeleton from '../../../components/your-info-container/modal/validator-list/validators-table-skeleton';
+import { useLstData } from '../../../lst.hooks';
 import { AllValidatorsProps } from '../all-validators.types';
 import ValidatorsTableData from './validators-table-data';
 import ValidatorsTableHead from './validators-table-head';
 
-const ValidatorsTable: FC<AllValidatorsProps> = ({
-  control,
-  activeValidators,
-}) => {
-  const t = useTranslations();
+const ValidatorsTable: FC<AllValidatorsProps> = ({ control }) => {
+  const { activeValidators, validatorsApy, isLoading } = useLstData();
 
-  const {
-    data: validatorsApy,
-    isLoading: validatorsApyLoading,
-    error: validatorsApyError,
-  } = useGetValidatorsApy();
-
-  if (validatorsApyError)
-    return (
-      <ErrorState
-        size="large"
-        errorMessage={t('lst.validators.tableSection.error')}
-      />
-    );
-
-  if (validatorsApyLoading) return <ValidatorsTableSkeleton />;
+  if (isLoading) return <ValidatorsTableSkeleton />;
 
   const apyMap = (validatorsApy?.apys?.reduce(
     (acc, { address, apy }) => ({ ...acc, [address]: apy }),

@@ -2,16 +2,11 @@ import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import {
-  AllValidatorsProps,
-  IValidatorSearchForm,
-} from './all-validators.types';
+import { IValidatorSearchForm } from './all-validators.types';
 import ValidatorSearch from './validator-search';
 import ValidatorsTable from './validators-table';
 
-const AllValidators: FC<Pick<AllValidatorsProps, 'activeValidators'>> = ({
-  activeValidators,
-}) => {
+const AllValidators: FC = () => {
   const { control, register } = useForm<IValidatorSearchForm>({
     defaultValues: { search: '' },
   });
@@ -19,7 +14,7 @@ const AllValidators: FC<Pick<AllValidatorsProps, 'activeValidators'>> = ({
   return (
     <Box bg="surface.container" p="l" borderRadius="0.5rem">
       <ValidatorSearch register={register} />
-      <ValidatorsTable control={control} activeValidators={activeValidators} />
+      <ValidatorsTable control={control} />
     </Box>
   );
 };

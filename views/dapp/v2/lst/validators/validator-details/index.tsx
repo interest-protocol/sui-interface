@@ -11,23 +11,19 @@ import { ArrowLeft } from '@/svg';
 
 import ErrorState from '../../components/error-state';
 import ValidatorsTableSkeleton from '../../components/your-info-container/modal/validator-list/validators-table-skeleton';
-import { useGetValidatorsApy, useLstData } from '../../lst.hooks';
+import { useLstData } from '../../lst.hooks';
 import ValidatorRatings from './ratings-and-reviews';
-import { validatorDetailsMockData } from './validator-details.mock';
-import ValidatorDetailsSection from './validator-information';
+import { VALIDATOR_DETAILS_MOCK_DATA } from './validator-details.mock';
+import ValidatorInformation from './validator-information';
 
-const ValidatorDetailsPage: FC = () => {
+const ValidatorDetails: FC = () => {
   const t = useTranslations();
   const { push } = useRouter();
-  const { validatorStakeRecord, activeValidators } = useLstData();
+  const { validatorStakeRecord, activeValidators, validatorsApy, isLoading } =
+    useLstData();
   const {
     query: { validatorAddress },
   } = useRouter();
-  const {
-    data: validatorsApy,
-    isLoading: validatorsApyLoading,
-    error: validatorsApyError,
-  } = useGetValidatorsApy();
 
   if (!activeValidators)
     return (
@@ -37,17 +33,7 @@ const ValidatorDetailsPage: FC = () => {
       />
     );
 
-  if (validatorsApyError)
-    return (
-      <ErrorState
-        size="large"
-        errorMessage={t('lst.validators.tableSection.error')}
-      />
-    );
-
-  if (validatorsApyLoading) return <ValidatorsTableSkeleton />;
-
-  console.log('activeValidators', activeValidators);
+  if (isLoading) return <ValidatorsTableSkeleton />;
 
   const apyMap = (validatorsApy?.apys?.reduce(
     (acc, { address, apy }) => ({ ...acc, [address]: apy }),
@@ -88,11 +74,11 @@ const ValidatorDetailsPage: FC = () => {
 
   const validatorData = validators.find(
     (data) => data.suiAddress === validatorAddress
-  );
+  )!;
 
   const validatorDetailsAndComments = {
     ...validatorData,
-    ...validatorDetailsMockData,
+    ...VALIDATOR_DETAILS_MOCK_DATA,
   };
 
   return (
@@ -128,10 +114,7 @@ const ValidatorDetailsPage: FC = () => {
           flexDirection={['column', 'column', 'column', 'row']}
           gap="1.5rem"
         >
-          {/* 
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          @ts-ignore */}
-          <ValidatorDetailsSection {...validatorDetailsAndComments} />
+          <ValidatorInformation {...validatorDetailsAndComments} />
           <ValidatorRatings {...validatorDetailsAndComments} />
         </Box>
       </Box>
@@ -139,4 +122,4 @@ const ValidatorDetailsPage: FC = () => {
   );
 };
 
-export default ValidatorDetailsPage;
+export default ValidatorDetails;

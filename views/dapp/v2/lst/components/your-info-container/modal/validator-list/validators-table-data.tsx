@@ -6,12 +6,11 @@ import { v4 } from 'uuid';
 import { ValidatorListTableDataProps } from '../../your-info.types';
 import ValidatorsTableDataItem from './validators-table-data-item';
 
-const ValidatorsTableData: FC<ValidatorListTableDataProps> = ({
+const ValidatorsTableData: FC<Omit<ValidatorListTableDataProps, 'isStake'>> = ({
   control,
-  isStake,
   validators,
-  newValidator,
-  setNewValidator,
+  handleSelected,
+  currentValidatorAddress,
 }) => {
   const search = useWatch({ control, name: 'search' });
 
@@ -28,10 +27,9 @@ const ValidatorsTableData: FC<ValidatorListTableDataProps> = ({
           <ValidatorsTableDataItem
             key={v4()}
             index={index}
-            isStake={isStake}
             validator={validator}
-            newValidator={newValidator}
-            setNewValidator={setNewValidator}
+            handleSelected={handleSelected}
+            currentValidatorAddress={currentValidatorAddress}
           />
         ))}
     </Box>

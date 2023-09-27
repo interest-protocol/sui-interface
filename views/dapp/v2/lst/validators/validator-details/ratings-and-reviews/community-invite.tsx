@@ -10,7 +10,7 @@ const Illustration = () => (
   </Box>
 );
 
-const CommunityInvite: FC = () => {
+const CommunityInvite: FC<{ vote: () => void }> = ({ vote }) => {
   const t = useTranslations();
   return (
     <Box
@@ -39,7 +39,13 @@ const CommunityInvite: FC = () => {
         )}
       </Typography>
       <Box width="100%" display="flex">
-        <Button variant="filled" size="small" mt="1.5rem" width="100%">
+        <Button
+          mt="1.5rem"
+          size="small"
+          width="100%"
+          onClick={vote}
+          variant="filled"
+        >
           <Typography variant="small" width="100%" textAlign="center">
             {t(
               'lst.validators.validatorSection.validatorDetailsPage.rankingAndCommentsSection.obtainSuiBondToken'

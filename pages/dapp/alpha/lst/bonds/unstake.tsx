@@ -5,9 +5,11 @@ import { FC } from 'react';
 
 import { SEO } from '@/components';
 import { NextPageWithProps } from '@/interface';
-import LST from '@/views/dapp/v2/lst';
+import LSTLayout from '@/views/dapp/v2/lst';
+import { BondsProvider } from '@/views/dapp/v2/lst/bonds/context';
+import LSTBondsUnstake from '@/views/dapp/v2/lst/bonds/unstake';
 
-const LoadingPage: FC = always(<LST loading={true} />);
+const LoadingPage: FC = always(<LSTLayout loading={true} />);
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
@@ -15,10 +17,14 @@ const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
 });
 
 const BondsUnstakePage: NextPageWithProps = ({ pageTitle }) => (
-  <Web3Manager>
-    <SEO pageTitle={pageTitle} />
-    <LST />
-  </Web3Manager>
+  <BondsProvider>
+    <Web3Manager>
+      <SEO pageTitle={pageTitle} />
+      <LSTLayout>
+        <LSTBondsUnstake />
+      </LSTLayout>
+    </Web3Manager>
+  </BondsProvider>
 );
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {

@@ -72,8 +72,13 @@ export const ISUI_COIN_TYPE = `${
 }::isui::ISUI`;
 
 export const ISUI_YIELD_TYPE = `${
-  LST_OBJECTS[Network.TESTNET]
+  LST_OBJECTS[Network.TESTNET].PACKAGE_ID
 }::sui_yield::SuiYield`;
+
+// TODO: CHECK THIS TYPE
+export const ISUI_PRINCIPAL_TYPE = `${
+  LST_OBJECTS[Network.TESTNET].PACKAGE_ID
+}::sui_principal::SuiPrincipal`;
 
 export const DEFAULT_VALIDATOR = {
   [Network.DEVNET]: '',

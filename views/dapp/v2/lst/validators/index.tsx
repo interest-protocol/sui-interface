@@ -5,24 +5,15 @@ import { FC } from 'react';
 import { SUISVG, UsersSVG } from '@/components/svg/v2';
 import { FixedPointMath } from '@/lib';
 
-import ErrorState from '../components/error-state';
 import Overview from '../components/overview';
-import ValidatorsTableSkeleton from '../components/your-info-container/modal/validator-list/validators-table-skeleton';
 import { useLstData } from '../lst.hooks';
-import { useGetActiveValidators } from '../lst.hooks';
 import AllValidators from './all-validators';
-import ValidatorDetailsPage from './validator-details';
-import { ValidatorsProps } from './validators.types';
 
 const OverViewWrapper: FC = () => {
   const t = useTranslations();
 
-  const {
-    data: activeValidators,
-    isLoading: isLoadingActiveValidators,
-    error: errorActiveValidator,
-  } = useGetActiveValidators();
-  const { iSuiExchangeRate, isLoading, lstStorage } = useLstData();
+  const { activeValidators, iSuiExchangeRate, isLoading, lstStorage } =
+    useLstData();
 
   const OVERVIEW_DATA = [
     {
@@ -46,42 +37,16 @@ const OverViewWrapper: FC = () => {
     <Overview
       title={t('lst.overview.title')}
       data={OVERVIEW_DATA}
-      isLoading={isLoading || isLoadingActiveValidators}
-      error={errorActiveValidator}
+      isLoading={isLoading}
     />
   );
 };
 
-const Validators: FC<ValidatorsProps> = ({ type }) => {
-  const {
-    data: activeValidators,
-    isLoading: activeValidatorsLoading,
-    error: activeValidatorsError,
-  } = useGetActiveValidators();
-
-  const t = useTranslations();
-
-  return (
-    <>
-      {type === 'details' ? (
-        <ValidatorDetailsPage />
-      ) : (
-        <Box variant="container" display="flex" flexDirection="column">
-          <OverViewWrapper />
-          {activeValidatorsLoading ? (
-            <ValidatorsTableSkeleton />
-          ) : activeValidatorsError ? (
-            <ErrorState
-              size="large"
-              errorMessage={t('lst.validators.tableSection.error')}
-            />
-          ) : (
-            <AllValidators activeValidators={activeValidators} />
-          )}
-        </Box>
-      )}
-    </>
-  );
-};
+const Validators: FC = () => (
+  <Box variant="container" display="flex" flexDirection="column">
+    <OverViewWrapper />
+    <AllValidators />
+  </Box>
+);
 
 export default Validators;

@@ -32,12 +32,12 @@ export interface ValidatorDetailsProps {
   name: string;
   apy: string;
   description: string;
-  commissionRate: string;
+  commissionRate: number;
   gasPrice: string;
   imageUrl: string;
   nextEpochGasPrice: string;
   projectUrl: string;
-  votingPower: string;
+  votingPower: number;
   lstStaked: string;
 }
 

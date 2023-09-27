@@ -22,7 +22,7 @@ import {
 } from '../validators-details.types';
 import ValidatorComments from './comments';
 
-const ValidatorInformations: FC<
+const ValidatorInformation: FC<
   ValidatorDetailsProps & Pick<ValidatorsUserActionsProps, 'comments'>
 > = ({
   apy,
@@ -134,10 +134,9 @@ const ValidatorInformations: FC<
           description="lst.validators.validatorSection.validatorDetailsPage.detailsSection.nextEpochGasPrice"
         />
       </Box>
-
       <ValidatorComments comments={comments} />
     </Box>
   );
 };
 
-export default ValidatorInformations;
+export default ValidatorInformation;

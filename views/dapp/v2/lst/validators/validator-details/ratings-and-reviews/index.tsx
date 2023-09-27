@@ -1,6 +1,6 @@
 import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { capitalize } from '@/utils';
 
@@ -10,6 +10,7 @@ import {
 } from '../validators-details.types';
 import CommunityInvite from './community-invite';
 import RatingRow from './rating-row';
+import ReviewAndComments from './review-and-comments';
 // import ReviewAndComments from './review-and-comments';
 
 const MAX_RANKING = 10;
@@ -34,6 +35,7 @@ const ValidatorRatings: FC<
 > = ({ ranking, negativeReview, positiveReview }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
+  const [isVoting, setIsVoting] = useState(false);
 
   return (
     <Box
@@ -98,11 +100,11 @@ const ValidatorRatings: FC<
           />
         </Box>
       </Box>
-      <CommunityInvite />
-      {/* 
-      TODO: handle this rendering
-      <ReviewAndComments /> 
-      */}
+      {isVoting ? (
+        <ReviewAndComments />
+      ) : (
+        <CommunityInvite vote={() => setIsVoting(true)} />
+      )}
     </Box>
   );
 };
