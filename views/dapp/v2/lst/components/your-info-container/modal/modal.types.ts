@@ -1,11 +1,9 @@
-import { SuiSystemStateSummary } from '@mysten/sui.js';
-
 import {
   SwapFormConfirmModalProps,
   SwapFormFailModalProps,
 } from '@/views/dapp/v2/swap/swap-form/swap-form-preview/swap-form-preview.types';
 
-import { CurrentValidatorProps } from '../your-info.types';
+import { IValidatorModal } from '../your-info.types';
 
 export interface HeaderModalProps {
   title: string;
@@ -14,11 +12,10 @@ export interface HeaderModalProps {
 }
 
 export interface ValidatorListProps {
+  validators: ReadonlyArray<IValidatorModal>;
   handleClose: () => void;
-  isStake: boolean;
-  currentValidator: CurrentValidatorProps;
-  activeValidators: SuiSystemStateSummary['activeValidators'];
-  fillValidator: (fillCurrentValidator: CurrentValidatorProps) => void;
+  handleSelected: (suiAddress: string) => void;
+  currentValidatorAddress: string;
 }
 
 export interface LSTFormFailModalProps extends SwapFormFailModalProps {
