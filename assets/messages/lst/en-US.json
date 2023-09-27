@@ -105,6 +105,7 @@
         "apy": "APY",
         "lstStaked": "LST Staked",
         "commission": "Commission",
+        "votingPower": "Voting Power",
         "error": "An error occurred while fetching validators"
       },
       "validatorSection": {
@@ -132,7 +133,10 @@
             "optionalComment": "(optional) Leave a comment",
             "publish": "publish",
             "modalMessage": "Thanks for summitting your vote",
-            "backToHome": "back to home"
+            "backToHome": "back to home",
+            "communityInvite": "Be part of the community",
+            "requisitesToVote": "You need Soul Bound Token to write comments & vote.",
+            "obtainSuiBondToken": "Obtain Sui Bond Token"
           }
         },
         "activeValidatorError": "An error occurred while validator activation"

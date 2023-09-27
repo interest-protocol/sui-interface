@@ -16,13 +16,13 @@ const ValidatorsTableHead: FC = () => {
         {capitalize(t('lst.validators.tableSection.name'))}
       </Typography>
       <Typography variant="small" textAlign="right" textTransform="uppercase">
-        {t('lst.validators.tableSection.lstStaked')}
-      </Typography>
-      <Typography variant="small" textAlign="right" textTransform="uppercase">
         {t('common.stake', { isLoading: 0 })}
       </Typography>
       <Typography variant="small" textAlign="right" textTransform="uppercase">
         {t('lst.validators.tableSection.apy')}
+      </Typography>
+      <Typography variant="small" textAlign="right" textTransform="uppercase">
+        {t('lst.validators.tableSection.votingPower')}
       </Typography>
       <Typography variant="small" textAlign="right" textTransform="capitalize">
         {t('lst.validators.tableSection.commission')}

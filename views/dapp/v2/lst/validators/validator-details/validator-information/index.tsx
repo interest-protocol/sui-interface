@@ -1,4 +1,5 @@
 import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
+import { formatAddress } from '@mysten/sui.js';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
@@ -15,17 +16,27 @@ import SUI from '@/components/svg/v2/sui';
 import { capitalize } from '@/utils';
 
 import InlineInformation from '../../../components/inline-information';
-import { ValidatorDetailsProps } from '../validators-details.types';
+import {
+  ValidatorDetailsProps,
+  ValidatorsUserActionsProps,
+} from '../validators-details.types';
 import ValidatorComments from './comments';
-import ValidatorsLogoSVG from './logo-svg';
 
-const ValidatorInformations: FC<ValidatorDetailsProps> = ({
-  address,
+const ValidatorInformations: FC<
+  ValidatorDetailsProps & Pick<ValidatorsUserActionsProps, 'comments'>
+> = ({
+  apy,
+  name,
+  gasPrice,
   comments,
-  validatorDescription,
-  validatorName,
-  wesite,
-  activity,
+  imageUrl,
+  lstStaked,
+  suiAddress,
+  projectUrl,
+  votingPower,
+  description,
+  commissionRate,
+  nextEpochGasPrice,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
@@ -40,27 +51,25 @@ const ValidatorInformations: FC<ValidatorDetailsProps> = ({
     >
       <Box width="100%" display="flex" gap="1.5rem">
         <Box
-          p=".5rem"
           bg="white"
+          display="flex"
+          width="6.25rem"
           borderRadius="s"
-          minWidth="5.0625rem"
-          maxHeight="5.0625rem"
+          height="6.25rem"
+          alignItems="center"
+          justifyContent="center"
         >
-          <ValidatorsLogoSVG
-            width="100%"
-            maxWidth="5.0625rem"
-            maxHeight="5.0625rem"
-          />
+          <img src={imageUrl} width="100px" height="100px" alt={name} />
         </Box>
         <Box display="flex" flexDirection="column" justifyContent="flex-start">
           <Box color="onSurface">
             <Typography variant="displaySmall">
               <Box as="span" textTransform="capitalize" fontSize="2.25rem">
-                {validatorName}
+                {name}
               </Box>
             </Typography>
           </Box>
-          <Typography variant="medium">{validatorDescription}</Typography>
+          <Typography variant="medium">{description}</Typography>
         </Box>
       </Box>
 
@@ -71,9 +80,9 @@ const ValidatorInformations: FC<ValidatorDetailsProps> = ({
               'lst.validators.validatorSection.validatorDetailsPage.detailsSection.address'
             )
           )}
-          : {address}
+          : {formatAddress(suiAddress)}
         </Typography>
-        <CopyToClipboard data={'Test'} />
+        <CopyToClipboard data={suiAddress} />
       </Box>
 
       <Box display="flex" gap="m" alignItems="center">
@@ -83,7 +92,10 @@ const ValidatorInformations: FC<ValidatorDetailsProps> = ({
               'lst.validators.validatorSection.validatorDetailsPage.detailsSection.web'
             )
           )}
-          : {wesite}
+          :{' '}
+          <a href={projectUrl} target="_blank" rel="noreferrer">
+            {projectUrl}
+          </a>
         </Typography>
         <ArrowLink maxHeight=".625rem" maxWidth=".625rem" width="100%" />
       </Box>
@@ -94,31 +106,31 @@ const ValidatorInformations: FC<ValidatorDetailsProps> = ({
           bg="#6FBCF0"
           color={dark ? 'white' : 'onSurface'}
           description="lst.validators.validatorSection.validatorDetailsPage.detailsSection.totalSuiStaked"
-          value={activity.totalSuiStaked}
+          value={lstStaked}
         />
         <InlineInformation
           Icon={PercentageSVG}
-          value={activity.apy}
+          value={`${apy}%`}
           description="lst.validators.validatorSection.validatorDetailsPage.detailsSection.apy"
         />
         <InlineInformation
           Icon={TVLSVG}
-          value={activity.commission}
+          value={`${commissionRate}%`}
           description="lst.validators.validatorSection.validatorDetailsPage.detailsSection.commission"
         />
         <InlineInformation
           Icon={HandPalmSVG}
-          value={activity.votingPower}
+          value={`${votingPower}%`}
           description="lst.validators.validatorSection.validatorDetailsPage.detailsSection.votingPower"
         />
         <InlineInformation
           Icon={CurrencyCircleDollar}
-          value={activity.gasPrice}
+          value={gasPrice}
           description="lst.validators.validatorSection.validatorDetailsPage.detailsSection.gasPrice"
         />
         <InlineInformation
           Icon={ClockWiseSVG}
-          value={activity.nextEpochGasPrice}
+          value={nextEpochGasPrice}
           description="lst.validators.validatorSection.validatorDetailsPage.detailsSection.nextEpochGasPrice"
         />
       </Box>

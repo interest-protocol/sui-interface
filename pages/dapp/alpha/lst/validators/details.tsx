@@ -4,9 +4,7 @@ import { always, mergeDeepRight } from 'ramda';
 import { FC } from 'react';
 
 import { SEO } from '@/components';
-// import { withValidatorAddressGuard } from '@/HOC';
 import { NextPageWithProps } from '@/interface';
-// import { NextPageDefaultProps } from '@/interface';
 import LST from '@/views/dapp/v2/lst';
 
 const LoadingPage: FC = always(<LST loading={true} />);
@@ -15,10 +13,6 @@ const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
   loading: LoadingPage,
 });
-
-// interface LSTValidatorsDetailsPageProps extends NextPageDefaultProps {
-//   validatorAddress: string;
-// }
 
 const LSTValidatorsDetailsPage: NextPageWithProps = ({ pageTitle }) => {
   return (

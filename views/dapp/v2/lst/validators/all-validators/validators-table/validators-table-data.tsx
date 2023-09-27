@@ -32,7 +32,7 @@ const ValidatorsTableData: FC<ValidatorsTableDataProps> = ({
               apy,
               name,
               imageUrl,
-              lstStaked,
+              votingPower,
               suiAddress,
               commissionRate,
               stakingPoolSuiBalance,
@@ -70,32 +70,6 @@ const ValidatorsTableData: FC<ValidatorsTableDataProps> = ({
                   </Box>
                   <Typography variant="medium">{name}</Typography>
                 </Box>
-                <Box
-                  gap="0.5rem"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="flex-end"
-                >
-                  <Typography variant="small" textAlign="center">
-                    {lstStaked}
-                  </Typography>
-                  <Box
-                    width="1rem"
-                    height="1rem"
-                    display="flex"
-                    overflow="hidden"
-                    borderRadius="full"
-                    justifyContent="center"
-                  >
-                    <SUISVG
-                      filled
-                      width="100%"
-                      height="100%"
-                      maxWidth="1rem"
-                      maxHeight="1rem"
-                    />
-                  </Box>
-                </Box>
                 <Box display="flex" justifyContent="flex-end">
                   <Box display="flex" alignItems="center" gap="0.5rem">
                     <Typography variant="small" textAlign="center">
@@ -121,6 +95,9 @@ const ValidatorsTableData: FC<ValidatorsTableDataProps> = ({
                 </Box>
                 <Typography variant="small" textAlign="right">
                   {apy}%
+                </Typography>
+                <Typography variant="small" textAlign="center">
+                  {votingPower}%
                 </Typography>
                 <Typography variant="small" textAlign="right">
                   {commissionRate}%

@@ -1,3 +1,5 @@
+import { Control } from 'react-hook-form';
+
 export interface RatingRowProps {
   positiveReview: number;
   negativeReview: number;
@@ -6,11 +8,14 @@ export interface RatingRowProps {
   type?: 'positive' | 'negative';
 }
 
+export interface ReviewForm {
+  comment: string;
+  rating: 'positive' | 'negative' | null;
+}
+
 export interface VotingButtonsProps {
-  isPositive: boolean;
-  isNegative: boolean;
-  setIsPositive: (value: boolean) => void;
-  setIsNegative: (value: boolean) => void;
+  setValue: (value: 'positive' | 'negative') => void;
+  control: Control<ReviewForm>;
 }
 
 export interface ValidateVoteModalProps {
@@ -23,20 +28,26 @@ interface CommentsProps {
 }
 
 export interface ValidatorDetailsProps {
+  suiAddress: string;
+  name: string;
+  apy: string;
+  description: string;
+  commissionRate: string;
+  gasPrice: string;
+  imageUrl: string;
+  nextEpochGasPrice: string;
+  projectUrl: string;
+  votingPower: string;
+  lstStaked: string;
+}
+
+export interface ValidatorsUserActionsProps {
   ranking: number;
   positiveReview: number;
   negativeReview: number;
-  wesite: string;
-  address: string;
-  validatorName: string;
-  validatorDescription: string;
   comments: ReadonlyArray<CommentsProps>;
-  activity: {
-    totalSuiStaked: number;
-    votingPower: number;
-    apy: number;
-    gasPrice: number;
-    commission: number;
-    nextEpochGasPrice: number;
-  };
+}
+
+export interface LeaveACommentProps {
+  setValue: (value: string) => void;
 }

@@ -85,6 +85,7 @@
         "apy": "APY",
         "lstStaked": "LST Staked",
         "commission": "Comisión",
+        "votingPower": "Poder de Votación",
         "error": "Un error ha ocurrido al cargar los validadores"
       },
       "validatorSection": {
@@ -112,7 +113,10 @@
             "optionalCommentES": "(opcional) Deja un comentario",
             "publish": "publicar",
             "modalMessage": "Gracias por enviar tu voto",
-            "backToHome": "Volver a la página de inicio"
+            "backToHome": "Volver a la página de inicio",
+            "communityInvite": "Únete a la comunidad",
+            "requisitesToVote": "Necesitas Soul Bound Token para escribir comentarios y votar.",
+            "obtainSuiBondToken": "Obtén Sui Bond Token"
           }
         },
         "activeValidatorError": "Un error ha ocurrido al activar el validador"

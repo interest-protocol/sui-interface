@@ -1,30 +1,32 @@
-import { Box, Button, Typography } from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { useModal } from '@/hooks';
 
 import ValidatorConfirmVoteModal from '../modal';
-import { VotingButtonsProps } from '../validators-details.types';
+import { ReviewForm } from '../validators-details.types';
 import LeaveAComment from './comments';
 import VotingButtons from './ratings';
+import SubmitButton from './submit-button';
 
-const ReviewAndComments: FC<VotingButtonsProps> = ({
-  isNegative,
-  isPositive,
-  setIsNegative,
-  setIsPositive,
-}) => {
+const ReviewAndComments: FC = () => {
   const t = useTranslations();
   const { setModal, handleClose } = useModal();
+  const { setValue, control } = useForm<ReviewForm>({
+    defaultValues: {
+      comment: '',
+      rating: null,
+    },
+  });
 
   const openConfirmationModal = () => {
     setModal(
       <ValidatorConfirmVoteModal
         handleClose={() => {
           handleClose();
-          setIsPositive(false);
-          setIsNegative(false);
+          setValue('rating', null);
         }}
       />,
       {
@@ -57,26 +59,16 @@ const ReviewAndComments: FC<VotingButtonsProps> = ({
           )}
         </Typography>
         <VotingButtons
-          isNegative={isNegative}
-          isPositive={isPositive}
-          setIsPositive={setIsPositive}
-          setIsNegative={setIsNegative}
+          setValue={(value: 'positive' | 'negative') =>
+            setValue('rating', value)
+          }
+          control={control}
         />
-        <LeaveAComment />
-        <Button
-          ml="auto"
-          size="small"
-          variant="filled"
-          width="fit-content"
-          textTransform="capitalize"
-          onClick={openConfirmationModal}
-          disabled={!isPositive && !isNegative}
-        >
-          {t(
-            'lst.validators.validatorSection.validatorDetailsPage.rankingAndCommentsSection.publish'
-          )}
-        </Button>
+        <LeaveAComment
+          setValue={(value: string) => setValue('comment', value)}
+        />
       </Box>
+      <SubmitButton control={control} openModal={openConfirmationModal} />
     </Box>
   );
 };

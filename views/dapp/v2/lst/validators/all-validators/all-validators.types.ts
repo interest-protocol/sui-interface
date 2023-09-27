@@ -18,9 +18,9 @@ export interface IValidator {
   apy: string;
   name: string;
   imageUrl: string;
-  lstStaked: string;
   suiAddress: string;
   projectUrl: string;
+  votingPower: number;
   description: string;
   commissionRate: number;
   stakingPoolSuiBalance: string;

@@ -6,9 +6,9 @@ import { v4 } from 'uuid';
 import { PlusSVG, UserSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
-import { ValidatorDetailsProps } from '../validators-details.types';
+import { ValidatorsUserActionsProps } from '../validators-details.types';
 
-const ValidatorComments: FC<Pick<ValidatorDetailsProps, 'comments'>> = ({
+const ValidatorComments: FC<Pick<ValidatorsUserActionsProps, 'comments'>> = ({
   comments,
 }) => {
   const t = useTranslations();

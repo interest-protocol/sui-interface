@@ -6,11 +6,12 @@ import { capitalize } from '@/utils';
 
 import {
   RatingRowProps,
-  ValidatorDetailsProps,
+  ValidatorsUserActionsProps,
   VotingButtonsProps,
 } from '../validators-details.types';
+import CommunityInvite from './community-invite';
 import RatingRow from './rating-row';
-import ReviewAndComments from './review-and-comments';
+// import ReviewAndComments from './review-and-comments';
 
 const MAX_RANKING = 10;
 
@@ -30,16 +31,10 @@ const DividerLine = () => {
 };
 
 const ValidatorRatings: FC<
-  VotingButtonsProps & RatingRowProps & Pick<ValidatorDetailsProps, 'ranking'>
-> = ({
-  ranking,
-  isNegative,
-  isPositive,
-  setIsNegative,
-  setIsPositive,
-  negativeReview,
-  positiveReview,
-}) => {
+  VotingButtonsProps &
+    RatingRowProps &
+    Pick<ValidatorsUserActionsProps, 'ranking'>
+> = ({ ranking, negativeReview, positiveReview }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
 
@@ -106,12 +101,11 @@ const ValidatorRatings: FC<
           />
         </Box>
       </Box>
-      <ReviewAndComments
-        isPositive={isPositive}
-        isNegative={isNegative}
-        setIsPositive={setIsPositive}
-        setIsNegative={setIsNegative}
-      />
+      <CommunityInvite />
+      {/* 
+      TODO: handle this rendering
+      <ReviewAndComments /> 
+      */}
     </Box>
   );
 };

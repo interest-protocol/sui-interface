@@ -7,6 +7,7 @@ import {
 } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import { useWatch } from 'react-hook-form';
 
 import { SmileySadSVG, SmileySVG } from '@/components/svg/v2';
 import { SEMANTIC_COLORS } from '@/constants/semantic-colors';
@@ -14,16 +15,13 @@ import { capitalize } from '@/utils';
 
 import { VotingButtonsProps } from '../validators-details.types';
 
-const VotingButtons: FC<VotingButtonsProps> = ({
-  isPositive,
-  isNegative,
-  setIsNegative,
-  setIsPositive,
-}) => {
+const VotingButtons: FC<VotingButtonsProps> = ({ control, setValue }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const green = SEMANTIC_COLORS[0];
   const red = SEMANTIC_COLORS[1];
+
+  const isPositive = useWatch({ control, name: 'rating' }) === 'positive';
   return (
     <Box>
       <Typography mb=".25rem" variant="extraSmall">
@@ -42,8 +40,7 @@ const VotingButtons: FC<VotingButtonsProps> = ({
           border="1px solid"
           justifyContent="center"
           onClick={() => {
-            setIsPositive(true);
-            setIsNegative(false);
+            setValue('positive');
           }}
           borderColor="outline.outlineVariant"
           nHover={{
@@ -82,18 +79,17 @@ const VotingButtons: FC<VotingButtonsProps> = ({
           display="flex"
           variant="icon"
           onClick={() => {
-            setIsNegative(true);
-            setIsPositive(false);
+            setValue('negative');
           }}
           border="1px solid"
           justifyContent="center"
           borderColor="outline.outlineVariant"
           nHover={{
             bg: dark ? (dark ? red.dark : red.light) : 'surface.containerLow',
-            color: dark || isNegative ? '#991b1b' : 'onSurface',
+            color: dark || !isPositive ? '#991b1b' : 'onSurface',
           }}
           bg={
-            isNegative ? (dark ? red.dark : red.light) : 'surface.containerLow'
+            !isPositive ? (dark ? red.dark : red.light) : 'surface.containerLow'
           }
         >
           <Box
@@ -104,8 +100,8 @@ const VotingButtons: FC<VotingButtonsProps> = ({
             borderRadius="full"
             alignItems="center"
             justifyContent="center"
-            color={isNegative ? '#991b1b' : 'onSurface'}
-            borderColor={isNegative ? '#991b1b' : 'onSurface'}
+            color={!isPositive ? '#991b1b' : 'onSurface'}
+            borderColor={!isPositive ? '#991b1b' : 'onSurface'}
           >
             <SmileySadSVG width="100%" maxWidth="1rem" maxHeight="1rem" />
           </Box>
