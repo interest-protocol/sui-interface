@@ -66,7 +66,7 @@ const BondsFormConfirmModal: FC<
             color="onSurface"
             textTransform="capitalize"
           >
-            {t('lst.clamRewards.modal.success.description')}
+            {t('lst.bonds.modal.success.description')}
           </Typography>
           <Box
             p="m"
@@ -82,7 +82,7 @@ const BondsFormConfirmModal: FC<
             <a href={viewInExplorerLink} target="_blank" rel="noreferrer">
               <Box display="flex" alignItems="center" gap="m">
                 <Typography variant="extraSmall" opacity=".6">
-                  {t('lst.clamRewards.modal.success.viewInExplorer')}
+                  {t('lst.bonds.modal.success.viewInExplorer')}
                 </Typography>
                 <ArrowLinkSVG maxHeight=".5rem" maxWidth=".5rem" width="100%" />
               </Box>

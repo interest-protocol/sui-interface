@@ -9,6 +9,7 @@ import ActionButtons from './action-buttons';
 import Overview from './overview';
 import TransactionSummaryStakeBody from './stake-body';
 import { TransactionSummaryProps } from './transaction-summary.types';
+import TransactionSummaryUnstakeBody from './unstake-body';
 // import ValidatorDetails from './validator-details';
 
 const TransactionSummary: FC<TransactionSummaryProps> = ({
@@ -50,6 +51,7 @@ const TransactionSummary: FC<TransactionSummaryProps> = ({
           gap="l"
         >
           {type === 'stake' && <TransactionSummaryStakeBody />}
+          {type === 'unstake' && <TransactionSummaryUnstakeBody />}
           {/* {amountList.map((amount) => (
             <Amount
               key={v4()}
