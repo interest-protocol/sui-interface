@@ -265,7 +265,8 @@
       },
       "modal": {
         "success": {
-          "description": "Transaction Completed"
+          "description": "Transaction Completed",
+          "viewInExplorer": "View in Explorer"
         },
         "error": {
           "description": "Transaction Failed"

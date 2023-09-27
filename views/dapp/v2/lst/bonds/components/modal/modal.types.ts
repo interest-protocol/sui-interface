@@ -6,3 +6,7 @@ export interface BondsFormModalProps {
   handleClose: () => void;
   onClick: () => void;
 }
+
+export interface ViewInExplorerLinkProps {
+  viewInExplorerLink: string;
+}

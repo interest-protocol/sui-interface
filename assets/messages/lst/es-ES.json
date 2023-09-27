@@ -4,6 +4,43 @@
       "title": "LST",
       "description": "Nueva función LST"
     },
+    "bonds": {
+      "menu": {
+        "stake": {
+          "title": "Apostar SUI",
+          "description": "Apostar Sui y<br></br>recibir iSUIP e iSUIY",
+          "button": "Comenzar"
+        },
+        "unstake": {
+          "title": "Desapostar<br></br>iSUIY e iSUIP",
+          "description": "Desapostar iSUIP o<br></br>iSUIP + iSUIY y recibir SUI",
+          "button": "Comenzar"
+        },
+        "rewards": {
+          "title": "Reclamar<br></br>Recompensas",
+          "description": "Reclama tu iSUIY<br></br>rendimiento en SUI",
+          "button": "Comenzar"
+        }
+      },
+      "stake": {
+        "title": "Apostar SUI",
+        "description": "Ingresa la información a continuación para completar tu transacción.",
+        "form": {
+          "selectMaturity": "Seleccionar Vencimiento",
+          "selectAmount": "Seleccionar Cantidad a Apostar",
+          "selectValidator": "Seleccionar Validador"
+        }
+      },
+      "unstake": {
+        "title": "Desapostar",
+        "description": "Ingresa la información a continuación para completar tu transacción.",
+        "form": {
+          "selectRedeem": "Seleccionar qué SFT deseas desapostar",
+          "selectMaturity": "Seleccionar Vencimiento",
+          "selectAmount": "Seleccionar Cantidad a desapostar"
+        }
+      }
+    },
     "tabs": {
       "stake": "apostar",
       "bonds": "cautiverio",
@@ -202,6 +239,7 @@
     "selectAssets": "Elegir activos",
     "maturity": "Vencimiento {date}",
     "clamRewards": {
+      "title": "Reclamar premios",
       "noRewards": {
         "title": "Lo sentimos, no tienes ninguna recompensa que reclamar",
         "description": "Para obtener iSUIY por favor ve y toma algunos SUI"
@@ -226,7 +264,8 @@
       },
       "modal": {
         "success": {
-          "description": "Transacción completada"
+          "description": "Transacción completada",
+          "viewInExplorer": "Ver en el explorador"
         },
         "error": {
           "description": "Transacción Fallida"
