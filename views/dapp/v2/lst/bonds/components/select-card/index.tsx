@@ -11,7 +11,7 @@ const SelectCard: FC<SelectCardProps> = ({
   checked,
   onSelect,
 }) => {
-  const handleChange = () => onSelect?.(!checked);
+  const handleChange = () => !checked && onSelect?.(!checked);
 
   return (
     <Box

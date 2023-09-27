@@ -16,8 +16,8 @@ import { BondsContainerProps } from './bonds-container.types';
 
 const BondsContainer: FC<PropsWithChildren<BondsContainerProps>> = ({
   title,
-  description,
   children,
+  description,
 }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;

@@ -14,7 +14,7 @@ const BondsUnstakeForm: FC = () => {
   return (
     <Box my="xl" display="flex" flexDirection="column" gap="xl">
       <Box>
-        <StepTitle title={t('lst.bonds.unstake.form.selectRedeem')} step={1} />
+        <StepTitle step={1} title={t('lst.bonds.unstake.form.selectRedeem')} />
         <UnstakeTokens />
       </Box>
       <Box>
@@ -25,7 +25,7 @@ const BondsUnstakeForm: FC = () => {
         <UnstakeMaturity />
       </Box>
       <Box>
-        <StepTitle title={t('lst.bonds.unstake.form.selectAmount')} step={3} />
+        <StepTitle step={3} title={t('lst.bonds.unstake.form.selectAmount')} />
         <UnstakeInput
           suiPrice={1}
           exchangeRate={1}
