@@ -1,6 +1,7 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
+import Assets from './portfolio-assets';
 import Tokens from './tokens';
 
 const Portfolio: FC = () => (
@@ -14,6 +15,7 @@ const Portfolio: FC = () => (
       gap={['l', 'l', 'l', '3xl']}
     >
       <Tokens />
+      <Assets />
     </Box>
   </Box>
 );
