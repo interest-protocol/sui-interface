@@ -11,6 +11,8 @@ import {
 
 import { useBondsContext } from '../../bonds.hooks';
 import MoneyInput from '../../components/money-input';
+import MoneyInput from '../../money-input';
+import { StakeInputProps } from '../stake-form.types';
 
 interface StakeInputProps {
   suiPrice: number;
