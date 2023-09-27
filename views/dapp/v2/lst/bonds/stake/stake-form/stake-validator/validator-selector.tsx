@@ -9,12 +9,12 @@ import { useModal } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import { formatMoney } from '@/utils';
 
-import ValidatorList from '../../../components/your-info-container/modal/validator-list';
-import { IValidatorModal } from '../../../components/your-info-container/your-info.types';
-import { useLstData } from '../../../lst.hooks';
-import { useBondsContext } from '../../bonds.hooks';
+import ValidatorList from '../../../../components/your-info-container/modal/validator-list';
+import { IValidatorModal } from '../../../../components/your-info-container/your-info.types';
+import { useLstData } from '../../../../lst.hooks';
+import { useBondsContext } from '../../../bonds.hooks';
 
-const ValidatorSelect: FC = () => {
+const ValidatorSelector: FC = () => {
   const { form } = useBondsContext();
   const { validatorsApy, validatorStakeRecord, activeValidators } =
     useLstData();
@@ -143,4 +143,4 @@ const ValidatorSelect: FC = () => {
   );
 };
 
-export default ValidatorSelect;
+export default ValidatorSelector;

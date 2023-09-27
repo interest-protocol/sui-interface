@@ -12,23 +12,20 @@ import {
   parseInputEventToNumberString,
 } from '@/utils';
 
+import { useLstData } from '../../../lst.hooks';
 import { useBondsContext } from '../../bonds.hooks';
 import MoneyInput from '../../components/money-input';
 
-interface UnstakeInputProps {
-  suiPrice: number;
-  exchangeRate: number;
-  totalBalance: BigNumber;
-}
-
-const UnstakeInput: FC<UnstakeInputProps> = ({
-  suiPrice,
-  totalBalance,
-  exchangeRate,
-}) => {
+const UnstakeInput: FC = () => {
+  const exchangeRate = 1;
   const {
     form: { control, register, setValue },
   } = useBondsContext();
+  const { suiCoinInfo } = useLstData();
+  const totalBalance = BigNumber(0);
+
+  const suiPrice = suiCoinInfo?.price ?? 1;
+
   const tokens = useWatch({ control, name: 'tokens' });
 
   const haveiSuiP = tokens.includes(ISUI_PRINCIPAL_TYPE);

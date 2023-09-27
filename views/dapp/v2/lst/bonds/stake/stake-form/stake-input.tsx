@@ -9,23 +9,17 @@ import {
   parseInputEventToNumberString,
 } from '@/utils';
 
+import { useLstData } from '../../../lst.hooks';
 import { useBondsContext } from '../../bonds.hooks';
 import MoneyInput from '../../components/money-input';
-import MoneyInput from '../../money-input';
-import { StakeInputProps } from '../stake-form.types';
 
-interface StakeInputProps {
-  suiPrice: number;
-  exchangeRate: number;
-  totalBalance: BigNumber;
-}
-
-const StakeInput: FC<StakeInputProps> = ({
-  suiPrice,
-  totalBalance,
-  exchangeRate,
-}) => {
+const StakeInput: FC = () => {
+  const exchangeRate = 1;
   const { form } = useBondsContext();
+  const { suiCoinInfo } = useLstData();
+  const totalBalance = BigNumber(0);
+
+  const suiPrice = suiCoinInfo?.price ?? 1;
 
   return (
     <MoneyInput

@@ -1,5 +1,4 @@
 import { Box } from '@interest-protocol/ui-kit';
-import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
@@ -26,11 +25,7 @@ const BondsUnstakeForm: FC = () => {
       </Box>
       <Box>
         <StepTitle step={3} title={t('lst.bonds.unstake.form.selectAmount')} />
-        <UnstakeInput
-          suiPrice={1}
-          exchangeRate={1}
-          totalBalance={BigNumber(0)}
-        />
+        <UnstakeInput />
       </Box>
     </Box>
   );

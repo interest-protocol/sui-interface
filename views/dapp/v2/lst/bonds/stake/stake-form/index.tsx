@@ -1,18 +1,14 @@
-import { Box, RadioButton, Typography } from '@interest-protocol/ui-kit';
-import BigNumber from 'bignumber.js';
+import { Box } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
-import { not } from 'ramda';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import StepTitle from '../../step-title';
 import StakeInput from './stake-input';
 import StakeMaturity from './stake-maturity';
-import ValidatorSelect from './validator-select';
+import StakeValidator from './stake-validator';
 
 const BondsStakeForm: FC = () => {
   const t = useTranslations();
-  const [isValidatorManual, setIsValidatorManual] = useState(false);
-  const [isValidatorAuto, setIsValidatorAuto] = useState(false);
 
   return (
     <Box mt="xl" display="flex" flexDirection="column" gap="xl">
@@ -22,33 +18,11 @@ const BondsStakeForm: FC = () => {
       </Box>
       <Box>
         <StepTitle title={t('lst.bonds.stake.form.selectAmount')} step={2} />
-        <StakeInput suiPrice={1} exchangeRate={1} totalBalance={BigNumber(0)} />
+        <StakeInput />
       </Box>
       <Box>
         <StepTitle title={t('lst.bonds.stake.form.selectValidator')} step={3} />
-        <Box display="grid" gap="l" gridTemplateColumns="1fr 1fr" mt="s" py="s">
-          <Box display="flex" gap="m" alignItems="center">
-            <RadioButton
-              defaultValue={isValidatorAuto}
-              onClick={() => {
-                setIsValidatorAuto(not);
-                setIsValidatorManual(false);
-              }}
-            />
-            <Typography variant="medium">Automated</Typography>
-          </Box>
-          <Box display="flex" gap="m" alignItems="center">
-            <RadioButton
-              defaultValue={isValidatorManual}
-              onClick={() => {
-                setIsValidatorManual(not);
-                setIsValidatorAuto(false);
-              }}
-            />
-            <Typography variant="medium">Manual</Typography>
-          </Box>
-        </Box>
-        {isValidatorManual && <ValidatorSelect />}
+        <StakeValidator />
       </Box>
     </Box>
   );
