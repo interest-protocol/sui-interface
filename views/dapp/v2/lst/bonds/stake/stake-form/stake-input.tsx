@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import { ChangeEvent, FC } from 'react';
-import { UseFormReturn } from 'react-hook-form';
 
 import { SUISVG } from '@/components/svg/v2';
 import { FixedPointMath } from '@/lib';
@@ -11,13 +10,7 @@ import {
 } from '@/utils';
 
 import MoneyInput from '../../money-input';
-
-interface StakeInputProps {
-  suiPrice: number;
-  exchangeRate: number;
-  totalBalance: BigNumber;
-  form: UseFormReturn<{ amount: string; amountUSD: string }>;
-}
+import { StakeInputProps } from '../stake-form.types';
 
 const StakeInput: FC<StakeInputProps> = ({
   form,

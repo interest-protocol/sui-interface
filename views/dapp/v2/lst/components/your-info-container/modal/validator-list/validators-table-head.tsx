@@ -10,20 +10,21 @@ const ValidatorsTableHead: FC = () => {
 
   return (
     <Box minWidth={['55em', '55em', '55em', 'unset']}>
-      <TableRow numCols={5} isTableHead>
+      <TableRow numCols={6} isTableHead extraSpace={3}>
         <Typography variant="small">#</Typography>
         <Typography variant="small">
           {capitalize(t('lst.validators.tableSection.name'))}
         </Typography>
         <Typography variant="small" textAlign="right" textTransform="uppercase">
-          {t('common.stake', { isLoading: 0 })}
-        </Typography>
-        <Typography variant="small" textAlign="right" textTransform="uppercase">
           {t('lst.validators.tableSection.apy')}
         </Typography>
         <Typography variant="small" textAlign="right" textTransform="uppercase">
-          {t('lst.modal.validator.select')}
+          Ranking
         </Typography>
+        <Typography variant="small" textAlign="right" textTransform="uppercase">
+          Review
+        </Typography>
+        <Box />
       </TableRow>
     </Box>
   );

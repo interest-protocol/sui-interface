@@ -7,4 +7,5 @@ export interface TableRowProps extends Omit<GeneralTableRowProps, 'title'> {
   hasDropdown?: boolean;
   isEquidistant?: boolean;
   isDropdownInformation?: boolean;
+  extraSpace?: number;
 }
