@@ -13,7 +13,6 @@ const LSTBondsUnstake: FC = () => {
   const { form } = useBondsContext();
 
   const handleSubmit = () => console.log('>> submit ');
-  const handleClear = form.reset;
 
   return (
     <Box variant="container" display="flex">
@@ -34,7 +33,7 @@ const LSTBondsUnstake: FC = () => {
           <BondsUnstakeForm />
         </Box>
         <TransactionSummary
-          handleClear={handleClear}
+          handleClear={form.reset}
           handleSubmit={handleSubmit}
           submitText={t('common.unstake', { isLoading: Number(false) })}
         />
