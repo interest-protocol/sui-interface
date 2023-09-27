@@ -1,52 +1,72 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
+import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { indexOf } from 'ramda';
+import { indexOf, pathOr } from 'ramda';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
-import Skeleton from 'react-loading-skeleton';
 import { v4 } from 'uuid';
 
 import { useModal } from '@/hooks';
+import { FixedPointMath } from '@/lib';
 import { ArrowTrendSVG } from '@/svg';
+import { formatMoney } from '@/utils';
 
-import { useGetActiveValidators } from '../../../lst.hooks';
-import ErrorState from '../../error-state';
+import { useLstData } from '../../../lst.hooks';
 import ValidatorList from '../modal/validator-list';
-import { CurrentValidatorProps } from '../your-info.types';
+import { IValidatorModal } from '../your-info.types';
 import { SelectValidatorsProps } from './select-validators.types';
 
 const SelectValidators: FC<SelectValidatorsProps> = ({ form, isStake }) => {
   const t = useTranslations();
   const { setModal, handleClose } = useModal();
+  const { validatorsApy, validatorStakeRecord, activeValidators } =
+    useLstData();
 
-  const {
-    data: activeValidators,
-    isLoading: activeValidatorsLoading,
-    error: activeValidatorsError,
-  } = useGetActiveValidators();
+  const apyMap = (validatorsApy?.apys?.reduce(
+    (acc, { address, apy }) => ({ ...acc, [address]: apy }),
+    {}
+  ) ?? {}) as Record<string, number>;
+
+  const validators: ReadonlyArray<IValidatorModal> = activeValidators
+    .map(
+      ({
+        name,
+        imageUrl,
+        projectUrl,
+        suiAddress,
+        description,
+        commissionRate,
+        stakingPoolSuiBalance,
+      }) => ({
+        name,
+        imageUrl,
+        projectUrl,
+        suiAddress,
+        description,
+        commissionRate: +commissionRate / 100,
+        stakingPoolSuiBalanceString: stakingPoolSuiBalance,
+        apy: Number((apyMap[suiAddress] * 100 ?? 0).toFixed(2)).toPrecision(),
+        stakingPoolSuiBalance: formatMoney(
+          FixedPointMath.toNumber(BigNumber(stakingPoolSuiBalance))
+        ),
+        lstStaked: Number(
+          FixedPointMath.toNumber(
+            BigNumber(
+              pathOr('0', [suiAddress, 'principal'], validatorStakeRecord)
+            )
+          ).toFixed(4)
+        ).toPrecision(),
+      })
+    )
+    .sort((a, b) =>
+      +a.stakingPoolSuiBalanceString > +b.stakingPoolSuiBalanceString ? -1 : 0
+    )
+    .sort((a, b) => (+a.lstStaked > +b.lstStaked ? -1 : 0));
 
   const currentValidatorAddress = useWatch({
     control: form.control,
     name: 'validator',
   });
-
-  if (activeValidatorsError)
-    return (
-      <Box mt="xl">
-        <ErrorState
-          errorMessage={t(
-            'lst.validators.validatorSection.activeValidatorError'
-          )}
-        />
-      </Box>
-    );
-
-  if (activeValidatorsLoading)
-    return (
-      <Box mt="xl">
-        <Skeleton width="100%" height="1.5rem" />
-      </Box>
-    );
 
   const currentValidator = activeValidators
     .map(({ suiAddress, name, imageUrl }) => ({ suiAddress, name, imageUrl }))
@@ -56,7 +76,7 @@ const SelectValidators: FC<SelectValidatorsProps> = ({ form, isStake }) => {
         : indexOf(suiAddress, currentValidatorAddress.split(';')) !== -1
     );
 
-  const fillValidator = ({ suiAddress }: CurrentValidatorProps) => {
+  const fillValidator = (suiAddress: string) => {
     form.setValue('validator', suiAddress);
   };
 
@@ -64,18 +84,11 @@ const SelectValidators: FC<SelectValidatorsProps> = ({ form, isStake }) => {
     setModal(
       <ValidatorList
         handleClose={handleClose}
-        fillValidator={fillValidator}
-        activeValidators={activeValidators}
-        currentValidator={
-          isStake
-            ? currentValidator[0]
-            : {
-                name: '',
-                imageUrl: '',
-                suiAddress: currentValidatorAddress,
-              }
+        handleSelected={fillValidator}
+        validators={validators}
+        currentValidatorAddress={
+          isStake ? currentValidator[0].suiAddress : currentValidatorAddress
         }
-        isStake={isStake}
       />,
       {
         isOpen: true,
