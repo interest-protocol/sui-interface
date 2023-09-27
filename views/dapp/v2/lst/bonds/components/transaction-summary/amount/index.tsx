@@ -1,11 +1,14 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
 import TokenIcon from '../../../components/token-icon';
-import { AmountProps } from './amount.type';
+import { AmountProps } from './amount.types';
 
-const Amount: FC<AmountProps> = ({ label, value, fieldList }) => {
+const Amount: FC<AmountProps> = ({ isRedeem, value, fieldList }) => {
+  const t = useTranslations();
+
   return (
     <Box>
       <Typography
@@ -15,7 +18,11 @@ const Amount: FC<AmountProps> = ({ label, value, fieldList }) => {
         opacity="0.6"
         mb="0.5rem"
       >
-        {label}
+        {t(
+          `lst.clamRewards.transactionSummary.${
+            isRedeem ? 'redeem' : 'receive'
+          }`
+        )}
       </Typography>
       {fieldList.map((field) => (
         <Box
@@ -48,7 +55,7 @@ const Amount: FC<AmountProps> = ({ label, value, fieldList }) => {
                   width="100%"
                   lineHeight="1.5rem"
                 >
-                  {field.title}
+                  {field.title ?? t('lst.maturity', { date: 'DD/MM/YYYY' })}
                 </Typography>
                 {field.description && (
                   <Typography

@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { always, mergeDeepRight } from 'ramda';
 import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import LST from 'views/dapp/v2/lst';
+import LSTLayout from 'views/dapp/v2/lst';
 
 import { SEO } from '@/components';
 import { DEFAULT_VALIDATOR } from '@/constants/lst';
@@ -13,8 +13,9 @@ import { useNetwork } from '@/hooks';
 import { NextPageWithProps } from '@/interface';
 import { formatDollars } from '@/utils';
 import { StakeForm } from '@/views/dapp/v2/lst/lst.types';
+import Staked from '@/views/dapp/v2/lst/staked';
 
-const LoadingPage: FC = always(<LST loading={true} />);
+const LoadingPage: FC = always(<LSTLayout loading={true} />);
 
 const Web3Manager = dynamic(() => import('@/components/web3-manager'), {
   ssr: false,
@@ -43,7 +44,9 @@ const LSTPage: NextPageWithProps = ({ pageTitle }) => {
   return (
     <Web3Manager>
       <SEO pageTitle={pageTitle} />
-      <LST stakeForm={stakeForm} />
+      <LSTLayout>
+        <Staked form={stakeForm} />
+      </LSTLayout>
     </Web3Manager>
   );
 };

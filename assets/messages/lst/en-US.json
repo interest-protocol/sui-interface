@@ -21,6 +21,24 @@
           "description": "Claim your iSUIY<br></br>yield in SUI",
           "button": "Get Started"
         }
+      },
+      "stake": {
+        "title": "Stake SUI",
+        "description": "Enter the information below to complete your transaction.",
+        "form": {
+          "selectMaturity": "Select Maturity",
+          "selectAmount": "Select Amount to Stake",
+          "selectValidator": "Select Validator"
+        }
+      },
+      "unstake": {
+        "title": "Unstake",
+        "description": "Enter the information below to complete your transaction.",
+        "form": {
+          "selectRedeem": "Select what SFT to redeem",
+          "selectMaturity": "Select Maturity",
+          "selectAmount": "Select Amount to redeem"
+        }
       }
     },
     "tabs": {
@@ -105,9 +123,40 @@
         "apy": "APY",
         "lstStaked": "LST Staked",
         "commission": "Commission",
+        "votingPower": "Voting Power",
         "error": "An error occurred while fetching validators"
       },
       "validatorSection": {
+        "validatorDetailsPage": {
+          "detailsSection": {
+            "address": "address",
+            "web": "web",
+            "totalSuiStaked": "Total Sui Staked",
+            "votingPower": "Voting Power",
+            "apy": "APY",
+            "gasPrice": "Gas Price",
+            "commission": "Commission",
+            "nextEpochGasPrice": "Next epoch gas price",
+            "comments": "Comments",
+            "sortBy": "Sort by"
+          },
+          "rankingAndCommentsSection": {
+            "ranking": "Ranking",
+            "positiveReview": "positive review",
+            "negativeReview": "negative review",
+            "reviewAndComment": "review & comments",
+            "headerMessage": "We´d love to hear your thoughts on this validator. Please vote and leave a comment.",
+            "vote": "vote",
+            "comment": "leave a comment",
+            "optionalComment": "(optional) Leave a comment",
+            "publish": "publish",
+            "modalMessage": "Thanks for summitting your vote",
+            "backToHome": "back to home",
+            "communityInvite": "Be part of the community",
+            "requisitesToVote": "You need Soul Bound Token to write comments & vote.",
+            "obtainSuiBondToken": "Obtain Sui Bond Token"
+          }
+        },
         "activeValidatorError": "An error occurred while validator activation"
       }
     },
@@ -190,7 +239,7 @@
     "selectValidator": "Select Validator",
     "selectAssets": "Select Assets",
     "maturity": "Maturity {date}",
-    "claimnRewards": {
+    "clamRewards": {
       "title": "Claim Rewards",
       "noRewards": {
         "title": "Sorry, you don´t have any rewards to claim",

@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { ValidatorDetailsProps } from './validator-details.type';
+import { ValidatorDetailsProps } from './validator-details.types';
 
 const ValidatorDetails: FC<ValidatorDetailsProps> = ({
   name,
@@ -24,7 +24,7 @@ const ValidatorDetails: FC<ValidatorDetailsProps> = ({
         mb="0.5rem"
         textTransform="uppercase"
       >
-        {t('lst.claimnRewards.transactionSummary.validatorDetails.title')}
+        {t('lst.clamRewards.transactionSummary.validatorDetails.title')}
       </Typography>
       <Box
         bg="surface.containerHigh"

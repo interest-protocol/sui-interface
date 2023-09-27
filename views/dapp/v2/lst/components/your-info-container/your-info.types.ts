@@ -1,7 +1,7 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
 import { JsonRpcProvider } from '@mysten/sui.js';
 import { SuiAddress } from '@mysten/sui.js/src/types';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { ReactNode } from 'react';
 import { Control, UseFormReturn } from 'react-hook-form';
 
 import { CoinsMap } from '@/components/web3-manager/web3-manager.types';
@@ -43,38 +43,39 @@ export interface UnstakePreviewModalProps extends StakePreviewModalProps {
   validatorStakeRecord: ValidatorStakePositionRecord;
 }
 export interface ValidatorListBodyProps extends AllValidatorsProps {
-  setNewValidator: Dispatch<SetStateAction<CurrentValidatorProps>>;
-  newValidator: CurrentValidatorProps;
-  isStake: boolean;
+  currentValidatorAddress: string;
+  validators: ReadonlyArray<IValidatorModal>;
+  handleSelected: (suiAddress: string) => void;
 }
 
 export interface ValidatorListTableDataProps extends ValidatorsTableDataProps {
-  setNewValidator: Dispatch<SetStateAction<CurrentValidatorProps>>;
-  newValidator: CurrentValidatorProps;
-  isStake: boolean;
+  currentValidatorAddress: string;
 }
 
 export interface ValidatorListTableDataItemProps {
   index: number;
-  isStake: boolean;
   validator: IValidatorModal;
-  newValidator: CurrentValidatorProps;
-  setNewValidator: Dispatch<SetStateAction<CurrentValidatorProps>>;
+  currentValidatorAddress: string;
+  handleSelected: (suiAddress: string) => void;
 }
 
 export interface IValidatorModal {
-  apy: string;
   name: string;
   imageUrl: string;
-  lstStaked: string;
+  projectUrl: string;
+  suiAddress: string;
   description: string;
-  suiAddress: SuiAddress;
+  commissionRate: number;
+  stakingPoolSuiBalanceString: string;
+  apy: string;
   stakingPoolSuiBalance: string;
+  lstStaked: string;
 }
 
 export interface ValidatorsTableDataProps {
   control: Control<IValidatorSearchForm>;
   validators: ReadonlyArray<IValidatorModal>;
+  handleSelected: (suiAddress: string) => void;
 }
 
 /** Your Info Container Tips */

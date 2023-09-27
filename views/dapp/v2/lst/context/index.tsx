@@ -1,4 +1,5 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
+import { ValidatorsApy } from '@mysten/sui.js';
 import { last } from 'ramda';
 import { createContext, FC, PropsWithChildren } from 'react';
 
@@ -10,21 +11,23 @@ import { noop } from '@/utils';
 import {
   useGetActiveValidators,
   useGetLstStorage,
+  useGetValidatorsApy,
   useGetValidatorsStakePosition,
 } from '@/views/dapp/v2/lst/lst.hooks';
 
 import { ILSTContext } from './context.types';
 
 const lstContext = createContext({
-  suiCoinInfo: null,
-  last30daysPrice: [],
-  lstStorage: DEFAULT_LST_STORAGE,
-  validatorStakeRecord: {},
-  activeValidators: [],
-  isLoading: true,
-  iSuiExchangeRate: 1,
-  totalISuiMinted: 0,
   mutate: noop,
+  isLoading: true,
+  suiCoinInfo: null,
+  totalISuiMinted: 0,
+  iSuiExchangeRate: 1,
+  last30daysPrice: [],
+  activeValidators: [],
+  validatorStakeRecord: {},
+  lstStorage: DEFAULT_LST_STORAGE,
+  validatorsApy: { epoch: '', apys: [] } as ValidatorsApy,
 } as ILSTContext);
 
 export const LSTProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -46,6 +49,9 @@ export const LSTProvider: FC<PropsWithChildren> = ({ children }) => {
     lstStorage.validatorTable.head,
     lstStorage.validatorTable.tail
   );
+
+  const { data: validatorsApy, isLoading: validatorsApyLoading } =
+    useGetValidatorsApy();
 
   const { data: activeValidators, isLoading: isActiveValidatorsLoading } =
     useGetActiveValidators();
@@ -69,9 +75,11 @@ export const LSTProvider: FC<PropsWithChildren> = ({ children }) => {
       storageIsLoading ||
       isGetValidatorStakePositionLoading ||
       isLoading ||
-      isActiveValidatorsLoading,
+      isActiveValidatorsLoading ||
+      validatorsApyLoading,
     lstStorage,
     activeValidators,
+    validatorsApy,
     validatorStakeRecord,
     iSuiExchangeRate,
     totalISuiMinted,

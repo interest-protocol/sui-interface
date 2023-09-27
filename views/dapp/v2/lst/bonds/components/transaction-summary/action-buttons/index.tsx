@@ -8,7 +8,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { ActionButtonsProps } from './action-buttons.type';
+import { ActionButtonsProps } from './action-buttons.types';
 
 const ActionButtons: FC<ActionButtonsProps> = ({
   disable,
@@ -40,7 +40,7 @@ const ActionButtons: FC<ActionButtonsProps> = ({
           color="onSurface"
           textTransform="capitalize"
         >
-          {t('lst.claimnRewards.transactionSummary.buttonClear')}
+          {t('lst.clamRewards.transactionSummary.buttonClear')}
         </Typography>
       </Button>
       <Button

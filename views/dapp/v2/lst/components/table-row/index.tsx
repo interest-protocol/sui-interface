@@ -8,6 +8,7 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
   isWide,
   numCols,
   children,
+  extraSpace,
   isFirstRow,
   isTableHead,
   hasDropdown,
@@ -33,10 +34,10 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
           ? '2rem 1fr 1fr repeat(2, 2fr)'
           : numCols
           ? [
-              `2rem 1fr repeat(${numCols - 2}, 1fr)`,
-              `2rem 1fr repeat(${numCols - 2}, 1fr)`,
-              `2rem 1fr repeat(${numCols - 2}, 1fr)`,
-              `2rem 1fr repeat(${numCols - 2}, 1fr)`,
+              `2rem ${extraSpace ?? '2'}fr repeat(${numCols - 2}, 1fr)`,
+              `2rem ${extraSpace ?? '2'}fr repeat(${numCols - 2}, 1fr)`,
+              `2rem ${extraSpace ?? '2'}fr repeat(${numCols - 2}, 1fr)`,
+              `2rem ${extraSpace ?? '2'}fr repeat(${numCols - 2}, 1fr)`,
             ]
           : ''
       }
