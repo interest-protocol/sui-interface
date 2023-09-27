@@ -6,8 +6,8 @@ import { useBondsContext } from '../../bonds.hooks';
 // import { v4 } from 'uuid';
 // import { useBondsContext } from '../../bonds.hooks';
 import ActionButtons from './action-buttons';
-import Amount from './amount';
 import Overview from './overview';
+import TransactionSummaryStakeBody from './stake-body';
 import { TransactionSummaryProps } from './transaction-summary.types';
 // import ValidatorDetails from './validator-details';
 
@@ -41,7 +41,7 @@ const TransactionSummary: FC<TransactionSummaryProps> = ({
           color={dark ? 'white' : 'black'}
           textTransform="uppercase"
         >
-          {t('lst.clamRewards.transactionSummary.title')}
+          {t('lst.bonds.transactionSummary.title')}
         </Typography>
         <Box
           py={['xs', 'xs', 'xs', 'l']}
@@ -49,7 +49,7 @@ const TransactionSummary: FC<TransactionSummaryProps> = ({
           flexDirection="column"
           gap="l"
         >
-          {type === 'stake' && <Amount value={''} fieldList={[]} />}
+          {type === 'stake' && <TransactionSummaryStakeBody />}
           {/* {amountList.map((amount) => (
             <Amount
               key={v4()}

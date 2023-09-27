@@ -1,6 +1,5 @@
-import { SUI_TYPE_ARG } from '@mysten/sui.js';
 import { useRouter } from 'next/router';
-import { createContext, FC, PropsWithChildren, useEffect } from 'react';
+import { createContext, FC, PropsWithChildren } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Routes, RoutesEnum } from '@/constants';
@@ -33,23 +32,6 @@ export const BondsProvider: FC<PropsWithChildren> = ({ children }) => {
       type: FORM_TYPE[asPath] as BondsForm['type'],
     },
   });
-
-  const stakeForm = useForm({
-    defaultValues: {
-      amount: '0',
-      coinType: SUI_TYPE_ARG,
-      amountUSD: formatDollars(0),
-      validator: DEFAULT_VALIDATOR[network],
-      maturity: { date: '', id: '' },
-    },
-  });
-
-  useEffect(() => {
-    stakeForm.setValue('coinType', SUI_TYPE_ARG);
-    stakeForm.setValue('amount', '0');
-    stakeForm.setValue('validator', DEFAULT_VALIDATOR[network]);
-    stakeForm.setValue('maturity', { date: '', id: '' });
-  }, [network]);
 
   return <Provider value={{ form }}>{children}</Provider>;
 };

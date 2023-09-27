@@ -68,7 +68,7 @@ const BondsClaimRewards: FC = () => {
       <TransactionSummaryContainer
         handleClear={handleClear}
         handleSubmit={handleSubmit}
-        submitText={t('lst.clamRewards.title')}
+        submitText={t('lst.bonds.clamRewards.title')}
       />
     </Box>
   );

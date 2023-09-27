@@ -8,43 +8,79 @@
       "menu": {
         "stake": {
           "title": "Apostar SUI",
-          "description": "Apostar SUI e<br></br>receber iSUIP e iSUIY",
-          "button": "Iniciar"
+          "description": "Aposte Sui e<br></br>receba iSUIP e iSUIY",
+          "button": "Começar"
         },
         "unstake": {
           "title": "Desapostar<br></br>iSUIY e iSUIP",
-          "description": "Desapostar iSUIP ou<br></br>iSUIP + iSUIY e receber SUI",
-          "button": "Iniciar"
+          "description": "Desaposte iSUIP ou<br></br>iSUIP + iSUIY e receba SUI",
+          "button": "Começar"
         },
         "rewards": {
           "title": "Reivindicar<br></br>Recompensas",
-          "description": "Reivindicar seu iSUIY<br></br>rendimento em SUI",
-          "button": "Iniciar"
+          "description": "Reivindique seu rendimento<br></br>iSUIY em SUI",
+          "button": "Começar"
+        }
+      },
+      "transactionSummary": {
+        "title": "Resumo da transação",
+        "receive": "Irá receber",
+        "stake": "Irá apostar",
+        "redeem": "Irá render",
+        "depositFee": "Taxa de depósito",
+        "estimatedRewards": "Recompensa anual esd.",
+        "buttonClear": "Limpar tudo",
+        "validatorDetails": {
+          "title": "Validador",
+          "ranking": "Classificação",
+          "votingPower": "Poder de voto",
+          "commision": "Comissão"
+        }
+      },
+      "modal": {
+        "success": {
+          "description": "Transação concluída",
+          "viewInExplorer": "Ver no explorador"
+        },
+        "error": {
+          "description": "Falha na Transação"
         }
       },
       "stake": {
         "title": "Apostar SUI",
-        "description": "Introduza as informações abaixo para concluir a sua transação.",
+        "description": "Insira as informações abaixo para concluir sua transação.",
         "form": {
-          "selectMaturity": "Selecionar Maturidade",
+          "selectMaturity": "Selecionar Vencimento",
           "selectAmount": "Selecionar Valor a Apostar",
           "selectValidator": "Selecionar Validador"
         }
       },
       "unstake": {
         "title": "Desapostar",
-        "description": "Introduza as informações abaixo para concluir a sua transação.",
+        "description": "Insira as informações abaixo para concluir sua transação.",
         "form": {
           "selectRedeem": "Selecionar o que deseja desapostar de SFT",
-          "selectMaturity": "Selecionar Maturidade",
-          "selectAmount": "Selecionar Valor a Desapostar"
+          "selectMaturity": "Selecionar Vencimento",
+          "selectAmount": "Selecionar Valor a desapostar"
+        }
+      },
+      "clamRewards": {
+        "title": "Receber prémios",
+        "noRewards": {
+          "title": "Lamentamos, mas não tem quaisquer recompensas para reclamar",
+          "description": "Para obtener iSUIY por favor ve y toma algunos SUI"
+        },
+        "maturity": {
+          "title": "Receber prémios",
+          "description": "Introduza as suas informações para concluir a sua transação",
+          "selectRedeem": "Selecione o que iSUIY pode usar"
         }
       }
     },
     "tabs": {
       "stake": "apostar",
       "bonds": "títulos",
-      "portfolio": "portefólio",
+      "portfolio": "portfólio",
       "validators": "validadores",
       "stats": "estatísticas"
     },
@@ -82,7 +118,7 @@
       },
       "validator": {
         "title": "Validadores",
-        "info": "Seleccione um Validador da lista abaixo para apostar o seu Sui. ",
+        "info": "Seleccione um validador da lista abaixo para apostar o seu Sui. ",
         "select": "selecione",
         "clearButton": "limpar",
         "confirmButton": "confirmar seleção"
@@ -151,12 +187,12 @@
             "publish": "publicar",
             "modalMessage": "Obrigado pelo seu feedback!",
             "backToHome": "voltar para o início",
-            "communityInvite": "Junte-te à nossa comunidade",
+            "communityInvite": "Junte-se à nossa comunidade",
             "requisitesToVote": "Você precisa de Soul Bound Token para comentar e votar.",
             "obtainSuiBondToken": "Obter Sui Bond Token"
           }
         },
-        "activeValidatorError": "Um erro ocorreu ao activar o validador"
+        "activeValidatorError": "Ocorreu um erro ao ativar o validador"
       }
     },
     "assetsTable": {
@@ -237,40 +273,6 @@
     },
     "selectValidator": "selecionar validador",
     "selectAssets": "Escolha activos",
-    "maturity": "Maturidade {date}",
-    "clamRewards": {
-      "title": "Receber prémios",
-      "noRewards": {
-        "title": "Lamentamos, mas não tem quaisquer recompensas para reclamar",
-        "description": "Para obtener iSUIY por favor ve y toma algunos SUI"
-      },
-      "maturity": {
-        "title": "Receber prémios",
-        "description": "Introduza as suas informações para concluir a sua transação",
-        "selectRedeem": "Selecione o que iSUIY pode usar"
-      },
-      "transactionSummary": {
-        "title": "Resumo da transação",
-        "receive": "Irá receber",
-        "redeem": "Irá receber",
-        "depositFee": "Taxa de depósito",
-        "buttonClear": "Limpar tudo",
-        "validatorDetails": {
-          "title": "Validador",
-          "ranking": "Classificação",
-          "votingPower": "Poder de voto",
-          "commision": "Comissão"
-        }
-      },
-      "modal": {
-        "success": {
-          "description": "Transação concluída",
-          "viewInExplorer": "Ver no explorador"
-        },
-        "error": {
-          "description": "Falha na Transação"
-        }
-      }
-    }
+    "maturity": "Maturidade {date}"
   }
 }

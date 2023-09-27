@@ -56,7 +56,7 @@ const NonRewards: FC = () => {
             fontWeight="400"
             textAlign="center"
           >
-            {t('lst.clamRewards.noRewards.title')}
+            {t('lst.bonds.clamRewards.noRewards.title')}
           </Typography>
         </Box>
       </Box>
@@ -74,7 +74,7 @@ const NonRewards: FC = () => {
           textAlign="center"
           px="4xl"
         >
-          {t('lst.clamRewards.noRewards.description')}
+          {t('lst.bonds.clamRewards.noRewards.description')}
         </Typography>
         <Button
           variant="filled"

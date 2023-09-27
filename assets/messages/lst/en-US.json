@@ -22,6 +22,30 @@
           "button": "Get Started"
         }
       },
+      "transactionSummary": {
+        "title": "Transaction Summary",
+        "receive": "You will receive",
+        "stake": "You will stake",
+        "redeem": "You will redeem",
+        "depositFee": "Deposit fee",
+        "estimatedRewards": "Esd. Yearly Reward",
+        "buttonClear": "Clear All",
+        "validatorDetails": {
+          "title": "Validator",
+          "ranking": "Ranking",
+          "votingPower": "Voting Power",
+          "commision": "Comission"
+        }
+      },
+      "modal": {
+        "success": {
+          "description": "Transaction Completed",
+          "viewInExplorer": "View in Explorer"
+        },
+        "error": {
+          "description": "Transaction Failed"
+        }
+      },
       "stake": {
         "title": "Stake SUI",
         "description": "Enter the information below to complete your transaction.",
@@ -38,6 +62,18 @@
           "selectRedeem": "Select what SFT to redeem",
           "selectMaturity": "Select Maturity",
           "selectAmount": "Select Amount to redeem"
+        }
+      },
+      "clamRewards": {
+        "title": "Claim Rewards",
+        "noRewards": {
+          "title": "Sorry, you don´t have any rewards to claim",
+          "description": "To obtain iSUIY please go and take some SUI"
+        },
+        "maturity": {
+          "title": "Claim Rewards",
+          "description": "Enter your information to complete your transaction.",
+          "selectRedeem": "Select what iSUIY to redeem"
         }
       }
     },
@@ -238,40 +274,6 @@
     },
     "selectValidator": "Select Validator",
     "selectAssets": "Select Assets",
-    "maturity": "Maturity {date}",
-    "clamRewards": {
-      "title": "Claim Rewards",
-      "noRewards": {
-        "title": "Sorry, you don´t have any rewards to claim",
-        "description": "To obtain iSUIY please go and take some SUI"
-      },
-      "maturity": {
-        "title": "Claim Rewards",
-        "description": "Enter your information to complete your transaction.",
-        "selectRedeem": "Select what iSUIY to redeem"
-      },
-      "transactionSummary": {
-        "title": "Transaction Summary",
-        "receive": "You will receive",
-        "redeem": "You will redeem",
-        "depositFee": "Deposit fee",
-        "buttonClear": "Clear All",
-        "validatorDetails": {
-          "title": "Validator",
-          "ranking": "Ranking",
-          "votingPower": "Voting Power",
-          "commision": "Comission"
-        }
-      },
-      "modal": {
-        "success": {
-          "description": "Transaction Completed",
-          "viewInExplorer": "View in Explorer"
-        },
-        "error": {
-          "description": "Transaction Failed"
-        }
-      }
-    }
+    "maturity": "Maturity {date}"
   }
 }

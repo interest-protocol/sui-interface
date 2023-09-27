@@ -22,6 +22,30 @@
           "button": "Começar"
         }
       },
+      "transactionSummary": {
+        "title": "Resumo da transação",
+        "receive": "Irá receber",
+        "stake": "Irá apostar",
+        "redeem": "Irá render",
+        "depositFee": "Taxa de depósito",
+        "estimatedRewards": "Recompensa anual esd.",
+        "buttonClear": "Limpar tudo",
+        "validatorDetails": {
+          "title": "Validador",
+          "ranking": "Classificação",
+          "votingPower": "Poder de voto",
+          "commision": "Comissão"
+        }
+      },
+      "modal": {
+        "success": {
+          "description": "Transação concluída",
+          "viewInExplorer": "Ver no explorador"
+        },
+        "error": {
+          "description": "Falha na Transação"
+        }
+      },
       "stake": {
         "title": "Apostar SUI",
         "description": "Insira as informações abaixo para concluir sua transação.",
@@ -38,6 +62,18 @@
           "selectRedeem": "Selecionar o que deseja desapostar de SFT",
           "selectMaturity": "Selecionar Vencimento",
           "selectAmount": "Selecionar Valor a desapostar"
+        }
+      },
+      "clamRewards": {
+        "title": "Receber prémios",
+        "noRewards": {
+          "title": "Lamentamos, mas não tem quaisquer recompensas para reclamar",
+          "description": "Para obtener iSUIY por favor ve y toma algunos SUI"
+        },
+        "maturity": {
+          "title": "Receber prémios",
+          "description": "Introduza as suas informações para concluir a sua transação",
+          "selectRedeem": "Selecione o que iSUIY pode usar"
         }
       }
     },
@@ -237,40 +273,6 @@
     },
     "selectValidator": "selecionar validador",
     "selectAssets": "Escolha activos",
-    "maturity": "Maturidade {date}",
-    "clamRewards": {
-      "title": "Receber prémios",
-      "noRewards": {
-        "title": "Lamentamos, mas não tem quaisquer recompensas para reclamar",
-        "description": "Para obtener iSUIY por favor ve y toma algunos SUI"
-      },
-      "maturity": {
-        "title": "Receber prémios",
-        "description": "Introduza as suas informações para concluir a sua transação",
-        "selectRedeem": "Selecione o que iSUIY pode usar"
-      },
-      "transactionSummary": {
-        "title": "Resumo da transação",
-        "receive": "Irá receber",
-        "redeem": "Irá receber",
-        "depositFee": "Taxa de depósito",
-        "buttonClear": "Limpar tudo",
-        "validatorDetails": {
-          "title": "Validador",
-          "ranking": "Classificação",
-          "votingPower": "Poder de voto",
-          "commision": "Comissão"
-        }
-      },
-      "modal": {
-        "success": {
-          "description": "Transação concluída",
-          "viewInExplorer": "Ver no explorador"
-        },
-        "error": {
-          "description": "Falha na Transação"
-        }
-      }
-    }
+    "maturity": "Maturidade {date}"
   }
 }

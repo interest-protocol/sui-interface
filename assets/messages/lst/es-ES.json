@@ -22,6 +22,30 @@
           "button": "Comenzar"
         }
       },
+      "transactionSummary": {
+        "title": "Resumen de transacción",
+        "receive": "Recibirás",
+        "stake": "Usted apostará",
+        "redeem": "Usted canjeará",
+        "depositFee": "Comisión de depósito",
+        "estimatedRewards": "Recompensa anual esd.",
+        "buttonClear": "Borrar todo",
+        "validatorDetails": {
+          "title": "Validador",
+          "ranking": "Clasificación",
+          "votingPower": "Poder de voto",
+          "commision": "Comisión"
+        }
+      },
+      "modal": {
+        "success": {
+          "description": "Transacción completada",
+          "viewInExplorer": "Ver en el explorador"
+        },
+        "error": {
+          "description": "Transacción Fallida"
+        }
+      },
       "stake": {
         "title": "Apostar SUI",
         "description": "Ingresa la información a continuación para completar tu transacción.",
@@ -38,6 +62,18 @@
           "selectRedeem": "Seleccionar qué SFT deseas desapostar",
           "selectMaturity": "Seleccionar Vencimiento",
           "selectAmount": "Seleccionar Cantidad a desapostar"
+        }
+      },
+      "clamRewards": {
+        "title": "Reclamar premios",
+        "noRewards": {
+          "title": "Lo sentimos, no tienes ninguna recompensa que reclamar",
+          "description": "Para obtener iSUIY por favor ve y toma algunos SUI"
+        },
+        "maturity": {
+          "title": "Reclamar premios",
+          "description": "Introduce tus datos para completar la transacción",
+          "selectRedeem": "Selecciona qué iSUIY canjear"
         }
       }
     },
@@ -237,40 +273,6 @@
     },
     "selectValidator": "seleccionar validador",
     "selectAssets": "Elegir activos",
-    "maturity": "Vencimiento {date}",
-    "clamRewards": {
-      "title": "Reclamar premios",
-      "noRewards": {
-        "title": "Lo sentimos, no tienes ninguna recompensa que reclamar",
-        "description": "Para obtener iSUIY por favor ve y toma algunos SUI"
-      },
-      "maturity": {
-        "title": "Reclamar premios",
-        "description": "Introduce tus datos para completar la transacción",
-        "selectRedeem": "Selecciona qué iSUIY canjear"
-      },
-      "transactionSummary": {
-        "title": "Resumen de transacción",
-        "receive": "Recibirás",
-        "redeem": "Usted canjeará",
-        "depositFee": "Comisión de depósito",
-        "buttonClear": "Borrar todo",
-        "validatorDetails": {
-          "title": "Validador",
-          "ranking": "Clasificación",
-          "votingPower": "Poder de voto",
-          "commision": "Comisión"
-        }
-      },
-      "modal": {
-        "success": {
-          "description": "Transacción completada",
-          "viewInExplorer": "Ver en el explorador"
-        },
-        "error": {
-          "description": "Transacción Fallida"
-        }
-      }
-    }
+    "maturity": "Vencimiento {date}"
   }
 }

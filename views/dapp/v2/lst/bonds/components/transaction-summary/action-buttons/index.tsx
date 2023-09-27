@@ -34,13 +34,12 @@ const ActionButtons: FC<ActionButtonsProps> = ({
       >
         <Typography
           variant="small"
-          fontSize="0.875rem"
           width="100%"
           textAlign="center"
           color="onSurface"
           textTransform="capitalize"
         >
-          {t('lst.clamRewards.transactionSummary.buttonClear')}
+          {t('lst.bonds.transactionSummary.buttonClear')}
         </Typography>
       </Button>
       <Button

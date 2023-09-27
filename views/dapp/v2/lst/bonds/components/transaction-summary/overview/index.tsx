@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 
 import { OverviewProps } from './overview.types';
 
-const Overview: FC<OverviewProps> = ({ fee }) => {
+const Overview: FC<OverviewProps> = ({ fee, rewards }) => {
   const t = useTranslations();
 
   return (
@@ -33,7 +33,7 @@ const Overview: FC<OverviewProps> = ({ fee }) => {
       >
         <Box key={v4()} display="flex" justifyContent="space-between">
           <Typography variant="small" fontSize="0.75rem" color="onSurface">
-            {t('lst.clamRewards.transactionSummary.depositFee')}
+            {t('lst.bonds.transactionSummary.depositFee')}
           </Typography>
           <Typography
             variant="small"
@@ -42,6 +42,19 @@ const Overview: FC<OverviewProps> = ({ fee }) => {
             fontWeight="700"
           >
             {fee}
+          </Typography>
+        </Box>
+        <Box key={v4()} display="flex" justifyContent="space-between">
+          <Typography variant="small" fontSize="0.75rem" color="onSurface">
+            {t('lst.bonds.transactionSummary.estimatedRewards')}
+          </Typography>
+          <Typography
+            variant="small"
+            fontSize="0.75rem"
+            color="onSurface"
+            fontWeight="700"
+          >
+            {rewards ?? '--'}
           </Typography>
         </Box>
       </Box>

@@ -18,11 +18,7 @@ const Amount: FC<AmountProps> = ({ isRedeem, value, fieldList }) => {
         opacity="0.6"
         mb="0.5rem"
       >
-        {t(
-          `lst.clamRewards.transactionSummary.${
-            isRedeem ? 'redeem' : 'receive'
-          }`
-        )}
+        {t(`lst.bonds.transactionSummary.${isRedeem ? 'redeem' : 'receive'}`)}
       </Typography>
       {fieldList.map((field) => (
         <Box

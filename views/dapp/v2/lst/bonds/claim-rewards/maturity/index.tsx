@@ -12,8 +12,8 @@ const BondsClaimRewardsMaturity: FC = () => {
 
   return (
     <BondsContainer
-      title={capitalize(t('lst.clamRewards.maturity.title'))}
-      description={capitalize(t('lst.clamRewards.maturity.description'))}
+      title={capitalize(t('lst.bonds.clamRewards.maturity.title'))}
+      description={capitalize(t('lst.bonds.clamRewards.maturity.description'))}
     >
       <Typography
         variant="medium"
@@ -21,7 +21,7 @@ const BondsClaimRewardsMaturity: FC = () => {
         fontSize={['0.75rem', '0.75rem', '0.75rem', 'l']}
         mb={['xs', 'xs', 'xs', 'l']}
       >
-        {t('lst.clamRewards.maturity.selectRedeem')}
+        {t('lst.bonds.clamRewards.maturity.selectRedeem')}
       </Typography>
       <BondsClaimRewardsMaturityList />
     </BondsContainer>
