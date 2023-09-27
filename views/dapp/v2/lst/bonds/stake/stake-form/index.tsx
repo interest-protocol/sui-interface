@@ -18,7 +18,7 @@ const BondsStakeForm: FC = () => {
       </Box>
       <Box>
         <StepTitle title={t('lst.bonds.stake.form.selectAmount')} step={2} />
-        <StakeInput suiPrice={0} exchangeRate={1} totalBalance={BigNumber(0)} />
+        <StakeInput suiPrice={1} exchangeRate={1} totalBalance={BigNumber(0)} />
       </Box>
       <Box>
         <StepTitle title={t('lst.bonds.stake.form.selectValidator')} step={3} />
