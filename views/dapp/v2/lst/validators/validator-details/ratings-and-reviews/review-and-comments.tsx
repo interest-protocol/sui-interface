@@ -6,13 +6,15 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-// import { EXPLORER_URL } from '@/constants';
+import { EXPLORER_URL } from '@/constants';
 import { LST_OBJECTS } from '@/constants/lst';
-import { useNetwork, useProvider } from '@/hooks';
+import { useModal, useNetwork, useProvider } from '@/hooks';
 import { useGetInterestSbt } from '@/hooks/use-get-interest-sbt';
 import { showTXSuccessToast, throwTXIfNotSuccessful } from '@/utils';
 
-// import ValidatorConfirmVoteModal from '../modal';
+import FormConfirmModal from '../../../components/modal/confirm-modal';
+import FormFailModal from '../../../components/modal/fail-modal';
+import FormLoadingModal from '../../../components/modal/loading-modal';
 import { ReviewForm } from '../validators-details.types';
 import LeaveAComment from './comments';
 import VotingButtons from './ratings';
@@ -20,7 +22,7 @@ import SubmitButton from './submit-button';
 
 const ReviewAndComments: FC = () => {
   const t = useTranslations();
-  // const { setModal, handleClose } = useModal();
+  const { setModal, handleClose } = useModal();
   const { network } = useNetwork();
   const { signTransactionBlock } = useWalletKit();
   const { provider } = useProvider();
@@ -33,24 +35,47 @@ const ReviewAndComments: FC = () => {
     },
   });
 
-  // const openConfirmationModal = setModal(
-  //   <ValidatorConfirmVoteModal
-  //     handleClose={() => {
-  //       handleClose();
-  //       setValue('rating', null);
-  //     }}
-  //   />,
-  //   {
-  //     isOpen: true,
-  //     custom: true,
-  //     opaque: false,
-  //     allowClose: false,
-  //   }
-  // );
+  const openLoadingModal = () => {
+    setModal(<FormLoadingModal handleClose={handleClose} />, {
+      isOpen: true,
+      custom: true,
+      opaque: false,
+      allowClose: true,
+    });
+  };
+
+  const openResultModal = (isSuccess: boolean, txLink?: string) =>
+    setModal(
+      isSuccess ? (
+        <FormConfirmModal
+          handleClose={() => {
+            handleClose();
+            setValue('rating', null);
+          }}
+          viewInExplorerLink={txLink || ''}
+          onClick={handleClose}
+          labels={{
+            description: 'transaction success',
+            button: 'go back home',
+          }}
+        />
+      ) : (
+        <FormFailModal
+          labels={{ description: 'transaction failed', button: 'try again' }}
+          handleClose={handleClose}
+        />
+      ),
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: false,
+      }
+    );
 
   const handleSubmit = async () => {
     try {
-      // TODO: loading modal
+      openLoadingModal();
       const objects = LST_OBJECTS[network];
       const values = getValues();
 
@@ -84,11 +109,11 @@ const ReviewAndComments: FC = () => {
 
       await showTXSuccessToast(tx, network);
 
-      // const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
+      const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
 
-      // TODO: success modal with explorer link
+      openResultModal(true, explorerLink);
     } catch {
-      console.log('a');
+      openResultModal(false);
     } finally {
       await mutate();
     }
