@@ -189,8 +189,8 @@
             "modalMessage": "Thanks for summitting your vote",
             "backToHome": "back to home",
             "communityInvite": "Be part of the community",
-            "requisitesToVote": "You need Soul Bound Token to write comments & vote.",
-            "obtainSuiBondToken": "Obtain Sui Bond Token"
+            "requisitesToVote": "You need IPX Soul Bound Token to write comments & vote.",
+            "obtainSuiBondToken": "Obtain IPX Soul Bound Token"
           }
         },
         "activeValidatorError": "An error occurred while validator activation"

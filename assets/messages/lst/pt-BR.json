@@ -188,8 +188,8 @@
             "modalMessage": "Obrigado pelo seu feedback!",
             "backToHome": "voltar para o início",
             "communityInvite": "Junte-se à nossa comunidade",
-            "requisitesToVote": "Você precisa de Soul Bound Token para comentar e votar.",
-            "obtainSuiBondToken": "Obter Sui Bond Token"
+            "requisitesToVote": "Você precisa de IPX Soul Bound Token para comentar e votar.",
+            "obtainSuiBondToken": "Obter IPX Soul Bound Token"
           }
         },
         "activeValidatorError": "Ocorreu um erro ao ativar o validador"
