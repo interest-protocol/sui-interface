@@ -153,9 +153,9 @@ const UnstakeMaturity: FC = () => {
                     : 'Matured'}
                 </Typography>
               </Box>
-              <Box display="flex" alignItems="center" gap="xl">
+              <Box display="flex" alignItems="center" ml="4xl" gap="xl">
                 {tokens.map((type) => (
-                  <Box key={v4()} display="flex" alignItems="center" gap="m">
+                  <Box gap="m" key={v4()} display="flex" alignItems="center">
                     <DerivativeIcon type={type} />
                     <Typography variant="medium">{amounts[type]}</Typography>
                   </Box>

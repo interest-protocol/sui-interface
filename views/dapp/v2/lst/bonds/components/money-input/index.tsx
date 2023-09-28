@@ -1,4 +1,10 @@
-import { Box, TextField, Typography } from '@interest-protocol/ui-kit';
+import {
+  Box,
+  TextField,
+  Theme,
+  Typography,
+  useTheme,
+} from '@interest-protocol/ui-kit';
 import { forwardRef } from 'react';
 import { v4 } from 'uuid';
 
@@ -11,13 +17,14 @@ const MoneyInput = forwardRef(
     { Prefix, control, balance, onChangeValue, ...props }: MoneyInputProps,
     ref
   ) => {
+    const { colors } = useTheme() as Theme;
     return (
       <Box>
         <Box display="flex" justifyContent="space-between">
-          <Typography variant="small" color="onSurface">
+          <Typography variant="extraSmall" opacity=".6" color="onSurface">
             Wallet Balance: {balance}
           </Typography>
-          <Box display="flex" gap="l">
+          <Box display="flex" gap="s">
             {([25, 50, 75, 100] as ReadonlyArray<25 | 50 | 75 | 100>).map(
               (value) => (
                 <PercentageButton
@@ -49,7 +56,7 @@ const MoneyInput = forwardRef(
             fieldProps={{
               my: 'm',
               pl: 'l',
-              borderColor: 'outline.outlineVariant',
+              borderColor: colors['outline.outlineVariant'] + '!important',
             }}
           />
         </Box>

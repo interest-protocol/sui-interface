@@ -19,7 +19,13 @@ const BondsStakeHeader: FC = () => {
       >
         {t('lst.bonds.stake.title')}
       </Typography>
-      <Typography variant="medium" color="onSurface" my="s">
+      <Typography
+        my="s"
+        opacity=".6"
+        variant="medium"
+        fontWeight="400"
+        color="onSurface"
+      >
         {t('lst.bonds.stake.description')}
       </Typography>
     </>
