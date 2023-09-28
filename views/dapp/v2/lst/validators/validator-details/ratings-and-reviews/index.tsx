@@ -21,20 +21,18 @@ import ReviewAndComments from './review-and-comments';
 
 const MAX_RANKING = 10;
 
-const DividerLine = () => {
-  return (
-    <Box
-      top="50%"
-      left="50%"
-      width="1px"
-      position="absolute"
-      borderRight="1px solid"
-      height="calc(100% - 2rem)"
-      transform="translate(-50%, -50%)"
-      borderColor="outline.outlineVariant"
-    />
-  );
-};
+const DividerLine = () => (
+  <Box
+    top="50%"
+    left="50%"
+    width="1px"
+    position="absolute"
+    borderRight="1px solid"
+    height="calc(100% - 2rem)"
+    transform="translate(-50%, -50%)"
+    borderColor="outline.outlineVariant"
+  />
+);
 
 const ValidatorRatings: FC<
   RatingRowProps & Pick<ValidatorsUserActionsProps, 'ranking'>
