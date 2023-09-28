@@ -237,12 +237,12 @@ export const useGetLstStorage = () => {
   };
 };
 
-export const useGetCurrentEpoch = () => {
+export const useGetLatestSuiSystemState = () => {
   const { provider } = useProvider();
   const { network } = useNetwork();
 
   return useSWR(
-    makeSWRKey([network], useGetCurrentEpoch.name),
+    makeSWRKey([network], useGetLatestSuiSystemState.name),
     async () => provider.getLatestSuiSystemState(),
     {
       revalidateOnFocus: false,
@@ -257,7 +257,7 @@ export const useGetValidatorsApy = () => {
   const { network } = useNetwork();
 
   return useSWR(
-    makeSWRKey([network], useGetCurrentEpoch.name),
+    makeSWRKey([network], useGetValidatorsApy.name),
     async () => provider.getValidatorsApy(),
     {
       revalidateOnFocus: false,

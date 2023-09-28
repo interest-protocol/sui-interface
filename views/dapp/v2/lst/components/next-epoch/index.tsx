@@ -4,7 +4,7 @@ import Skeleton from 'react-loading-skeleton';
 
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
-import { useGetCurrentEpoch } from '@/views/dapp/v2/lst/lst.hooks';
+import { useGetLatestSuiSystemState } from '@/views/dapp/v2/lst/lst.hooks';
 
 import ErrorState from '../error-state';
 import EpochHeader from './epoch-header';
@@ -12,9 +12,15 @@ import EpochProgressBar from './epoch-progress-bar';
 
 const NextEpoch: FC = () => {
   const t = useTranslations();
-  const { data, isLoading, error } = useGetCurrentEpoch();
+  const { data, isLoading, error } = useGetLatestSuiSystemState();
 
-  if (!data || error)
+  if (
+    !data ||
+    !data.epoch ||
+    !data.epochStartTimestampMs ||
+    !data.epochStartTimestampMs ||
+    error
+  )
     return (
       <EpochHeader epochNumber={data?.epoch}>
         <ErrorState
@@ -23,19 +29,19 @@ const NextEpoch: FC = () => {
       </EpochHeader>
     );
 
-  const startDateMS = Number(data?.epochStartTimestampMs);
-  const durationMS = Number(data?.epochDurationMs);
+  const startDateMS = Number(data.epochStartTimestampMs);
+  const durationMS = Number(data.epochDurationMs);
   const endDataMS = startDateMS + durationMS;
 
   return (
-    <EpochHeader epochNumber={data?.epoch}>
+    <EpochHeader epochNumber={data.epoch}>
       {isLoading ? (
         <Skeleton width="100%" height="1.875rem" />
       ) : (
         <EpochProgressBar
+          endDate={endDataMS}
           duration={durationMS}
           startDate={startDateMS}
-          endDate={endDataMS}
         />
       )}
     </EpochHeader>
