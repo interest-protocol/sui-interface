@@ -1,6 +1,6 @@
 import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 
-export type DERIVATED_SUI_SYMBOL = 'SUI' | 'iSui' | 'iSui-PC' | 'iSui-YN';
+export type DERIVATED_SUI_SYMBOL = 'SUI' | 'iSui' | 'iSUIP' | 'iSUIY';
 
 import BigNumber from 'bignumber.js';
 

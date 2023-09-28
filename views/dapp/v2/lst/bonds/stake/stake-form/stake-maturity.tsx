@@ -8,26 +8,30 @@ import { MONTHS } from '@/constants';
 import { useBondsContext } from '../../bonds.hooks';
 import SelectCard from '../../components/select-card';
 
-const DATES = [
-  Date.now() + 1000 * 60 * 60 * 24 * 2,
-  Date.now() + 1000 * 60 * 60 * 24 * 20,
-  Date.now() + 1000 * 60 * 60 * 24 * 200,
-  Date.now() + 1000 * 60 * 60 * 24 * 2000,
+// TODO NEEDS TO BE UPDATED
+const MATURITIES = [
+  { date: 1695914399504 + 1000 * 60 * 60 * 24 * 2, epoch: 143 },
+  { date: 1695914399504 + 1000 * 60 * 60 * 24 * 20, epoch: 161 },
+  { date: 1695914399504 + 1000 * 60 * 60 * 24 * 200, epoch: 341 },
+  { date: 1695914399504 + 1000 * 60 * 60 * 24 * 2000, epoch: 2141 },
 ];
 
 const StakeMaturity: FC = () => {
   const { form } = useBondsContext();
-  const maturityId = useWatch({ control: form.control, name: 'maturity.id' });
+  const maturityId = useWatch({
+    control: form.control,
+    name: 'maturity.epoch',
+  });
 
   return (
     <Box display="grid" gap="l" gridTemplateColumns="1fr 1fr">
-      {DATES.map((date, index) => (
+      {MATURITIES.map(({ date, epoch }) => (
         <SelectCard
           key={v4()}
-          checked={maturityId == String(index)}
+          checked={maturityId == String(epoch)}
           onSelect={() =>
             form.setValue('maturity', {
-              id: String(index),
+              epoch: String(epoch),
               date: String(date),
             })
           }

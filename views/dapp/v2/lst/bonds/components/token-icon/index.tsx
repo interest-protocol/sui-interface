@@ -48,7 +48,7 @@ const TokenIcon: FC<TokenIconProps> = ({ symbol, size, lessRadius }) => (
           height="100%"
           filled
         />
-      ) : symbol == 'iSui-PC' ? (
+      ) : symbol == 'iSUIP' ? (
         <ISuiPCSVG
           maxHeight={`${size}rem`}
           maxWidth={`${size}rem`}

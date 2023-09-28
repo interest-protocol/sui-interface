@@ -28,7 +28,7 @@ const TransactionSummaryStakeBody: FC = () => {
 
   const rating = useMemo(() => Number((Math.random() * 10).toFixed(0)), []);
 
-  const value = undefined; // TODO: calculated value
+  const value = form.getValues('amount');
 
   return (
     <Box>
@@ -50,10 +50,7 @@ const TransactionSummaryStakeBody: FC = () => {
         borderRadius="0.25rem"
         flexDirection="column"
       >
-        {[
-          { symbol: 'iSui-PC', title: 'iSuiP' },
-          { symbol: 'iSui-YN', title: 'iSuiYn' },
-        ].map(({ symbol, title }) => (
+        {['iSUIP', 'iSUIY'].map((symbol) => (
           <Box
             px="m"
             key={v4()}
@@ -95,7 +92,7 @@ const TransactionSummaryStakeBody: FC = () => {
                   lineHeight="1rem"
                   variant="extraSmall"
                 >
-                  {title}
+                  {symbol}
                 </Typography>
               </Box>
             </Box>

@@ -7,17 +7,34 @@ import {
 } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
+import { useWatch } from 'react-hook-form';
+
+import { useBondsContext } from '@/views/dapp/v2/lst/bonds/bonds.hooks';
 
 import { ActionButtonsProps } from './action-buttons.types';
 
 const ActionButtons: FC<ActionButtonsProps> = ({
-  disable,
   handleClear,
   submitText,
   handleSubmit,
 }) => {
   const t = useTranslations();
   const { colors } = useTheme() as Theme;
+  const { form } = useBondsContext();
+
+  const formValues = useWatch({ control: form.control });
+
+  const isEnabled = () => {
+    if (formValues.type === 'stake')
+      return (
+        !!formValues.amount &&
+        +formValues.amount >= 1 &&
+        !!formValues?.maturity?.epoch &&
+        +formValues?.maturity?.epoch > 0
+      );
+
+    return false;
+  };
 
   return (
     <Box
@@ -46,9 +63,9 @@ const ActionButtons: FC<ActionButtonsProps> = ({
         variant="filled"
         p="0.625rem 0 !important"
         py="0.625rem"
-        disabled={disable}
+        disabled={!isEnabled()}
         onClick={handleSubmit}
-        bg={disable ? `${colors['surface.dim']} !important` : 'primary'}
+        bg={!isEnabled() ? `${colors['surface.dim']} !important` : 'primary'}
       >
         <Typography
           variant="small"

@@ -15,7 +15,6 @@ const TransactionSummary: FC<TransactionSummaryProps> = ({
   handleClear,
   handleSubmit,
 }) => {
-  const disable = false; // TODO: handle the logic
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
   const { form } = useBondsContext();
@@ -56,7 +55,6 @@ const TransactionSummary: FC<TransactionSummaryProps> = ({
       <Box mt="5rem">
         <Overview fee={0.12} />
         <ActionButtons
-          disable={disable}
           submitText={submitText}
           handleClear={handleClear}
           handleSubmit={handleSubmit}

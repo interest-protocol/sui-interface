@@ -1,7 +1,10 @@
+import { SUI_TYPE_ARG } from '@mysten/sui.js';
 import BigNumber from 'bignumber.js';
+import { pathOr } from 'ramda';
 import { ChangeEvent, FC } from 'react';
 
 import { SUISVG } from '@/components/svg/v2';
+import { useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
 import {
   formatDollars,
@@ -17,7 +20,12 @@ const StakeInput: FC = () => {
   const exchangeRate = 1;
   const { form } = useBondsContext();
   const { suiCoinInfo } = useLstData();
-  const totalBalance = BigNumber(0);
+  const { coinsMap } = useWeb3();
+  const totalBalance = pathOr(
+    BigNumber('0'),
+    [SUI_TYPE_ARG, 'totalBalance'],
+    coinsMap
+  );
 
   const suiPrice = suiCoinInfo?.price ?? 1;
 

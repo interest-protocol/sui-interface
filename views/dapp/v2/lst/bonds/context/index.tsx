@@ -27,7 +27,7 @@ export const BondsProvider: FC<PropsWithChildren> = ({ children }) => {
       tokens: [],
       amount: '0',
       amountUSD: formatDollars(0),
-      maturity: { date: '', id: '' },
+      maturity: { date: '', epoch: '' },
       validator: DEFAULT_VALIDATOR[network],
       type: FORM_TYPE[asPath] as BondsForm['type'],
     },
