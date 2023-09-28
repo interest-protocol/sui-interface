@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 
 import { capitalize } from '@/utils';
 
-import { useGetCurrentEpoch } from '../../lst.hooks';
+import { useGetLatestSuiSystemState } from '../../lst.hooks';
 import CardSection from '../card-section';
 import ErrorState from '../error-state';
 import InlineInformation from '../inline-information';
@@ -14,7 +14,7 @@ import { REGULAR_OVERVIEW_DATA } from './regular-overview.data';
 
 const RegularOverview: FC = () => {
   const t = useTranslations();
-  const { data, isLoading, error } = useGetCurrentEpoch();
+  const { data, isLoading, error } = useGetLatestSuiSystemState();
 
   if (!data || error)
     return (
