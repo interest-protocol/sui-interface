@@ -7,9 +7,9 @@ import { VotingButtonsProps } from '../validators-details.types';
 
 const SubmitButton: FC<
   Omit<VotingButtonsProps, 'setValue'> & {
-    openModal: () => void;
+    handleSubmit: () => void;
   }
-> = ({ control, openModal }) => {
+> = ({ control, handleSubmit }) => {
   const t = useTranslations();
   const { colors } = useTheme() as Theme;
   const rating = useWatch({ control, name: 'rating' });
@@ -21,7 +21,7 @@ const SubmitButton: FC<
       size="small"
       variant="filled"
       width="fit-content"
-      onClick={openModal}
+      onClick={handleSubmit}
       textTransform="capitalize"
       nDisabled={{
         bg: colors['surface.containerLowest'],

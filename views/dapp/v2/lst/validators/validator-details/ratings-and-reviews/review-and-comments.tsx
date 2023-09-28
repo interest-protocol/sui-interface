@@ -33,8 +33,24 @@ const ReviewAndComments: FC = () => {
     },
   });
 
-  const openConfirmationModal = async () => {
+  const openConfirmationModal = setModal(
+    <ValidatorConfirmVoteModal
+      handleClose={() => {
+        handleClose();
+        setValue('rating', null);
+      }}
+    />,
+    {
+      isOpen: true,
+      custom: true,
+      opaque: false,
+      allowClose: false,
+    }
+  );
+
+  const handleSubmit = async () => {
     try {
+      // TODO: loading modal
       const objects = LST_OBJECTS[network];
       const values = getValues();
 
@@ -69,22 +85,11 @@ const ReviewAndComments: FC = () => {
       await showTXSuccessToast(tx, network);
 
       const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
+
+      // TODO: success modal with explorer link
     } catch {
+      // TODO: fail modal
     } finally {
-      setModal(
-        <ValidatorConfirmVoteModal
-          handleClose={() => {
-            handleClose();
-            setValue('rating', null);
-          }}
-        />,
-        {
-          isOpen: true,
-          custom: true,
-          opaque: false,
-          allowClose: false,
-        }
-      );
       await mutate();
     }
   };
@@ -119,7 +124,7 @@ const ReviewAndComments: FC = () => {
           setValue={(value: string) => setValue('comment', value)}
         />
       </Box>
-      <SubmitButton control={control} openModal={openConfirmationModal} />
+      <SubmitButton control={control} handleSubmit={handleSubmit} />
     </Box>
   );
 };

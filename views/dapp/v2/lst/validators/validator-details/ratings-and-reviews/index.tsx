@@ -18,7 +18,6 @@ import {
 import CommunityInvite from './community-invite';
 import RatingRow from './rating-row';
 import ReviewAndComments from './review-and-comments';
-// import ReviewAndComments from './review-and-comments';
 
 const MAX_RANKING = 10;
 
@@ -49,6 +48,7 @@ const ValidatorRatings: FC<
 
   const mintSBT = async () => {
     try {
+      // TODO: loading modal
       const objects = LST_OBJECTS[network];
 
       const txb = new TransactionBlock();
@@ -72,7 +72,9 @@ const ValidatorRatings: FC<
       await showTXSuccessToast(tx, network);
 
       const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
+      // TODO: success modal with explorer link
     } catch {
+      // TODO: failure modal
     } finally {
       await mutate();
     }
