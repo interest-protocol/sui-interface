@@ -3,6 +3,8 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
+import { DERIVATED_SUI_SYMBOL } from '@/views/dapp/v2/lst/lst.types';
+
 import TokenIcon from '../../../components/token-icon';
 import { AmountProps } from './amount.types';
 
@@ -41,7 +43,7 @@ const Amount: FC<AmountProps> = ({ isRedeem, value, fieldList }) => {
               alignItems="center"
               gap="0.25rem"
             >
-              <TokenIcon symbol={field.symbol} size={2.5} lessRadius />
+              <TokenIcon id={field.symbol} size={2.5} lessRadius />
               <Box display="flex" flexDirection="column" width="max-content">
                 <Typography
                   variant="medium"
