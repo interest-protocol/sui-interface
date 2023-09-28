@@ -1,11 +1,8 @@
 import { Box } from '@interest-protocol/ui-kit';
-import BigNumber from 'bignumber.js';
 import { ChangeEvent, FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { ISuiPSVG, ISuiYNSVG } from '@/components/svg/v2';
-import { ISUI_PRINCIPAL_TYPE, ISUI_YIELD_TYPE } from '@/constants/lst';
-import { FixedPointMath } from '@/lib';
 import {
   formatDollars,
   formatMoney,
@@ -22,19 +19,19 @@ const UnstakeInput: FC = () => {
     form: { control, register, setValue },
   } = useBondsContext();
   const { suiCoinInfo } = useLstData();
-  const totalBalance = BigNumber(0);
+  const { couponType, principalType } = useBondsContext();
 
   const suiPrice = suiCoinInfo?.price ?? 1;
-
   const tokens = useWatch({ control, name: 'tokens' });
+  const totalBalance = useWatch({ control, name: 'totalBalance' });
 
-  const haveiSuiP = tokens.includes(ISUI_PRINCIPAL_TYPE);
-  const haveiSuiYn = tokens.includes(ISUI_YIELD_TYPE);
+  const haveiSuiP = tokens?.includes(principalType);
+  const haveiSuiYn = tokens?.includes(couponType);
 
   return (
     <MoneyInput
       control={control}
-      balance={formatMoney(FixedPointMath.toNumber(totalBalance))}
+      balance={formatMoney(Number(totalBalance))}
       Prefix={
         <Box display="flex" gap="s">
           {haveiSuiP && (
@@ -56,21 +53,10 @@ const UnstakeInput: FC = () => {
         </Box>
       }
       onChangeValue={(value: number) => {
-        setValue(
-          'amount',
-          FixedPointMath.toNumber(
-            totalBalance.dividedBy(BigNumber(100 / value))
-          ).toString()
-        );
+        setValue('amount', String(Number(totalBalance) / (100 / value)));
         setValue(
           'amountUSD',
-          formatDollars(
-            FixedPointMath.toNumber(
-              totalBalance.dividedBy(BigNumber(100 / value))
-            ) *
-              suiPrice *
-              exchangeRate
-          )
+          formatDollars(Number(totalBalance) / (100 / value))
         );
       }}
       {...register('amount', {

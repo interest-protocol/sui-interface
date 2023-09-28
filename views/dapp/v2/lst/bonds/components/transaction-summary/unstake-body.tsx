@@ -5,7 +5,6 @@ import { useWatch } from 'react-hook-form';
 import { v4 } from 'uuid';
 
 import { MONTHS } from '@/constants';
-import { ISUI_PRINCIPAL_TYPE, ISUI_YIELD_TYPE } from '@/constants/lst';
 
 import { DERIVATED_SUI_SYMBOL } from '../../../lst.types';
 import { useBondsContext } from '../../bonds.hooks';
@@ -13,7 +12,7 @@ import TokenIcon from '../token-icon';
 
 const TransactionSummaryUnstakeBody: FC = () => {
   const t = useTranslations();
-  const { form } = useBondsContext();
+  const { form, couponType, principalType } = useBondsContext();
   const { maturity, amount, tokens } = useWatch({ control: form.control });
 
   const value = undefined; // TODO: calculated value
@@ -54,7 +53,7 @@ const TransactionSummaryUnstakeBody: FC = () => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <TokenIcon symbol="SUI" size={2.5} lessRadius />
+            <TokenIcon id="SUI" size={2.5} lessRadius />
             <Box display="flex" flexDirection="column" width="max-content">
               <Typography
                 width="100%"
@@ -90,11 +89,11 @@ const TransactionSummaryUnstakeBody: FC = () => {
         flexDirection="column"
       >
         {[
-          { symbol: 'iSui-PC', title: 'iSuiP', type: ISUI_PRINCIPAL_TYPE },
-          { symbol: 'iSui-YN', title: 'iSuiYn', type: ISUI_YIELD_TYPE },
+          { id: 'iSUIP', title: 'iSUIP', type: principalType },
+          { id: 'iSUIY', title: 'iSUIY', type: couponType },
         ]
           .filter(({ type }) => !tokens?.length || tokens.includes(type))
-          .map(({ symbol, title }) => (
+          .map(({ id, title }) => (
             <Box
               px="m"
               key={v4()}
@@ -114,7 +113,7 @@ const TransactionSummaryUnstakeBody: FC = () => {
                 <TokenIcon
                   size={2.5}
                   lessRadius
-                  symbol={symbol as DERIVATED_SUI_SYMBOL}
+                  id={id as DERIVATED_SUI_SYMBOL}
                 />
                 <Box display="flex" flexDirection="column" width="max-content">
                   <Typography

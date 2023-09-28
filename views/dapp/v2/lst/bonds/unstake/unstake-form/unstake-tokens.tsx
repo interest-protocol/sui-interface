@@ -5,6 +5,7 @@ import { useWatch } from 'react-hook-form';
 
 import { ISuiPSVG, ISuiYNSVG } from '@/components/svg/v2';
 import { useGetLstBondObjects } from '@/hooks';
+import { RequiredBondsMap } from '@/hooks/use-get-lst-bond-objects/use-get-lst-bond-objects.types';
 
 import { useBondsContext } from '../../bonds.hooks';
 import SelectCard from '../../components/select-card';
@@ -17,16 +18,19 @@ const UnstakeTokens: FC = () => {
   const currentEpoch = BigNumber(suiSystem.epoch);
 
   const principalMaturedEpochs = bondEpochs
-    .filter((x) => BigNumber(x).gt(currentEpoch))
+    .filter((x) => currentEpoch.gt(BigNumber(x)))
     .filter((x) => !!bondsMap[x]?.principal);
+
+  console.log('>> principalMaturedEpochs :: ', principalMaturedEpochs);
 
   const bondObjectsPairs = Object.values(bondsMap).filter(
     (x) =>
-      !!x?.principal &&
-      !!x?.coupon &&
+      !!x &&
+      !!x.principal &&
+      !!x.coupon &&
       x.principal.value.isPositive() &&
       x.coupon.value.isPositive()
-  );
+  ) as ReadonlyArray<RequiredBondsMap>;
 
   return (
     <Box display="flex" gap="l">

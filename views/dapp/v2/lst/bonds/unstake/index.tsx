@@ -1,9 +1,10 @@
 import { Box } from '@interest-protocol/ui-kit';
+import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
-import { noop } from 'swr/_internal';
+import { FC, useState } from 'react';
 
-import { useModal } from '@/hooks';
+import { EXPLORER_URL } from '@/constants';
+import { useModal, useNetwork } from '@/hooks';
 
 import { useBondsContext } from '../bonds.hooks';
 import BondsFormConfirmModal from '../components/modal/confirm-modal';
@@ -16,32 +17,22 @@ import BondsUnstakeHeader from './unstake-header';
 const LSTBondsUnstake: FC = () => {
   const t = useTranslations();
 
+  const { network } = useNetwork();
   const { form } = useBondsContext();
   const { setModal, handleClose } = useModal();
-  const txUrlMock = 'https://burrrd.club';
-
-  const handleSubmit = () => {
-    openModal('loading');
-    setTimeout(() => {
-      openModal('success');
-    }, 4000);
-  };
-
-  const handleClear = () => {
-    form.setValue('maturity', { date: '', epoch: '' });
-    form.setValue('amount', '0');
-  };
-
-  const openModal = (type: 'loading' | 'success' | 'error') => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { signTransactionBlock } = useWalletKit();
+  console.log(signTransactionBlock);
+  const openModal = (type: 'loading' | 'success' | 'error', txUrl?: string) => {
     setModal(
       {
         loading: <BondsFormLoadingModal handleClose={handleClose} />,
         error: <BondsFormFailModal handleClose={handleClose} />,
         success: (
           <BondsFormConfirmModal
-            onClick={noop}
+            onClick={handleClose}
             handleClose={handleClose}
-            viewInExplorerLink={txUrlMock}
+            viewInExplorerLink={txUrl!}
           />
         ),
       }[type],
@@ -52,6 +43,27 @@ const LSTBondsUnstake: FC = () => {
         allowClose: true,
       }
     );
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setIsLoading(true);
+      openModal('loading');
+
+      // TODO: submit unstake
+
+      const explorerLink = `${EXPLORER_URL[network]}/txblock/$txdigest`; // TODO: add tx type
+      openModal('success', explorerLink);
+    } catch {
+      openModal('error');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleClear = () => {
+    form.setValue('maturity', { date: '', epoch: '' });
+    form.setValue('amount', '0');
   };
 
   return (
@@ -76,7 +88,7 @@ const LSTBondsUnstake: FC = () => {
         <TransactionSummary
           handleClear={handleClear}
           handleSubmit={handleSubmit}
-          submitText={t('common.unstake', { isLoading: Number(false) })}
+          submitText={t('common.unstake', { isLoading: Number(isLoading) })}
         />
       </Box>
     </Box>

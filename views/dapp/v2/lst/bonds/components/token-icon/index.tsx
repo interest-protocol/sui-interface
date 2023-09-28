@@ -6,7 +6,7 @@ import { ISuiPCSVG, ISuiYNSVG } from '@/svg';
 
 import { TokenIconProps } from './token-icon.type';
 
-const TokenIcon: FC<TokenIconProps> = ({ symbol, size, lessRadius }) => (
+const TokenIcon: FC<TokenIconProps> = ({ id, size, lessRadius }) => (
   <Box
     display="flex"
     justifyContent="space-between"
@@ -31,16 +31,16 @@ const TokenIcon: FC<TokenIconProps> = ({ symbol, size, lessRadius }) => (
       justifyContent="center"
       alignItems="center"
       color="white"
-      bg={symbol == 'SUI' ? '#6FBCF0' : 'unset'}
+      bg={id == 'SUI' ? '#6FBCF0' : 'unset'}
     >
-      {symbol == 'SUI' ? (
+      {id == 'SUI' ? (
         <SUISVG
           maxHeight={`${size * 2}rem`}
           maxWidth={`${size * 2}rem`}
           width="100%"
           height="100%"
         />
-      ) : symbol == 'iSui' ? (
+      ) : id == 'iSui' ? (
         <ISuiSVG
           maxHeight={`${size}rem`}
           maxWidth={`${size}rem`}
@@ -48,7 +48,7 @@ const TokenIcon: FC<TokenIconProps> = ({ symbol, size, lessRadius }) => (
           height="100%"
           filled
         />
-      ) : symbol == 'iSUIP' ? (
+      ) : id == 'iSUIP' ? (
         <ISuiPCSVG
           maxHeight={`${size}rem`}
           maxWidth={`${size}rem`}

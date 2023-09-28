@@ -9,7 +9,7 @@ import {
   getISuiPrincipalType,
   getISuiYieldType,
 } from '@/constants/lst';
-import { useGetLstBondObjects, useNetwork } from '@/hooks';
+import { useNetwork } from '@/hooks';
 import { formatDollars } from '@/utils';
 import { useGetLatestSuiSystemState } from '@/views/dapp/v2/lst/lst.hooks';
 
@@ -37,6 +37,7 @@ export const BondsProvider: FC<PropsWithChildren> = ({ children }) => {
       amountUSD: formatDollars(0),
       maturity: { date: '', epoch: '' },
       validator: DEFAULT_VALIDATOR[network],
+      totalBalance: '0',
       type: FORM_TYPE[asPath] as BondsForm['type'],
     },
   });

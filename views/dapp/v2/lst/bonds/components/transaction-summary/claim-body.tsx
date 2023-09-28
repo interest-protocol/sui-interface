@@ -1,3 +1,4 @@
+import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
@@ -5,7 +6,7 @@ import { useWatch } from 'react-hook-form';
 import { v4 } from 'uuid';
 
 import { MONTHS } from '@/constants';
-import { ISUI_PRINCIPAL_TYPE, ISUI_YIELD_TYPE } from '@/constants/lst';
+import { getISuiPrincipalType, getISuiYieldType } from '@/constants/lst';
 
 import { DERIVATED_SUI_SYMBOL } from '../../../lst.types';
 import { useBondsContext } from '../../bonds.hooks';
@@ -54,7 +55,7 @@ const TransactionSummaryClaimBody: FC = () => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <TokenIcon symbol="SUI" size={2.5} lessRadius />
+            <TokenIcon id="SUI" size={2.5} lessRadius />
             <Box display="flex" flexDirection="column" width="max-content">
               <Typography
                 width="100%"
@@ -90,8 +91,16 @@ const TransactionSummaryClaimBody: FC = () => {
         flexDirection="column"
       >
         {[
-          { symbol: 'iSui-PC', title: 'iSuiP', type: ISUI_PRINCIPAL_TYPE },
-          { symbol: 'iSui-YN', title: 'iSuiYn', type: ISUI_YIELD_TYPE },
+          {
+            symbol: 'iSUIP',
+            title: 'iSUIP',
+            type: getISuiPrincipalType(Network.TESTNET),
+          },
+          {
+            symbol: 'iSUIY',
+            title: 'iSUIY',
+            type: getISuiYieldType(Network.TESTNET),
+          },
         ]
           .filter(({ type }) => !tokens?.length || tokens.includes(type))
           .map(({ symbol, title }) => (
@@ -114,7 +123,7 @@ const TransactionSummaryClaimBody: FC = () => {
                 <TokenIcon
                   size={2.5}
                   lessRadius
-                  symbol={symbol as DERIVATED_SUI_SYMBOL}
+                  id={symbol as DERIVATED_SUI_SYMBOL}
                 />
                 <Box display="flex" flexDirection="column" width="max-content">
                   <Typography
