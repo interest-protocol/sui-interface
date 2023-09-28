@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js';
 import { UseFormReturn } from 'react-hook-form';
 
 import { BondsMap } from '@/hooks/use-get-lst-bond-objects/use-get-lst-bond-objects.types';

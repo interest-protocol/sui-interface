@@ -57,6 +57,7 @@ export { default as UserSVG } from './user';
 export { default as UsersSVG } from './users';
 export { default as VolumeSVG } from './volume';
 export { default as VolumeLastSVG } from './volume-last';
+export { default as WarningSVG } from './warning';
 export { default as WormholeADABSCSVG } from './wormhole-ada-bsc';
 export { default as WormholeAVAXSVG } from './wormhole-avax';
 export { default as WormholeBNBSVG } from './wormhole-bnb';

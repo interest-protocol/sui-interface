@@ -1,7 +1,7 @@
-import { Box } from '@interest-protocol/ui-kit';
+import { Box, Theme, useTheme } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { CheckSVG } from '@/components/svg/v2';
+import { CheckSVG, WarningSVG } from '@/components/svg/v2';
 
 import { SelectCardProps } from './select-card.types';
 
@@ -9,9 +9,14 @@ const SelectCard: FC<SelectCardProps> = ({
   title,
   content,
   checked,
+  disabled,
   onSelect,
 }) => {
+  const { dark } = useTheme() as Theme;
   const handleChange = () => !checked && onSelect?.(!checked);
+
+  const disabledBg = dark ? '#991B1B' : '#FECACA';
+  const disabledColor = dark ? '#FECACA' : '#991B1B';
 
   return (
     <Box
@@ -26,15 +31,27 @@ const SelectCard: FC<SelectCardProps> = ({
       borderRadius="0.25rem"
       transition="border-color .5s"
       gridTemplateColumns="1fr 1rem"
-      bg={checked ? 'primary' : 'unset'}
-      color={checked ? 'primary.onPrimary' : 'onSurface'}
-      borderColor={checked ? 'primary' : 'outline.outlineVariant'}
-      nHover={{
-        borderColor: 'primary',
-        background: checked
-          ? 'linear-gradient(0deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.32) 100%), #B4C5FF'
-          : 'unset',
-      }}
+      bg={disabled ? disabledBg : checked ? 'primary' : 'unset'}
+      color={
+        disabled ? disabledColor : checked ? 'primary.onPrimary' : 'onSurface'
+      }
+      borderColor={
+        disabled
+          ? 'transparent'
+          : checked
+          ? 'primary'
+          : 'outline.outlineVariant'
+      }
+      nHover={
+        disabled
+          ? {}
+          : {
+              borderColor: 'primary',
+              background: checked
+                ? 'linear-gradient(0deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.32) 100%), #B4C5FF'
+                : 'unset',
+            }
+      }
     >
       <span>{title}</span>
       <Box
@@ -44,7 +61,11 @@ const SelectCard: FC<SelectCardProps> = ({
         borderRadius="full"
         borderColor={checked ? 'transparent' : 'currentcolor'}
       >
-        {checked && <CheckSVG maxWidth="1rem" maxHeight="1rem" width="100%" />}
+        {disabled ? (
+          <WarningSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+        ) : (
+          checked && <CheckSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+        )}
       </Box>
       {content && <span>{content}</span>}
     </Box>
