@@ -123,7 +123,7 @@ const TransactionSummaryClaimBody: FC = () => {
                 <TokenIcon
                   size={2.5}
                   lessRadius
-                  symbol={symbol as DERIVATED_SUI_SYMBOL}
+                  id={symbol as DERIVATED_SUI_SYMBOL}
                 />
                 <Box display="flex" flexDirection="column" width="max-content">
                   <Typography
