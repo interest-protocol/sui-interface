@@ -6,13 +6,13 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { EXPLORER_URL } from '@/constants';
+// import { EXPLORER_URL } from '@/constants';
 import { LST_OBJECTS } from '@/constants/lst';
-import { useModal, useNetwork, useProvider } from '@/hooks';
+import { useNetwork, useProvider } from '@/hooks';
 import { useGetInterestSbt } from '@/hooks/use-get-interest-sbt';
 import { showTXSuccessToast, throwTXIfNotSuccessful } from '@/utils';
 
-import ValidatorConfirmVoteModal from '../modal';
+// import ValidatorConfirmVoteModal from '../modal';
 import { ReviewForm } from '../validators-details.types';
 import LeaveAComment from './comments';
 import VotingButtons from './ratings';
@@ -20,7 +20,7 @@ import SubmitButton from './submit-button';
 
 const ReviewAndComments: FC = () => {
   const t = useTranslations();
-  const { setModal, handleClose } = useModal();
+  // const { setModal, handleClose } = useModal();
   const { network } = useNetwork();
   const { signTransactionBlock } = useWalletKit();
   const { provider } = useProvider();
@@ -33,20 +33,20 @@ const ReviewAndComments: FC = () => {
     },
   });
 
-  const openConfirmationModal = setModal(
-    <ValidatorConfirmVoteModal
-      handleClose={() => {
-        handleClose();
-        setValue('rating', null);
-      }}
-    />,
-    {
-      isOpen: true,
-      custom: true,
-      opaque: false,
-      allowClose: false,
-    }
-  );
+  // const openConfirmationModal = setModal(
+  //   <ValidatorConfirmVoteModal
+  //     handleClose={() => {
+  //       handleClose();
+  //       setValue('rating', null);
+  //     }}
+  //   />,
+  //   {
+  //     isOpen: true,
+  //     custom: true,
+  //     opaque: false,
+  //     allowClose: false,
+  //   }
+  // );
 
   const handleSubmit = async () => {
     try {
@@ -84,10 +84,11 @@ const ReviewAndComments: FC = () => {
 
       await showTXSuccessToast(tx, network);
 
-      const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
+      // const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
 
       // TODO: success modal with explorer link
     } catch {
+      console.log('a');
     } finally {
       await mutate();
     }

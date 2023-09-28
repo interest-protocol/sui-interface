@@ -4,7 +4,7 @@ import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { EXPLORER_URL } from '@/constants';
+// import { EXPLORER_URL } from '@/constants';
 import { LST_OBJECTS } from '@/constants/lst';
 import { useNetwork, useProvider } from '@/hooks';
 import { useGetInterestSbt } from '@/hooks/use-get-interest-sbt';
@@ -69,7 +69,7 @@ const ValidatorRatings: FC<
 
       await showTXSuccessToast(tx, network);
 
-      const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
+      // const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
       // TODO: success modal with explorer link
     } catch {
       // TODO: failure modal
