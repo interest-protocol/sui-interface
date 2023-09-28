@@ -14,6 +14,8 @@ const NextEpoch: FC = () => {
   const t = useTranslations();
   const { data, isLoading, error } = useGetLatestSuiSystemState();
 
+  if (isLoading) return <Skeleton width="100%" height="1.875rem" />;
+
   if (
     !data ||
     !data.epoch ||
@@ -35,15 +37,11 @@ const NextEpoch: FC = () => {
 
   return (
     <EpochHeader epochNumber={data.epoch}>
-      {isLoading ? (
-        <Skeleton width="100%" height="1.875rem" />
-      ) : (
-        <EpochProgressBar
-          endDate={endDataMS}
-          duration={durationMS}
-          startDate={startDateMS}
-        />
-      )}
+      <EpochProgressBar
+        endDate={endDataMS}
+        duration={durationMS}
+        startDate={startDateMS}
+      />
     </EpochHeader>
   );
 };
