@@ -30,13 +30,14 @@ const UnstakeTokens: FC = () => {
         }
       />
       <SelectCard
+        disabled
         checked={
           JSON.stringify(tokens) ===
           JSON.stringify([ISUI_PRINCIPAL_TYPE, ISUI_YIELD_TYPE])
         }
         onSelect={() => {
           form.setValue('tokens', [ISUI_PRINCIPAL_TYPE, ISUI_YIELD_TYPE]);
-          form.setValue('maturity', { date: '', id: '' });
+          form.setValue('maturity', { date: '', epoch: '' });
         }}
         title={
           <Box display="flex" alignItems="center" gap="l">
