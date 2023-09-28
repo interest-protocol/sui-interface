@@ -6,7 +6,9 @@ import { useWatch } from 'react-hook-form';
 import { VotingButtonsProps } from '../validators-details.types';
 
 const SubmitButton: FC<
-  Omit<VotingButtonsProps, 'setValue'> & { openModal: () => void }
+  Omit<VotingButtonsProps, 'setValue'> & {
+    openModal: () => void;
+  }
 > = ({ control, openModal }) => {
   const t = useTranslations();
   const { colors } = useTheme() as Theme;

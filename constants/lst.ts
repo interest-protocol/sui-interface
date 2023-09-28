@@ -95,6 +95,9 @@ export const getISuiPrincipalType = (network: Network) =>
 export const getISuiYieldType = (network: Network) =>
   `${LST_OBJECTS[network].PACKAGE_ID}::sui_yield::SuiYield`;
 
+export const getSoulBoundType = (network: Network) =>
+  `${LST_OBJECTS[network].PACKAGE_ID}::soulbound_token::InterestSBT`;
+
 export const DEFAULT_VALIDATOR = {
   [Network.DEVNET]: '',
   [Network.TESTNET]:

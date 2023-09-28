@@ -1,8 +1,15 @@
 import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
+import { TransactionBlock } from '@mysten/sui.js';
+import { useWalletKit } from '@mysten/wallet-kit';
 import { useTranslations } from 'next-intl';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
+import { EXPLORER_URL } from '@/constants';
+import { LST_OBJECTS } from '@/constants/lst';
+import { useNetwork, useProvider } from '@/hooks';
+import { useGetInterestSbt } from '@/hooks/use-get-interest-sbt';
 import { capitalize } from '@/utils';
+import { showTXSuccessToast, throwTXIfNotSuccessful } from '@/utils';
 
 import {
   RatingRowProps,
@@ -35,7 +42,41 @@ const ValidatorRatings: FC<
 > = ({ ranking, negativeReview, positiveReview }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
-  const [isVoting, setIsVoting] = useState(false);
+  const { data, mutate } = useGetInterestSbt();
+  const { network } = useNetwork();
+  const { signTransactionBlock } = useWalletKit();
+  const { provider } = useProvider();
+
+  const mintSBT = async () => {
+    try {
+      const objects = LST_OBJECTS[network];
+
+      const txb = new TransactionBlock();
+      txb.moveCall({
+        target: `${objects.PACKAGE_ID}::soulbound_token::mint_sbt`,
+      });
+
+      const { signature, transactionBlockBytes } = await signTransactionBlock({
+        transactionBlock: txb,
+      });
+
+      const tx = await provider.executeTransactionBlock({
+        transactionBlock: transactionBlockBytes,
+        signature,
+        options: { showEffects: true },
+        requestType: 'WaitForEffectsCert',
+      });
+
+      throwTXIfNotSuccessful(tx);
+
+      await showTXSuccessToast(tx, network);
+
+      const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
+    } catch {
+    } finally {
+      await mutate();
+    }
+  };
 
   return (
     <Box
@@ -100,11 +141,7 @@ const ValidatorRatings: FC<
           />
         </Box>
       </Box>
-      {isVoting ? (
-        <ReviewAndComments />
-      ) : (
-        <CommunityInvite vote={() => setIsVoting(true)} />
-      )}
+      {data.length ? <ReviewAndComments /> : <CommunityInvite vote={mintSBT} />}
     </Box>
   );
 };
