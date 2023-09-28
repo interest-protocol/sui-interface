@@ -27,12 +27,12 @@ import BondsStakeHeader from './stake-header';
 const LSTBondsStake: FC = () => {
   const t = useTranslations();
   const { form } = useBondsContext();
-  const [isLoading, setIsLoading] = useState(false);
-  const { setModal, handleClose } = useModal();
   const { coinsMap } = useWeb3();
   const { signTransactionBlock } = useWalletKit();
   const { provider } = useProvider();
   const { network } = useNetwork();
+  const { setModal, handleClose } = useModal();
+  const [isLoading, setIsLoading] = useState(false);
 
   const openModal = (type: 'loading' | 'success' | 'error', txUrl?: string) => {
     setModal(
