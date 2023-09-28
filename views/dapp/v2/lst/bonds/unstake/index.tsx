@@ -28,7 +28,7 @@ const LSTBondsUnstake: FC = () => {
   };
 
   const handleClear = () => {
-    form.setValue('maturity', { date: '', id: '' });
+    form.setValue('maturity', { date: '', epoch: '' });
     form.setValue('amount', '0');
   };
 

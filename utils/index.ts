@@ -5,6 +5,7 @@ export * from './farms';
 export * from './locales';
 export * from './math';
 export * from './number';
+export * from './objects';
 export * from './parse';
 export * from './pools';
 export * from './promise';

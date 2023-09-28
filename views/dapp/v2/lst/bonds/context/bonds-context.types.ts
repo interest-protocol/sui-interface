@@ -1,4 +1,7 @@
+import BigNumber from 'bignumber.js';
 import { UseFormReturn } from 'react-hook-form';
+
+import { BondsMap } from '@/hooks/use-get-lst-bond-objects/use-get-lst-bond-objects.types';
 
 export interface Maturity {
   date: string;
@@ -16,4 +19,6 @@ export interface BondsForm {
 
 export interface IBondsContext {
   form: UseFormReturn<BondsForm>;
+  bondEpochs: ReadonlyArray<string>;
+  bondsMap: Record<string, BondsMap>;
 }

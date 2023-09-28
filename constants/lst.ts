@@ -89,14 +89,11 @@ export const ISUI_COIN_TYPE = `${
   LST_OBJECTS[Network.TESTNET].PACKAGE_ID
 }::isui::ISUI`;
 
-export const ISUI_YIELD_TYPE = `${
-  LST_OBJECTS[Network.TESTNET].PACKAGE_ID
-}::sui_yield::SuiYield`;
+export const getISuiPrincipalType = (network: Network) =>
+  `${LST_OBJECTS[network].PACKAGE_ID}::semi_fungible_token::SemiFungibleToken<${LST_OBJECTS[network].PACKAGE_ID}::sui_principal::SUI_PRINCIPAL>`;
 
-// TODO: CHECK THIS TYPE
-export const ISUI_PRINCIPAL_TYPE = `${
-  LST_OBJECTS[Network.TESTNET].PACKAGE_ID
-}::sui_principal::SuiPrincipal`;
+export const getISuiYieldType = (network: Network) =>
+  `${LST_OBJECTS[network].PACKAGE_ID}::sui_yield::SuiYield`;
 
 export const DEFAULT_VALIDATOR = {
   [Network.DEVNET]: '',

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import { Routes, RoutesEnum } from '@/constants';
 import { DEFAULT_VALIDATOR } from '@/constants/lst';
-import { useNetwork } from '@/hooks';
+import { useGetLstBondObjects, useNetwork } from '@/hooks';
 import { formatDollars } from '@/utils';
 
 import { BondsForm, IBondsContext } from './bonds-context.types';
@@ -21,7 +21,7 @@ export const BondsProvider: FC<PropsWithChildren> = ({ children }) => {
   const { asPath } = useRouter();
   const { network } = useNetwork();
   const { Provider } = bondsContext;
-
+  const { bondsMap, epochs } = useGetLstBondObjects();
   const form = useForm<BondsForm>({
     defaultValues: {
       tokens: [],
@@ -33,7 +33,11 @@ export const BondsProvider: FC<PropsWithChildren> = ({ children }) => {
     },
   });
 
-  return <Provider value={{ form }}>{children}</Provider>;
+  return (
+    <Provider value={{ form, bondsMap, bondEpochs: epochs }}>
+      {children}
+    </Provider>
+  );
 };
 
 export default bondsContext;

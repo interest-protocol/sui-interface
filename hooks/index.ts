@@ -5,6 +5,7 @@ export * from './use-get-coin-metadata';
 export * from './use-get-coins-prices';
 export * from './use-get-dex-ipx-price';
 export * from './use-get-ipx-storage';
+export * from './use-get-lst-bond-objects';
 export * from './use-get-multi-objects';
 export * from './use-local-storage';
 export * from './use-locale';
