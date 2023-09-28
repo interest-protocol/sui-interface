@@ -1,5 +1,3 @@
-import { SuiObjectResponse } from '@mysten/sui.js';
-import { DynamicFieldPage } from '@mysten/sui.js/src/types/dynamic_fields';
 import { PaginatedObjectsResponse } from '@mysten/sui.js/src/types/objects';
 
 import {
