@@ -8,13 +8,13 @@ import {
 import { useWalletKit } from '@mysten/wallet-kit';
 import BigNumber from 'bignumber.js';
 import { useTranslations } from 'next-intl';
-import { FC } from 'react';
-import { noop } from 'swr/_internal';
+import { FC, useState } from 'react';
 
+import { EXPLORER_URL } from '@/constants';
 import { LST_OBJECTS } from '@/constants/lst';
 import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
-import { createObjectsParameter } from '@/utils';
+import { createObjectsParameter, noop } from '@/utils';
 
 import { useBondsContext } from '../bonds.hooks';
 import BondsFormConfirmModal from '../components/modal/confirm-modal';
@@ -27,18 +27,41 @@ import BondsStakeHeader from './stake-header';
 const LSTBondsStake: FC = () => {
   const t = useTranslations();
   const { form } = useBondsContext();
+  const [isLoading, setIsLoading] = useState(false);
   const { setModal, handleClose } = useModal();
-  const txUrlMock = 'https://burrrd.club';
   const { coinsMap } = useWeb3();
   const { signTransactionBlock } = useWalletKit();
   const { provider } = useProvider();
   const { network } = useNetwork();
 
+  const openModal = (type: 'loading' | 'success' | 'error', txUrl?: string) => {
+    setModal(
+      {
+        loading: <BondsFormLoadingModal handleClose={handleClose} />,
+        error: <BondsFormFailModal handleClose={handleClose} />,
+        success: (
+          <BondsFormConfirmModal
+            onClick={handleClose}
+            handleClose={handleClose}
+            viewInExplorerLink={txUrl!}
+          />
+        ),
+      }[type],
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: true,
+      }
+    );
+  };
+
   const handleSubmit = async () => {
     try {
+      setIsLoading(true);
+      openModal('loading');
       const formValues = form.getValues();
 
-      openModal('loading');
       const txb = new TransactionBlock();
       const objects = LST_OBJECTS[network];
       const validator = formValues.validator;
@@ -82,37 +105,18 @@ const LSTBondsStake: FC = () => {
         options: { showEffects: true },
         requestType: 'WaitForEffectsCert',
       });
-      console.log(tx);
+      const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
+      openModal('success', explorerLink);
     } catch {
+      openModal('error');
     } finally {
+      setIsLoading(false);
     }
   };
 
   const handleClear = () => {
     form.setValue('maturity', { date: '', epoch: '' });
     form.setValue('amount', '0');
-  };
-
-  const openModal = (type: 'loading' | 'success' | 'error') => {
-    setModal(
-      {
-        loading: <BondsFormLoadingModal handleClose={handleClose} />,
-        error: <BondsFormFailModal handleClose={handleClose} />,
-        success: (
-          <BondsFormConfirmModal
-            onClick={noop}
-            handleClose={handleClose}
-            viewInExplorerLink={txUrlMock}
-          />
-        ),
-      }[type],
-      {
-        isOpen: true,
-        custom: true,
-        opaque: false,
-        allowClose: true,
-      }
-    );
   };
 
   return (
@@ -135,8 +139,8 @@ const LSTBondsStake: FC = () => {
         </Box>
         <TransactionSummary
           handleClear={handleClear}
-          handleSubmit={handleSubmit}
-          submitText={t('common.stake', { isLoading: Number(false) })}
+          handleSubmit={isLoading ? noop : handleSubmit}
+          submitText={t('common.stake', { isLoading: Number(isLoading) })}
         />
       </Box>
     </Box>
