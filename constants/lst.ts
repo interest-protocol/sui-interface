@@ -1,6 +1,5 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
 import { Rebase } from '@interest-protocol/sui-money-market-sdk';
-import BigNumber from 'bignumber.js';
 
 import { ZERO_BIG_NUMBER } from '@/utils';
 import { LstStorage } from '@/views/dapp/v2/lst/lst.types';

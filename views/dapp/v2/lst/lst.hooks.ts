@@ -1,7 +1,4 @@
-import {
-  getReturnValuesFromInspectResults,
-  Network,
-} from '@interest-protocol/sui-amm-sdk';
+import { getReturnValuesFromInspectResults } from '@interest-protocol/sui-amm-sdk';
 import { Rebase } from '@interest-protocol/sui-money-market-sdk';
 import { BCS } from '@mysten/bcs';
 import {
@@ -19,7 +16,7 @@ import useSWR from 'swr';
 import { DEFAULT_LST_STORAGE, LST_OBJECTS } from '@/constants/lst';
 import { useNetwork, useProvider } from '@/hooks';
 import { AddressZero } from '@/lib';
-import { makeSWRKey, normalizeSuiType } from '@/utils';
+import { makeSWRKey } from '@/utils';
 
 import lstContext from './context';
 import { ILSTContext } from './context/context.types';
