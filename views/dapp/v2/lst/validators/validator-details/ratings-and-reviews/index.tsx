@@ -6,11 +6,14 @@ import { FC } from 'react';
 
 import { EXPLORER_URL } from '@/constants';
 import { LST_OBJECTS } from '@/constants/lst';
-import { useNetwork, useProvider } from '@/hooks';
+import { useModal, useNetwork, useProvider } from '@/hooks';
 import { useGetInterestSbt } from '@/hooks/use-get-interest-sbt';
 import { capitalize } from '@/utils';
 import { showTXSuccessToast, throwTXIfNotSuccessful } from '@/utils';
 
+import FormConfirmModal from '../../../components/modal/confirm-modal';
+import FormFailModal from '../../../components/modal/fail-modal';
+import FormLoadingModal from '../../../components/modal/loading-modal';
 import {
   RatingRowProps,
   ValidatorsUserActionsProps,
@@ -39,14 +42,50 @@ const ValidatorRatings: FC<
 > = ({ ranking, negativeReview, positiveReview }) => {
   const t = useTranslations();
   const { dark } = useTheme() as Theme;
+  const { setModal, handleClose } = useModal();
   const { data, mutate } = useGetInterestSbt();
   const { network } = useNetwork();
   const { signTransactionBlock } = useWalletKit();
   const { provider } = useProvider();
 
+  const openLoadingModal = () => {
+    setModal(<FormLoadingModal handleClose={handleClose} />, {
+      isOpen: true,
+      custom: true,
+      opaque: false,
+      allowClose: true,
+    });
+  };
+
+  const openResultModal = (isSuccess: boolean, txLink?: string) =>
+    setModal(
+      isSuccess ? (
+        <FormConfirmModal
+          handleClose={handleClose}
+          viewInExplorerLink={txLink || ''}
+          onClick={handleClose}
+          labels={{
+            description: 'transaction success',
+            button: 'go back home',
+          }}
+        />
+      ) : (
+        <FormFailModal
+          labels={{ description: 'transaction failed', button: 'try again' }}
+          handleClose={handleClose}
+        />
+      ),
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: false,
+      }
+    );
+
   const mintSBT = async () => {
     try {
-      // TODO: loading modal
+      openLoadingModal();
       const objects = LST_OBJECTS[network];
 
       const txb = new TransactionBlock();
@@ -70,9 +109,9 @@ const ValidatorRatings: FC<
       await showTXSuccessToast(tx, network);
 
       const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
-      // TODO: success modal with explorer link
+      openResultModal(true, explorerLink);
     } catch {
-      // TODO: failure modal
+      openResultModal(false);
     } finally {
       await mutate();
     }

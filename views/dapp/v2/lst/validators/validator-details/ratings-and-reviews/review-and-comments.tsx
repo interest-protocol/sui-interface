@@ -12,7 +12,9 @@ import { useModal, useNetwork, useProvider } from '@/hooks';
 import { useGetInterestSbt } from '@/hooks/use-get-interest-sbt';
 import { showTXSuccessToast, throwTXIfNotSuccessful } from '@/utils';
 
-import ValidatorConfirmVoteModal from '../modal';
+import FormConfirmModal from '../../../components/modal/confirm-modal';
+import FormFailModal from '../../../components/modal/fail-modal';
+import FormLoadingModal from '../../../components/modal/loading-modal';
 import { ReviewForm } from '../validators-details.types';
 import LeaveAComment from './comments';
 import VotingButtons from './ratings';
@@ -33,24 +35,47 @@ const ReviewAndComments: FC = () => {
     },
   });
 
-  const openConfirmationModal = setModal(
-    <ValidatorConfirmVoteModal
-      handleClose={() => {
-        handleClose();
-        setValue('rating', null);
-      }}
-    />,
-    {
+  const openLoadingModal = () => {
+    setModal(<FormLoadingModal handleClose={handleClose} />, {
       isOpen: true,
       custom: true,
       opaque: false,
-      allowClose: false,
-    }
-  );
+      allowClose: true,
+    });
+  };
+
+  const openResultModal = (isSuccess: boolean, txLink?: string) =>
+    setModal(
+      isSuccess ? (
+        <FormConfirmModal
+          handleClose={() => {
+            handleClose();
+            setValue('rating', null);
+          }}
+          viewInExplorerLink={txLink || ''}
+          onClick={handleClose}
+          labels={{
+            description: 'transaction success',
+            button: 'go back home',
+          }}
+        />
+      ) : (
+        <FormFailModal
+          labels={{ description: 'transaction failed', button: 'try again' }}
+          handleClose={handleClose}
+        />
+      ),
+      {
+        isOpen: true,
+        custom: true,
+        opaque: false,
+        allowClose: false,
+      }
+    );
 
   const handleSubmit = async () => {
     try {
-      // TODO: loading modal
+      openLoadingModal();
       const objects = LST_OBJECTS[network];
       const values = getValues();
 
@@ -86,9 +111,9 @@ const ReviewAndComments: FC = () => {
 
       const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
 
-      // TODO: success modal with explorer link
+      openResultModal(true, explorerLink);
     } catch {
-      // TODO: fail modal
+      openResultModal(false);
     } finally {
       await mutate();
     }
