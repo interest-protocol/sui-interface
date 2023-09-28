@@ -53,9 +53,9 @@ export const parseObjects = (
           [epoch]: {
             ...acc[epoch],
             principal: {
-              value: acc[epoch].principal.value.plus(bnPrincipal.value),
-              maturity: acc[epoch].principal.maturity,
-              objects: acc[epoch].principal.objects.concat([bnPrincipal]),
+              value: acc[epoch].principal?.value.plus(bnPrincipal.value),
+              maturity: acc[epoch].principal?.maturity,
+              objects: acc[epoch].principal?.objects.concat([bnPrincipal]),
             },
           },
         } as Record<string, BondsMap>;
@@ -120,11 +120,11 @@ export const parseObjects = (
           [epoch]: {
             ...acc[epoch],
             coupon: {
-              value: acc[epoch].coupon.value.plus(bnCoupon.value),
-              maturity: acc[epoch].coupon.maturity,
-              objects: acc[epoch].coupon.objects.concat([bnCoupon]),
-              shares: acc[epoch].coupon.shares.plus(bnCoupon.shares),
-              rewardsPaid: acc[epoch].coupon.shares.plus(bnCoupon.rewardsPaid),
+              value: acc[epoch].coupon?.value.plus(bnCoupon.value),
+              maturity: acc[epoch].coupon?.maturity,
+              objects: acc[epoch].coupon?.objects.concat([bnCoupon]),
+              shares: acc[epoch].coupon?.shares.plus(bnCoupon.shares),
+              rewardsPaid: acc[epoch].coupon?.shares.plus(bnCoupon.rewardsPaid),
             },
           },
         } as Record<string, BondsMap>;
