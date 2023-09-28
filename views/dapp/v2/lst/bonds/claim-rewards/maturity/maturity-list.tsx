@@ -17,7 +17,7 @@ const BondsClaimRewardsMaturityList: FC = () => {
 
   const handleMaturitySelected = (date: number, amount: string, id: string) => {
     form.setValue('amount', amount);
-    form.setValue('maturity', { date: String(date), id });
+    form.setValue('maturity', { date: String(date), epoch: id });
   };
 
   return (
@@ -30,7 +30,7 @@ const BondsClaimRewardsMaturityList: FC = () => {
       {MATURITY_LIST.map(({ date, id, amount }) => (
         <SelectCard
           key={v4()}
-          checked={maturity.id === id}
+          checked={maturity.epoch === id}
           onSelect={() => handleMaturitySelected(date, '10', id)}
           content={
             <Box display="flex">
