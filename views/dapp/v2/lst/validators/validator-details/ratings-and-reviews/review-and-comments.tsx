@@ -88,11 +88,6 @@ const ReviewAndComments: FC = () => {
 
       // TODO: success modal with explorer link
     } catch {
-<<<<<<< Updated upstream
-      // TODO: fail modal
-=======
-
->>>>>>> Stashed changes
     } finally {
       await mutate();
     }
