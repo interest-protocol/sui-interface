@@ -66,7 +66,7 @@ export const parseObjects = (
             ...acc[epoch],
             principal: {
               value: bnPrincipal.value,
-              maturity: epoch,
+              maturity: bnPrincipal.maturity,
               objects: [bnPrincipal],
             },
           },

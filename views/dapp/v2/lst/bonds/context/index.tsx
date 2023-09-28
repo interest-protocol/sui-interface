@@ -1,11 +1,17 @@
+import { SuiSystemStateSummary } from '@mysten/sui.js/src/types';
 import { useRouter } from 'next/router';
 import { createContext, FC, PropsWithChildren } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Routes, RoutesEnum } from '@/constants';
-import { DEFAULT_VALIDATOR } from '@/constants/lst';
+import {
+  DEFAULT_VALIDATOR,
+  getISuiPrincipalType,
+  getISuiYieldType,
+} from '@/constants/lst';
 import { useGetLstBondObjects, useNetwork } from '@/hooks';
 import { formatDollars } from '@/utils';
+import { useGetLatestSuiSystemState } from '@/views/dapp/v2/lst/lst.hooks';
 
 import { BondsForm, IBondsContext } from './bonds-context.types';
 
@@ -21,7 +27,9 @@ export const BondsProvider: FC<PropsWithChildren> = ({ children }) => {
   const { asPath } = useRouter();
   const { network } = useNetwork();
   const { Provider } = bondsContext;
-  const { bondsMap, epochs } = useGetLstBondObjects();
+  // TODO need to handle loading states
+  const { data: systemSummary, isLoading } = useGetLatestSuiSystemState();
+
   const form = useForm<BondsForm>({
     defaultValues: {
       tokens: [],
@@ -34,7 +42,17 @@ export const BondsProvider: FC<PropsWithChildren> = ({ children }) => {
   });
 
   return (
-    <Provider value={{ form, bondsMap, bondEpochs: epochs }}>
+    <Provider
+      value={{
+        form,
+        principalType: getISuiPrincipalType(network),
+        couponType: getISuiYieldType(network),
+        isLoading,
+        suiSystem: systemSummary
+          ? systemSummary
+          : ({} as SuiSystemStateSummary),
+      }}
+    >
       {children}
     </Provider>
   );

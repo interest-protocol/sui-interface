@@ -1,5 +1,3 @@
-import { Network } from '@interest-protocol/sui-amm-sdk';
-import { PaginatedObjectsResponse } from '@mysten/sui.js/src/types/objects';
 import BigNumber from 'bignumber.js';
 
 interface Principal {
@@ -25,6 +23,6 @@ interface CouponSummary extends Coupon {
 }
 
 export interface BondsMap {
-  principal: PrincipalSummary;
-  coupon: CouponSummary;
+  principal?: PrincipalSummary;
+  coupon?: CouponSummary;
 }

@@ -1,3 +1,4 @@
+import { SuiSystemStateSummary } from '@mysten/sui.js/src/types';
 import { UseFormReturn } from 'react-hook-form';
 
 import { BondsMap } from '@/hooks/use-get-lst-bond-objects/use-get-lst-bond-objects.types';
@@ -18,6 +19,8 @@ export interface BondsForm {
 
 export interface IBondsContext {
   form: UseFormReturn<BondsForm>;
-  bondEpochs: ReadonlyArray<string>;
-  bondsMap: Record<string, BondsMap>;
+  principalType: string;
+  couponType: string;
+  isLoading: boolean;
+  suiSystem: SuiSystemStateSummary;
 }

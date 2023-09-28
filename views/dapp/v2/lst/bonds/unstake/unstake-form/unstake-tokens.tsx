@@ -1,42 +1,55 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
+import BigNumber from 'bignumber.js';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { ISuiPSVG, ISuiYNSVG } from '@/components/svg/v2';
-import { ISUI_PRINCIPAL_TYPE, ISUI_YIELD_TYPE } from '@/constants/lst';
+import { useGetLstBondObjects } from '@/hooks';
 
 import { useBondsContext } from '../../bonds.hooks';
 import SelectCard from '../../components/select-card';
 
 const UnstakeTokens: FC = () => {
-  const { form } = useBondsContext();
+  const { form, principalType, couponType, suiSystem } = useBondsContext();
   const { tokens } = useWatch({ control: form.control });
+  const { bondsMap, epochs: bondEpochs } = useGetLstBondObjects();
+
+  const currentEpoch = BigNumber(suiSystem.epoch);
+
+  const principalMaturedEpochs = bondEpochs
+    .filter((x) => BigNumber(x).gt(currentEpoch))
+    .filter((x) => !!bondsMap[x]?.principal);
+
+  const bondObjectsPairs = Object.values(bondsMap).filter(
+    (x) =>
+      !!x?.principal &&
+      !!x?.coupon &&
+      x.principal.value.isPositive() &&
+      x.coupon.value.isPositive()
+  );
 
   return (
     <Box display="flex" gap="l">
       <SelectCard
-        checked={
-          JSON.stringify(tokens) === JSON.stringify([ISUI_PRINCIPAL_TYPE])
-        }
+        checked={JSON.stringify(tokens) === JSON.stringify([principalType])}
         onSelect={() => {
-          form.setValue('tokens', [ISUI_PRINCIPAL_TYPE]);
-          form.setValue('maturity', { date: '', id: '' });
+          form.setValue('tokens', [principalType]);
+          form.setValue('maturity', { date: '', epoch: '' });
         }}
         title={
           <Box display="flex" alignItems="center" gap="l">
             <ISuiPSVG maxHeight="2rem" maxWidth="2rem" height="100%" />
-            <Typography variant="medium">iSuiP</Typography>
+            <Typography variant="medium">iSUIP</Typography>
           </Box>
         }
+        disabled={!principalMaturedEpochs.length}
       />
       <SelectCard
-        disabled
         checked={
-          JSON.stringify(tokens) ===
-          JSON.stringify([ISUI_PRINCIPAL_TYPE, ISUI_YIELD_TYPE])
+          JSON.stringify(tokens) === JSON.stringify([principalType, couponType])
         }
         onSelect={() => {
-          form.setValue('tokens', [ISUI_PRINCIPAL_TYPE, ISUI_YIELD_TYPE]);
+          form.setValue('tokens', [principalType, couponType]);
           form.setValue('maturity', { date: '', epoch: '' });
         }}
         title={
@@ -48,7 +61,7 @@ const UnstakeTokens: FC = () => {
                 height="100%"
                 width="100%"
               />
-              <Typography variant="medium">iSuiP</Typography>
+              <Typography variant="medium">iSUIP</Typography>
             </Box>
             +
             <Box display="flex" alignItems="center" gap="l">
@@ -58,10 +71,11 @@ const UnstakeTokens: FC = () => {
                 height="100%"
                 width="100%"
               />
-              <Typography variant="medium">iSuiYN</Typography>
+              <Typography variant="medium">iSUIY</Typography>
             </Box>
           </Box>
         }
+        disabled={!bondObjectsPairs.length}
       />
     </Box>
   );

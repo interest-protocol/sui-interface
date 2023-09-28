@@ -1,6 +1,7 @@
 export * from './api-middleware';
 export * from './big-number';
 export * from './coin';
+export * from './epoch';
 export * from './farms';
 export * from './locales';
 export * from './math';

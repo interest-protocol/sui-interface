@@ -12,40 +12,45 @@ import {
   ISuiYNSVG,
 } from '@/components/svg/v2';
 import { MONTHS } from '@/constants';
-import { ISUI_PRINCIPAL_TYPE, ISUI_YIELD_TYPE } from '@/constants/lst';
+import { useGetLstBondObjects } from '@/hooks';
+import { FixedPointMath } from '@/lib';
+import { convertDayToMS } from '@/utils';
 
 import { useBondsContext } from '../../bonds.hooks';
 
-const MATURITIES = [
-  {
-    date: Date.now() - 1000 * 60 * 60 * 24 * 2,
-    id: '0',
-    amounts: { [ISUI_PRINCIPAL_TYPE]: 10, [ISUI_YIELD_TYPE]: 10 },
-  },
-  {
-    date: Date.now() + 1000 * 60 * 60 * 24 * 20,
-    id: '1',
-    amounts: { [ISUI_PRINCIPAL_TYPE]: 20, [ISUI_YIELD_TYPE]: 20 },
-  },
-];
-
 const DerivativeIcon: FC<{ type: string }> = ({ type }) => {
-  if (type === ISUI_PRINCIPAL_TYPE)
+  const { principalType, couponType } = useBondsContext();
+  if (type === principalType)
     return <ISuiPSVG maxWidth="2rem" maxHeight="2rem" width="2rem" />;
-  if (type === ISUI_YIELD_TYPE)
+  if (type === couponType)
     return <ISuiYNSVG maxWidth="2rem" maxHeight="2rem" width="2rem" />;
   return null;
 };
 
 const UnstakeMaturity: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { form } = useBondsContext();
-  const tokens = form.getValues('tokens');
-  const maturityId = useWatch({ control: form.control, name: 'maturity.id' });
+  const { form, principalType, couponType, suiSystem } = useBondsContext();
+  const { bondsMap } = useGetLstBondObjects();
 
-  const maturities = MATURITIES; // TODO: maturities amounts based on tokens
+  const maturityId = useWatch({
+    control: form.control,
+    name: 'maturity.epoch',
+  });
+  const bondObjectsPairs = Object.values(bondsMap).filter(
+    (x) =>
+      !!x?.principal &&
+      !!x?.coupon &&
+      x.principal.value.isPositive() &&
+      x.coupon.value.isPositive()
+  );
 
-  const selectMaturity = MATURITIES.find(({ id }) => maturityId === id);
+  const startDateMS = Number(suiSystem.epochStartTimestampMs);
+  const durationMS = Number(suiSystem.epochDurationMs);
+  const endTime = startDateMS + durationMS;
+
+  const selectMaturity = bondObjectsPairs.find(
+    ({ principal }) => maturityId === principal.maturity.toString()
+  );
 
   return (
     <Box
@@ -72,36 +77,61 @@ const UnstakeMaturity: FC = () => {
             <>
               <Box display="flex" alignItems="center">
                 <Typography variant="medium">
-                  {new Date(selectMaturity.date).getDate()}
+                  {new Date(
+                    convertDayToMS(selectMaturity.principal.maturity.toNumber())
+                  ).getDate()}
                   {' • '}
-                  {MONTHS[new Date(selectMaturity.date).getMonth()]}
+                  {
+                    MONTHS[
+                      new Date(
+                        convertDayToMS(
+                          selectMaturity.principal.maturity.toNumber()
+                        )
+                      ).getMonth()
+                    ]
+                  }
                   {' • '}
-                  {new Date(selectMaturity.date).getFullYear()}
+                  {new Date(
+                    convertDayToMS(selectMaturity.principal.maturity.toNumber())
+                  ).getFullYear()}
                 </Typography>
                 <Typography
                   ml="m"
                   variant="extraSmall"
                   color={
-                    selectMaturity.date > Date.now() ? 'success' : 'primary'
+                    convertEpochToMS(
+                      selectMaturity.principal.maturity.toNumber()
+                    ) > Date.now()
+                      ? 'success'
+                      : 'primary'
                   }
                 >
-                  {selectMaturity.date > Date.now()
+                  {convertEpochToMS(
+                    selectMaturity.principal.maturity.toNumber()
+                  ) > Date.now()
                     ? `(${(
-                        (selectMaturity.date - Date.now()) /
+                        (convertEpochToMS(
+                          selectMaturity.principal.maturity.toNumber()
+                        ) -
+                          Date.now()) /
                         (1000 * 60 * 60 * 24)
                       ).toFixed(0)}D)`
                     : 'Matured'}
                 </Typography>
               </Box>
               <Box display="flex" alignItems="center" gap="xl">
-                {tokens.map((type) => (
-                  <Box key={v4()} display="flex" alignItems="center" gap="m">
-                    <DerivativeIcon type={type} />
-                    <Typography variant="medium">
-                      {selectMaturity.amounts[type]}
-                    </Typography>
-                  </Box>
-                ))}
+                <Box key={v4()} display="flex" alignItems="center" gap="m">
+                  <DerivativeIcon type={principalType} />
+                  <Typography variant="medium">
+                    {FixedPointMath.toNumber(selectMaturity.principal.value)}
+                  </Typography>
+                </Box>
+                <Box key={v4()} display="flex" alignItems="center" gap="m">
+                  <DerivativeIcon type={couponType} />
+                  <Typography variant="medium">
+                    {FixedPointMath.toNumber(selectMaturity.coupon.value)}
+                  </Typography>
+                </Box>
               </Box>
             </>
           ) : (
@@ -111,17 +141,21 @@ const UnstakeMaturity: FC = () => {
         <ArrowDownSVG maxHeight="0.7rem" maxWidth="0.7rem" />
       </Box>
       {isOpen &&
-        maturities.map(({ date, id, amounts }) => (
+        bondObjectsPairs.map(({ principal, coupon }) => (
           <Box
             p="xl"
             key={v4()}
             onClick={() =>
               form.setValue('maturity', {
-                id,
-                date: String(date),
+                epoch: principal.maturity.toString(),
+                date: String(convertEpochToMS(principal.maturity.toNumber())),
               })
             }
-            bg={maturityId == id ? 'primary.primaryContainer' : 'unset'}
+            bg={
+              maturityId == principal.maturity.toString()
+                ? 'primary.primaryContainer'
+                : 'unset'
+            }
           >
             <Box
               display="grid"
@@ -129,37 +163,61 @@ const UnstakeMaturity: FC = () => {
               gridTemplateColumns="2rem 1fr 1fr"
             >
               <Box>
-                {maturityId == id && (
+                {maturityId == principal.maturity.toString() && (
                   <CheckSVG maxHeight="1rem" maxWidth="1rem" width="1rem" />
                 )}
               </Box>
               <Box display="flex" alignItems="center">
                 <Typography variant="medium">
-                  {new Date(date).getDate()}
+                  {new Date(
+                    convertEpochToMS(principal.maturity.toNumber())
+                  ).getDate()}
                   {' • '}
-                  {MONTHS[new Date(date).getMonth()]}
+                  {
+                    MONTHS[
+                      new Date(
+                        convertEpochToMS(principal.maturity.toNumber())
+                      ).getMonth()
+                    ]
+                  }
                   {' • '}
-                  {new Date(date).getFullYear()}
+                  {new Date(
+                    convertEpochToMS(principal.maturity.toNumber())
+                  ).getFullYear()}
                 </Typography>
                 <Typography
                   ml="m"
                   variant="extraSmall"
-                  color={date > Date.now() ? 'success' : 'primary'}
+                  color={
+                    convertEpochToMS(principal.maturity.toNumber()) > Date.now()
+                      ? 'success'
+                      : 'primary'
+                  }
                 >
-                  {date > Date.now()
-                    ? `(${((date - Date.now()) / (1000 * 60 * 60 * 24)).toFixed(
-                        0
-                      )}D)`
+                  {convertEpochToMS(principal.maturity.toNumber()) > Date.now()
+                    ? `(${(
+                        (convertEpochToMS(principal.maturity.toNumber()) -
+                          Date.now()) /
+                        (1000 * 60 * 60 * 24)
+                      ).toFixed(0)}D)`
                     : 'Matured'}
                 </Typography>
               </Box>
               <Box display="flex" alignItems="center" ml="4xl" gap="xl">
-                {tokens.map((type) => (
-                  <Box gap="m" key={v4()} display="flex" alignItems="center">
-                    <DerivativeIcon type={type} />
-                    <Typography variant="medium">{amounts[type]}</Typography>
+                <Box display="flex" alignItems="center" gap="xl">
+                  <Box key={v4()} display="flex" alignItems="center" gap="m">
+                    <DerivativeIcon type={principalType} />
+                    <Typography variant="medium">
+                      {FixedPointMath.toNumber(principal.value)}
+                    </Typography>
                   </Box>
-                ))}
+                  <Box key={v4()} display="flex" alignItems="center" gap="m">
+                    <DerivativeIcon type={couponType} />
+                    <Typography variant="medium">
+                      {FixedPointMath.toNumber(coupon.value)}
+                    </Typography>
+                  </Box>
+                </Box>
               </Box>
             </Box>
           </Box>
