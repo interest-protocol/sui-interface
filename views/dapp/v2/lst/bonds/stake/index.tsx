@@ -125,6 +125,7 @@ const LSTBondsStake: FC = () => {
         gap="xl"
         width="100%"
         display="grid"
+        alignItems="flex-start"
         gridTemplateColumns={['1fr', '1fr', '3fr 2fr']}
       >
         <Box

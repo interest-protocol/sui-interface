@@ -107,15 +107,15 @@ const ValidatorSelector: FC = () => {
   return (
     <Box
       mt="l"
-      p="0.75rem"
       pr="unset"
-      borderRadius="0.25rem"
-      border="1px solid"
-      borderColor="outline.outlineVariant"
+      p="0.75rem"
       display="flex"
-      justifyContent="space-between"
       cursor="pointer"
+      border="1px solid"
+      borderRadius="0.25rem"
       onClick={openValidatorModals}
+      justifyContent="space-between"
+      borderColor="outline.outlineVariant"
     >
       <Box display="flex" gap="m" alignItems="center">
         <Box display="flex">

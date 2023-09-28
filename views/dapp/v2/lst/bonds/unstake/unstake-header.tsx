@@ -19,7 +19,7 @@ const BondsUnstakeHeader: FC = () => {
       >
         {t('lst.bonds.unstake.title')}
       </Typography>
-      <Typography variant="medium" color="onSurface" my="s">
+      <Typography variant="medium" opacity=".6" color="onSurface" my="s">
         {t('lst.bonds.unstake.description')}
       </Typography>
     </>
