@@ -1,4 +1,5 @@
 import { Box } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
 import { useWeb3 } from '@/hooks';
@@ -9,7 +10,7 @@ import TokensTableHead from './tokens-table-head';
 
 const TokensTable: FC = () => {
   const { connected } = useWeb3();
-
+  const t = useTranslations();
   return (
     <Box
       width="100%"
@@ -21,7 +22,7 @@ const TokensTable: FC = () => {
     >
       {!connected ? (
         <ErrorState
-          errorMessage="No wallet has found! Please connect your wallet"
+          errorMessage={t('common.v2.connectWallet.noWalletFound')}
           size="large"
         />
       ) : (
