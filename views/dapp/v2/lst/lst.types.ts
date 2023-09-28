@@ -42,6 +42,8 @@ export interface LstStorage {
   validatorCount: number;
   whiteListedValidators: ReadonlyArray<string>;
   validatorTable: ValidatorTable;
+  averageAPY: BigNumber;
+  totalActivateStakedSui: BigNumber;
 }
 
 export interface ValidatorPosition {

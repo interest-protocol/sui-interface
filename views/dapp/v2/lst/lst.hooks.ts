@@ -19,7 +19,7 @@ import useSWR from 'swr';
 import { DEFAULT_LST_STORAGE, LST_OBJECTS } from '@/constants/lst';
 import { useNetwork, useProvider } from '@/hooks';
 import { AddressZero } from '@/lib';
-import { makeSWRKey } from '@/utils';
+import { makeSWRKey, normalizeSuiType } from '@/utils';
 
 import lstContext from './context';
 import { ILSTContext } from './context/context.types';
@@ -30,7 +30,7 @@ import {
 } from './lst.types';
 
 bcs.registerStructType(
-  `${LST_OBJECTS[Network.TESTNET].PACKAGE_ID}::sdk::StakePosition`,
+  `0xd6bb0d552b866ed8d24e6b036f8094c669df0720f2d37e7a60c8d3107af369a::query::StakePosition`,
   {
     epoch: BCS.U64,
     amount: BCS.U64,
@@ -38,13 +38,11 @@ bcs.registerStructType(
 );
 
 bcs.registerStructType(
-  `${LST_OBJECTS[Network.TESTNET].PACKAGE_ID}::sdk::ValidatorStakePosition`,
+  `0xd6bb0d552b866ed8d24e6b036f8094c669df0720f2d37e7a60c8d3107af369a::query::ValidatorStakePosition`,
   {
     validator: BCS.ADDRESS,
     total_principal: BCS.U64,
-    stakes: `vector<${
-      LST_OBJECTS[Network.TESTNET].PACKAGE_ID
-    }::sdk::StakePosition>`,
+    stakes: `vector<0xd6bb0d552b866ed8d24e6b036f8094c669df0720f2d37e7a60c8d3107af369a::query::StakePosition>`,
   }
 );
 
@@ -66,7 +64,7 @@ export const useGetValidatorsStakePosition = (
       const txb = new TransactionBlock();
 
       txb.moveCall({
-        target: `${objects.PACKAGE_ID}::sdk::get_validators_stake_position`,
+        target: `${objects.PACKAGE_ID}::query::get_validators_stake_position`,
         arguments: [
           txb.object(objects.POOL_STORAGE),
           txb.pure(from, BCS.ADDRESS),
@@ -87,6 +85,7 @@ export const useGetValidatorsStakePosition = (
   );
 
   const result = raw ? getReturnValuesFromInspectResults(raw) : [];
+
   const data =
     !result || !result.length
       ? []
@@ -172,6 +171,16 @@ const parseStorage = (data: SuiObjectResponse | undefined): LstStorage => {
       [],
       ['data', 'content', 'fields', 'whitelist_validators'],
       data
+    ),
+    totalActivateStakedSui: BigNumber(
+      pathOr(
+        '0',
+        ['data', 'content', 'fields', 'total_activate_staked_sui'],
+        data
+      )
+    ),
+    averageAPY: BigNumber(
+      pathOr('0', ['data', 'content', 'fields', 'rate'], data)
     ),
     pool: new Rebase(
       BigNumber(

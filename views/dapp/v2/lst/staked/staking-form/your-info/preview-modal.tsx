@@ -123,7 +123,7 @@ export const StakePreviewModal: FC<StakePreviewModalProps> = ({
       });
 
       txb.moveCall({
-        target: `${objects.PACKAGE_ID}::sdk::mint_isui`,
+        target: `${objects.PACKAGE_ID}::entry::mint_isui`,
         arguments: [
           txb.object(SUI_SYSTEM_STATE_OBJECT_ID),
           txb.object(objects.POOL_STORAGE),
@@ -345,8 +345,22 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
         amount: iSuiAmountBN,
       });
 
+      const unstakeAmount = txb.moveCall({
+        target: `${objects.PACKAGE_ID}::pool::get_exchange_rate_isui_to_sui`,
+        arguments: [
+          txb.object(SUI_SYSTEM_STATE_OBJECT_ID),
+          txb.object(objects.POOL_STORAGE),
+          txb.pure(iSuiAmountBN.toString(), BCS.U64),
+        ],
+      });
+
+      const unstakePayload = txb.moveCall({
+        target: `${objects.PACKAGE_ID}::unstake_algorithms::default_unstake_algorithm`,
+        arguments: [txb.object(objects.POOL_STORAGE), unstakeAmount],
+      });
+
       txb.moveCall({
-        target: `${objects.PACKAGE_ID}::sdk::burn_isui`,
+        target: `${objects.PACKAGE_ID}::query::burn_isui`,
         arguments: [
           txb.object(SUI_SYSTEM_STATE_OBJECT_ID),
           txb.object(objects.POOL_STORAGE),
@@ -356,6 +370,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
           }),
           txb.pure(iSuiAmountBN.toString(), BCS.U64),
           txb.pure(validator || DEFAULT_VALIDATOR[network], BCS.ADDRESS),
+          unstakePayload,
         ],
       });
 
