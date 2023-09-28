@@ -3,8 +3,6 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { DERIVATED_SUI_SYMBOL } from '@/views/dapp/v2/lst/lst.types';
-
 import TokenIcon from '../../../components/token-icon';
 import { AmountProps } from './amount.types';
 
