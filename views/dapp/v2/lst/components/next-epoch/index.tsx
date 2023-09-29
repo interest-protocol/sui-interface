@@ -16,13 +16,7 @@ const NextEpoch: FC = () => {
 
   if (isLoading) return <Skeleton width="100%" height="1.875rem" />;
 
-  if (
-    !data ||
-    !data.epoch ||
-    !data.epochStartTimestampMs ||
-    !data.epochStartTimestampMs ||
-    error
-  )
+  if (!data || !data.epoch || error)
     return (
       <EpochHeader epochNumber={data?.epoch}>
         <ErrorState
