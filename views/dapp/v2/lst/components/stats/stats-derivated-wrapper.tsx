@@ -1,7 +1,6 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
-import { v4 } from 'uuid';
 
 import { ISuiPSVG, ISuiSVG, ISuiYNSVG } from '@/components/svg/v2';
 
@@ -21,8 +20,9 @@ const StatsDerivatedWrapper: FC<StatsDerivatedWrapperProps> = ({
   value,
 }) => {
   const t = useTranslations();
+
   return (
-    <Box key={v4()}>
+    <Box>
       <Typography
         variant="extraSmall"
         fontSize="0.688rem"

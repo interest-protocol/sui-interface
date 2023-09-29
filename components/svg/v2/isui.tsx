@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { SVGProps } from '../svg.types';
 
-const iSui: FC<SVGProps & { filled?: boolean }> = ({
+const ISui: FC<SVGProps & { filled?: boolean }> = ({
   filled,
   maxWidth,
   maxHeight,
@@ -40,4 +40,5 @@ const iSui: FC<SVGProps & { filled?: boolean }> = ({
       />
     </svg>
   );
-export default iSui;
+
+export default ISui;

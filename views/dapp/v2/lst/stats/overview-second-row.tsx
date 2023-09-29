@@ -13,6 +13,7 @@ import { OverviewRowProps } from './stats.type';
 
 const OverviewSecondRow: FC<OverviewRowProps> = ({ data }) => {
   const t = useTranslations();
+
   return (
     <>
       {data.map((item) => (
@@ -33,10 +34,7 @@ const OverviewSecondRow: FC<OverviewRowProps> = ({ data }) => {
             {item.type == 'users' ? (
               <UsersSVG width="100%" maxHeight="1.25rem" maxWidth="1.25rem" />
             ) : (
-              <TokenIcon
-                symbol={item.type as DERIVATED_SUI_SYMBOL}
-                size={1.25}
-              />
+              <TokenIcon id={item.type as DERIVATED_SUI_SYMBOL} size={2} />
             )}
             <Typography variant="large" m="0" color="onSurface">
               {item.value}

@@ -39,7 +39,7 @@ const FirstOverviewRow: FC<OverviewRowProps> = ({ data }) => {
               <UsersSVG width="100%" maxHeight="1.25rem" maxWidth="1.25rem" />
             ) : (
               <TokenIcon
-                symbol={item.type as DERIVATED_SUI_SYMBOL}
+                id={item.type as DERIVATED_SUI_SYMBOL}
                 size={2.5}
                 lessRadius
               />
