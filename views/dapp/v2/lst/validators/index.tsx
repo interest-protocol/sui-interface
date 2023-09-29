@@ -2,7 +2,6 @@ import { Box } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 
-import { SUISVG, UsersSVG } from '@/components/svg/v2';
 import { FixedPointMath } from '@/lib';
 
 import Overview from '../components/overview';
