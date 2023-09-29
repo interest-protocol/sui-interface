@@ -105,7 +105,8 @@
         "tooltip": {
           "connect": "Connect Wallet",
           "install": "Install Wallet"
-        }
+        },
+        "noWalletFound": "No wallet has found! Please connect your wallet"
       }
     },
     "dex": "dex",
