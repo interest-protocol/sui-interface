@@ -1,21 +1,22 @@
-import { Box, Theme, Typography, useTheme } from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { SEMANTIC_COLORS } from '@/constants';
+import { UsersSVG } from '@/components/svg/v2';
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
+import TokenIcon from '../../bonds/components/token-icon';
+import { DERIVATED_SUI_SYMBOL } from '../../lst.types';
 import { OverviewRowProps } from './overview.type';
 
 const FirstOverviewRow: FC<OverviewRowProps> = ({ data }) => {
-  const { dark } = useTheme() as Theme;
   const t = useTranslations();
 
   return (
     <>
-      {data.map((item, index) => (
+      {data.map((item) => (
         <Box
           key={v4()}
           display="flex"
@@ -31,16 +32,18 @@ const FirstOverviewRow: FC<OverviewRowProps> = ({ data }) => {
             aspectRatio="1/1"
             alignItems="center"
             justifyContent="center"
-            bg={
-              index === 0
-                ? dark
-                  ? SEMANTIC_COLORS[3].dark
-                  : SEMANTIC_COLORS[3].light
-                : 'surface.containerHigh'
-            }
-            color={index === 0 ? (dark ? 'white' : 'black') : 'primary'}
+            bg={item.type == 'users' ? 'surface.containerHigh' : 'unset'}
+            color={item.type == 'users' ? 'primary' : 'unset'}
           >
-            <item.Icon width="100%" maxHeight="1.25rem" maxWidth="1.25rem" />
+            {item.type == 'users' ? (
+              <UsersSVG width="100%" maxHeight="1.25rem" maxWidth="1.25rem" />
+            ) : (
+              <TokenIcon
+                symbol={item.type as DERIVATED_SUI_SYMBOL}
+                size={2.5}
+                lessRadius
+              />
+            )}
           </Box>
           <Box
             display="flex"

@@ -3,9 +3,12 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
+import { UsersSVG } from '@/components/svg/v2';
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
+import TokenIcon from '../bonds/components/token-icon';
+import { DERIVATED_SUI_SYMBOL } from '../lst.types';
 import { OverviewRowProps } from './stats.type';
 
 const OverviewSecondRow: FC<OverviewRowProps> = ({ data }) => {
@@ -27,7 +30,14 @@ const OverviewSecondRow: FC<OverviewRowProps> = ({ data }) => {
             </Typography>
           </Box>
           <Box display="flex" columnGap="s" alignItems="center">
-            <item.Icon width="100%" maxHeight="1.25rem" maxWidth="1.25rem" />
+            {item.type == 'users' ? (
+              <UsersSVG width="100%" maxHeight="1.25rem" maxWidth="1.25rem" />
+            ) : (
+              <TokenIcon
+                symbol={item.type as DERIVATED_SUI_SYMBOL}
+                size={1.25}
+              />
+            )}
             <Typography variant="large" m="0" color="onSurface">
               {item.value}
             </Typography>
