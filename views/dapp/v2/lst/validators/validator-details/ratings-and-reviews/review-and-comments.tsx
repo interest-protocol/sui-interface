@@ -89,7 +89,7 @@ const ReviewAndComments: FC = () => {
           txb.pure(
             '0xba4d20899c7fd438d50b2de2486d08e03f34beb78a679142629a6baacb88b013'
           ),
-          txb.pure(values.rating === 'positive'),
+          txb.pure(true),
           txb.pure(values.comment, BCS.STRING),
         ],
       });
@@ -112,7 +112,8 @@ const ReviewAndComments: FC = () => {
       const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
 
       openResultModal(true, explorerLink);
-    } catch {
+    } catch (e) {
+      console.log(e);
       openResultModal(false);
     } finally {
       await mutate();

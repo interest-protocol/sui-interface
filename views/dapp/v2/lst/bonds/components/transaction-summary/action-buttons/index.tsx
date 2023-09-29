@@ -33,6 +33,9 @@ const ActionButtons: FC<ActionButtonsProps> = ({
         +formValues?.maturity?.epoch > 0
       );
 
+    if (formValues.type === 'unstake')
+      return !!formValues.amount && +formValues.amount >= 1;
+
     return false;
   };
 

@@ -359,8 +359,10 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
         arguments: [txb.object(objects.POOL_STORAGE), unstakeAmount],
       });
 
+      console.log(objects.PACKAGE_ID);
+
       txb.moveCall({
-        target: `${objects.PACKAGE_ID}::query::burn_isui`,
+        target: `${objects.PACKAGE_ID}::entry::burn_isui`,
         arguments: [
           txb.object(SUI_SYSTEM_STATE_OBJECT_ID),
           txb.object(objects.POOL_STORAGE),
@@ -369,7 +371,7 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
             objects: coinInList,
           }),
           txb.pure(iSuiAmountBN.toString(), BCS.U64),
-          txb.pure(validator || DEFAULT_VALIDATOR[network], BCS.ADDRESS),
+          txb.pure(validator, BCS.ADDRESS),
           unstakePayload,
         ],
       });
@@ -392,7 +394,8 @@ export const UnstakePreviewModal: FC<UnstakePreviewModalProps> = ({
       const explorerLink = `${EXPLORER_URL[network]}/txblock/${tx.digest}`;
 
       setTransactionSuccess(explorerLink);
-    } catch {
+    } catch (e) {
+      console.log(e);
       setTransactionFailed(true);
     } finally {
       setLoading(false);

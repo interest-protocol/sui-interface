@@ -92,11 +92,6 @@ const TransactionSummaryClaimBody: FC = () => {
       >
         {[
           {
-            symbol: 'iSUIP',
-            title: 'iSUIP',
-            type: getISuiPrincipalType(Network.TESTNET),
-          },
-          {
             symbol: 'iSUIY',
             title: 'iSUIY',
             type: getISuiYieldType(Network.TESTNET),
