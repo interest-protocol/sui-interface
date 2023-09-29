@@ -6,7 +6,7 @@ import { useWatch } from 'react-hook-form';
 import { v4 } from 'uuid';
 
 import { MONTHS } from '@/constants';
-import { getISuiPrincipalType, getISuiYieldType } from '@/constants/lst';
+import { getISuiYieldType } from '@/constants/lst';
 
 import { DERIVATED_SUI_SYMBOL } from '../../../lst.types';
 import { useBondsContext } from '../../bonds.hooks';

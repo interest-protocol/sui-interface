@@ -8,7 +8,7 @@ import { FC, useState } from 'react';
 
 import { ISuiSVG, SUISVG } from '@/components/svg/v2';
 import { EXPLORER_URL } from '@/constants';
-import { DEFAULT_VALIDATOR, LST_OBJECTS } from '@/constants/lst';
+import { LST_OBJECTS } from '@/constants/lst';
 import { FixedPointMath } from '@/lib';
 import {
   createObjectsParameter,
