@@ -7,6 +7,7 @@ import { FixedPointMath } from '@/lib';
 
 import Overview from '../components/overview';
 import { useLstData } from '../lst.hooks';
+import { DERIVATED_SUI_SYMBOL } from '../lst.types';
 import AllValidators from './all-validators';
 
 const OverViewWrapper: FC = () => {
@@ -15,21 +16,25 @@ const OverViewWrapper: FC = () => {
   const { activeValidators, iSuiExchangeRate, isLoading, lstStorage } =
     useLstData();
 
-  const OVERVIEW_DATA = [
+  const OVERVIEW_DATA: ReadonlyArray<{
+    description: string;
+    type: DERIVATED_SUI_SYMBOL | 'users';
+    value: number;
+  }> = [
     {
       description: 'lst.overview.totalSuiStaked',
-      Icon: SUISVG,
+      type: 'SUI',
       // Sui has 9 decimals
       value: FixedPointMath.toNumber(lstStorage.totalPrincipal),
     },
     {
       description: 'lst.exchangeRate',
-      Icon: UsersSVG,
+      type: 'users',
       value: iSuiExchangeRate,
     },
     {
       description: 'lst.overview.validators',
-      Icon: UsersSVG,
+      type: 'users',
       value: activeValidators?.length || 0,
     },
   ];
