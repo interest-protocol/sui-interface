@@ -105,7 +105,8 @@
         "tooltip": {
           "connect": "Conectar carteira",
           "install": "Instalar carteira"
-        }
+        },
+        "noWalletFound": "Nenhuma carteira encontrada! Por favor conecte sua carteira"
       }
     },
     "dex": "dex",
