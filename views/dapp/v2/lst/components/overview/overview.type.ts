@@ -1,16 +1,8 @@
-import { FC } from 'react';
-
-import { SVGProps } from '@/components/svg/svg.types';
+import { DERIVATED_SUI_SYMBOL } from '../../lst.types';
 
 export interface OverviewItem {
   description: string;
-  Icon:
-    | FC<
-        SVGProps & {
-          filled?: boolean | undefined;
-        }
-      >
-    | FC<SVGProps>;
+  type: DERIVATED_SUI_SYMBOL | 'users';
   value: number;
 }
 
