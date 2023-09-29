@@ -3,23 +3,16 @@ import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 
-import { ISuiSVG } from '@/components/svg/v2';
-import { ISuiPCSVG, ISuiYNSVG } from '@/svg';
+import { ISuiPSVG, ISuiSVG, ISuiYNSVG } from '@/components/svg/v2';
 
 import { GetISuiSVGProps, StatsDerivatedWrapperProps } from './stats.type';
 
 const GetISuiSVG: FC<GetISuiSVGProps> = ({ symbol }) => {
   const SVG =
-    symbol == 'iSui' ? ISuiSVG : symbol == 'iSui-PC' ? ISuiPCSVG : ISuiYNSVG;
+    symbol == 'iSui' ? ISuiSVG : symbol == 'iSUIP' ? ISuiPSVG : ISuiYNSVG;
 
   return (
-    <SVG
-      maxWidth="1.25rem"
-      maxHeight="1.25rem"
-      width="100%"
-      height="100%"
-      filled
-    />
+    <SVG width="100%" height="100%" maxWidth="1.25rem" maxHeight="1.25rem" />
   );
 };
 
