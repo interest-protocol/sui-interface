@@ -1,5 +1,5 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
-import { CoinInfo, COINS_MAP } from 'interface/sentio';
+import { CoinInfo, SENTIO_COINS_MAP } from 'interface/sentio';
 
 import { RECOMMENDED_POOLS } from '@/constants';
 
@@ -12,7 +12,7 @@ export const getPoolFromMetricLabel = (value: string): IPool | undefined => {
 
   const [symbolA, symbolB] = symbols.split('/');
 
-  const COINS_LIST: ReadonlyArray<CoinInfo> = Object.values(COINS_MAP);
+  const COINS_LIST: ReadonlyArray<CoinInfo> = Object.values(SENTIO_COINS_MAP);
 
   const COIN_TYPES_BY_SYMBOL: Record<string, string> = COINS_LIST.reduce(
     (acc, { symbol, type }) => ({ ...acc, [symbol]: type }),
@@ -29,11 +29,13 @@ export const getPoolFromMetricLabel = (value: string): IPool | undefined => {
       stable === isStable && type0 === typeA && typeB === type1
   ) as IPool | undefined;
 
+  console.log('>> pool :: ', pool);
+
   return pool;
 };
 
 export const getCoinFromMetricLabel = (value: string): CoinInfo => {
-  const COINS_LIST: ReadonlyArray<CoinInfo> = Object.values(COINS_MAP);
+  const COINS_LIST: ReadonlyArray<CoinInfo> = Object.values(SENTIO_COINS_MAP);
 
   const COIN_BY_SYMBOL: Record<string, CoinInfo> = COINS_LIST.reduce(
     (acc, coin) => ({ ...acc, [coin.symbol]: coin }),

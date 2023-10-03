@@ -23,13 +23,15 @@ const TopPoolsTableBody: FC = () => {
   useEffect(() => {
     getMetric('get-top-pools').then((topPools) =>
       setData(
-        toPairs(topPools).map(
-          ([pair, info]) =>
-            ({
-              ...info,
-              pool: getPoolFromMetricLabel(pair),
-            } as TopPoolsTableItem)
-        )
+        toPairs(topPools)
+          .map(
+            ([pair, info]) =>
+              ({
+                ...info,
+                pool: getPoolFromMetricLabel(pair),
+              } as TopPoolsTableItem)
+          )
+          .filter(({ pool }) => !!pool)
       )
     );
   }, []);
