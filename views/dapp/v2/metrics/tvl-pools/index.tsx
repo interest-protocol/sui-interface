@@ -20,7 +20,7 @@ const TVLPools: FC = () => {
   useEffect(() => {
     setIsLoading(true);
     getMetric('get-tvl-by-pool').then((total) => {
-      const newData = total.map(
+      const newData = total?.map(
         ({
           label,
           ...info

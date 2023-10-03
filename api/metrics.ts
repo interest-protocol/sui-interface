@@ -127,7 +127,7 @@ export const getOverview = (TZ: string): Promise<ReadonlyArray<number>> =>
           },
           functions: [
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {
@@ -215,7 +215,7 @@ export const getDailyVolume = (TZ: string): Promise<ValuesInTimestamp> =>
     [
       {
         metricsQuery: {
-          query: 'vol',
+          query: 'vol_sum',
           alias: '24 vol',
           id: 'a',
           labelSelector: {},
@@ -225,7 +225,7 @@ export const getDailyVolume = (TZ: string): Promise<ValuesInTimestamp> =>
           },
           functions: [
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {
@@ -356,36 +356,6 @@ export const getTVLByPool = (
       return values;
     });
 
-export const getSwaps = (TZ: string): Promise<number> =>
-  getMetrics(
-    [
-      {
-        metricsQuery: {
-          query: 'event_swap',
-          alias: '',
-          id: 'a',
-          labelSelector: {},
-          aggregate: null,
-          functions: [],
-          disabled: false,
-        },
-        dataSource: 'METRICS',
-        sourceName: '',
-      },
-    ],
-    TZ
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      const samples: Array<any> = Array.from(
-        data.results[0].matrix.samples.values()
-      );
-
-      const value = samples[0].values.reverse()[0].value;
-
-      return value;
-    });
-
 export const getTopPools = (TZ: string): Promise<PoolReturn> =>
   getMetrics(
     [
@@ -416,7 +386,7 @@ export const getTopPools = (TZ: string): Promise<PoolReturn> =>
       },
       {
         metricsQuery: {
-          query: 'vol',
+          query: 'vol_sum',
           alias: '24h vol',
           id: 'b',
           labelSelector: {},
@@ -434,7 +404,7 @@ export const getTopPools = (TZ: string): Promise<PoolReturn> =>
               ],
             },
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {
@@ -452,7 +422,7 @@ export const getTopPools = (TZ: string): Promise<PoolReturn> =>
       },
       {
         metricsQuery: {
-          query: 'vol',
+          query: 'vol_sum',
           alias: '7d vol',
           id: 'c',
           labelSelector: {},
@@ -470,7 +440,7 @@ export const getTopPools = (TZ: string): Promise<PoolReturn> =>
               ],
             },
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {
@@ -488,7 +458,7 @@ export const getTopPools = (TZ: string): Promise<PoolReturn> =>
       },
       {
         metricsQuery: {
-          query: 'vol',
+          query: 'vol_sum',
           alias: '30d vol',
           id: 'd',
           labelSelector: {},
@@ -506,7 +476,7 @@ export const getTopPools = (TZ: string): Promise<PoolReturn> =>
               ],
             },
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {
@@ -585,7 +555,7 @@ export const getTopCoins = (TZ: string): Promise<CoinReturn> =>
       },
       {
         metricsQuery: {
-          query: 'vol_by_coin',
+          query: 'vol_by_coin_sum',
           alias: '1d vol',
           id: 'b',
           labelSelector: {},
@@ -603,7 +573,7 @@ export const getTopCoins = (TZ: string): Promise<CoinReturn> =>
               ],
             },
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {
@@ -621,7 +591,7 @@ export const getTopCoins = (TZ: string): Promise<CoinReturn> =>
       },
       {
         metricsQuery: {
-          query: 'vol_by_coin',
+          query: 'vol_by_coin_sum',
           alias: '30d vol',
           id: 'c',
           labelSelector: {},
@@ -639,7 +609,7 @@ export const getTopCoins = (TZ: string): Promise<CoinReturn> =>
               ],
             },
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {

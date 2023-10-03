@@ -35,6 +35,7 @@ const TopInfoCards: FC<TopInfoCardsProps> = ({
         </Box>
       }
       info={null}
+      width={['18rem', '18rem', '18rem', '100%']}
     >
       {loading ? <Skeleton width="40%" /> : amount}
     </InfoCard>
