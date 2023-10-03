@@ -26,7 +26,7 @@ const tvlBodyAPIQuery = [
 const accumulatedVolumeQuery = [
   {
     metricsQuery: {
-      query: 'vol',
+      query: 'vol_sum',
       alias: '{{pair}}',
       id: 'volume',
       labelSelector: {},
@@ -40,7 +40,7 @@ const accumulatedVolumeQuery = [
           arguments: [
             {
               durationValue: {
-                value: 120,
+                value: 500,
                 unit: 'w',
               },
             },
@@ -102,7 +102,7 @@ const handler: NextApiHandler = async (req, res) => {
       method: 'POST',
       body: JSON.stringify({
         timeRange: {
-          start: '-1M',
+          start: '-30d',
           end: 'now',
           step: 3600,
           timezone: 'Europe/Lisbon',
