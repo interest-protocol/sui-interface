@@ -127,7 +127,7 @@ export const getOverview = (TZ: string): Promise<ReadonlyArray<number>> =>
           },
           functions: [
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {
@@ -225,7 +225,7 @@ export const getDailyVolume = (TZ: string): Promise<ValuesInTimestamp> =>
           },
           functions: [
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {
@@ -404,7 +404,7 @@ export const getTopPools = (TZ: string): Promise<PoolReturn> =>
               ],
             },
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {
@@ -440,7 +440,7 @@ export const getTopPools = (TZ: string): Promise<PoolReturn> =>
               ],
             },
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {
@@ -476,7 +476,7 @@ export const getTopPools = (TZ: string): Promise<PoolReturn> =>
               ],
             },
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {
@@ -573,7 +573,7 @@ export const getTopCoins = (TZ: string): Promise<CoinReturn> =>
               ],
             },
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {
@@ -609,7 +609,7 @@ export const getTopCoins = (TZ: string): Promise<CoinReturn> =>
               ],
             },
             {
-              name: 'sum_over_time',
+              name: 'rollup_sum',
               arguments: [
                 {
                   durationValue: {
