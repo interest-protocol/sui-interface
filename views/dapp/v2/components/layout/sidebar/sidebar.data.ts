@@ -2,7 +2,7 @@ import { Network } from '@interest-protocol/sui-amm-sdk';
 
 import { BridgeSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
-import { DotsSVG, SwapSVG, TrendUpSVG } from '@/svg';
+import { DotsSVG, HomeSVG, SwapSVG, TrendUpSVG } from '@/svg';
 
 import { MenuItemProps } from './sidebar.types';
 
@@ -12,6 +12,13 @@ export const SIDEBAR_ITEMS: ReadonlyArray<
     'setIsCollapsed' | 'isCollapsed' | 'setTemporarilyOpen' | 'temporarilyOpen'
   >
 > = [
+  {
+    Icon: HomeSVG,
+    name: 'lst',
+    path: Routes[RoutesEnum.LSTStake],
+    disabled: false,
+    networks: [Network.MAINNET, Network.TESTNET],
+  },
   {
     Icon: SwapSVG,
     name: 'swap',

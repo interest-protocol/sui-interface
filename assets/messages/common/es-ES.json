@@ -25,6 +25,7 @@
       },
       "navbar": {
         "swap": "Intercambio",
+        "lst": "LST",
         "home": "Inicio",
         "pool": "pool",
         "farm": "farm",
@@ -104,7 +105,8 @@
         "tooltip": {
           "connect": "conectar cartera",
           "install": "Instalar Cartera"
-        }
+        },
+        "noWalletFound": "No se ha encontrado ninguna cartera. Por favor, conecta tu cartera"
       }
     },
     "dex": "dex",
@@ -179,6 +181,7 @@
     "recommendedToken": "Tokens recomendados",
     "recommended": "Recomendado",
     "favorites": "Favoritos",
+    "details": "Detalles",
     "moreDetails": "más detalles",
     "copyObjectNumber": "copiar ID del objeto",
     "followUs": "SÍGUENOS",

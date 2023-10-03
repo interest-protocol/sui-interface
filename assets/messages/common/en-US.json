@@ -25,6 +25,7 @@
       },
       "navbar": {
         "swap": "swap",
+        "lst": "LST",
         "home": "home",
         "pool": "pool",
         "lend": "lend",
@@ -104,7 +105,8 @@
         "tooltip": {
           "connect": "Connect Wallet",
           "install": "Install Wallet"
-        }
+        },
+        "noWalletFound": "No wallet has found! Please connect your wallet"
       }
     },
     "dex": "dex",
@@ -179,6 +181,7 @@
     "recommendedToken": "Recommended Token",
     "recommended": "Recommended",
     "favorites": "Favorites",
+    "details": "Details",
     "moreDetails": "more details",
     "copyObjectNumber": "copy objectId",
     "followUs": "FOLLOW US",

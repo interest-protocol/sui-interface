@@ -72,6 +72,7 @@ export * from './routes';
 export * from './semantic-colors';
 export * from './social-media';
 export * from './social-media-alternatives';
+export * from './tabs-transitions-types';
 export * from './wrapper-variants';
 
 export const MAX_NUMBER_INPUT_VALUE = 9000000000000000;
@@ -201,3 +202,18 @@ export const SEMANTIC_COLORS = [
 
 export const SCALAR = BigNumber(1e9);
 export const DOUBLE_SCALAR = BigNumber(1e18);
+
+export const MONTHS = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];

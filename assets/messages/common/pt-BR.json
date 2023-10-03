@@ -25,6 +25,7 @@
       },
       "navbar": {
         "swap": "troca",
+        "lst": "LST",
         "home": "início",
         "pool": "pool",
         "lend": "emprestimo",
@@ -104,7 +105,8 @@
         "tooltip": {
           "connect": "Conectar carteira",
           "install": "Instalar carteira"
-        }
+        },
+        "noWalletFound": "Nenhuma carteira encontrada! Por favor conecte sua carteira"
       }
     },
     "dex": "dex",
@@ -179,6 +181,7 @@
     "recommendedToken": "Tokens Recomendados",
     "recommended": "Recomendados",
     "favorites": "Favoritos",
+    "details": "Detalhes",
     "moreDetails": "ver detalhes",
     "copyObjectNumber": "copiar o id do objecto",
     "followUs": "SIGA-NOS",

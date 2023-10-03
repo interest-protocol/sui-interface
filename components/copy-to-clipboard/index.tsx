@@ -4,9 +4,9 @@ import toast from 'react-hot-toast';
 import { TooltipWrapper } from 'react-tooltip';
 
 import { Box } from '@/elements';
-import { CopySVG } from '@/svg';
 import { capitalize } from '@/utils';
 
+import { CopySVG } from '../svg/v2';
 import { CopyToClipboardProps } from './copy-to-clipboard';
 
 const CopyToClipboard: FC<CopyToClipboardProps> = ({

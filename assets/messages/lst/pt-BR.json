@@ -1,0 +1,278 @@
+{
+  "lst": {
+    "metadata": {
+      "title": "LST",
+      "description": "LST nova funcionalidade"
+    },
+    "bonds": {
+      "menu": {
+        "stake": {
+          "title": "Apostar SUI",
+          "description": "Aposte Sui e<br></br>receba iSUIP e iSUIY",
+          "button": "Começar"
+        },
+        "unstake": {
+          "title": "Desapostar<br></br>iSUIY e iSUIP",
+          "description": "Desaposte iSUIP ou<br></br>iSUIP + iSUIY e receba SUI",
+          "button": "Começar"
+        },
+        "rewards": {
+          "title": "Reivindicar<br></br>Recompensas",
+          "description": "Reivindique seu rendimento<br></br>iSUIY em SUI",
+          "button": "Começar"
+        }
+      },
+      "transactionSummary": {
+        "title": "Resumo da transação",
+        "receive": "Irá receber",
+        "stake": "Irá apostar",
+        "redeem": "Irá render",
+        "depositFee": "Taxa de depósito",
+        "estimatedRewards": "Recompensa anual esd.",
+        "buttonClear": "Limpar tudo",
+        "validatorDetails": {
+          "title": "Validador",
+          "ranking": "Classificação",
+          "votingPower": "Poder de voto",
+          "commision": "Comissão"
+        }
+      },
+      "modal": {
+        "success": {
+          "description": "Transação concluída",
+          "viewInExplorer": "Ver no explorador"
+        },
+        "error": {
+          "description": "Falha na Transação"
+        }
+      },
+      "stake": {
+        "title": "Apostar SUI",
+        "description": "Insira as informações abaixo para concluir sua transação.",
+        "form": {
+          "selectMaturity": "Selecionar Vencimento",
+          "selectAmount": "Selecionar Valor a Apostar",
+          "selectValidator": "Selecionar Validador"
+        }
+      },
+      "unstake": {
+        "title": "Desapostar",
+        "description": "Insira as informações abaixo para concluir sua transação.",
+        "form": {
+          "selectRedeem": "Selecionar o que deseja desapostar de SFT",
+          "selectMaturity": "Selecionar Vencimento",
+          "selectAmount": "Selecionar Valor a desapostar"
+        }
+      },
+      "clamRewards": {
+        "title": "Receber prémios",
+        "noRewards": {
+          "title": "Lamentamos, mas não tem quaisquer recompensas para reclamar",
+          "description": "Para obtener iSUIY por favor ve y toma algunos SUI"
+        },
+        "maturity": {
+          "title": "Receber prémios",
+          "description": "Introduza as suas informações para concluir a sua transação",
+          "selectRedeem": "Selecione o que iSUIY pode usar"
+        }
+      }
+    },
+    "tabs": {
+      "stake": "apostar",
+      "bonds": "títulos",
+      "portfolio": "portfólio",
+      "validators": "validadores",
+      "stats": "estatísticas"
+    },
+    "cards": {
+      "priceMarket": {
+        "title": "Mercado de preços da SUI"
+      }
+    },
+    "stakingForm": {
+      "title": "Tua Informação"
+    },
+    "proMode": {
+      "state": "{isEnable, plural, =1 {activado} other {desactivado}}",
+      "modal": {
+        "confirmation": {
+          "title": "{isEnable, plural, =1 {activar Pro-mode} other {desactivar Pro-mode}}",
+          "description": "As alterações que fez até agora não são seguras."
+        },
+        "success": {
+          "title": "{isEnable, plural, =1 {Pro-mode activado} other {Pro-mode desactivado}}"
+        }
+      }
+    },
+    "modal": {
+      "preview": {
+        "title": "RESUMO DA TRANSACÇÃO",
+        "stakeLabel": "A sua aposta",
+        "receiveLabel": "Vai receber",
+        "button": "{isStake, plural, =1 {Apostar} other {Retirar}}",
+        "depositFee": "Taxa de depósito",
+        "fetchingExchangeRate": "Trazendo o cambio",
+        "submitting": "{isStake, plural, =1 {Apostando} other {Retirando}}",
+        "rewards": "Esd. Recompensa anual",
+        "other": "outro"
+      },
+      "validator": {
+        "title": "Validadores",
+        "info": "Seleccione um validador da lista abaixo para apostar o seu Sui. ",
+        "select": "selecione",
+        "clearButton": "limpar",
+        "confirmButton": "confirmar seleção"
+      },
+      "asset": {
+        "title": "Ativos",
+        "info": "Pode sempre resgatar iSUIP e iSUIY se tiverem a mesma quantidade e a mesma maturidade.",
+        "select": "selecione",
+        "confirmButton": "confirmar"
+      },
+      "confirm": {
+        "title": "{isStake, plural, =1 {Aposte} other {Desempate}} com sucesso",
+        "description": "Pode verificar a sua transacção no Explorador",
+        "button": "Ver na SuiVision"
+      },
+      "error": {
+        "title": "Erro",
+        "description": "{isStake, plural, =1 {A sua aposta} other {O seu desempate}} falhou",
+        "button": "Tente de Novo"
+      }
+    },
+    "infoButton": "{isStake, plural, =1 {pré-visualizar aposta} other {pré-visualizar a retirada}}",
+    "amountField": {
+      "title": "Montante",
+      "wallet": "Saldo da carteira"
+    },
+    "mintType": "Mint Type",
+    "stats": "Estatística",
+    "totalStaked": "TOTAL DE SUI",
+    "totalReward": "TOTAL DE RECOMPENSAS",
+    "totalMinted": "Total {symbol} minted",
+    "validators": {
+      "tableSection": {
+        "title": "Todos os validadores",
+        "searchInput": "Pesquisa de validadores",
+        "name": "Nome",
+        "apy": "APY",
+        "lstStaked": "LST Staked",
+        "commission": "Comissão",
+        "votingPower": "Poder de Voto",
+        "error": "Ocorreu um erro ao carregar os validadores"
+      },
+      "validatorSection": {
+        "validatorDetailsPage": {
+          "detailsSection": {
+            "address": "Endereço",
+            "web": "website",
+            "totalSuiStaked": "Total SUI Apostado",
+            "votingPower": "Poder de Voto",
+            "apy": "APY",
+            "gasPrice": "Preço do gás",
+            "commission": "Comissão",
+            "nextEpochGasPrice": "Preço do gás da próxima época",
+            "comments": "Comentários",
+            "sortBy": "Ordenar por"
+          },
+          "rankingAndCommentsSection": {
+            "ranking": "Ranking",
+            "positiveReview": "revisão positiva",
+            "negativeReview": "revisão negativa",
+            "reviewAndComment": "revisão e comentário",
+            "headerMessage": "Gostaríamos de ouvir os seus pensamentos sobre este validador. Por favor, vote e deixe um comentário.",
+            "vote": "voto",
+            "comment": "deixe um comentário",
+            "optionalComment": "(optional) Deixe um comentário",
+            "publish": "publicar",
+            "modalMessage": "Obrigado pelo seu feedback!",
+            "backToHome": "voltar para o início",
+            "communityInvite": "Junte-se à nossa comunidade",
+            "requisitesToVote": "Você precisa de IPX Soul Bound Token para comentar e votar.",
+            "obtainSuiBondToken": "Obter IPX Soul Bound Token"
+          }
+        },
+        "activeValidatorError": "Ocorreu um erro ao ativar o validador"
+      }
+    },
+    "assetsTable": {
+      "title": "Ativos",
+      "seeAll": "Ver Todos",
+      "maturity": "Maturidade",
+      "dayLeft": "Dias Restantes",
+      "searchInput": "Pesquisa de ativos",
+      "name": "Nome",
+      "balance": "Saldo",
+      "state": "Estado",
+      "inMaturity": "Em Maturidade",
+      "pastMaturity": "Passado Maturidade",
+      "totalAssetsMinted": "Total de Ativos Criados"
+    },
+    "statsSection": {
+      "totalRewards": {
+        "title": "Total recompensas"
+      },
+      "totalStaked": {
+        "title": "Total apostado",
+        "daily": "diário"
+      }
+    },
+    "overview": {
+      "title": "Visão geral",
+      "totalSuiStaked": "TOTAL SUI APOSTADO",
+      "totalReward": "TOTAL DE RECOMPENSAS",
+      "totalStakers": "total apostadores",
+      "validators": "validadores",
+      "totalISUIMinted": "total iSUI emitido",
+      "totalISUIPCMinted": "total iSUI-PC emitido",
+      "totalISUIYNMinted": "total iSUI-YN emitido",
+      "error": "Ocorreu um erro ao carregar a visão geral"
+    },
+    "exchangeRate": "taxa de câmbio",
+    "epoch": {
+      "title": "Época",
+      "end": "A época termina em...",
+      "error": "Erro ao carregar o preço do gás da próxima época",
+      "started": "Iniciou {time}",
+      "timeLeft": "restantes"
+    },
+    "faq": {
+      "title": "PERGUNTAS FREQUENTES",
+      "questions": {
+        "block1": {
+          "title": "O que é o Interest LST?",
+          "description": "nterest LST é um protocolo financeiro descentralizado (DeFi) que permite aos utilizadores apostar Sui e ganhar iSui sem bloquear os seus fundos. Podem levantar o seu depósito inicial e as suas recompensas em qualquer altura, devolvendo iSui."
+        },
+        "block2": {
+          "title": "A Interest LST é descentralizada?",
+          "description": "Sim, o Interest LST é totalmente descentralizado e de código aberto. Os utilizadores podem apostar e desempatar com qualquer validador na cadeia. O administrador apenas controla os parâmetros da taxa, que são limitados para proteger os utilizadores."
+        },
+        "block3": {
+          "title": "Como é que isto funciona?",
+          "description": "O Interest LST usa contratos inteligentes para depositar Sui num validador, protegendo a rede. Em troca, os utilizadores recebem Sui. É uma opção de investimento DeFi segura."
+        },
+        "block4": {
+          "title": "Quais são as vantagens de utilizar o Interest LST?",
+          "description": "O Interest LST permite-lhe ganhar Sui enquanto mantém os seus fundos líquidos, ao contrário do staking tradicional. Oferece o melhor de dois mundos."
+        },
+        "block5": {
+          "title": "Há alguma taxa sobre os juros LST?",
+          "description": "Sim, existe uma taxa de depósito na Interest LST. Trata-se de uma taxa dinâmica que promove a descentralização, com base na participação de um validador relativamente à participação total no protocolo."
+        }
+      }
+    },
+    "transactionOverview": {
+      "title": "Resumo da transação",
+      "stakeOrBurn": "{isStake, plural, =1 {Irá apostar} other {Irá arder}}",
+      "receive": "Irá receber"
+    },
+    "portfolio": {
+      "name": "Nome",
+      "more": "Mais",
+      "value": "Valor"
+    },
+    "selectValidator": "selecionar validador",
+    "selectAssets": "Escolha activos",
+    "maturity": "Maturidade {date}"
+  }
+}

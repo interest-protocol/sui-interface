@@ -5,7 +5,7 @@ import { getRequestOnlyMiddleware, logApiErrors } from '@/utils';
 
 const handler: NextApiHandler = async (req, res) => {
   const result = await fetch(
-    `https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?id=${req.query.id}`,
+    `https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/historical?interval=daily&count=30&id=${req.query.id}`,
     {
       headers: {
         'X-CMC_PRO_API_KEY': process.env.COIN_MARKET_CAP_API_KEY || '',

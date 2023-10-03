@@ -18,6 +18,7 @@ type LiquidityCampaignMessages =
   typeof import('../assets/messages/liquidity-campaign/en-US.json');
 type SwapMessages = typeof import('../assets/messages/swap/en-US.json');
 type LendMessages = typeof import('../assets/messages/lend/en-US.json');
+type LstMessages = typeof import('../assets/messages/lst/en-US.json');
 type metricsMessages = typeof import('../assets/messages/metrics/en-US.json');
 
 declare interface IntlMessages
@@ -32,6 +33,7 @@ declare interface IntlMessages
     LandingPageMessages,
     LiquidityCampaignMessages,
     LendMessages,
+    LstMessages,
     metricsMessages,
     SwapMessages,
     DexPoolMessages {}

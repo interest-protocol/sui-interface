@@ -11,7 +11,7 @@ import {
 
 import { Fraction } from './fraction';
 
-const ONE_COIN = new BigNumber(1000000000);
+export const ONE_COIN = new BigNumber(1000000000);
 
 const parse = (_value: BigNumberish) => {
   const value = isBigNumberish(_value) ? _value.toString() : 0;

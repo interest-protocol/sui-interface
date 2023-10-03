@@ -1,6 +1,8 @@
+import { ReactNode } from 'react';
+
 export interface LayoutProps {
   dashboard?: boolean;
-  titlePage?: string;
+  titlePage?: ReactNode;
 }
 
 export interface NetworkSwitchProps {

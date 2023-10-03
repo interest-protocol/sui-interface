@@ -1,0 +1,279 @@
+{
+  "lst": {
+    "metadata": {
+      "title": "LST",
+      "description": "LST new feature"
+    },
+    "bonds": {
+      "menu": {
+        "stake": {
+          "title": "Stake SUI",
+          "description": "Stake Sui and<br></br>receive iSUIP and iSUIY",
+          "button": "Get Started"
+        },
+        "unstake": {
+          "title": "Unstake<br></br>iSUIY & iSUIP",
+          "description": "Unstake iSUIP or<br></br>iSUIP + iSUIY and receive SUI",
+          "button": "Get Started"
+        },
+        "rewards": {
+          "title": "Claim<br></br>Rewards",
+          "description": "Claim your iSUIY<br></br>yield in SUI",
+          "button": "Get Started"
+        }
+      },
+      "transactionSummary": {
+        "title": "Transaction Summary",
+        "receive": "You will receive",
+        "stake": "You will stake",
+        "redeem": "You will redeem",
+        "depositFee": "Deposit fee",
+        "estimatedRewards": "Esd. Yearly Reward",
+        "buttonClear": "Clear All",
+        "validatorDetails": {
+          "title": "Validator",
+          "ranking": "Ranking",
+          "votingPower": "Voting Power",
+          "commision": "Comission"
+        }
+      },
+      "modal": {
+        "success": {
+          "description": "Transaction Completed",
+          "viewInExplorer": "View in Explorer"
+        },
+        "error": {
+          "description": "Transaction Failed"
+        }
+      },
+      "stake": {
+        "title": "Stake SUI",
+        "description": "Enter the information below to complete your transaction.",
+        "form": {
+          "selectMaturity": "Select Maturity",
+          "selectAmount": "Select Amount to Stake",
+          "selectValidator": "Select Validator"
+        }
+      },
+      "unstake": {
+        "title": "Unstake",
+        "description": "Enter the information below to complete your transaction.",
+        "form": {
+          "selectRedeem": "Select what SFT to redeem",
+          "selectMaturity": "Select Maturity",
+          "selectAmount": "Select Amount to redeem"
+        }
+      },
+      "clamRewards": {
+        "title": "Claim Rewards",
+        "noRewards": {
+          "title": "Sorry, you don´t have any rewards to claim",
+          "description": "To obtain iSUIY please go and take some SUI"
+        },
+        "maturity": {
+          "title": "Claim Rewards",
+          "description": "Enter your information to complete your transaction.",
+          "selectRedeem": "Select what iSUIY to redeem"
+        }
+      }
+    },
+    "tabs": {
+      "stake": "stake",
+      "bonds": "bonds",
+      "portfolio": "portfolio",
+      "validators": "validators",
+      "stats": "stats"
+    },
+    "cards": {
+      "priceMarket": {
+        "title": "SUI prices market"
+      }
+    },
+    "stakingForm": {
+      "title": "Your info"
+    },
+    "proMode": {
+      "state": "{isEnable, plural, =1 {enable} other {disable}}",
+      "modal": {
+        "confirmation": {
+          "title": "{isEnable, plural, =1 {enable Pro-mode} other {disabling Pro-mode}}",
+          "description": "Changes you did so far will not be safe."
+        },
+        "success": {
+          "title": "{isEnable, plural, =1 {Pro-mode enabled} other {Pro-mode disabled}}"
+        }
+      }
+    },
+    "modal": {
+      "preview": {
+        "title": "TRANSACTION OVERVIEW",
+        "stakeLabel": "You Will Stake",
+        "unstakeLabel": "You Will Unstake",
+        "receiveLabel": "You Will Receive",
+        "button": "{isStake, plural, =1 {Stake} other {Unstake}}",
+        "depositFee": "Deposit fee",
+        "fetchingExchangeRate": "Fetching Exchange Rate",
+        "submitting": "{isStake, plural, =1 {Staking} other {Unstaking}}",
+        "rewards": "Esd. Yearly Reward",
+        "other": "other"
+      },
+      "validator": {
+        "title": "Validators",
+        "info": "Please Select one Validator in order to stake your Sui. choo from the list bellow.",
+        "select": "select",
+        "clearButton": "clear",
+        "confirmButton": "confirm selection"
+      },
+      "asset": {
+        "title": "all assets",
+        "info": "You can always redeem iSUIP and iSUIY if they have the same quantity and same maturity.",
+        "select": "select",
+        "confirmButton": "confirm"
+      },
+      "confirm": {
+        "title": "{isStake, plural, =1 {Stake} other {Unstake}} Successful",
+        "description": "You can check your transaction in the Explorer",
+        "button": "See on SuiVision"
+      },
+      "error": {
+        "title": "Error",
+        "description": "{isStake, plural, =1 {Stake} other {Unstake}} failed",
+        "button": "Try again"
+      }
+    },
+    "infoButton": "{isStake, plural, =1 {Preview Stake} other {Preview Unstake}}",
+    "amountField": {
+      "title": "Amount",
+      "wallet": "Wallet Balance"
+    },
+    "mintType": "Mint Type",
+    "stats": "Stats",
+    "totalStaked": "TOTAL SUI",
+    "totalReward": "TOTAL REWARDS",
+    "totalMinted": "Total {symbol} minted",
+    "validators": {
+      "tableSection": {
+        "title": "All Validators",
+        "searchInput": "Search Validator",
+        "name": "Name",
+        "apy": "APY",
+        "lstStaked": "LST Staked",
+        "commission": "Commission",
+        "votingPower": "Voting Power",
+        "error": "An error occurred while fetching validators"
+      },
+      "validatorSection": {
+        "validatorDetailsPage": {
+          "detailsSection": {
+            "address": "address",
+            "web": "web",
+            "totalSuiStaked": "Total Sui Staked",
+            "votingPower": "Voting Power",
+            "apy": "APY",
+            "gasPrice": "Gas Price",
+            "commission": "Commission",
+            "nextEpochGasPrice": "Next epoch gas price",
+            "comments": "Comments",
+            "sortBy": "Sort by"
+          },
+          "rankingAndCommentsSection": {
+            "ranking": "Ranking",
+            "positiveReview": "positive review",
+            "negativeReview": "negative review",
+            "reviewAndComment": "review & comments",
+            "headerMessage": "We´d love to hear your thoughts on this validator. Please vote and leave a comment.",
+            "vote": "vote",
+            "comment": "leave a comment",
+            "optionalComment": "(optional) Leave a comment",
+            "publish": "publish",
+            "modalMessage": "Thanks for summitting your vote",
+            "backToHome": "back to home",
+            "communityInvite": "Be part of the community",
+            "requisitesToVote": "You need IPX Soul Bound Token to write comments & vote.",
+            "obtainSuiBondToken": "Obtain IPX Soul Bound Token"
+          }
+        },
+        "activeValidatorError": "An error occurred while validator activation"
+      }
+    },
+    "assetsTable": {
+      "title": "Assets",
+      "seeAll": "See All",
+      "maturity": "Maturity",
+      "dayLeft": "Day Left",
+      "searchInput": "Search Asset",
+      "name": "Name",
+      "balance": "Balance",
+      "state": "State",
+      "inMaturity": "In Maturity",
+      "pastMaturity": "Past Maturity",
+      "totalAssetsMinted": "Total Assets Minted"
+    },
+    "statsSection": {
+      "totalRewards": {
+        "title": "Total rewards"
+      },
+      "totalStaked": {
+        "title": "Total staked",
+        "daily": "daily"
+      }
+    },
+    "overview": {
+      "title": "Overview",
+      "totalSuiStaked": "TOTAL SUI STAKED",
+      "totalReward": "TOTAL REWARDS",
+      "totalStakers": "total stakers",
+      "validators": "validators",
+      "totalISUIMinted": "TOTAL ISUI MINTED",
+      "totalISUIPCMinted": "total iSUI-PC minted",
+      "totalISUIYNMinted": "total iSUI-YN minted",
+      "error": "cannot fetch overview data"
+    },
+    "exchangeRate": "exchange rate",
+    "epoch": {
+      "title": "Epoch",
+      "end": "epoch ends in...",
+      "error": "error while fetching epoch information",
+      "started": "Started {time}",
+      "timeLeft": "left"
+    },
+    "faq": {
+      "title": "FAQ",
+      "questions": {
+        "block1": {
+          "title": "What is Interest LST?",
+          "description": "Interest LST is a decentralized finance (DeFi) protocol allowing users to stake Sui and earn iSui without locking up their funds. They can withdraw their initial deposit and rewards anytime by returning iSui."
+        },
+        "block2": {
+          "title": "Is Interest LST decentralized?",
+          "description": "Yes, Interest LST is fully decentralized and open source. Users can stake and unstake with any validator on-chain. The admin only controls fee parameters, which are capped to protect users."
+        },
+        "block3": {
+          "title": "How does it work?",
+          "description": "Interest LST uses smart contracts to deposit Sui on a validator, securing the network. In return, users receive Sui. It's a safe DeFi investment option."
+        },
+        "block4": {
+          "title": "What are the advantages of using Interest LST?",
+          "description": "Interest LST allows you to earn Sui while keeping your funds liquid, unlike traditional staking. It offers the best of both worlds."
+        },
+        "block5": {
+          "title": "Are there any fees on Interest LST?",
+          "description": "Yes, there's a deposit fee on Interest LST. It's a dynamic fee promoting decentralization, based on a validator's stake relative to the total stake in the protocol."
+        }
+      }
+    },
+    "transactionOverview": {
+      "title": "Transaction overview",
+      "stakeOrBurn": "{isStake, plural, =1 {You will stake} other {You will burn}}",
+      "receive": "You will receive"
+    },
+    "portfolio": {
+      "name": "Name",
+      "more": "More",
+      "value": "Value"
+    },
+    "selectValidator": "Select Validator",
+    "selectAssets": "Select Assets",
+    "maturity": "Maturity {date}"
+  }
+}
