@@ -17,7 +17,7 @@ const Stats: FC = () => {
   const { iSuiExchangeRate } = useLstData();
 
   return (
-    <Box variant="container" display="flex" flexDirection="column">
+    <Box display="flex" flexDirection="column" gap="l">
       <Overview
         title={t('lst.overview.title')}
         data={OVERVIEW_DATA.slice(0, 3)}
