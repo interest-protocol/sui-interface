@@ -21,7 +21,7 @@ const AssetsTableBodyRow: FC<AssetsRowItemProps & { index: number }> = ({
         <Typography variant="small">{index + 1}</Typography>
         <Typography variant="small">{maturity}</Typography>
         <Typography variant="small">
-          {dayLeft < 0
+          {dayLeft <= 0
             ? 'Matured' // TODO: Translate Matured
             : dayLeft.toFixed(0)}
         </Typography>
