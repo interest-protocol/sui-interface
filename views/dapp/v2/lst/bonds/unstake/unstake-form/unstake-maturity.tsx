@@ -109,12 +109,14 @@ const UnstakeMaturity: FC = () => {
                       : 'primary'
                   }
                 >
-                  {selectedMaturityInMS > Date.now()
-                    ? `(${(
-                        (selectedMaturityInMS - Date.now()) /
-                        (1000 * 60 * 60 * 24)
-                      ).toFixed(0)}D)`
-                    : 'Matured'}
+                  {
+                    selectedMaturityInMS > Date.now()
+                      ? `(${(
+                          (selectedMaturityInMS - Date.now()) /
+                          (1000 * 60 * 60 * 24)
+                        ).toFixed(0)}D)`
+                      : 'Matured' // TODO: Translate Matured
+                  }
                 </Typography>
               </Box>
               <Box display="flex" alignItems="center" gap="xl">
@@ -203,13 +205,15 @@ const UnstakeMaturity: FC = () => {
                       : 'primary'
                   }
                 >
-                  {convertEpochToMS(principal.maturity.toNumber()) > Date.now()
-                    ? `(${(
-                        (convertEpochToMS(principal.maturity.toNumber()) -
-                          Date.now()) /
-                        (1000 * 60 * 60 * 24)
-                      ).toFixed(0)}D)`
-                    : 'Matured'}
+                  {
+                    convertEpochToMS(principal.maturity.toNumber()) > Date.now()
+                      ? `(${(
+                          (convertEpochToMS(principal.maturity.toNumber()) -
+                            Date.now()) /
+                          (1000 * 60 * 60 * 24)
+                        ).toFixed(0)}D)`
+                      : 'Matured' // TODO: Translate Matured
+                  }
                 </Typography>
               </Box>
               <Box display="flex" alignItems="center" ml="4xl" gap="xl">
