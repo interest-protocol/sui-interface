@@ -58,11 +58,6 @@ export const SIDEBAR_ITEMS: ReadonlyArray<
         networks: [Network.MAINNET, Network.TESTNET],
       },
       {
-        name: 'lend',
-        path: Routes[RoutesEnum.Lend],
-        networks: [Network.TESTNET, Network.MAINNET],
-      },
-      {
         name: 'farm',
         path: Routes[RoutesEnum.LiquidityFarms],
         networks: [Network.MAINNET],
@@ -71,11 +66,6 @@ export const SIDEBAR_ITEMS: ReadonlyArray<
         name: 'farm',
         path: Routes[RoutesEnum.Farms],
         networks: [Network.TESTNET],
-      },
-      {
-        name: 'createToken',
-        path: Routes[RoutesEnum.CreateToken],
-        networks: [Network.MAINNET, Network.TESTNET],
       },
       {
         name: 'faucet',

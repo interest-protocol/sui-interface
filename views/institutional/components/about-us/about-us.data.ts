@@ -20,7 +20,7 @@ export const SERVICES_LIST: ReadonlyArray<AboutUsCardProps> = [
   },
   {
     name: 'lend',
-    link: Routes[RoutesEnum.Lend],
+    link: Routes[RoutesEnum.Metrics],
     Illustration: LendIllustration,
   },
 ];
