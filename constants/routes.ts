@@ -16,10 +16,8 @@ export enum RoutesEnum {
   Wormhole = 'wormhole',
   Celer = 'celer',
   Faucet = 'faucet',
-  Lend = 'lend',
   Metrics = 'metrics',
   LiquidityCampaign = 'liquidity-campaign',
-  CreateToken = 'create-token',
   LiquidityFarms = 'liquidity-farms',
   LiquidityFarmsDetails = 'liquidity-farms-details',
 }
@@ -38,8 +36,6 @@ export const Routes: Record<RoutesEnum, string> = {
   [RoutesEnum.DEXFindPool]: '/dapp/dex/pool/find',
   [RoutesEnum.DEXPoolDetails]: '/dapp/dex/pool/details',
   [RoutesEnum.Faucet]: '/dapp/alpha/faucet',
-  [RoutesEnum.CreateToken]: '/dapp/create-token',
-  [RoutesEnum.Lend]: '/dapp/alpha/lending',
   [RoutesEnum.Metrics]: '/dapp/metrics',
   [RoutesEnum.LiquidityCampaign]: '/campaign/liquidity',
   [RoutesEnum.Wormhole]: 'https://wormhole.interestprotocol.com/',
@@ -50,7 +46,7 @@ export const Routes: Record<RoutesEnum, string> = {
 
 export const NETWORK_RESTRICTION: Record<Network, ReadonlyArray<string>> = {
   [Network.DEVNET]: [],
-  [Network.TESTNET]: [Routes[RoutesEnum.Lend], Routes[RoutesEnum.Faucet]],
+  [Network.TESTNET]: [Routes[RoutesEnum.Faucet]],
   [Network.MAINNET]: [
     Routes[RoutesEnum.Metrics],
     Routes[RoutesEnum.Wormhole],
