@@ -1,16 +1,11 @@
 import { useTheme } from '@emotion/react';
-import { Network } from '@interest-protocol/sui-amm-sdk';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useTranslations } from 'next-intl';
 import { FC, PropsWithChildren } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Tooltip } from 'react-tooltip';
 
-import { Routes, RoutesEnum, TOAST_DURATION } from '@/constants';
+import { TOAST_DURATION } from '@/constants';
 import { Theme } from '@/design-system';
-import { Box, Button } from '@/elements';
-import { useNetwork, useWeb3 } from '@/hooks';
+import { Box } from '@/elements';
 import ErrorBoundary from '@/views/dapp/components/error-boundary';
 
 import { SEO } from '..';
@@ -22,12 +17,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   pageTitle = '',
   children,
 }) => {
-  const { asPath } = useRouter();
-  const t = useTranslations();
-  const { network } = useNetwork();
   const { colors, radii } = useTheme() as Theme;
-
-  const { connected } = useWeb3();
 
   return (
     <ErrorBoundary>
@@ -57,28 +47,6 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
           justifyContent="space-between"
         >
           {children}
-          {network === Network.MAINNET &&
-            connected &&
-            asPath != Routes[RoutesEnum.CreateToken] && (
-              <Box
-                p="L"
-                bottom="0"
-                width="auto"
-                display="flex"
-                position="sticky"
-                justifyContent="end"
-              >
-                <Link href={Routes[RoutesEnum.CreateToken]}>
-                  <Button
-                    variant="primary"
-                    bg="accentSecondary"
-                    nHover={{ bg: 'accentOutline' }}
-                  >
-                    {t('common.createTokenModalButton', { isLoading: 0 })}
-                  </Button>
-                </Link>
-              </Box>
-            )}
         </Box>
         <Footer />
         <Tooltip />
