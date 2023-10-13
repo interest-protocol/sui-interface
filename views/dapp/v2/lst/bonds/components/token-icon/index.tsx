@@ -1,8 +1,7 @@
 import { Box } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { ISuiSVG, SUISVG } from '@/components/svg/v2';
-import { ISuiPCSVG, ISuiYNSVG } from '@/svg';
+import { ISuiPSVG, ISuiSVG, ISuiYNSVG, SUISVG } from '@/components/svg/v2';
 
 import { TokenIconProps } from './token-icon.type';
 
@@ -49,13 +48,11 @@ const TokenIcon: FC<TokenIconProps> = ({ id, size, lessRadius }) => (
           filled
         />
       ) : id == 'iSUIP' ? (
-        <ISuiPCSVG
+        <ISuiPSVG
           maxHeight={`${size}rem`}
           maxWidth={`${size}rem`}
           width="100%"
           height="100%"
-          filled
-          rounded={!lessRadius}
         />
       ) : (
         <ISuiYNSVG
@@ -63,8 +60,6 @@ const TokenIcon: FC<TokenIconProps> = ({ id, size, lessRadius }) => (
           maxWidth={`${size}rem`}
           width="100%"
           height="100%"
-          filled
-          rounded={!lessRadius}
         />
       )}
     </Box>
