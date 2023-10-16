@@ -42,7 +42,7 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
 
   return (
     <Box position="relative" px="m" pb="s" mb="3xl">
-      <AmountFieldInputWrapper control={form.control} />
+      <AmountFieldInputWrapper isStake={isStake} control={form.control} />
       <Box position="absolute" right="0" pr="xl" pt="m" color="onSurface">
         <AmountFieldInputDollars control={form.control} />
       </Box>

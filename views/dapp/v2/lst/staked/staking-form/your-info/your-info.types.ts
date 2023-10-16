@@ -20,6 +20,7 @@ export interface AmountFieldDollarsProps {
 
 export interface AmountFieldInputErrorProps extends AmountFieldDollarsProps {
   setHasError: Dispatch<SetStateAction<boolean>>;
+  isStake: boolean;
 }
 
 export interface YourInfoProps extends StakingFormProps {

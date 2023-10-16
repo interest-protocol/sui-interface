@@ -7,11 +7,11 @@ import { AmountFieldInputErrorProps } from '../../your-info.types';
 
 const AmountFieldInputErrorWrapper: FC<
   Omit<AmountFieldInputErrorProps, 'setHasError'>
-> = ({ control }) => {
+> = ({ control, isStake }) => {
   const t = useTranslations();
   const amount = useWatch({ control, name: 'amount' });
 
-  const HAS_ERROR = +amount == 0 || +amount >= 1;
+  const HAS_ERROR = isStake ? +amount > 0 && +amount < 1 : false;
 
   return (
     <>
@@ -22,9 +22,9 @@ const AmountFieldInputErrorWrapper: FC<
         position="absolute"
         borderRadius="0.25rem"
         border="1px solid"
-        borderColor={HAS_ERROR ? 'transparent' : 'error'}
+        borderColor={HAS_ERROR ? 'error' : 'transparent'}
       />
-      {!HAS_ERROR && (
+      {HAS_ERROR && (
         <Typography
           left="0"
           top="100%"
