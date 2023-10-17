@@ -63,6 +63,7 @@ const StakeInput: FC = () => {
           );
         },
       })}
+      isStake
     />
   );
 };

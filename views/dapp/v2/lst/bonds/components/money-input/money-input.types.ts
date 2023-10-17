@@ -7,6 +7,12 @@ export interface MoneyInputProps
   extends Pick<TextFieldProps, 'Prefix'>,
     UseFormRegisterReturn<'amount'> {
   balance: string;
+  isStake?: boolean;
   control: Control<BondsForm>;
   onChangeValue: (value: number) => void;
+}
+
+export interface MoneyInputErrorProps {
+  control: Control<BondsForm>;
+  isStake: boolean;
 }
