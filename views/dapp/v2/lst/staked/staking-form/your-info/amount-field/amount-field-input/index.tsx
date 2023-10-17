@@ -86,7 +86,12 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
             form.setValue?.(
               'amountUSD',
               formatDollars(
-                Number(parseInputEventToNumberString(v)) *
+                Number(
+                  parseInputEventToNumberString(
+                    v,
+                    FixedPointMath.toNumber(totalBalance)
+                  )
+                ) *
                   (suiCoinInfo?.price ?? 1) *
                   (isStake ? 1 : exchangeRate)
               )
