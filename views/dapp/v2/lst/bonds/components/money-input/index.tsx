@@ -5,24 +5,29 @@ import {
   Typography,
   useTheme,
 } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { forwardRef } from 'react';
 import { v4 } from 'uuid';
+
+import { capitalize } from '@/utils';
 
 import { PercentageButton } from '../../../../components';
 import { MoneyInputProps } from './money-input.types';
 import MoneyInputDollars from './money-input-dollars';
+import MoneyInputErrorWrapper from './money-input-error-wrapper';
 
 const MoneyInput = forwardRef(
   (
     { Prefix, control, balance, onChangeValue, ...props }: MoneyInputProps,
     ref
   ) => {
+    const t = useTranslations();
     const { colors } = useTheme() as Theme;
     return (
       <Box>
         <Box display="flex" justifyContent="space-between">
           <Typography variant="extraSmall" opacity=".6" color="onSurface">
-            Wallet Balance: {balance}
+            {capitalize(t('lst.amountField.wallet'))}: {balance}
           </Typography>
           <Box display="flex" gap="s">
             {([25, 50, 75, 100] as ReadonlyArray<25 | 50 | 75 | 100>).map(
@@ -39,6 +44,10 @@ const MoneyInput = forwardRef(
           </Box>
         </Box>
         <Box position="relative">
+          <MoneyInputErrorWrapper
+            control={control}
+            isStake={props.isStake || false}
+          />
           <Box position="absolute" right="0" pr="l" pt="m" color="onSurface">
             <MoneyInputDollars control={control} />
           </Box>
