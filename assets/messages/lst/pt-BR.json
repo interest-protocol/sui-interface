@@ -52,7 +52,8 @@
         "form": {
           "selectMaturity": "Selecionar Vencimento",
           "selectAmount": "Selecionar Valor a Apostar",
-          "selectValidator": "Selecionar Validador"
+          "selectValidator": "Selecionar Validador",
+          "error": "Valor mínimo: 1"
         }
       },
       "unstake": {

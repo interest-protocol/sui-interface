@@ -19,13 +19,7 @@ const AmountField: FC<AmountFieldProps> = (props) => {
       >
         {t('lst.amountField.title')}
       </Typography>
-      <Box
-        px="m"
-        pb="m"
-        mb="l"
-        bg="surface.containerHigh"
-        borderRadius="0.25rem"
-      >
+      <Box mb="l" bg="surface.containerHigh" borderRadius="0.25rem">
         <AmountFieldInput {...props} />
       </Box>
     </Box>
