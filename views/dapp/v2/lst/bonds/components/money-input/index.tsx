@@ -59,6 +59,7 @@ const MoneyInput = forwardRef(
             fontSize="xl"
             placeholder="0"
             Prefix={Prefix}
+            zIndex={3}
             textAlign="right"
             Top={<Box p="m" />}
             {...props}
