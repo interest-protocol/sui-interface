@@ -58,16 +58,6 @@ export const TEAM_MEMBERS = [
     },
   },
   {
-    name: 'Nilam Jaiswal',
-    role: 'team.roles.marketing',
-    image: 'nilam-jaiswal',
-    social: {
-      discord: 'http://discordapp.com/users/851547717163024437',
-      linkedin: 'https://www.linkedin.com/in/nilam-jjaiswal/',
-      x: 'https://x.com/crypto_wife1',
-    },
-  },
-  {
     name: 'Leonardo Hernandez',
     role: 'team.roles.designer',
     image: 'leonardo-hernandez',
