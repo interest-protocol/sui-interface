@@ -32,6 +32,7 @@ const MoneyInput = forwardRef(
                   key={v4()}
                   total={100}
                   value={value}
+                  disabled={+balance === 0}
                   onSelect={() => onChangeValue(value)}
                 />
               )

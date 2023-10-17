@@ -113,6 +113,10 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
           <PercentageButton
             value={25}
             total={100}
+            disabled={
+              FixedPointMath.toNumber(totalBalance.dividedBy(BigNumber(4))) ===
+              0
+            }
             onSelect={() => {
               form.setValue?.(
                 'amount',
@@ -136,6 +140,10 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
           <PercentageButton
             value={50}
             total={100}
+            disabled={
+              FixedPointMath.toNumber(totalBalance.dividedBy(BigNumber(4))) ===
+              0
+            }
             onSelect={() => {
               form.setValue?.(
                 'amount',
@@ -159,6 +167,10 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
           <PercentageButton
             value={75}
             total={100}
+            disabled={
+              FixedPointMath.toNumber(totalBalance.dividedBy(BigNumber(4))) ===
+              0
+            }
             onSelect={() => {
               form.setValue?.(
                 'amount',
@@ -186,6 +198,10 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
           <PercentageButton
             value={100}
             total={100}
+            disabled={
+              FixedPointMath.toNumber(totalBalance.dividedBy(BigNumber(4))) ===
+              0
+            }
             onSelect={() => {
               form.setValue?.(
                 'amount',

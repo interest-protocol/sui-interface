@@ -7,6 +7,7 @@ const PercentageButton: FC<PercentageButtonProps> = ({
   value,
   total,
   isFilled,
+  disabled,
   onSelect,
 }) => {
   const handleClick = () => {
@@ -20,11 +21,12 @@ const PercentageButton: FC<PercentageButtonProps> = ({
   return (
     <Button
       size="small"
-      bg={isFilled ? 'surface.containerHighest' : 'transparent'}
-      borderColor={isFilled ? 'transparent' : 'outline.outlineVariant'}
       variant="outline"
       p=".125rem .75rem"
+      disabled={disabled}
       onClick={handleClick}
+      bg={isFilled ? 'surface.containerHighest' : 'transparent'}
+      borderColor={isFilled ? 'transparent' : 'outline.outlineVariant'}
     >
       <Typography variant="extraSmall" color="onSurface">
         {value === 100 ? 'Max' : `${value}%`}
