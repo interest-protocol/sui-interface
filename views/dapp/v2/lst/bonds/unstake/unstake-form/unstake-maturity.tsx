@@ -38,7 +38,10 @@ const UnstakeMaturity: FC = () => {
     name: 'maturity.epoch',
   });
 
-  const tokens = form.getValues('tokens');
+  const tokens = useWatch({
+    control: form.control,
+    name: 'tokens',
+  });
 
   const bondObjectsPairs = Object.values(bondsMap).filter(
     (x) =>
@@ -69,11 +72,11 @@ const UnstakeMaturity: FC = () => {
 
   return (
     <Box
-      cursor="pointer"
       borderRadius="m"
       border="1px solid"
-      onClick={() => setIsOpen(not)}
       borderColor="outline.outlineVariant"
+      onClick={() => tokens.length && setIsOpen(not)}
+      cursor={tokens.length ? 'pointer' : 'not-allowed'}
     >
       <Box
         p="xl"
