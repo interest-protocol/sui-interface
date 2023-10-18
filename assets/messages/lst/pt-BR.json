@@ -53,7 +53,10 @@
           "selectMaturity": "Selecionar Vencimento",
           "selectAmount": "Selecionar Valor a Apostar",
           "selectValidator": "Selecionar Validador",
-          "error": "Valor mínimo: 1"
+          "error": "Valor mínimo: 1",
+          "dayLeft": "Dias Restantes",
+          "automated": "Automatizado",
+          "manual": "Manual"
         }
       },
       "unstake": {
