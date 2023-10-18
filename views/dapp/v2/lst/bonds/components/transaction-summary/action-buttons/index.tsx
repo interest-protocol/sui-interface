@@ -34,7 +34,11 @@ const ActionButtons: FC<ActionButtonsProps> = ({
       );
 
     if (formValues.type === 'unstake')
-      return !!formValues.amount && +formValues.amount >= 1;
+      return (
+        formValues.tokens?.length &&
+        !!formValues.amount &&
+        +formValues.amount >= 1
+      );
 
     return false;
   };
