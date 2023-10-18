@@ -16,14 +16,25 @@ import AssetsTableBodyRow from './assets-table-body-row';
 
 const AssetsTableBody: FC = () => {
   const t = useTranslations();
-  const { data: suiSystem, error: suiSystemError } =
-    useGetLatestSuiSystemState();
+  const {
+    data: suiSystem,
+    error: suiSystemError,
+    isLoading: loadingSuiSystem,
+  } = useGetLatestSuiSystemState();
   const { bondsMap, isLoading, error } = useGetLstBondObjects();
 
   if (error || suiSystemError)
     return <ErrorState errorMessage={t('error.generic')} size="large" />;
 
-  return !isLoading ? (
+  if (isLoading || loadingSuiSystem)
+    return (
+      <>
+        <Skeleton height="2rem" width="100%" />
+        <Skeleton height="2rem" width="100%" style={{ marginTop: '1rem' }} />
+      </>
+    );
+
+  return (
     <>
       {(
         values(bondsMap).filter(
@@ -92,11 +103,6 @@ const AssetsTableBody: FC = () => {
           />
         );
       })}
-    </>
-  ) : (
-    <>
-      <Skeleton height="2rem" width="100%" />
-      <Skeleton height="2rem" width="100%" style={{ marginTop: '1rem' }} />
     </>
   );
 };

@@ -17,10 +17,29 @@ const AssetsTableBodyRow: FC<AssetsRowItemProps & { index: number }> = ({
 
   return (
     <Box key={v4()}>
-      <TableRow numCols={5} isWide>
-        <Typography variant="small">{index + 1}</Typography>
-        <Typography variant="small">{maturity}</Typography>
-        <Typography variant="small">
+      <TableRow numCols={5} isWide topAlignment>
+        <Typography
+          variant="small"
+          display="flex"
+          minHeight="4rem"
+          alignItems="center"
+        >
+          {index + 1}
+        </Typography>
+        <Typography
+          variant="small"
+          display="flex"
+          minHeight="4rem"
+          alignItems="center"
+        >
+          {maturity}
+        </Typography>
+        <Typography
+          variant="small"
+          display="flex"
+          minHeight="4rem"
+          alignItems="center"
+        >
           {dayLeft <= 0
             ? 'Matured' // TODO: Translate Matured
             : dayLeft.toFixed(0)}
