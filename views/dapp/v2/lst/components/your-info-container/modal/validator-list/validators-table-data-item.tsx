@@ -23,6 +23,11 @@ const ValidatorsTableDataItem: FC<ValidatorListTableDataItemProps> = ({
       key={v4()}
       cursor="pointer"
       borderRadius="m"
+      bg={
+        currentValidatorAddress == validator.suiAddress
+          ? 'surface.surfaceVariant'
+          : 'unset'
+      }
       nHover={{
         bg: 'surface.surfaceVariant',
       }}

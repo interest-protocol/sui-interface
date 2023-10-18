@@ -12,10 +12,14 @@ import ValidatorSelector from './validator-selector';
 const StakeValidator: FC = () => {
   const { network } = useNetwork();
   const {
-    form: { setValue },
+    form: { setValue, getValues },
   } = useBondsContext();
-  const [isValidatorManual, setIsValidatorManual] = useState(false);
-  const [isValidatorAuto, setIsValidatorAuto] = useState(false);
+  const [isValidatorManual, setIsValidatorManual] = useState(
+    getValues('validatorType') == 'manual'
+  );
+  const [isValidatorAuto, setIsValidatorAuto] = useState(
+    getValues('validatorType') == 'auto'
+  );
 
   useEffect(() => {
     if (isValidatorAuto) setValue('validator', DEFAULT_VALIDATOR[network]);
@@ -30,6 +34,7 @@ const StakeValidator: FC = () => {
             onClick={() => {
               setIsValidatorAuto(not);
               setIsValidatorManual(false);
+              setValue('validatorType', 'auto');
             }}
           />
           <Typography variant="medium">Automated</Typography>
@@ -40,6 +45,7 @@ const StakeValidator: FC = () => {
             onClick={() => {
               setIsValidatorManual(not);
               setIsValidatorAuto(false);
+              setValue('validatorType', 'manual');
             }}
           />
           <Typography variant="medium">Manual</Typography>
