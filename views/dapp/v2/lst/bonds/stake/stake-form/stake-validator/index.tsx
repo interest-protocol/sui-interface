@@ -2,6 +2,7 @@ import { Box, RadioButton, Typography } from '@interest-protocol/ui-kit';
 import {} from 'framer-motion';
 import { not } from 'ramda';
 import { FC, useEffect, useState } from 'react';
+import { useWatch } from 'react-hook-form';
 
 import { DEFAULT_VALIDATOR } from '@/constants/lst';
 import { useNetwork } from '@/hooks';
@@ -12,14 +13,26 @@ import ValidatorSelector from './validator-selector';
 const StakeValidator: FC = () => {
   const { network } = useNetwork();
   const {
-    form: { setValue, getValues },
+    form: { setValue, control },
   } = useBondsContext();
+  const { validatorType } = useWatch({
+    control,
+  });
+
   const [isValidatorManual, setIsValidatorManual] = useState(
-    getValues('validatorType') == 'manual'
+    validatorType == 'manual'
   );
+
   const [isValidatorAuto, setIsValidatorAuto] = useState(
-    getValues('validatorType') == 'auto'
+    validatorType == 'auto'
   );
+
+  useEffect(() => {
+    if (validatorType == 'none') {
+      setIsValidatorAuto(false);
+      setIsValidatorManual(false);
+    }
+  }, [validatorType]);
 
   useEffect(() => {
     if (isValidatorAuto) setValue('validator', DEFAULT_VALIDATOR[network]);
@@ -34,7 +47,7 @@ const StakeValidator: FC = () => {
             onClick={() => {
               setIsValidatorAuto(not);
               setIsValidatorManual(false);
-              setValue('validatorType', 'auto');
+              setValue('validatorType', !isValidatorAuto ? 'auto' : 'none');
             }}
           />
           <Typography variant="medium">Automated</Typography>
@@ -45,7 +58,7 @@ const StakeValidator: FC = () => {
             onClick={() => {
               setIsValidatorManual(not);
               setIsValidatorAuto(false);
-              setValue('validatorType', 'manual');
+              setValue('validatorType', !isValidatorManual ? 'manual' : 'none');
             }}
           />
           <Typography variant="medium">Manual</Typography>

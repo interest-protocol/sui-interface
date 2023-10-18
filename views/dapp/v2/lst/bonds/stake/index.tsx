@@ -14,7 +14,7 @@ import { EXPLORER_URL } from '@/constants';
 import { LST_OBJECTS } from '@/constants/lst';
 import { useModal, useNetwork, useProvider, useWeb3 } from '@/hooks';
 import { FixedPointMath } from '@/lib';
-import { createObjectsParameter, noop } from '@/utils';
+import { createObjectsParameter, formatDollars, noop } from '@/utils';
 
 import { useBondsContext } from '../bonds.hooks';
 import BondsFormConfirmModal from '../components/modal/confirm-modal';
@@ -115,8 +115,10 @@ const LSTBondsStake: FC = () => {
   };
 
   const handleClear = () => {
-    form.setValue('maturity', { date: '', epoch: '' });
     form.setValue('amount', '0');
+    form.setValue('validatorType', 'none');
+    form.setValue('amountUSD', formatDollars(0));
+    form.setValue('maturity', { date: '', epoch: '' });
   };
 
   return (
