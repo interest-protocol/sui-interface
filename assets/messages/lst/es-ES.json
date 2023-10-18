@@ -5,6 +5,7 @@
       "description": "Nueva función LST"
     },
     "bonds": {
+      "matured": "Madurado",
       "menu": {
         "stake": {
           "title": "Apostar SUI",
