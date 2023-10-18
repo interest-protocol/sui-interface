@@ -53,7 +53,10 @@
           "selectMaturity": "Select Maturity",
           "selectAmount": "Select Amount to Stake",
           "selectValidator": "Select Validator",
-          "error": "Minimum value: 1"
+          "error": "Minimum value: 1",
+          "dayLeft": "Day Left",
+          "automated": "Automated",
+          "manual": "Manual"
         }
       },
       "unstake": {
