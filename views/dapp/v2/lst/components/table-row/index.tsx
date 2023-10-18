@@ -12,6 +12,7 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
   isFirstRow,
   isTableHead,
   hasDropdown,
+  topAlignment,
   isEquidistant,
   isDropdownInformation,
 }) => {
@@ -19,11 +20,11 @@ const TableRow: FC<PropsWithChildren<TableRowProps>> = ({
   return (
     <Box
       display="grid"
-      alignItems="center"
       position="relative"
       color="onSurfaceVariant"
       textTransform="capitalize"
       fontWeight={isTableHead ? '400' : ''}
+      alignItems={topAlignment ? 'start' : 'center'}
       columnGap={isEquidistant ? 's' : isDropdownInformation ? 'unset' : 'xl'}
       gridTemplateColumns={
         isDropdownInformation
