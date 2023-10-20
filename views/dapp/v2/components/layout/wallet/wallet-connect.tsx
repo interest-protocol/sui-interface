@@ -15,7 +15,6 @@ const WalletConnect: FC<WalletProps> = ({ setOpenConnectWallet }) => {
       height="3rem"
       display="flex"
       alignItems="center"
-      borderRadius="2.5rem"
       justifyContent="space-between"
     >
       <Box
@@ -24,11 +23,11 @@ const WalletConnect: FC<WalletProps> = ({ setOpenConnectWallet }) => {
         border="none"
         display="inline-flex"
         bg="bottomBackground"
-        borderRadius="2.5rem"
       >
         <Button
           size="small"
           variant="filled"
+          borderRadius="full"
           onClick={handleOpenModal}
           textTransform="capitalize"
         >

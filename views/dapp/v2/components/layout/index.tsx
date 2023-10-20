@@ -9,6 +9,7 @@ import Footer from './footer';
 import Header from './header';
 import Settings from './header/menu/settings';
 import { LayoutProps } from './layout.types';
+import NetworkOptions from './network-options';
 import Sidebar from './sidebar';
 import Wallet from './wallet';
 
@@ -66,8 +67,9 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <Wallet />
                 <Settings />
+                <NetworkOptions />
+                <Wallet />
               </Box>
             </Box>
             {children}
