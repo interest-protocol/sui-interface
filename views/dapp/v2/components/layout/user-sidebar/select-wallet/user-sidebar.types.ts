@@ -15,7 +15,7 @@ export interface WalletItemProps extends IWalletItem {
   openWalletModal: (walletName: string) => void;
 }
 
-export interface WalletManagerProps {
+export interface UserSidebarPropsProps {
   openConnectWallet: boolean;
   setOpenConnectWallet: Dispatch<SetStateAction<boolean>>;
 }

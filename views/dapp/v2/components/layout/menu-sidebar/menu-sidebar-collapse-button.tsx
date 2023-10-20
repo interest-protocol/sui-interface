@@ -13,9 +13,9 @@ import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 
 import Checkpoint from '../network-switch/checkpoint';
 import CheckpointNumber from '../network-switch/checkpoint-number';
-import { SidebarCollapseButtonProps } from './sidebar.types';
+import { SidebarCollapseButtonProps } from './menu-sidebar.types';
 
-const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
+const MenuSidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
   isOpen,
   isCollapsed,
   setIsCollapsed,
@@ -113,4 +113,4 @@ const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
   );
 };
 
-export default SidebarCollapseButton;
+export default MenuSidebarCollapseButton;

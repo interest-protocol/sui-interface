@@ -5,16 +5,14 @@ import { Toaster } from 'react-hot-toast';
 import { TOAST_DURATION } from '@/constants';
 import useEventListener from '@/hooks/use-event-listener';
 
-import Footer from './footer';
 import Header from './header';
 import Settings from './header/menu/settings';
 import { LayoutProps } from './layout.types';
-import Sidebar from './sidebar';
+import MenuSidebar from './menu-sidebar';
 import Wallet from './wallet';
 
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   children,
-  dashboard,
   titlePage,
 }) => {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -24,7 +22,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
 
   useEventListener('resize', handleSetDesktopView, true);
 
-  if (dashboard && isDesktop)
+  if (isDesktop)
     return (
       <>
         <Toaster
@@ -42,7 +40,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
           }}
         />
         <Box bg="surface" display="flex" height="100vh" overflow="hidden">
-          <Sidebar />
+          <MenuSidebar />
           <Box as="main" flex="1" minHeight="100vh" overflow="auto" px="1.5rem">
             <Box
               as="header"
@@ -96,7 +94,6 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
       <Box as="main" flex="1">
         {children}
       </Box>
-      {!dashboard && <Footer />}
     </Box>
   );
 };

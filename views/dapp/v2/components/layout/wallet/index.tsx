@@ -1,7 +1,7 @@
 import { useWalletKit } from '@mysten/wallet-kit';
 import { FC, useState } from 'react';
 
-import WalletManager from '@/views/dapp/v2/components/layout/wallet/wallet-manager';
+import WalletManager from '@/views/dapp/v2/components/layout/user-sidebar';
 
 import Profile from '../header/menu/profile';
 import WalletConnect from './wallet-connect';

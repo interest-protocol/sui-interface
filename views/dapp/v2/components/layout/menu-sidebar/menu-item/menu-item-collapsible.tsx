@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 
 import { useNetwork } from '@/hooks';
 
-import { MenuItemCollapsibleProps } from '../sidebar.types';
+import { MenuItemCollapsibleProps } from '../menu-sidebar.types';
 import AccordionItem from './accordion-item';
 
 const variants = {

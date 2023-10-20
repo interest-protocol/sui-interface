@@ -5,10 +5,10 @@ import { v4 } from 'uuid';
 import { useNetwork } from '@/hooks';
 
 import SideBarMenuItem from './menu-item';
-import { SIDEBAR_ITEMS } from './sidebar.data';
-import { MenuListProps } from './sidebar.types';
+import { SIDEBAR_ITEMS } from './menu-sidebar.data';
+import { MenuListProps } from './menu-sidebar.types';
 
-const SidebarMenuList: FC<MenuListProps> = ({
+const MenuSidebarList: FC<MenuListProps> = ({
   isCollapsed,
   setIsCollapsed,
   setTemporarilyOpen,
@@ -32,4 +32,4 @@ const SidebarMenuList: FC<MenuListProps> = ({
   );
 };
 
-export default SidebarMenuList;
+export default MenuSidebarList;

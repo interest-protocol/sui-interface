@@ -7,7 +7,7 @@ import { LogoSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
 import { useNetwork } from '@/hooks';
 
-import { SidebarLogoProps } from './sidebar.types';
+import { SidebarLogoProps } from './menu-sidebar.types';
 
 const SidebarLogo: FC<SidebarLogoProps> = ({ isCollapsed }) => {
   const { network } = useNetwork();

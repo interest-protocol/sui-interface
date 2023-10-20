@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 
 import { useNetwork } from '@/hooks';
 
-import { SIDEBAR_ITEMS } from '../../../sidebar/sidebar.data';
+import { SIDEBAR_ITEMS } from '../../../menu-sidebar/menu-sidebar.data';
 import SideBarMenuListItem from './menu-list-item';
 
 const MobileMenuList: FC = () => {

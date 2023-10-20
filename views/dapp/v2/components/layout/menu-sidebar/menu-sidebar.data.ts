@@ -4,7 +4,7 @@ import { BridgeSVG } from '@/components/svg/v2';
 import { Routes, RoutesEnum } from '@/constants';
 import { DotsSVG, SwapSVG, TrendUpSVG } from '@/svg';
 
-import { MenuItemProps } from './sidebar.types';
+import { MenuItemProps } from './menu-sidebar.types';
 
 export const SIDEBAR_ITEMS: ReadonlyArray<
   Omit<

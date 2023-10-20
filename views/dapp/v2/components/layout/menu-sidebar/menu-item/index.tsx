@@ -1,7 +1,7 @@
 import { Box, Motion } from '@interest-protocol/ui-kit';
 import { FC } from 'react';
 
-import { MenuItemProps } from '../sidebar.types';
+import { MenuItemProps } from '../menu-sidebar.types';
 import MenuItemCollapsible from './menu-item-collapsible';
 import MenuItemTitle from './menu-item-title';
 

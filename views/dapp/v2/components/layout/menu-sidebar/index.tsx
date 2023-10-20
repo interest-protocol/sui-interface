@@ -4,9 +4,9 @@ import { useIsMounted, useReadLocalStorage } from 'usehooks-ts';
 
 import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 
-import SidebarMenuList from './menu-list';
-import SidebarCollapseButton from './sidebar-collapse-button';
-import SidebarHeader from './sidebar-logo';
+import MenuSidebarCollapseButton from './menu-sidebar-collapse-button';
+import MenuSidebarList from './menu-sidebar-list';
+import MenuSidebarHeader from './menu-sidebar-logo';
 
 const itemVariants = {
   open: {
@@ -17,7 +17,7 @@ const itemVariants = {
   },
 };
 
-const Sidebar: FC = () => {
+const MenuSidebar: FC = () => {
   const isMounted = useIsMounted();
   const isLocalCollapsed = useReadLocalStorage<boolean>(
     `${LOCAL_STORAGE_VERSION}-sui-interest-menu-collapse`
@@ -53,15 +53,15 @@ const Sidebar: FC = () => {
       }
     >
       <Box>
-        <SidebarHeader isCollapsed={!isOpen && isCollapsed} />
-        <SidebarMenuList
+        <MenuSidebarHeader isCollapsed={!isOpen && isCollapsed} />
+        <MenuSidebarList
           setIsCollapsed={setIsCollapsed}
           isCollapsed={!isOpen && isCollapsed}
           setTemporarilyOpen={setTemporarilyOpen}
         />
       </Box>
       <Box position="absolute" bottom="0" width="100%">
-        <SidebarCollapseButton
+        <MenuSidebarCollapseButton
           isOpen={isOpen}
           isCollapsed={isCollapsed}
           setIsCollapsed={setIsCollapsed}
@@ -71,4 +71,4 @@ const Sidebar: FC = () => {
   );
 };
 
-export default Sidebar;
+export default MenuSidebar;

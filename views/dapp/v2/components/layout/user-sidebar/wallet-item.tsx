@@ -2,7 +2,7 @@ import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { FC } from 'react';
 
-import { WalletItemProps } from './wallet-manager.types';
+import { WalletItemProps } from './select-wallet/user-sidebar.types';
 
 const WalletItem: FC<WalletItemProps> = ({
   icon,

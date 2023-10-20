@@ -13,7 +13,7 @@ import { TTranslatedMessage } from '@/interface';
 import { CarteUpSVG } from '@/svg';
 import { capitalize } from '@/utils';
 
-import { MenuMobileItemProps } from '../../../sidebar/sidebar.types';
+import { MenuMobileItemProps } from '../../../menu-sidebar/menu-sidebar.types';
 import AccordionItem from './accordion-item';
 
 const BOX_ID = 'Mobile-Menu-List-Item-';

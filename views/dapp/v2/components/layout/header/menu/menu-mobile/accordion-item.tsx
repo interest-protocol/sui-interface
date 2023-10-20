@@ -6,7 +6,7 @@ import { FC } from 'react';
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
-import { AccordionItemProps } from '../../../sidebar/sidebar.types';
+import { AccordionItemProps } from '../../../menu-sidebar/menu-sidebar.types';
 
 const AccordionItem: FC<AccordionItemProps> = ({ name, path }) => {
   const t = useTranslations();
