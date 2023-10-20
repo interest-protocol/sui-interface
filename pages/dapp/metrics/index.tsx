@@ -22,7 +22,7 @@ const MetricsPage: NextPageWithProps = ({ pageTitle }) => {
     <ModalProvider newDesign>
       <Web3Manager>
         <SEO pageTitle={pageTitle} />
-        <Layout dashboard titlePage={t('metrics.metadata.title')}>
+        <Layout titlePage={t('metrics.metadata.title')}>
           <Metrics />
         </Layout>
       </Web3Manager>

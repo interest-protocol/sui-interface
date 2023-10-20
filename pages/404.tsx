@@ -9,7 +9,7 @@ import ErrorPage from '@/views/dapp/v2/error';
 const NotFoundPage: NextPageWithProps = ({ pageTitle }) => (
   <>
     <SEO pageTitle={pageTitle} />
-    <Layout dashboard>
+    <Layout>
       <ErrorPage />
     </Layout>
   </>

@@ -50,7 +50,7 @@ const SwapPage: NextPageWithProps = ({ pageTitle }) => {
   return (
     <Web3Manager>
       <SEO pageTitle={pageTitle} />
-      <Layout dashboard>
+      <Layout>
         <Swap
           formSwap={formSwap}
           openModalState={{ isOpen, setIsOpen }}
