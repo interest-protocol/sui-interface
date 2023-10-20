@@ -51,7 +51,7 @@
         "name": "wallet",
         "activity": "activity",
         "disconnect": "disconnect",
-        "connect": "connect wallet",
+        "connect": "connect",
         "assets": "assets",
         "switch": "switch account",
         "viewInExplorer": "view in explorer",
