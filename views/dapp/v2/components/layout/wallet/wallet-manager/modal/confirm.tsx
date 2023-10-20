@@ -7,10 +7,11 @@ import { CheckmarkSVG, TimesSVG } from '@/components/svg/v2';
 import { WalletConnectResultProps } from './modal.types';
 
 const WalletConnectConfirmModal: FC<WalletConnectResultProps> = ({
-  handleClose,
   walletName,
+  handleClose,
 }) => {
   const t = useTranslations();
+
   return (
     <Box
       px="s"

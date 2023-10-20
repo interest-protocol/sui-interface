@@ -1,9 +1,8 @@
-import { Box, lightTheme, Typography } from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { FC } from 'react';
 
-import { WalletItemProps } from '../connect-wallet.types';
-import WalletItemButtons from './wallet-item-buttons';
+import { WalletItemProps } from './wallet-manager.types';
 
 const WalletItem: FC<WalletItemProps> = ({
   icon,
@@ -23,27 +22,22 @@ const WalletItem: FC<WalletItemProps> = ({
 
   return (
     <Box
-      p="xl"
+      p="m"
       display="flex"
       cursor="pointer"
       alignItems="center"
       borderRadius="0.5rem"
-      justifyContent="space-between"
+      bg="surface.containerLow"
+      onClick={handleConnect}
       transition="background 250ms ease-in-out"
       nHover={{
-        backgroundColor: lightTheme.colors['surface.containerLowest'],
+        backgroundColor: 'surface.containerLow',
         '& .showButton': {
           display: 'flex',
         },
       }}
-      onClick={handleConnect}
     >
-      <Box
-        py="2xs"
-        display="flex"
-        alignItems="center"
-        gap={['m', 'm', 'm', 'xl']}
-      >
+      <Box display="flex" alignItems="center" gap={['m', 'm', 'm', 'xl']}>
         <Box
           width="2.5rem"
           height="2.5rem"
@@ -56,10 +50,6 @@ const WalletItem: FC<WalletItemProps> = ({
           {displayName}
         </Typography>
       </Box>
-      <WalletItemButtons
-        installLink={installLink}
-        handleConnect={handleConnect}
-      />
     </Box>
   );
 };

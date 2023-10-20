@@ -7,9 +7,11 @@ import { WalletProps } from './wallet.types';
 const WalletConnect: FC<WalletProps> = ({ setOpenConnectWallet }) => {
   const t = useTranslations();
 
+  const handleOpenModal = () => setOpenConnectWallet(true);
+
   return (
     <Box
-      bg="textSoft"
+      bg="surface"
       height="3rem"
       display="flex"
       alignItems="center"
@@ -27,8 +29,8 @@ const WalletConnect: FC<WalletProps> = ({ setOpenConnectWallet }) => {
         <Button
           size="small"
           variant="filled"
+          onClick={handleOpenModal}
           textTransform="capitalize"
-          onClick={() => setOpenConnectWallet(true)}
         >
           {t('common.v2.wallet.connect')}
         </Button>
