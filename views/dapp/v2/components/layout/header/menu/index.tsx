@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
+import NetworkOptions from '../../network-options';
 import Wallet from '../../wallet';
 import MenuBackButton from './menu-back-button';
 import MenuButton from './menu-button';
@@ -66,6 +67,7 @@ const Menu: FC = () => {
               <Wallet />
             </Box>
           )}
+          {isOpen && <NetworkOptions />}
           <MenuButton
             isOpen={isOpen}
             handleOpen={handleOpen}

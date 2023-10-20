@@ -28,7 +28,9 @@ const MenuMobile: FC<MenuMobileProps> = ({
       {isLanguage ? (
         <LanguageMenu />
       ) : (
-        <MainMenu openLanguageMenu={openLanguageMenu} />
+        <>
+          <MainMenu openLanguageMenu={openLanguageMenu} />
+        </>
       )}
     </Box>
   );
