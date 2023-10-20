@@ -46,7 +46,7 @@ const WalletItem: FC<WalletItemProps> = ({
           backgroundRepeat="no-repeat"
           backgroundImage={`url("${icon}")`}
         />
-        <Typography variant="medium" fontWeight="400">
+        <Typography variant="small" fontWeight="500">
           {displayName}
         </Typography>
       </Box>

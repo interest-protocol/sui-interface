@@ -11,13 +11,13 @@ export enum WalletIconUrl {
 }
 
 export const WALLET_NAME_MAP: Record<string, string> = {
-  [WalletIconUrl.SuiWallet]: 'Sui Wallet',
-  [WalletIconUrl.MartianWallet]: 'Martian Wallet',
-  [WalletIconUrl.EthosWallet]: 'Ethos Wallet',
+  [WalletIconUrl.SuiWallet]: 'Sui',
+  [WalletIconUrl.FoxWallet]: 'Fox',
+  [WalletIconUrl.MartianWallet]: 'Martian',
+  [WalletIconUrl.EthosWallet]: 'Ethos',
   [WalletIconUrl.NightlyWallet]: 'Nightly',
-  [WalletIconUrl.SpacecyWallet]: 'Spacecy Wallet',
-  [WalletIconUrl.ElliWallet]: 'Elli Wallet',
-  [WalletIconUrl.FoxWallet]: 'Fox Wallet',
+  [WalletIconUrl.SpacecyWallet]: 'Spacecy ',
+  [WalletIconUrl.ElliWallet]: 'Elli',
 };
 
 export const DEFAULT_WALLETS: Array<IWalletItem> = [
