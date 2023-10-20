@@ -13,7 +13,7 @@ const FaucetPage: NextPageWithProps = ({ pageTitle }) => {
 
   return (
     <Web3Manager>
-      <Layout dashboard titlePage={t('faucet.metadata.title')}>
+      <Layout titlePage={t('faucet.metadata.title')}>
         <SEO pageTitle={pageTitle} />
         <Faucet />
       </Layout>

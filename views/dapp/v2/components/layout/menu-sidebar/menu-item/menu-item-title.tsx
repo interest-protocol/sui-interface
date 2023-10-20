@@ -12,7 +12,7 @@ import { v4 } from 'uuid';
 import { TTranslatedMessage } from '@/interface';
 import { capitalize } from '@/utils';
 
-import { MenuItemTitleContentProps } from '../sidebar.types';
+import { MenuItemTitleContentProps } from '../menu-sidebar.types';
 import CollapseIcon from './collapsible-icon';
 
 const MenuItemTitleBackground: FC = () => (

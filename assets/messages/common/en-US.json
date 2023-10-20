@@ -84,7 +84,7 @@
         "metadata": {
           "title": "Connect Wallet"
         },
-        "title": "Choose the wallet",
+        "title": "Connect Wallet",
         "subtitle": "Securely connect your wallet to start your Web3 journey.",
         "footer": "By connecting your wallet, you agree to our <termsAndService>Terms of Service </termsAndService> and our <privacyPolicy>Privacy Policy</privacyPolicy>.",
         "modal": {

@@ -13,9 +13,9 @@ import { LOCAL_STORAGE_VERSION } from '@/constants/local-storage';
 
 import Checkpoint from '../network-switch/checkpoint';
 import CheckpointNumber from '../network-switch/checkpoint-number';
-import { SidebarCollapseButtonProps } from './sidebar.types';
+import { SidebarCollapseButtonProps } from './menu-sidebar.types';
 
-const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
+const MenuSidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
   isOpen,
   isCollapsed,
   setIsCollapsed,
@@ -34,39 +34,37 @@ const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
   return (
     <Motion
       my="m"
+      pb="s"
+      pt="m"
+      gap="m"
       display="flex"
       overflow="hidden"
+      transition={{ duration: 0.5 }}
       animation={isCollapsed ? '2.5rem' : 'auto'}
-      transition={{
-        duration: 0.5,
-      }}
       variants={{
         collapsed: { width: '2.5rem ' },
         unCollapsed: { width: 'auto' },
       }}
-      gap="m"
-      pb="s"
-      pt="m"
     >
       <Box
         display="flex"
         width="2.5rem"
         height="2.5rem"
         minWidth="2.5rem"
-        minHeight="2.5rem"
         borderRadius="m"
         cursor="pointer"
         color="onSurface"
+        minHeight="2.5rem"
         border="1px solid"
+        position="relative"
         alignItems="center"
         justifyContent="center"
-        borderColor="outline.outlineVariant"
         onClick={handleCollapse}
+        borderColor="outline.outlineVariant"
         nHover={{
           transition: 'all 300ms ease-in-out',
           backgroundColor: `${colors.primary}14`,
         }}
-        position="relative"
       >
         <Motion
           display="flex"
@@ -115,4 +113,4 @@ const SidebarCollapseButton: FC<SidebarCollapseButtonProps> = ({
   );
 };
 
-export default SidebarCollapseButton;
+export default MenuSidebarCollapseButton;

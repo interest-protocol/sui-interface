@@ -1,7 +1,7 @@
 import { useWalletKit } from '@mysten/wallet-kit';
 import { FC, useState } from 'react';
 
-import ConnectWallet from '@/components/web3-manager/connect-wallet';
+import WalletManager from '@/views/dapp/v2/components/layout/user-sidebar';
 
 import Profile from '../header/menu/profile';
 import WalletConnect from './wallet-connect';
@@ -12,7 +12,7 @@ const Wallet: FC = () => {
 
   return (
     <>
-      <ConnectWallet
+      <WalletManager
         openConnectWallet={openConnectWallet}
         setOpenConnectWallet={setOpenConnectWallet}
       />
