@@ -18,6 +18,7 @@ export { default as DiedComputerSVG } from './died-computer';
 export { default as DotsSVG } from './dots';
 export { default as DoubleArrowSVG } from './double-arrow';
 export { default as DownArrowSVG } from './down-arrow';
+export { default as DownArrowSecondarySVG } from './down-arrow-secondary';
 export { default as DownloadSVG } from './download';
 export { default as ETHSVG } from './eth';
 export { default as FarmSVG } from './farm';

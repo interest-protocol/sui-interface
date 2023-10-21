@@ -32,6 +32,7 @@ const Sidebar: FC = () => {
       p="2xl"
       display="flex"
       maxHeight="100vh"
+      position="relative"
       flexDirection="column"
       bg="surface.container"
       variants={itemVariants}
@@ -39,7 +40,6 @@ const Sidebar: FC = () => {
       justifyContent="space-between"
       transition={{ duration: 0.5 }}
       animate={isOpen || !isCollapsed ? 'open' : 'closed'}
-      position="relative"
       initial={
         itemVariants[
           isOpen || !isCollapsed

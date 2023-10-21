@@ -15,15 +15,12 @@ export interface WalletItemProps extends IWalletItem {
   openWalletModal: (walletName: string) => void;
 }
 
-export interface ConnectWalletProps {
+export interface WalletManagerProps {
   openConnectWallet: boolean;
   setOpenConnectWallet: Dispatch<SetStateAction<boolean>>;
 }
 
-export interface IllustrationProps {
+export interface WalletListSectionProps {
   setOpenWallet: Dispatch<SetStateAction<boolean>>;
-}
-
-export interface WalletListSectionProps extends IllustrationProps {
   openWalletModal: (walletName: string) => void;
 }

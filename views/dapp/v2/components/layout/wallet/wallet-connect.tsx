@@ -7,13 +7,14 @@ import { WalletProps } from './wallet.types';
 const WalletConnect: FC<WalletProps> = ({ setOpenConnectWallet }) => {
   const t = useTranslations();
 
+  const handleOpenModal = () => setOpenConnectWallet(true);
+
   return (
     <Box
-      bg="textSoft"
+      bg="surface"
       height="3rem"
       display="flex"
       alignItems="center"
-      borderRadius="2.5rem"
       justifyContent="space-between"
     >
       <Box
@@ -22,13 +23,13 @@ const WalletConnect: FC<WalletProps> = ({ setOpenConnectWallet }) => {
         border="none"
         display="inline-flex"
         bg="bottomBackground"
-        borderRadius="2.5rem"
       >
         <Button
           size="small"
           variant="filled"
+          borderRadius="full"
+          onClick={handleOpenModal}
           textTransform="capitalize"
-          onClick={() => setOpenConnectWallet(true)}
         >
           {t('common.v2.wallet.connect')}
         </Button>

@@ -4,12 +4,13 @@ import { FC } from 'react';
 
 import { TimesSVG } from '@/components/svg/v2';
 
-import { WalletConnectResultProps } from './modal.types';
+import { WalletConnectFailModalProps } from './modal.types';
 
-const WalletConnectFailModal: FC<
-  Omit<WalletConnectResultProps, 'walletName'>
-> = ({ handleClose }) => {
+const WalletConnectFailModal: FC<WalletConnectFailModalProps> = ({
+  handleClose,
+}) => {
   const t = useTranslations();
+
   return (
     <Box
       px="s"

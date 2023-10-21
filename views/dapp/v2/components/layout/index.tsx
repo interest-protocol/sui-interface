@@ -7,8 +7,8 @@ import useEventListener from '@/hooks/use-event-listener';
 
 import Footer from './footer';
 import Header from './header';
-import Settings from './header/menu/settings';
 import { LayoutProps } from './layout.types';
+import NetworkOptions from './network-options';
 import Sidebar from './sidebar';
 import Wallet from './wallet';
 
@@ -66,8 +66,8 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({
                 alignItems="center"
                 justifyContent="space-between"
               >
+                <NetworkOptions />
                 <Wallet />
-                <Settings />
               </Box>
             </Box>
             {children}

@@ -1,4 +1,4 @@
-import { Box } from '@interest-protocol/ui-kit';
+import { Box, Typography } from '@interest-protocol/ui-kit';
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useRouter } from 'next/router';
 import { pathOr, prop } from 'ramda';
@@ -203,6 +203,9 @@ const Profile: FC = () => {
               <UserSVG maxWidth="2.5rem" maxHeight="2.5rem" width="100%" />
             )}
           </Box>
+          <Typography variant="medium" color="onSurface">
+            {getName(account, suiNSRecord)}
+          </Typography>
         </Box>
       )}
       <MenuProfile

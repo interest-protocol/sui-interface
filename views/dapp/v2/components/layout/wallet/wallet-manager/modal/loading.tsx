@@ -8,6 +8,7 @@ const WalletConnectLoadingModal: FC<WalletConnectLoadingProps> = ({
   walletName,
 }) => {
   const t = useTranslations();
+
   return (
     <Box
       px="s"
