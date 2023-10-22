@@ -102,7 +102,7 @@ const handler: NextApiHandler = async (req, res) => {
       method: 'POST',
       body: JSON.stringify({
         timeRange: {
-          start: '-30d',
+          start: '1683923848',
           end: 'now',
           step: 3600,
           timezone: 'Europe/Lisbon',
