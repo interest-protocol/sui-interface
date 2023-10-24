@@ -13,18 +13,8 @@ const TokenIcon: FC<TokenIconProps> = ({ id, size, lessRadius }) => (
     gap="0.5rem"
   >
     <Box
-      width={[
-        `${size / 2}rem`,
-        `${size / 2}rem`,
-        `${size / 2}rem`,
-        `${size}rem`,
-      ]}
-      height={[
-        `${size / 2}rem`,
-        `${size / 2}rem`,
-        `${size / 2}rem`,
-        `${size}rem`,
-      ]}
+      width={`${size}rem`}
+      height={`${size}rem`}
       borderRadius={lessRadius ? '0.25rem' : 'full'}
       display="flex"
       justifyContent="center"
