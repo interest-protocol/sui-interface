@@ -12,6 +12,7 @@ import { ArrowTrendSVG } from '@/svg';
 import { formatMoney } from '@/utils';
 
 import { useLstData } from '../../../lst.hooks';
+import ValidatorLogo from '../component/validator-logo';
 import ValidatorList from '../modal/validator-list';
 import { IValidatorModal } from '../your-info.types';
 import { SelectValidatorsProps } from './select-validators.types';
@@ -129,15 +130,7 @@ const SelectValidators: FC<SelectValidatorsProps> = ({ form, isStake }) => {
         >
           {currentValidator.map((validator) => (
             <Box key={v4()} display="flex" gap="0.75rem" alignItems="center">
-              <Box
-                width="2.5rem"
-                height="2.5rem"
-                borderRadius="0.25rem"
-                backgroundSize="contain"
-                backgroundPosition="center center"
-                backgroundImage={`url(${validator.imageUrl})`}
-                backgroundColor={validator.imageUrl || 'surface.dim'}
-              />
+              <ValidatorLogo url={validator.imageUrl} />
               {isStake && (
                 <Typography variant="medium">
                   {validator.name ? validator.name : '???'}

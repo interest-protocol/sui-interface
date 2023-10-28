@@ -7,6 +7,7 @@ import { Routes, RoutesEnum } from '@/constants';
 import { GotoSVG } from '@/svg';
 import TableRow from '@/views/dapp/v2/lst/components/table-row';
 
+import ValidatorLogo from '../../component/validator-logo';
 import { ValidatorListTableDataItemProps } from '../../your-info.types';
 
 const ValidatorsTableDataItem: FC<ValidatorListTableDataItemProps> = ({
@@ -46,17 +47,7 @@ const ValidatorsTableDataItem: FC<ValidatorListTableDataItemProps> = ({
           )}
         </Typography>
         <Box display="flex" gap="m" alignItems="center">
-          <Box display="flex">
-            <Box
-              width="2rem"
-              height="2rem"
-              borderRadius="0.25rem"
-              backgroundColor="white"
-              backgroundSize="contain"
-              backgroundPosition="center center"
-              backgroundImage={`url(${validator.imageUrl})`}
-            />
-          </Box>
+          <ValidatorLogo url={validator.imageUrl} isToModal />
           <Box width="max-content">
             <Typography variant="medium">{validator.name}</Typography>
             <Box display="flex">
