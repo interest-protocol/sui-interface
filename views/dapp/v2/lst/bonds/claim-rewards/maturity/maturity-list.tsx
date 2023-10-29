@@ -31,7 +31,7 @@ const BondsClaimRewardsMaturityList: FC = () => {
         <SelectCard
           key={v4()}
           checked={maturity.epoch === id}
-          onSelect={() => handleMaturitySelected(date, '10', id)}
+          onSelect={() => handleMaturitySelected(date, amount ?? '0', id)}
           content={
             <Box display="flex">
               <Box color="white" mr="0.5rem">
