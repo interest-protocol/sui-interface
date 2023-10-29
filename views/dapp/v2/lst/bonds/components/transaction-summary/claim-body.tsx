@@ -7,6 +7,7 @@ import { v4 } from 'uuid';
 
 import { MONTHS } from '@/constants';
 import { getISuiYieldType } from '@/constants/lst';
+import { formatMoney } from '@/utils';
 
 import { DERIVATED_SUI_SYMBOL } from '../../../lst.types';
 import { useBondsContext } from '../../bonds.hooks';
@@ -145,7 +146,7 @@ const TransactionSummaryClaimBody: FC = () => {
                 </Box>
               </Box>
               <Typography variant="medium" color="onSurface" opacity="0.6">
-                {amount ?? '--'}
+                {formatMoney(+(amount ?? 0)) ?? '--'}
               </Typography>
             </Box>
           ))}
