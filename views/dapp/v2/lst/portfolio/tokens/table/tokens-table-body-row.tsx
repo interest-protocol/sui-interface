@@ -128,55 +128,61 @@ const TokensTableBodyRow: FC<{ index: number; type: string }> = ({
         </TableRow>
       )}
       <DropdownBox isOpen={openDetails}>
-        {coin?.objects.map(({ coinType, balance }) => (
-          <TableRow numCols={4} withBG={openDetails} hasDropdown key={v4()}>
-            <Box />
-            <DropdownItem
-              display="flex"
-              gap="0.25rem"
-              isOpen={openDetails}
-              flexDirection="column"
-            >
-              <Box
-                key={v4()}
+        <Box bg="red" mb={openDetails ? 's' : 'unset'}>
+          {coin?.objects.map(({ coinType, balance }) => (
+            <TableRow numCols={4} withBG={openDetails} hasDropdown key={v4()}>
+              <Box />
+              <DropdownItem
                 display="flex"
-                gap="m"
-                alignItems="center"
-                py="0.5rem"
+                gap="0.25rem"
+                isOpen={openDetails}
+                flexDirection="column"
               >
-                <Typography variant="extraSmall">
-                  {formatAddress(coinType)}
-                </Typography>
-                <Box>
-                  <CopyToClipboard
-                    data="Test"
-                    width="0.25rem"
-                    height="0.25rem"
-                  />
+                <Box
+                  key={v4()}
+                  display="flex"
+                  gap="m"
+                  alignItems="center"
+                  py="0.5rem"
+                >
+                  <Typography variant="extraSmall">
+                    {formatAddress(coinType)}
+                  </Typography>
+                  <Box>
+                    <CopyToClipboard
+                      data="Test"
+                      width="0.25rem"
+                      height="0.25rem"
+                    />
+                  </Box>
                 </Box>
-              </Box>
-            </DropdownItem>
-            <DropdownItem
-              display="flex"
-              gap="0.25rem"
-              isOpen={openDetails}
-              flexDirection="column"
-            >
-              <Box
-                key={v4()}
+              </DropdownItem>
+              <DropdownItem
                 display="flex"
-                gap="m"
-                alignItems="center"
-                py="0.5rem"
+                gap="0.25rem"
+                isOpen={openDetails}
+                flexDirection="column"
               >
-                <Typography variant="extraSmall" width="100%" textAlign="right">
-                  {FixedPointMath.toNumber(BigNumber(balance))}
-                </Typography>
-              </Box>
-            </DropdownItem>
-            <Box />
-          </TableRow>
-        ))}
+                <Box
+                  key={v4()}
+                  display="flex"
+                  gap="m"
+                  alignItems="center"
+                  py="0.5rem"
+                >
+                  <Typography
+                    variant="extraSmall"
+                    width="100%"
+                    textAlign="right"
+                  >
+                    {FixedPointMath.toNumber(BigNumber(balance))}
+                  </Typography>
+                </Box>
+              </DropdownItem>
+              <Box />
+            </TableRow>
+          ))}
+        </Box>
       </DropdownBox>
     </Box>
   );
