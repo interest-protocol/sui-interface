@@ -1,11 +1,11 @@
 import { NextApiHandler } from 'next';
 import { use } from 'next-api-middleware';
 
-import { getTotalActiveWallets } from '@/api/metrics';
+import { getActiveWallets } from '@/api/metrics';
 import { getRequestOnlyMiddleware, logApiErrors } from '@/utils';
 
 const handler: NextApiHandler = async (req, res) => {
-  const data = await getTotalActiveWallets(
+  const data = await getActiveWallets(
     req.query.TZ as string,
     Boolean(req.query.daily)
   );
