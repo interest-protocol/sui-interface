@@ -325,8 +325,6 @@ export const getActiveWallets = (
 
       const values = samples[0].values;
 
-      console.log('>> values :: ', values);
-
       return values;
     });
 
