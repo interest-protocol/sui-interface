@@ -315,9 +315,7 @@ export const getActiveWallets = (
           },
     ],
     TZ,
-    {
-      step: (daily ? A_HOUR_IN_MILLISECONDS : A_DAY_IN_MILLISECONDS) / 1000,
-    }
+    { step: A_DAY_IN_MILLISECONDS / 1000 }
   )
     .then((res) => res.json())
     .then((data) => {
@@ -326,6 +324,8 @@ export const getActiveWallets = (
       );
 
       const values = samples[0].values;
+
+      console.log('>> values :: ', values);
 
       return values;
     });
