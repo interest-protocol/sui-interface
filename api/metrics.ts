@@ -7,7 +7,7 @@ import {
 import { TFilter } from '@/views/dapp/v2/metrics/card-header/card-header.types';
 
 const DEFAULT_LIMIT = 20;
-const DEFAULT_START_TIME = '-30d';
+const DEFAULT_START_TIME = '1683923848';
 const DEFAULT_STEP = A_HOUR_IN_MILLISECONDS / 1000;
 
 type PoolResults = Array<{
@@ -193,9 +193,9 @@ export const getTotalLiquidity = (
     {
       start:
         from === 'all'
-          ? '1683923848'
-          : from === 'month'
           ? DEFAULT_START_TIME
+          : from === 'month'
+          ? '-30d'
           : '-14d',
     }
   )
@@ -256,42 +256,66 @@ export const getDailyVolume = (TZ: string): Promise<ValuesInTimestamp> =>
       return values;
     });
 
-export const getTotalActiveWallets = (
+export const getActiveWallets = (
   TZ: string,
   daily = false
 ): Promise<Array<{ timestamp: number; value: number }>> =>
   getMetrics(
     [
-      {
-        eventsQuery: {
-          resource: {
-            name: '',
-            type: 'EVENTS',
-          },
-          alias: '',
-          id: 'a',
-          aggregation: {
-            countUnique: {
-              duration: {
-                value: 0,
-                unit: 'day',
+      !daily
+        ? {
+            eventsQuery: {
+              resource: {
+                name: '',
+                type: 'EVENTS',
               },
+              alias: '',
+              id: 'a',
+              aggregation: {
+                countUnique: {
+                  duration: {
+                    value: 0,
+                    unit: 'day',
+                  },
+                },
+              },
+              selectorExpr: null,
+              groupBy: [],
+              limit: 0,
+              functions: [],
+              disabled: false,
             },
+            dataSource: 'EVENTS',
+            sourceName: '',
+          }
+        : {
+            eventsQuery: {
+              resource: {
+                name: '',
+                type: 'EVENTS',
+              },
+              alias: '',
+              id: 'a',
+              aggregation: {
+                countUnique: {
+                  duration: {
+                    value: 1,
+                    unit: 'day',
+                  },
+                },
+              },
+              selectorExpr: null,
+              groupBy: [],
+              limit: 0,
+              functions: [],
+              disabled: false,
+            },
+            dataSource: 'EVENTS',
+            sourceName: '',
           },
-          selectorExpr: null,
-          groupBy: [],
-          limit: 0,
-          functions: [],
-          disabled: false,
-        },
-        dataSource: 'EVENTS',
-        sourceName: '',
-      },
     ],
     TZ,
-    {
-      step: (daily ? A_HOUR_IN_MILLISECONDS : A_DAY_IN_MILLISECONDS) / 1000,
-    }
+    { step: A_DAY_IN_MILLISECONDS / 1000 }
   )
     .then((res) => res.json())
     .then((data) => {
@@ -338,7 +362,7 @@ export const getTVLByPool = (
     ],
     TZ,
     {
-      start: from === 'all' ? '1683923848' : '-1d',
+      start: from === 'all' ? DEFAULT_START_TIME : '-1d',
     }
   )
     .then((res) => res.json())
@@ -663,7 +687,7 @@ type TMetricEndpoints =
   | 'get-daily-volume'
   | 'get-top-coins'
   | 'get-top-pools'
-  | 'get-total-active-wallets'
+  | 'get-active-wallets'
   | 'get-total-liquidity'
   | 'get-tvl-by-pool';
 
