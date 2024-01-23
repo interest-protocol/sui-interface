@@ -36,7 +36,7 @@ export const SOCIAL_MEDIAS = [
   },
   {
     title: 'Discord',
-    link: 'https://discord.gg/interestprotocol',
+    link: 'https://discord.com/invite/interest',
     Logo: DiscordSVG,
   },
   {
