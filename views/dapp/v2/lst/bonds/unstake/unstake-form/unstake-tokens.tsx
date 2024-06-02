@@ -21,8 +21,6 @@ const UnstakeTokens: FC = () => {
     .filter((x) => currentEpoch.gt(BigNumber(x)))
     .filter((x) => !!bondsMap[x]?.principal);
 
-  console.log('>> principalMaturedEpochs :: ', principalMaturedEpochs);
-
   const bondObjectsPairs = Object.values(bondsMap).filter(
     (x) =>
       !!x &&

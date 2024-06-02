@@ -5,6 +5,7 @@
       "description": "Nueva función LST"
     },
     "bonds": {
+      "matured": "Madurado",
       "menu": {
         "stake": {
           "title": "Apostar SUI",
@@ -52,7 +53,11 @@
         "form": {
           "selectMaturity": "Seleccionar Vencimiento",
           "selectAmount": "Seleccionar Cantidad a Apostar",
-          "selectValidator": "Seleccionar Validador"
+          "selectValidator": "Seleccionar Validador",
+          "error": "Valor mínimo: 1",
+          "dayLeft": "Días restantes",
+          "automated": "Automatizado",
+          "manual": "Manual"
         }
       },
       "unstake": {

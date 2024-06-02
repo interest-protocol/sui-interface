@@ -44,7 +44,7 @@ const OverViewWrapper: FC = () => {
 };
 
 const Validators: FC = () => (
-  <Box variant="container" display="flex" flexDirection="column">
+  <Box display="flex" flexDirection="column" gap="2xl">
     <OverViewWrapper />
     <AllValidators />
   </Box>

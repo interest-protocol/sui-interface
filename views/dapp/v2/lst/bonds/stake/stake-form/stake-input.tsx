@@ -54,15 +54,29 @@ const StakeInput: FC = () => {
       }}
       {...form.register('amount', {
         onChange: (v: ChangeEvent<HTMLInputElement>) => {
-          form.setValue?.('amount', parseInputEventToNumberString(v));
+          form.setValue?.(
+            'amount',
+            parseInputEventToNumberString(
+              v,
+              FixedPointMath.toNumber(totalBalance)
+            )
+          );
           form.setValue?.(
             'amountUSD',
             formatDollars(
-              Number(parseInputEventToNumberString(v)) * suiPrice * exchangeRate
+              Number(
+                parseInputEventToNumberString(
+                  v,
+                  FixedPointMath.toNumber(totalBalance)
+                )
+              ) *
+                suiPrice *
+                exchangeRate
             )
           );
         },
       })}
+      isStake
     />
   );
 };

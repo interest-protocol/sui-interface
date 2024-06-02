@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 import { v4 } from 'uuid';
 
+import { ISuiYNSVG } from '@/components/svg/v2';
 import { MONTHS } from '@/constants';
-import { ISuiYNSVG } from '@/svg';
 
 import { useBondsContext } from '../../bonds.hooks';
 import SelectCard from '../../components/select-card';
@@ -35,12 +35,7 @@ const BondsClaimRewardsMaturityList: FC = () => {
           content={
             <Box display="flex">
               <Box color="white" mr="0.5rem">
-                <ISuiYNSVG
-                  maxHeight="2.5rem"
-                  maxWidth="2.5rem"
-                  width="100%"
-                  filled
-                />
+                <ISuiYNSVG maxHeight="2.5rem" maxWidth="2.5rem" width="100%" />
               </Box>
               <Box>
                 <Typography variant="small" fontSize="0.875rem">

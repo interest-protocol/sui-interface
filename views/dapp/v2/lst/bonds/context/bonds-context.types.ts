@@ -10,6 +10,7 @@ export interface BondsForm {
   amount: string;
   amountUSD: string;
   validator: string;
+  validatorType: 'auto' | 'manual' | 'none';
   tokens: ReadonlyArray<string>;
   type: 'stake' | 'unstake' | 'claim';
   maturity: Maturity;

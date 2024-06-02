@@ -1,4 +1,5 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
@@ -12,7 +13,7 @@ import {
   ISuiYNSVG,
 } from '@/components/svg/v2';
 import { MONTHS } from '@/constants';
-import { useGetLstBondObjects } from '@/hooks';
+import { useGetLstBondObjects, useWeb3 } from '@/hooks';
 import { RequiredBondsMap } from '@/hooks/use-get-lst-bond-objects/use-get-lst-bond-objects.types';
 import { FixedPointMath } from '@/lib';
 import { convertEpochToMSFromBaseEpoch } from '@/utils';
@@ -29,6 +30,8 @@ const DerivativeIcon: FC<{ type: string }> = ({ type }) => {
 };
 
 const UnstakeMaturity: FC = () => {
+  const t = useTranslations();
+  const { connected } = useWeb3();
   const [isOpen, setIsOpen] = useState(false);
   const { form, principalType, couponType, suiSystem } = useBondsContext();
   const { bondsMap } = useGetLstBondObjects();
@@ -38,7 +41,10 @@ const UnstakeMaturity: FC = () => {
     name: 'maturity.epoch',
   });
 
-  const tokens = form.getValues('tokens');
+  const tokens = useWatch({
+    control: form.control,
+    name: 'tokens',
+  });
 
   const bondObjectsPairs = Object.values(bondsMap).filter(
     (x) =>
@@ -69,11 +75,11 @@ const UnstakeMaturity: FC = () => {
 
   return (
     <Box
-      cursor="pointer"
       borderRadius="m"
       border="1px solid"
-      onClick={() => setIsOpen(not)}
       borderColor="outline.outlineVariant"
+      onClick={() => tokens.length && setIsOpen(not)}
+      cursor={tokens.length && connected ? 'pointer' : 'not-allowed'}
     >
       <Box
         p="xl"
@@ -114,7 +120,7 @@ const UnstakeMaturity: FC = () => {
                         (selectedMaturityInMS - Date.now()) /
                         (1000 * 60 * 60 * 24)
                       ).toFixed(0)}D)`
-                    : 'Matured'}
+                    : t('lst.bonds.matured')}
                 </Typography>
               </Box>
               <Box display="flex" alignItems="center" gap="xl">
@@ -209,7 +215,7 @@ const UnstakeMaturity: FC = () => {
                           Date.now()) /
                         (1000 * 60 * 60 * 24)
                       ).toFixed(0)}D)`
-                    : 'Matured'}
+                    : t('lst.bonds.matured')}
                 </Typography>
               </Box>
               <Box display="flex" alignItems="center" ml="4xl" gap="xl">

@@ -22,10 +22,6 @@ export interface AssetsRowItemProps {
   totalAssetsMinted: ReadonlyArray<TotalAssetsMintedProps>;
 }
 
-export interface AssetsListProps {
-  data: ReadonlyArray<AssetsRowItemProps>;
-}
-
 export interface OpenDetailsProps {
   isOpen: boolean;
   handleClick: () => void;

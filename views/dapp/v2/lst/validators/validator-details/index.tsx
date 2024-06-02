@@ -82,41 +82,39 @@ const ValidatorDetails: FC = () => {
   };
 
   return (
-    <Box variant="container" display="flex">
+    <Box
+      pb="xl"
+      gap="2rem"
+      width="100%"
+      display="flex"
+      gridColumn="1/-1"
+      flexDirection="column"
+      justifyContent="center"
+    >
+      <Box width="100%">
+        <Box
+          gap="s"
+          py=".625rem"
+          display="flex"
+          cursor="pointer"
+          color="onSurface"
+          px={['l', 'l', 'l', 'unset']}
+          onClick={() => push(Routes[RoutesEnum.LSTValidators])}
+        >
+          <ArrowLeft width="100%" maxWidth="1.125rem" maxHeight="1.125rem" />
+          <Typography variant="extraSmall" textTransform="capitalize">
+            {t('common.back')}
+          </Typography>
+        </Box>
+      </Box>
       <Box
-        pb="xl"
-        gap="2rem"
         width="100%"
         display="flex"
-        gridColumn="1/-1"
-        flexDirection="column"
-        justifyContent="center"
+        flexDirection={['column', 'column', 'column', 'row']}
+        gap="1.5rem"
       >
-        <Box width="100%">
-          <Box
-            gap="s"
-            py=".625rem"
-            display="flex"
-            cursor="pointer"
-            color="onSurface"
-            px={['l', 'l', 'l', 'unset']}
-            onClick={() => push(Routes[RoutesEnum.LSTValidators])}
-          >
-            <ArrowLeft width="100%" maxWidth="1.125rem" maxHeight="1.125rem" />
-            <Typography variant="extraSmall" textTransform="capitalize">
-              {t('common.back')}
-            </Typography>
-          </Box>
-        </Box>
-        <Box
-          width="100%"
-          display="flex"
-          flexDirection={['column', 'column', 'column', 'row']}
-          gap="1.5rem"
-        >
-          <ValidatorInformation {...validatorDetailsAndComments} />
-          <ValidatorRatings {...validatorDetailsAndComments} />
-        </Box>
+        <ValidatorInformation {...validatorDetailsAndComments} />
+        <ValidatorRatings {...validatorDetailsAndComments} />
       </Box>
     </Box>
   );

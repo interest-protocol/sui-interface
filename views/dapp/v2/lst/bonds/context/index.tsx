@@ -37,6 +37,7 @@ export const BondsProvider: FC<PropsWithChildren> = ({ children }) => {
       amountUSD: formatDollars(0),
       maturity: { date: '', epoch: '' },
       validator: DEFAULT_VALIDATOR[network],
+      validatorType: 'none',
       totalBalance: '0',
       type: FORM_TYPE[asPath] as BondsForm['type'],
     },

@@ -5,6 +5,7 @@
       "description": "LST new feature"
     },
     "bonds": {
+      "matured": "Matured",
       "menu": {
         "stake": {
           "title": "Stake SUI",
@@ -52,7 +53,11 @@
         "form": {
           "selectMaturity": "Select Maturity",
           "selectAmount": "Select Amount to Stake",
-          "selectValidator": "Select Validator"
+          "selectValidator": "Select Validator",
+          "error": "Minimum value: 1",
+          "dayLeft": "Day Left",
+          "automated": "Automated",
+          "manual": "Manual"
         }
       },
       "unstake": {

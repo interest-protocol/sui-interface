@@ -15,16 +15,21 @@ const TransactionSummaryStakeBody: FC = () => {
   const t = useTranslations();
   const { activeValidators, validatorsApy } = useLstData();
   const { form } = useBondsContext();
-  const { maturity, amount, validator } = useWatch({ control: form.control });
+  const { maturity, amount, validator, validatorType } = useWatch({
+    control: form.control,
+  });
 
-  const validatorData = validator
-    ? {
-        ...activeValidators.find(({ suiAddress }) => suiAddress === validator),
-        apy:
-          validatorsApy?.apys.find(({ address }) => address === validator)
-            ?.apy ?? 0,
-      }
-    : null;
+  const validatorData =
+    validator && validatorType != 'none'
+      ? {
+          ...activeValidators.find(
+            ({ suiAddress }) => suiAddress === validator
+          ),
+          apy:
+            validatorsApy?.apys.find(({ address }) => address === validator)
+              ?.apy ?? 0,
+        }
+      : null;
 
   const rating = useMemo(() => Number((Math.random() * 10).toFixed(0)), []);
 

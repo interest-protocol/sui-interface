@@ -1,5 +1,6 @@
 import { Network } from '@interest-protocol/sui-amm-sdk';
 import { JsonRpcProvider } from '@mysten/sui.js';
+import { Dispatch, SetStateAction } from 'react';
 import { Control, UseFormReturn } from 'react-hook-form';
 
 import { CoinsMap } from '@/components/web3-manager/web3-manager.types';
@@ -15,6 +16,11 @@ export interface AmountFieldProps {
 
 export interface AmountFieldDollarsProps {
   control: Control<StakeForm>;
+}
+
+export interface AmountFieldInputErrorProps extends AmountFieldDollarsProps {
+  setHasError: Dispatch<SetStateAction<boolean>>;
+  isStake: boolean;
 }
 
 export interface YourInfoProps extends StakingFormProps {

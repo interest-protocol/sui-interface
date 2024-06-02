@@ -1,4 +1,5 @@
 import { Box, Typography } from '@interest-protocol/ui-kit';
+import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { useWatch } from 'react-hook-form';
 import { v4 } from 'uuid';
@@ -17,6 +18,7 @@ const MATURITIES = [
 ];
 
 const StakeMaturity: FC = () => {
+  const t = useTranslations();
   const { form } = useBondsContext();
   const maturityId = useWatch({
     control: form.control,
@@ -45,7 +47,7 @@ const StakeMaturity: FC = () => {
                 {new Date(date).getFullYear()}
               </Typography>
               <Typography variant="small">
-                Day left:{' '}
+                {t('lst.bonds.stake.form.dayLeft')}:{' '}
                 {((date - Date.now()) / (1000 * 60 * 60 * 24)).toFixed(0)}
               </Typography>
             </Box>

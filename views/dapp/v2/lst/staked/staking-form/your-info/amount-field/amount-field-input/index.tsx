@@ -20,6 +20,7 @@ import { PercentageButton } from '@/views/dapp/v2/components';
 import { useLstData } from '../../../../../lst.hooks';
 import { AmountFieldProps } from '../../your-info.types';
 import AmountFieldInputDollars from './amount-field-input-dollars';
+import AmountFieldInputWrapper from './amount-field-input-error-wrapper';
 
 const AmountFieldInput: FC<AmountFieldProps> = ({
   form,
@@ -40,13 +41,8 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
   isFetchingCoinBalances && <Skeleton width="100%" height="1.875rem" />;
 
   return (
-    <Box
-      px="m"
-      pb="s"
-      position="relative"
-      borderRadius="0.25rem"
-      bg="surface.containerHigh"
-    >
+    <Box position="relative" px="m" pb="s" mb="3xl">
+      <AmountFieldInputWrapper isStake={isStake} control={form.control} />
       <Box position="absolute" right="0" pr="xl" pt="m" color="onSurface">
         <AmountFieldInputDollars control={form.control} />
       </Box>
@@ -82,6 +78,7 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
         placeholder="0"
         textAlign="right"
         fieldProps={{ border: 'none', p: '0' }}
+        zIndex={3}
         Top={<Box p="l" />}
         {...form.register('amount', {
           onChange: (v: ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +86,12 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
             form.setValue?.(
               'amountUSD',
               formatDollars(
-                Number(parseInputEventToNumberString(v)) *
+                Number(
+                  parseInputEventToNumberString(
+                    v,
+                    FixedPointMath.toNumber(totalBalance)
+                  )
+                ) *
                   (suiCoinInfo?.price ?? 1) *
                   (isStake ? 1 : exchangeRate)
               )
@@ -99,9 +101,10 @@ const AmountFieldInput: FC<AmountFieldProps> = ({
       />
       <Box
         display="flex"
-        justifyContent="space-between"
         alignItems="center"
+        position="relative"
         flexWrap="wrap-reverse"
+        justifyContent="space-between"
       >
         <Typography
           variant="extraSmall"
